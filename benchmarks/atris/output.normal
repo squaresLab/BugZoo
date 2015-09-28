@@ -1,0 +1,9 @@
+main          | 	Welcome to Alizarin Tetris (version 1.0.6 - Delay)
+main          | 	~~~~~~~~~~~~~~~~~~~~~~~~~~ (Aug 19 2008)
+parse_options | Command line arguments parsed.
+
+PANIC in main() of atris.c:
+	SDL_Init failed!
+
+libc error   2| No such file or directory
+SDL error     | No available video device
