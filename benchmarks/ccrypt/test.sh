@@ -1,7 +1,43 @@
 #!/bin/bash
-ulimit -t 10
-export KEY="blahblah"
+# $1 = EXE 
+# $2 = test name  
+# $3 = port 
+# $4 = source name
+# $5 = single-fitness-file name 
+# exit 0 = success
 
+# Find the directory that this test script belongs to.
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+export KEY="blahblah"
+ulimit -t 10
+
+case $2 in
+  p1) $1 1071 1029        | diff $DIR/test/output.1071.1029 - && exit 0 ;;
+
+  n1)
+    ulimit -c 8
+    rm -rf core.*
+    cp n1.txt save_n1.txt
+    rm n1.txt.cpt
+
+    # What is happening here? Is this an oracle?
+    $DIR/ccrypt-root/bin/ccrypt -e -E KEY n1.txt
+
+    cp save_n1.txt n1.txt
+    
+    # Again, what?
+    (./limit5 $1 -e -E KEY test6.txt < /dev/null)
+
+    #
+    if [ ! -f core.* ] ; exit 0 ; fi
+
+    mv save_n1.txt n1.txt;;
+esac 
+exit 1
+
+
+#!/bin/bash
 rm -rf test1.out test2.txt.cpt test3.txt.cpt test4.txt.cpt 
 rm -rf save_test2.txt save_test3.txt save_test4.txt test2.txt test3.txt test4.txt
 
