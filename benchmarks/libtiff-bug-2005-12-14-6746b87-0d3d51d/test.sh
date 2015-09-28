@@ -20,15 +20,14 @@ fi
 run_test()
 {
     # Why CD?
-    cd libtiff
+    cd $DIR/libtiff
     if [ $cov -eq 0 ] ; then
         perl libtiff-run-tests.pl $1
     else
         ./limit perl libtiff-run-tests.pl $1
     fi
     RESULT=$?
-    
-    cd ..
+    cd $DIR
     return $RESULT
 }
 
