@@ -37,34 +37,7 @@ included them here.
 Files:
 README.txt: this file
 
-ccrypt-1.2.tar.gz: original ccrypt source code
-
 ccrypt_comb.c: combined source code on which modify operates
-
-ccrypt_comb.c-best.c: a repaired variant (seed=0, mut=0.06,
-good_path_factor=0.01) 
-
-ccrypt_comb.c-reference.debug: output from a successful run of modify
-(seed=0,mut=0.06, good_path_factor=0.01)
-
-ccrypt_comb.c-baseline.c: CIL-processed program baseline output by modify. 
-
-ccrypt_comb.c.ast:
-ccrypt_comb.c.ht: binary data needed by modify, information about program
-statements 
-
-ccrypt_comb.c.goodpath:
-ccrypt_comb.c.path:  a "good path" and a "bad path". Required by modify. 
-
-ccrypt_coverage.c: ccrypt_comb.c instrumented for path information
-
-minimized-baseline.c:
-minimized.c: Files from the minimization process.  Baseline is a processed
-version of ccrypt_comb.c-baseline.c.  minimized.c is a minimized version of some
-ccrypt_comb.c-best.c.
-
-patches.tar.gz: a collection of (distinct, I think) repairs for the ccrypt bug,
-in diff format. 
 
 test-bad.sh: "bad test" script. Asks ccrypt to encrypt a file whose encrypted
 version (file.cpt) already exists; supplies EOF when ccrypt prompts whether the
@@ -74,12 +47,9 @@ file if the variant does not crash.
 test-good.sh: "good tests" script. Exercises various aspects of ccrypt
 functionality, checks the resulting files for correctness. 7 tests.
 
-test-ccrypt.sh: script that runs modify on ccrypt on 100 deterministic seeds,
-copies the .debug output to results/debug (which it creates) and the "best"
-solution found for each to results/best. Some proportion of these runs should
-succeed, but not necessarily all of them. PATH_TO_MODIFY must be set.
-
 output.t1: reference output.
+
+Why would ".out" contain the input for a test?
 
 test2.out:
 test3.out:
