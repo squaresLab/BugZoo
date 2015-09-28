@@ -19,15 +19,12 @@ fi
 # Runs a test case with a given ID and returns the result.
 run_test()
 {
-    # Why CD?
-    cd $DIR/libtiff
     if [ $cov -eq 0 ] ; then
-        perl libtiff-run-tests.pl $1
+        perl $CD/libtiff-run-tests.pl $1
     else
-        ./limit perl libtiff-run-tests.pl $1
+        $CD/limit perl $CD/libtiff-run-tests.pl $1
     fi
     RESULT=$?
-    cd $DIR
     return $RESULT
 }
 

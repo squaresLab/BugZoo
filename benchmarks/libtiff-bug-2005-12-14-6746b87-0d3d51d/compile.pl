@@ -5,22 +5,29 @@
 # USAGE: 
 # perl compile.pl __EXE_NAME__ 
 # 
-# In normal usage __EXE_NAME__ is actually a drectory containing the files to
-#     repair. We first read in $project_list, then look for each file therein
-#     and copy them to the proper folder in the $project directory. Then we run
-#     make etc.
+# In normal usage __EXE_NAME__ is actually a directory containing the files to
+# repair. We first read in $project_list, then look for each file therein
+# and copy them to the proper folder in the $project directory. Then we run
+# make etc.
+# 
+# NOTE:
+# Surely this doesn't support multiple evaluations? This isn't thread-safe.
 
 use strict;
 use File::Basename;
 
-#flatten the path to remove /./'s
+# Find the directory that this script belongs to.
+# Flatten the path to remove /./'s
 $ARGV[0]  =~ s/\/[.]\//\//g;
 my $subdir = basename(dirname($ARGV[0]));
 
-# These are filled in by scripter.py
-my $project = "libtiff";
-my $project_list = "bugged-program.txt";
+# Directory
 
+print "SUBDIR: $subdir";
+
+# These are filled in by scripter.py
+my $project = "$subdir/libtiff";
+my $project_list = "program.txt";
 
 sub say {
     my $msg = $_[0];
@@ -35,7 +42,6 @@ sub execute
     if ($res != 0)
     {
         say "Command '$cmd' failed: $!"; 
-        
     }
 }
 
@@ -82,7 +88,7 @@ sub make
 }
 # We want to change /home/mkd5m/genprog-many-bugs/libtiff-A-B/sanity/repair.sanity.c into sanity
 
-open(FILE, "<$project_list");
+open(FILE, "<$project_list"); # doesn't like this.
 my @file_list = <FILE>;
 chomp @file_list;
 # double % preserves % for scripter.py
@@ -110,9 +116,6 @@ print "Repair files: @file_list \n";
 print "Allfiles: @filtered\n";
 
 chdir $project or die "fail chdir $project: $!";
-system("killall $project >& /dev/null");
+system("killall $project &> /dev/null");
 make ();
 chdir ".." or die "failed chdir ..: $!";
-
-
-

@@ -1,0 +1,14 @@
+readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 92.
+SUBDIR: sanitycp: cannot create regular file ‘sanity/libtiff/repair.sanity.txt’: No such file or directory
+|[benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl]|: Command 'cp sanity/repair.sanity.txt sanity/libtiff/repair.sanity.txt' failed:  
+fail chdir sanity/libtiff: No such file or directory at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 118.
+cp sanity/repair.sanity.txt sanity/libtiff/repair.sanity.txt
+Repair files:  
+Allfiles: repair.sanity.txt
+readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 92.
+SUBDIR: sanitycp: cannot create regular file ‘sanity/libtiff/repair.sanity.txt’: No such file or directory
+|[benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl]|: Command 'cp sanity/repair.sanity.txt sanity/libtiff/repair.sanity.txt' failed:  
+fail chdir sanity/libtiff: No such file or directory at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 118.
+cp sanity/repair.sanity.txt sanity/libtiff/repair.sanity.txt
+Repair files:  
+Allfiles: repair.sanity.txt

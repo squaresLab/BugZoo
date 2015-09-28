@@ -1,7 +1,7 @@
 --multi-file
---compiler-command perl compile.pl __EXE_NAME__ > /dev/null
+--compiler-command perl benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl __EXE_NAME__ 2>&1 | tee -a debug.txt
 --test-command __TEST_SCRIPT__ __TEST_NAME__ __EXE_NAME__ >& /dev/null
 --suffix-extension .c
 --pos-tests 33
 --neg-tests 2
---program program.txt
+--program benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/program.txt

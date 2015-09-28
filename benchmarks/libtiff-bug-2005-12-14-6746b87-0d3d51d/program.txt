@@ -1,1 +1,1 @@
-tools/tiffcp.c
+preprocessed/tools/tiffcp.c
