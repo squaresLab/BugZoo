@@ -7,7 +7,7 @@
 # exit 0 = success
 
 # Find the directory that this test script belongs to.
-$DIR = $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 ulimit -t 1
 case $2 in
