@@ -40,15 +40,13 @@ sub say {
     print STDERR "|[$0]|: $msg \n";
 }
 
+# Prints a given command before executing it, and reports if the command
+# failed.
 sub execute 
 {
     my $cmd = $_[0];
-    my $res = system($cmd);
     print "$cmd\n";
-    if ($res != 0)
-    {
-        say "Command '$cmd' failed: $!"; 
-    }
+    (system($cmd) != 0) && (say "Command '$cmd' failed: $!");
 }
 
 sub retry_python_build() {
@@ -94,8 +92,8 @@ sub make
     exit 1;
 }
 
-# I'm pretty sure this doesn't work!
-open(FILE, "<$project_list"); # doesn't like this.
+# Read the list of modified files from program.txt into a list.
+open(FILE, "$script_dir/$project_list");
 my @file_list = <FILE>;
 chomp @file_list;
 # double % preserves % for scripter.py
@@ -103,8 +101,8 @@ my %pfiles= map { $_, 1 } @file_list;
 close(FILE);
 my @filtered = ();
 
-# Find each repaired source code file within the given directory and copy it
-# across to the project directory.
+# Find each repaired source file within the given directory and copy it across
+# to the appropriate location in the project directory.
 foreach my $file (`find $subdir`)
 {
     chomp $file;
@@ -113,13 +111,9 @@ foreach my $file (`find $subdir`)
         $file = substr($file, $subdir_len);
         print "Fixed to: $file\n";
         push(@filtered, $file);
+        (-f "$subdir/$file") or die "Invalid file to copy: $subdir/$file";
+        execute("cp $subdir/$file $project/$file");
     } 
-    else
-    {
-        next;
-    }
-    (-f "$subdir/$file") or die "Invalid file to copy: $subdir/$file";
-    execute("cp $subdir/$file $project/$file");
 }
 
 print "Repair files: @file_list \n";

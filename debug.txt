@@ -1,560 +1,236 @@
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 92.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: home/ct584/git/benchmarks/sanity/repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 112.
-Copying: /home/ct584/git/benchmarks/sanityCopying: /home/ct584/git/benchmarks/sanity/repair.sanity.txtreadline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 92.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: home/ct584/git/benchmarks/sanity/repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 113.
-helloCopying: /home/ct584/git/benchmarks/sanity
-helloCopying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 92.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: home/ct584/git/benchmarks/sanity/repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 113.
-helloCopying: /home/ct584/git/benchmarks/sanity
-helloCopying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
 readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: home/ct584/git/benchmarks/sanity/repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 115.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 51, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-Global symbol "$subdir_len" requires explicit package name at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 45, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 50, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 56, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 57, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 66.
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: home/ct584/git/benchmarks/sanity/repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 115.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: /repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 117.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: /repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 117.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-Argument "/home/ct584/git/benchmarks/sanity" isn't numeric in addition (+) at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 23.
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: home/ct584/git/benchmarks/sanity/repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 117.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: home/ct584/git/benchmarks/sanity/repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 117.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 117.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 117.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Invalid file to copy: repair.sanity.txt at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 116.
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txtcp: cannot create regular file ‘libtiff/repair.sanity.txt’: No such file or directory
-|[benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl]|: Command 'cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt' failed:  
-fail chdir libtiff: No such file or directory at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 124.
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-Repair files:  
-Allfiles: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txtcp: cannot create regular file ‘libtiff/repair.sanity.txt’: No such file or directory
-|[benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl]|: Command 'cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt' failed:  
-fail chdir libtiff: No such file or directory at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 124.
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-Repair files:  
-Allfiles: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
-Compiling: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-cp: cannot create regular file ‘libtiff/repair.sanity.txt’: No such file or directory
-|[benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl]|: Command 'cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt' failed:  
-fail chdir libtiff: No such file or directory at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 124.
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-Repair files:  
-Allfiles: repair.sanity.txt
-Scalar found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 25, near ")
-
-# Find the directory that this script belongs to.
-# Flatten the path to remove /./'s
-$ARGV"
-	(Missing semicolon on previous line?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 49, near "say "Command '$cmd' failed: $!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 54, near "say "FAILED TO COMPILE PYTHON""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 55, near "say "TRYING AGAIN, THIS MIGHT TAKE AWHILE!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 60, near "say "DIDNT WORK, DYING""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "WORKED!""
-	(Do you need to predeclare say?)
-String found where operator expected at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 65, near "say "Failed to make clean, dying""
-	(Do you need to predeclare say?)
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 25, near ")
-
-# Find the directory that this script belongs to.
-# Flatten the path to remove /./'s
-$ARGV"
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 49, near "say "Command '$cmd' failed: $!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 54, near "say "FAILED TO COMPILE PYTHON""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 60, near "say "DIDNT WORK, DYING""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 61, near "say "WORKED!""
-syntax error at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 65, near "say "Failed to make clean, dying""
-Illegal declaration of subroutine main::make at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 70.
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 97.
-Compiling: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-cp: cannot create regular file ‘libtiff/repair.sanity.txt’: No such file or directory
-|[benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl]|: Command 'cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt' failed:  
-fail chdir libtiff: No such file or directory at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 128.
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-Repair files:  
-Allfiles: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 98.
-Invoking perl script: /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51dCompiling: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
-Fixed to: repair.sanity.txt
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-cp: cannot create regular file ‘libtiff/repair.sanity.txt’: No such file or directory
-|[benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl]|: Command 'cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt' failed:  
-fail chdir libtiff: No such file or directory at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 129.
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt libtiff/repair.sanity.txt
-Repair files:  
-Allfiles: repair.sanity.txt
-readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 98.
-Compiling: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity
-Copying: /home/ct584/git/benchmarks/sanity/repair.sanity.txt
 Fixed to: repair.sanity.txt
 cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
-cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
 Repair files:  
 Allfiles: repair.sanity.txt
-/bin/sh ./config.status --recheck
 /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+Making all in port
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
 running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
-checking build system type... x86_64-unknown-linux-gnu
-checking host system type... x86_64-unknown-linux-gnu
-checking target system type... x86_64-unknown-linux-gnu
-checking for a BSD-compatible install... /usr/bin/install -c
-checking whether build environment is sane... yes
-checking for gawk... no
-checking for mawk... mawk
-checking whether make sets $(MAKE)... yes
-checking whether to enable maintainer-specific portions of Makefiles... no
-checking for gcc... /usr/bin/gcc -save-temps 
-checking for C compiler default output file name... a.out
-checking whether the C compiler works... yes
-checking whether we are cross compiling... no
-checking for suffix of executables... 
-checking for suffix of object files... o
-checking whether we are using the GNU C compiler... yes
-checking whether /usr/bin/gcc -save-temps  accepts -g... yes
-checking for /usr/bin/gcc -save-temps  option to accept ANSI C... none needed
-checking for style of include used by make... GNU
-checking dependency style of /usr/bin/gcc -save-temps ... gcc3
-checking whether /usr/bin/gcc -save-temps  and cc understand -c and -o together... yes
-checking for C compiler warning flags... -Wall
-checking for a BSD-compatible install... /usr/bin/install -c
-checking whether ln -s works... yes
-checking for a sed that does not truncate output... /bin/sed
-checking for egrep... grep -E
-checking for ld used by /usr/bin/gcc -save-temps ... /usr/bin/ld
-checking if the linker (/usr/bin/ld) is GNU ld... yes
-checking for /usr/bin/ld option to reload object files... -r
-checking for BSD-compatible nm... /usr/bin/nm -B
-checking how to recognise dependent libraries... pass_all
-checking how to run the C preprocessor... /usr/bin/gcc -save-temps  -E
-checking for ANSI C header files... yes
-checking for sys/types.h... yes
-checking for sys/stat.h... yes
-checking for stdlib.h... yes
-checking for string.h... yes
-checking for memory.h... yes
-checking for strings.h... yes
-checking for inttypes.h... yes
-checking for stdint.h... yes
-checking for unistd.h... yes
-checking dlfcn.h usability... yes
-checking dlfcn.h presence... yes
-checking for dlfcn.h... yes
-checking for g++... g++
-checking whether we are using the GNU C++ compiler... yes
-checking whether g++ accepts -g... yes
-checking dependency style of g++... gcc3
-checking how to run the C++ preprocessor... g++ -E
-checking for g77... no
-checking for f77... no
-checking for xlf... no
-checking for frt... no
-checking for pgf77... no
-checking for fort77... no
-checking for fl32... no
-checking for af77... no
-checking for f90... no
-checking for xlf90... no
-checking for pgf90... no
-checking for epcf90... no
-checking for f95... no
-checking for fort... no
-checking for xlf95... no
-checking for ifc... no
-checking for efc... no
-checking for pgf95... no
-checking for lf95... no
-checking for gfortran... no
-checking whether we are using the GNU Fortran 77 compiler... no
-checking whether  accepts -g... no
-checking the maximum length of command line arguments... 32768
-checking command to parse /usr/bin/nm -B output from /usr/bin/gcc -save-temps  object... ok
-checking for objdir... .libs
-checking for ar... ar
-checking for ranlib... ranlib
-checking for strip... strip
-checking if /usr/bin/gcc -save-temps  static flag  works... yes
-checking if /usr/bin/gcc -save-temps  supports -fno-rtti -fno-exceptions... no
-checking for /usr/bin/gcc -save-temps  option to produce PIC... -fPIC
-checking if /usr/bin/gcc -save-temps  PIC flag -fPIC works... yes
-checking if /usr/bin/gcc -save-temps  supports -c -o file.o... yes
-checking whether the /usr/bin/gcc -save-temps  linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
-checking whether -lc should be explicitly linked in... no
-checking dynamic linker characteristics... GNU/Linux ld.so
-checking how to hardcode library paths into programs... immediate
-checking whether stripping libraries is possible... yes
-checking if libtool supports shared libraries... yes
-checking whether to build shared libraries... yes
-checking whether to build static libraries... yes
-configure: creating libtool
-appending configuration tag "CXX" to libtool
-checking for ld used by g++... /usr/bin/ld -m elf_x86_64
-checking if the linker (/usr/bin/ld -m elf_x86_64) is GNU ld... yes
-checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
-checking for g++ option to produce PIC... -fPIC
-checking if g++ PIC flag -fPIC works... yes
-checking if g++ supports -c -o file.o... yes
-checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
-checking dynamic linker characteristics... GNU/Linux ld.so
-checking how to hardcode library paths into programs... immediate
-checking whether stripping libraries is possible... yes
-appending configuration tag "F77" to libtool
-checking for main in -lc... yes
-checking for main in -lm... yes
-checking assert.h usability... yes
-checking assert.h presence... yes
-checking for assert.h... yes
-checking fcntl.h usability... yes
-checking fcntl.h presence... yes
-checking for fcntl.h... yes
-checking limits.h usability... yes
-checking limits.h presence... yes
-checking for limits.h... yes
-checking malloc.h usability... yes
-checking malloc.h presence... yes
-checking for malloc.h... yes
-checking search.h usability... yes
-checking search.h presence... yes
-checking for search.h... yes
-checking sys/time.h usability... yes
-checking sys/time.h presence... yes
-checking for sys/time.h... yes
-checking for unistd.h... (cached) yes
-checking for an ANSI C-conforming const... yes
-checking for inline... inline
-checking whether byte ordering is bigendian... no
-checking for off_t... yes
-checking for size_t... yes
-checking for int... yes
-checking size of int... 4
-checking for long... yes
-checking size of long... 8
-checking whether time.h and sys/time.h may both be included... yes
-checking whether struct tm is in sys/time.h or time.h... time.h
-checking for int8... no
-checking for int16... no
-checking for int32... no
-checking for floor... yes
-checking for isascii... yes
-checking for memmove... yes
-checking for memset... yes
-checking for mmap... yes
-checking for pow... yes
-checking for sqrt... yes
-checking for strchr... yes
-checking for strrchr... yes
-checking for strstr... yes
-checking for strtol... yes
-checking for getopt... yes
-checking for strcasecmp... yes
-checking for strtoul... yes
-checking for lfind... yes
-checking native cpu bit order... msb2lsb
-checking for special C compiler options needed for large files... no
-checking for _FILE_OFFSET_BITS value needed for large files... no
-checking for _LARGE_FILES value needed for large files... no
-checking for inflateEnd in -lz... yes
-checking zlib.h usability... yes
-checking zlib.h presence... yes
-checking for zlib.h... yes
-checking for jpeg_read_scanlines in -ljpeg... no
-checking jpeglib.h usability... no
-checking jpeglib.h presence... no
-checking for jpeglib.h... no
-checking for X... no
-checking for the pthreads library -lpthreads... no
-checking whether pthreads work without any flags... no
-checking whether pthreads work with -Kthread... no
-checking whether pthreads work with -kthread... no
-checking for the pthreads library -llthread... no
-checking whether pthreads work with -pthread... yes
-checking for joinable pthread attribute... PTHREAD_CREATE_JOINABLE
-checking if more special flags are required for pthreads... no
-checking for cc_r... /usr/bin/gcc -save-temps 
-checking whether we are using the Microsoft C compiler... no
-checking windows.h usability... no
-checking windows.h presence... no
-checking for windows.h... no
-checking for OpenGL library... no
-checking for OpenGL Utility library... no
-checking for GLUT library... no
-configure: creating ./config.status
-
-Libtiff is now configured for x86_64-unknown-linux-gnu
-
-  Installation directory:             /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root
-  Documentation directory:            ${prefix}/share/doc/tiff-3.7.4
-  C compiler:                         /usr/bin/gcc -save-temps  -g -O2 -Wall
-  C++ compiler:                       g++ -g -O2
-  Enable runtime linker paths:        no
-  Support Microsoft Document Imaging: yes
-
- Support for internal codecs:
-  CCITT Group 3 & 4 algorithms:       yes
-  Macintosh PackBits algorithm:       yes
-  LZW algorithm:                      yes
-  ThunderScan 4-bit RLE algorithm:    yes
-  NeXT 2-bit RLE algorithm:           yes
-  LogLuv high dynamic range encoding: yes
-
- Support for external codecs:
-  ZLIB support:                       yes
-  Pixar log-format algorithm:         yes
-  JPEG support:                       no
-  Old JPEG support:                   no
-
-  C++ support:                        yes
-
-  OpenGL support:                     no
-
- /bin/sh ./config.status
-config.status: creating Makefile
-config.status: creating contrib/Makefile
-config.status: creating contrib/acorn/Makefile
-config.status: creating contrib/addtiffo/Makefile
-config.status: creating contrib/dbs/Makefile
-config.status: creating contrib/dbs/xtiff/Makefile
-config.status: creating contrib/iptcutil/Makefile
-config.status: creating contrib/mac-cw/Makefile
-config.status: creating contrib/mac-mpw/Makefile
-config.status: creating contrib/mfs/Makefile
-config.status: creating contrib/ojpeg/Makefile
-config.status: creating contrib/pds/Makefile
-config.status: creating contrib/ras/Makefile
-config.status: creating contrib/stream/Makefile
-config.status: creating contrib/tags/Makefile
-config.status: creating contrib/win_dib/Makefile
-config.status: creating html/Makefile
-config.status: creating html/images/Makefile
-config.status: creating html/man/Makefile
-config.status: creating libtiff/Makefile
-config.status: creating man/Makefile
-config.status: creating port/Makefile
-config.status: creating test/Makefile
-config.status: creating tools/Makefile
-config.status: creating libtiff/tif_config.h
-config.status: creating libtiff/tiffconf.h
-config.status: executing depfiles commands
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 93.
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files:  
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 97.
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files:  
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+readline() on closed filehandle FILE at benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl line 100.
+Trying to read: /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/program.txt
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files:  
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Trying to read: /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/program.txt
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Trying to read: /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/program.txt
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+Making all in port
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
+Making all in libtiff
+make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+/bin/bash ./config.status --recheck
+running /bin/sh ./configure  --prefix /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/local-root CC=/usr/bin/gcc -save-temps   --no-create --no-recursion
+configure: error: cannot find install-sh or install.sh in config ./config
+make[1]: *** [config.status] Error 1
+make[1]: Leaving directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/libtiff'
+make: *** [all-recursive] Error 1
+Fixed to: repair.sanity.txt
+cp /home/ct584/git/benchmarks/sanity/repair.sanity.txt /home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/repair.sanity.txt
+Repair files: preprocessed/tools/tiffcp.c 
+Allfiles: repair.sanity.txt
+/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff: no process found
 Making all in port
 make[1]: Entering directory `/home/ct584/git/benchmarks/benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff/port'
 make[1]: Nothing to be done for `all'.
