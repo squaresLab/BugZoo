@@ -1,0 +1,4 @@
+--program atris_comb.c
+--pos-tests 2
+--neg-tests 1
+--compiler-options "-m32"
