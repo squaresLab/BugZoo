@@ -1,2 +1,5 @@
 *.swp
+debug.txt
 configuration.full
+sanity
+*.cache
