@@ -15,12 +15,17 @@
 
 use strict;
 use File::Basename;
+use Cwd;
 use Cwd 'abs_path';
+
+# Remember the PWD.
+my $pwd = getcwd();
 
 # Find the directory where this script resides, this directory should also
 # hold the original program under repair within one of its sub-directories.
 my $script_dir = dirname(abs_path($0));
-my $project = "$script_dir/libtiff";
+my $project_name = "libtiff";
+my $project = "$script_dir/$project_name";
 my $project_list = "program.txt";
 
 # Retrieve the location of the repaired program files.
@@ -65,15 +70,16 @@ sub retry_python_build() {
 
 sub make
 {
-    my $is_php = ($project =~ "php");
-    if ($is_php)
-    {
-        system("rm ./sapi/cli/php");
-    }
+    # PHP specific handling.
+    my $is_php = ($project_name =~ "php");
+    ($is_php) && system("rm ./sapi/cli/php");
+    
+    ## Attempt to execute make.
     my $res = system("make 2>&1");
+
     # Python is picky when it comes to coverage instrumentation, sometimes
     # this will fix it
-    if ($res != 0 && ($project =~ m/python/) && ($subdir =~ m/coverage/))
+    if ($res != 0 && ($project_name =~ m/python/) && ($subdir =~ m/coverage/))
     {
         retry_python_build();
     }
@@ -87,8 +93,8 @@ sub make
     }
     exit 1;
 }
-# We want to change /home/mkd5m/genprog-many-bugs/libtiff-A-B/sanity/repair.sanity.c into sanity
 
+# I'm pretty sure this doesn't work!
 open(FILE, "<$project_list"); # doesn't like this.
 my @file_list = <FILE>;
 chomp @file_list;
@@ -119,7 +125,10 @@ foreach my $file (`find $subdir`)
 print "Repair files: @file_list \n";
 print "Allfiles: @filtered\n";
 
+# Change directory to the project directory, which should now contain the
+# modified program files. Proceed to make the project, before returning to
+# the original PWD when the script was called.
 chdir $project or die "fail chdir $project: $!";
 system("killall $project &> /dev/null");
-make ();
-chdir ".." or die "failed chdir ..: $!";
+make();
+chdir $pwd or die "failed chdir $pwd: $!";
