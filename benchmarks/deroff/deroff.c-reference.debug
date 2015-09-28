@@ -1,0 +1,90 @@
+deroff.c.ast loaded
+deroff.c.ht loaded
+sanity checking
+deroff.c-baseline.c written
+version WRW: Wed Aug 27 17:29:50 EDT 2008
+seed 0
+gcc gcc
+ldflags 
+good ./test-good.sh
+bad ./test-bad.sh
+gen 10
+mut 0.06
+promut 0
+pop 40
+max 15
+ins 1
+del 1
+swap 1
+compile_counter 0
+fitness_count 0
+bad_factor 10
+good_path_factor 0.01
+gpath_any true
+path_count 251.41
+use_tournament false
+tournament_k 2
+tournament_p 1
+*** Generation 1 (size 40)
+			i=0 d=0 s=6 c=0 m=1 (delta i=0 d=0 s=6 c=0 m=1)
+	fitness failure
+			i=0 d=4 s=0 c=0 m=1 (delta i=0 d=4 s=0 c=0 m=1)
+	fitness 0
+			i=0 d=6 s=0 c=0 m=1 (delta i=0 d=6 s=0 c=0 m=1)
+	fitness 4
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=4 d=0 s=0 c=0 m=1 (delta i=4 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=4 d=0 s=0 c=0 m=1 (delta i=4 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=6 c=0 m=1 (delta i=0 d=0 s=6 c=0 m=1)
+	fitness failure
+			i=0 d=12 s=0 c=0 m=1 (delta i=0 d=12 s=0 c=0 m=1)
+	fitness 1
+			i=0 d=0 s=4 c=0 m=1 (delta i=0 d=0 s=4 c=0 m=1)
+	fitness failure
+			i=6 d=0 s=0 c=0 m=1 (delta i=6 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=6 d=0 s=0 c=0 m=1 (delta i=6 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=4 s=0 c=0 m=1 (delta i=0 d=4 s=0 c=0 m=1)
+	fitness 14
+			i=0 d=6 s=0 c=0 m=1 (delta i=0 d=6 s=0 c=0 m=1)
+	fitness 1
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=8 d=0 s=0 c=0 m=1 (delta i=8 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=0 d=4 s=0 c=0 m=1 (delta i=0 d=4 s=0 c=0 m=1)
+	fitness 15
+		best so far (size delta 449)
+v_gen 0
+avgfit : 
+bcfit : 
+
+
+Best result written to deroff.c-0-0.01-0.06-best.c
+	First Solution in 15.8366 (6 fitness evals)
+	Best  Solution in 15.8366 (6 fitness evals)
+Generations to solution: 1
+Avg ins: 0/19 = 0
+Avg del: 0/.. = 0
+Avg swap: 0/.. = 0
+Avg xover: 0/.. = 0
+Avg mut: 0/.. = 0
+Percent failed to compile: 19/6 = 3.16667
+  Activity Name                     Count Seconds = Percent of Total Time
+  size diff                             1   0.016 = 0.103439%
+  mutation                             39   0.487 = 3.17057%
+  bad test                              6   2.079 = 13.5271%
+  compile                              19   2.506 = 16.3044%
+  fitness                              19   4.446 = 28.9333%
+  good test                             6   5.834 = 37.9612%
+  TOTAL                                    15.368 = 95.9943% (avg CPU usage)
