@@ -1,2 +1,3 @@
+--program gcd.c
 --pos-tests 10
 --neg-tests 1
