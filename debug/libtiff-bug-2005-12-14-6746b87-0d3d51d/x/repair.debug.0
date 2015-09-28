@@ -8,7 +8,7 @@ M src/rep.ml
 --best-test-rule "1 * test_fail_prob ; 1 * test_fail_count ; -1 * test_pass_count"
 --clone-file ""
 --compiler "gcc"
---compiler-command "perl benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl __EXE_NAME__ > /dev/null"
+--compiler-command "perl benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/compile.pl __EXE_NAME__ 2>&1 | tee -a debug.txt"
 --compiler-opts ""
 --continue true
 --coverage-info ""
@@ -115,20 +115,19 @@ Destroying existing log file...
 - destroyed existing log file.
 Exception in loading: Sys_error("benchmarks/libtiff-bug-2005-12-14-6746b87-0d3d51d/program.cache: No such file or directory")
 cachingRepresentation: sanity checking begins
-	/home/ct584/git/benchmarks/sanity/repair.sanity.txt original fails to compile
-cachingRepresentation: /home/ct584/git/benchmarks/sanity/repair.sanity.txt: does not compile
+	p1: false (0)
 
 ABORT:
 
-cachingRepresentation: sanity check failed (compilation)
+cachingRepresentation: sanity check failed (p1)
 Rep: saving test cache
 Closing log file...
 
 Variant Test Case Queries: 0
 "Test Suite Evaluations": 0
 
-Compile Failures: 1
-Wall-Clock Seconds Elapsed: 0.021893
+Compile Failures: 0
+Wall-Clock Seconds Elapsed: 13.3134
   Activity Name                     Count Seconds = Percent of Total Time
-  compile                               1   0.016 = 100%
-  TOTAL                                     0.016 = 46.7433% (avg CPU usage)
+  compile                               1  13.308 = 99.9941%
+  TOTAL                                    13.309 = 99.8854% (avg CPU usage)

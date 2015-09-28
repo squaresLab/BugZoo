@@ -15,19 +15,20 @@
 
 use strict;
 use File::Basename;
+use Cwd 'abs_path';
 
-# Find the directory that this script belongs to.
+# Find the directory where this script resides, this directory should also
+# hold the original program under repair within one of its sub-directories.
+my $script_dir = dirname(abs_path($0));
+my $project = "$script_dir/libtiff";
+my $project_list = "program.txt";
+
+# Retrieve the location of the repaired program files.
 # Flatten the path to remove /./'s
 $ARGV[0]  =~ s/\/[.]\//\//g;
-my $subdir = basename(dirname($ARGV[0]));
-
-# Directory
-
-print "SUBDIR: $subdir";
-
-# These are filled in by scripter.py
-my $project = "$subdir/libtiff";
-my $project_list = "program.txt";
+my $subdir = dirname($ARGV[0]);
+my $subdir_len = length($subdir) + 1;
+my $subdir_base = basename($subdir);
 
 sub say {
     my $msg = $_[0];
@@ -96,12 +97,15 @@ my %pfiles= map { $_, 1 } @file_list;
 close(FILE);
 my @filtered = ();
 
+# Find each repaired source code file within the given directory and copy it
+# across to the project directory.
 foreach my $file (`find $subdir`)
 {
     chomp $file;
     if (-f $file && ! ($file =~ m/.*coverage[.]path.*/))
     {
-        $file =~ s/^[^\/]*\///;
+        $file = substr($file, $subdir_len);
+        print "Fixed to: $file\n";
         push(@filtered, $file);
     } 
     else

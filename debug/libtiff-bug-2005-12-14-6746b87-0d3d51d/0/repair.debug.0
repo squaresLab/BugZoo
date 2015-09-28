@@ -127,8 +127,8 @@ Variant Test Case Queries: 0
 "Test Suite Evaluations": 0
 
 Compile Failures: 0
-Wall-Clock Seconds Elapsed: 0.020896
+Wall-Clock Seconds Elapsed: 0.0194428
   Activity Name                     Count Seconds = Percent of Total Time
-  test                                  1   0.001 = 7.89008%
-  compile                               1   0.016 = 92.1099%
-  TOTAL                                     0.017 = 51.8672% (avg CPU usage)
+  test                                  1   0.001 = 7.27652%
+  compile                               1   0.013 = 92.7235%
+  TOTAL                                     0.014 = 46.431% (avg CPU usage)
