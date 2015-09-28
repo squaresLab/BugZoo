@@ -10,11 +10,7 @@ id=$(date +%s)
 for benchmark in $(echo $BENCHMARKS)
 do
   echo "Starting runs for benchmark: $benchmark"
-
-  # Clear the cache and instrumentation information.
-  rm -rf coverage*
-  rm -rf repair.cache
-
+  ./clean.sh
   for ((i=0; i < RUNS; i++))
   do
     echo "Running: $benchmark (seed $i)";
