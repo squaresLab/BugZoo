@@ -23,6 +23,8 @@ setup_neg()
 {
   if [ $cov = 0 ]; then
     ulimit -t 1
+  else
+    ulimit -t 10
   fi
 }
 
