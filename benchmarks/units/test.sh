@@ -83,7 +83,7 @@ case $2 in
 
   n1)
     start_neg
-    bash -c "$1 < $DIR/test/bad1" &> /dev/null
+    $1 < $DIR/test/bad1 &> /dev/null # this doesn't seem to work?
     result=$?
     end_neg
     exit $result;;
