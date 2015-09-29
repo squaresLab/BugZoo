@@ -1,0 +1,65 @@
+--- baseline.c	2008-08-30 20:14:09.000000000 -0400
++++ best.c	2008-08-30 20:11:11.000000000 -0400
+@@ -3208,10 +3208,8 @@
+                        1U);
+     }
+   }
+-#line 87
+-  if (tmp___12 != 0) {
+-#line 88
+-    return (-1);
++  {
++
+   }
+   {
+ #line 90
+@@ -3253,10 +3251,8 @@
+ #line 95
+   tmp___28 = strstr((char const   *)(file), "..");
+   }
+-#line 95
+-  if ((unsigned int )tmp___28 != (unsigned int )((void *)0)) {
+-#line 95
+-    return (-1);
++  {
++
+   }
+   {
+ #line 96
+@@ -4859,9 +4855,6 @@
+       }
+     } else {
+       {
+-#line 163
+-      tmp___37 = __builtin_strcmp((char const   *)(((conn + sid)->dat)->in_RequestMethod),
+-                                  "POST");
+ #line 163
+       tmp___34 = tmp___37;
+       }
+@@ -4903,8 +4899,6 @@
+ #line 168
+             tmp___48 = 1;
+           } else {
+-#line 168
+-            tmp___48 = 0;
+           }
+         }
+       } else {
+@@ -6324,8 +6321,6 @@
+ #line 388
+     if (i > 6) {
+       {
+-#line 389
+-      logerror("bind() error [%s:%d]", config.server_hostname, config.server_port);
+ #line 393
+       perror("\nBind error");
+ #line 395
+@@ -6566,8 +6564,6 @@
+ #line 573
+     if ((unsigned int )(conn + i)->dat != (unsigned int )((void *)0)) {
+       {
+-#line 573
+-      free((void *)(conn + i)->dat);
+       }
+     }
+     {
