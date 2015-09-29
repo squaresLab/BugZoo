@@ -13,7 +13,7 @@ Notes:
 (0) modify operates on uniq.i, the result of running uniq.c through the gcc
 preprocessor: 
 
-	gcc -E uniq.c > uniq.i
+	gcc -E uniq.c > preprocessed.c
 
 Files:
 README.txt: this file

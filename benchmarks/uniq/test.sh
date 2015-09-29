@@ -31,11 +31,11 @@ setup_neg()
 
 # Execute the appropriate test case.
 case $2 in
-  p1) setup_pos ; bash -c "$1 < $DIR/test/t1" && exit 0 ;;
-  p2) setup_pos ; bash -c "$1 < $DIR/test/t2" && exit 0 ;;
-  p3) setup_pos ; bash -c "$1 < $DIR/test/t4" && exit 0 ;;
-  p4) setup_pos ; bash -c "$1 < $DIR/test/tp1" && exit 0 ;;
-  p5) setup_pos ; bash -c "$1 < $DIR/test/tp2" && exit 0 ;;
+  p1) setup_pos ; bash -c "$1 < $DIR/test/t1 &> /dev/null" && exit 0 ;;
+  p2) setup_pos ; bash -c "$1 < $DIR/test/t2 &> /dev/null" && exit 0 ;;
+  p3) setup_pos ; bash -c "$1 < $DIR/test/t4 &> /dev/null" && exit 0 ;;
+  p4) setup_pos ; bash -c "$1 < $DIR/test/tp1 &> /dev/null" && exit 0 ;;
+  p5) setup_pos ; bash -c "$1 < $DIR/test/tp2 &> /dev/null" && exit 0 ;;
   n1)
     setup_neg ;
     if (bash -c "$1 < $DIR/test/t5 &> /dev/null") && [ ! -f core.* ]; then
