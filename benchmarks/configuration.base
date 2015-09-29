@@ -7,4 +7,3 @@
 --delp 0.33333
 --tournament-size 2
 --continue
---fitness-in-parallel 4
