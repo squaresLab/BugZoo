@@ -34,8 +34,8 @@ start_neg()
   mkdir $SERVER_DIR
   mkdir $SERVER_DIR/etc
   mkdir $SERVER_DIR/bin
-  cp -ra htdocs $SERVER_DIR/htdocs
-  cp -ra cgi-bin $SERVER_DIR/cgi-bin
+  cp -ra $DIR/htdocs $SERVER_DIR/htdocs
+  cp -ra $DIR/cgi-bin $SERVER_DIR/cgi-bin
 
   # Setup the httpd.cfg file.
   echo SERVER_BASE_DIR = \"$PWD/$SERVER_DIR/\" >> $SERVER_DIR/etc/httpd.cfg 
