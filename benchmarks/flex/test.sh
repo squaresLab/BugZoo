@@ -3,17 +3,28 @@
 # Find the directory that this test script belongs to.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+# Check if this test script is being used to compute coverage information.
+if [ $(basename $1) = "coverage" ]; then
+  cov=1
+else
+  cov=0
+fi
+
 # Performs the necessary setup for all positive test cases.
 setup_pos()
 {
-  ulimit -t 3
-  ulimit -c 8
+  if [ $cov = 0 ]; then
+    ulimit -t 3
+    ulimit -c 8
+  fi
 }
 
 # Performs the necessary setup for all negative test cases.
 setup_neg()
 {
-  ulimit -t 1
+  if [ $cov = 0 ]; then
+    ulimit -t 1
+  fi
 }
 
 # Execute the test case with the given ID.
