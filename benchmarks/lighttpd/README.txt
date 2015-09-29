@@ -102,42 +102,8 @@ placed in root install directory.
 hello.php.output:
 index.html.output: Reference output for positive test cases
 
-lighttpd-1.4.17.tar.gz: lighttpd source code
-
 lighttpd.conf: configuration file, to be placed in the root install directory.
-
-lighttpd.patch: a repair, as a diff patch
-
-minimized-baseline.c:
-minimized.c: Files from the minimization process.  Baseline is a processed
-version of mod_fastcgi.i-baseline.c; minimized.c is minimized version of some
-mod_fastcgi.i-best.c
 
 mod_fastcgi.c: Un-preprocessed (original!) mod_fastcgi source code.
 mod_fastcgi.i: Processed mod_fastcgi source code; input to modify.
 mod_fastcgi.i-baseline.c: CIL-processed program baseline output by modify  
-
-mod_fastcgi.i-best.c: a repaired version; seed = 1, good_path_factor = 0.01, mut
-= 0.06. 
-
-mod_fastcgi.i-reference.debug: output from a successful run of modify (seed = 1,
-mut=0.06, gpf=0.01). 
-
-mod_fastcgi.i.ast:
-mod_fastcgi.i.ht: binary data needed by modify, information about program
-statements 
-
-mod_fastcgi.i.goodpath:
-mod_fastcgi.i.path: a "good path" and a "bad path". Required by modify.
-
-mod_fastcgi_coverage.c: mod_fastcgi.i instrumented for path information 
-
-test-bad.sh: Empty.
-
-test-good.sh: Test script. Performs two good tests and the one bad test for
-lighttpd on each variant.
-
-test-lighttpd.sh: script that runs modify on lighttpd on 100 seeds, copies the
-.debug output to results/debug (which it creates) and the "best" solution found
-for each to results/best. Some proportion of these runs should succeed, but not
-necessarily all of them. PATH_TO_MODIFY must be set.
