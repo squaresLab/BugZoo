@@ -27,8 +27,7 @@ case $2 in
   n1)
     setup_neg
     rm -rf core.*
-    bash -c "$1 < $DIR/test/t11"
-    if [ ! -f core.* ] ; then
+    if (bash -c "$1 < $DIR/test/t11") && [ ! -f core.* ] ; then
       exit 0
     fi
 esac 

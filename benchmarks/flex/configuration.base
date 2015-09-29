@@ -1,0 +1,3 @@
+--program flex_comb.c
+--pos-tests 5
+--neg-tests 1
