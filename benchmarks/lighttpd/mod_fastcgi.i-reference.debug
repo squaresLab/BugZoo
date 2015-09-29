@@ -1,0 +1,82 @@
+mod_fastcgi.i.ast loaded
+mod_fastcgi.i.ht loaded (2285)
+sanity checking (path len 915)
+mod_fastcgi.i-baseline.c written
+version WRW: Wed Aug 27 17:29:50 EDT 2008
+seed 1
+gcc ./fake-gcc.sh
+ldflags 
+good ./test-good.sh
+bad ./test-bad.sh
+gen 10
+mut 0.06
+promut 0
+pop 40
+max 3
+ins 1
+del 1
+swap 1
+compile_counter 0
+fitness_count 0
+bad_factor 10
+good_path_factor 0.01
+gpath_any true
+path_count 120.48
+use_tournament false
+tournament_k 2
+tournament_p 1
+*** Generation 1 (size 40)
+			i=6 d=0 s=0 c=0 m=1 (delta i=6 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=4 d=0 s=0 c=0 m=1 (delta i=4 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=8 c=0 m=1 (delta i=0 d=0 s=8 c=0 m=0)
+	fitness failure
+			i=0 d=14 s=0 c=0 m=1 (delta i=0 d=14 s=0 c=0 m=0)
+	fitness 1
+			i=12 d=0 s=0 c=0 m=1 (delta i=12 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=6 s=0 c=0 m=1 (delta i=0 d=6 s=0 c=0 m=0)
+	fitness 3
+		best so far (size delta 842)
+v_gen 0
+avgfit : 
+bcfit : 
+
+
+Best result written to mod_fastcgi.i-repro-1-0.01-0.06-best.c
+	First Solution in 11.1301 (2 fitness evals)
+	Best  Solution in 11.1301 (2 fitness evals)
+
+initial repair inserts:     0/1 = 0
+initial repair deletes:     6/1 = 6
+initial repair mut swaps:   0/1 = 0
+initial repair xovers:      0/1 = 0
+initial repair xover swaps: 0/1 = 0
+initial repair macromuts:   1/1 = 1
+per-fitness average inserts:     22/6 = 3.66667
+per-fitness average deletes:     20/6 = 3.33333
+per-fitness average mut swaps:   8/6 = 1.33333
+per-fitness average xovers:      0/6 = 0
+per-fitness average xover swaps: 0/6 = 0
+per-fitness average macromuts:   6/6 = 1
+per-nonzero-noncached-fitness average inserts:     0/2 = 0
+per-nonzero-noncached-fitness average deletes:     20/2 = 10
+per-nonzero-noncached-fitness average mut swaps:   0/2 = 0
+per-nonzero-noncached-fitness average xovers:      0/2 = 0
+per-nonzero-noncached-fitness average xover swaps: 0/2 = 0
+per-nonzero-noncached-fitness average macromuts:   2/2 = 1
+Generations to solution: 1
+total number of MACROmutation operators: 39
+total number of micromutation operators: 231
+average micromutation per macromutation: 5.92308
+Percent of unique variants that failed to compile: 4/6 = 0.666667
+Percent possibly-cached fitness evals that failed to compile: 4/6 = 0.666667
+  Activity Name                     Count Seconds = Percent of Total Time
+  bad test                              2   0.023 = 0.217257%
+  size diff                             1   0.030 = 0.287051%
+  fitness                               6   0.331 = 3.14459%
+  mutation                             39   1.471 = 13.9813%
+  good test                             2   4.084 = 38.8178%
+  compile                               6   4.582 = 43.552%
+  TOTAL                                    10.520 = 93.951% (avg CPU usage)
