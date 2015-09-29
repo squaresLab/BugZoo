@@ -11,7 +11,7 @@ else
 fi
 
 # Performs the necessary setup for all positive test cases.
-setup_pos()
+start_pos()
 {
   if [ $cov = 0 ]; then
     ulimit -t 2
@@ -19,7 +19,7 @@ setup_pos()
 }
 
 # Performs the necessary setup for all negative test cases.
-setup_neg()
+start_neg()
 {
   ulimit -c 8
   if [ $cov = 0 ]; then
@@ -29,19 +29,58 @@ setup_neg()
   fi
 }
 
+# Called after a positive test case has been executed.
+end_pos()
+{
+  rm -rf core
+}
+
+# Assume the test fails unless proven otherwise.
+result=1
+
 # Execute the appropriate test case.
 case $2 in
-  p1) setup_pos ; bash -c "$1 < $DIR/test/t1 &> /dev/null" && exit 0 ;;
-  p2) setup_pos ; bash -c "$1 < $DIR/test/t2 &> /dev/null" && exit 0 ;;
-  p3) setup_pos ; bash -c "$1 < $DIR/test/t4 &> /dev/null" && exit 0 ;;
-  p4) setup_pos ; bash -c "$1 < $DIR/test/tp1 &> /dev/null" && exit 0 ;;
-  p5) setup_pos ; bash -c "$1 < $DIR/test/tp2 &> /dev/null" && exit 0 ;;
+  p1)
+    start_pos
+    bash -c "$1 < $DIR/test/t1" &> /dev/null
+    result=$?
+    end_pos
+    exit $result ;;
+
+  p2)
+    start_pos
+    bash -c "$1 < $DIR/test/t2" &> /dev/null
+    result=$?
+    end_pos
+    exit $result ;;
+
+  p3)
+    start_pos
+    bash -c "$1 < $DIR/test/t3" &> /dev/null
+    result=$?
+    end_pos
+    exit $result ;;
+
+  p4)
+    start_pos
+    bash -c "$1 < $DIR/test/t4" &> /dev/null
+    result=$?
+    end_pos
+    exit $result ;;
+
+  p5)
+    start_pos
+    bash -c "$1 < $DIR/test/t5" &> /dev/null
+    result=$?
+    end_pos
+    exit $result ;;
+
   n1)
-    setup_neg ;
-    if (bash -c "$1 < $DIR/test/t5 &> /dev/null") && [ ! -f core.* ]; then
+    start_neg ;
+    if (bash -c "$1 < $DIR/test/t5" &> /dev/null) && [ ! -f core* ]; then
       exit 0
     else
-      rm -rf core.*
+      rm -rf core*
     fi;;
 esac 
 exit 1
