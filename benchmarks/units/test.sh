@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Retrieve and store the provided command-line arguments.
+EXECUTABLE=$1
+TEST_ID=$2
+
 # Find the directory that this test script belongs to.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
@@ -10,82 +14,53 @@ else
   cov=0
 fi
 
-# Performs the necessary setup for all positive test cases.
-start_pos()
+# Treats the test case as a positive test case.
+exec_pos()
 {
   if [ $cov = 0 ]; then
-    ulimit -t 2
-  fi
-  cp $DIR/unittab $PWD/unittab
-}
-
-# Performs the necessary setup for all negative test cases.
-start_neg()
-{
-  if [ $cov = 0 ]; then
-    ulimit -t 1
+    timeout 2 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
+      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
   else
-    ulimit -t 10
+    bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
+      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
   fi
+  return $?
+}
+
+# Treats the test case as a negative test case.
+exec_neg()
+{
+  if [ $cov = 0 ]; then
+    timeout 1 $EXECUTABLE < $DIR/test/bad1 &> /dev/null
+  else
+    timeout 10 $EXECUTABLE < $DIR/test/bad1 &> /dev/null
+  fi
+  return $?
+}
+
+# Copy the unittab file into the PWD.
+if [ ! $DIR = $PWD ]; then
   cp $DIR/unittab $PWD/unittab
-}
-
-end_pos()
-{
-  if [ ! $DIR = $PWD ]; then
-    rm $PWD/unittab
-  fi
-}
-
-end_neg() 
-{
-  if [ ! $DIR = $PWD ]; then
-    rm $PWD/unittab
-  fi
-}
+fi
 
 # Execute the appropriate test case.
-case $2 in
-  p1)
-    start_pos
-    bash -c "$1 < $DIR/test/t1" |& diff $DIR/test/output.t1 -
-    result=$?
-    end_pos
-    exit $result;;
+case $TEST_ID in
+  p1) exec_pos;;
+  p2) exec_pos;;
+  p3) exec_pos;;
+  p4) exec_pos;;
+  p5) exec_pos;;
+  n1) exec_neg;;
+esac
 
-  p2)
-    start_pos
-    bash -c "$1 < $DIR/test/t2" |& diff $DIR/test/output.t2 - &> /dev/null
-    result=$?
-    end_pos
-    exit $result;;
+# Find the result of the test case execution.
+result=$?
 
-  p3)
-    start_pos
-    bash -c "$1 < $DIR/test/t3" |& diff $DIR/test/output.t3 - &> /dev/null
-    result=$?
-    end_pos
-    exit $result;;
+# Remove the unittab file from the PWD (unless we're operating inside the
+# test directory itself).
+if [ ! $DIR = $PWD ]; then
+  rm -f $PWD/unittab
+fi
 
-  p4)
-    start_pos
-    bash -c "$1 < $DIR/test/t4" |& diff $DIR/test/output.t4 - &> /dev/null
-    result=$?
-    end_pos
-    exit $result;;
-
-  p5)
-    start_pos
-    bash -c "$1 < $DIR/test/t5" |& diff $DIR/test/output.t5 - &> /dev/null
-    result=$?
-    end_pos
-    exit $result;;
-
-  n1)
-    start_neg
-    $1 < $DIR/test/bad1 &> /dev/null # this doesn't seem to work?
-    result=$?
-    end_neg
-    exit $result;;
-esac 
-exit 1
+# Return the result of the test case execution
+exit $result
