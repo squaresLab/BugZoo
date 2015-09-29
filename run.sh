@@ -10,7 +10,7 @@ echo "Starting runs for benchmark: $benchmark"
 for ((i=0; i < $runs; i++))
 do
   echo "Running: $benchmark (seed $i)";
-  ./run_one.sh $benchmark $i &> /dev/null
+  ./run_one.sh $benchmark $id $i &> /dev/null
 done
 ./clean.sh
 echo "Finished runs for benchmark: $benchmark"
