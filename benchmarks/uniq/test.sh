@@ -18,9 +18,9 @@ fi
 exec_pos()
 {
   if [ $cov = 0 ]; then
-    bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" &> /dev/null
-  else
     timeout 2 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" &> /dev/null
+  else
+    bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" &> /dev/null
   fi
   return $?
 }
