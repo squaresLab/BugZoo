@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Retrieve and store the provided command-line arguments.
+EXECUTABLE=$1
+TEST_ID=$2
+
 # Find the directory that this test script belongs to.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
@@ -10,77 +14,48 @@ else
   cov=0
 fi
 
-# Performs the necessary setup for all positive test cases.
-start_pos()
+# Treats the test case as a positive test case.
+exec_pos()
 {
   if [ $cov = 0 ]; then
-    ulimit -t 2
-  fi
-}
-
-# Performs the necessary setup for all negative test cases.
-start_neg()
-{
-  ulimit -c 8
-  if [ $cov = 0 ]; then
-    ulimit -t 1
+    bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" &> /dev/null
   else
-    ulimit -t 4
+    timeout 2 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" &> /dev/null
   fi
+  return $?
 }
 
-# Called after a positive test case has been executed.
-end_pos()
+# Treats the test case as a negative test case.
+exec_neg()
 {
-  rm -rf core
+  if [ $cov = 0 ]; then
+    timeout 1 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" &> /dev/null \
+      && [ ! -f core* ]
+  else
+    timeout 4 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" &> /dev/null \
+      && [ ! -f core* ]
+  fi
+  return $?
 }
 
-# Assume the test fails unless proven otherwise.
-result=1
+# Perform any necessary preparations before running the test case.
+ulimit -c 8
 
 # Execute the appropriate test case.
-case $2 in
-  p1)
-    start_pos
-    bash -c "$1 < $DIR/test/t1" &> /dev/null
-    result=$?
-    end_pos
-    exit $result ;;
-
-  p2)
-    start_pos
-    bash -c "$1 < $DIR/test/t2" &> /dev/null
-    result=$?
-    end_pos
-    exit $result ;;
-
-  p3)
-    start_pos
-    bash -c "$1 < $DIR/test/t3" &> /dev/null
-    result=$?
-    end_pos
-    exit $result ;;
-
-  p4)
-    start_pos
-    bash -c "$1 < $DIR/test/t4" &> /dev/null
-    result=$?
-    end_pos
-    exit $result ;;
-
-  p5)
-    start_pos
-    bash -c "$1 < $DIR/test/t5" &> /dev/null
-    result=$?
-    end_pos
-    exit $result ;;
-
-  n1)
-    start_neg ;
-    if (bash -c "$1 < $DIR/test/t5" &> /dev/null) && [ ! -f core* ]; then
-      exit 0
-    else
-      rm -rf core*
-    fi;;
+case $TEST_ID in
+  p1) exec_pos;;
+  p2) exec_pos;;
+  p3) exec_pos;;
+  p4) exec_pos;;
+  p5) exec_pos;;
+  n1) exec_neg;;
 esac 
-exit 1
+
+# Find the result of the test case execution.
+result=$?
+
+# Destroy any artifacts created by the execution.
+rm -rf core*
+
+# Return the result of the test case execution.
+exit $result

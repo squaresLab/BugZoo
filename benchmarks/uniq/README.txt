@@ -14,6 +14,7 @@ Notes:
 preprocessor: 
 
 	gcc -E uniq.c > preprocessed.c
+(1) This benchmark is not thread-safe.
 
 Files:
 README.txt: this file
