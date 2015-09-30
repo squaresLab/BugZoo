@@ -1,0 +1,1011 @@
+GenProg Version: 1929+ default (Mercurial)
+M src/search.ml
+
+--allow-coverage-fail false
+--appp 0.33333
+--asm-code-only false
+--best-edit-rule "1 * fault_loc_weight ; 1 * max_test_fail_prob ; -1 * num_tests"
+--best-test-rule "1 * test_fail_prob ; 1 * test_fail_count ; -1 * test_pass_count"
+--clone-file ""
+--compiler "gcc"
+--compiler-command ""
+--compiler-opts ""
+--continue true
+--coverage-info ""
+--coverage-per-test false
+--crossover "one"
+--crossp 0.5
+--delp 0.33333
+--describe-machine false
+--diversity-selection 0
+--edit-script false
+--elf-risc false
+--exclude-edits ""
+--exp-diff false
+--fault-file ""
+--fault-path "coverage.path.neg"
+--fault-scheme "path"
+--fitness-in-parallel 1
+--fix-file ""
+--fix-oracle ""
+--fix-path "coverage.path.pos"
+--fix-scheme "default"
+--flatten-path ""
+--format "txt"
+--gen-per-exchange 1
+--generations 10
+--geomp 0.5
+--gui false
+--hostname "127.0.0.1"
+--ignore-dead-code false
+--ignore-equiv-appends false
+--ignore-standard-headers false
+--ignore-string-equiv-fixes false
+--ignore-untyped-returns false
+--incoming-pop ""
+--keep-source false
+--label-repair false
+--lase-deallocation-api "free"
+--lase-paired-functions ""
+--lasep 0
+--log-file "results/units/1443552602/4.log"
+--max-evals 0
+--minimization false
+--mt-cov false
+--multiopt-minimize false
+--multiopt-no-inf false
+--neg-tests 1
+--neg-weight 1
+--negative-test-weight 2
+--nested false
+--neutral-walk-max-size 0
+--neutral-walk-weight ""
+--nht-id "global"
+--nht-port 51000
+--nht-server ""
+--no-rep-cache false
+--no-test-cache false
+--num-comps 2
+--num-objectives 2
+--oracle-genome ""
+--pd-mutp 0.25
+--popsize 40
+--port 60000
+--pos-tests 5
+--pos-weight 0.1
+--prefix "benchmarks/units/"
+--preprocessor ""
+--print-incremental-evals false
+--print-source-name false
+--program "preprocessed.c"
+--promut 1
+--quiet false
+--regen-paths false
+--rep ""
+--rep-cache ""
+--repp 0.33333
+--samp-strat "variant"
+--sample 1
+--sample-runs 100
+--sanity "default"
+--search "genetic"
+--seed 4
+--semantic-check "exact"
+--single-fitness false
+--skip-failed-sanity-tests false
+--skip-tests ""
+--split-search 0
+--sport 65000
+--subatom-constp 0.5
+--subatom-mutp 0
+--swap-bug false
+--swapp 0
+--template-cache ""
+--templates ""
+--test-command ""
+--test-script "benchmarks/units/test.sh"
+--tournament-size 2
+--uniq false
+--use-partition -1
+--valgrind false
+--variants-exchanged 50
+--version false
+Opening log file...
+Destroying existing log file...
+- no existing log file to destroy.
+cilRep: preprocessing IO function signatures: /tmp/tmp89a2ec.c /tmp/tmp185180.c
+cilRep: done preprocessing IO function signatures
+faultLocRep: compute_localization: fault_scheme: path, fix_scheme: default
+WARNING: grabbing coverage from existing path files, so SFL will not work.
+cachingRep: preprocessed.cache: loaded
+faultlocRep: preprocessed.cache: loaded
+cilRep: preprocessed.cache: loaded
+cilRep: preprocessed.cache: saved
+cachingRep: preprocessed.cache: saved
+faultlocRep: preprocessed.cache: saved
+cilrep done serialize
+Computing enclosure information...
+cilRep: stmt_count = 422
+cilRep: stmts in weighted_path = 328
+cilRep: total weight = 34
+cilRep: stmts in weighted_path with weight >= 1.0 = 4
+cilRep: preprocessed.c (code bank/base file; atoms [1,479])
+cilRep: 1 file(s) total in representation
+search: genetic algorithm begins (|original| = 0.0886822 MB)
+search: initial population (sizeof one variant = 0.0915241 MB)
+	  5 a(214,444)
+	  5 a(184,276)
+	/home/ctimperl/benchmarks/000002/preprocessed.c  r(273,277) fails to compile
+	  0 r(273,277)
+	  5 r(213,210)
+	  5 r(202,286)
+	  0 r(10,120)
+	  5 d(338)
+	  0 r(116,445)
+	/home/ctimperl/benchmarks/000005/preprocessed.c  r(356,351) fails to compile
+	  0 r(356,351)
+	  5 a(212,148)
+	  5 a(328,231)
+	  5 a(448,178)
+	  0 d(188)
+	  0 r(25,133)
+	  0 d(435)
+	  0 d(206)
+	  5 r(281,197)
+	  0 d(252)
+	  5 a(176,202)
+	  0 d(435)
+	  0 d(332)
+	  5 d(213)
+	  0 r(177,441)
+	  5 a(210,226)
+	  5 a(425,415)
+	  0 r(369,402)
+	  0 d(386)
+	  0 a(324,290)
+	  5 r(447,390)
+	  5 d(337)
+	  0 d(117)
+	  5 d(353)
+	/home/ctimperl/benchmarks/000020/preprocessed.c  r(277,301) fails to compile
+	  0 r(277,301)
+	  0 a(422,367)
+	/home/ctimperl/benchmarks/000022/preprocessed.c  r(14,48) fails to compile
+	  0 r(14,48)
+	  5 r(352,293)
+	/home/ctimperl/benchmarks/000024/preprocessed.c  r(300,339) fails to compile
+	  0 r(300,339)
+	  5 r(133,130)
+	  5 r(214,151)
+	  5 original
+search: generation 1 (sizeof one variant = 0.120672 MB)
+	  0 a(324,290) d(227)
+	  0 d(332) d(367)
+	  0 a(324,290) d(256)
+	  0 d(332) d(207)
+	  5 a(184,276) a(467,468)
+	  0 d(206) a(14,441)
+	  0 a(184,276) r(371,391)
+	  2 d(206) d(212)
+	/home/ctimperl/benchmarks/000034/preprocessed.c  r(356,351) r(212,171) fails to compile
+	  0 r(356,351) r(212,171)
+	  0 d(117) a(425,430)
+	  0 r(116,445) r(273,350)
+	  0 d(117) d(462)
+	/home/ctimperl/benchmarks/000037/preprocessed.c  d(332) r(281,353) fails to compile
+	  0 d(332) r(281,353)
+	  0 d(435) d(195)
+	  0 r(177,441) r(173,146)
+	  5 r(447,390) d(213)
+	/home/ctimperl/benchmarks/000040/preprocessed.c  r(273,277) r(358,328) fails to compile
+	  0 r(273,277) r(358,328)
+	  0 d(252) d(21)
+	  5 a(184,276) r(3,47)
+	  0 r(369,402) d(160)
+	  0 a(184,276) r(419,384)
+	  0 r(369,402) d(149)
+	/home/ctimperl/benchmarks/000046/preprocessed.c  r(356,351) r(239,243) fails to compile
+	  0 r(356,351) r(239,243)
+	  0 a(422,367) a(215,224)
+	/home/ctimperl/benchmarks/000048/preprocessed.c  r(356,351) r(376,446) fails to compile
+	  0 r(356,351) r(376,446)
+	  0 a(422,367) r(160,413)
+	/home/ctimperl/benchmarks/000050/preprocessed.c  r(14,48) a(405,21) fails to compile
+	  0 r(14,48) a(405,21)
+	  0 r(133,130) r(378,429)
+	/home/ctimperl/benchmarks/000052/preprocessed.c  r(14,48) d(360) fails to compile
+	  0 r(14,48) d(360)
+	  5 r(133,130) d(258)
+	/home/ctimperl/benchmarks/000054/preprocessed.c  r(277,301) r(371,13) fails to compile
+	  0 r(277,301) r(371,13)
+	/home/ctimperl/benchmarks/000055/preprocessed.c  r(273,277) r(212,227) fails to compile
+	  0 r(273,277) r(212,227)
+	/home/ctimperl/benchmarks/000056/preprocessed.c  r(277,301) a(19,281) fails to compile
+	  0 r(277,301) a(19,281)
+	/home/ctimperl/benchmarks/000057/preprocessed.c  r(273,277) d(382) fails to compile
+	  0 r(273,277) d(382)
+	  0 r(25,133) d(403)
+	/home/ctimperl/benchmarks/000059/preprocessed.c  r(356,351) a(369,380) fails to compile
+	  0 r(356,351) a(369,380)
+	  0 r(25,133) a(289,467)
+	/home/ctimperl/benchmarks/000061/preprocessed.c  r(356,351) a(335,360) fails to compile
+	  0 r(356,351) a(335,360)
+	  0 r(10,120) a(25,406)
+	 10 d(353) r(420,446)
+	  0 r(10,120) d(183)
+	  5 d(353) r(459,13)
+	  0 r(10,120) r(158,374)
+	  0 r(369,402) r(473,472)
+	  0 r(10,120) r(402,286)
+	  0 r(116,445) d(293)
+	/home/ctimperl/benchmarks/000070/preprocessed.c  r(300,339) r(276,349) fails to compile
+	  0 r(300,339) r(276,349)
+	  0 d(206) a(385,374)
+	  0 r(369,402) r(441,276)
+	  0 d(252) r(127,323)
+	  5 a(328,231) d(128)
+	  5 d(337) a(429,406)
+	  0 d(353) d(228)
+	  0 d(332) r(214,157)
+	  0 d(386) a(275,331)
+	/home/ctimperl/benchmarks/000078/preprocessed.c  r(133,130) r(378,29) fails to compile
+	  0 r(133,130) r(378,29)
+	  0 d(386) d(416)
+	  0 r(133,130) a(185,151)
+search: generation 2 (sizeof one variant = 0.121224 MB)
+	  0 d(117) a(14,441) r(367,113)
+	  0 d(206) a(425,430) a(213,330)
+	  0 d(117) a(425,430) r(177,330)
+	/home/ctimperl/benchmarks/000084/preprocessed.c  d(206) a(14,441) r(273,346) fails to compile
+	  0 d(206) a(14,441) r(273,346)
+	  0 r(10,120) a(449,19)
+	/home/ctimperl/benchmarks/000086/preprocessed.c  r(300,339) r(276,349) r(402,286) d(423) fails to compile
+	  0 r(300,339) r(276,349) r(402,286) d(423)
+	  0 r(10,120) r(402,286) r(272,297)
+	/home/ctimperl/benchmarks/000088/preprocessed.c  r(300,339) r(276,349) a(240,240) fails to compile
+	  0 r(300,339) r(276,349) a(240,240)
+	  0 d(386) a(275,331) a(213,274)
+	  0 r(25,133) a(289,467) d(167)
+	  0 r(116,445) d(293) a(419,412)
+	/home/ctimperl/benchmarks/000092/preprocessed.c  r(356,351) a(369,380) a(359,301) fails to compile
+	  0 r(356,351) a(369,380) a(359,301)
+	  2 r(133,130) d(207) d(213)
+	  0 d(332) r(378,429) r(210,441)
+	  0 r(133,130) r(378,429) a(19,162)
+	  0 d(332) d(207) r(230,415)
+	  0 r(369,402) a(273,274)
+	/home/ctimperl/benchmarks/000098/preprocessed.c  d(332) r(281,353) d(149) r(304,335) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335)
+	  0 r(369,402) d(149) r(215,289)
+	/home/ctimperl/benchmarks/000100/preprocessed.c  d(332) r(281,353) r(467,19) fails to compile
+	  0 d(332) r(281,353) r(467,19)
+	/home/ctimperl/benchmarks/000101/preprocessed.c  d(332) r(281,353) a(297,441) fails to compile
+	  0 d(332) r(281,353) a(297,441)
+	/home/ctimperl/benchmarks/000102/preprocessed.c  r(273,277) r(212,227) d(435) fails to compile
+	  0 r(273,277) r(212,227) d(435)
+	  0 d(332) d(367) d(467)
+	/home/ctimperl/benchmarks/000103/preprocessed.c  r(273,277) r(358,328) a(113,111) fails to compile
+	  0 r(273,277) r(358,328) a(113,111)
+	  0 d(332) d(367) r(149,349)
+	/home/ctimperl/benchmarks/000105/preprocessed.c  r(273,277) r(358,328) a(212,221) fails to compile
+	  0 r(273,277) r(358,328) a(212,221)
+	  0 a(324,290) d(256) d(206)
+	/home/ctimperl/benchmarks/000107/preprocessed.c  r(277,301) r(371,13) r(229,236) fails to compile
+	  0 r(277,301) r(371,13) r(229,236)
+	/home/ctimperl/benchmarks/000108/preprocessed.c  r(356,351) a(335,360) r(422,13) fails to compile
+	  0 r(356,351) a(335,360) r(422,13)
+	/home/ctimperl/benchmarks/000109/preprocessed.c  d(332) r(281,353) r(289,343) fails to compile
+	  0 d(332) r(281,353) r(289,343)
+	  0 d(252) d(21) a(440,2)
+	  5 a(184,276) a(467,468) a(450,21)
+	  0 d(206) a(159,150)
+	  0 r(25,133) a(289,467) a(14,441) r(185,147)
+	  0 d(206) a(14,441) d(193)
+	  0 r(25,133) a(289,467) d(435)
+	  0 d(117) d(462) d(278)
+	  0 d(206) a(385,374) d(451)
+	  0 d(117) d(462) a(132,475)
+	  0 d(206) a(385,374) a(423,214)
+	  0 d(337) r(371,391) r(332,19)
+	  5 a(184,276) a(429,406) a(352,238)
+	  0 d(337) a(429,406) r(473,470)
+	  0 a(184,276) r(371,391) a(440,276)
+	/home/ctimperl/benchmarks/000124/preprocessed.c  r(273,277) r(358,328) a(257,28) fails to compile
+	  0 r(273,277) r(358,328) a(257,28)
+	  0 r(116,445) r(273,350) a(145,206)
+	  0 d(435) d(195) d(347)
+	  0 r(10,120) r(402,286) r(152,206)
+	  0 d(435) d(195) d(226)
+	  0 r(10,120) r(402,286) a(240,333)
+	/home/ctimperl/benchmarks/000130/preprocessed.c  r(277,301) r(371,13) a(392,330) fails to compile
+	  0 r(277,301) r(371,13) a(392,330)
+	  0 d(252) d(21) r(412,409)
+	/home/ctimperl/benchmarks/000132/preprocessed.c  r(300,339) r(276,349) a(210,200) fails to compile
+	  0 r(300,339) r(276,349) a(210,200)
+	/home/ctimperl/benchmarks/000133/preprocessed.c  r(273,277) r(212,227) d(111) fails to compile
+	  0 r(273,277) r(212,227) d(111)
+	/home/ctimperl/benchmarks/000134/preprocessed.c  r(14,48) d(360) r(173,146) d(469) fails to compile
+	  0 r(14,48) d(360) r(173,146) d(469)
+	  0 r(177,441) a(216,439)
+	/home/ctimperl/benchmarks/000136/preprocessed.c  r(14,48) d(360) a(429,275) fails to compile
+	  0 r(14,48) d(360) a(429,275)
+	  0 r(177,441) r(173,146) r(195,165)
+	  0 a(422,367) r(160,413) a(362,289)
+	  0 r(369,402) r(441,276) r(212,434)
+	  0 a(422,367) r(160,413) d(224)
+	  0 r(369,402) r(441,276) a(443,136)
+search: generation 3 (sizeof one variant = 0.121688 MB)
+	  0 a(422,367) r(160,413) a(443,136) d(249)
+	  0 r(369,402) r(441,276) d(224) d(161)
+	  0 a(422,367) r(160,413) d(224) r(182,154)
+	  0 r(369,402) r(441,276) a(443,136) d(150)
+	/home/ctimperl/benchmarks/000146/preprocessed.c  r(277,301) a(216,439) d(212) fails to compile
+	  0 r(277,301) a(216,439) d(212)
+	  0 r(177,441) r(371,13) a(392,330) d(218)
+	/home/ctimperl/benchmarks/000148/preprocessed.c  r(277,301) r(371,13) a(392,330) d(215) fails to compile
+	  0 r(277,301) r(371,13) a(392,330) d(215)
+	  0 r(177,441) a(216,439) d(292)
+	  0 r(10,120) r(402,286) a(449,19) d(165)
+	  0 r(10,120) r(272,297) r(280,381)
+	/home/ctimperl/benchmarks/000152/preprocessed.c  r(10,120) r(402,286) r(272,297) r(326,347) fails to compile
+	  0 r(10,120) r(402,286) r(272,297) r(326,347)
+	  0 r(10,120) a(449,19) d(189)
+	  0 d(332) r(378,429) d(210)
+	  0 d(206) a(385,374) a(423,214) r(210,441) d(150)
+	  0 d(332) r(378,429) r(210,441) r(200,158)
+	  0 d(206) a(385,374) a(423,214) r(359,272)
+	  0 r(369,402) a(273,274) a(174,180)
+	/home/ctimperl/benchmarks/000158/preprocessed.c  r(273,277) r(212,227) d(111) r(187,172) fails to compile
+	  0 r(273,277) r(212,227) d(111) r(187,172)
+	  0 r(10,120) a(132,117)
+	/home/ctimperl/benchmarks/000160/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228)
+	  0 r(10,120) r(402,286) r(152,206) d(400)
+	/home/ctimperl/benchmarks/000161/preprocessed.c  r(277,301) r(371,13) r(229,236) d(9) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) d(9)
+	  0 d(386) a(275,331) a(213,274) a(223,173)
+	/home/ctimperl/benchmarks/000163/preprocessed.c  r(14,48) d(360) a(429,275) d(142) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142)
+	/home/ctimperl/benchmarks/000164/preprocessed.c  r(273,277) r(212,227) d(435) d(210) fails to compile
+	  0 r(273,277) r(212,227) d(435) d(210)
+	  0 r(10,120) r(402,286) a(240,333) a(346,2)
+	  0 r(10,120) r(402,286) r(272,297) d(1)
+	  0 r(369,402) d(149) r(215,289) d(213)
+	  5 d(337) d(425)
+	  0 r(10,120) a(449,19) a(429,406) r(473,470) d(157)
+	  0 d(337) a(429,406) r(473,470) d(361)
+	  0 r(10,120) a(449,19) a(210,202)
+	/home/ctimperl/benchmarks/000171/preprocessed.c  r(14,48) d(360) a(429,275) r(379,21) fails to compile
+	  0 r(14,48) d(360) a(429,275) r(379,21)
+	  0 a(184,276) r(371,391) a(440,276) d(161)
+	  0 d(117) a(425,430) r(177,330) d(116)
+	  0 r(177,441) a(216,439) a(361,324)
+	/home/ctimperl/benchmarks/000175/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130)
+	  0 a(422,367) r(160,413) a(332,45)
+	/home/ctimperl/benchmarks/000177/preprocessed.c  r(356,351) a(369,380) a(359,301) r(180,415) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) r(180,415)
+	  0 a(422,367) r(160,413) a(362,289) r(281,471)
+	/home/ctimperl/benchmarks/000178/preprocessed.c  d(332) r(281,353) r(467,19) a(174,52) fails to compile
+	  0 d(332) r(281,353) r(467,19) a(174,52)
+	  0 d(435) d(195) d(226) a(381,376)
+	  0 a(324,290) d(256) d(206) d(142)
+	  0 d(117) a(425,430) r(177,330) d(221)
+	/home/ctimperl/benchmarks/000181/preprocessed.c  d(206) a(425,430) r(358,328) a(113,111) d(167) fails to compile
+	  0 d(206) a(425,430) r(358,328) a(113,111) d(167)
+	/home/ctimperl/benchmarks/000182/preprocessed.c  r(273,277) a(213,330) r(247,327) fails to compile
+	  0 r(273,277) a(213,330) r(247,327)
+	  0 d(206) a(425,430) a(213,330) r(293,197)
+	/home/ctimperl/benchmarks/000184/preprocessed.c  r(273,277) r(358,328) a(113,111) d(143) fails to compile
+	  0 r(273,277) r(358,328) a(113,111) d(143)
+	/home/ctimperl/benchmarks/000185/preprocessed.c  d(332) r(281,353) d(149) r(304,335) d(451) d(300) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) d(451) d(300)
+	  0 d(206) a(385,374) r(249,239)
+	/home/ctimperl/benchmarks/000187/preprocessed.c  d(332) r(281,353) d(149) r(304,335) r(452,457) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) r(452,457)
+	  0 d(206) a(385,374) d(451) r(214,160)
+	  0 d(252) d(21) a(440,2) a(444,45)
+	  0 d(206) a(14,441) d(193) a(433,173)
+	  0 d(252) d(21) a(440,2) r(223,445)
+	  0 d(206) a(14,441) d(193) r(470,385)
+	  0 r(369,402) r(246,239)
+	  0 d(206) a(159,150) r(441,276) r(212,434) d(455)
+	  0 r(369,402) r(441,276) r(212,434) d(410)
+	  0 d(206) a(159,150) d(137)
+	/home/ctimperl/benchmarks/000197/preprocessed.c  r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(20,48) fails to compile
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(20,48)
+	  0 d(252) a(438,441)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338)
+	  0 d(252) d(21) r(412,409) d(413)
+search: generation 4 (sizeof one variant = 0.124124 MB)
+	  0 a(422,367) r(160,413) a(362,289) r(281,471) d(229)
+	/home/ctimperl/benchmarks/000201/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388)
+	  0 r(369,402) d(149) r(215,289) r(160,413) a(362,289) r(281,471) r(217,441)
+	  0 a(422,367) d(213) a(277,210)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338)
+	  0 a(422,367) r(160,413) a(362,289) r(281,471) d(194)
+	  0 r(10,120) a(449,19) a(443,136) d(249) d(455)
+	  0 a(422,367) r(160,413) a(210,202) a(461,133)
+	  0 r(10,120) a(449,19) a(210,202) d(141)
+	  0 a(422,367) r(160,413) a(443,136) d(249) a(210,455)
+	  0 d(206) a(14,441) d(193) a(433,173) d(154)
+	  0 d(206) a(385,374) a(423,214) r(210,441) d(150) d(454)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31)
+	/home/ctimperl/benchmarks/000212/preprocessed.c  r(10,120) r(20,48) a(213,208) fails to compile
+	  0 r(10,120) r(20,48) a(213,208)
+	/home/ctimperl/benchmarks/000213/preprocessed.c  r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(20,48) r(13,289) fails to compile
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(20,48) r(13,289)
+	  0 r(10,120) a(449,19) d(189) a(435,281)
+	/home/ctimperl/benchmarks/000215/preprocessed.c  r(277,301) r(371,13) a(392,330) d(215) d(465) fails to compile
+	  0 r(277,301) r(371,13) a(392,330) d(215) d(465)
+	/home/ctimperl/benchmarks/000216/preprocessed.c  r(277,301) a(216,439) d(212) r(146,152) fails to compile
+	  0 r(277,301) a(216,439) d(212) r(146,152)
+	/home/ctimperl/benchmarks/000217/preprocessed.c  r(277,301) r(353,298) fails to compile
+	  0 r(277,301) r(353,298)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134)
+	/home/ctimperl/benchmarks/000219/preprocessed.c  r(277,301) a(216,439) d(212) r(246,239) fails to compile
+	  0 r(277,301) a(216,439) d(212) r(246,239)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(210)
+	  0 d(206) a(159,150) r(441,276) r(212,434) r(204,294)
+	  0 d(206) a(385,374) a(423,214) r(359,272) d(455) r(436,272)
+	  0 d(206) a(159,150) r(441,276) r(212,434) d(455) a(436,417)
+	  0 d(206) a(385,374) a(423,214) r(359,272) a(223,41)
+	  0 d(206) a(385,374) a(332,45) r(158,206)
+	  0 a(422,367) r(160,413) r(249,239) a(298,284)
+	  0 d(206) a(385,374) r(249,239) d(448)
+	  0 a(422,367) r(160,413) a(332,45) d(324)
+	  0 d(117) a(425,430) a(216,439) d(292) a(272,471)
+	  0 r(177,441) r(177,330) d(116) d(434)
+	  0 d(117) a(425,430) r(177,330) d(116) d(214)
+	 10 r(177,441) a(216,439) d(292) a(396,444)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167)
+	/home/ctimperl/benchmarks/000233/preprocessed.c  d(206) a(385,374) a(423,214) r(359,272) a(213,175) fails to compile
+	  0 d(206) a(385,374) a(423,214) r(359,272) a(213,175)
+	  0 d(435) d(195) d(226) a(381,376) a(471,202)
+	  0 d(332) r(378,429) d(210) d(135)
+	/home/ctimperl/benchmarks/000236/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377)
+	/home/ctimperl/benchmarks/000237/preprocessed.c  r(273,277) a(213,330) r(247,327) d(141) fails to compile
+	  0 r(273,277) a(213,330) r(247,327) d(141)
+	  0 a(324,290) d(256) d(206) d(142) a(340,231)
+	  0 d(332) r(378,429) d(210) d(246)
+	  0 a(422,367) r(160,413) a(443,136) d(249) r(378,429) d(210) a(235,298)
+	  0 d(332) a(143,475)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176)
+	  0 d(332) r(378,429) d(210) r(382,226)
+	  0 r(177,441) r(371,13) a(392,330) d(218) d(444)
+	/home/ctimperl/benchmarks/000245/preprocessed.c  r(14,48) d(360) a(429,275) r(379,21) r(192,207) fails to compile
+	  0 r(14,48) d(360) a(429,275) r(379,21) r(192,207)
+	/home/ctimperl/benchmarks/000246/preprocessed.c  d(332) r(281,353) d(149) r(304,335) d(451) d(300) r(438,350) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) d(451) d(300) r(438,350)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1)
+	/home/ctimperl/benchmarks/000248/preprocessed.c  d(332) r(281,353) d(149) r(304,335) d(451) d(300) a(124,1) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) d(451) d(300) a(124,1)
+	  0 d(206) a(385,374) d(451) r(214,160) a(10,1)
+	  0 d(206) a(159,150) r(441,276) r(212,434) d(455) r(461,228) d(1)
+	/home/ctimperl/benchmarks/000251/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197)
+	  0 d(206) a(159,150) r(441,276) r(212,434) d(455) d(327)
+	/home/ctimperl/benchmarks/000253/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171)
+	  0 d(252) d(21) a(440,2) r(223,445) a(451,178)
+	  0 r(10,120) r(402,286) r(272,297) d(1) a(224,225)
+	  0 d(252) a(438,441) a(210,214)
+	  0 d(337) a(429,406) r(473,470) d(361) a(384,272)
+search: generation 5 (sizeof one variant = 0.124589 MB)
+	/home/ctimperl/benchmarks/000258/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410)
+	/home/ctimperl/benchmarks/000259/preprocessed.c  r(277,301) a(216,439) d(212) r(24,471) fails to compile
+	  0 r(277,301) a(216,439) d(212) r(24,471)
+	/home/ctimperl/benchmarks/000260/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204)
+	/home/ctimperl/benchmarks/000261/preprocessed.c  r(277,301) a(216,439) d(212) r(146,152) d(377) fails to compile
+	  0 r(277,301) a(216,439) d(212) r(146,152) d(377)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9)
+	  0 r(177,441) r(177,330) d(116) d(434) r(436,272)
+	  0 d(117) a(425,430) r(177,330) d(116) d(214) r(229,413)
+	  0 d(117) a(425,430) a(216,439) d(292) a(272,471) d(240)
+	/home/ctimperl/benchmarks/000265/preprocessed.c  d(332) r(281,353) d(149) r(304,335) d(451) d(300) r(438,350) d(23) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) d(451) d(300) r(438,350) d(23)
+	  0 r(369,402) d(149) r(215,289) r(160,413) a(362,289) r(281,471) r(217,441) r(135,448)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226)
+	  0 d(206) a(385,374) a(423,214) r(152,206) r(461,228) d(171) d(469)
+	/home/ctimperl/benchmarks/000270/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188)
+	/home/ctimperl/benchmarks/000271/preprocessed.c  d(206) a(385,374) a(423,214) r(359,272) a(213,175) a(332,425) fails to compile
+	  0 d(206) a(385,374) a(423,214) r(359,272) a(213,175) a(332,425)
+	/home/ctimperl/benchmarks/000272/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19)
+	  0 d(206) a(385,374) d(451) r(214,160) a(443,136) d(249) d(455) d(340)
+	  0 r(10,120) a(449,19) a(10,1) d(210)
+	  0 d(206) a(385,374) d(451) r(214,160) a(10,1) a(127,22)
+	  0 r(10,120) a(449,19) a(443,136) d(249) d(455) a(413,13)
+	/home/ctimperl/benchmarks/000276/preprocessed.c  r(14,48) d(360) a(429,275) r(379,21) r(192,207) d(461) fails to compile
+	  0 r(14,48) d(360) a(429,275) r(379,21) r(192,207) d(461)
+	/home/ctimperl/benchmarks/000277/preprocessed.c  r(277,301) r(353,298) a(159,441) fails to compile
+	  0 r(277,301) r(353,298) a(159,441)
+	  0 d(206) a(385,374) d(451) r(214,160) a(168,113)
+	/home/ctimperl/benchmarks/000279/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) a(212,358)
+	/home/ctimperl/benchmarks/000281/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448)
+	/home/ctimperl/benchmarks/000282/preprocessed.c  r(277,301) r(353,298) d(195) fails to compile
+	  0 r(277,301) r(353,298) d(195)
+	  0 d(206) a(159,150) r(441,276) r(212,434) d(455) d(327) r(216,13)
+	  0 d(332) r(378,429) d(210) d(135) d(423)
+	/home/ctimperl/benchmarks/000285/preprocessed.c  r(277,301) r(353,298) r(213,276) fails to compile
+	  0 r(277,301) r(353,298) r(213,276)
+	  0 a(422,367) r(160,413) a(362,289) a(210,120)
+	/home/ctimperl/benchmarks/000287/preprocessed.c  d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) fails to compile
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207)
+	  0 a(422,367) r(160,413) a(362,289) r(281,471) d(194) d(187)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) d(455)
+	/home/ctimperl/benchmarks/000289/preprocessed.c  r(369,402) a(359,301) a(362,289) d(130) d(388) r(182,286) fails to compile
+	  0 r(369,402) a(359,301) a(362,289) d(130) d(388) r(182,286)
+	/home/ctimperl/benchmarks/000290/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385)
+	/home/ctimperl/benchmarks/000292/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(454,172) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(454,172)
+	  0 a(422,367) r(160,413) a(443,136) d(249) a(210,455) a(433,173) d(154) a(158,149)
+	  0 d(206) a(14,441) d(193) a(374,210)
+	  0 a(422,367) r(160,413) a(443,136) d(249) a(210,455) d(187)
+	  0 d(206) a(14,441) d(193) a(433,173) d(154) r(175,120)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(374)
+	  0 a(422,367) d(213) a(277,210) d(331)
+	/home/ctimperl/benchmarks/000299/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195)
+	  0 d(252) d(21) a(440,2) d(451) d(300) r(438,350) r(391,273)
+	/home/ctimperl/benchmarks/000301/preprocessed.c  d(332) r(281,353) d(149) r(304,335) r(223,445) a(451,178) r(230,136) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) r(223,445) a(451,178) r(230,136)
+	  0 d(252) d(21) a(440,2) r(223,445) a(451,178) r(340,467)
+	/home/ctimperl/benchmarks/000303/preprocessed.c  d(332) r(281,353) d(149) r(304,335) d(451) d(300) r(438,350) r(199,393) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) d(451) d(300) r(438,350) r(199,393)
+	/home/ctimperl/benchmarks/000304/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441)
+	  0 r(177,441) r(173,146) a(451,459)
+	/home/ctimperl/benchmarks/000306/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) a(213,212) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) a(213,212)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(124,37)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) d(214)
+	  0 a(422,367) r(160,413) a(443,136) d(249) a(210,455) d(141)
+	/home/ctimperl/benchmarks/000311/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) r(219,303) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) r(219,303)
+search: generation 6 (sizeof one variant = 0.126435 MB)
+	/home/ctimperl/benchmarks/000312/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) d(149) r(215,289) d(213) r(340,338) r(217,385) r(412,422) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) d(149) r(215,289) d(213) r(340,338) r(217,385) r(412,422)
+	  0 r(369,402) d(213) r(340,338) d(335) a(443,330)
+	/home/ctimperl/benchmarks/000314/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335) r(115,390) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335) r(115,390)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) a(465,449)
+	/home/ctimperl/benchmarks/000316/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(115) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(115)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) d(388) a(181,448) r(193,447)
+	/home/ctimperl/benchmarks/000318/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358)
+	/home/ctimperl/benchmarks/000320/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) r(214,31) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) r(214,31)
+	  0 d(206) a(385,374) d(451) r(214,160) a(10,1) a(127,22) d(213) r(340,338) d(335) a(135,127)
+	/home/ctimperl/benchmarks/000322/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335) a(231,328) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335) a(231,328)
+	  0 d(206) a(385,374) d(451) r(214,160) a(10,1) a(127,22) r(436,286)
+	  0 d(206) a(385,374) d(451) r(214,160) a(443,136) d(249) d(455) d(340) a(333,238)
+	  0 d(252) d(21) a(440,2) d(451) d(300) r(438,350) r(391,273) d(117)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358)
+	/home/ctimperl/benchmarks/000326/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(451) r(214,160) r(374,1) d(455) r(224,171)
+	  0 d(206) a(385,374) d(226) d(210)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) d(455) r(213,462)
+	/home/ctimperl/benchmarks/000331/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) d(455) d(432) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) d(455) d(432)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) a(181,448) d(20)
+	/home/ctimperl/benchmarks/000333/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) d(369) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) d(369)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) d(455) a(240,434)
+	/home/ctimperl/benchmarks/000335/preprocessed.c  r(277,301) r(371,13) r(229,236) d(411) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) d(411)
+	/home/ctimperl/benchmarks/000336/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113)
+	/home/ctimperl/benchmarks/000337/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413)
+	/home/ctimperl/benchmarks/000338/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(214,441) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(214,441)
+	/home/ctimperl/benchmarks/000339/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19) a(178,273) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19) a(178,273)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226)
+	  0 d(206) a(14,441) d(193) r(112,228)
+	/home/ctimperl/benchmarks/000342/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) a(374,210) r(338,297) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) a(374,210) r(338,297)
+	  0 d(206) a(14,441) d(193) a(374,210) r(467,274)
+	/home/ctimperl/benchmarks/000344/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) r(206,154) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) r(206,154)
+	/home/ctimperl/benchmarks/000345/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) r(219,303) r(206,1) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) r(219,303) r(206,1)
+	/home/ctimperl/benchmarks/000346/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) r(245,162) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) r(245,162)
+	/home/ctimperl/benchmarks/000347/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) d(303) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) d(303)
+	/home/ctimperl/benchmarks/000348/preprocessed.c  r(277,301) r(353,298) r(213,276) d(212) fails to compile
+	  0 r(277,301) r(353,298) r(213,276) d(212)
+	/home/ctimperl/benchmarks/000349/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228)
+	  0 r(10,120) a(449,19) a(443,136) d(249) d(455) a(413,13) d(250)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) a(212,358) a(289,239)
+	/home/ctimperl/benchmarks/000353/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) d(417) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) d(417)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130)
+	  0 d(206) a(385,374) d(451) r(214,160) a(10,1) a(127,22) a(14,276)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) r(113,303)
+	  0 d(206) a(14,441) d(193) r(462,415)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227)
+	/home/ctimperl/benchmarks/000357/preprocessed.c  d(206) a(14,441) d(193) a(433,173) d(154) r(175,120) r(279,277) fails to compile
+	  0 d(206) a(14,441) d(193) a(433,173) d(154) r(175,120) r(279,277)
+	/home/ctimperl/benchmarks/000358/preprocessed.c  d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) fails to compile
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430)
+	/home/ctimperl/benchmarks/000360/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195) r(341,255) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195) r(341,255)
+	/home/ctimperl/benchmarks/000361/preprocessed.c  d(332) r(281,353) d(149) r(304,335) r(223,445) a(451,178) r(230,136) r(176,475) fails to compile
+	  0 d(332) r(281,353) d(149) r(304,335) r(223,445) a(451,178) r(230,136) r(176,475)
+	  0 d(206) a(14,441) d(193) a(374,210) a(213,357)
+	/home/ctimperl/benchmarks/000363/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195) d(117) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195) d(117)
+	/home/ctimperl/benchmarks/000364/preprocessed.c  r(277,301) a(181,448) d(303) fails to compile
+	  0 r(277,301) a(181,448) d(303)
+	/home/ctimperl/benchmarks/000365/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) r(470,52) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) r(470,52)
+	/home/ctimperl/benchmarks/000366/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195) d(351) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(161,195) d(351)
+search: generation 7 (sizeof one variant = 0.126572 MB)
+	/home/ctimperl/benchmarks/000367/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172)
+	/home/ctimperl/benchmarks/000368/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) r(258,22) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) r(258,22)
+	  0 d(206) a(385,374) d(451) r(214,160) a(10,1) a(127,22) d(213) r(340,338) d(335) a(135,127) r(223,439)
+	  0 d(206) a(14,441) d(193) r(112,228) r(233,226)
+	/home/ctimperl/benchmarks/000371/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) d(465)
+	/home/ctimperl/benchmarks/000374/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(214,441) r(247,113) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(214,441) r(247,113)
+	/home/ctimperl/benchmarks/000375/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) a(178,273) r(275,277) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) a(178,273) r(275,277)
+	/home/ctimperl/benchmarks/000376/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19) r(214,31) d(224) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19) r(214,31) d(224)
+	/home/ctimperl/benchmarks/000377/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) r(214,31) a(392,31) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) r(214,31) a(392,31)
+	/home/ctimperl/benchmarks/000378/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19) a(178,273) d(412) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) r(461,228) d(171) a(188,19) a(178,273) d(412)
+	  0 r(177,441) r(344,242)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(119)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(214)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) a(409,162)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379)
+	/home/ctimperl/benchmarks/000385/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) d(455) r(213,462) d(301)
+	/home/ctimperl/benchmarks/000387/preprocessed.c  r(277,301) r(371,13) d(115) fails to compile
+	  0 r(277,301) r(371,13) d(115)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) r(229,236) d(411) d(256)
+	/home/ctimperl/benchmarks/000389/preprocessed.c  r(277,301) r(371,13) r(229,236) d(411) a(214,160) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) d(411) a(214,160)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358)
+	/home/ctimperl/benchmarks/000391/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(390) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(390)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) d(419)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) d(368)
+	/home/ctimperl/benchmarks/000394/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) a(374,210) r(338,297) r(136,117) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) a(374,210) r(338,297) r(136,117)
+	  0 a(422,367) d(213) a(157,214)
+	/home/ctimperl/benchmarks/000396/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) a(277,210) d(331) r(415,430) d(323) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) a(277,210) d(331) r(415,430) d(323)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165)
+	/home/ctimperl/benchmarks/000398/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) a(178,381) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) a(178,381)
+	/home/ctimperl/benchmarks/000399/preprocessed.c  a(422,367) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) r(225,323) fails to compile
+	  0 a(422,367) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) r(225,323)
+	/home/ctimperl/benchmarks/000400/preprocessed.c  r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357) fails to compile
+	  0 r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420)
+	/home/ctimperl/benchmarks/000402/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) d(210) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) d(210)
+	  0 r(369,402) d(213) r(340,338) d(335) a(443,330) a(443,197)
+	/home/ctimperl/benchmarks/000404/preprocessed.c  r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335) r(115,390) r(405,396) fails to compile
+	  0 r(356,351) a(369,380) d(149) r(215,289) d(213) r(340,338) d(335) r(115,390) r(405,396)
+	/home/ctimperl/benchmarks/000405/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362)
+	/home/ctimperl/benchmarks/000406/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) r(245,162) r(112,210) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) r(146,152) d(410) r(245,162) r(112,210)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) d(210)
+	  2 d(206) a(14,441) d(193) a(374,210) a(213,357) d(213)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) r(113,303) a(214,139)
+	/home/ctimperl/benchmarks/000409/preprocessed.c  d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) fails to compile
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(147,444)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(386,432)
+	/home/ctimperl/benchmarks/000412/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) d(369) d(472) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) d(369) d(472)
+	/home/ctimperl/benchmarks/000413/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) a(447,384) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) a(447,384)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) a(373,412)
+	  0 d(206) a(14,441) d(193) a(374,210) r(467,274) r(148,221)
+search: generation 8 (sizeof one variant = 0.126174 MB)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(371,13) d(115) r(441,113)
+	/home/ctimperl/benchmarks/000417/preprocessed.c  r(277,301) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(223) fails to compile
+	  0 r(277,301) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(223)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(369)
+	/home/ctimperl/benchmarks/000419/preprocessed.c  r(277,301) r(371,13) d(115) d(470) fails to compile
+	  0 r(277,301) r(371,13) d(115) d(470)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) r(245,393)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(394)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(119) r(471,228)
+	/home/ctimperl/benchmarks/000423/preprocessed.c  d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) fails to compile
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(379) r(123,133)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) r(280,374)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(212)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) a(199,420)
+	/home/ctimperl/benchmarks/000428/preprocessed.c  r(277,301) d(189) a(435,281) d(243) a(411,226) r(152,31) r(293,2) fails to compile
+	  0 r(277,301) d(189) a(435,281) d(243) a(411,226) r(152,31) r(293,2)
+	  0 r(10,120) a(449,19) r(371,13) r(229,236) d(411) a(214,160) r(192,172)
+	/home/ctimperl/benchmarks/000430/preprocessed.c  r(277,301) r(371,13) r(229,236) d(411) a(214,160) r(303,356) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) d(411) a(214,160) r(303,356)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31) r(187,214)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(189) a(435,281) d(243) a(411,226) r(152,31) d(328)
+	  0 r(10,120) a(449,19) d(176) d(226) a(178,183) a(147,444) r(467,441)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(147,444) d(168)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31) a(22,381)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(214) r(377,427)
+	/home/ctimperl/benchmarks/000437/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) r(412,445) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) r(412,445)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) a(213,171)
+	  0 a(422,367) d(455) r(213,462) d(301) r(409,197)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) d(455) r(213,462) d(301) a(300,286)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) d(275)
+	/home/ctimperl/benchmarks/000442/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(347) r(338,172) d(11) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(347) r(338,172) d(11)
+	/home/ctimperl/benchmarks/000443/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(130) d(388) a(181,448) a(254,323) r(1,274) r(171,188) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(130) d(388) a(181,448) a(254,323) r(1,274) r(171,188)
+	/home/ctimperl/benchmarks/000444/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) a(380,197) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) a(380,197)
+	/home/ctimperl/benchmarks/000445/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) d(370) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) d(370)
+	/home/ctimperl/benchmarks/000446/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(457) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(457)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) d(130) d(388) a(181,448) a(254,323) r(1,274) d(214)
+	/home/ctimperl/benchmarks/000448/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) d(154) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) d(154)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(386,432) r(212,275)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) d(210) a(334,384)
+	/home/ctimperl/benchmarks/000451/preprocessed.c  r(356,351) a(369,380) a(359,301) d(226) a(178,183) a(147,444) r(334,393) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) d(226) a(178,183) a(147,444) r(334,393)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349)
+	/home/ctimperl/benchmarks/000453/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) d(210) d(178) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) d(210) d(178)
+	  0 r(10,120) a(449,19) d(189) a(435,281) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(251,228)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) d(243) a(411,226) d(210) d(297)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) d(210) r(326,415)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) a(352,455)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) d(419) d(290)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) a(245,52)
+	/home/ctimperl/benchmarks/000460/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(390) d(444) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(390) d(444)
+	/home/ctimperl/benchmarks/000461/preprocessed.c  r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357) a(133,228) fails to compile
+	  0 r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357) a(133,228)
+	  0 r(177,441) r(344,242) r(291,338) d(167) d(441) d(347) r(338,172) a(473,453)
+	/home/ctimperl/benchmarks/000463/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) d(183) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) d(183)
+	  0 r(177,441) r(344,242) d(430)
+	/home/ctimperl/benchmarks/000465/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(428)
+	  0 r(369,402) d(213) r(340,338) d(335) a(443,330) a(443,197) a(177,139)
+	  0 d(206) a(14,441) d(193) r(291,338) d(167) a(127,109) a(2,358) d(379) d(221)
+	  0 r(177,441) r(173,146) r(195,165) r(112,228) r(233,226) d(453)
+	  0 d(206) a(14,441) d(193) r(112,228) r(233,226) a(208,168)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) d(3)
+	/home/ctimperl/benchmarks/000472/preprocessed.c  r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) a(325,335) fails to compile
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) a(325,335)
+	/home/ctimperl/benchmarks/000473/preprocessed.c  r(277,301) r(371,13) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(331,228) fails to compile
+	  0 r(277,301) r(371,13) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(331,228)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) a(212,181)
+	/home/ctimperl/benchmarks/000475/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) d(419) d(335)
+	/home/ctimperl/benchmarks/000477/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367) d(221) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367) d(221)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) r(257,441) r(438,228) a(373,412) a(442,294)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) a(411,475)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) d(228)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) a(373,412) r(152,274)
+search: generation 9 (sizeof one variant = 0.125573 MB)
+	  0 d(206) a(14,441) d(193) r(291,338) d(243) a(411,226) r(152,31) a(22,381) r(218,303)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(167) a(127,109) a(2,358) d(379) d(221) d(116)
+	  0 d(206) a(14,441) d(193) r(291,338) d(167) a(127,109) a(2,358) d(379) d(221) r(378,19)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31) a(22,381) r(435,370)
+	/home/ctimperl/benchmarks/000486/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) a(213,175) r(193,188) a(440,113) d(367) d(221) d(415) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) a(213,175) r(193,188) a(440,113) d(367) d(221) d(415)
+	/home/ctimperl/benchmarks/000487/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) d(130) d(388) r(374,1) d(277) r(194,206) d(210) d(178) d(216) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) d(130) d(388) r(374,1) d(277) r(194,206) d(210) d(178) d(216)
+	/home/ctimperl/benchmarks/000488/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) d(210) d(178) d(167) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) r(374,1) d(277) r(194,206) d(210) d(178) d(167)
+	/home/ctimperl/benchmarks/000489/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367) d(221) r(130,45) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367) d(221) r(130,45)
+	  0 a(422,367) r(160,413) a(443,136) d(457) r(460,273)
+	/home/ctimperl/benchmarks/000491/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(370) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(370)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(130)
+	/home/ctimperl/benchmarks/000493/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(457) d(252) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(457) d(252)
+	/home/ctimperl/benchmarks/000494/preprocessed.c  r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) fails to compile
+	  0 r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446)
+	  0 d(206) a(385,374) a(449,19) d(176) d(226) a(178,183) a(147,444) r(467,441) r(123,272)
+	  0 r(10,120) a(449,19) d(176) d(226) a(178,183) a(147,444) r(467,441) d(400)
+	/home/ctimperl/benchmarks/000496/preprocessed.c  d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) d(200) fails to compile
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) d(200)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) a(212,181) r(250,192)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) a(199,420) a(464,281)
+	  0 d(206) a(14,441) d(193) r(291,338) d(167) a(127,109) a(2,358) d(379) d(221) d(183)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) d(455) r(213,462) d(301) a(300,286) r(204,41)
+	  0 r(10,120) a(449,19) d(189) a(435,281) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(251,228) a(111,139)
+	/home/ctimperl/benchmarks/000502/preprocessed.c  r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) a(325,335) d(119) fails to compile
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) a(325,335) d(119)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(212) d(273)
+	/home/ctimperl/benchmarks/000504/preprocessed.c  d(206) a(14,441) d(193) r(291,338) d(167) a(127,109) a(2,358) d(379) d(221) a(327,346) fails to compile
+	  0 d(206) a(14,441) d(193) r(291,338) d(167) a(127,109) a(2,358) d(379) d(221) a(327,346)
+	/home/ctimperl/benchmarks/000505/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273) a(120,341) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273) a(120,341)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(119) r(471,228) d(118)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) a(352,455) a(255,252)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(231,227) a(213,358) d(394) a(324,257)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(394) d(388)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) a(352,455) d(122)
+	  0 a(422,367) r(160,413) a(443,136) a(386,432) r(212,275) d(422)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) d(249) d(189) a(435,281) d(243) a(411,226) r(152,31) d(328) d(183)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(189) a(435,281) d(243) a(411,226) r(152,31) d(328) r(174,213)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(386,432) r(212,275) a(253,445)
+	  0 a(422,367) r(160,413) a(443,136) a(127,109) a(2,358) d(379) d(228) a(409,396)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) d(249) d(176) d(226) a(178,183) a(214,420) d(275) d(198)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) d(275) r(229,21)
+	/home/ctimperl/benchmarks/000518/preprocessed.c  r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) d(228) r(382,29) fails to compile
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) d(228) r(382,29)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) a(245,52) d(392)
+	/home/ctimperl/benchmarks/000520/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291) d(202) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291) d(202)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31) r(192,172) a(400,374)
+	  0 r(10,120) a(449,19) r(371,13) r(229,236) d(411) a(214,160) r(187,214) d(174)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31) r(187,214) r(463,303)
+	  0 r(10,120) a(449,19) r(371,13) r(229,236) d(411) a(214,160) r(192,172) d(23)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(189) a(435,281) d(243) a(411,226) r(152,31) d(328) a(23,447)
+	  0 a(422,367) d(455) r(213,462) d(301) r(409,197) d(214)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) r(344,242) d(430) d(164)
+	/home/ctimperl/benchmarks/000528/preprocessed.c  r(177,441) d(167) a(127,109) a(2,358) r(280,374) r(213,167) fails to compile
+	  0 r(177,441) d(167) a(127,109) a(2,358) r(280,374) r(213,167)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) r(280,374) d(414)
+	  0 r(177,441) r(344,242) d(430) r(214,52)
+	/home/ctimperl/benchmarks/000531/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(455) r(213,462) d(301) r(409,197) d(2) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(455) r(213,462) d(301) r(409,197) d(2)
+	/home/ctimperl/benchmarks/000532/preprocessed.c  a(422,367) d(130) d(388) a(181,448) a(254,323) r(1,274) d(154) r(19,39) fails to compile
+	  0 a(422,367) d(130) d(388) a(181,448) a(254,323) r(1,274) d(154) r(19,39)
+	/home/ctimperl/benchmarks/000533/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) d(154) r(119,132) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(130) d(388) a(181,448) a(254,323) r(1,274) d(154) r(119,132)
+	  0 a(422,367) d(455) r(213,462) d(301) r(409,197) a(219,139)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(394) a(210,182)
+	/home/ctimperl/benchmarks/000536/preprocessed.c  r(277,301) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(223) a(118,434) fails to compile
+	  0 r(277,301) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(223) a(118,434)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) r(245,393) d(249) d(176) d(226) a(178,183) a(214,420) a(213,171) d(369)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(160,413) a(443,136) d(387)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) r(245,393) d(394)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) a(213,171) d(471)
+	/home/ctimperl/benchmarks/000540/preprocessed.c  r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357) a(133,228) r(257,337) fails to compile
+	  0 r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357) a(133,228) r(257,337)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) a(127,109) a(2,358) d(379) r(257,441) r(438,228) a(373,412) a(442,294) r(158,228)
+search: generation 10 (sizeof one variant = 0.124966 MB)
+	  0 r(10,120) d(473)
+	/home/ctimperl/benchmarks/000543/preprocessed.c  a(422,367) d(455) r(213,462) d(301) r(409,197) a(219,139) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) a(292,19) fails to compile
+	  0 a(422,367) d(455) r(213,462) d(301) r(409,197) a(219,139) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) a(292,19)
+	/home/ctimperl/benchmarks/000544/preprocessed.c  r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) r(121,355) fails to compile
+	  0 r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) r(121,355)
+	  0 a(422,367) d(455) r(213,462) d(301) r(409,197) a(219,139) a(459,1)
+	  0 r(177,441) r(173,146) r(195,165) r(291,338) d(167) d(249) d(176) d(226) a(178,183) a(214,420) d(275) d(198) d(335)
+	/home/ctimperl/benchmarks/000547/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(457) d(252) d(210) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(457) d(252) d(210)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(394) d(388) d(280)
+	  0 r(177,441) r(344,242) d(430) r(214,52) a(415,415)
+	/home/ctimperl/benchmarks/000550/preprocessed.c  r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367) d(221) r(130,45) r(278,254) fails to compile
+	  0 r(14,48) d(360) a(429,275) d(142) d(377) d(204) r(402,286) r(359,272) a(213,175) r(193,188) a(440,113) d(367) d(221) r(130,45) r(278,254)
+	/home/ctimperl/benchmarks/000551/preprocessed.c  r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357) a(133,228) r(257,337) a(406,431) fails to compile
+	  0 r(356,351) a(369,380) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) r(19,357) a(133,228) r(257,337) a(406,431)
+	  0 a(422,367) d(455) r(213,462) d(301) r(409,197) d(214) d(213) a(277,210) d(331) r(415,430) r(214,165) a(245,52) d(392) a(210,455)
+	  0 a(422,367) a(212,168)
+	  0 a(422,367) d(455) r(213,462) d(301) r(409,197) d(214) a(226,37)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) a(245,52) d(392) d(391)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(231,227) a(213,358) d(394) a(324,257) r(458,323)
+	/home/ctimperl/benchmarks/000557/preprocessed.c  r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) d(276) fails to compile
+	  0 r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) d(276)
+	/home/ctimperl/benchmarks/000558/preprocessed.c  r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) a(325,335) d(119) r(188,447) fails to compile
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) a(325,335) d(119) r(188,447)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31) r(187,214) r(463,303) a(405,139)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(212) d(273) d(275) r(229,21) r(146,136)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) r(410,379)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) r(231,227) a(213,358) d(212) d(273) a(136,120)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) d(275) r(229,21) d(287)
+	  0 a(422,367) r(160,413) a(443,136) a(386,432) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(370) a(158,390)
+	/home/ctimperl/benchmarks/000565/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(130) a(475,31) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(130) a(475,31)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(130) a(213,194)
+	/home/ctimperl/benchmarks/000567/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(370) a(362,351) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) a(178,183) a(386,432) d(249) d(176) d(226) a(178,183) a(147,444) a(384,349) d(370) a(362,351)
+	  0 a(422,367) r(215,289) d(213) r(340,338) r(217,385) d(130) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(119) r(471,228) d(118) r(452,457)
+	  0 r(369,402) d(149) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) d(275) r(229,21) d(212)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) a(214,420) d(275) r(229,21) d(197)
+	/home/ctimperl/benchmarks/000570/preprocessed.c  r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(119) r(471,228) d(118) a(214,167) fails to compile
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(119) r(471,228) d(118) a(214,167)
+	  0 r(10,120) a(449,19) d(189) a(435,281) d(243) a(411,226) r(152,31) a(22,381) r(435,370) a(215,113)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(433,173) d(154) r(175,120) a(352,455) a(255,252) r(331,185)
+	  0 r(369,402) d(149) r(215,289) d(213) r(340,338) r(217,385) d(130) r(173,146) r(195,165) r(291,338) a(216,439) d(212) d(134) r(257,441) r(438,228) d(119) r(471,228) d(118) d(255)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(231,227) a(213,358) d(394) a(324,257) d(380)
+	/home/ctimperl/benchmarks/000575/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(455) r(213,462) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291) d(202) d(447) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(455) r(213,462) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291) d(202) d(447)
+	/home/ctimperl/benchmarks/000576/preprocessed.c  r(277,301) d(301) r(409,197) d(2) d(111) fails to compile
+	  0 r(277,301) d(301) r(409,197) d(2) d(111)
+	/home/ctimperl/benchmarks/000577/preprocessed.c  r(356,351) a(369,380) a(359,301) a(362,289) d(455) r(213,462) d(301) r(409,197) d(2) d(353) fails to compile
+	  0 r(356,351) a(369,380) a(359,301) a(362,289) d(455) r(213,462) d(301) r(409,197) d(2) d(353)
+	/home/ctimperl/benchmarks/000578/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291) d(202) d(132) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(152,206) a(251,197) r(195,165) r(291,338) d(167) d(441) d(347) r(338,172) a(353,291) d(202) d(132)
+	  0 d(206) a(385,374) r(233,9) d(358) d(382) r(251,228) a(111,139) r(275,355)
+	  0 r(10,120) a(449,19) d(189) a(435,281) a(449,19) d(189) a(368,31) d(451) r(214,160) r(374,1) r(160,413) a(443,136) d(387) a(430,436)
+	  0 d(206) a(385,374) d(451) r(214,160) r(374,1) r(160,413) a(443,136) d(387) d(435)
+	  0 r(10,120) a(449,19) d(189) a(435,281) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) r(251,228) a(111,139) r(244,332)
+	  0 r(10,120) a(449,19) d(176) d(226) a(178,183) a(147,444) r(467,441) d(400) r(373,136)
+	/home/ctimperl/benchmarks/000584/preprocessed.c  r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) a(459,45) fails to compile
+	  0 r(10,120) d(451) r(214,160) r(374,1) r(281,471) d(194) r(197,207) a(244,361) a(379,416) d(139) a(338,446) a(459,45)
+	  0 d(206) a(14,441) d(193) r(291,338) d(109)
+	/home/ctimperl/benchmarks/000586/preprocessed.c  r(10,120) a(449,19) r(371,13) r(229,236) d(411) a(214,160) r(192,172) d(23) d(167) a(127,109) a(2,358) d(379) d(221) r(378,19) a(247,347) fails to compile
+	  0 r(10,120) a(449,19) r(371,13) r(229,236) d(411) a(214,160) r(192,172) d(23) d(167) a(127,109) a(2,358) d(379) d(221) r(378,19) a(247,347)
+	  0 d(206) a(14,441) d(193) r(291,338) d(167) a(127,109) a(2,358) d(379) d(221) r(378,19) d(385)
+	  0 r(10,120) a(449,19) r(371,13) r(229,236) d(411) a(214,160) r(192,172) d(23) a(416,197)
+	  0 d(206) a(14,441) d(193) r(291,338) d(167) d(249) d(176) d(226) a(178,183) d(249) d(189) a(435,281) d(243) a(411,226) r(152,31) d(328) d(183) d(210)
+	  0 a(422,367) r(160,413) a(443,136) a(127,109) a(2,358) d(379) d(221) r(378,19) r(396,28)
+	  0 d(206) a(14,441) d(193) r(291,338) d(167) a(127,109) a(2,358) d(379) d(221) r(378,19) a(142,13)
+	  0 a(422,367) r(160,413) a(443,136) d(249) d(176) d(226) a(178,183) d(249) d(189) a(435,281) d(243) a(411,226) r(152,31) d(328) d(183) a(255,238)
+	  0 r(10,120) a(449,19) a(449,19) d(176) d(226) a(178,183) a(147,444) r(467,441) r(123,272) a(25,210)
+	  0 d(206) a(385,374) r(371,13) r(229,236) d(411) a(214,160) r(192,172) d(23) d(231)
+	  0 r(10,120) a(449,19) r(371,13) r(229,236) d(411) a(214,160) r(192,172) d(23) r(214,226)
+	  0 d(206) a(385,374) a(449,19) d(176) d(226) a(178,183) a(147,444) r(467,441) r(123,272) d(214)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) r(245,393) d(249) d(176) d(226) a(178,183) a(214,420) a(213,171) d(369) d(397)
+	  0 a(422,367) d(213) a(277,210) d(331) r(415,430) r(214,165) a(245,52) d(392) a(193,173)
+	/home/ctimperl/benchmarks/000597/preprocessed.c  r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) a(212,181) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273) a(120,341) a(210,175) fails to compile
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) a(212,181) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273) a(120,341) a(210,175)
+	/home/ctimperl/benchmarks/000598/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(250,192) r(110,233) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(250,192) r(110,233)
+	  0 r(177,441) r(173,146) r(195,165) d(21) r(412,409) a(449,19) d(189) a(368,31) r(233,9) d(358) d(382) a(212,181) r(250,192) r(405,19)
+	/home/ctimperl/benchmarks/000600/preprocessed.c  r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273) a(120,341) a(216,286) fails to compile
+	  0 r(277,301) r(371,13) r(229,236) r(402,286) r(359,272) a(213,175) r(193,188) a(149,413) r(382,362) r(289,273) a(120,341) a(216,286)
+search: genetic algorithm ends
+
+No repair found.
+Rep: saving test cache
+Closing log file...
+
+Variant Test Case Queries: 3840
+"Test Suite Evaluations": 640
+
+Compile Failures: 210
+Wall-Clock Seconds Elapsed: 1796.9
+  Activity Name                     Count Seconds = Percent of Total Time
+  rebuild files                      3034  10.474 = 0.591083%
+  compile                             601  34.730 = 1.95989%
+  test                               2346 1726.853 = 97.449%
+  TOTAL                                   1772.058 = 98.6171% (avg CPU usage)
