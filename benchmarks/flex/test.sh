@@ -31,9 +31,11 @@ exec_pos()
 exec_neg()
 {
   if [ $cov = 0 ]; then
-    timeout 1 $EXECUTABLE < $DIR/test/n1 && [ ! -f core.* ] &> /dev/null
+    timeout 1 $EXECUTABLE < $DIR/test/n1 &> /dev/null \
+      && [ ! -f core* ] &> /dev/null
   else
-    timeout 10 $EXECUTABLE < $DIR/test/n1 && [ ! -f core.* ] &> /dev/null
+    timeout 10 $EXECUTABLE < $DIR/test/n1 &> /dev/null \
+      && [ ! -f core* ] &> /dev/null
   fi
   return $?
 }
@@ -48,7 +50,7 @@ case $TEST_ID in
   p3) exec_pos;;
   p4) exec_pos;;
   p5) exec_pos;;
-  n1) rm -rf core.*; exec_neg;;
+  n1) rm -rf core*; exec_neg;;
 esac
 
 # Find the result of the test case execution.
