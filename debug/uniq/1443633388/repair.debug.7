@@ -1,0 +1,1510 @@
+GenProg Version: 1929+ default (Mercurial)
+M src/search.ml
+
+--allow-coverage-fail false
+--appp 0.33333
+--asm-code-only false
+--best-edit-rule "1 * fault_loc_weight ; 1 * max_test_fail_prob ; -1 * num_tests"
+--best-test-rule "1 * test_fail_prob ; 1 * test_fail_count ; -1 * test_pass_count"
+--clone-file ""
+--compiler "gcc"
+--compiler-command ""
+--compiler-opts ""
+--continue true
+--coverage-info ""
+--coverage-per-test false
+--crossover "one"
+--crossp 0.5
+--delp 0.33333
+--describe-machine false
+--diversity-selection 0
+--edit-script false
+--elf-risc false
+--exclude-edits ""
+--exp-diff false
+--fault-file ""
+--fault-path "coverage.path.neg"
+--fault-scheme "path"
+--fitness-in-parallel 1
+--fix-file ""
+--fix-oracle ""
+--fix-path "coverage.path.pos"
+--fix-scheme "default"
+--flatten-path ""
+--format "txt"
+--gen-per-exchange 1
+--generations 10
+--geomp 0.5
+--gui false
+--hostname "127.0.0.1"
+--ignore-dead-code false
+--ignore-equiv-appends false
+--ignore-standard-headers false
+--ignore-string-equiv-fixes false
+--ignore-untyped-returns false
+--incoming-pop ""
+--keep-source false
+--label-repair false
+--lase-deallocation-api "free"
+--lase-paired-functions ""
+--lasep 0
+--log-file "results/uniq/1443633388/7.log"
+--max-evals 0
+--minimization false
+--mt-cov false
+--multiopt-minimize false
+--multiopt-no-inf false
+--neg-tests 1
+--neg-weight 1
+--negative-test-weight 2
+--nested false
+--neutral-walk-max-size 0
+--neutral-walk-weight ""
+--nht-id "global"
+--nht-port 51000
+--nht-server ""
+--no-rep-cache false
+--no-test-cache false
+--num-comps 2
+--num-objectives 2
+--oracle-genome ""
+--pd-mutp 0.25
+--popsize 40
+--port 60000
+--pos-tests 5
+--pos-weight 0.1
+--prefix "benchmarks/uniq/"
+--preprocessor ""
+--print-incremental-evals false
+--print-source-name false
+--program "preprocessed.c"
+--promut 1
+--quiet false
+--regen-paths false
+--rep ""
+--rep-cache ""
+--repp 0.33333
+--samp-strat "variant"
+--sample 1
+--sample-runs 100
+--sanity "default"
+--search "genetic"
+--seed 7
+--semantic-check "exact"
+--single-fitness false
+--skip-failed-sanity-tests false
+--skip-tests ""
+--split-search 0
+--sport 65000
+--subatom-constp 0.5
+--subatom-mutp 0
+--swap-bug false
+--swapp 0
+--template-cache ""
+--templates ""
+--test-command ""
+--test-script "benchmarks/uniq/test.sh"
+--tournament-size 2
+--uniq false
+--use-partition -1
+--valgrind false
+--variants-exchanged 50
+--version false
+Opening log file...
+Destroying existing log file...
+- no existing log file to destroy.
+cilRep: preprocessing IO function signatures: /tmp/tmp95e2bd.c /tmp/tmp47dc11.c
+cilRep: done preprocessing IO function signatures
+faultLocRep: compute_localization: fault_scheme: path, fix_scheme: default
+WARNING: grabbing coverage from existing path files, so SFL will not work.
+cachingRep: preprocessed.cache: loaded
+faultlocRep: preprocessed.cache: loaded
+cilRep: preprocessed.cache: loaded
+cilRep: preprocessed.cache: saved
+cachingRep: preprocessed.cache: saved
+faultlocRep: preprocessed.cache: saved
+cilrep done serialize
+Computing enclosure information...
+cilRep: stmt_count = 129
+cilRep: stmts in weighted_path = 70
+cilRep: total weight = 1.4
+cilRep: stmts in weighted_path with weight >= 1.0 = 0
+cilRep: preprocessed.c (code bank/base file; atoms [1,146])
+cilRep: 1 file(s) total in representation
+search: genetic algorithm begins (|original| = 0.0549154 MB)
+search: initial population (sizeof one variant = 0.0574074 MB)
+	  0 r(69,73)
+	 15 r(67,44)
+
+Repair Found: r(67,44)
+Repair Name: r(67,44)
+Test Cases Skipped: ""
+Current Time: 1443647266.090372
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0374002 MB
+	 15 r(74,50)
+
+Repair Found: r(74,50)
+Repair Name: r(74,50)
+Test Cases Skipped: ""
+Current Time: 1443647266.107449
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373373 MB
+	 15 r(73,105)
+
+Repair Found: r(73,105)
+Repair Name: r(73,105)
+Test Cases Skipped: ""
+Current Time: 1443647266.122477
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353346 MB
+	  5 a(65,75)
+	  0 r(69,74)
+	  0 r(65,40)
+	  3 d(66)
+	  5 d(5)
+	  0 r(64,104)
+	  0 r(64,38)
+	  5 a(65,64)
+	  5 r(35,46)
+	  5 r(71,90)
+	  5 d(5)
+	 15 r(72,74)
+
+Repair Found: r(72,74)
+Repair Name: r(72,74)
+Test Cases Skipped: ""
+Current Time: 1443647270.307724
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353508 MB
+	 15 r(35,104)
+
+Repair Found: r(35,104)
+Repair Name: r(35,104)
+Test Cases Skipped: ""
+Current Time: 1443647270.467199
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353365 MB
+	  0 r(64,105)
+	 15 r(74,34)
+
+Repair Found: r(74,34)
+Repair Name: r(74,34)
+Test Cases Skipped: ""
+Current Time: 1443647270.491093
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353251 MB
+	 15 r(35,37)
+
+Repair Found: r(35,37)
+Repair Name: r(35,37)
+Test Cases Skipped: ""
+Current Time: 1443647270.667582
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353327 MB
+	  5 r(67,57)
+	  0 d(65)
+	  5 r(35,46)
+	 15 d(72)
+
+Repair Found: d(72)
+Repair Name: d(72)
+Test Cases Skipped: ""
+Current Time: 1443647270.713205
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353298 MB
+	 15 r(74,44)
+
+Repair Found: r(74,44)
+Repair Name: r(74,44)
+Test Cases Skipped: ""
+Current Time: 1443647270.727936
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373354 MB
+	  0 r(69,57)
+	  0 r(6,63)
+	 15 a(72,56)
+
+Repair Found: a(72,56)
+Repair Name: a(72,56)
+Test Cases Skipped: ""
+Current Time: 1443647270.760726
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373726 MB
+	  5 a(69,67)
+	  5 a(29,41)
+	  5 a(71,72)
+	  3 r(66,105)
+	 15 r(73,57)
+
+Repair Found: r(73,57)
+Repair Name: r(73,57)
+Test Cases Skipped: ""
+Current Time: 1443647271.521351
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353336 MB
+	  5 r(5,62)
+	  5 a(35,49)
+	  5 a(29,38)
+	 15 a(71,104)
+
+Repair Found: a(71,104)
+Repair Name: a(71,104)
+Test Cases Skipped: ""
+Current Time: 1443647272.382368
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353832 MB
+	  0 d(6)
+	  0 r(64,50)
+	  5 original
+search: generation 1 (sizeof one variant = 0.0825262 MB)
+	  0 a(29,38) r(69,88)
+	  0 d(66) d(64)
+	  0 r(64,50) a(35,53)
+	  5 r(35,46) r(67,66)
+	 15 r(64,38) r(35,50)
+
+Repair Found: r(64,38) r(35,50)
+Repair Name: r(64,38) r(35,50)
+Test Cases Skipped: ""
+Current Time: 1443647285.750229
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0351152 MB
+	  0 r(69,57) r(34,40)
+	  0 r(64,38) a(34,90)
+	  0 r(69,57) a(65,71)
+	  0 r(65,40) a(6,53)
+	  0 r(69,74) d(74)
+	  0 d(66) d(69)
+	  0 r(69,74) a(35,29)
+	  3 d(66) r(5,54)
+	  0 r(69,74) a(6,105)
+	  0 r(64,105) r(29,71)
+	  0 d(6) r(71,37)
+	  0 a(71,72) r(65,52)
+	 15 d(72) r(34,47)
+
+Repair Found: d(72) r(34,47)
+Repair Name: d(72) r(34,47)
+Test Cases Skipped: ""
+Current Time: 1443647306.103536
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0377522 MB
+	  5 r(35,46) a(29,41)
+	 15 r(64,38) r(5,44)
+
+Repair Found: r(64,38) r(5,44)
+Repair Name: r(64,38) r(5,44)
+Test Cases Skipped: ""
+Current Time: 1443647306.480415
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0343723 MB
+	 15 r(35,46) a(65,44)
+
+Repair Found: r(35,46) a(65,44)
+Repair Name: r(35,46) a(65,44)
+Test Cases Skipped: ""
+Current Time: 1443647306.643104
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373926 MB
+	 15 r(64,38) r(35,36)
+
+Repair Found: r(64,38) r(35,36)
+Repair Name: r(64,38) r(35,36)
+Test Cases Skipped: ""
+Current Time: 1443647306.807353
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0351467 MB
+	  5 r(6,63) r(5,45)
+	  0 r(64,38) r(6,51)
+	  0 r(6,63) d(29)
+	  0 r(64,38) d(5)
+	  0 r(64,50) a(6,55)
+	  5 r(67,57) a(64,72)
+	  0 r(64,105) a(34,55)
+	 15 r(73,105) d(72)
+
+Repair Found: r(73,105) d(72)
+Repair Name: r(73,105) d(72)
+Test Cases Skipped: ""
+Current Time: 1443647341.343581
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.037324 MB
+	  0 r(64,105) d(34)
+	  0 r(73,105) r(6,34)
+	  0 r(64,50) d(29)
+	 15 r(69,57) d(35)
+
+Repair Found: r(69,57) d(35)
+Repair Name: r(69,57) d(35)
+Test Cases Skipped: ""
+Current Time: 1443647352.565563
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0352736 MB
+	 15 a(29,41) r(74,63)
+
+Repair Found: a(29,41) r(74,63)
+Repair Name: a(29,41) r(74,63)
+Test Cases Skipped: ""
+Current Time: 1443647352.681505
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373878 MB
+	  5 a(71,72) d(71)
+	 15 r(5,62) a(34,104)
+
+Repair Found: r(5,62) a(34,104)
+Repair Name: r(5,62) a(34,104)
+Test Cases Skipped: ""
+Current Time: 1443647352.800015
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0346422 MB
+	 15 r(64,105) a(34,42)
+
+Repair Found: r(64,105) a(34,42)
+Repair Name: r(64,105) a(34,42)
+Test Cases Skipped: ""
+Current Time: 1443647352.907831
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0372734 MB
+	  5 r(5,62) d(71)
+	 15 r(64,105) r(35,88)
+
+Repair Found: r(64,105) r(35,88)
+Repair Name: r(64,105) r(35,88)
+Test Cases Skipped: ""
+Current Time: 1443647353.021708
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0351162 MB
+	  0 r(69,57) d(6)
+	  0 r(6,63) d(73)
+	 15 r(72,74) d(34)
+
+Repair Found: r(72,74) d(34)
+Repair Name: r(72,74) d(34)
+Test Cases Skipped: ""
+Current Time: 1443647354.248459
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353661 MB
+	  5 a(29,38) a(71,52)
+	  0 r(64,104) r(34,67)
+	 15 r(66,105) d(35)
+
+Repair Found: r(66,105) d(35)
+Repair Name: r(66,105) d(35)
+Test Cases Skipped: ""
+Current Time: 1443647354.626643
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.035285 MB
+	 15 a(71,72) d(73)
+
+Repair Found: a(71,72) d(73)
+Repair Name: a(71,72) d(73)
+Test Cases Skipped: ""
+Current Time: 1443647354.791872
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373716 MB
+	 15 a(29,38) d(35)
+
+Repair Found: a(29,38) d(35)
+Repair Name: a(29,38) d(35)
+Test Cases Skipped: ""
+Current Time: 1443647354.807521
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353518 MB
+	  5 a(71,72) a(35,71)
+	 15 a(29,38) r(74,67)
+
+Repair Found: a(29,38) r(74,67)
+Repair Name: a(29,38) r(74,67)
+Test Cases Skipped: ""
+Current Time: 1443647355.318006
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353556 MB
+	  0 r(69,74) d(67)
+	  3 d(66) a(71,74)
+	  0 a(65,75) d(64)
+	  5 r(67,57) a(74,52)
+	  5 a(65,75) r(71,62)
+	  5 r(67,57) a(71,69)
+search: generation 2 (sizeof one variant = 0.0845566 MB)
+	  0 r(64,105) r(29,71) a(35,41)
+	  0 r(64,105) a(34,55) d(34)
+	  0 r(69,74) r(34,40) r(67,57)
+	  0 r(69,57) d(67) d(5)
+	  0 r(69,74) d(67) a(5,70)
+	 15 r(69,57) r(34,40) d(35)
+
+Repair Found: r(69,57) r(34,40) d(35)
+Repair Name: r(69,57) r(34,40) d(35)
+Test Cases Skipped: ""
+Current Time: 1443647360.072590
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373392 MB
+	  0 r(69,74) d(74) r(29,38)
+	  0 r(64,38) r(6,51) a(34,58)
+	 15 r(35,46) a(6,53) r(6,36)
+
+Repair Found: r(35,46) a(6,53) r(6,36)
+Repair Name: r(35,46) a(6,53) r(6,36)
+Test Cases Skipped: ""
+Current Time: 1443647372.546441
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0375624 MB
+	 15 r(65,40) a(29,41) a(34,54)
+
+Repair Found: r(65,40) a(29,41) a(34,54)
+Repair Name: r(65,40) a(29,41) a(34,54)
+Test Cases Skipped: ""
+Current Time: 1443647372.664075
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0395222 MB
+	  5 r(35,46) a(29,41) r(34,62)
+	  0 r(65,40) a(6,53) a(35,41)
+	  0 r(69,74) d(29) a(74,104)
+	  0 r(64,50) d(74) r(29,39)
+	  0 r(69,74) d(74) a(73,73)
+	  0 r(64,50) d(29) r(5,53)
+	  5 r(67,57) a(64,72) a(65,71) a(73,57)
+	  0 r(69,57) d(34)
+	  0 r(67,57) a(64,72) d(65)
+	  0 r(69,57) a(65,71) r(72,40)
+	  0 a(65,75) d(64) a(5,39)
+	  5 a(71,72) d(71) r(34,45)
+	 15 r(67,57) a(64,72) r(73,49)
+
+Repair Found: r(67,57) a(64,72) r(73,49)
+Repair Name: r(67,57) a(64,72) r(73,49)
+Test Cases Skipped: ""
+Current Time: 1443647421.868447
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0374012 MB
+	  0 r(64,50) d(29) r(5,52)
+	  3 r(5,62) d(71) d(74) a(67,64)
+	  0 r(69,74) d(73)
+	  5 r(5,62) d(71) a(35,62)
+	  0 r(69,74) d(74) r(29,88)
+	  0 r(73,105) r(6,34) d(74) r(71,38)
+	  0 r(69,74) d(73)
+	  0 r(73,105) r(6,34) a(74,67)
+	 15 r(69,74) d(74) a(5,36)
+
+Repair Found: r(69,74) d(74) a(5,36)
+Repair Name: r(69,74) d(74) a(5,36)
+Test Cases Skipped: ""
+Current Time: 1443647441.055281
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353584 MB
+	  0 a(71,72) r(65,52) a(69,63)
+	  0 r(64,50) d(29) d(5)
+	  0 r(64,38) r(6,51) d(34)
+	  0 r(69,74) d(74) a(65,67)
+	  0 r(67,57) a(64,72) d(6)
+	  0 r(64,50) a(35,53) d(29)
+	  0 r(69,57) d(6) r(67,63)
+	  2 r(35,46) a(29,41) r(66,90)
+	  0 r(64,105) r(29,71) d(35)
+	  0 r(69,57) a(65,71) r(6,105)
+	  0 r(64,105) r(29,71) d(35)
+	  0 r(69,57) a(65,71) d(72)
+	 15 r(5,62) a(34,104) a(29,54)
+
+Repair Found: r(5,62) a(34,104) a(29,54)
+Repair Name: r(5,62) a(34,104) a(29,54)
+Test Cases Skipped: ""
+Current Time: 1443647481.926932
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0347195 MB
+	  0 r(6,63) r(5,45) r(72,71)
+	 15 r(5,62) a(34,104) d(72)
+
+Repair Found: r(5,62) a(34,104) d(72)
+Repair Name: r(5,62) a(34,104) d(72)
+Test Cases Skipped: ""
+Current Time: 1443647482.048528
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0346346 MB
+	  5 r(6,63) r(5,45) r(34,54)
+	  5 r(67,57) a(64,72) a(35,41)
+	 15 r(69,74) a(6,105) d(35)
+
+Repair Found: r(69,74) a(6,105) d(35)
+Repair Name: r(69,74) a(6,105) d(35)
+Test Cases Skipped: ""
+Current Time: 1443647482.627698
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353622 MB
+	  0 r(65,40) a(71,52) a(69,91)
+	  5 a(29,38) a(6,53) d(71)
+	  0 r(65,40) a(6,53) d(34)
+	 15 a(29,38) a(71,52) a(71,104)
+
+Repair Found: a(29,38) a(71,52) a(71,104)
+Repair Name: a(29,38) a(71,52) a(71,104)
+Test Cases Skipped: ""
+Current Time: 1443647494.092050
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0374937 MB
+	  0 r(69,57) d(6) a(65,71) a(29,52)
+	 15 r(69,57) r(29,44)
+
+Repair Found: r(69,57) r(29,44)
+Repair Name: r(69,57) r(29,44)
+Test Cases Skipped: ""
+Current Time: 1443647495.119607
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0349665 MB
+	  0 r(69,57) d(6) a(72,44)
+	  0 r(69,57) a(65,71) r(34,46)
+	  0 r(64,38) a(6,105) r(29,36)
+	  0 r(69,74) r(6,51) r(5,45)
+	  0 r(64,38) r(6,51) d(34)
+	  1 r(69,74) a(6,105) a(67,69)
+search: generation 3 (sizeof one variant = 0.0820627 MB)
+	  0 r(69,74) r(6,51) r(5,45) a(74,55)
+	  0 r(67,57) a(64,72) d(6) r(65,91)
+	  0 r(69,57) a(65,71) r(72,40) d(67)
+	  0 r(6,63) r(5,45) r(72,71) r(64,40)
+	 15 r(64,50) d(74) r(29,39) r(5,54)
+
+Repair Found: r(64,50) d(74) r(29,39) r(5,54)
+Repair Name: r(64,50) d(74) r(29,39) r(5,54)
+Test Cases Skipped: ""
+Current Time: 1443647528.289198
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0346107 MB
+	  0 r(64,105) r(29,71) d(35) d(6)
+	  0 r(67,57) a(64,72) d(65) d(29)
+	  0 r(69,57) d(34) r(74,63)
+	  0 r(69,57) r(66,40)
+	  0 r(69,74) r(6,51) r(5,45) d(6) a(72,44) r(73,34)
+	 15 r(69,57) d(6) a(72,44) r(5,63)
+
+Repair Found: r(69,57) d(6) a(72,44) r(5,63)
+Repair Name: r(69,57) d(6) a(72,44) r(5,63)
+Test Cases Skipped: ""
+Current Time: 1443647542.535571
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0386515 MB
+	  0 r(69,74) r(6,51) r(5,45) r(74,88)
+	  0 r(69,57) a(65,71) r(34,46) d(65)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62)
+	  0 r(69,74) d(73) a(67,57)
+	  0 r(65,40) a(6,53) a(35,41) d(64)
+	  5 a(29,38) r(29,88) a(65,90)
+	  0 r(69,74) d(74) a(6,53) d(71) a(35,105)
+	  0 a(29,38) a(6,53) d(71) r(65,52)
+	  0 r(69,74) d(74) r(29,88) d(73)
+	 15 r(64,50) d(29) d(5) d(29) a(74,104) r(35,46)
+
+Repair Found: r(64,50) d(29) d(5) d(29) a(74,104) r(35,46)
+Repair Name: r(64,50) d(29) d(5) d(29) a(74,104) r(35,46)
+Test Cases Skipped: ""
+Current Time: 1443647580.784739
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0340605 MB
+	  0 r(69,74) r(65,72)
+	  0 r(64,50) d(29) d(5) a(35,52)
+	  0 r(69,74) d(29) a(74,104) a(73,38)
+	  0 r(6,63) r(5,45) r(72,71) a(35,46)
+	  0 r(69,74) d(73) a(65,45)
+	  0 r(69,74) d(74) r(29,88) a(5,29)
+	  0 r(69,57) d(67) d(5) a(64,104)
+	  0 r(64,50) a(35,53) d(29) r(6,39)
+	  0 r(67,57) a(64,72) d(6) d(64)
+	  0 r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67)
+	 15 r(64,38) r(35,44)
+
+Repair Found: r(64,38) r(35,44)
+Repair Name: r(64,38) r(35,44)
+Test Cases Skipped: ""
+Current Time: 1443647613.200412
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0351152 MB
+	  0 r(73,105) r(6,34) a(74,67) a(29,46)
+	  0 r(64,38) r(6,51) d(34) r(5,45)
+	  0 r(69,57) d(34) r(73,90)
+	 15 r(64,105) a(34,55) d(34) r(35,76)
+
+Repair Found: r(64,105) a(34,55) d(34) r(35,76)
+Repair Name: r(64,105) a(34,55) d(34) r(35,76)
+Test Cases Skipped: ""
+Current Time: 1443647625.431863
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0372114 MB
+	  0 r(69,57) d(34) d(72)
+	  0 r(64,105) a(34,55) d(34) a(35,105)
+	  0 a(65,75) d(64) a(5,39) d(5)
+	  0 a(65,75) d(64) a(5,39) d(34)
+	  0 r(69,74) d(29) a(74,104) d(35)
+	 15 r(69,74) r(6,51) r(5,45) r(66,37)
+
+Repair Found: r(69,74) r(6,51) r(5,45) r(66,37)
+Repair Name: r(69,74) r(6,51) r(5,45) r(66,37)
+Test Cases Skipped: ""
+Current Time: 1443647648.607756
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.03864 MB
+	 15 r(64,105) r(29,71) a(35,41) r(5,91)
+
+Repair Found: r(64,105) r(29,71) a(35,41) r(5,91)
+Repair Name: r(64,105) r(29,71) a(35,41) r(5,91)
+Test Cases Skipped: ""
+Current Time: 1443647648.731036
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0340834 MB
+	 15 a(71,72) d(71) r(34,45) r(66,70)
+
+Repair Found: a(71,72) d(71) r(34,45) r(66,70)
+Repair Name: a(71,72) d(71) r(34,45) r(66,70)
+Test Cases Skipped: ""
+Current Time: 1443647648.906466
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373545 MB
+	 15 r(64,105) r(29,71) a(35,41) r(35,50)
+
+Repair Found: r(64,105) r(29,71) a(35,41) r(35,50)
+Repair Name: r(64,105) r(29,71) a(35,41) r(35,50)
+Test Cases Skipped: ""
+Current Time: 1443647649.073501
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0348225 MB
+	  5 a(71,72) d(71) r(34,45) r(72,66)
+	  0 r(64,105) r(29,71) d(35) d(34) a(6,6)
+	  0 r(69,57) d(5)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) d(34) r(66,104)
+	  0 r(69,74) d(74) a(73,73) a(35,46)
+	 15 r(69,57) d(34) a(74,70)
+
+Repair Found: r(69,57) d(34) a(74,70)
+Repair Name: r(69,57) d(34) a(74,70)
+Test Cases Skipped: ""
+Current Time: 1443647672.647809
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353346 MB
+	  0 r(64,38) a(5,34)
+	  0 r(69,57) d(67) d(5) r(6,51) d(34) d(74)
+	  0 r(64,38) r(6,51) d(34) a(29,63)
+	  0 r(69,57) d(67) d(5) r(35,62)
+search: generation 4 (sizeof one variant = 0.0859556 MB)
+WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)	  0 r(69,57) r(66,40) r(64,74)
+	 15 a(29,38) a(6,53) d(71) r(65,52) r(5,104)
+
+Repair Found: a(29,38) a(6,53) d(71) r(65,52) r(5,104)
+Repair Name: a(29,38) a(6,53) d(71) r(65,52) r(5,104)
+Test Cases Skipped: ""
+Current Time: 1443647696.695803
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0387135 MB
+	 15 r(64,50) d(35) d(34) a(6,6) r(6,55)
+
+Repair Found: r(64,50) d(35) d(34) a(6,6) r(6,55)
+Repair Name: r(64,50) d(35) d(34) a(6,6) r(6,55)
+Test Cases Skipped: ""
+Current Time: 1443647696.805242
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0372934 MB
+	  0 r(64,105) r(29,71) d(29) d(5) a(35,52) a(35,67)
+	  0 r(64,50) d(29) d(5) a(35,52) a(35,36)
+	  0 r(64,105) r(29,71) d(35) d(34) a(6,6) r(5,105)
+	  0 r(69,74) r(6,51) r(5,45) d(64)
+	  0 r(69,74) d(74) a(6,53) d(71) a(35,105) r(74,88) r(34,53)
+	  0 r(69,74) r(6,51) r(5,45) r(74,88) d(29)
+	  0 r(69,74) d(74) a(6,53) d(71) a(35,105) d(72)
+	  0 r(64,38) r(6,51) d(5) a(64,104) r(34,36)
+	  0 r(69,57) d(67) a(34,58) a(34,62) d(64)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67)
+	  0 r(69,57) d(67) d(5) a(64,104) a(73,34)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62)
+	  0 r(69,74) d(74) r(29,88) r(72,34)
+	 15 r(67,57) a(64,72) d(65) d(29) r(5,104)
+
+Repair Found: r(67,57) a(64,72) d(65) d(29) r(5,104)
+Repair Name: r(67,57) a(64,72) d(65) d(29) r(5,104)
+Test Cases Skipped: ""
+Current Time: 1443647781.342883
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0362377 MB
+	  0 r(69,74) d(74) r(29,88) d(73) a(65,55)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64)
+	  0 r(64,38) a(74,55) d(5)
+	  0 r(69,74) r(6,51) r(5,45) a(74,55) r(34,40)
+	 15 r(64,38) a(5,34) a(34,56)
+
+Repair Found: r(64,38) a(5,34) a(34,56)
+Repair Name: r(64,38) a(5,34) a(34,56)
+Test Cases Skipped: ""
+Current Time: 1443647785.956524
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.03722 MB
+	 15 r(64,105) a(34,55) d(34) a(35,105) r(29,56)
+
+Repair Found: r(64,105) a(34,55) d(34) a(35,105) r(29,56)
+Repair Name: r(64,105) a(34,55) d(34) a(35,105) r(29,56)
+Test Cases Skipped: ""
+Current Time: 1443647785.969789
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0368862 MB
+	  0 r(69,74) d(73) a(65,45) a(67,71)
+	  0 r(69,57) a(35,105) d(66)
+	  0 r(64,105) a(34,55) d(34) d(67) d(5) r(6,51) d(34) d(74) r(35,63)
+	  0 r(69,57) d(67) d(5) r(6,51) d(34) d(74) r(65,55)
+	  0 r(64,105) a(34,55) d(34) a(35,105) d(6)
+	  0 r(69,74) d(74) a(73,73) a(35,46) d(5)
+	 15 r(69,74) r(6,51) r(5,45) d(6) a(72,44) r(73,34) r(65,52)
+
+Repair Found: r(69,74) r(6,51) r(5,45) d(6) a(72,44) r(73,34) r(65,52)
+Repair Name: r(69,74) r(6,51) r(5,45) d(6) a(72,44) r(73,34) r(65,52)
+Test Cases Skipped: ""
+Current Time: 1443647818.719573
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0366011 MB
+	 15 r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) d(5) r(35,63)
+
+Repair Found: r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) d(5) r(35,63)
+Repair Name: r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) d(5) r(35,63)
+Test Cases Skipped: ""
+Current Time: 1443647818.884220
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0346355 MB
+	  0 a(65,75) d(64) a(5,39) d(6)
+	 15 r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(5,104)
+
+Repair Found: r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(5,104)
+Repair Name: r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(5,104)
+Test Cases Skipped: ""
+Current Time: 1443647820.341725
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0367327 MB
+	  0 a(65,75) d(64) a(5,39) d(5) a(29,49)
+	  0 r(69,57) a(5,51)
+	  0 r(69,57) d(5) d(34) r(74,63) r(67,88)
+	  0 r(69,57) d(34) r(74,63) a(5,51)
+	 15 r(69,57) d(5) a(74,70)
+
+Repair Found: r(69,57) d(5) a(74,70)
+Repair Name: r(69,57) d(5) a(74,70)
+Test Cases Skipped: ""
+Current Time: 1443647854.698616
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0345726 MB
+	  0 r(69,57) d(67) d(5) r(35,62) a(64,45)
+	  0 r(69,57) d(67) d(5) r(35,62) r(65,62)
+	  0 r(69,74) d(74) a(73,73) a(35,46) r(73,67)
+	  0 r(69,57) a(65,71) r(72,40) d(67) r(65,71)
+	  0 r(69,74) d(74) a(74,104) d(35) d(6)
+	  0 r(69,74) d(29) r(29,88) a(5,29) a(35,47)
+	  4 r(69,74) d(74) r(29,88) a(5,29) a(64,56)
+	  0 r(69,74) d(29) a(74,104) d(35) d(66)
+	  0 r(69,57) d(34) r(74,63) a(73,105)
+	 15 r(69,74) r(6,51) r(5,45) d(6) a(72,44) r(73,34) r(35,37)
+
+Repair Found: r(69,74) r(6,51) r(5,45) d(6) a(72,44) r(73,34) r(35,37)
+Repair Name: r(69,74) r(6,51) r(5,45) d(6) a(72,44) r(73,34) r(35,37)
+Test Cases Skipped: ""
+Current Time: 1443647874.700607
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0365944 MB
+	  0 r(69,57) r(6,34) a(74,67) a(29,46) d(34)
+	 15 r(73,105) d(34) r(74,63) d(5)
+
+Repair Found: r(73,105) d(34) r(74,63) d(5)
+Repair Name: r(73,105) d(34) r(74,63) d(5)
+Test Cases Skipped: ""
+Current Time: 1443647875.709139
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0365915 MB
+	  0 r(69,57) d(34) r(74,63) d(6)
+	  0 r(73,105) r(6,34) a(74,67) a(29,46) d(74)
+	 15 r(64,50) d(74) r(29,39) r(5,54) d(35)
+
+Repair Found: r(64,50) d(74) r(29,39) r(5,54) d(35)
+Repair Name: r(64,50) d(74) r(29,39) r(5,54) d(35)
+Test Cases Skipped: ""
+Current Time: 1443647878.330618
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0345869 MB
+	  0 a(65,75) d(64) a(5,39) d(5) d(29)
+	  0 r(69,57) d(34) r(66,104) a(35,41)
+	  0 r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(72,88)
+	  0 r(69,74) d(74) r(29,71) d(35) r(5,45) a(67,76)
+	  0 r(64,105) a(73,73) a(35,46) d(35)
+	  0 r(69,74) d(74) a(73,73) a(35,46) a(34,47)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(6,63) r(5,45) r(72,71) r(64,40) d(65) d(29) d(35)
+	  5 r(67,57) a(64,72) a(65,69)
+	  0 r(6,63) r(5,45) r(72,71) r(64,40) a(34,40)
+	  0 r(67,57) a(64,72) d(65) d(29) r(74,43)
+search: generation 5 (sizeof one variant = 0.0843954 MB)
+WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) d(34) a(6,6) r(5,105)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) d(34) a(6,6) r(5,105)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)	  0 r(69,57) a(35,105) d(66) d(29) d(73) a(71,62) d(74)
+	  0 r(67,57) a(64,72) d(65) r(6,50)
+	  0 r(69,57) a(35,105) d(66) a(73,63)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90)
+	 15 r(69,74) d(74) r(29,88) r(72,34) d(64) r(6,76)
+
+Repair Found: r(69,74) d(74) r(29,88) r(72,34) d(64) r(6,76)
+Repair Name: r(69,74) d(74) r(29,88) r(72,34) d(64) r(6,76)
+Test Cases Skipped: ""
+Current Time: 1443647961.295628
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0369205 MB
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) r(64,40)
+	  0 r(69,74) d(74) r(29,88) r(72,34) d(65)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) r(29,55)
+	  0 r(69,57) d(67) d(5) r(6,51) r(74,88) d(29) r(35,36)
+	  0 r(69,74) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49)
+	  0 r(69,57) d(67) d(5) r(6,51) d(34) d(74) r(65,55) a(73,62)
+	  0 r(69,74) r(6,51) r(5,45) r(74,88) d(29) a(73,99)
+	  0 r(69,57) d(67) d(5) a(64,104) r(5,45) r(74,88) d(29) d(35)
+	  0 r(69,74) r(6,51) a(73,34) r(64,49)
+	  0 r(69,57) d(67) d(5) a(64,104) a(73,34) d(29)
+	  0 r(69,74) r(6,51) r(5,45) r(74,88) d(29) r(35,71)
+	 15 r(64,105) r(29,71) d(35) d(34) a(6,6) a(34,55) d(34) a(35,105) d(6) a(5,91)
+
+Repair Found: r(64,105) r(29,71) d(35) d(34) a(6,6) a(34,55) d(34) a(35,105) d(6) a(5,91)
+Repair Name: r(64,105) r(29,71) d(35) d(34) a(6,6) a(34,55) d(34) a(35,105) d(6) a(5,91)
+Test Cases Skipped: ""
+Current Time: 1443648017.831581
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0349092 MB
+	  0 r(64,105) r(5,105) d(35)
+	  0 r(64,105) r(29,71) d(35) d(34) a(6,6) r(5,105)
+	  0 r(64,105) a(34,55) d(34) a(35,105) d(6) r(5,39)
+	  0 a(65,75) d(64) a(5,39) d(5) a(29,49) d(29)
+	  0 r(64,105) r(29,71) d(35) d(34) a(6,6) r(5,105)
+	  3 r(69,74) d(74) r(29,88) d(73) a(65,55) r(74,63) a(5,51) r(67,64)
+	  0 r(69,57) d(34) a(6,35)
+	  0 r(69,74) d(74) r(29,88) d(73) a(65,55) d(35)
+	  0 r(69,57) d(34) r(74,63) a(5,51) r(72,55)
+	 15 r(64,105) a(34,55) d(34) a(35,105) r(29,56) a(5,67)
+
+Repair Found: r(64,105) a(34,55) d(34) a(35,105) r(29,56) a(5,67)
+Repair Name: r(64,105) a(34,55) d(34) a(35,105) r(29,56) a(5,67)
+Test Cases Skipped: ""
+Current Time: 1443648063.923974
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0369053 MB
+	  0 r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35)
+	  0 r(64,38) a(74,55) d(5) a(29,36)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(29,55)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) d(29)
+	  0 r(64,38) a(74,55) d(5) a(34,58)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104)
+	 15 r(69,74) r(6,51) r(5,45) a(5,34) d(64) a(35,56)
+
+Repair Found: r(69,74) r(6,51) r(5,45) a(5,34) d(64) a(35,56)
+Repair Name: r(69,74) r(6,51) r(5,45) a(5,34) d(64) a(35,56)
+Test Cases Skipped: ""
+Current Time: 1443648130.554489
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0344219 MB
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) r(69,72)
+	 15 r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(5,104) r(72,55)
+
+Repair Found: r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(5,104) r(72,55)
+Repair Name: r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(5,104) r(72,55)
+Test Cases Skipped: ""
+Current Time: 1443648141.793222
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0387211 MB
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65)
+	  0 r(64,38) a(74,55) d(5) a(29,51)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(69,57) d(5) d(34) r(74,63) r(67,88) d(66)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(5) d(29) r(72,66)
+	  0 a(65,75) d(64) a(5,39) a(6,40)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) a(35,43)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39)
+	  0 r(69,57) d(34) r(74,63) d(67)
+	  0 r(69,57) a(35,105) d(66) r(64,43)
+	  0 r(69,57) d(34) r(74,63) d(6) r(66,105)
+	  0 r(73,105) r(6,34) a(74,67) r(6,51) d(34) d(67) r(72,88) a(35,70)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72)
+	  0 r(69,57) d(67) a(34,58) a(34,62) d(64) r(29,46)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,74) r(6,51) d(64) d(34)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) r(5,45) r(74,88) d(29) r(65,50)
+	  0 r(69,74) r(6,51) r(5,45) r(74,88) d(29) r(72,71)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) r(35,88)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45)
+	  0 r(69,57) d(67) r(5,45) a(5,34) d(64) d(35)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34)
+	  0 r(69,57) d(67) a(34,58) a(34,62) d(64) d(29)
+	  0 r(69,74) d(74) a(74,104) d(35) d(6) a(73,73) a(35,46) a(34,47) r(66,49)
+	  0 r(69,74) d(74) a(35,40)
+	  0 r(69,74) d(74) a(74,104) d(35) d(6) a(5,57)
+	  0 r(69,74) d(74) a(73,73) a(35,46) a(34,47) a(34,29)
+search: generation 6 (sizeof one variant = 0.0821486 MB)
+WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)	  0 r(64,105) r(29,71) d(66) a(73,63) a(6,55)
+	  0 r(69,57) a(35,105) d(35) r(5,45) r(66,50)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) a(35,105) d(66) a(73,63) a(64,69)
+	  0 r(69,57) d(34) d(65) a(29,46)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) r(72,55) r(5,45)
+	  0 r(69,57) d(34) r(74,63) a(5,51) r(72,55) a(29,37)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37)
+	  0 r(69,74) r(73,45)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73)
+	  0 r(69,74) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) r(73,49)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(34,37)
+	  0 r(69,57) d(73) a(71,62) r(69,72) r(29,47)
+	  0 r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) r(73,65)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) r(69,72) r(66,69)
+	 15 r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) d(29)
+
+Repair Found: r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) d(29)
+Repair Name: r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) d(29)
+Test Cases Skipped: ""
+Current Time: 1443648421.709036
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0371466 MB
+	  0 r(69,57) d(34) r(74,63) a(5,51) r(72,55) d(73)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(29,55) a(5,99)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(5) d(29) r(72,66) r(66,75)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) a(65,75)
+	  4 r(69,57) d(67) d(5) a(64,104) r(5,45) r(74,88) d(29) d(35) a(64,70)
+	 15 r(69,74) d(74) a(74,104) d(35) d(6) a(74,55) d(5) a(34,58) a(66,44)
+
+Repair Found: r(69,74) d(74) a(74,104) d(35) d(6) a(74,55) d(5) a(34,58) a(66,44)
+Repair Name: r(69,74) d(74) a(74,104) d(35) d(6) a(74,55) d(5) a(34,58) a(66,44)
+Test Cases Skipped: ""
+Current Time: 1443648449.140524
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0386829 MB
+	  0 r(64,38) a(5,57) r(6,70)
+	  0 r(69,74) d(74) a(74,104) d(35) d(6) a(5,57) d(66)
+	  0 r(64,38) a(74,55) d(5) a(34,58) a(35,58)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(5) d(29) r(72,66) r(64,74)
+	  0 r(64,105) a(34,55) d(34) a(35,105) d(6) r(5,39) d(35)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) d(5)
+	  0 r(69,57) d(67) a(34,58) a(34,62) d(64) r(29,46) a(35,45) a(35,38)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35)
+	  0 r(69,57) d(67) a(34,58) a(34,62) d(64) r(29,46) a(5,39)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29)
+	  0 r(69,74) d(74) r(29,88) r(72,34) d(65) a(64,43)
+	  0 r(69,74) a(72,62)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) r(69,72) d(74) a(35,40) d(72)
+	  0 r(69,74) d(74) a(35,40) a(66,91)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) r(69,72) a(72,65)
+	  0 r(69,74) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) r(73,62)
+	 15 r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) r(6,56)
+
+Repair Found: r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) r(6,56)
+Repair Name: r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) r(6,56)
+Test Cases Skipped: ""
+Current Time: 1443648584.466586
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0374556 MB
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) r(5,45) r(74,88) d(29) r(65,50) d(72)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) d(64)
+	  0 r(69,74) d(73) r(65,67)
+	  0 r(69,57) d(67) r(5,45) a(5,34) d(64) d(35) a(65,45) a(67,71) d(72) a(29,34)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) d(29)
+	  0 r(69,57) d(67) r(5,45) a(5,34) d(64) d(35) a(34,88)
+	  0 r(64,38) a(6,53) d(71) a(35,105) d(72) d(35) d(6)
+	  0 r(69,74) d(74) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(66,55)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45)
+	 15 r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) a(73,70)
+
+Repair Found: r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) a(73,70)
+Repair Name: r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) a(73,70)
+Test Cases Skipped: ""
+Current Time: 1443648644.032699
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0375214 MB
+	  0 r(67,57) a(64,72) d(65) d(29) a(73,73) a(35,46) a(34,47) a(34,29) r(5,36)
+	  0 r(69,74) d(74) d(73) a(71,62) a(64,90) a(34,5)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6)
+	  0 r(69,74) d(74) a(73,73) a(35,46) a(34,47) a(34,29) r(73,52)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) r(64,40) r(34,39)
+	  0 r(69,74) d(74) a(6,53) d(71) a(35,105) d(72) d(35) a(64,105)
+	  0 r(69,57) d(5) d(34) r(74,63) r(67,88) d(66) d(29)
+	 15 r(69,74) r(6,51) r(5,45) a(5,34) d(64) r(29,55) r(35,37)
+
+Repair Found: r(69,74) r(6,51) r(5,45) a(5,34) d(64) r(29,55) r(35,37)
+Repair Name: r(69,74) r(6,51) r(5,45) a(5,34) d(64) r(29,55) r(35,37)
+Test Cases Skipped: ""
+Current Time: 1443648684.326135
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0340567 MB
+search: generation 7 (sizeof one variant = 0.0842123 MB)
+WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) d(74)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(6,71)
+	  0 r(64,38) a(5,57) r(6,70) r(5,54)
+	  0 r(69,74) r(6,51) r(5,45) d(34) d(35) r(5,45) d(29)
+	  0 r(64,105) r(29,71) d(74) r(65,55) a(66,49) r(73,49) r(35,90)
+	  0 r(69,74) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) r(73,49) d(67)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) r(64,69)
+	 15 r(64,38) a(74,55) d(5) a(34,58) a(35,58) r(29,56)
+
+Repair Found: r(64,38) a(74,55) d(5) a(34,58) a(35,58) r(29,56)
+Repair Name: r(64,38) a(74,55) d(5) a(34,58) a(35,58) r(29,56)
+Test Cases Skipped: ""
+Current Time: 1443648735.056515
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0361643 MB
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) d(29) d(5)
+	  0 r(69,74) d(73) r(65,67) a(5,67)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(67)
+	  0 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,47)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) a(64,62)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) a(35,44)
+	  0 r(69,74) d(74) a(73,73) a(35,46) a(34,47) a(34,29) r(73,52) a(34,50)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) r(5,45) r(74,88) d(29) r(65,50) d(72) r(66,57)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29)
+	 15 r(69,74) d(73) a(65,45) a(67,71) d(72) r(72,55) d(73) d(35)
+
+Repair Found: r(69,74) d(73) a(65,45) a(67,71) d(72) r(72,55) d(73) d(35)
+Repair Name: r(69,74) d(73) a(65,45) a(67,71) d(72) r(72,55) d(73) d(35)
+Test Cases Skipped: ""
+Current Time: 1443648804.369060
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373373 MB
+	  0 r(69,57) d(34) r(74,63) a(5,51) r(72,55) d(73) r(66,104)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) d(64) d(29)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) d(64) r(5,55)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) a(35,104) a(29,45) d(6)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) a(5,57)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) d(64) r(5,39)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(5,70)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56)
+	 15 r(64,38) r(6,51) a(34,58) r(72,55) r(5,45) d(35)
+
+Repair Found: r(64,38) r(6,51) a(34,58) r(72,55) r(5,45) d(35)
+Repair Name: r(64,38) r(6,51) a(34,58) r(72,55) r(5,45) d(35)
+Test Cases Skipped: ""
+Current Time: 1443648860.974187
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0364799 MB
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) a(5,44)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) r(72,55) r(5,45) a(65,38)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(6,51) r(66,75) r(72,34)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(5) d(29) r(72,66) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) a(66,69)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(35)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(5) d(29) r(72,66) r(66,75) a(35,47)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) r(64,40) r(34,39) a(29,37)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) a(65,75) r(64,45)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) r(5,51)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(29)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44)
+	  0 r(64,38) a(6,53) d(71) a(35,105) d(72) d(35) d(6) d(29)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,62)
+	  0 r(67,57) a(64,72) r(69,72) r(66,69) r(65,73)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) r(69,72) r(66,69) d(5)
+	  0 r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65)
+	 15 r(64,38) a(74,55) d(5) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) a(35,104)
+
+Repair Found: r(64,38) a(74,55) d(5) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) a(35,104)
+Repair Name: r(64,38) a(74,55) d(5) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) a(35,104)
+Test Cases Skipped: ""
+Current Time: 1443649000.232375
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0341158 MB
+	  0 r(69,74) a(34,58) a(35,58) r(34,55)
+	  0 r(64,38) a(74,55) d(5) a(34,58) a(35,58) a(35,42)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(34,37) a(5,88)
+search: generation 8 (sizeof one variant = 0.0812616 MB)
+WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) a(5,39) d(5) d(29) d(35)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)	  0 r(64,105) r(29,71) d(35) d(5)
+	  0 r(69,74) d(73) r(65,67) a(5,67) r(5,45) r(35,70)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,74) d(73) r(65,67) a(5,67) d(5)
+	  5 r(67,57) a(64,72) a(66,34)
+	 15 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,49)
+
+Repair Found: r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,49)
+Repair Name: r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,49)
+Test Cases Skipped: ""
+Current Time: 1443649036.703117
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0371399 MB
+	 15 r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,62)
+
+Repair Found: r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,62)
+Repair Name: r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,62)
+Test Cases Skipped: ""
+Current Time: 1443649036.814471
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0371895 MB
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56) r(35,52)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(6,71) a(72,66)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,47) r(65,56)
+	 15 r(69,57) d(34) r(66,104) a(35,41) d(65) d(65) a(73,37) r(64,69) r(6,104)
+
+Repair Found: r(69,57) d(34) r(66,104) a(35,41) d(65) d(65) a(73,37) r(64,69) r(6,104)
+Repair Name: r(69,57) d(34) r(66,104) a(35,41) d(65) d(65) a(73,37) r(64,69) r(6,104)
+Test Cases Skipped: ""
+Current Time: 1443649061.051332
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373545 MB
+	  0 r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) r(64,69) r(29,46)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) r(64,69) d(6)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63) a(29,71)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) d(74) r(65,55) a(66,49) d(73) d(67) a(29,47)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(67) a(35,53)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63) a(72,104)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(74,50)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(5,70) a(69,34)
+	 15 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) a(34,58) a(35,58) r(34,55) r(5,37)
+
+Repair Found: r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) a(34,58) a(35,58) r(34,55) r(5,37)
+Repair Name: r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) a(34,58) a(35,58) r(34,55) r(5,37)
+Test Cases Skipped: ""
+Current Time: 1443649119.644412
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0368643 MB
+	 15 r(69,74) a(35,44) r(35,49)
+
+Repair Found: r(69,74) a(35,44) r(35,49)
+Repair Name: r(69,74) a(35,44) r(35,49)
+Test Cases Skipped: ""
+Current Time: 1443649119.810936
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0353355 MB
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) a(35,44) d(29)
+	  0 r(69,74) a(34,58) a(35,58) r(34,55) d(73)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,105) d(72) d(35) d(6) d(29) a(5,54)
+	  0 r(64,38) a(6,53) d(71) a(35,104) a(29,45) r(5,51) r(29,99)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) r(5,51) d(29)
+	 15 r(64,38) a(6,53) d(71) a(35,105) d(72) d(35) d(6) d(29) r(5,54)
+
+Repair Found: r(64,38) a(6,53) d(71) a(35,105) d(72) d(35) d(6) d(29) r(5,54)
+Repair Name: r(64,38) a(6,53) d(71) a(35,105) d(72) d(35) d(6) d(29) r(5,54)
+Test Cases Skipped: ""
+Current Time: 1443649154.198203
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0362129 MB
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,47) d(64)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(6,71) d(6)
+	 15 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) r(34,67) a(35,104) a(29,45) a(5,57) a(72,43)
+
+Repair Found: r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) r(34,67) a(35,104) a(29,45) a(5,57) a(72,43)
+Repair Name: r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) r(34,67) a(35,104) a(29,45) a(5,57) a(72,43)
+Test Cases Skipped: ""
+Current Time: 1443649167.141020
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0374413 MB
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) d(6) d(34)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6) d(5)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) a(5,57) d(29)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63) r(29,55)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(64,105) r(29,71) r(65,55) a(66,49) d(73) d(67) d(6)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(67) d(64)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(5) d(29) r(72,66) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) a(66,69) r(35,47)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) d(64) r(5,55) a(29,58)
+	 15 a(65,75) d(64) r(35,44) r(29,43)
+
+Repair Found: a(65,75) d(64) r(35,44) r(29,43)
+Repair Name: a(65,75) d(64) r(35,44) r(29,43)
+Test Cases Skipped: ""
+Current Time: 1443649233.921907
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0348015 MB
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) a(5,39) d(5) d(29) d(35)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) a(5,34)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) d(74) a(5,50)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	 15 r(69,74) d(73) a(65,45) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(35) a(29,44)
+
+Repair Found: r(69,74) d(73) a(65,45) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(35) a(29,44)
+Repair Name: r(69,74) d(73) a(65,45) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(35) a(29,44)
+Test Cases Skipped: ""
+Current Time: 1443649257.105167
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0370989 MB
+	  0 r(69,57) a(67,71) d(72) d(64) r(5,39) r(35,57)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) d(64) r(5,39) r(35,91)
+	  0 r(69,57) a(35,105) d(66) d(6) a(29,39) r(6,51) r(5,45) d(34) d(74) r(65,55) a(66,49) d(73) d(35) d(29)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(66,63)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) d(6)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(34) r(74,63) a(5,51) d(64) d(29) d(5)
+	  0 r(69,57) d(72) d(64) d(29) d(35)
+	  0 r(69,74) d(73) a(65,45) a(67,71) d(72) d(64) d(29) a(6,47)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(35,53)
+search: generation 9 (sizeof one variant = 0.0812416 MB)
+WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6) d(5) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)WARNING: No fault locations open for repair: r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) d(5)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)	  0 a(65,75) d(64) a(5,39) d(5) d(72) d(64) r(5,39) r(35,57) a(29,36)
+	  0 r(69,57) a(67,71) d(29) d(35) a(5,71)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(69,57) a(67,71) d(72) d(64) r(5,39) r(35,57) d(34)
+	  0 r(69,74) d(73) r(65,67) a(5,67) r(5,45) r(35,47) d(64) a(34,63)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,70) r(65,57)
+	  0 r(69,74) d(73) r(65,67) a(5,67) r(5,45) r(35,70) d(34)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,47) d(64) r(5,55)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63) a(72,104) r(73,43)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) d(35) r(5,45) d(64) d(29)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) a(67,90)
+	 15 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) r(5,42)
+
+Repair Found: r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) r(5,42)
+Repair Name: r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) r(5,42)
+Test Cases Skipped: ""
+Current Time: 1443649395.431700
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0367727 MB
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,43)
+	  0 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) r(5,34)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,47) r(65,56) a(64,73)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(65,55) a(66,49) d(73) d(67) a(29,47) a(34,88)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) d(74) r(35,44) r(29,5) d(6)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,29)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) d(74) r(65,55) a(66,49) d(73) d(67) a(29,47) r(35,70)
+	  0 r(69,57) d(34) r(5,45) r(29,49)
+	  0 r(64,105) r(29,71) d(35) r(66,104) a(35,41) d(65) a(73,37) a(6,71) a(72,66) a(5,51)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(6,71) a(72,66) d(6)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) r(66,104) a(35,41) d(65) a(73,37) a(64,56) r(35,52) a(73,49)
+	 15 r(69,57) d(34) d(35) r(5,45) d(64) a(29,42)
+
+Repair Found: r(69,57) d(34) d(35) r(5,45) d(64) a(29,42)
+Repair Name: r(69,57) d(34) d(35) r(5,45) d(64) a(29,42)
+Test Cases Skipped: ""
+Current Time: 1443649476.744575
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0344362 MB
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56) r(35,52) r(6,90)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63) r(29,55) r(65,104)
+	  0 r(69,74) d(73) r(65,67) a(5,67) d(5) r(67,63)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) d(6) a(5,90)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) r(29,105)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(64,90) d(6) r(35,58) a(74,50) d(5)
+	 15 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(35,53) r(5,91)
+
+Repair Found: r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(35,53) r(5,91)
+Repair Name: r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(35,53) r(5,91)
+Test Cases Skipped: ""
+Current Time: 1443649534.170918
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0363684 MB
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(35,53) a(6,62)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(74,50) r(74,91)
+	 15 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6) d(5) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)
+
+Repair Found: r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6) d(5) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)
+Repair Name: r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6) d(5) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)
+Test Cases Skipped: ""
+Current Time: 1443649546.322011
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0341406 MB
+	  0 r(69,74) r(6,51) a(35,40)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6) d(5) a(72,76)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)
+	  0 r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,47) r(65,56) a(73,72)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(66,63) a(67,49)
+	  0 r(67,57) a(64,72) d(64) d(29) a(35,53) r(6,52)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(35,53) d(5)
+	 15 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(66,63) d(5)
+
+Repair Found: r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(66,63) d(5)
+Repair Name: r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(66,63) d(5)
+Test Cases Skipped: ""
+Current Time: 1443649584.658351
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0404415 MB
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,70)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) d(74) a(5,50) d(64)
+	  0 r(67,57) a(64,72) d(65) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) r(5,51) d(29) d(74)
+	  0 r(64,38) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(66,63) a(5,54)
+	  0 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(66,63) a(69,40)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) r(5,51) d(29) d(35)
+	  0 r(64,38) a(6,53) d(71) a(35,104) a(29,45) r(5,51) r(29,99) r(35,54)
+	  0 r(69,74) a(34,58) a(35,58) r(34,55) d(73) d(6)
+	  0 r(69,57) d(34) r(66,104) d(64) d(29) d(6) d(5)
+	 15 r(69,57) d(34) r(74,63) a(5,51) a(35,41) d(65) a(73,37) a(64,56) r(35,52) a(73,44)
+
+Repair Found: r(69,57) d(34) r(74,63) a(5,51) a(35,41) d(65) a(73,37) a(64,56) r(35,52) a(73,44)
+Repair Name: r(69,57) d(34) r(74,63) a(5,51) a(35,41) d(65) a(73,37) a(64,56) r(35,52) a(73,44)
+Test Cases Skipped: ""
+Current Time: 1443649633.079631
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0375834 MB
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56) r(35,52) r(74,99)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) d(6) d(35)
+	  0 r(64,105) r(29,71) d(35) d(5)
+	 15 r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,62) d(64)
+
+Repair Found: r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,62) d(64)
+Repair Name: r(67,57) a(64,72) d(65) d(29) d(34) r(66,104) a(35,41) d(65) a(72,49) a(71,65) r(35,62) d(64)
+Test Cases Skipped: ""
+Current Time: 1443649645.216255
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0369654 MB
+	 15 r(69,74) a(35,44) r(35,49) d(29)
+
+Repair Found: r(69,74) a(35,44) r(35,49) d(29)
+Repair Name: r(69,74) a(35,44) r(35,49) d(29)
+Test Cases Skipped: ""
+Current Time: 1443649645.365468
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0349989 MB
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+search: generation 10 (sizeof one variant = 0.0822048 MB)
+WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)WARNING: No fault locations open for repair: r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(64,90) d(6) r(35,58) a(74,50) d(5)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) d(5)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: a(65,75) d(64) a(5,39) d(5) d(29) d(35)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)WARNING: No fault locations open for repair: r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) r(5,51) d(29) d(35)WARNING: No fault locations open for repair: r(69,57) d(34) r(74,63) a(73,105) d(66) d(64) a(5,36) d(35) r(5,45) d(64) d(29)WARNING: No fault locations open for repair: r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) d(35) r(5,45) d(64) d(29)WARNING: No fault locations open for repair: r(64,105) r(29,71) d(35) r(5,45)	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,74) r(6,51) r(5,45) a(5,34) d(64) d(34) d(29) r(35,50)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) d(6) d(35) a(5,45)
+	  0 r(69,74) a(34,58) a(35,58) r(34,55) d(73) d(6) a(72,57)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(64,90) d(6) r(35,58) a(74,50) d(5)
+	 15 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) r(5,42) d(29)
+
+Repair Found: r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) r(5,42) d(29)
+Repair Name: r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) r(5,42) d(29)
+Test Cases Skipped: ""
+Current Time: 1443649648.608856
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0364408 MB
+	  0 r(69,74) r(6,51) a(34,58) a(67,71) d(72) d(64) r(5,39) r(35,57) d(34) r(29,62)
+	  0 r(69,57) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,70) r(6,40)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,70) a(5,99)
+	  0 r(69,57) a(67,71) d(72) d(64) r(5,39) r(35,57) d(34) a(29,42)
+	 15 r(69,57) a(73,37) a(64,56) r(35,52) r(74,99) d(67)
+
+Repair Found: r(69,57) a(73,37) a(64,56) r(35,52) r(74,99) d(67)
+Repair Name: r(69,57) a(73,37) a(64,56) r(35,52) r(74,99) d(67)
+Test Cases Skipped: ""
+Current Time: 1443649682.921440
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0373392 MB
+	 15 r(69,57) d(34) r(66,104) a(35,41) d(65) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) a(35,56)
+
+Repair Found: r(69,57) d(34) r(66,104) a(35,41) d(65) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) a(35,56)
+Repair Name: r(69,57) d(34) r(66,104) a(35,41) d(65) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) a(35,56)
+Test Cases Skipped: ""
+Current Time: 1443649683.034917
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0346127 MB
+	  0 r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) r(29,52)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) a(64,56) r(35,52) r(74,99) a(6,90)
+	 15 r(64,105) r(29,71) d(35) r(73,43) a(5,58)
+
+Repair Found: r(64,105) r(29,71) d(35) r(73,43) a(5,58)
+Repair Name: r(64,105) r(29,71) d(35) r(73,43) a(5,58)
+Test Cases Skipped: ""
+Current Time: 1443649705.357153
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0348244 MB
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63) a(72,104) r(5,45) a(29,34)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) a(5,51) a(34,62) r(34,67) a(35,104) a(29,45) a(64,63) a(72,104) r(73,43) d(29)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(35,53) a(6,62) r(35,52)
+	  0 r(64,105) r(29,71) d(35) d(5)
+	  0 r(69,57) a(35,104) a(29,45) r(5,51) d(29) d(74) a(35,53)
+	  0 r(67,57) a(64,72) d(65) r(6,51) a(34,58) a(34,62) r(34,67) a(29,39) r(6,51) r(5,45) d(34) d(74) a(67,90) a(35,43)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) a(67,90) r(72,62)
+	  0 r(67,57) a(64,72) d(65) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) r(5,51) d(29) d(74) a(35,70)
+	 15 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,29) d(5)
+
+Repair Found: r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,29) d(5)
+Repair Name: r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,29) d(5)
+Test Cases Skipped: ""
+Current Time: 1443649783.235558
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0374413 MB
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,70) r(65,57) r(64,70)
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) r(35,47) d(64) r(5,55) a(34,57)
+	 15 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) d(34) d(74) d(35) r(5,45) d(64) a(29,67) r(29,54)
+
+Repair Found: r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) d(34) d(74) d(35) r(5,45) d(64) a(29,67) r(29,54)
+Repair Name: r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) d(34) d(74) d(35) r(5,45) d(64) a(29,67) r(29,54)
+Test Cases Skipped: ""
+Current Time: 1443649795.340545
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0341578 MB
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) d(29)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,47) d(64) r(5,55) d(29)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35) r(29,71) d(35) r(5,45)
+	  0 r(64,105) r(35,46)
+	  0 a(65,75) d(64) a(5,39) d(5) d(29) d(35)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	  0 r(69,74) d(73) r(65,67) a(5,67) d(5) r(67,63) a(74,105)
+	  0 r(69,74) d(73) r(65,67) a(5,67) r(5,45) r(35,47) d(64) a(34,63) d(34)
+	  0 r(64,38) r(6,51) a(34,58) a(34,62) r(34,67) a(35,104) a(29,45) r(5,51) d(29) d(35)
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) a(35,53) d(5) d(35)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(64) a(5,36) d(35) r(5,45) d(64) d(29)
+	  0 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(6) r(35,70) r(65,57) r(64,50)
+	  0 r(69,57) d(34) r(74,63) a(73,105) d(66) d(6) r(35,70) r(65,57) d(29)
+	  0 r(69,57) a(35,105) d(66) d(6) d(34) r(74,63) a(73,105) d(66) d(6) d(64) a(5,36) d(35) r(5,45) d(64) d(29)
+	 15 r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) r(29,44)
+
+Repair Found: r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) r(29,44)
+Repair Name: r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) r(29,44)
+Test Cases Skipped: ""
+Current Time: 1443649853.068997
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0341988 MB
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) d(29)
+	  0 r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) d(29)
+	 15 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) a(29,56)
+
+Repair Found: r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) a(29,56)
+Repair Name: r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) a(29,56)
+Test Cases Skipped: ""
+Current Time: 1443649864.330113
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0349579 MB
+	  0 r(69,57) d(34) r(74,63) a(5,51) d(64) d(29) d(6) d(35) r(5,49)
+	  0 r(69,57) a(67,71) d(72) d(64) r(5,39) r(35,57) d(34) d(29)
+	  0 r(69,57) a(29,39) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,29) r(5,90)
+	 15 r(69,74) r(6,51) a(34,58) a(34,62) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) r(29,41)
+
+Repair Found: r(69,74) r(6,51) a(34,58) a(34,62) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) r(29,41)
+Repair Name: r(69,74) r(6,51) a(34,58) a(34,62) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) r(29,41)
+Test Cases Skipped: ""
+Current Time: 1443649897.748828
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.03619 MB
+	  0 r(69,57) a(29,39) r(6,51) r(5,45) d(34) d(74) d(35) r(5,45) d(64) a(29,67) a(29,70)
+	  0 r(69,74) r(6,51) a(34,58) a(34,62) d(64) a(35,45) a(29,35) r(35,44) r(29,5) a(5,29) a(5,35)
+	  0 r(69,57) d(34) r(66,104) a(35,41) r(74,63) d(74) r(65,55) a(66,49) d(73) d(67) a(29,47) r(35,70) d(29)
+	  0 r(69,74) d(73) r(65,67) a(5,67) r(5,45) r(35,70) d(34) d(64)
+	  0 r(64,105) r(29,71) d(35) r(5,45)
+	 15 r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(74,50) r(74,91) r(5,41)
+
+Repair Found: r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(74,50) r(74,91) r(5,41)
+Repair Name: r(67,57) a(64,72) d(65) d(29) d(73) a(71,62) a(64,90) d(6) r(35,58) a(74,50) r(74,91) r(5,41)
+Test Cases Skipped: ""
+Current Time: 1443649920.296819
+cilRep: shared size: 0.084672 MB
+cilRep: private size: 0.0404196 MB
+	  0 r(69,57) a(73,37) d(6) d(5) a(72,76) d(65)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) r(29,70)
+	  0 r(69,57) d(34) r(66,104) a(35,41) a(73,37) r(64,69) a(29,90) d(5) a(35,53)
+	  0 r(69,57) d(34) r(66,104) a(35,41) d(65) a(73,37) d(6) d(5) a(72,76) d(72)
+search: genetic algorithm ends
+
+No repair found.
+Rep: saving test cache
+Closing log file...
+
+Variant Test Case Queries: 3654
+"Test Suite Evaluations": 609
+
+Compile Failures: 0
+Wall-Clock Seconds Elapsed: 2688.45
+  Activity Name                     Count Seconds = Percent of Total Time
+  rebuild files                      2785   5.489 = 0.205053%
+  compile                             506  26.143 = 0.976621%
+  test                               3036 2645.262 = 98.8183%
+  TOTAL                                   2676.895 = 99.5698% (avg CPU usage)
