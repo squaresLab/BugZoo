@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Retrieve and store the provided command-line arguments.
+EXECUTABLE=$1
+TEST_ID=$2
+
 # Find the directory that this test script belongs to.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
@@ -10,31 +14,42 @@ else
   cov=0
 fi
 
-# Performs the necessary setup for all positive test cases.
-setup_pos()
+# Treats the test case as a positive test case.
+exec_pos()
 {
   if [ $cov = 0 ]; then
-    ulimit -t 2
+    timeout 2 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
+      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
+  else
+    bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
+      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
   fi
+  return $?
 }
 
-# Performs the necessary setup for all negative test cases.
-setup_neg()
+# Treats the test case as a negative test case.
+exec_neg()
 {
   if [ $cov = 0 ]; then
-    ulimit -t 1
+    timeout 1 $EXECUTABLE < $DIR/test/n1 &> /dev/null
   else
-    ulimit -t 10
+    timeout 10 $EXECUTABLE < $DIR/test/n1 &> /dev/null
   fi
+  return $?
 }
 
 # Execute the appropriate test case.
-case $2 in
-  p1) setup_pos ; bash -c "$1 < $DIR/test/t1" |& diff $DIR/test/output.t1 - && exit 0 ;;
-  p2) setup_pos ; bash -c "$1 < $DIR/test/t2" |& diff $DIR/test/output.t2 - && exit 0 ;;
-  p3) setup_pos ; bash -c "$1 < $DIR/test/t3" |& diff $DIR/test/output.t3 - && exit 0 ;;
-  p4) setup_pos ; bash -c "$1 < $DIR/test/t4" |& diff $DIR/test/output.t4 - && exit 0 ;;
-  p5) setup_pos ; bash -c "$1 < $DIR/test/t5" |& diff $DIR/test/output.t5 - && exit 0 ;;
-  n1) setup_neg ; bash -c "$1 < $DIR/test/t7 &> /dev/null" && exit 0 ;;
-esac 
-exit 1
+case $TEST_ID in
+  p1) exec_pos;;
+  p2) exec_pos;;
+  p3) exec_pos;;
+  p4) exec_pos;;
+  p5) exec_pos;;
+  n1) exec_neg;;
+  n1) setup_neg;;
+esac
+
+# Find the result of the test case execution.
+result=$?
+
+exit $result
