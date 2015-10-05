@@ -46,7 +46,6 @@ case $TEST_ID in
   p4) exec_pos;;
   p5) exec_pos;;
   n1) exec_neg;;
-  n1) setup_neg;;
 esac
 
 # Find the result of the test case execution.
