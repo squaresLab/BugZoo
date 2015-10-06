@@ -1,0 +1,108 @@
+look.c.ast loaded
+look.c.ht loaded
+sanity checking
+look.c-baseline.c written
+version WRW: Wed Aug 27 17:29:50 EDT 2008
+seed 0
+gcc gcc
+ldflags 
+good ./test-good.sh
+bad ./test-bad.sh
+gen 10
+mut 0.03
+promut 0
+pop 40
+max 15
+ins 1
+del 1
+swap 1
+compile_counter 0
+fitness_count 0
+bad_factor 10
+good_path_factor 0
+gpath_any true
+path_count 8
+use_tournament false
+tournament_k 2
+tournament_p 1
+*** Generation 1 (size 40)
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness 0
+			i=0 d=2 s=0 c=0 m=1 (delta i=0 d=2 s=0 c=0 m=1)
+	fitness 0
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=2 s=0 c=0 m=1 (delta i=0 d=2 s=0 c=0 m=1)
+	fitness 0
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=2 s=0 c=0 m=1 (delta i=0 d=2 s=0 c=0 m=1)
+	fitness 0
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness 5
+			i=0 d=2 s=0 c=0 m=1 (delta i=0 d=2 s=0 c=0 m=1)
+	fitness 0
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=0 d=2 s=0 c=0 m=1 (delta i=0 d=2 s=0 c=0 m=1)
+	fitness 0
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=2 d=0 s=0 c=0 m=1 (delta i=2 d=0 s=0 c=0 m=1)
+	fitness failure
+			i=0 d=2 s=0 c=0 m=1 (delta i=0 d=2 s=0 c=0 m=1)
+	fitness 5
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness failure
+			i=0 d=0 s=2 c=0 m=1 (delta i=0 d=0 s=2 c=0 m=1)
+	fitness 15
+		best so far (size delta 204)
+v_gen 0
+avgfit : 
+bcfit : 
+
+
+Best result written to look.c-0-0.00-0.03-best.c
+	First Solution in 12.1903 (9 fitness evals)
+	Best  Solution in 12.1903 (9 fitness evals)
+Generations to solution: 1
+Avg ins: 0/28 = 0
+Avg del: 0/.. = 0
+Avg swap: 0/.. = 0
+Avg xover: 0/.. = 0
+Avg mut: 0/.. = 0
+Percent failed to compile: 28/9 = 3.11111
+  Activity Name                     Count Seconds = Percent of Total Time
+  size diff                             1   0.007 = 0.0538375%
+  mutation                             39   0.097 = 0.800767%
+  compile                              28   0.827 = 6.80148%
+  fitness                              28   0.953 = 7.83847%
+  bad test                              9   4.076 = 33.5267%
+  good test                             9   6.198 = 50.9787%
+  TOTAL                                    12.159 = 99.6696% (avg CPU usage)
