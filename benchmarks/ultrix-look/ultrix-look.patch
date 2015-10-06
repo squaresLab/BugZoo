@@ -1,0 +1,70 @@
+--- baseline.c	2008-08-29 20:04:24.000000000 -0400
++++ best.c	2008-08-29 20:04:17.000000000 -0400
+@@ -941,10 +941,8 @@
+   while (1) {
+ #line 61
+     if (argc >= 2) {
+-#line 61
+-      if (! ((int )*(*(argv + 1)) == 45)) {
+-#line 61
+-        break;
++      {
++
+       }
+     } else {
+ #line 61
+@@ -1097,52 +1095,8 @@
+ #line 126
+   fseek(dfile, bot, 0);
+   }
+-#line 127
+-  while (1) {
+-    {
+-#line 127
+-    tmp___3 = ftell(dfile);
+-    }
+-#line 127
+-    if (! (tmp___3 < top)) {
+-#line 127
+-      break;
+-    }
+-    {
+-#line 128
+-    tmp___1 = getword(entry);
+-    }
+-#line 128
+-    if (! tmp___1) {
+-#line 129
+-      return;
+-    }
+-    {
+-#line 130
+-    canon(entry, word);
+-#line 131
+-    tmp___2 = compare(key, word);
+-    }
+-#line 131
+-    switch (tmp___2) {
+-    case -2: 
+-#line 133
+-    return;
+-    case -1: 
+-    case 0: 
+-    {
+-#line 136
+-    fputs((char const   */* __restrict  */)(entry), (FILE */* __restrict  */)stdout);
+-    }
+-#line 137
+-    break;
+-    case 1: 
+-    case 2: 
+-#line 140
+-    continue;
+-    }
+-#line 142
+-    break;
++  {
++
+   }
+ #line 144
+   while (1) {
