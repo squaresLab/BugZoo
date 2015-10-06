@@ -7,6 +7,9 @@ TEST_ID=$2
 # Find the directory that this test script belongs to.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+# Find the input command for the given test.
+TEST_INPUT=$(<"$DIR/test/$TEST_ID")
+
 # Check if this test script is being used to compute coverage information.
 if [ $(basename $1) = "coverage" ]; then
   cov=1
@@ -18,9 +21,9 @@ fi
 exec_pos()
 {
   if [ $cov = 0 ]; then
-    timeout 1 $EXECUTABLE < $DIR/test/$TEST_ID |& diff $DIR/test/output.$TEST_ID -
+    timeout 1 $EXECUTABLE $TEST_INPUT |& diff $DIR/test/output.$TEST_ID - &> /dev/null
   else
-    $EXECUTABLE < $DIR/test/$TEST_ID |& diff $DIR/test/output.$TEST_ID -
+    $EXECUTABLE $TEST_INPUT |& diff $DIR/test/output.$TEST_ID - &> /dev/null
   fi
   return $?
 }
@@ -29,9 +32,9 @@ exec_pos()
 exec_neg()
 {
   if [ $cov = 0 ]; then
-    timeout 1 $EXECUTABLE < $DIR/test/$TEST_ID |& diff $DIR/test/output.$TEST_ID -
+    timeout 1 $EXECUTABLE $TEST_INPUT |& diff $DIR/test/output.$TEST_ID - &> /dev/null
   else
-    timeout 10 $EXECUTABLE < $DIR/test/$TEST_ID |& diff $DIR/test/output.$TEST_ID -
+    timeout 10 $EXECUTABLE $TEST_INPUT |& diff $DIR/test/output.$TEST_ID - &> /dev/null
   fi
   return $?
 }
