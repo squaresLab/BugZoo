@@ -18,7 +18,7 @@ fi
 exec_pos()
 {
   if [ $cov = 0 ]; then
-    timeout 2 $EXECUTABLE $DIR/test/input $DIR/test/$TEST_ID &> /dev/null
+    timeout 1 $EXECUTABLE $DIR/test/input $DIR/test/$TEST_ID &> /dev/null
   else
     $EXECUTABLE $DIR/test/input $DIR/test/$TEST_ID &> /dev/null
   fi
@@ -48,5 +48,4 @@ esac
 
 # Find the result of the test case execution.
 result=$?
-
-return $result
+exit $result
