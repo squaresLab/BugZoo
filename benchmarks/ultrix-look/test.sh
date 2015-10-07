@@ -42,7 +42,7 @@ case $TEST_ID in
   p2) exec_pos;;
   p3) exec_pos;;
   p4) exec_pos;;
-  p5) exec_pos;;
+#  p5) exec_pos;;
   n1) exec_neg;;
 esac
 

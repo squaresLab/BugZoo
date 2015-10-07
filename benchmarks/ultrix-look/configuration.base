@@ -1,4 +1,4 @@
 --program preprocessed.c
---pos-tests 5
+--pos-tests 4
 --neg-tests 1
 --fitness-in-parallel 4
