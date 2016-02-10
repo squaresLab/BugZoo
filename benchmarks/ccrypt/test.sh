@@ -10,23 +10,26 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 export KEY="blahblah"
-ulimit -t 10
+ulimit -c 8
 
 case $2 in
   p1) $1 1071 1029        | diff $DIR/test/output.1071.1029 - && exit 0 ;;
 
   n1)
-    ulimit -c 8
-    rm -rf core.*
-    cp n1.txt save_n1.txt
+    rm -rf core.* # temporary files
     rm n1.txt.cpt
 
-    # What is happening here? Is this an oracle?
+    # Backup the test case input.
+    cp n1.txt save_n1.txt
+
+    # What is happening here? Is this an oracle? If so, why do we recompute
+    # every time, rather than saving the results?
     $DIR/ccrypt-root/bin/ccrypt -e -E KEY n1.txt
 
     cp save_n1.txt n1.txt
     
     # Again, what?
+    # We don't check the output?!
     (./limit5 $1 -e -E KEY test6.txt < /dev/null)
 
     #
