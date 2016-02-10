@@ -1,4 +1,7 @@
 {
+  "compiler": {
+    "options": "-m32 -lresolv -lcrypt -lnsl"
+  },
   "problem": {
     "program": "ftpd_comb.c",
     "executable_name": "wuftpd",
