@@ -1,0 +1,8 @@
+{
+  "problem": {
+    "program": "zune.c",
+    "executable_name": "zune",
+    "positive_tests": 18,
+    "negative_tests": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "problem": {
+    "program": "indent.c",
+    "executable_name": "indent",
+    "positive_tests": 5,
+    "negative_tests": 1
+  }
+}
