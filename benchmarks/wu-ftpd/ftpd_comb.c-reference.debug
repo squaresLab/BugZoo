@@ -1,0 +1,149 @@
+ftpd_comb.c.ast loaded
+ftpd_comb.c.ht loaded (10188)
+sanity checking (path len 1035)
+ftpd_comb.c-baseline.c written
+version WRW: Wed Aug 27 17:29:50 EDT 2008
+seed 0
+gcc gcc
+ldflags -lcrypt -lnsl -lresolv
+good ./test-good.sh
+bad ./test-bad.sh
+gen 10
+mut 0.03
+promut 0
+pop 40
+max 17
+ins 1
+del 1
+swap 1
+compile_counter 0
+fitness_count 0
+bad_factor 10
+good_path_factor 0
+gpath_any true
+path_count 140
+use_tournament false
+tournament_k 2
+tournament_p 1
+*** Generation 1 (size 40)
+			i=0 d=8 s=0 c=0 m=1 (delta i=0 d=8 s=0 c=0 m=0)
+	fitness 15
+			i=0 d=18 s=0 c=0 m=1 (delta i=0 d=18 s=0 c=0 m=0)
+	fitness 10
+			i=0 d=0 s=14 c=0 m=1 (delta i=0 d=0 s=14 c=0 m=0)
+	fitness failure
+			i=0 d=30 s=0 c=0 m=1 (delta i=0 d=30 s=0 c=0 m=0)
+	fitness 10
+			i=0 d=0 s=32 c=0 m=1 (delta i=0 d=0 s=32 c=0 m=0)
+	fitness failure
+			i=26 d=0 s=0 c=0 m=1 (delta i=26 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=14 c=0 m=1 (delta i=0 d=0 s=14 c=0 m=0)
+	fitness failure
+			i=0 d=28 s=0 c=0 m=1 (delta i=0 d=28 s=0 c=0 m=0)
+	fitness 10
+			i=0 d=20 s=0 c=0 m=1 (delta i=0 d=20 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=14 s=0 c=0 m=1 (delta i=0 d=14 s=0 c=0 m=0)
+	fitness 12
+			i=0 d=18 s=0 c=0 m=1 (delta i=0 d=18 s=0 c=0 m=0)
+	fitness 14
+			i=0 d=32 s=0 c=0 m=1 (delta i=0 d=32 s=0 c=0 m=0)
+	fitness failure
+			i=22 d=0 s=0 c=0 m=1 (delta i=22 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=26 c=0 m=1 (delta i=0 d=0 s=26 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=32 c=0 m=1 (delta i=0 d=0 s=32 c=0 m=0)
+	fitness failure
+			i=20 d=0 s=0 c=0 m=1 (delta i=20 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=28 c=0 m=1 (delta i=0 d=0 s=28 c=0 m=0)
+	fitness failure
+			i=0 d=16 s=0 c=0 m=1 (delta i=0 d=16 s=0 c=0 m=0)
+	fitness 14
+			i=0 d=8 s=0 c=0 m=1 (delta i=0 d=8 s=0 c=0 m=0)
+	fitness 10
+			i=10 d=0 s=0 c=0 m=1 (delta i=10 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=28 c=0 m=1 (delta i=0 d=0 s=28 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=20 c=0 m=1 (delta i=0 d=0 s=20 c=0 m=0)
+	fitness failure
+			i=12 d=0 s=0 c=0 m=1 (delta i=12 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=30 s=0 c=0 m=1 (delta i=0 d=30 s=0 c=0 m=0)
+	fitness 14
+			i=0 d=26 s=0 c=0 m=1 (delta i=0 d=26 s=0 c=0 m=0)
+	fitness 14
+			i=0 d=18 s=0 c=0 m=1 (delta i=0 d=18 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=16 s=0 c=0 m=1 (delta i=0 d=16 s=0 c=0 m=0)
+	fitness 10
+			i=0 d=0 s=18 c=0 m=1 (delta i=0 d=0 s=18 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=12 c=0 m=1 (delta i=0 d=0 s=12 c=0 m=0)
+	fitness failure
+			i=0 d=16 s=0 c=0 m=1 (delta i=0 d=16 s=0 c=0 m=0)
+	fitness 15
+			i=0 d=24 s=0 c=0 m=1 (delta i=0 d=24 s=0 c=0 m=0)
+	fitness 14
+			i=12 d=0 s=0 c=0 m=1 (delta i=12 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=14 d=0 s=0 c=0 m=1 (delta i=14 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=16 d=0 s=0 c=0 m=1 (delta i=16 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=16 s=0 c=0 m=1 (delta i=0 d=16 s=0 c=0 m=0)
+	fitness 15
+			i=28 d=0 s=0 c=0 m=1 (delta i=28 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=26 d=0 s=0 c=0 m=1 (delta i=26 d=0 s=0 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=22 c=0 m=1 (delta i=0 d=0 s=22 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=20 c=0 m=1 (delta i=0 d=0 s=20 c=0 m=0)
+	fitness failure
+			i=0 d=0 s=0 c=0 m=0 (delta i=0 d=0 s=0 c=0 m=0)
+	fitness 17
+		best so far (size delta 0)
+v_gen 0
+avgfit : 
+bcfit : 
+
+
+Best result written to ftpd_comb.c-0-0.00-0.03-best.c
+	First Solution in 1527.43 (15 fitness evals)
+	Best  Solution in 1527.43 (15 fitness evals)
+
+initial repair inserts:     0/1 = 0
+initial repair deletes:     0/1 = 0
+initial repair mut swaps:   0/1 = 0
+initial repair xovers:      0/1 = 0
+initial repair xover swaps: 0/1 = 0
+initial repair macromuts:   0/1 = 0
+per-fitness average inserts:     186/40 = 4.65
+per-fitness average deletes:     338/40 = 8.45
+per-fitness average mut swaps:   266/40 = 6.65
+per-fitness average xovers:      0/40 = 0
+per-fitness average xover swaps: 0/40 = 0
+per-fitness average macromuts:   39/40 = 0.975
+per-nonzero-noncached-fitness average inserts:     0/15 = 0
+per-nonzero-noncached-fitness average deletes:     268/15 = 17.8667
+per-nonzero-noncached-fitness average mut swaps:   0/15 = 0
+per-nonzero-noncached-fitness average xovers:      0/15 = 0
+per-nonzero-noncached-fitness average xover swaps: 0/15 = 0
+per-nonzero-noncached-fitness average macromuts:   14/15 = 0.933333
+Generations to solution: 1
+total number of MACROmutation operators: 39
+total number of micromutation operators: 395
+average micromutation per macromutation: 10.1282
+Percent of unique variants that failed to compile: 25/40 = 0.625
+Percent possibly-cached fitness evals that failed to compile: 25/40 = 0.625
+  Activity Name                     Count Seconds = Percent of Total Time
+  mutation                             39   3.955 = 0.25901%
+  fitness                              40  14.166 = 0.92781%
+  compile                              40  27.491 = 1.80054%
+  bad test                             15 530.916 = 34.7731%
+  good test                            15 950.227 = 62.2366%
+  TOTAL                                   1526.799 = 99.944% (avg CPU usage)

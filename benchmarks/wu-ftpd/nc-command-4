@@ -1,0 +1,4 @@
+user ftp
+pass weimer@localhost
+site exec /a/b
+quit

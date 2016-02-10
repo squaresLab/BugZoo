@@ -1,0 +1,16 @@
+4669,4683d4668
+<         while ((unsigned int )((char *)p) < (unsigned int )ber->ber_rwptr) {
+<           tag <<= 8;
+<           tmp___1 = p;
+<           p ++;
+<           tag |= (unsigned long )*tmp___1;
+<           if (! (tag & 128UL)) {
+<             break;
+<           }
+<           if (i == (unsigned long )(sizeof(ber_tag_t ) - 1U)) {
+<             tmp___2 = __errno_location();
+<             *tmp___2 = 34;
+<             return (4294967295UL);
+<           }
+<           i ++;
+<         }

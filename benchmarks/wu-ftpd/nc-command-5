@@ -1,0 +1,4 @@
+user invalid-user
+pass invalid-password
+site exec /a/b
+quit

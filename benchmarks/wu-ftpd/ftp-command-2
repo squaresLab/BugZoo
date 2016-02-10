@@ -1,0 +1,4 @@
+user ftp weimer@
+cd /etc
+get passwd
+quit
