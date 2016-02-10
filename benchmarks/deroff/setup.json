@@ -1,0 +1,8 @@
+{
+  "problem": {
+    "program": "deroff.c",
+    "executable_name": "deroff",
+    "positive_tests": 5,
+    "negative_tests": 1  
+  }
+}
