@@ -1,6 +1,0 @@
-2488a2489,2493
->       (sp->dec_codetab + code)->next = (struct code_ent *)((void *)0);
->       tmp___1 = code;
->       code --;
->       (sp->dec_codetab + code)->value = (unsigned char )code;
->       (sp->dec_codetab + code)->firstchar = (unsigned char )code;
