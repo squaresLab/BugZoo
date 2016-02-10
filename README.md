@@ -1,16 +1,17 @@
 # AutomatedRepairBenchmarks.c
 
 This repository contains a series of benchmark problems for automated program
-repair, tailored to be solved using GenProg.
+repair, written in C, tailored to be solved using GenProg.
 
 ## Benchmark Structure
 Each benchmark, contained within its own sub-directory of the
 `benchmarks` directory, contains the following:
 
-* `setup.json`, a partial GenProg 3.0 configuration file, specifying
-  benchmark-specific parameters, such as the number of positive and negative
-  test cases. This file should only contain parameters describing the details
-  of the problem, and not details of how it should be solved.
+* `setup.json`, a JSON file specifying parameters specific to the benchmark,
+  such as the number of positive and negative test cases. This file should
+  only contain parameters describing the details of the problem, and not
+  details of how it should be solved. Usable as a partial GenProg 3
+  configuration file.
 * `program/`, a directory containing the source code for the given problem.
 * `program.txt`, a file specifying the location of each of the source files,
   relative to the directory of that particular benchmark.
