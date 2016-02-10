@@ -1,0 +1,11 @@
+{
+  "compiler": {
+    "options": "-m32"
+  },
+  "problem": {
+    "program": "atris_comb.c",
+    "executable_name": "atris",
+    "positive_tests": 2,
+    "negative_tests": 1  
+  }
+}
