@@ -1,9 +1,0 @@
---search genetic
---generations 10
---popsize 40
---swapp 0.0
---repp 0.33333
---appp 0.33333
---delp 0.33333
---tournament-size 2
---continue
