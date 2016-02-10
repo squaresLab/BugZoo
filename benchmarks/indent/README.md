@@ -1,6 +1,6 @@
 # Indent 1.9.1
 
-**Description:** Unix source code processing utility. This benchmark and its test
+Unix source code processing utility. This benchmark and its test
 inputs are taken from Miller et al.'s work on fuzz testing.
 
 **Bug:** Infinite loop.
@@ -12,9 +12,9 @@ it for your machine.
 
 ## Files
 
-* README.txt
-* indent-1.9.1.tar.gz: original indent source code
-* indent_comb.c: combined source code on which modify operates
-* output.t\*: reference outputs for test cases
-* t\*: input files for test cases, taken from fuzz testing work. t7 is the
+* `README.txt`
+* `indent-1.9.1.tar.gz`: original indent source code
+* `indent_comb.c`: combined source code on which modify operates
+* `test/output.t*`: reference outputs for test cases
+* `test/t*`: input files for test cases, taken from fuzz testing work. t7 is the
   negative test case.
