@@ -1,0 +1,8 @@
+{
+  "problem": {
+    "program": "ftpd_comb.c",
+    "executable_name": "wuftpd",
+    "positive_tests": 5,
+    "negative_tests": 2
+  }
+}
