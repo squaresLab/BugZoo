@@ -7,13 +7,13 @@ repair, tailored to be solved using GenProg.
 Each benchmark, contained within its own sub-directory of the
 `benchmarks` directory, contains the following:
 
-* `configuration.base`, a partial GenProg configuration file, specifying
+* `setup.json`, a partial GenProg 3.0 configuration file, specifying
   benchmark-specific parameters, such as the number of positive and negative
   test cases. This file should only contain parameters describing the details
   of the problem, and not details of how it should be solved.
 * `program/`, a directory containing the source code for the given problem.
 * `program.txt`, a file specifying the location of each of the source files,
-  relative to the benchmark directory, not the `program/` directory.
+  relative to the directory of that particular benchmark.
 * `test.sh`, a bash script responsible for evaluating the success or failure of
   a given test case for a provided executable.
 * `test/`, a directory containing any additional files needed to run the test
