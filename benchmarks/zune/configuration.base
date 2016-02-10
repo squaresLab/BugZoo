@@ -1,4 +1,0 @@
---program zune.c
---pos-tests 18
---neg-tests 4
---fitness-in-parallel 4
