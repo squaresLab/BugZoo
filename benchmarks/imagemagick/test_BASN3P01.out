@@ -1,0 +1,6 @@
+    red:
+      min: 113 (0.443137)
+      max: 145 (0.568627)
+      mean: 129 (0.505882)
+      standard deviation: 16 (0.0627451)
+      kurtosis: -2

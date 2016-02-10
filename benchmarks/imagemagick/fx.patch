@@ -1,0 +1,12 @@
+1528,1529c1528,1529
+<       range  = ( number_parameters >= 3 ) ? parameters[1] : 1.0;   // Should be 2
+<       center = ( number_parameters >= 2 ) ? parameters[2] : 0.5;   // Should be 3
+---
+>       range  = ( number_parameters >= 2 ) ? parameters[1] : 1.0;   // Should be 2
+>       center = ( number_parameters >= 3 ) ? parameters[2] : 0.5;   // Should be 3
+1547,1548c1547,1548
+<       range  = ( number_parameters >= 3 ) ? parameters[1] : 1.0;    // Should be 2
+<       center = ( number_parameters >= 2 ) ? parameters[2] : 0.5;    // Should be 3
+---
+>       range  = ( number_parameters >= 2 ) ? parameters[1] : 1.0;    // Should be 2
+>       center = ( number_parameters >= 3 ) ? parameters[2] : 0.5;    // Should be 3
