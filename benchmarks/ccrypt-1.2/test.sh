@@ -98,9 +98,14 @@ case $TEST_ID in
 
     rm -f no.txt p6.txt p6.txt.cpt;;
 
+  # This test case simply checks that a given decryption results in the
+  # expected plaintext.
   p7)
-    ;;
-
+    cp $DIR/test/p7.in p7.txt.cpt
+    timeout 10 bash -c "$EXECUTABLE -d -E KEY p7.txt.cpt"
+      && diff $DIR/test/p7.out p7.txt
+    result=$?
+    rm -f p7.txt p7.txt.cpt;;
 
   # checks that the input file for this negative test case is successfully
   # encrypted using the KEY key.
