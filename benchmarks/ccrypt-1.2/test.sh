@@ -75,8 +75,28 @@ case $TEST_ID in
     result=$?
     rm -f p5.txt p5.txt.cpt;;
 
+  # In this test case, the input from P2 is provided, whilst an encrypted file
+  # with the same name resides within the same directory.
+  # Unlike P4, the program is told not to overwrite the existing file when
+  # prompted. This test case ensures that the program successfully executes,
+  # and that the original files are preserved.
   p6)
-    ;;
+    echo "\n\n" > no.txt
+    exec 4<> no.txt
+
+    cp $DIR/test/p2.in p6.txt
+    cp $DIR/test/p6.in p6.txt.cpt
+
+    timeout 10 bash -c "$EXECUTABLE -e -E KEY p6.txt <& 4"
+
+    # 
+    # TODO: Could compare $DIR/test/p6.in and p6.txt.cpt
+    #
+
+    result=$?
+    exec 4>&-
+
+    rm -f no.txt p6.txt p6.txt.cpt;;
 
   p7)
     ;;
