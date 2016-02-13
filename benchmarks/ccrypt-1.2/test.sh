@@ -35,7 +35,7 @@ case $TEST_ID in
   # matches the plaintext input used.
   p3)
     cp $DIR/test/p2.out p3.txt.cpt
-    timeout 10 bash -c "$EXECUTABLE -d -E KEY p3.txt.cpt"
+    timeout 10 bash -c "$EXECUTABLE -d -E KEY p3.txt"
     diff p3.txt $DIR/test/p2.in
     result=$?
     rm -rf p3.txt p3.txt.cpt;;
@@ -44,8 +44,8 @@ case $TEST_ID in
   # encrypted file with a matching name (plus a .cpt suffix) in the same
   # directory.
   p4)
-    cp $DIR/test/p4.in p4.txt.cpt
-    cp $DIR/test/p2.out p4.txt
+    cp $DIR/test/p4.cpt p4.txt.cpt
+    cp $DIR/test/p2.in p4.txt
 
     # create a new file and attach it to file descriptor 3, so that it provides
     # the standard input with the "yes option" when asked to override.
@@ -53,32 +53,19 @@ case $TEST_ID in
     exec 3<> yes.txt
 
     timeout 10 bash -c "$EXECUTABLE -e -E KEY p4.txt <&3"
-
-    #
-    # TODO: We could check the output matches the expected output?
-    #
+      && diff $DIR/test/p5.out p4.txt.cpt
     result=$?
 
     # remove yes.txt from file descriptor 3, and destroy all temporary files.
     exec 3>&-
     rm -f yes.txt p4.txt p4.txt.cpt;;
 
-  # decrypt the encrypted form of the input from the previous test case, and
-  # check that the resulting plaintext matches the input to the previous test
-  # case.
-  p5)
-    cp $DIR/test/p5.in p5.txt
-    timeout 10 bash -c "$EXECUTABLE -d -E KEY p5.txt"
-    diff p5.txt $DIR/test/p4.in
-    result=$?
-    rm -f p5.txt p5.txt.cpt;;
-
   # In this test case, the input from P2 is provided, whilst an encrypted file
   # with the same name resides within the same directory.
   # Unlike P4, the program is told not to overwrite the existing file when
   # prompted. This test case ensures that the program successfully executes,
   # and that the original files are preserved.
-  p6)
+  p5)
     echo "\n\n" > no.txt
     exec 4<> no.txt
 
@@ -98,7 +85,7 @@ case $TEST_ID in
 
   # This test case simply checks that a given decryption results in the
   # expected plaintext.
-  p7)
+  p6)
     cp $DIR/test/p7.in p7.txt.cpt
     timeout 10 bash -c "$EXECUTABLE -d -E KEY p7.txt.cpt"
       && diff $DIR/test/p7.out p7.txt
