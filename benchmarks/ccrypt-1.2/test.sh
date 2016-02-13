@@ -31,12 +31,10 @@ case $TEST_ID in
     result=$?
     rm -rf p2.txt p2.txt.cpt;;
 
-  # encrypt the same input from test 2, once again, using the KEY key, before
-  # attempting to decrypt it and checking the resulting plaintext matches
-  # the original input.
+  # decrypt the expected result from the previous test and check that it
+  # matches the plaintext input used.
   p3)
-    cp $DIR/test/p2.in p3.txt
-    timeout 10 bash -c "$EXECUTABLE -e -E KEY p3.txt"
+    cp $DIR/test/p2.out p3.txt.cpt
     timeout 10 bash -c "$EXECUTABLE -d -E KEY p3.txt.cpt"
     diff p3.txt $DIR/test/p2.in
     result=$?
