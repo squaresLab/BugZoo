@@ -42,9 +42,12 @@ case $TEST_ID in
     result=$?
     rm -rf p3.txt p3.txt.cpt;;
 
+  # attempt to forcibly encrypt the same input from test 2, whilst there is an
+  # encrypted file with a matching name (plus a .cpt suffix) in the same
+  # directory.
   p4)
-    cat $DIR/test/p2.in p4.txt
-
+    cp $DIR/test/p4.in p4.txt.cpt
+    cp $DIR/test/p2.out p4.txt
 
     # create a new file and attach it to file descriptor 3, so that it provides
     # the standard input with the "yes option" when asked to override.
@@ -52,13 +55,15 @@ case $TEST_ID in
     exec 3<> yes.txt
 
     timeout 10 bash -c "$EXECUTABLE -e -E KEY p4.txt <&3"
+
+    #
+    # TODO: We could check the output matches the expected output?
+    #
     result=$?
 
-    # remove yes.txt from file descriptor 3, and destroy the file.
+    # remove yes.txt from file descriptor 3, and destroy all temporary files.
     exec 3>&-
-    rm -f yes.txt
-
-    exec_pos;;
+    rm -f yes.txt p4.txt p4.txt.cpt;;
 
   # decrypt the encrypted form of the input from the previous test case, and
   # check that the resulting plaintext matches the input to the previous test
