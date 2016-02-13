@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# The private key used to perform encryption and decryption.
 export KEY="blahblah"
 
 # Retrieve and store the provided command-line arguments.
@@ -9,63 +10,85 @@ TEST_ID=$2
 # Find the directory that this test script belongs to.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# Check if this test script is being used to compute coverage information.
-if [ $(basename $1) = "coverage" ]; then
-  cov=1
-else
-  cov=0
-fi
-
-tidy()
-{
-  rm -rf test1.out test2.txt.cpt test3.txt.cpt test4.txt.cpt 
-  rm -rf save_test2.txt save_test3.txt save_test4.txt test2.txt test3.txt test4.txt
-}
-
-# Treats the test case as a positive test case.
-exec_pos()
-{
-  if [ $cov = 0 ]; then
-    timeout 3 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
-      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
-  else
-    bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
-      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
-  fi
-  return $?
-}
-
-# Treats the test case as a negative test case.
-exec_neg()
-{
-  if [ $cov = 0 ]; then
-    timeout 1 $EXECUTABLE < $DIR/test/n1 &> /dev/null \
-      && [ ! -f core* ] &> /dev/null
-  else
-    timeout 10 $EXECUTABLE < $DIR/test/n1 &> /dev/null \
-      && [ ! -f core* ] &> /dev/null
-  fi
-  return $?
-}
-
 # Perform necessary preparations before running the test case.
 ulimit -c 8
+ulimit -t 10
 
 # Execute the test case with the given ID.
 case $TEST_ID in
+
+  # test that the help function works correctly.
   p1)
     timeout 10 bash -c "$EXECUTABLE -help" \
-      |& diff $DIR/test/output.t1 - &> /dev/null;;
+      |& diff $DIR/test/p1.out - &> /dev/null
+    result=$?;;
 
-  p2) exec_pos;;
-  p3) exec_pos;;
-  p4) exec_pos;;
-  p5) exec_pos;;
-  n1) rm -rf core*; exec_neg;;
+  # test that a given input can be encrypted using the KEY key.
+  # only checks that the program terminates without failure.
+  p2)
+    cp $DIR/test/p2.in p2.txt
+    timeout 10 bash -c "$EXECUTABLE -e -E KEY p2.txt"
+    result=$?
+    rm -rf p2.txt p2.txt.cpt;;
+
+  # encrypt the same input from test 2, once again, using the KEY key, before
+  # attempting to decrypt it and checking the resulting plaintext matches
+  # the original input.
+  p3)
+    cp $DIR/test/p2.in p3.txt
+    timeout 10 bash -c "$EXECUTABLE -e -E KEY p3.txt"
+    timeout 10 bash -c "$EXECUTABLE -d -E KEY p3.txt.cpt"
+    diff p3.txt $DIR/test/p2.in
+    result=$?
+    rm -rf p3.txt p3.txt.cpt;;
+
+  p4)
+    cat $DIR/test/p2.in p4.txt
+
+
+    # create a new file and attach it to file descriptor 3, so that it provides
+    # the standard input with the "yes option" when asked to override.
+    echo "yes\n" > yes.txt
+    exec 3<> yes.txt
+
+    timeout 10 bash -c "$EXECUTABLE -e -E KEY p4.txt <&3"
+    result=$?
+
+    # remove yes.txt from file descriptor 3, and destroy the file.
+    exec 3>&-
+    rm -f yes.txt
+
+    exec_pos;;
+
+  # decrypt the encrypted form of the input from the previous test case, and
+  # check that the resulting plaintext matches the input to the previous test
+  # case.
+  p5)
+    cp $DIR/test/p5.in p5.txt
+    timeout 10 bash -c "$EXECUTABLE -d -E KEY p5.txt"
+    diff p5.txt $DIR/test/p4.in
+    result=$?
+    rm -f p5.txt p5.txt.cpt;;
+
+  p6)
+    ;;
+
+  p7)
+    ;;
+
+
+  # checks that the input file for this negative test case is successfully
+  # encrypted using the KEY key.
+  n1)
+    cp $DIR/test/n1.in n1.txt
+    timeout 5 bash -c "$EXECUTABLE -e -E KEY n1.txt < /dev/null"
+    if [ ! -f core.* ];
+      result=0
+    else
+      result=1
+    fi
+    rm -rf core.* n1.txt;;
 esac
-
-# Find the result of the test case execution.
-result=$?
 
 # Return the result of the test case execution
 exit $result
