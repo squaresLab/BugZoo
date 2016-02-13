@@ -14,6 +14,9 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ulimit -c 8
 ulimit -t 10
 
+# Assume that the test case fails, until proven otherwise.
+result=1
+
 # Execute the test case with the given ID.
 case $TEST_ID in
 
@@ -27,7 +30,7 @@ case $TEST_ID in
   # only checks that the program terminates without failure.
   p2)
     cp $DIR/test/p2.in p2.txt
-    timeout 10 bash -c "$EXECUTABLE -e -E KEY p2.txt"
+    timeout 10 bash -c "$EXECUTABLE -e -E KEY p2.txt && diff p2.txt.cpt $DIR/test/p2.out" &> /dev/null
     result=$?
     rm -rf p2.txt p2.txt.cpt;;
 
@@ -35,8 +38,8 @@ case $TEST_ID in
   # matches the plaintext input used.
   p3)
     cp $DIR/test/p2.out p3.txt.cpt
-    timeout 10 bash -c "$EXECUTABLE -d -E KEY p3.txt"
-    diff p3.txt $DIR/test/p2.in
+    timeout 10 bash -c "$EXECUTABLE -d -E KEY p3.txt" \
+      && diff p3.txt $DIR/test/p2.in
     result=$?
     rm -rf p3.txt p3.txt.cpt;;
 
@@ -52,7 +55,7 @@ case $TEST_ID in
     echo "yes\n" > yes.txt
     exec 3<> yes.txt
 
-    timeout 10 bash -c "$EXECUTABLE -e -E KEY p4.txt <&3"
+    timeout 10 bash -c "$EXECUTABLE -e -E KEY p4.txt <&3" \
       && diff $DIR/test/p5.out p4.txt.cpt
     result=$?
 
@@ -72,8 +75,8 @@ case $TEST_ID in
     cp $DIR/test/p2.in p6.txt
     cp $DIR/test/placeholder.cpt p6.txt.cpt
 
-    timeout 10 bash -c "$EXECUTABLE -e -E KEY p6.txt <& 4"
-      && diff $DIR/test/p2.in p6.txt
+    timeout 10 bash -c "$EXECUTABLE -e -E KEY p6.txt <& 4" \
+      && diff $DIR/test/p2.in p6.txt \
       && diff $DIR/test/placeholder.cpt p6.txt.cpt
     result=$?
 
@@ -84,22 +87,25 @@ case $TEST_ID in
   # expected plaintext.
   p6)
     cp $DIR/test/p7.in p7.txt.cpt
-    timeout 10 bash -c "$EXECUTABLE -d -E KEY p7.txt.cpt"
+    timeout 10 bash -c "$EXECUTABLE -d -E KEY p7.txt.cpt" \
       && diff $DIR/test/p7.out p7.txt
     result=$?
     rm -f p7.txt p7.txt.cpt;;
 
-  # checks that the input file for this negative test case is successfully
-  # encrypted using the KEY key.
+  # checks that the program terminates without error when supplied with 
   n1)
     cp $DIR/test/n1.in n1.txt
-    timeout 5 bash -c "$EXECUTABLE -e -E KEY n1.txt < /dev/null"
-    if [ ! -f core.* ];
+    cp $DIR/test/n1.cpt n1.txt.cpt
+    timeout 5 bash -c "$EXECUTABLE -e -E KEY n1.txt < /dev/null" \
+      && diff $DIR/test/n1.in n1.txt \
+      && diff $DIR/test/n1.cpt n1.txt.cpt
+    result=$?
+    if [ ! -f core.* ]
+    then
       result=0
-    else
-      result=1
     fi
-    rm -rf core.* n1.txt;;
+    rm -rf core.*
+    rm -rf n1.txt n1.txt.cpt;;
 esac
 
 # Return the result of the test case execution
