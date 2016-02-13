@@ -5,7 +5,7 @@
   "problem": {
     "program": "ccrypt_comb.c",
     "executable_name": "ccrypt",
-    "positive_tests": 7,
+    "positive_tests": 6,
     "negative_tests": 1
   }
 }
