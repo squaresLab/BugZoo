@@ -44,7 +44,7 @@ case $TEST_ID in
   # encrypted file with a matching name (plus a .cpt suffix) in the same
   # directory.
   p4)
-    cp $DIR/test/p4.cpt p4.txt.cpt
+    cp $DIR/test/placeholder.cpt p4.txt.cpt
     cp $DIR/test/p2.in p4.txt
 
     # create a new file and attach it to file descriptor 3, so that it provides
@@ -70,17 +70,14 @@ case $TEST_ID in
     exec 4<> no.txt
 
     cp $DIR/test/p2.in p6.txt
-    cp $DIR/test/p6.in p6.txt.cpt
+    cp $DIR/test/placeholder.cpt p6.txt.cpt
 
     timeout 10 bash -c "$EXECUTABLE -e -E KEY p6.txt <& 4"
-
-    # 
-    # TODO: Could compare $DIR/test/p6.in and p6.txt.cpt
-    #
-
+      && diff $DIR/test/p2.in p6.txt
+      && diff $DIR/test/placeholder.cpt p6.txt.cpt
     result=$?
-    exec 4>&-
 
+    exec 4>&-
     rm -f no.txt p6.txt p6.txt.cpt;;
 
   # This test case simply checks that a given decryption results in the

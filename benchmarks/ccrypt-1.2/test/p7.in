@@ -449,3 +449,454 @@ int main(int ac, char *av[]) {
   traverse_files(cmd.infiles, cmd.count);
   return 0;
 }
+Random text!
+Encrypt me!
+La la la.
+"    --                     end of options, filenames follow\n");
+}
+
+/* print version and copyright information */
+void version(FILE *fout) {
+  fprintf(fout, 
+  ""NAME" "VERSION". Secure encryption and decryption of files and streams.\n"
+  "Copyright (C) 2000-2001 Peter Selinger.\n"
+  );
+}
+
+void license(FILE *fout) {
+  fprintf(fout,
+  ""NAME" "VERSION". Secure encryption and decryption of files and streams.\n"
+  "Copyright (C) 2000-2001 Peter Selinger.\n"
+  "\n"
+  "For the full text of the GNU General Public License, see the file\n"
+  "COPYING distributed with this software.\n"
+  "\n"
+  "This program is free software; you can redistribute it and/or modify\n"
+  "it under the terms of the GNU General Public License as published by\n"
+  "the Free Software Foundation; either version 2 of the License, or\n"
+  "(at your option) any later version.\n"
+  "\n"
+  "This program is distributed in the hope that it will be useful,\n"
+  "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+  "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+  "GNU General Public License for more details.\n"
+  "\n"
+  "You should have received a copy of the GNU General Public License\n"
+  "along with this program; if not, write to the Free Software\n"
+  "Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.\n"
+  );
+}
+
+/* ---------------------------------------------------------------------- */
+/* read the command line */
+
+void output_commandline(cmdline cmd, FILE *fout) {
+  char *recursive[] = {"no", "dirs, not symlinks", "dirs and symlinks"};
+
+  fprintf(fout, "\nCommand line:\n");
+  fprintf(fout, "verbose = %s\n", cmd.verbose>0 ? "yes" : "no");
+  fprintf(fout, "quiet = %s\n", cmd.verbose<0 ? "yes" : "no");
+  fprintf(fout, "debug = %d\n", cmd.debug);
+  fprintf(fout, "keyword = %s\n", cmd.keyword ? "(known)" : "(unknown)");
+  fprintf(fout, "mode = %d\n", cmd.mode);
+  fprintf(fout, "suffix = %s\n", cmd.suffix);
+  fprintf(fout, "recursive = %s\n", recursive[cmd.recursive]);
+  fprintf(fout, "symlinks = %s\n", cmd.symlinks ? "yes" : "no");
+  fprintf(fout, "force = %s\n", cmd.force ? "yes" : "no");
+  fprintf(fout, "filter = %s\n", cmd.filter ? "yes" : "no");
+  fprintf(fout, "infiles:");
+  while (cmd.count-->0) 
+    fprintf(fout, " %s", *(cmd.infiles++));
+  fprintf(fout, "\n\n");
+}
+
+static struct option longopts[] = {
+  {"encrypt",      0, 0, 'e'},
+  {"decrypt",      0, 0, 'd'},
+  {"cat",          0, 0, 'c'},
+  {"keychange",    0, 0, 'x'},
+  {"unixcrypt",    0, 0, 'u'},
+  {"help",         0, 0, 'h'},
+  {"version",      0, 0, 'V'},
+  {"license",      0, 0, 'L'},
+  {"verbose",      0, 0, 'v'},
+  {"quiet",        0, 0, 'q'},
+  {"debug",        0, 0, 'D'},
+  {"force",        0, 0, 'f'},
+  {"mismatch",     0, 0, 'm'},
+  {"envvar",       1, 0, 'E'},
+  {"key",          1, 0, 'K'},
+  {"keyfile",      0, 0, 'k'},
+  {"suffix",       1, 0, 'S'},
+  {"prompt",       1, 0, 'P'},
+  {"timid",        0, 0, 't'},
+  {"recursive",    0, 0, 'r'},
+  {"rec-symlinks", 0, 0, 'R'},
+  {"symlinks",     0, 0, 'l'},
+  {0, 0, 0, 0}
+};
+
+static char *shortopts = "edcxuhVLvqDfmE:K:k:S:P:trRl-";
+
+cmdline read_commandline(int ac, char *av[]) {
+  cmdline cmd;
+  int c;
+  char *p;
+
+  /* defaults: */
+  cmd.verbose = 0;
+  cmd.debug = 0;
+  cmd.keyword = NULL;
+  cmd.keyword2 = NULL;
+  cmd.mode = ENCRYPT;
+  cmd.suffix = SUF;
+  cmd.prompt = NULL;
+  cmd.recursive = 0;
+  cmd.symlinks = 0;
+  cmd.force = 0;
+  cmd.mismatch = 0;
+  cmd.filter = 1;
+  cmd.infiles = NULL;
+  cmd.count = 0;
+  cmd.keyfile = NULL;
+  cmd.timid = 0;
+
+  /* find the basename with which we were invoked */
+  cmd.name = strrchr(av[0], '/');
+  cmd.name = cmd.name ? cmd.name+1 : av[0];
+
+  if (!strcmp(cmd.name, NAMEENCRYPT)) {
+    cmd.mode = ENCRYPT;
+  } else if (!strcmp(cmd.name, NAMEDECRYPT)) {
+    cmd.mode = DECRYPT;
+  } else if (!strcmp(cmd.name, NAMECAT)) {
+    cmd.mode = CAT;
+  } else {
+    cmd.name = av[0] = NAME;
+  }
+
+  while ((c = getopt_long(ac, av, shortopts, longopts, NULL)) != -1) {
+    switch (c) {
+    case 'h':
+      usage(stdout);
+      exit(0);
+      break;
+    case 'V':
+      version(stdout);
+      exit(0);
+      break;
+    case 'L':
+      license(stdout);
+      exit(0);
+      break;
+    case 'v':
+      cmd.verbose=1;
+      break;
+    case 'q':
+      cmd.verbose=-1;
+      break;
+    case 'D':
+      cmd.debug++;
+      break;
+    case 'E':
+      p = getenv(optarg);
+      if (p==NULL) {
+	fprintf(stderr, "%s: environment variable %s does not exist\n",
+		cmd.name, optarg);
+	exit(1);
+      }
+      cmd.keyword = strdup(p);
+      /* attempt to erase keyword from the environment, so that
+         subsequent calls to 'ps' don't display it */
+      for (; *p; p++) {
+	*p = 0;
+      }
+      break;
+    case 'K':
+      cmd.keyword = strdup(optarg);
+      /* attempt to erase keyword from command line so that subsequent
+         calls to 'ps' don't display it */
+      for (p=optarg; *p; p++) {  
+	*p = 0;
+      }
+      break;
+    case 'k':
+      cmd.keyfile = optarg;
+      break;
+    case 'S':
+      cmd.suffix = optarg;
+      break;
+    case 'P':
+      cmd.prompt = optarg;
+      break;
+    case 'e':
+      cmd.mode = ENCRYPT;
+      break;
+    case 'd':
+      cmd.mode = DECRYPT;
+      break;
+    case 'c':
+      cmd.mode = CAT;
+      break;
+    case 'x':
+      cmd.mode = KEYCHANGE;
+      break;
+    case 'u':
+      cmd.mode = UNIXCRYPT;
+      break;
+    case 't':
+      cmd.timid = 1;
+      break;
+    case 'r':
+      cmd.recursive = 1;
+      break;
+    case 'R':
+      cmd.recursive = 2;
+      break;
+    case 'l':
+      cmd.symlinks = 1;
+      break;
+    case 'f':
+      cmd.force = 1;
+      break;
+    case 'm':
+      cmd.mismatch = 1;
+      break;
+    case '?':
+      fprintf(stderr, "Try --help for more info\n");
+      exit(1);
+      break;
+      
+    }
+  }
+
+  cmd.infiles = &av[optind];
+  cmd.count = ac-optind;
+
+  /* figure out if there are some filenames. Even an empty list of
+     filenames is considered "some" filenames if "--" was used */
+
+  if (cmd.count > 0 || strcmp(av[optind-1], "--")==0) {
+    cmd.filter = 0;
+  }
+
+  /* cat mode has some implications */
+  if (cmd.mode == CAT) {
+    cmd.symlinks = 1;
+  }
+
+  if (cmd.debug) {
+    output_commandline(cmd, stderr);
+  }
+
+  /* and now check that options are consistent */
+
+  /* don't allow killer combination of -m and destructive update */
+  if (cmd.mismatch && !cmd.filter && cmd.mode!=CAT) {
+    fprintf(stderr, "%s: option -m can only be used with -c or when running as a filter.\n", cmd.name);
+    exit(1);
+  }
+
+  /* if not in filter mode, and 0 filenames follow, don't bother continuing */
+  if (!cmd.filter && cmd.count==0) {
+    if (cmd.verbose>=0)
+      fprintf(stderr, "%s: warning: empty list of filenames given\n", cmd.name);
+    exit(0);
+  }
+
+  /* check that we are not reading or writing encrypted data from/to a
+     terminal, unless -f given */
+  if (cmd.filter && !cmd.force) {
+    if ((cmd.mode==ENCRYPT || cmd.mode==KEYCHANGE)
+	&& isatty(fileno(stdout))) {
+      fprintf(stderr, "%s: encrypted data not written to a terminal. "
+	      "Use -f to force encryption.\n"
+	      "Try --help for more information.\n", cmd.name);
+      exit(1);
+    }
+    if ((cmd.mode==DECRYPT || cmd.mode==KEYCHANGE || cmd.mode==CAT
+	 || cmd.mode==UNIXCRYPT)
+	&& isatty(fileno(stdin))) {
+      fprintf(stderr, "%s: encrypted data not read from a terminal. "
+	      "Use -f to force decryption.\n"
+	      "Try --help for more information.\n", cmd.name);
+      exit(1);
+    }
+  }
+  
+  return cmd;
+}
+
+/* ---------------------------------------------------------------------- */
+/* handler for interrupt signal (SIGINT or CTRL-C) */
+
+int sigint_flag = 0;
+
+void sigint(int dummy) {
+  static time_t sigint_time = 0;
+  int errno_saved = errno;
+  
+  /* exit if two SIGINTS are received in one second */
+  if ((time(NULL)-sigint_time) <= 1) {
+    fprintf(stderr, "Interrupted.\n");
+    exit(6);
+  }
+
+  /* otherwise, schedule to exit at the end of the current file. Note:
+     this signal handler is only in use if we're not in cat,
+     unixcrypt, or filter mode */
+  sigint_time = time(NULL);
+  sigint_flag = 1;
+  fprintf(stderr, "Interrupt - will exit after current file. Press CTRL-C twice to exit now.\n");
+  errno = errno_saved;
+}
+
+/* ---------------------------------------------------------------------- */
+  
+int main(int ac, char *av[]) {
+  int res;
+  FILE *f;
+
+  /* read command line */
+  cmd = read_commandline(ac, av);
+
+  /* if --keyfile requested, read one (normal mode) or two (change key
+     mode) keywords from file, which may be "-" for stdin. Note that
+     in this case, we ignore any keywords given on the command line
+     etc. ### */
+
+  if (cmd.keyfile) {
+    if (strcmp(cmd.keyfile, "-")==0) {
+      f = stdin;
+    } else {
+      f = fopen(cmd.keyfile, "r");
+      if (!f) {
+	fprintf(stderr, "%s: could not read key from %s: ", cmd.name, cmd.keyfile);
+	perror("");
+	exit(1);
+      }
+    }
+
+    cmd.keyword = xreadline(f, cmd.name);
+    if (cmd.keyword==NULL) {  /* end of file */
+      exit(0);
+    }
+    if (cmd.mode==KEYCHANGE) {
+      cmd.keyword2 = xreadline(f, cmd.name);
+      if (cmd.keyword2==NULL) { /* end of file */
+	exit(0);
+      }
+    }
+    if (strcmp(cmd.keyfile, "-")!=0) {
+      fclose(f);
+    }
+  }
+
+  /* read keyword from terminal if necessary */
+  if (cmd.keyword==NULL) {
+    if (!cmd.prompt) {
+      switch (cmd.mode) {
+
+      case ENCRYPT: default:
+	cmd.prompt = "Enter encryption key: ";
+	break;
+
+      case DECRYPT: case CAT:
+	cmd.prompt = "Enter decryption key: ";
+	break;
+
+      case KEYCHANGE:
+	cmd.prompt = "Enter old key: ";
+	break;
+
+      case UNIXCRYPT:
+	cmd.prompt = "Enter key: ";
+	break;
+      }
+    }
+    cmd.keyword = readkey(cmd.prompt, cmd.name);
+    if (cmd.keyword==NULL) {  /* end of file: exit gracefully */
+      exit(0);
+    }
+    /* in some circumstances, prompt for the key a second time */
+    if (cmd.timid && cmd.mode==ENCRYPT && !cmd.filter) {
+      char promptagain[strlen(cmd.prompt)+10];
+      char *repeat;
+      strcpy(promptagain, cmd.prompt);
+      strcat(promptagain, "(repeat) ");
+      repeat = readkey(promptagain, cmd.name);
+      if (repeat==NULL || strcmp(repeat, cmd.keyword)!=0) {
+	fprintf(stderr, "Sorry, keys did not match.\n");
+	exit(7);
+      }
+    }
+  }
+
+  /* read keyword2 from terminal if necessary */
+  if (cmd.mode==KEYCHANGE && cmd.keyword2==NULL) {
+    cmd.keyword2 = readkey("Enter new key: ", cmd.name);
+    if (cmd.keyword2==NULL) {  /* end of file: exit gracefully */
+      exit(0);
+    }
+    /* in some circumstances, prompt for the key a second time */
+    if (cmd.timid && !cmd.filter) {
+      char promptagain[strlen(cmd.prompt)+10];
+      char *repeat;
+      strcpy(promptagain, "Enter new key: ");
+      strcat(promptagain, "(repeat) ");
+      repeat = readkey(promptagain, cmd.name);
+      if (repeat==NULL || strcmp(repeat, cmd.keyword2)!=0) {
+	fprintf(stderr, "Sorry, keys did not match.\n");
+	exit(7);
+      }
+    }
+  }
+
+#ifdef __CYGWIN__
+  /* reset stdin/stdout to binary mode */
+  setmode(0,O_BINARY);
+  setmode(1,O_BINARY);
+#endif
+
+  /* filter mode */
+
+  if (cmd.filter) {   
+    switch (cmd.mode) {  
+
+    case ENCRYPT: default:
+      res = ccencrypt_streams(stdin, stdout, cmd.keyword);
+      break;
+
+    case DECRYPT: case CAT:
+      res = ccdecrypt_streams(stdin, stdout, cmd.keyword);
+      break;
+
+    case KEYCHANGE:
+      res = cckeychange_streams(stdin, stdout, cmd.keyword, cmd.keyword2);
+      break;
+
+    case UNIXCRYPT:
+      res = unixcrypt_streams(stdin, stdout, cmd.keyword);
+      break;
+    }
+
+    if (res) {
+      fprintf(stderr, "%s: %s\n", cmd.name, ccrypt_error(res));
+      if (res<0) return 3;
+      else if (res==2) return 4;
+      else return 5;
+    }
+    fflush(stdout);
+    return 0;
+  }
+
+  if (cmd.mode!=CAT && cmd.mode!=UNIXCRYPT) {
+    /* set signal handler for SIGINT */
+    signal(SIGINT, sigint);
+  }
+
+  /* non-filter mode: traverse files */
+  reset_inodes();
+  traverse_files(cmd.infiles, cmd.count);
+  return 0;
+}
