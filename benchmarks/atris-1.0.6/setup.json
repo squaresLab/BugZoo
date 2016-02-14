@@ -1,6 +1,6 @@
 {
   "compiler": {
-    "options": "-m32"
+    "options": "-lSDL -lpthread -lSDL_ttf"
   },
   "problem": {
     "program": "atris_comb.c",
