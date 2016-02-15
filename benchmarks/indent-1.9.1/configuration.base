@@ -1,4 +1,0 @@
---program indent_comb.c
---pos-tests 5
---neg-tests 1
---fitness-in-parallel 8
