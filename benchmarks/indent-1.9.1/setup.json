@@ -1,6 +1,6 @@
 {
   "problem": {
-    "program": "indent.c",
+    "program": "indent_comb.c",
     "executable_name": "indent",
     "positive_tests": 5,
     "negative_tests": 1
