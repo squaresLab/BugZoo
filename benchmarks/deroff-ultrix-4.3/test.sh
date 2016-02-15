@@ -1,17 +1,37 @@
 #!/bin/bash
+EXECUTABLE=$1
+TEST_ID=$2
 
 # Find the directory that this test script belongs to.
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-ulimit -t 2
-case $2 in
-  p1) bash -c "$1 < $DIR/test/t1" |& diff $DIR/test/output.t1 - && exit 0 ;;
-  p2) bash -c "$1 < $DIR/test/t2" |& diff $DIR/test/output.t2 - && exit 0 ;;
-  p3) bash -c "$1 < $DIR/test/t4" |& diff $DIR/test/output.t4 - && exit 0 ;;
-  p4) bash -c "$1 < $DIR/test/t7" |& diff $DIR/test/output.t7 - && exit 0 ;;
-  p5) bash -c "$1 < $DIR/test/t8" |& diff $DIR/test/output.t8 - && exit 0 ;;
+positive()
+{
+  case=$1
+  if [ $(basename $EXECUTABLE) = "coverage" ]; then
+    $EXECUTABLE < $DIR/test/$case |& diff $DIR/test/output.$case -
+  else
+    timeout 4 $EXECUTABLE < $DIR/test/$case |& diff $DIR/test/output.$case -
+  fi
+}
+
+negative()
+{
+  if [ $(basename $EXECUTABLE) = "coverage" ]; then
+    $EXECUTABLE < $DIR/test/t5
+  else
+    timeout 4 $EXECUTABLE < $DIR/test/t5
+  fi
+}
+
+case $TEST_ID in
+  p1) positive t1;;
+  p2) positive t2;;
+  p3) positive t4;;
+  p4) positive t7;;
+  p5) positive t8;;
 
   # This doesn't seem right...
-  n1) bash -c "$1 < $DIR/test/t5" && exit 0 ;;
+  n1) negative;;
 esac 
-exit 1
+exit $?
