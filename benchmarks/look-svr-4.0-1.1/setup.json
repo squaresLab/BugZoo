@@ -1,0 +1,8 @@
+{
+  "problem": {
+    "program": "look.c",
+    "executable_name": "look",
+    "positive_tests": 4,
+    "negative_tests": 1
+  }
+}

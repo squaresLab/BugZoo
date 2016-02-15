@@ -1,4 +1,0 @@
---program look.c
---pos-tests 4
---neg-tests 1
---fitness-in-parallel 4
