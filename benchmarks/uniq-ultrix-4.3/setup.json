@@ -4,5 +4,6 @@
     "executable_name": "units",
     "positive_tests": 5,
     "negative_tests": 1
-  }
+  },
+  "evaluation": { "in_parallel": 1 }
 }
