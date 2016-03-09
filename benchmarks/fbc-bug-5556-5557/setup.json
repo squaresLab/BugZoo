@@ -5,5 +5,7 @@
     "positive_tests": 471,
     "negative_tests": 1
   },
-  "compiler_command": "perl compile.pl __EXE_NAME__ > /dev/null"
+  "compiler": {
+    "command": "perl compile.pl __EXE_NAME__ > /dev/null"
+  }
 }
