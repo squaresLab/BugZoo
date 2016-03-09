@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/fbc/!svn/ver/2630/trunk/FreeBASIC/src/contrib/wikiconv/templates/default/code
+END
+chm_index.tpl.html
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/fbc/!svn/ver/1941/trunk/FreeBASIC/src/contrib/wikiconv/templates/default/code/chm_index.tpl.html
+END
+def.tpl.html
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/2630/trunk/FreeBASIC/src/contrib/wikiconv/templates/default/code/def.tpl.html
+END
+chm_prj.tpl.html
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/fbc/!svn/ver/1941/trunk/FreeBASIC/src/contrib/wikiconv/templates/default/code/chm_prj.tpl.html
+END
+cat.tpl.html
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/2152/trunk/FreeBASIC/src/contrib/wikiconv/templates/default/code/cat.tpl.html
+END
+chm_toc.tpl.html
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/fbc/!svn/ver/1941/trunk/FreeBASIC/src/contrib/wikiconv/templates/default/code/chm_toc.tpl.html
+END

@@ -1,0 +1,24 @@
+K 10
+svn:ignore
+V 167
+testfile
+abs.exe
+acos.exe
+asin.exe
+atan2.exe
+atn.exe
+cos.exe
+exp.exe
+fix.exe
+frac.exe
+int.exe
+log.exe
+random.exe
+randomize.exe
+rnd.exe
+sgn.exe
+sin.exe
+sqr.exe
+tan.exe
+
+END

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits
+END
+hiword.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits/hiword.bas
+END
+bit.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits/bit.bas
+END
+lobyte.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits/lobyte.bas
+END
+bitreset.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits/bitreset.bas
+END
+hibyte.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits/hibyte.bas
+END
+loword.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits/loword.bas
+END
+bitset.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/bits/bitset.bas
+END

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/fbc/!svn/ver/5421/trunk/FreeBASIC/tests/quirk
+END
+data_fwd2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3679/trunk/FreeBASIC/tests/quirk/data_fwd2.bas
+END
+quirk_arraystatement.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3565/trunk/FreeBASIC/tests/quirk/quirk_arraystatement.bas
+END
+sizeof-typeof-expr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5421/trunk/FreeBASIC/tests/quirk/sizeof-typeof-expr.bas
+END
+gfx_propertiesasbuffers.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3602/trunk/FreeBASIC/tests/quirk/gfx_propertiesasbuffers.bas
+END
+casting_typo.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/4542/trunk/FreeBASIC/tests/quirk/casting_typo.bas
+END
+function_array.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3889/trunk/FreeBASIC/tests/quirk/function_array.bas
+END
+open_methods.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3800/trunk/FreeBASIC/tests/quirk/open_methods.bas
+END
+gfx_methAsMod.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3602/trunk/FreeBASIC/tests/quirk/gfx_methAsMod.bas
+END
+typeof.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5273/trunk/FreeBASIC/tests/quirk/typeof.bas
+END
+casting.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3732/trunk/FreeBASIC/tests/quirk/casting.bas
+END
+data.bas
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/3610/trunk/FreeBASIC/tests/quirk/data.bas
+END
+data_fwd.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3610/trunk/FreeBASIC/tests/quirk/data_fwd.bas
+END

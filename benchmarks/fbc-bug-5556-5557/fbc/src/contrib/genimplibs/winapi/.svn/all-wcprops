@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/winapi
+END
+glut32.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/winapi/glut32.dll.def
+END
+gdiplus.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/winapi/gdiplus.dll.def
+END

@@ -1,0 +1,5 @@
+dim/mod_common/submod.bmk : TEST_MODE=MULTI_MODULE_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m dim/mod_common/submod_a -c dim/mod_common/submod_a.bas -o dim/mod_common/submod_a.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m dim/mod_common/submod_a -c dim/mod_common/submod_b.bas -o dim/mod_common/submod_b.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g dim/mod_common/submod_a.o dim/mod_common/submod_b.o -x dim/mod_common/submod_a
+dim/mod_common/submod.bmk : RESULT=PASSED

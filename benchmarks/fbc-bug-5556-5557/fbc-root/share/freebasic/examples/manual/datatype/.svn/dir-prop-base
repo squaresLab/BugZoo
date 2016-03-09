@@ -1,0 +1,30 @@
+K 10
+svn:ignore
+V 288
+byte.exe
+byte2.exe
+double.exe
+integer.exe
+long.exe
+longint.exe
+pointer.exe
+ptr.exe
+short.exe
+single.exe
+string.exe
+ubyte.exe
+ubyte2.exe
+uinteger.exe
+ulong.exe
+ulongint.exe
+unsigned.exe
+ushort.exe
+wstring.exe
+wstring2.exe
+zstring.exe
+zstring2.exe
+const-ovl.exe
+const-ptr.exe
+const-var.exe
+
+END

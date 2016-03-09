@@ -1,0 +1,8 @@
+const/typedef2.bas : TEST_MODE=COMPILE_ONLY_FAIL
+const/typedef2.bas(15) error 189: Expected initializer in 'dim as const foo kah'
+const/typedef2.bas(16) error 109: Cannot modify a constant in 'kah.__ = 69'
+const/typedef2.bas(18) error 189: Expected initializer in 'dim as blah kah2'
+const/typedef2.bas(19) error 109: Cannot modify a constant in 'kah2.__ = 69'
+const/typedef2.bas(21) error 189: Expected initializer in 'dim as const integer bar_'
+const/typedef2.bas(22) error 109: Cannot modify a constant in 'bar_ = 69'
+const/typedef2.bas : RESULT=PASSED

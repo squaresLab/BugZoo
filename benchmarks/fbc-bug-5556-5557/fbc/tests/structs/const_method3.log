@@ -1,0 +1,5 @@
+structs/const_method3.bas : TEST_MODE=COMPILE_ONLY_FAIL
+structs/const_method3.bas(14) error 224: Non-const UDT cannot invoke const method, before '(' in 'proc2()'
+structs/const_method3.bas(16) error 224: Non-const UDT cannot invoke const method, before '(' in 'this.proc2()'
+structs/const_method3.bas(19) error 224: Non-const UDT cannot invoke const method, before '(' in '.proc2()'
+structs/const_method3.bas : RESULT=PASSED

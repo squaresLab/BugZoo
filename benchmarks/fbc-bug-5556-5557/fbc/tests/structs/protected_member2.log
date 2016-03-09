@@ -1,0 +1,5 @@
+structs/protected_member2.bas : TEST_MODE=COMPILE_ONLY_FAIL
+
+Aborting due to runtime error 12 ("segmentation violation" signal)
+
+structs/protected_member2.bas : RESULT=PASSED

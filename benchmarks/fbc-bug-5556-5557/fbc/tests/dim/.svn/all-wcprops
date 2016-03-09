@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/fbc/!svn/ver/5324/trunk/FreeBASIC/tests/dim
+END
+udt_init.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3622/trunk/FreeBASIC/tests/dim/udt_init.bas
+END
+redim_param.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4607/trunk/FreeBASIC/tests/dim/redim_param.bas
+END
+auto_var.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3743/trunk/FreeBASIC/tests/dim/auto_var.bas
+END
+udt_initialization2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/4607/trunk/FreeBASIC/tests/dim/udt_initialization2.bas
+END
+udt_initialization3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/4607/trunk/FreeBASIC/tests/dim/udt_initialization3.bas
+END
+static.bas
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/dim/static.bas
+END
+string_init.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5324/trunk/FreeBASIC/tests/dim/string_init.bas
+END
+decl_var_cast.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3797/trunk/FreeBASIC/tests/dim/decl_var_cast.bas
+END
+redim.bas
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/4200/trunk/FreeBASIC/tests/dim/redim.bas
+END
+array_init.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/dim/array_init.bas
+END
+auto_var2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3743/trunk/FreeBASIC/tests/dim/auto_var2.bas
+END
+udt_initialization.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/4607/trunk/FreeBASIC/tests/dim/udt_initialization.bas
+END
+auto_var3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3864/trunk/FreeBASIC/tests/dim/auto_var3.bas
+END
+udt_init_pad.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/dim/udt_init_pad.bas
+END
+array_ellipsis_init.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5181/trunk/FreeBASIC/tests/dim/array_ellipsis_init.bas
+END
+typeof.bas
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/3848/trunk/FreeBASIC/tests/dim/typeof.bas
+END
+array_static_init.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3594/trunk/FreeBASIC/tests/dim/array_static_init.bas
+END
+anon_no_access.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3797/trunk/FreeBASIC/tests/dim/anon_no_access.bas
+END

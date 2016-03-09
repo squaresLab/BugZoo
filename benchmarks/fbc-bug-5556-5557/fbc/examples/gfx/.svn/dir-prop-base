@@ -1,0 +1,27 @@
+K 10
+svn:ignore
+V 303
+fbgfx_depth.exe
+fbgfx_events.exe
+fbgfx_flame.exe
+fbgfx_getput.exe
+fbgfx_input.exe
+fbgfx_test.exe
+freeimage.exe
+gd_test.exe
+gif_read.exe
+grx_test.exe
+jpeg_read.exe
+mandbrot.exe
+png_read.exe
+ptc_test.exe
+rel-blob.exe
+rel-flower.exe
+rel-juliarings.exe
+rel-lens.exe
+rel-torus.exe
+test.gif
+test.jpg
+test.png
+
+END

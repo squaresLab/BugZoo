@@ -1,0 +1,251 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svnroot/fbc/!svn/ver/4710/trunk/FreeBASIC/inc/libxml
+END
+xmlIO.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlIO.bi
+END
+xmlmemory.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlmemory.bi
+END
+SAX.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/SAX.bi
+END
+parser.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/parser.bi
+END
+valid.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/valid.bi
+END
+uri.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/uri.bi
+END
+tree.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/tree.bi
+END
+relaxng.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/relaxng.bi
+END
+c14n.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/c14n.bi
+END
+xmlversion.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlversion.bi
+END
+xmlunicode.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlunicode.bi
+END
+xpointer.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xpointer.bi
+END
+catalog.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/catalog.bi
+END
+xmlregexp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlregexp.bi
+END
+xinclude.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xinclude.bi
+END
+list.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/list.bi
+END
+pattern.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/pattern.bi
+END
+xmlreader.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlreader.bi
+END
+globals.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/4710/trunk/FreeBASIC/inc/libxml/globals.bi
+END
+xlink.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xlink.bi
+END
+encoding.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/encoding.bi
+END
+xmlstring.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlstring.bi
+END
+threads.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/threads.bi
+END
+nanohttp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/nanohttp.bi
+END
+xmlautomata.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlautomata.bi
+END
+xmlwriter.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlwriter.bi
+END
+xmlschemas.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlschemas.bi
+END
+xpathInternals.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xpathInternals.bi
+END
+nanoftp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/nanoftp.bi
+END
+xmlmodule.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlmodule.bi
+END
+debugXML.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/debugXML.bi
+END
+xmlerror.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlerror.bi
+END
+SAX2.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/SAX2.bi
+END
+xmlsave.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xmlsave.bi
+END
+HTMLparser.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/HTMLparser.bi
+END
+dict.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/dict.bi
+END
+hash.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/hash.bi
+END
+HTMLtree.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/HTMLtree.bi
+END
+entities.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/entities.bi
+END
+xpath.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/libxml/xpath.bi
+END
+xmlexports.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/2533/trunk/FreeBASIC/inc/libxml/xmlexports.bi
+END

@@ -1,0 +1,5 @@
+qb/suffixes2.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang qb -g -w 0  -m qb/suffixes2 -c qb/suffixes2.bas -o qb/suffixes2.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g qb/suffixes2.o -x qb/suffixes2
+qb/suffixes2.o() warning 22(2): Object files or libraries with mixed language (-lang) options
+qb/suffixes2.bas : RESULT=PASSED

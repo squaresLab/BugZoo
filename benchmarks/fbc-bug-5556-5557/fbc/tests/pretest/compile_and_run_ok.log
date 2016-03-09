@@ -1,0 +1,4 @@
+pretest/compile_and_run_ok.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m pretest/compile_and_run_ok -c pretest/compile_and_run_ok.bas -o pretest/compile_and_run_ok.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g pretest/compile_and_run_ok.o -x pretest/compile_and_run_ok
+pretest/compile_and_run_ok.bas : RESULT=PASSED

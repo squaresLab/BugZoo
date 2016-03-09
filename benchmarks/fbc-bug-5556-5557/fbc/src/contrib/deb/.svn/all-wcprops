@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/5402/trunk/FreeBASIC/src/contrib/deb
+END
+control
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5402/trunk/FreeBASIC/src/contrib/deb/control
+END
+makedeb.sh
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5402/trunk/FreeBASIC/src/contrib/deb/makedeb.sh
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5402/trunk/FreeBASIC/src/contrib/deb/README
+END

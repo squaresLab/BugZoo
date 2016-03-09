@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svnroot/fbc/!svn/ver/5556/trunk/FreeBASIC/tests
+END
+dirlist.mk
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/5417/trunk/FreeBASIC/tests/dirlist.mk
+END
+log-tests.mk
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/5514/trunk/FreeBASIC/tests/log-tests.mk
+END
+cunit-tests.mk
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/5514/trunk/FreeBASIC/tests/cunit-tests.mk
+END
+bmk-make.mk
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/5148/trunk/FreeBASIC/tests/bmk-make.mk
+END
+readme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/4852/trunk/FreeBASIC/tests/readme.txt
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/5514/trunk/FreeBASIC/tests/Makefile
+END
+common.mk
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/3116/trunk/FreeBASIC/tests/common.mk
+END

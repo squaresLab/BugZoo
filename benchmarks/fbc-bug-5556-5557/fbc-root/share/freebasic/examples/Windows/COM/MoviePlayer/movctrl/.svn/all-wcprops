@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/3685/trunk/FreeBASIC/examples/Windows/COM/MoviePlayer/movctrl
+END
+movctrl.bi
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3550/trunk/FreeBASIC/examples/Windows/COM/MoviePlayer/movctrl/movctrl.bi
+END
+CMovie.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3550/trunk/FreeBASIC/examples/Windows/COM/MoviePlayer/movctrl/CMovie.bas
+END
+movctrl.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3550/trunk/FreeBASIC/examples/Windows/COM/MoviePlayer/movctrl/movctrl.bas
+END
+CMovie.bi
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/fbc/!svn/ver/3685/trunk/FreeBASIC/examples/Windows/COM/MoviePlayer/movctrl/CMovie.bi
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/fbc/!svn/ver/2537/trunk/FreeBASIC/examples/Windows/COM/MoviePlayer/movctrl/Makefile
+END

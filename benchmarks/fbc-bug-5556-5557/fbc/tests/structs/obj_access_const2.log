@@ -1,0 +1,2 @@
+structs/obj_access_const2.bas : TEST_MODE=COMPILE_ONLY_OK
+structs/obj_access_const2.bas : RESULT=PASSED

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/libraries/DB
+END
+postgresql_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/libraries/DB/postgresql_test.bas
+END
+sqlite2_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/libraries/DB/sqlite2_test.bas
+END
+sqlite2_test.db
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/libraries/DB/sqlite2_test.db
+END
+sqlite3_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/libraries/DB/sqlite3_test.bas
+END
+sqlite3_test.db
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/libraries/DB/sqlite3_test.db
+END
+mysql_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/libraries/DB/mysql_test.bas
+END

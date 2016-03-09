@@ -1,0 +1,7 @@
+qb/mkcv.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang qb -g -w 0  -m qb/mkcv -c qb/mkcv.bas -o qb/mkcv.o
+qb/mkcv.bas(14) warning 25(0): Overflow in constant conversion
+qb/mkcv.bas(14) warning 25(0): Overflow in constant conversion
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g qb/mkcv.o -x qb/mkcv
+qb/mkcv.o() warning 22(2): Object files or libraries with mixed language (-lang) options
+qb/mkcv.bas : RESULT=PASSED

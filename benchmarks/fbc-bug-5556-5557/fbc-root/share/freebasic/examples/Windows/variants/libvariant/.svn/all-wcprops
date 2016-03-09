@@ -1,0 +1,365 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/4096/trunk/FreeBASIC/examples/Windows/variants/libvariant
+END
+variant-div-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-div-self.bas
+END
+variant-lt-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-lt-inv.bas
+END
+variant-mod-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-mod-inv.bas
+END
+variant-gt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-gt.bas
+END
+variant-div-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-div-inv.bas
+END
+variant-imp-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-imp-inv.bas
+END
+variant-add-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-add-self.bas
+END
+variant-or.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-or.bas
+END
+variant-add-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-add-inv.bas
+END
+variant-sub-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-sub-inv.bas
+END
+variant-idiv-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-idiv-inv.bas
+END
+variant-ge-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-ge-inv.bas
+END
+variant-eqv-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-eqv-inv.bas
+END
+variant-shl.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-shl.bas
+END
+variant-mul-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-mul-inv.bas
+END
+variant-and-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-and-self.bas
+END
+variant-and-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-and-inv.bas
+END
+variant-shr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-shr.bas
+END
+variant-eq-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-eq-inv.bas
+END
+variant-pow-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-pow-inv.bas
+END
+variant-xor-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-xor-self.bas
+END
+variant-le.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-le.bas
+END
+variant-ne.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-ne.bas
+END
+variant-xor-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-xor-inv.bas
+END
+variant-gt-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-gt-inv.bas
+END
+variant-mod-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-mod-self.bas
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/Makefile
+END
+variant-or-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-or-self.bas
+END
+variant-dtor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-dtor.bas
+END
+variant-neg.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-neg.bas
+END
+variant-or-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-or-inv.bas
+END
+variant-imp-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-imp-self.bas
+END
+variant-shl-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-shl-self.bas
+END
+variant-lt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-lt.bas
+END
+variant-mod.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-mod.bas
+END
+variant-sub-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-sub-self.bas
+END
+variant-idiv-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-idiv-self.bas
+END
+variant-eqv-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-eqv-self.bas
+END
+intern.bi
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/intern.bi
+END
+variant-div.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-div.bas
+END
+variant-shr-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-shr-self.bas
+END
+variant-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-assign.bas
+END
+variant-mul-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-mul-self.bas
+END
+variant-imp.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-imp.bas
+END
+variant-add.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-add.bas
+END
+variant-sub.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-sub.bas
+END
+variant-le-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-le-inv.bas
+END
+variant-cast.bas
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-cast.bas
+END
+variant-idiv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-idiv.bas
+END
+variant-ge.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-ge.bas
+END
+variant-eqv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-eqv.bas
+END
+variant-ne-inv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-ne-inv.bas
+END
+variant-pow-self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-pow-self.bas
+END
+variant-mul.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-mul.bas
+END
+variant-not.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-not.bas
+END
+variant-and.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-and.bas
+END
+variant-eq.bas
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-eq.bas
+END
+variant-pow.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-pow.bas
+END
+variant-ctor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/fbc/!svn/ver/4096/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-ctor.bas
+END
+variant-xor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svnroot/fbc/!svn/ver/3880/trunk/FreeBASIC/examples/Windows/variants/libvariant/variant-xor.bas
+END

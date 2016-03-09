@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/fbc/!svn/ver/5386/trunk/FreeBASIC/inc/ode
+END
+collision_trimesh.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/collision_trimesh.bi
+END
+common.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/common.bi
+END
+objects.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/objects.bi
+END
+error.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/error.bi
+END
+misc.bi
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/misc.bi
+END
+contact.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/contact.bi
+END
+collision.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/collision.bi
+END
+rotation.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/4090/trunk/FreeBASIC/inc/ode/rotation.bi
+END
+mass.bi
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/mass.bi
+END
+matrix.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/matrix.bi
+END
+config.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/config.bi
+END
+collision_space.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/collision_space.bi
+END
+ode.bi
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/ode.bi
+END
+memory.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/memory.bi
+END
+compatibility.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/compatibility.bi
+END
+timer.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/timer.bi
+END
+odemath.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/5386/trunk/FreeBASIC/inc/ode/odemath.bi
+END
+export-dif.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/4426/trunk/FreeBASIC/inc/ode/export-dif.bi
+END

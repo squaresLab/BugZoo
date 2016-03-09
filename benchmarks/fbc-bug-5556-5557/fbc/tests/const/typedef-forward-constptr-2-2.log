@@ -1,0 +1,2 @@
+const/typedef-forward-constptr-2-2.bas : TEST_MODE=COMPILE_ONLY_OK
+const/typedef-forward-constptr-2-2.bas : RESULT=PASSED

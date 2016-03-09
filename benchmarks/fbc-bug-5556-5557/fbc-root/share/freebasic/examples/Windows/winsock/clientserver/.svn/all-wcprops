@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/4425/trunk/FreeBASIC/examples/Windows/winsock/clientserver
+END
+myprotocol.bi
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/4425/trunk/FreeBASIC/examples/Windows/winsock/clientserver/myprotocol.bi
+END
+client.bas
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/fbc/!svn/ver/3043/trunk/FreeBASIC/examples/Windows/winsock/clientserver/client.bas
+END
+wshelper.bi
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/fbc/!svn/ver/1634/trunk/FreeBASIC/examples/Windows/winsock/clientserver/wshelper.bi
+END
+server.bas
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/fbc/!svn/ver/4425/trunk/FreeBASIC/examples/Windows/winsock/clientserver/server.bas
+END
+wshelper.bas
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/fbc/!svn/ver/2691/trunk/FreeBASIC/examples/Windows/winsock/clientserver/wshelper.bas
+END

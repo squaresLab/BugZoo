@@ -1,0 +1,3 @@
+const/make-typedef-const-1.bas : TEST_MODE=COMPILE_ONLY_FAIL
+const/make-typedef-const-1.bas(7) error 109: Cannot modify a constant, before ''' in 'p = 0   '' error'
+const/make-typedef-const-1.bas : RESULT=PASSED

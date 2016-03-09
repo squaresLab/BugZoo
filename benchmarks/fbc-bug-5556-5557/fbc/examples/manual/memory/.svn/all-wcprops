@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5264/trunk/FreeBASIC/examples/manual/memory
+END
+reallocate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/reallocate.bas
+END
+sadd.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5264/trunk/FreeBASIC/examples/manual/memory/sadd.bas
+END
+deallocate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/deallocate.bas
+END
+poke.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/poke.bas
+END
+deallocate2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/deallocate2.bas
+END
+deallocate3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/deallocate3.bas
+END
+allocate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/allocate.bas
+END
+peek.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/peek.bas
+END
+allocate2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/allocate2.bas
+END
+callocate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/callocate.bas
+END
+swap.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/memory/swap.bas
+END

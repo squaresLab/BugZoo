@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/fbc/!svn/ver/3596/trunk/FreeBASIC/inc/cairo
+END
+cairo-svg.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3596/trunk/FreeBASIC/inc/cairo/cairo-svg.bi
+END
+cairo-ps.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3596/trunk/FreeBASIC/inc/cairo/cairo-ps.bi
+END
+cairo-win32.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3596/trunk/FreeBASIC/inc/cairo/cairo-win32.bi
+END
+cairo.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3596/trunk/FreeBASIC/inc/cairo/cairo.bi
+END
+cairo-pdf.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3596/trunk/FreeBASIC/inc/cairo/cairo-pdf.bi
+END

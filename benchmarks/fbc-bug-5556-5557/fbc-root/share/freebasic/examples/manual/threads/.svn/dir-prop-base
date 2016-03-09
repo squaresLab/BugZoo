@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 110
+condcreate.exe
+mutexcreate.exe
+mutexdestroy.exe
+mutexlock.exe
+mutexunlock.exe
+threadcreate.exe
+threadwait.exe
+
+END

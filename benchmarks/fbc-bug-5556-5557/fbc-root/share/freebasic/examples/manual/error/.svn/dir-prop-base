@@ -1,0 +1,15 @@
+K 10
+svn:ignore
+V 103
+erfn.exe
+erl.exe
+ermn.exe
+err1.exe
+err2.exe
+error.exe
+local.exe
+onerror.exe
+resume-next.exe
+resume.exe
+
+END

@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 47
+libmydll.dll.a
+mydll.dll
+test.exe
+testload.exe
+
+END

@@ -1,0 +1,14 @@
+K 10
+svn:ignore
+V 163
+fbc-tests.exe
+cunit-tests.inc
+failed-log-tests-fb.inc
+log-tests-deprecated.inc
+log-tests-fb.inc
+log-tests-qb.inc
+failed-deprecated.log
+failed-fb.log
+failed-qb.log
+
+END

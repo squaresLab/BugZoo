@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/variable
+END
+const.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/variable/const.bas
+END
+shared.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/4994/trunk/FreeBASIC/examples/manual/variable/shared.bas
+END
+static.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/variable/static.bas
+END
+var.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/variable/var.bas
+END
+dim.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/variable/dim.bas
+END
+scope.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/variable/scope.bas
+END

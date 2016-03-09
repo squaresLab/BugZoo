@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/fbc/!svn/ver/5154/trunk/FreeBASIC/inc/crt
+END
+math.bi
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/4137/trunk/FreeBASIC/inc/crt/math.bi
+END
+netdb.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/5154/trunk/FreeBASIC/inc/crt/netdb.bi
+END
+time.bi
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/3961/trunk/FreeBASIC/inc/crt/time.bi
+END
+limits.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/2505/trunk/FreeBASIC/inc/crt/limits.bi
+END
+setjmp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/3263/trunk/FreeBASIC/inc/crt/setjmp.bi
+END
+wchar.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/crt/wchar.bi
+END
+stdint.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/3260/trunk/FreeBASIC/inc/crt/stdint.bi
+END
+unistd.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4537/trunk/FreeBASIC/inc/crt/unistd.bi
+END
+string.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/crt/string.bi
+END
+fcntl.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/fcntl.bi
+END
+io.bi
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/crt/io.bi
+END
+malloc.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/2505/trunk/FreeBASIC/inc/crt/malloc.bi
+END
+stddef.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/3682/trunk/FreeBASIC/inc/crt/stddef.bi
+END
+process.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/4602/trunk/FreeBASIC/inc/crt/process.bi
+END
+dir.bi
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/dir.bi
+END
+stdlib.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4550/trunk/FreeBASIC/inc/crt/stdlib.bi
+END
+stdio.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/crt/stdio.bi
+END
+stdarg.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/2505/trunk/FreeBASIC/inc/crt/stdarg.bi
+END
+ctype.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/4340/trunk/FreeBASIC/inc/crt/ctype.bi
+END
+errno.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/3267/trunk/FreeBASIC/inc/crt/errno.bi
+END

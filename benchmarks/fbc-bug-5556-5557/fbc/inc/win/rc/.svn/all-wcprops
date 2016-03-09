@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc
+END
+dlgs.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/dlgs.h
+END
+windows.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/windows.h
+END
+winver.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/winver.h
+END
+dde.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/dde.h
+END
+winuser.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/winuser.h
+END
+winnt.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/winnt.h
+END
+commctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/commctrl.h
+END
+prsht.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/prsht.h
+END
+winerror.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/421/trunk/FreeBASIC/inc/win/rc/winerror.h
+END

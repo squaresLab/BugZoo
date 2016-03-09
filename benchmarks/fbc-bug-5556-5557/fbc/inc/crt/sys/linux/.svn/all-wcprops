@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4711/trunk/FreeBASIC/inc/crt/sys/linux
+END
+socket.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3648/trunk/FreeBASIC/inc/crt/sys/linux/socket.bi
+END
+time.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4711/trunk/FreeBASIC/inc/crt/sys/linux/time.bi
+END
+select.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3277/trunk/FreeBASIC/inc/crt/sys/linux/select.bi
+END
+types.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3545/trunk/FreeBASIC/inc/crt/sys/linux/types.bi
+END

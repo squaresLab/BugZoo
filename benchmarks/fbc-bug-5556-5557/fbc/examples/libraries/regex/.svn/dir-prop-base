@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 80
+pcre_demo.exe
+printmatches.exe
+regex_replace.exe
+regex_replace2.exe
+subexpr.exe
+
+END

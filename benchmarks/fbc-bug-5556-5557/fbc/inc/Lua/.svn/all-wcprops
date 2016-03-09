@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svnroot/fbc/!svn/ver/5155/trunk/FreeBASIC/inc/Lua
+END
+lualib.bi
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/Lua/lualib.bi
+END
+lauxlib.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/4202/trunk/FreeBASIC/inc/Lua/lauxlib.bi
+END
+lua.bi
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/5155/trunk/FreeBASIC/inc/Lua/lua.bi
+END

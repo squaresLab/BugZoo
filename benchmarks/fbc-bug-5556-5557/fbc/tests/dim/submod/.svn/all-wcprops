@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/4152/trunk/FreeBASIC/tests/dim/submod
+END
+submod.bmk
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3122/trunk/FreeBASIC/tests/dim/submod/submod.bmk
+END
+submod_c.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/1901/trunk/FreeBASIC/tests/dim/submod/submod_c.bi
+END
+submod_a.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3116/trunk/FreeBASIC/tests/dim/submod/submod_a.bas
+END
+submod_b.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3116/trunk/FreeBASIC/tests/dim/submod/submod_b.bas
+END

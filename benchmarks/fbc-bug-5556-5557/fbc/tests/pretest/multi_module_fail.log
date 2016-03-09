@@ -1,0 +1,6 @@
+pretest/multi_module_fail.bmk : TEST_MODE=MULTI_MODULE_FAIL
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m pretest/multi_module_fail -c pretest/multi_module_fail.bas -o pretest/multi_module_fail.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m pretest/multi_module_fail -c pretest/multi_module_subs.bas -o pretest/multi_module_subs.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g pretest/multi_module_fail.o pretest/multi_module_subs.o -x pretest/multi_module_fail
+pretest/multi_module_subs.bas(11): assertion failed at TESTFAIL: 1=0
+pretest/multi_module_fail.bmk : RESULT=PASSED

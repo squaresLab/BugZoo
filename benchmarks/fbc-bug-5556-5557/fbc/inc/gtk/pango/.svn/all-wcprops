@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango
+END
+pango-context.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-context.bi
+END
+pango-break.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-break.bi
+END
+pango-attributes.bi
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-attributes.bi
+END
+pango-tabs.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-tabs.bi
+END
+pango-coverage.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/pango/pango-coverage.bi
+END
+pango-item.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-item.bi
+END
+pango-script.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-script.bi
+END
+pango-fontmap.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-fontmap.bi
+END
+pango-types.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/pango/pango-types.bi
+END
+pango-engine.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-engine.bi
+END
+pango-renderer.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-renderer.bi
+END
+pango-font.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-font.bi
+END
+pango-enum-types.bi
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/pango/pango-enum-types.bi
+END
+pango-layout.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-layout.bi
+END
+pango-glyph-item.bi
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-glyph-item.bi
+END
+pango-fontset.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-fontset.bi
+END
+pango-glyph.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/pango/pango-glyph.bi
+END

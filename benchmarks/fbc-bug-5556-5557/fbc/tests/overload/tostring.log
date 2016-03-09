@@ -1,0 +1,2 @@
+overload/tostring.bas : TEST_MODE=COMPILE_ONLY_OK
+overload/tostring.bas : RESULT=PASSED

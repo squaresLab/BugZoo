@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/manifest
+END
+linux.lst
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/manifest/linux.lst
+END
+win32.lst
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/manifest/win32.lst
+END
+dos.lst
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/manifest/dos.lst
+END
+linux-standalone.lst
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/manifest/linux-standalone.lst
+END

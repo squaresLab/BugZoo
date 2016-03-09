@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 71
+bass_test.exe
+bassmod_test.exe
+fmodtest.exe
+openaltest.exe
+playmp3.exe
+
+END

@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/5179/trunk/FreeBASIC/tests/pointers
+END
+casting3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/casting3.bas
+END
+new_init.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/5179/trunk/FreeBASIC/tests/pointers/new_init.bas
+END
+funptr-funcderef.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/funptr-funcderef.bas
+END
+prop_new_del.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3846/trunk/FreeBASIC/tests/pointers/prop_new_del.bas
+END
+field_array_desc.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3238/trunk/FreeBASIC/tests/pointers/field_array_desc.bas
+END
+addr_deref.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/addr_deref.bas
+END
+indexing1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/indexing1.bas
+END
+array_ptr_fn.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/array_ptr_fn.bas
+END
+indexing2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/indexing2.bas
+END
+field_deref.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3210/trunk/FreeBASIC/tests/pointers/field_deref.bas
+END
+funptr_mangling.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/funptr_mangling.bas
+END
+addrofnull.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/addrofnull.bas
+END
+funptr_array1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/funptr_array1.bas
+END
+multi_deref.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/multi_deref.bas
+END
+typedef_fwd.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/4742/trunk/FreeBASIC/tests/pointers/typedef_fwd.bas
+END
+field_deref_func.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3259/trunk/FreeBASIC/tests/pointers/field_deref_func.bas
+END
+funptr_fwdbyref.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/funptr_fwdbyref.bas
+END
+arith.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/arith.bas
+END
+casting1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/casting1.bas
+END
+casting2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/pointers/casting2.bas
+END

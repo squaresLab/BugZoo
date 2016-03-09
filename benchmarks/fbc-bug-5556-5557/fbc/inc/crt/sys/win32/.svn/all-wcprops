@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4567/trunk/FreeBASIC/inc/crt/sys/win32
+END
+stat.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4072/trunk/FreeBASIC/inc/crt/sys/win32/stat.bi
+END
+time.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4567/trunk/FreeBASIC/inc/crt/sys/win32/time.bi
+END
+types.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/sys/win32/types.bi
+END

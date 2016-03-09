@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gtkgl
+END
+gtkgldefs.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/810/trunk/FreeBASIC/inc/gtk/gtkgl/gtkgldefs.bi
+END
+gtkglinit.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gtkgl/gtkglinit.bi
+END
+gtkglwidget.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gtkgl/gtkglwidget.bi
+END
+gtkglversion.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/810/trunk/FreeBASIC/inc/gtk/gtkgl/gtkglversion.bi
+END

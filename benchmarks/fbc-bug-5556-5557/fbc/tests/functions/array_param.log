@@ -1,0 +1,3 @@
+functions/array_param.bas : TEST_MODE=COMPILE_ONLY_FAIL
+functions/array_param.bas(9) error 55: Type mismatch, at parameter 1 (a) of FUNK() in 'funk( a() )'
+functions/array_param.bas : RESULT=PASSED

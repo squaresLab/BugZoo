@@ -1,0 +1,3 @@
+const/constptr_to_ptr.bas : TEST_MODE=COMPILE_ONLY_FAIL
+const/constptr_to_ptr.bas(9) error 159: Invalid assignment/conversion, at parameter 1 (x) of C() in 'c( @pp )'
+const/constptr_to_ptr.bas : RESULT=PASSED

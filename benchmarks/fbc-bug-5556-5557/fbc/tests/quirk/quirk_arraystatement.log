@@ -1,0 +1,4 @@
+quirk/quirk_arraystatement.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m quirk/quirk_arraystatement -c quirk/quirk_arraystatement.bas -o quirk/quirk_arraystatement.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g quirk/quirk_arraystatement.o -x quirk/quirk_arraystatement
+quirk/quirk_arraystatement.bas : RESULT=PASSED

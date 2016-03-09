@@ -1,0 +1,4 @@
+85c85
+< 		sprintf( dst->data, "%llu", num );
+---
+> 		sprintf( dst->data, " %llu", num );

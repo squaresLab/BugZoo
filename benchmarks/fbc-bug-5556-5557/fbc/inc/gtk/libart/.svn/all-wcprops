@@ -1,0 +1,221 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart
+END
+art_vpath.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_vpath.bi
+END
+art_rgb_affine.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rgb_affine.bi
+END
+art_uta.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_uta.bi
+END
+art_point.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/796/trunk/FreeBASIC/inc/gtk/libart/art_point.bi
+END
+art_rect.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/libart/art_rect.bi
+END
+art_vpath_bpath.bi
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_vpath_bpath.bi
+END
+art_svp_vpath_stroke.bi
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_svp_vpath_stroke.bi
+END
+art_rgb_svp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rgb_svp.bi
+END
+art_uta_rect.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_uta_rect.bi
+END
+art_svp_render_aa.bi
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_svp_render_aa.bi
+END
+art_svp_vpath.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_svp_vpath.bi
+END
+art_vpath_svp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_vpath_svp.bi
+END
+art_rgb_rgba_affine.bi
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rgb_rgba_affine.bi
+END
+art_rgb_bitmap_affine.bi
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rgb_bitmap_affine.bi
+END
+art_svp_point.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_svp_point.bi
+END
+art_vpath_dash.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_vpath_dash.bi
+END
+art_uta_svp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_uta_svp.bi
+END
+libart-features.bi
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/libart/libart-features.bi
+END
+art_rect_svp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rect_svp.bi
+END
+art_pathcode.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/796/trunk/FreeBASIC/inc/gtk/libart/art_pathcode.bi
+END
+art_affine.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_affine.bi
+END
+art_alphagamma.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_alphagamma.bi
+END
+art_svp_wind.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_svp_wind.bi
+END
+art_svp_ops.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_svp_ops.bi
+END
+art_gray_svp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_gray_svp.bi
+END
+art_uta_vpath.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_uta_vpath.bi
+END
+art_misc.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_misc.bi
+END
+art_pixbuf.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_pixbuf.bi
+END
+art_bpath.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_bpath.bi
+END
+art_rgb_pixbuf_affine.bi
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rgb_pixbuf_affine.bi
+END
+art_config.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/796/trunk/FreeBASIC/inc/gtk/libart/art_config.bi
+END
+art_rect_uta.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rect_uta.bi
+END
+art_svp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_svp.bi
+END
+art_uta_ops.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_uta_ops.bi
+END
+art_rgb.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libart/art_rgb.bi
+END
+art_filterlevel.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/796/trunk/FreeBASIC/inc/gtk/libart/art_filterlevel.bi
+END

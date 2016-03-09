@@ -1,0 +1,239 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc
+END
+overload.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/overload.bas
+END
+sieve.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/sieve.bas
+END
+optargs.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/misc/optargs.bas
+END
+inkey.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/inkey.bas
+END
+select.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/select.bas
+END
+funcptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/funcptr.bas
+END
+arrayfield.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/arrayfield.bas
+END
+peek.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/peek.bas
+END
+allocate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/allocate.bas
+END
+constructor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5003/trunk/FreeBASIC/examples/misc/constructor.bas
+END
+conmouse.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/conmouse.bas
+END
+pcopy.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/pcopy.bas
+END
+threads.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/threads.bas
+END
+ptr_index.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/ptr_index.bas
+END
+str_index.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/str_index.bas
+END
+typedef.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/typedef.bas
+END
+asc_chr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/asc_chr.bas
+END
+ptr_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/ptr_test.bas
+END
+iif.bas
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/iif.bas
+END
+imp_conv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/imp_conv.bas
+END
+with.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/with.bas
+END
+command.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/misc/command.bas
+END
+var_initializers.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/var_initializers.bas
+END
+inlineasm.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/inlineasm.bas
+END
+escapechars.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/escapechars.bas
+END
+var-args.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/var-args.bas
+END
+preprocessor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/misc/preprocessor.bas
+END
+bytestring.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/bytestring.bas
+END
+byvaludt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/byvaludt.bas
+END
+naked_func.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5194/trunk/FreeBASIC/examples/misc/naked_func.bas
+END
+func_deref.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/func_deref.bas
+END
+macro.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/macro.bas
+END
+cgi_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4548/trunk/FreeBASIC/examples/misc/cgi_test.bas
+END
+mutex.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/4429/trunk/FreeBASIC/examples/misc/mutex.bas
+END
+hello.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/hello.bas
+END
+chain1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/chain1.bas
+END
+chain2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/4134/trunk/FreeBASIC/examples/misc/chain2.bas
+END
+bitfields.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/bitfields.bas
+END
+scope.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/misc/scope.bas
+END

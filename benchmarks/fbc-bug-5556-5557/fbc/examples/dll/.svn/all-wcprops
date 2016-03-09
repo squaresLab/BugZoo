@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/fbc/!svn/ver/4167/trunk/FreeBASIC/examples/dll
+END
+test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3043/trunk/FreeBASIC/examples/dll/test.bas
+END
+testload.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3125/trunk/FreeBASIC/examples/dll/testload.bas
+END
+mydll.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/1443/trunk/FreeBASIC/examples/dll/mydll.bas
+END
+mydll.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/138/trunk/FreeBASIC/examples/dll/mydll.bi
+END

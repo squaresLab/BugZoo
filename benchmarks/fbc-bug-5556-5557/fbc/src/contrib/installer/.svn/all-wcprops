@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/src/contrib/installer
+END
+template.nsi
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/src/contrib/installer/template.nsi
+END
+open-console.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/src/contrib/installer/open-console.bas
+END
+makescript.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/src/contrib/installer/makescript.bas
+END
+fblogo-header.bmp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5401/trunk/FreeBASIC/src/contrib/installer/fblogo-header.bmp
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5555/trunk/FreeBASIC/src/contrib/installer/makefile
+END

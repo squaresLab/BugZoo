@@ -1,0 +1,3 @@
+const/const_to_nonconst.bas : TEST_MODE=COMPILE_ONLY_FAIL
+const/const_to_nonconst.bas(7) error 159: Invalid assignment/conversion, at parameter 1 (bas) of FOO() in 'foo( bar )'
+const/const_to_nonconst.bas : RESULT=PASSED

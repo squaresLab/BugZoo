@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libglade
+END
+glade-parser.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/libglade/glade-parser.bi
+END
+glade-build.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/libglade/glade-build.bi
+END
+glade-xml.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/libglade/glade-xml.bi
+END
+glade-init.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/libglade/glade-init.bi
+END

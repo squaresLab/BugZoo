@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5246/trunk/FreeBASIC/src/gfxlib2/opengl/x11
+END
+libfb_gfx_driver_opengl.c
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/fbc/!svn/ver/5246/trunk/FreeBASIC/src/gfxlib2/opengl/x11/libfb_gfx_driver_opengl.c
+END

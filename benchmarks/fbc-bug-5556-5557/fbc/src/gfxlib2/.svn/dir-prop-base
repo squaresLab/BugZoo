@@ -1,0 +1,7 @@
+K 10
+svn:ignore
+V 32
+libfb_gfx_data.c
+autom4te.cache
+
+END

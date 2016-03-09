@@ -1,0 +1,7 @@
+qb/str.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang qb -g -w 0  -m qb/str -c qb/str.bas -o qb/str.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g qb/str.o -x qb/str
+qb/str.o() warning 22(2): Object files or libraries with mixed language (-lang) options
+qb/str.bas(69): assertion failed at __FB_MAINPROC__: str$(ull)  =" 9223372036854775807"
+make[2]: *** [run_test_ok] Error 1
+qb/str.bas : RESULT=FAILED

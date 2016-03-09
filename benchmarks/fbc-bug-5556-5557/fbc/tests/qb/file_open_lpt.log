@@ -1,0 +1,2 @@
+qb/file_open_lpt.bas : TEST_MODE=COMPILE_ONLY_OK
+qb/file_open_lpt.bas : RESULT=PASSED

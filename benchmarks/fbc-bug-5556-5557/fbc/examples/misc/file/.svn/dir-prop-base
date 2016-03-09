@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 91
+filearray.exe
+filebin.exe
+fileinput.exe
+filepipe.exe
+filerand.exe
+filerec.exe
+filetext.exe
+
+END

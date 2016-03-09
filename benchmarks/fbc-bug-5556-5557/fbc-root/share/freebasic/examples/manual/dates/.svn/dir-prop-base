@@ -1,0 +1,26 @@
+K 10
+svn:ignore
+V 243
+date.exe
+dateadd.exe
+datediff.exe
+datepart.exe
+dateserial.exe
+datevalue.exe
+day.exe
+hour.exe
+isdate.exe
+minute.exe
+month.exe
+monthname.exe
+now.exe
+second.exe
+time.exe
+timer.exe
+timeserial.exe
+timevalue.exe
+weekday.exe
+weekdayname.exe
+year.exe
+
+END

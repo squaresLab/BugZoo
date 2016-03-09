@@ -1,0 +1,7 @@
+quirk/function_array.bas : TEST_MODE=COMPILE_ONLY_FAIL
+quirk/function_array.bas(19) error 55: Type mismatch, at parameter 1 (a) of FOO() in 'foo( bar )'
+quirk/function_array.bas(20) error 109: Cannot modify a constant in 'foo( bak )'
+quirk/function_array.bas(21) error 109: Cannot modify a constant in 'foo( lark )'
+quirk/function_array.bas(22) error 109: Cannot modify a constant in 'foo( talk )'
+quirk/function_array.bas(23) error 109: Cannot modify a constant in 'foo( msg )'
+quirk/function_array.bas : RESULT=PASSED

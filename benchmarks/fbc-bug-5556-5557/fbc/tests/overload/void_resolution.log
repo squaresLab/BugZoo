@@ -1,0 +1,4 @@
+overload/void_resolution.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m overload/void_resolution -c overload/void_resolution.bas -o overload/void_resolution.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g overload/void_resolution.o -x overload/void_resolution
+overload/void_resolution.bas : RESULT=PASSED

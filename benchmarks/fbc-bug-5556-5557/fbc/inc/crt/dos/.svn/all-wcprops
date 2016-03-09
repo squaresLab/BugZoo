@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/fbc/!svn/ver/4551/trunk/FreeBASIC/inc/crt/dos
+END
+fcntl.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/dos/fcntl.bi
+END
+unistd.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/4551/trunk/FreeBASIC/inc/crt/dos/unistd.bi
+END
+dir.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/dos/dir.bi
+END
+time.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/3583/trunk/FreeBASIC/inc/crt/dos/time.bi
+END
+stdio.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/dos/stdio.bi
+END
+wchar.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/dos/wchar.bi
+END

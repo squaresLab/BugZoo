@@ -1,0 +1,2 @@
+qb/suffixes.bas : TEST_MODE=COMPILE_ONLY_OK
+qb/suffixes.bas : RESULT=PASSED

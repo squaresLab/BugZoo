@@ -1,0 +1,21 @@
+K 10
+svn:ignore
+V 163
+cast.exe
+cbyte.exe
+cdbl.exe
+cint.exe
+clng.exe
+clngint.exe
+cptr.exe
+cshort.exe
+csign.exe
+csng.exe
+cubyte.exe
+cuint.exe
+culng.exe
+culngint.exe
+cunsg.exe
+cushort.exe
+
+END

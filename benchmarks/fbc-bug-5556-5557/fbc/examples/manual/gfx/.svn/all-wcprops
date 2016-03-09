@@ -1,0 +1,389 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/gfx
+END
+imageconvertrow.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/imageconvertrow.bas
+END
+put-xor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-xor.bas
+END
+draw2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/gfx/draw2.bas
+END
+screenglproc.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screenglproc.bas
+END
+screenptr2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5264/trunk/FreeBASIC/examples/manual/gfx/screenptr2.bas
+END
+screenlock.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screenlock.bas
+END
+point.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/point.bas
+END
+screeninfo.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screeninfo.bas
+END
+drawstring-custom.bas
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/drawstring-custom.bas
+END
+draw.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/gfx/draw.bas
+END
+imageinfo.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5264/trunk/FreeBASIC/examples/manual/gfx/imageinfo.bas
+END
+put-alpha-8bit.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-alpha-8bit.bas
+END
+circle.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/circle.bas
+END
+preset.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/preset.bas
+END
+bload2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5119/trunk/FreeBASIC/examples/manual/gfx/bload2.bas
+END
+bload3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5264/trunk/FreeBASIC/examples/manual/gfx/bload3.bas
+END
+screenptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screenptr.bas
+END
+line_style.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/line_style.bas
+END
+view.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/view.bas
+END
+screenlist.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screenlist.bas
+END
+rgba.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5119/trunk/FreeBASIC/examples/manual/gfx/rgba.bas
+END
+screensync.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screensync.bas
+END
+screenevent.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/gfx/screenevent.bas
+END
+put-pset.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-pset.bas
+END
+bload.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/bload.bas
+END
+screenres.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screenres.bas
+END
+screen-func1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screen-func1.bas
+END
+screen-func2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screen-func2.bas
+END
+screen-func3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screen-func3.bas
+END
+put-trans.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-trans.bas
+END
+palette.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/palette.bas
+END
+put-add.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-add.bas
+END
+put.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put.bas
+END
+rgba_get.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5119/trunk/FreeBASIC/examples/manual/gfx/rgba_get.bas
+END
+custom.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/custom.bas
+END
+step.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/step.bas
+END
+paint.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/paint.bas
+END
+put-all.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-all.bas
+END
+screen.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5119/trunk/FreeBASIC/examples/manual/gfx/screen.bas
+END
+screencontrol.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screencontrol.bas
+END
+palette2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/palette2.bas
+END
+palette3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/palette3.bas
+END
+drawstring.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/drawstring.bas
+END
+put-or.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-or.bas
+END
+flip.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/flip.bas
+END
+pcopy.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/pcopy.bas
+END
+put-alpha.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-alpha.bas
+END
+pmap.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/pmap.bas
+END
+window.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/window.bas
+END
+windowtitle.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/windowtitle.bas
+END
+cls-memset.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/cls-memset.bas
+END
+screencopy.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screencopy.bas
+END
+rgb.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/rgb.bas
+END
+pset.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/pset.bas
+END
+pcopy_cons.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/gfx/pcopy_cons.bas
+END
+color.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/color.bas
+END
+line.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/line.bas
+END
+screenset.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/screenset.bas
+END
+paint2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/paint2.bas
+END
+bsave.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/bsave.bas
+END
+screen2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5119/trunk/FreeBASIC/examples/manual/gfx/screen2.bas
+END
+imagecreate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5264/trunk/FreeBASIC/examples/manual/gfx/imagecreate.bas
+END
+put-and.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/gfx/put-and.bas
+END
+rgb_get.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5119/trunk/FreeBASIC/examples/manual/gfx/rgb_get.bas
+END

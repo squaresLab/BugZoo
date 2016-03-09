@@ -1,0 +1,229 @@
+10
+
+dir
+5556
+https://fbc.svn.sourceforge.net/svnroot/fbc/trunk/FreeBASIC/examples/manual
+https://fbc.svn.sourceforge.net/svnroot/fbc
+
+
+
+2011-05-02T18:58:33.384500Z
+5555
+dkls
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+b3cc3fc2-2e32-0410-b709-837b935790e1
+
+control
+dir
+
+samples.txt
+file
+
+
+
+
+2013-06-25T20:27:12.000000Z
+b8d9a011326cbc7227cec259de1020f5
+2007-08-03T16:49:09.639454Z
+4083
+jeffmarshall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1319
+
+gfx
+dir
+
+system
+dir
+
+procs
+dir
+
+meta
+dir
+
+debug
+dir
+
+casting
+dir
+
+strings
+dir
+
+math
+dir
+
+error
+dir
+
+threads
+dir
+
+udt
+dir
+
+input
+dir
+
+dates
+dir
+
+extras
+dir
+
+fileio
+dir
+
+faq
+dir
+
+memory
+dir
+
+data
+dir
+
+datatype
+dir
+
+check
+dir
+
+proguide
+dir
+
+samples.ini
+file
+
+
+
+
+2013-06-25T20:27:12.000000Z
+1f0cea2aee0fe4b405f9684271ff7c1a
+2008-11-30T15:45:00.567191Z
+5187
+jeffmarshall
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5413
+
+variable
+dir
+
+module
+dir
+
+switches
+dir
+
+misc
+dir
+
+operator
+dir
+
+hardware
+dir
+
+bits
+dir
+
+console
+dir
+
+prepro
+dir
+
+samples.bas
+file
+
+
+
+
+2013-06-25T20:27:12.000000Z
+d4d21fd2b2a214043feee748b2f14848
+2008-11-30T15:45:00.567191Z
+5187
+jeffmarshall
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17155
+
+defines
+dir
+
+array
+dir
+

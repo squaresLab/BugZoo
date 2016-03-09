@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/DOS
+END
+modex.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3043/trunk/FreeBASIC/examples/DOS/modex.bas
+END
+isrtimer.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4471/trunk/FreeBASIC/examples/DOS/isrtimer.bas
+END
+textbuff.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/DOS/textbuff.bas
+END
+mouse.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/DOS/mouse.bas
+END
+vga13h.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3043/trunk/FreeBASIC/examples/DOS/vga13h.bas
+END

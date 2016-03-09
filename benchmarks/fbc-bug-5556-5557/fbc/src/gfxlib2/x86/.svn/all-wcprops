@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/3878/trunk/FreeBASIC/src/gfxlib2/x86
+END
+libfb_gfx_put_blend_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_blend_mmx.s
+END
+libfb_gfx_put_alpha_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_alpha_mmx.s
+END
+fb_gfx_mmx.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3878/trunk/FreeBASIC/src/gfxlib2/x86/fb_gfx_mmx.h
+END
+libfb_gfx_put_trans_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_trans_mmx.s
+END
+libfb_gfx_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3878/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_mmx.s
+END
+libfb_gfx_put_add_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_add_mmx.s
+END
+libfb_gfx_put_xor_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_xor_mmx.s
+END
+libfb_gfx_put_pset_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_pset_mmx.s
+END
+libfb_gfx_blitter_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3461/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_blitter_mmx.s
+END
+libfb_gfx_put_or_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_or_mmx.s
+END
+libfb_gfx_put_and_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_and_mmx.s
+END
+libfb_gfx_put_preset_mmx.s
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/3875/trunk/FreeBASIC/src/gfxlib2/x86/libfb_gfx_put_preset_mmx.s
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/fbc/!svn/ver/3984/trunk/FreeBASIC/inc/dos/sys
+END
+exceptn.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3984/trunk/FreeBASIC/inc/dos/sys/exceptn.bi
+END
+farptr.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/655/trunk/FreeBASIC/inc/dos/sys/farptr.bi
+END
+movedata.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/655/trunk/FreeBASIC/inc/dos/sys/movedata.bi
+END
+djtypes.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/655/trunk/FreeBASIC/inc/dos/sys/djtypes.bi
+END
+segments.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/1218/trunk/FreeBASIC/inc/dos/sys/segments.bi
+END
+version.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/655/trunk/FreeBASIC/inc/dos/sys/version.bi
+END

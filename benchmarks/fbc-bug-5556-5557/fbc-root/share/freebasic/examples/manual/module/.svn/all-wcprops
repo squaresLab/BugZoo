@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/module
+END
+mydll.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/module/mydll.bas
+END
+export.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/export.bas
+END
+using.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/using.bas
+END
+extern1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/extern1.bas
+END
+extern2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/extern2.bas
+END
+dylibsymbol.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/dylibsymbol.bas
+END
+namespace.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/namespace.bas
+END
+extern-block.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5541/trunk/FreeBASIC/examples/manual/module/extern-block.bas
+END
+mydll.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/mydll.c
+END
+sub-private.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/sub-private.bas
+END
+mydll2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/mydll2.bas
+END
+dylibload.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/dylibload.bas
+END
+sub-public.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/sub-public.bas
+END
+dylibfree.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/dylibfree.bas
+END
+common1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/common1.bas
+END
+import.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/import.bas
+END
+common2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/module/common2.bas
+END

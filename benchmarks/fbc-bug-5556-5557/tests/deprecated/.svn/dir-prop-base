@@ -1,0 +1,13 @@
+K 10
+svn:ignore
+V 144
+implicit_explicit.exe
+innerdup.exe
+shadow_inherit.exe
+string_suffix.exe
+implicit_explicit.log
+innerdup.log
+shadow_inherit.log
+string_suffix.log
+
+END

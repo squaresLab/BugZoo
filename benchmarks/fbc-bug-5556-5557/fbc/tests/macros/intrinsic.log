@@ -1,0 +1,2 @@
+macros/intrinsic.bas : TEST_MODE=COMPILE_ONLY_OK
+macros/intrinsic.bas : RESULT=PASSED

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3324/trunk/FreeBASIC/src/contrib/djgpp/icu4c
+END
+install.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3324/trunk/FreeBASIC/src/contrib/djgpp/icu4c/install.txt
+END
+ln
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3324/trunk/FreeBASIC/src/contrib/djgpp/icu4c/ln
+END
+support-djgpp.patch
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/fbc/!svn/ver/3324/trunk/FreeBASIC/src/contrib/djgpp/icu4c/support-djgpp.patch
+END

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/5353/trunk/FreeBASIC/src/contrib/w32_inst
+END
+replace.conf
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5004/trunk/FreeBASIC/src/contrib/w32_inst/replace.conf
+END
+fblogo_welcome.bmp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/2123/trunk/FreeBASIC/src/contrib/w32_inst/fblogo_welcome.bmp
+END
+license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/1816/trunk/FreeBASIC/src/contrib/w32_inst/license.txt
+END
+template.nsi
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/5353/trunk/FreeBASIC/src/contrib/w32_inst/template.nsi
+END
+makescript.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/4998/trunk/FreeBASIC/src/contrib/w32_inst/makescript.bas
+END
+hash.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/4998/trunk/FreeBASIC/src/contrib/w32_inst/hash.bas
+END
+libs_list.conf
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5007/trunk/FreeBASIC/src/contrib/w32_inst/libs_list.conf
+END
+start_shell.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/2132/trunk/FreeBASIC/src/contrib/w32_inst/start_shell.bas
+END
+readme.txt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/5353/trunk/FreeBASIC/src/contrib/w32_inst/readme.txt
+END
+hash.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/4998/trunk/FreeBASIC/src/contrib/w32_inst/hash.bi
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5353/trunk/FreeBASIC/src/contrib/w32_inst/Makefile
+END
+fblogo_header.bmp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/2123/trunk/FreeBASIC/src/contrib/w32_inst/fblogo_header.bmp
+END

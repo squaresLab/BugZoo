@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk
+END
+atktable.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atktable.bi
+END
+atkrelationset.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkrelationset.bi
+END
+atknoopobjectfactory.bi
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atknoopobjectfactory.bi
+END
+atkgobjectaccessible.bi
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/atk/atkgobjectaccessible.bi
+END
+atkhypertext.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkhypertext.bi
+END
+atkstateset.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkstateset.bi
+END
+atkobjectfactory.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkobjectfactory.bi
+END
+atknoopobject.bi
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/atk/atknoopobject.bi
+END
+atkcomponent.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkcomponent.bi
+END
+atkhyperlink.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkhyperlink.bi
+END
+atkobject.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkobject.bi
+END
+atkregistry.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkregistry.bi
+END
+atkstreamablecontent.bi
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkstreamablecontent.bi
+END
+atkvalue.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkvalue.bi
+END
+atkrelation.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkrelation.bi
+END
+atkaction.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkaction.bi
+END
+atkutil.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkutil.bi
+END
+atkeditabletext.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkeditabletext.bi
+END
+atkdocument.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkdocument.bi
+END
+atkrelationtype.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/796/trunk/FreeBASIC/inc/gtk/atk/atkrelationtype.bi
+END
+atkstate.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/atk/atkstate.bi
+END
+atkimage.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkimage.bi
+END
+atktext.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atktext.bi
+END
+atkselection.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/atk/atkselection.bi
+END

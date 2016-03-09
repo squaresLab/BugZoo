@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/fbc/!svn/ver/5271/trunk/FreeBASIC/tests/numbers
+END
+numbers.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4152/trunk/FreeBASIC/tests/numbers/numbers.bas
+END
+longints.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4809/trunk/FreeBASIC/tests/numbers/longints.bas
+END
+literals.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5253/trunk/FreeBASIC/tests/numbers/literals.bas
+END
+coercion.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/numbers/coercion.bas
+END
+hexliteral.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/numbers/hexliteral.bas
+END
+cast_signed.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/numbers/cast_signed.bas
+END
+const_op.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5236/trunk/FreeBASIC/tests/numbers/const_op.bas
+END
+cast_unsigned.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/numbers/cast_unsigned.bas
+END
+casting.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/numbers/casting.bas
+END
+cast_f2ll.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/5270/trunk/FreeBASIC/tests/numbers/cast_f2ll.bas
+END
+cast_ll2f.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/5271/trunk/FreeBASIC/tests/numbers/cast_ll2f.bas
+END
+tostring.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/numbers/tostring.bas
+END

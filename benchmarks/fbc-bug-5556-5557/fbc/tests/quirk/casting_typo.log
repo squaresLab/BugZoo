@@ -1,0 +1,3 @@
+quirk/casting_typo.bas : TEST_MODE=COMPILE_ONLY_FAIL
+quirk/casting_typo.bas(14) error 19: Element not defined, s in 'dim as bType e = *(cPtr( bType Ptr, aa.s ))'
+quirk/casting_typo.bas : RESULT=PASSED

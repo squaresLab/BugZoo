@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk
+END
+gdkdisplaymanager.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkdisplaymanager.bi
+END
+gdkvisual.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkvisual.bi
+END
+gdkpango.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkpango.bi
+END
+gdkevents.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkevents.bi
+END
+gdktypes.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/794/trunk/FreeBASIC/inc/gtk/gdk/gdktypes.bi
+END
+gdkdnd.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkdnd.bi
+END
+gdkdisplay.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkdisplay.bi
+END
+gdkfont.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkfont.bi
+END
+gdkwindow.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkwindow.bi
+END
+gdkrgb.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkrgb.bi
+END
+gdkkeys.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkkeys.bi
+END
+gdkcursor.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkcursor.bi
+END
+gdkcolor.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkcolor.bi
+END
+gdkscreen.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkscreen.bi
+END
+gdkdrawable.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/gdk/gdkdrawable.bi
+END
+gdkimage.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkimage.bi
+END
+gdkregion.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkregion.bi
+END
+gdkproperty.bi
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkproperty.bi
+END
+gdkselection.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkselection.bi
+END
+gdkspawn.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkspawn.bi
+END
+gdkgc.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkgc.bi
+END
+gdkenumtypes.bi
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/gdk/gdkenumtypes.bi
+END
+gdkpixbuf.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkpixbuf.bi
+END
+gdkpixmap.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkpixmap.bi
+END
+gdkinput.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk/gdkinput.bi
+END

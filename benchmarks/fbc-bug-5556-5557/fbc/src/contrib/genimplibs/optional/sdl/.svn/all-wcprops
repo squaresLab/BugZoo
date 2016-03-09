@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/optional/sdl
+END
+SDL_net.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/optional/sdl/SDL_net.dll.def
+END
+SDL_ttf.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/optional/sdl/SDL_ttf.dll.def
+END
+SDL.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/optional/sdl/SDL.dll.def
+END
+SDL_image.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/optional/sdl/SDL_image.dll.def
+END
+SDL_gfx.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/optional/sdl/SDL_gfx.dll.def
+END
+SDL_mixer.dll.def
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/fbc/!svn/ver/5339/trunk/FreeBASIC/src/contrib/genimplibs/optional/sdl/SDL_mixer.dll.def
+END

@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/5477/trunk/FreeBASIC/examples/classes
+END
+iterator2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3850/trunk/FreeBASIC/examples/classes/iterator2.bas
+END
+field-init-base.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5470/trunk/FreeBASIC/examples/classes/field-init-base.bas
+END
+params-withctor-base.bas
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/5470/trunk/FreeBASIC/examples/classes/params-withctor-base.bas
+END
+assign-withctor-base.bas
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/5470/trunk/FreeBASIC/examples/classes/assign-withctor-base.bas
+END
+params-noctor-base.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5470/trunk/FreeBASIC/examples/classes/params-noctor-base.bas
+END
+assign-noctor-base.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5470/trunk/FreeBASIC/examples/classes/assign-noctor-base.bas
+END
+method-pointer.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5477/trunk/FreeBASIC/examples/classes/method-pointer.bas
+END
+derived-override.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5470/trunk/FreeBASIC/examples/classes/derived-override.bas
+END
+resolve-overload-base.bas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/5470/trunk/FreeBASIC/examples/classes/resolve-overload-base.bas
+END
+property-indexed.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/classes/property-indexed.bas
+END
+is-operator.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5477/trunk/FreeBASIC/examples/classes/is-operator.bas
+END
+property.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/classes/property.bas
+END
+iterator.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3850/trunk/FreeBASIC/examples/classes/iterator.bas
+END

@@ -1,0 +1,8 @@
+qb/file_open_lpt_fail.bas : TEST_MODE=COMPILE_ONLY_FAIL
+qb/file_open_lpt_fail.bas(3) error 5: Expected 'AS', found 'fail'
+open lpt "fail" for input as #1
+         ^
+qb/file_open_lpt_fail.bas(3) error 55: Type mismatch, at parameter 1
+open lpt "fail" for input as #1
+                ^
+qb/file_open_lpt_fail.bas : RESULT=PASSED

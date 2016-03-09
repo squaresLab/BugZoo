@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/2608/trunk/FreeBASIC/inc/allegro/platform
+END
+al386gcc.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/2603/trunk/FreeBASIC/inc/allegro/platform/al386gcc.bi
+END
+almngw32.bi
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/2603/trunk/FreeBASIC/inc/allegro/platform/almngw32.bi
+END
+alwin.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/2603/trunk/FreeBASIC/inc/allegro/platform/alwin.bi
+END
+alunix.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/2603/trunk/FreeBASIC/inc/allegro/platform/alunix.bi
+END
+aldjgpp.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/2603/trunk/FreeBASIC/inc/allegro/platform/aldjgpp.bi
+END
+alucfg.bi
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/2608/trunk/FreeBASIC/inc/allegro/platform/alucfg.bi
+END
+aldos.bi
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/2603/trunk/FreeBASIC/inc/allegro/platform/aldos.bi
+END
+alplatf.bi
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/2603/trunk/FreeBASIC/inc/allegro/platform/alplatf.bi
+END

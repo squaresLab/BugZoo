@@ -1,0 +1,2 @@
+typedef/redefine.bas : TEST_MODE=COMPILE_ONLY_OK
+typedef/redefine.bas : RESULT=PASSED

@@ -1,0 +1,5 @@
+scopes/dtor_eol_eof2.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m scopes/dtor_eol_eof2 -c scopes/dtor_eol_eof2.bas -o scopes/dtor_eol_eof2.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g scopes/dtor_eol_eof2.o -x scopes/dtor_eol_eof2
+ 1              1
+scopes/dtor_eol_eof2.bas : RESULT=PASSED

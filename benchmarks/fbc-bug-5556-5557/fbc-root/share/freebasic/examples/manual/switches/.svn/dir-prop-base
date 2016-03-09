@@ -1,0 +1,28 @@
+K 10
+svn:ignore
+V 347
+defbyte.exe
+defdbl.exe
+defint.exe
+deflng.exe
+deflngint.exe
+defshort.exe
+defsng.exe
+defstr.exe
+defubyte.exe
+defuint.exe
+defulngint.exe
+defushort.exe
+option-byval.exe
+option-dynamic.exe
+option-escape.exe
+option-explicit.exe
+option-nokeyword.exe
+option-private.exe
+option-static.exe
+deflongint.exe
+defulongint.exe
+option-gosub.exe
+option-nogosub.exe
+
+END

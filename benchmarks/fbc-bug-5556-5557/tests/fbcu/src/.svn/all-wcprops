@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/5254/trunk/FreeBASIC/tests/fbcu/src
+END
+fbcu-impl.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/fbcu/src/fbcu-impl.bas
+END
+fbcu.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5254/trunk/FreeBASIC/tests/fbcu/src/fbcu.bas
+END
+fbcu-error.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/fbcu/src/fbcu-error.bas
+END

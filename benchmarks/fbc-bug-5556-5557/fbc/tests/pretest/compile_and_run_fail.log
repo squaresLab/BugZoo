@@ -1,0 +1,5 @@
+pretest/compile_and_run_fail.bas : TEST_MODE=COMPILE_AND_RUN_FAIL
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang fb -g -w 0  -m pretest/compile_and_run_fail -c pretest/compile_and_run_fail.bas -o pretest/compile_and_run_fail.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g pretest/compile_and_run_fail.o -x pretest/compile_and_run_fail
+pretest/compile_and_run_fail.bas(4): assertion failed at __FB_MAINPROC__: 0=1
+pretest/compile_and_run_fail.bas : RESULT=PASSED

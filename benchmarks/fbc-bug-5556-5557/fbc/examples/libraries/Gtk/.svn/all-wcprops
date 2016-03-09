@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/libraries/Gtk
+END
+glade_gui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/Gtk/glade_gui.xml
+END
+text_buffer.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/Gtk/text_buffer.bas
+END
+combo_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/Gtk/combo_test.bas
+END
+opengl_button.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/Gtk/opengl_button.bas
+END
+glade_gui.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/Gtk/glade_gui.bas
+END
+filechooser_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/fbc/!svn/ver/5003/trunk/FreeBASIC/examples/libraries/Gtk/filechooser_test.bas
+END
+gdk_image.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5372/trunk/FreeBASIC/examples/libraries/Gtk/gdk_image.bas
+END
+glade-xml.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/Gtk/glade-xml.bas
+END
+test.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/Gtk/test.xml
+END

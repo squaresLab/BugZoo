@@ -1,0 +1,285 @@
+10
+
+dir
+5556
+https://fbc.svn.sourceforge.net/svnroot/fbc/trunk/FreeBASIC/examples/libraries
+https://fbc.svn.sourceforge.net/svnroot/fbc
+
+
+
+2011-05-02T18:58:33.384500Z
+5555
+dkls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b3cc3fc2-2e32-0410-b709-837b935790e1
+
+Java
+dir
+
+Lua
+dir
+
+freetype
+dir
+
+GMP
+dir
+
+DB
+dir
+
+GSL
+dir
+
+networking
+dir
+
+caca
+dir
+
+ode-test.bas
+file
+
+
+
+
+2013-06-25T20:27:03.000000Z
+121bf4cde4fae798893f66372e9ace24
+2011-05-02T18:58:33.384500Z
+5555
+dkls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+94
+
+sound
+dir
+
+cryptlib
+dir
+
+compress
+dir
+
+IUP
+dir
+
+pdflib
+dir
+
+curses
+dir
+
+regex
+dir
+
+big_int
+dir
+
+ASpell
+dir
+
+SDL
+dir
+
+CUnit
+dir
+
+fastcgi.bas
+file
+
+
+
+
+2013-06-25T20:27:03.000000Z
+7738dece85d162190e8e2efb5d3dfc28
+2011-05-02T18:58:33.384500Z
+5555
+dkls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+348
+
+fblogo.bmp
+file
+
+
+
+
+2013-06-25T20:27:03.000000Z
+bfd63a4c76131415d9c89e0a9e45dc41
+2010-09-26T20:01:01.053815Z
+5408
+dkls
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+38518
+
+IL-test.bas
+file
+
+
+
+
+2013-06-25T20:27:03.000000Z
+1b49ff77d201725bda3b5811dbf4146a
+2011-05-02T18:58:33.384500Z
+5555
+dkls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+983
+
+Gtk
+dir
+
+Allegro
+dir
+
+CGUI
+dir
+
+Newton-test.bas
+file
+
+
+
+
+2013-06-25T20:27:03.000000Z
+07a4bd90cd4277497a8f38c41b0872db
+2010-09-26T20:01:01.053815Z
+5408
+dkls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+126
+
+cairo
+dir
+
+disphelper
+dir
+
+xml
+dir
+
+GL
+dir
+
+Curl
+dir
+
+spidermonkey
+dir
+
+wx-c
+dir
+

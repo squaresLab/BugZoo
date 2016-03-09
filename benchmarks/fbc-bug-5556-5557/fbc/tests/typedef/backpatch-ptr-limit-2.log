@@ -1,0 +1,3 @@
+typedef/backpatch-ptr-limit-2.bas : TEST_MODE=COMPILE_ONLY_FAIL
+typedef/backpatch-ptr-limit-2.bas(5) error 222: Too many levels of pointer indirection in 'type as c ptr ptr ptr ptr ptr b'
+typedef/backpatch-ptr-limit-2.bas : RESULT=PASSED

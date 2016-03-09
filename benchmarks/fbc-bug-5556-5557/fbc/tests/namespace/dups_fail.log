@@ -1,0 +1,7 @@
+namespace/dups_fail.bas : TEST_MODE=COMPILE_ONLY_FAIL
+namespace/dups_fail.bas(22) error 207: Ambiguous symbol access, explicit scope resolution required, found 'foo' in 'print foo'
+namespace/dups_fail.bas(25) error 207: Ambiguous symbol access, explicit scope resolution required, found 'foo' in 'print foo'
+namespace/dups_fail.bas(33) error 207: Ambiguous symbol access, explicit scope resolution required, found 'foo' in 'print foo'
+namespace/dups_fail.bas(36) error 207: Ambiguous symbol access, explicit scope resolution required, found 'foo' in 'print foo'
+namespace/dups_fail.bas(39) error 207: Ambiguous symbol access, explicit scope resolution required, found 'foo' in 'print foo'
+namespace/dups_fail.bas : RESULT=PASSED

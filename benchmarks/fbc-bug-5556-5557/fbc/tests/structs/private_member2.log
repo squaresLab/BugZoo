@@ -1,0 +1,4 @@
+structs/private_member2.bas : TEST_MODE=COMPILE_ONLY_FAIL
+structs/private_member2.bas(10) error 175: Illegal member access in 'dim as const foo baz2 = (3)'
+structs/private_member2.bas(14) error 175: Illegal member access, found '__' in 'n = baz2.__'
+structs/private_member2.bas : RESULT=PASSED

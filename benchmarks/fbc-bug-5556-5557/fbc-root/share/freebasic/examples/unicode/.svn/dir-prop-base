@@ -1,0 +1,16 @@
+K 10
+svn:ignore
+V 189
+hello_chinese.exe
+hello_greek.exe
+hello_japanese.exe
+hello_korean.exe
+hello_russian.exe
+hello_UNC.exe
+hello_UTF16BE.exe
+hello_UTF16LE.exe
+hello_UTF32BE.exe
+hello_UTF32LE.exe
+hello_UTF8.exe
+
+END

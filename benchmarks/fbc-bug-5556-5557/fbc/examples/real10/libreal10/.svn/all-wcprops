@@ -1,0 +1,209 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/real10/libreal10
+END
+op-asinh.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-asinh.bas
+END
+op-pow.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3586/trunk/FreeBASIC/examples/real10/libreal10/op-pow.bas
+END
+op-eq.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-eq.bas
+END
+op-ctor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-ctor.bas
+END
+op-gt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-gt.bas
+END
+core.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/real10/libreal10/core.bas
+END
+op-atanh.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-atanh.bas
+END
+op-exp.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-exp.bas
+END
+op-exp10.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-exp10.bas
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/Makefile
+END
+op-acosh.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-acosh.bas
+END
+op-le.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-le.bas
+END
+op-sinh.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-sinh.bas
+END
+op-ne.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-ne.bas
+END
+intern.bi
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/intern.bi
+END
+op-lt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-lt.bas
+END
+op-log.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-log.bas
+END
+op-log10.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-log10.bas
+END
+op-div.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3586/trunk/FreeBASIC/examples/real10/libreal10/op-div.bas
+END
+op-tan.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-tan.bas
+END
+op-atan.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-atan.bas
+END
+op-let.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-let.bas
+END
+op-cos.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-cos.bas
+END
+op-acos.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-acos.bas
+END
+op-add.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3586/trunk/FreeBASIC/examples/real10/libreal10/op-add.bas
+END
+op-sub.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3586/trunk/FreeBASIC/examples/real10/libreal10/op-sub.bas
+END
+op-sqrt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-sqrt.bas
+END
+op-sin.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-sin.bas
+END
+op-asin.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-asin.bas
+END
+op-cast.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-cast.bas
+END
+op-tanh.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-tanh.bas
+END
+op-ge.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-ge.bas
+END
+op-cosh.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/3232/trunk/FreeBASIC/examples/real10/libreal10/op-cosh.bas
+END
+op-mul.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3586/trunk/FreeBASIC/examples/real10/libreal10/op-mul.bas
+END

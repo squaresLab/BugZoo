@@ -1,0 +1,4 @@
+const/rtl-get.bas : TEST_MODE=COMPILE_ONLY_FAIL
+const/rtl-get.bas(3) error 189: Expected initializer in 'dim as const integer arr(9)'
+const/rtl-get.bas(4) error 109: Cannot modify a constant in 'get (0, 0)-(0, 0), arr'
+const/rtl-get.bas : RESULT=PASSED

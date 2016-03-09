@@ -1,0 +1,3 @@
+const/ovl_ambiguous.bas : TEST_MODE=COMPILE_ONLY_FAIL
+const/ovl_ambiguous.bas(24) error 88: Ambiguous call to overloaded function, FOO2() in 'foo2( a, a )'
+const/ovl_ambiguous.bas : RESULT=PASSED

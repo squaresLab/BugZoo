@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 84
+builtin.exe
+fwd_1.exe
+fwd_2.exe
+incomp.exe
+overload.exe
+procptr_1.exe
+procptr_2.exe
+
+END

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/libraries/GL
+END
+fbgfx_texture.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/4428/trunk/FreeBASIC/examples/libraries/GL/fbgfx_texture.bas
+END
+terrain.bmp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/GL/terrain.bmp
+END
+fbgfx_opengl.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/GL/fbgfx_opengl.bas
+END
+gl_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/GL/gl_test.bas
+END
+glext_test.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/GL/glext_test.bas
+END
+glu_quadrics.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/4133/trunk/FreeBASIC/examples/libraries/GL/glu_quadrics.bas
+END
+glfw_splitview.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5341/trunk/FreeBASIC/examples/libraries/GL/glfw_splitview.bas
+END

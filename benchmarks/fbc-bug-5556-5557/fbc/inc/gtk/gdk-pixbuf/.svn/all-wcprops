@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk-pixbuf
+END
+gdk-pixbuf-core.bi
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/gdk-pixbuf/gdk-pixbuf-core.bi
+END
+gdk-pixbuf-transform.bi
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk-pixbuf/gdk-pixbuf-transform.bi
+END
+gdk-pixbuf-features.bi
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/794/trunk/FreeBASIC/inc/gtk/gdk-pixbuf/gdk-pixbuf-features.bi
+END
+gdk-pixbuf-animation.bi
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk-pixbuf/gdk-pixbuf-animation.bi
+END
+gdk-pixbuf-enum-types.bi
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/fbc/!svn/ver/2644/trunk/FreeBASIC/inc/gtk/gdk-pixbuf/gdk-pixbuf-enum-types.bi
+END
+gdk-pixbuf-loader.bi
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk-pixbuf/gdk-pixbuf-loader.bi
+END
+gdk-pixbuf-io.bi
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gtk/gdk-pixbuf/gdk-pixbuf-io.bi
+END

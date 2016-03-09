@@ -1,0 +1,9 @@
+K 10
+svn:ignore
+V 48
+libmylib.dll.a
+MyLib.class
+mylib.dll
+Test.class
+
+END

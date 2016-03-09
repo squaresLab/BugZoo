@@ -1,0 +1,3 @@
+structs/const_member.bas : TEST_MODE=COMPILE_ONLY_FAIL
+structs/const_member.bas(10) error 109: Cannot modify a constant in 'baz2.__ = 4'
+structs/const_member.bas : RESULT=PASSED

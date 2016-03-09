@@ -1,0 +1,389 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/5188/trunk/FreeBASIC/examples/manual/operator
+END
+shr-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/shr-assign.bas
+END
+less-than1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/less-than1.bas
+END
+xor-logical.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/xor-logical.bas
+END
+less-than3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/less-than3.bas
+END
+exponent-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/exponent-assign.bas
+END
+pointer-index.bas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/pointer-index.bas
+END
+or-logical.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/or-logical.bas
+END
+concat-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/concat-assign.bas
+END
+strptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/strptr.bas
+END
+integer-divide.bas
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/integer-divide.bas
+END
+multiply-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/multiply-assign.bas
+END
+assign-let.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/4994/trunk/FreeBASIC/examples/manual/operator/assign-let.bas
+END
+arrayindex.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/arrayindex.bas
+END
+equal.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/equal.bas
+END
+address-func.bas
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/address-func.bas
+END
+mod.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/mod.bas
+END
+less-than-or-equal.bas
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/less-than-or-equal.bas
+END
+let.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/let.bas
+END
+assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/assign.bas
+END
+subtract.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/subtract.bas
+END
+add.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/add.bas
+END
+procptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/procptr.bas
+END
+new.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/new.bas
+END
+xor-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/xor-assign.bas
+END
+or-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/or-assign.bas
+END
+divide.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/divide.bas
+END
+concat.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/concat.bas
+END
+shl-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/shl-assign.bas
+END
+address-var.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/address-var.bas
+END
+eqv-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/eqv-assign.bas
+END
+multiply.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/multiply.bas
+END
+concat_nocvt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/concat_nocvt.bas
+END
+not-equal2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/not-equal2.bas
+END
+equal2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/equal2.bas
+END
+imp-bitwise.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/imp-bitwise.bas
+END
+let-list.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/let-list.bas
+END
+stringindex.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/stringindex.bas
+END
+eqv-bitwise.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/eqv-bitwise.bas
+END
+exponent.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/exponent.bas
+END
+valueof.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/valueof.bas
+END
+negate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/negate.bas
+END
+not-bitwise.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/not-bitwise.bas
+END
+not-equal.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/not-equal.bas
+END
+and-bitwise.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/and-bitwise.bas
+END
+add-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/add-assign.bas
+END
+xor-bitwise.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/xor-bitwise.bas
+END
+varptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/varptr.bas
+END
+placement_new.bas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/placement_new.bas
+END
+andalso.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/andalso.bas
+END
+greater-than.bas
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/greater-than.bas
+END
+integer-divide-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/integer-divide-assign.bas
+END
+or-bitwise.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/or-bitwise.bas
+END
+and-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/and-assign.bas
+END
+divide-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/divide-assign.bas
+END
+shift-right.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/shift-right.bas
+END
+orelse.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/orelse.bas
+END
+mod-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/mod-assign.bas
+END
+delete.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/delete.bas
+END
+greater-than-or-equal.bas
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/greater-than-or-equal.bas
+END
+shift-left.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/shift-left.bas
+END
+imp-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/imp-assign.bas
+END
+not-logical.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/not-logical.bas
+END
+subtract-assign.bas
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/subtract-assign.bas
+END
+and-logical.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/operator/and-logical.bas
+END

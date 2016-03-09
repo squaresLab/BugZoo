@@ -1,0 +1,2 @@
+quirk/gfx_propertiesasbuffers.bas : TEST_MODE=COMPILE_ONLY_OK
+quirk/gfx_propertiesasbuffers.bas : RESULT=PASSED

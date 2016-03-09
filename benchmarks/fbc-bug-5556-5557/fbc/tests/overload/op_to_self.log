@@ -1,0 +1,2 @@
+overload/op_to_self.bas : TEST_MODE=COMPILE_ONLY_OK
+overload/op_to_self.bas : RESULT=PASSED

@@ -1,0 +1,3 @@
+macros/invalid_symbolname.bas : TEST_MODE=COMPILE_ONLY_FAIL
+macros/invalid_symbolname.bas(3) error 3: Expected End-of-Line, found '=' in '#define == ='
+macros/invalid_symbolname.bas : RESULT=PASSED

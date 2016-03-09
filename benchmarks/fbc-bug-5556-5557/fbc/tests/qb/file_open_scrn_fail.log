@@ -1,0 +1,8 @@
+qb/file_open_scrn_fail.bas : TEST_MODE=COMPILE_ONLY_FAIL
+qb/file_open_scrn_fail.bas(3) error 5: Expected 'AS', found 'dead'
+open scrn "dead" for input as #1
+          ^
+qb/file_open_scrn_fail.bas(3) error 55: Type mismatch, at parameter 1
+open scrn "dead" for input as #1
+                 ^
+qb/file_open_scrn_fail.bas : RESULT=PASSED

@@ -1,0 +1,5 @@
+qb/call.bas : TEST_MODE=COMPILE_AND_RUN_OK
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang qb -g -w 0  -m qb/call -c qb/call.bas -o qb/call.o
+/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g qb/call.o -x qb/call
+qb/call.o() warning 22(2): Object files or libraries with mixed language (-lang) options
+qb/call.bas : RESULT=PASSED

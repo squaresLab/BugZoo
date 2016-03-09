@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads
+END
+mutexlock.bas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads/mutexlock.bas
+END
+threadcreate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads/threadcreate.bas
+END
+mutexdestroy.bas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads/mutexdestroy.bas
+END
+threadwait.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads/threadwait.bas
+END
+mutexunlock.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads/mutexunlock.bas
+END
+mutexcreate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads/mutexcreate.bas
+END
+condcreate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/5187/trunk/FreeBASIC/examples/manual/threads/condcreate.bas
+END

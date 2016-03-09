@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svnroot/fbc/!svn/ver/4711/trunk/FreeBASIC/inc/crt/sys
+END
+socket.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/crt/sys/socket.bi
+END
+stat.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/2602/trunk/FreeBASIC/inc/crt/sys/stat.bi
+END
+uio.bi
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/fbc/!svn/ver/3260/trunk/FreeBASIC/inc/crt/sys/uio.bi
+END
+time.bi
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/fbc/!svn/ver/4600/trunk/FreeBASIC/inc/crt/sys/time.bi
+END
+select.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3277/trunk/FreeBASIC/inc/crt/sys/select.bi
+END
+types.bi
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/4567/trunk/FreeBASIC/inc/crt/sys/types.bi
+END

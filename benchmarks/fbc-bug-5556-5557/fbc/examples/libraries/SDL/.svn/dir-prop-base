@@ -1,0 +1,20 @@
+K 10
+svn:ignore
+V 191
+cdrom.exe
+events.exe
+gfx_line.exe
+image_test1.exe
+image_test2.exe
+keymouse.exe
+mouse.exe
+music_test1.exe
+music_test2.exe
+net_httpget.exe
+opengl.exe
+pixel.exe
+timer.exe
+ttf.exe
+video_info.exe
+
+END

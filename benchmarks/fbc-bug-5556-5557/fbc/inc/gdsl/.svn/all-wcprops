@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl
+END
+gdsl.bi
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl.bi
+END
+gdsl_rbtree.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_rbtree.bi
+END
+gdsl_hash.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_hash.bi
+END
+_gdsl_bstree.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/_gdsl_bstree.bi
+END
+gdsl_queue.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_queue.bi
+END
+gdsl_macros.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/776/trunk/FreeBASIC/inc/gdsl/gdsl_macros.bi
+END
+gdsl_bstree.bi
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_bstree.bi
+END
+_gdsl_node.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/_gdsl_node.bi
+END
+gdsl_sort.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_sort.bi
+END
+_gdsl_bintree.bi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/_gdsl_bintree.bi
+END
+gdsl_perm.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_perm.bi
+END
+gdsl_types.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/839/trunk/FreeBASIC/inc/gdsl/gdsl_types.bi
+END
+gdsl_2darray.bi
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_2darray.bi
+END
+gdsl_stack.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_stack.bi
+END
+_gdsl_list.bi
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/_gdsl_list.bi
+END
+gdsl_list.bi
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3598/trunk/FreeBASIC/inc/gdsl/gdsl_list.bi
+END
