@@ -1,6 +1,6 @@
 # set default execution path
 Exec {
-  path => ['/bin/', '/usr/bin/']
+  path => ['/bin/', '/usr/bin/', '/usr/local/sbin', '/usr/sbin', '/sbin']
 }
 
 exec { "apt-get update": }
@@ -25,6 +25,11 @@ package { "m4":
   require => Exec["apt-get update"]
 }
 
+package { "libglib2.0-dev":
+  ensure => present,
+  require => Exec["apt-get update"]
+}
+
 exec { "ppa:ocaml+opam":
   command =>"add-apt-repository --yes ppa:avsm/ocaml42+opam120; apt-get update",
   require => Package["python-software-properties"]
@@ -33,7 +38,8 @@ exec { "ppa:ocaml+opam":
 # install ocaml-4.02.1
 exec { "ocaml":
   require => [Exec["ppa:ocaml+opam"], Package["m4"]],
-  command => "apt-get install -y --force-yes ocaml"
+  command => "apt-get install -y --force-yes ocaml",
+  path => "/usr/bin/"
 }
 
 # install and initialise OPAM 1.2.2, before updating package listings
