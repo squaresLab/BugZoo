@@ -1,0 +1,1 @@
+../mpn/x86/invert_limb.asm

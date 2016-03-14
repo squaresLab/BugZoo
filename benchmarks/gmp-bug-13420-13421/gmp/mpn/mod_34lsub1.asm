@@ -1,0 +1,1 @@
+../mpn/x86/p6/mod_34lsub1.asm

@@ -1,0 +1,1 @@
+../mpn/x86/bdiv_dbm1c.asm
