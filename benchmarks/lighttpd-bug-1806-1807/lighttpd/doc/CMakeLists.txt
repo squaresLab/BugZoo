@@ -1,0 +1,41 @@
+SET(L_DOCS 
+	accesslog.txt
+	access.txt
+	alias.txt
+	authentication.txt
+	cgi.txt
+	CMakeLists.txt
+	cml.txt
+	compress.txt
+	configuration.txt
+	dirlisting.txt
+	evhost.txt
+	expire.txt
+	fastcgi-state.txt
+	fastcgi.txt
+	features.txt
+	mysqlvhost.txt
+	performance.txt
+	plugins.txt
+	proxy.txt
+	redirect.txt
+	rewrite.txt
+	rrdtool.txt
+	scgi.txt
+	secdownload.txt
+	security.txt
+	setenv.txt
+	simple-vhost.txt
+	skeleton.txt
+	ssi.txt
+	ssl.txt
+	state.txt
+	status.txt
+	traffic-shaping.txt
+	trigger_b4_dl.txt
+	userdir.txt
+	webdav.txt
+)
+
+INSTALL(FILES ${L_DOCS}
+	DESTINATION share)

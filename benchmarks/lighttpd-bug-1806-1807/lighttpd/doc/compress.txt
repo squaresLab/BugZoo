@@ -1,0 +1,105 @@
+==================
+Output Compression
+==================
+
+--------------------
+Module: mod_compress
+--------------------
+
+:Author: Jan Kneschke
+:Date: $Date: 2005-03-28T08:30:05.699628Z $
+:Revision: $Revision: 227 $
+
+:abstract:
+  a nice, short abstrace about the module
+  
+.. meta::
+  :keywords: lighttpd, compress
+  
+.. contents:: Table of Contents
+
+Description
+===========
+
+Output compression reduces the network load and can improve the overall
+throughput of the webserver. All major http-clients support compression by
+announcing it in the Accept-Encoding header. This is used to negotiate the 
+most suitable compression method. We support deflate, gzip and bzip2.
+
+deflate (RFC1950, RFC1951) and gzip (RFC1952) depend on zlib while bzip2 
+depends on libbzip2. bzip2 is only supported by lynx and some other console
+text-browsers.
+
+Currently we limit to compression support to static files.
+
+Caching
+-------
+
+mod_compress can stored compressed files on disk to optimized the compression
+on a second request away. As soon as compress.cache-dir is set the files are
+compressed. 
+
+The names of the cache files are made of the filename, the compression method
+and the etag associated to the file.
+
+Cleaning the cache is left to the user. A cron job deleting files older than
+10 days should do fine.
+
+Limitations
+-----------
+
+The module limits the compression of files to files larger than 128 Byte and
+smaller than 128 MByte.
+
+The lower limit is set as small files tend to become larger by compressing due
+to the compression headers, the upper limit is set to work sensable with
+memory and cpu-time.
+
+Options
+=======
+
+compress.cache-dir
+  name of the directory where compressed content will be cached
+
+  e.g.: ::
+  
+    compress.cache-dir = "/var/www/cache/"
+    
+    # even better with virt-hosting
+    $HTTP["host"] == "docs.example.org" {
+      compress.cache-dir = "/var/www/cache/docs.example.org/"
+    }
+    
+  Default: not set, compress the file for every request
+
+compress.filetype
+  mimetypes which might get compressed
+  
+  e.g.: ::
+  
+    compress.filetype           = ("text/plain", "text/html")
+
+  Keep in mind that compressed JavaScript and CSS files are broken in some
+  browsers.
+
+  Default: not set
+
+compress.max-file-size 
+  maximum size of the original file to be compressed kBytes.
+
+  This is meant to protect the server against DoSing as compressing large
+  (let's say 1Gbyte) takes a lot of time and would delay the whole operation
+  of the server.
+
+  There is a hard upper limit of 128Mbyte.
+
+  Default: unlimited (== hard-limit of 128MByte)
+  
+Compressing Dynamic Content
+===========================
+
+To compress dynamic content with PHP please enable ::
+
+  zlib.output_compression = 1
+  
+in the php.ini as PHP provides compression support by itself.

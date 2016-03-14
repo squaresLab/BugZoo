@@ -1,0 +1,60 @@
+=================
+Security Features
+=================
+
+------------
+Module: core
+------------
+
+:Author: Jan Kneschke
+:Date: $Date: 2005-03-28T08:30:05.699628Z $
+:Revision: $Revision: 227 $
+
+:abstract:
+  lighttpd was developed with security in mind ...
+  
+.. meta::
+  :keywords: lighttpd, security
+  
+.. contents:: Table of Contents
+
+Description
+===========
+
+Limiting POST requests
+----------------------
+
+
+
+::
+
+   server.max-request-size = <kbyte>
+
+System Security
+---------------
+
+Running daemons as root with full privileges is a bad idea in general.
+lighttpd runs best without any extra privileges and runs perfectly in chroot.
+
+Change Root
+```````````
+
+server.chroot = "..."
+
+Drop root privileges
+````````````````````
+
+server.username = "..."
+server.groupname = "..."
+
+FastCGI
+```````
+
+fastcgi + chroot
+
+Permissions
+```````````
+
+::
+
+  $ useradd wwwrun ...

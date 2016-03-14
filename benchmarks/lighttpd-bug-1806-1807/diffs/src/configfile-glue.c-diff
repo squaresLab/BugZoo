@@ -1,0 +1,57 @@
+220c220
+< 			log_error_write(srv, __FILE__, __LINE__,  "sb", "go parent", dc->parent->key);
+---
+> 			TRACE("checking if the parent (%s) evaluates to 'true'", BUF_STR(dc->parent->key));
+222c222,224
+< 		if (config_check_cond_cached(srv, con, dc->parent) == COND_RESULT_FALSE) {
+---
+> 
+> 		switch (config_check_cond_cached(srv, con, dc->parent)) {
+> 		case COND_RESULT_FALSE:
+223a226,229
+> 		case COND_RESULT_UNSET:
+> 			return COND_RESULT_UNSET;
+> 		default:
+> 			break;
+229c235
+< 			log_error_write(srv, __FILE__, __LINE__,  "sb", "go prev", dc->prev->key);
+---
+> 			TRACE("triggering eval of successors of (%s) [in else]", BUF_STR(dc->key));
+230a237
+> 
+233,235c240,249
+< 		/* one of prev set me to FALSE */
+< 		if (COND_RESULT_FALSE == con->cond_cache[dc->context_ndx].result) {
+< 			return COND_RESULT_FALSE;
+---
+> 
+> 		if (con->conf.log_condition_handling) {
+> 			TRACE("(%s) [in else] -> %s", BUF_STR(dc->key), con->cond_cache[dc->context_ndx].result == COND_RESULT_FALSE ? "false" : "we will see");
+> 		}
+> 
+> 		switch (con->cond_cache[dc->context_ndx].result) {
+> 		case COND_RESULT_FALSE: /* one of prev set me to FALSE */
+> 			return con->cond_cache[dc->context_ndx].result;
+> 		default:
+> 			break;
+241c255,258
+< 			TRACE("cond[%d] is valid: %d", dc->comp, con->conditional_is_valid[dc->comp]);
+---
+> 			TRACE("is condition [%d] (%s) already valid ? %s", 
+> 					dc->comp, 
+> 					BUF_STR(dc->key),
+> 					con->conditional_is_valid[dc->comp] ? "yeah" : "nej");
+483a501
+> 			/* a node evaluted to true, all else nodes have to false */
+497c515,517
+< 					caches[dc->context_ndx].result == COND_RESULT_TRUE ? "true" : "false");
+---
+> 					caches[dc->context_ndx].result == COND_RESULT_UNSET ? "unknown" : 
+> 						(caches[dc->context_ndx].result == COND_RESULT_TRUE ? "true" : "false")
+> 					);
+503c523,525
+< 					caches[dc->context_ndx].result == COND_RESULT_TRUE ? "true" : "false");
+---
+> 					caches[dc->context_ndx].result == COND_RESULT_UNSET ? "unknown" : 
+> 						(caches[dc->context_ndx].result == COND_RESULT_TRUE ? "true" : "false")
+> 					);
