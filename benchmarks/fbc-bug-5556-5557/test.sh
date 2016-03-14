@@ -18,10 +18,10 @@ run_test()
         perl -e 'alarm shift @ARGV; exec @ARGV' $time_limit perl ..//..//fbc-run-tests.pl $1
     fi
     RESULT=$?
-    
     cd ../../
     return $RESULT
 }
+
 case $1 in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 

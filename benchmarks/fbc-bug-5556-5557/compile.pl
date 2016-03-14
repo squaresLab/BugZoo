@@ -8,7 +8,6 @@ my $subdir = basename(dirname($ARGV[0])) ;
 my $project = "fbc" ;
 my $project_list = "bugged-program.txt" ;
 
-
 sub say {
     my $msg = $_[0];
     print STDERR "|[$0]|: $msg \n" ;
@@ -86,5 +85,3 @@ foreach my $file (@coverage_only)
     execute("mv $project/$file-temp $project/$file") ;
 
 }
-
-
