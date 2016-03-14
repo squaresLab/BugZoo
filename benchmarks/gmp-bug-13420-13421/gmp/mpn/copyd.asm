@@ -1,1 +1,0 @@
-../mpn/x86/p6/copyd.asm

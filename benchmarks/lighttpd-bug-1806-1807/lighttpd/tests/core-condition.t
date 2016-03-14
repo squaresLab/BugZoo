@@ -136,4 +136,3 @@ $t->{RESPONSE} = [ { 'HTTP-Protocol' => 'HTTP/1.0', 'HTTP-Status' => 404 } ];
 ok($tf->handle_http($t) == 0, 'condition: $HTTP["referer"] == "" and Referer: foobar');
 
 ok($tf->stop_proc == 0, "Stopping lighttpd");
-

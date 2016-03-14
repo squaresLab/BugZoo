@@ -1,7 +1,9 @@
 #!/bin/bash
-bugrev=1806
 
-#Check if coverage is being run. If so, don't use time limit.
+# Find the directory that this test script belongs to.
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+# Check if coverage is being run. If so, don't use time limit.
 if [ `basename $2` = "coverage" ] ; then
     cov=0
 else
@@ -10,17 +12,19 @@ fi
 
 run_test()
 {
+    CWD=$(pwd)
     cd lighttpd/tests
     if [ $cov -eq 0 ] ; then
-        /usr/bin/perl /root/mountpoint-genprog/genprog-many-bugs/lighttpd-bug-1806-1807/lighttpd-run-tests.pl $1
+        perl lighttpd-run-tests.pl $1
     else
-        /root/mountpoint-genprog/genprog-many-bugs/lighttpd-bug-1806-1807/limit /usr/bin/perl /root/mountpoint-genprog/genprog-many-bugs/lighttpd-bug-1806-1807/lighttpd-run-tests.pl $1
+        $DIR/limit perl lighttpd-run-tests.pl $1
     fi
     RESULT=$?
     killall -9 lighttpd &> /dev/null
-    cd ../../
+    cd $CWD
     return $RESULT
 }
+
 case $1 in
     p1) run_test 2 && exit 0 ;; 
     p2) run_test 3 && exit 0 ;; 

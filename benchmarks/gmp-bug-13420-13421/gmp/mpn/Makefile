@@ -68,8 +68,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = corei-pc-linux-gnu
-host_triplet = corei-pc-linux-gnu
+build_triplet = x86_64-unknown-linux-gnu
+host_triplet = x86_64-unknown-linux-gnu
 ANSI2KNR = $(top_builddir)/ansi2knr
 DIST_COMMON = README $(srcdir)/Makeasm.am $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
@@ -105,24 +105,24 @@ DIST_SOURCES =
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ABI = 32
-ACLOCAL = ${SHELL} /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/missing --run aclocal-1.11
-AMTAR = ${SHELL} /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/missing --run tar
+ABI = 64
+ACLOCAL = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/missing --run aclocal-1.11
+AMTAR = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/missing --run tar
 AR = ar
 AS = as
 ASMFLAGS =  -Wa,--noexecstack
-AUTOCONF = ${SHELL} /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/missing --run autoconf
-AUTOHEADER = ${SHELL} /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/missing --run autoheader
-AUTOMAKE = ${SHELL} /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/missing --run automake-1.11
+AUTOCONF = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/missing --run automake-1.11
 AWK = gawk
-CALLING_CONVENTIONS_OBJS = x86call.lo x86check$U.lo
-CC = /usr/bin/gcc    -std=gnu99
-CCAS = /usr/bin/gcc    -std=gnu99 -c
-CC_FOR_BUILD = /usr/bin/gcc    -std=gnu99
-CFLAGS = -m32 -O2 -pedantic -fomit-frame-pointer -mtune=core2 -march=core2
-CPP = /usr/bin/gcc    -std=gnu99 -E
+CALLING_CONVENTIONS_OBJS = amd64call.lo amd64check$U.lo
+CC = gcc -std=gnu99
+CCAS = gcc -std=gnu99 -c
+CC_FOR_BUILD = gcc -std=gnu99
+CFLAGS = -O2 -pedantic -m64 -mtune=k8 -march=k8
+CPP = gcc -std=gnu99 -E
 CPPFLAGS = 
-CPP_FOR_BUILD = /usr/bin/gcc    -std=gnu99 -E
+CPP_FOR_BUILD = gcc -std=gnu99 -E
 CXX = g++
 CXXCPP = g++ -E
 CXXFLAGS = -g -O2
@@ -142,7 +142,7 @@ F77 =
 FFLAGS = 
 FGREP = /bin/grep -F
 GMP_LDFLAGS = 
-GMP_LIMB_BITS = 32
+GMP_LIMB_BITS = 64
 GMP_NAIL_BITS = 0
 GREP = /bin/grep
 HAVE_CLOCK_01 = 1
@@ -161,11 +161,11 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-LD = /usr/bin/ld
+LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
-LEX = flex
-LEXLIB = -lfl
-LEX_OUTPUT_ROOT = lex.yy
+LEX = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/missing --run flex
+LEXLIB = 
+LEX_OUTPUT_ROOT = 
 LIBCURSES = -lncurses
 LIBGMPXX_LDFLAGS = 
 LIBGMP_DLL = 0
@@ -173,7 +173,7 @@ LIBGMP_LDFLAGS =
 LIBM = -lm
 LIBM_FOR_BUILD = -lm
 LIBOBJS = 
-LIBREADLINE = 
+LIBREADLINE = -lreadline
 LIBS = 
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
@@ -181,7 +181,7 @@ LN_S = ln -s
 LTLIBOBJS = 
 M4 = m4
 MAINT = #
-MAKEINFO = ${SHELL} /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
@@ -200,22 +200,22 @@ PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /bin/sed
 SET_MAKE = 
-SHELL = /bin/sh
-SPEED_CYCLECOUNTER_OBJ = pentium.lo
+SHELL = /bin/bash
+SPEED_CYCLECOUNTER_OBJ = x86_64.lo
 STRIP = strip
 TAL_OBJECT = tal-reent.lo
-TUNE_SQR_OBJ = 
+TUNE_SQR_OBJ = sqr_asm.o
 U = 
 U_FOR_BUILD = 
 VERSION = 5.0.1
-WITH_READLINE_01 = 0
+WITH_READLINE_01 = 1
 YACC = bison -y
 YFLAGS = 
-abs_builddir = /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/mpn
-abs_srcdir = /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/mpn
-abs_top_builddir = /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp
-abs_top_srcdir = /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp
-ac_ct_CC = /usr/bin/gcc   
+abs_builddir = /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/mpn
+abs_srcdir = /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/mpn
+abs_top_builddir = /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp
+abs_top_srcdir = /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp
+ac_ct_CC = gcc
 ac_ct_CXX = g++
 ac_ct_DUMPBIN = 
 ac_ct_F77 = 
@@ -223,27 +223,27 @@ am__leading_dot = .
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
 bindir = ${exec_prefix}/bin
-build = corei-pc-linux-gnu
+build = x86_64-unknown-linux-gnu
 build_alias = 
-build_cpu = corei
+build_cpu = x86_64
 build_os = linux-gnu
-build_vendor = pc
+build_vendor = unknown
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
-gmp_srclinks =  mpn/add.c mpn/add_1.c mpn/add_n.asm mpn/sub.c mpn/sub_1.c mpn/sub_n.asm mpn/neg.c mpn/com.c mpn/mul_1.asm mpn/addmul_1.asm mpn/submul_1.asm mpn/lshift.asm mpn/rshift.asm mpn/dive_1.asm mpn/diveby3.c mpn/divis.c mpn/divrem.c mpn/divrem_1.asm mpn/divrem_2.asm mpn/fib2_ui.c mpn/mod_1.c mpn/mod_34lsub1.asm mpn/mode1o.asm mpn/pre_mod_1.c mpn/dump.c mpn/mod_1_1.c mpn/mod_1_2.c mpn/mod_1_3.c mpn/mod_1_4.asm mpn/lshiftc.c mpn/mul.c mpn/mul_fft.c mpn/mul_n.c mpn/sqr.c mpn/mul_basecase.asm mpn/sqr_basecase.asm mpn/nussbaumer_mul.c mpn/random.c mpn/random2.c mpn/pow_1.c mpn/rootrem.c mpn/sqrtrem.c mpn/get_str.c mpn/set_str.c mpn/scan0.c mpn/scan1.c mpn/popcount.asm mpn/hamdist.asm mpn/cmp.c mpn/perfsqr.c mpn/perfpow.c mpn/gcd_1.c mpn/gcd.c mpn/gcdext_1.c mpn/gcdext.c mpn/gcd_lehmer.c mpn/gcd_subdiv_step.c mpn/gcdext_lehmer.c mpn/gcdext_subdiv_step.c mpn/div_q.c mpn/tdiv_qr.c mpn/jacbase.c mpn/get_d.c mpn/matrix22_mul.c mpn/hgcd2.c mpn/hgcd.c mpn/mullo_n.c mpn/mullo_basecase.c mpn/toom22_mul.c mpn/toom32_mul.c mpn/toom42_mul.c mpn/toom52_mul.c mpn/toom62_mul.c mpn/toom33_mul.c mpn/toom43_mul.c mpn/toom53_mul.c mpn/toom63_mul.c mpn/toom44_mul.c mpn/toom6h_mul.c mpn/toom6_sqr.c mpn/toom8h_mul.c mpn/toom8_sqr.c mpn/toom_couple_handling.c mpn/toom2_sqr.c mpn/toom3_sqr.c mpn/toom4_sqr.c mpn/toom_eval_dgr3_pm1.c mpn/toom_eval_dgr3_pm2.c mpn/toom_eval_pm1.c mpn/toom_eval_pm2.c mpn/toom_eval_pm2exp.c mpn/toom_eval_pm2rexp.c mpn/toom_interpolate_5pts.c mpn/toom_interpolate_6pts.c mpn/toom_interpolate_7pts.c mpn/toom_interpolate_8pts.c mpn/toom_interpolate_12pts.c mpn/toom_interpolate_16pts.c mpn/invertappr.c mpn/invert.c mpn/binvert.c mpn/mulmod_bnm1.c mpn/sqrmod_bnm1.c mpn/sbpi1_div_q.c mpn/sbpi1_div_qr.c mpn/sbpi1_divappr_q.c mpn/dcpi1_div_q.c mpn/dcpi1_div_qr.c mpn/dcpi1_divappr_q.c mpn/mu_div_qr.c mpn/mu_divappr_q.c mpn/mu_div_q.c mpn/bdiv_q_1.c mpn/sbpi1_bdiv_q.c mpn/sbpi1_bdiv_qr.c mpn/dcpi1_bdiv_q.c mpn/dcpi1_bdiv_qr.c mpn/mu_bdiv_q.c mpn/mu_bdiv_qr.c mpn/bdiv_q.c mpn/bdiv_qr.c mpn/divexact.c mpn/bdiv_dbm1c.asm mpn/redc_1.c mpn/redc_2.c mpn/redc_n.c mpn/powm.c mpn/powlo.c mpn/powm_sec.c mpn/subcnd_n.c mpn/redc_1_sec.c mpn/trialdiv.c mpn/remove.c mpn/and_n.c mpn/andn_n.c mpn/nand_n.c mpn/ior_n.c mpn/iorn_n.c mpn/nior_n.c mpn/xor_n.c mpn/xnor_n.c mpn/copyi.asm mpn/copyd.asm mpn/zero.c mpn/umul.asm mpn/udiv.asm mpn/invert_limb.asm gmp-mparam.h
-host = corei-pc-linux-gnu
+gmp_srclinks =  mpn/add.c mpn/add_1.c mpn/add_n.asm mpn/sub.c mpn/sub_1.c mpn/sub_n.asm mpn/neg.c mpn/com.asm mpn/mul_1.asm mpn/addmul_1.asm mpn/submul_1.asm mpn/lshift.asm mpn/rshift.asm mpn/dive_1.asm mpn/diveby3.c mpn/divis.c mpn/divrem.c mpn/divrem_1.asm mpn/divrem_2.asm mpn/fib2_ui.c mpn/mod_1.c mpn/mod_34lsub1.asm mpn/mode1o.asm mpn/pre_mod_1.c mpn/dump.c mpn/mod_1_1.c mpn/mod_1_2.c mpn/mod_1_3.c mpn/mod_1_4.asm mpn/lshiftc.asm mpn/mul.c mpn/mul_fft.c mpn/mul_n.c mpn/sqr.c mpn/mul_basecase.asm mpn/sqr_basecase.asm mpn/nussbaumer_mul.c mpn/random.c mpn/random2.c mpn/pow_1.c mpn/rootrem.c mpn/sqrtrem.c mpn/get_str.c mpn/set_str.c mpn/scan0.c mpn/scan1.c mpn/popcount.asm mpn/hamdist.asm mpn/cmp.c mpn/perfsqr.c mpn/perfpow.c mpn/gcd_1.asm mpn/gcd.c mpn/gcdext_1.c mpn/gcdext.c mpn/gcd_lehmer.c mpn/gcd_subdiv_step.c mpn/gcdext_lehmer.c mpn/gcdext_subdiv_step.c mpn/div_q.c mpn/tdiv_qr.c mpn/jacbase.c mpn/get_d.c mpn/matrix22_mul.c mpn/hgcd2.c mpn/hgcd.c mpn/mullo_n.c mpn/mullo_basecase.c mpn/toom22_mul.c mpn/toom32_mul.c mpn/toom42_mul.c mpn/toom52_mul.c mpn/toom62_mul.c mpn/toom33_mul.c mpn/toom43_mul.c mpn/toom53_mul.c mpn/toom63_mul.c mpn/toom44_mul.c mpn/toom6h_mul.c mpn/toom6_sqr.c mpn/toom8h_mul.c mpn/toom8_sqr.c mpn/toom_couple_handling.c mpn/toom2_sqr.c mpn/toom3_sqr.c mpn/toom4_sqr.c mpn/toom_eval_dgr3_pm1.c mpn/toom_eval_dgr3_pm2.c mpn/toom_eval_pm1.c mpn/toom_eval_pm2.c mpn/toom_eval_pm2exp.c mpn/toom_eval_pm2rexp.c mpn/toom_interpolate_5pts.c mpn/toom_interpolate_6pts.c mpn/toom_interpolate_7pts.c mpn/toom_interpolate_8pts.c mpn/toom_interpolate_12pts.c mpn/toom_interpolate_16pts.c mpn/invertappr.c mpn/invert.c mpn/binvert.c mpn/mulmod_bnm1.c mpn/sqrmod_bnm1.c mpn/sbpi1_div_q.c mpn/sbpi1_div_qr.c mpn/sbpi1_divappr_q.c mpn/dcpi1_div_q.c mpn/dcpi1_div_qr.c mpn/dcpi1_divappr_q.c mpn/mu_div_qr.c mpn/mu_divappr_q.c mpn/mu_div_q.c mpn/bdiv_q_1.asm mpn/sbpi1_bdiv_q.c mpn/sbpi1_bdiv_qr.c mpn/dcpi1_bdiv_q.c mpn/dcpi1_bdiv_qr.c mpn/mu_bdiv_q.c mpn/mu_bdiv_qr.c mpn/bdiv_q.c mpn/bdiv_qr.c mpn/divexact.c mpn/bdiv_dbm1c.asm mpn/redc_1.asm mpn/redc_2.c mpn/redc_n.c mpn/powm.c mpn/powlo.c mpn/powm_sec.c mpn/subcnd_n.c mpn/redc_1_sec.c mpn/trialdiv.c mpn/remove.c mpn/and_n.asm mpn/andn_n.asm mpn/nand_n.asm mpn/ior_n.asm mpn/iorn_n.asm mpn/nior_n.asm mpn/xor_n.asm mpn/xnor_n.asm mpn/copyi.asm mpn/copyd.asm mpn/zero.c mpn/invert_limb.asm mpn/mul_2.asm mpn/addmul_2.asm mpn/addlsh1_n.asm mpn/sublsh1_n.asm mpn/rsblsh1_n.asm mpn/rsh1add_n.asm mpn/rsh1sub_n.asm mpn/addlsh2_n.asm mpn/rsblsh2_n.asm mpn/addlsh_n.asm mpn/rsblsh_n.asm mpn/addaddmul_1msb0.asm gmp-mparam.h
+host = x86_64-unknown-linux-gnu
 host_alias = 
-host_cpu = corei
+host_cpu = x86_64
 host_os = linux-gnu
-host_vendor = pc
+host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /root/mountpoint-genprog/genprog-many-bugs/gmp-bug-13420-13421/gmp/install-sh
+install_sh = ${SHELL} /home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/gmp-bug-13420-13421/gmp/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -251,9 +251,9 @@ localstatedir = ${prefix}/var
 lt_ECHO = echo
 mandir = ${datarootdir}/man
 mkdir_p = /bin/mkdir -p
-mpn_objects =  add$U.lo add_1$U.lo add_n.lo sub$U.lo sub_1$U.lo sub_n.lo neg$U.lo com$U.lo mul_1.lo addmul_1.lo submul_1.lo lshift.lo rshift.lo dive_1.lo diveby3$U.lo divis$U.lo divrem$U.lo divrem_1.lo divrem_2.lo fib2_ui$U.lo mod_1$U.lo mod_34lsub1.lo mode1o.lo pre_mod_1$U.lo dump$U.lo mod_1_1$U.lo mod_1_2$U.lo mod_1_3$U.lo mod_1_4.lo lshiftc$U.lo mul$U.lo mul_fft$U.lo mul_n$U.lo sqr$U.lo mul_basecase.lo sqr_basecase.lo nussbaumer_mul$U.lo random$U.lo random2$U.lo pow_1$U.lo rootrem$U.lo sqrtrem$U.lo get_str$U.lo set_str$U.lo scan0$U.lo scan1$U.lo popcount.lo hamdist.lo cmp$U.lo perfsqr$U.lo perfpow$U.lo gcd_1$U.lo gcd$U.lo gcdext_1$U.lo gcdext$U.lo gcd_lehmer$U.lo gcd_subdiv_step$U.lo gcdext_lehmer$U.lo gcdext_subdiv_step$U.lo div_q$U.lo tdiv_qr$U.lo jacbase$U.lo get_d$U.lo matrix22_mul$U.lo hgcd2$U.lo hgcd$U.lo mullo_n$U.lo mullo_basecase$U.lo toom22_mul$U.lo toom32_mul$U.lo toom42_mul$U.lo toom52_mul$U.lo toom62_mul$U.lo toom33_mul$U.lo toom43_mul$U.lo toom53_mul$U.lo toom63_mul$U.lo toom44_mul$U.lo toom6h_mul$U.lo toom6_sqr$U.lo toom8h_mul$U.lo toom8_sqr$U.lo toom_couple_handling$U.lo toom2_sqr$U.lo toom3_sqr$U.lo toom4_sqr$U.lo toom_eval_dgr3_pm1$U.lo toom_eval_dgr3_pm2$U.lo toom_eval_pm1$U.lo toom_eval_pm2$U.lo toom_eval_pm2exp$U.lo toom_eval_pm2rexp$U.lo toom_interpolate_5pts$U.lo toom_interpolate_6pts$U.lo toom_interpolate_7pts$U.lo toom_interpolate_8pts$U.lo toom_interpolate_12pts$U.lo toom_interpolate_16pts$U.lo invertappr$U.lo invert$U.lo binvert$U.lo mulmod_bnm1$U.lo sqrmod_bnm1$U.lo sbpi1_div_q$U.lo sbpi1_div_qr$U.lo sbpi1_divappr_q$U.lo dcpi1_div_q$U.lo dcpi1_div_qr$U.lo dcpi1_divappr_q$U.lo mu_div_qr$U.lo mu_divappr_q$U.lo mu_div_q$U.lo bdiv_q_1$U.lo sbpi1_bdiv_q$U.lo sbpi1_bdiv_qr$U.lo dcpi1_bdiv_q$U.lo dcpi1_bdiv_qr$U.lo mu_bdiv_q$U.lo mu_bdiv_qr$U.lo bdiv_q$U.lo bdiv_qr$U.lo divexact$U.lo bdiv_dbm1c.lo redc_1$U.lo redc_2$U.lo redc_n$U.lo powm$U.lo powlo$U.lo powm_sec$U.lo subcnd_n$U.lo redc_1_sec$U.lo trialdiv$U.lo remove$U.lo and_n$U.lo andn_n$U.lo nand_n$U.lo ior_n$U.lo iorn_n$U.lo nior_n$U.lo xor_n$U.lo xnor_n$U.lo copyi.lo copyd.lo zero$U.lo umul.lo udiv.lo invert_limb.lo
-mpn_objs_in_libgmp =  mpn/add$U.lo mpn/add_1$U.lo mpn/add_n.lo mpn/sub$U.lo mpn/sub_1$U.lo mpn/sub_n.lo mpn/neg$U.lo mpn/com$U.lo mpn/mul_1.lo mpn/addmul_1.lo mpn/submul_1.lo mpn/lshift.lo mpn/rshift.lo mpn/dive_1.lo mpn/diveby3$U.lo mpn/divis$U.lo mpn/divrem$U.lo mpn/divrem_1.lo mpn/divrem_2.lo mpn/fib2_ui$U.lo mpn/mod_1$U.lo mpn/mod_34lsub1.lo mpn/mode1o.lo mpn/pre_mod_1$U.lo mpn/dump$U.lo mpn/mod_1_1$U.lo mpn/mod_1_2$U.lo mpn/mod_1_3$U.lo mpn/mod_1_4.lo mpn/lshiftc$U.lo mpn/mul$U.lo mpn/mul_fft$U.lo mpn/mul_n$U.lo mpn/sqr$U.lo mpn/mul_basecase.lo mpn/sqr_basecase.lo mpn/nussbaumer_mul$U.lo mpn/random$U.lo mpn/random2$U.lo mpn/pow_1$U.lo mpn/rootrem$U.lo mpn/sqrtrem$U.lo mpn/get_str$U.lo mpn/set_str$U.lo mpn/scan0$U.lo mpn/scan1$U.lo mpn/popcount.lo mpn/hamdist.lo mpn/cmp$U.lo mpn/perfsqr$U.lo mpn/perfpow$U.lo mpn/gcd_1$U.lo mpn/gcd$U.lo mpn/gcdext_1$U.lo mpn/gcdext$U.lo mpn/gcd_lehmer$U.lo mpn/gcd_subdiv_step$U.lo mpn/gcdext_lehmer$U.lo mpn/gcdext_subdiv_step$U.lo mpn/div_q$U.lo mpn/tdiv_qr$U.lo mpn/jacbase$U.lo mpn/get_d$U.lo mpn/matrix22_mul$U.lo mpn/hgcd2$U.lo mpn/hgcd$U.lo mpn/mullo_n$U.lo mpn/mullo_basecase$U.lo mpn/toom22_mul$U.lo mpn/toom32_mul$U.lo mpn/toom42_mul$U.lo mpn/toom52_mul$U.lo mpn/toom62_mul$U.lo mpn/toom33_mul$U.lo mpn/toom43_mul$U.lo mpn/toom53_mul$U.lo mpn/toom63_mul$U.lo mpn/toom44_mul$U.lo mpn/toom6h_mul$U.lo mpn/toom6_sqr$U.lo mpn/toom8h_mul$U.lo mpn/toom8_sqr$U.lo mpn/toom_couple_handling$U.lo mpn/toom2_sqr$U.lo mpn/toom3_sqr$U.lo mpn/toom4_sqr$U.lo mpn/toom_eval_dgr3_pm1$U.lo mpn/toom_eval_dgr3_pm2$U.lo mpn/toom_eval_pm1$U.lo mpn/toom_eval_pm2$U.lo mpn/toom_eval_pm2exp$U.lo mpn/toom_eval_pm2rexp$U.lo mpn/toom_interpolate_5pts$U.lo mpn/toom_interpolate_6pts$U.lo mpn/toom_interpolate_7pts$U.lo mpn/toom_interpolate_8pts$U.lo mpn/toom_interpolate_12pts$U.lo mpn/toom_interpolate_16pts$U.lo mpn/invertappr$U.lo mpn/invert$U.lo mpn/binvert$U.lo mpn/mulmod_bnm1$U.lo mpn/sqrmod_bnm1$U.lo mpn/sbpi1_div_q$U.lo mpn/sbpi1_div_qr$U.lo mpn/sbpi1_divappr_q$U.lo mpn/dcpi1_div_q$U.lo mpn/dcpi1_div_qr$U.lo mpn/dcpi1_divappr_q$U.lo mpn/mu_div_qr$U.lo mpn/mu_divappr_q$U.lo mpn/mu_div_q$U.lo mpn/bdiv_q_1$U.lo mpn/sbpi1_bdiv_q$U.lo mpn/sbpi1_bdiv_qr$U.lo mpn/dcpi1_bdiv_q$U.lo mpn/dcpi1_bdiv_qr$U.lo mpn/mu_bdiv_q$U.lo mpn/mu_bdiv_qr$U.lo mpn/bdiv_q$U.lo mpn/bdiv_qr$U.lo mpn/divexact$U.lo mpn/bdiv_dbm1c.lo mpn/redc_1$U.lo mpn/redc_2$U.lo mpn/redc_n$U.lo mpn/powm$U.lo mpn/powlo$U.lo mpn/powm_sec$U.lo mpn/subcnd_n$U.lo mpn/redc_1_sec$U.lo mpn/trialdiv$U.lo mpn/remove$U.lo mpn/and_n$U.lo mpn/andn_n$U.lo mpn/nand_n$U.lo mpn/ior_n$U.lo mpn/iorn_n$U.lo mpn/nior_n$U.lo mpn/xor_n$U.lo mpn/xnor_n$U.lo mpn/copyi.lo mpn/copyd.lo mpn/zero$U.lo mpn/umul.lo mpn/udiv.lo mpn/invert_limb.lo
-mpn_objs_in_libmp =  mpn/add$U.lo mpn/add_1$U.lo mpn/add_n.lo mpn/sub$U.lo mpn/sub_1$U.lo mpn/sub_n.lo mpn/neg$U.lo mpn/com$U.lo mpn/mul_1.lo mpn/addmul_1.lo mpn/submul_1.lo mpn/lshift.lo mpn/rshift.lo mpn/dive_1.lo mpn/diveby3$U.lo mpn/divis$U.lo mpn/divrem$U.lo mpn/divrem_1.lo mpn/divrem_2.lo mpn/fib2_ui$U.lo mpn/mod_1$U.lo mpn/mod_34lsub1.lo mpn/mode1o.lo mpn/pre_mod_1$U.lo mpn/dump$U.lo mpn/mod_1_1$U.lo mpn/mod_1_2$U.lo mpn/mod_1_3$U.lo mpn/mod_1_4.lo mpn/lshiftc$U.lo mpn/mul$U.lo mpn/mul_fft$U.lo mpn/mul_n$U.lo mpn/sqr$U.lo mpn/mul_basecase.lo mpn/sqr_basecase.lo mpn/nussbaumer_mul$U.lo mpn/pow_1$U.lo mpn/rootrem$U.lo mpn/sqrtrem$U.lo mpn/get_str$U.lo mpn/set_str$U.lo mpn/scan0$U.lo mpn/scan1$U.lo mpn/popcount.lo mpn/hamdist.lo mpn/cmp$U.lo mpn/perfsqr$U.lo mpn/perfpow$U.lo mpn/gcd_1$U.lo mpn/gcd$U.lo mpn/gcdext_1$U.lo mpn/gcdext$U.lo mpn/gcd_lehmer$U.lo mpn/gcd_subdiv_step$U.lo mpn/gcdext_lehmer$U.lo mpn/gcdext_subdiv_step$U.lo mpn/div_q$U.lo mpn/tdiv_qr$U.lo mpn/jacbase$U.lo mpn/get_d$U.lo mpn/matrix22_mul$U.lo mpn/hgcd2$U.lo mpn/hgcd$U.lo mpn/mullo_n$U.lo mpn/mullo_basecase$U.lo mpn/toom22_mul$U.lo mpn/toom32_mul$U.lo mpn/toom42_mul$U.lo mpn/toom52_mul$U.lo mpn/toom62_mul$U.lo mpn/toom33_mul$U.lo mpn/toom43_mul$U.lo mpn/toom53_mul$U.lo mpn/toom63_mul$U.lo mpn/toom44_mul$U.lo mpn/toom6h_mul$U.lo mpn/toom6_sqr$U.lo mpn/toom8h_mul$U.lo mpn/toom8_sqr$U.lo mpn/toom_couple_handling$U.lo mpn/toom2_sqr$U.lo mpn/toom3_sqr$U.lo mpn/toom4_sqr$U.lo mpn/toom_eval_dgr3_pm1$U.lo mpn/toom_eval_dgr3_pm2$U.lo mpn/toom_eval_pm1$U.lo mpn/toom_eval_pm2$U.lo mpn/toom_eval_pm2exp$U.lo mpn/toom_eval_pm2rexp$U.lo mpn/toom_interpolate_5pts$U.lo mpn/toom_interpolate_6pts$U.lo mpn/toom_interpolate_7pts$U.lo mpn/toom_interpolate_8pts$U.lo mpn/toom_interpolate_12pts$U.lo mpn/toom_interpolate_16pts$U.lo mpn/invertappr$U.lo mpn/invert$U.lo mpn/binvert$U.lo mpn/mulmod_bnm1$U.lo mpn/sqrmod_bnm1$U.lo mpn/sbpi1_div_q$U.lo mpn/sbpi1_div_qr$U.lo mpn/sbpi1_divappr_q$U.lo mpn/dcpi1_div_q$U.lo mpn/dcpi1_div_qr$U.lo mpn/dcpi1_divappr_q$U.lo mpn/mu_div_qr$U.lo mpn/mu_divappr_q$U.lo mpn/mu_div_q$U.lo mpn/bdiv_q_1$U.lo mpn/sbpi1_bdiv_q$U.lo mpn/sbpi1_bdiv_qr$U.lo mpn/dcpi1_bdiv_q$U.lo mpn/dcpi1_bdiv_qr$U.lo mpn/mu_bdiv_q$U.lo mpn/mu_bdiv_qr$U.lo mpn/bdiv_q$U.lo mpn/bdiv_qr$U.lo mpn/divexact$U.lo mpn/bdiv_dbm1c.lo mpn/redc_1$U.lo mpn/redc_2$U.lo mpn/redc_n$U.lo mpn/powm$U.lo mpn/powlo$U.lo mpn/powm_sec$U.lo mpn/subcnd_n$U.lo mpn/redc_1_sec$U.lo mpn/trialdiv$U.lo mpn/remove$U.lo mpn/and_n$U.lo mpn/andn_n$U.lo mpn/nand_n$U.lo mpn/ior_n$U.lo mpn/iorn_n$U.lo mpn/nior_n$U.lo mpn/xor_n$U.lo mpn/xnor_n$U.lo mpn/copyi.lo mpn/copyd.lo mpn/zero$U.lo mpn/umul.lo mpn/udiv.lo mpn/invert_limb.lo
+mpn_objects =  add$U.lo add_1$U.lo add_n.lo sub$U.lo sub_1$U.lo sub_n.lo neg$U.lo com.lo mul_1.lo addmul_1.lo submul_1.lo lshift.lo rshift.lo dive_1.lo diveby3$U.lo divis$U.lo divrem$U.lo divrem_1.lo divrem_2.lo fib2_ui$U.lo mod_1$U.lo mod_34lsub1.lo mode1o.lo pre_mod_1$U.lo dump$U.lo mod_1_1$U.lo mod_1_2$U.lo mod_1_3$U.lo mod_1_4.lo lshiftc.lo mul$U.lo mul_fft$U.lo mul_n$U.lo sqr$U.lo mul_basecase.lo sqr_basecase.lo nussbaumer_mul$U.lo random$U.lo random2$U.lo pow_1$U.lo rootrem$U.lo sqrtrem$U.lo get_str$U.lo set_str$U.lo scan0$U.lo scan1$U.lo popcount.lo hamdist.lo cmp$U.lo perfsqr$U.lo perfpow$U.lo gcd_1.lo gcd$U.lo gcdext_1$U.lo gcdext$U.lo gcd_lehmer$U.lo gcd_subdiv_step$U.lo gcdext_lehmer$U.lo gcdext_subdiv_step$U.lo div_q$U.lo tdiv_qr$U.lo jacbase$U.lo get_d$U.lo matrix22_mul$U.lo hgcd2$U.lo hgcd$U.lo mullo_n$U.lo mullo_basecase$U.lo toom22_mul$U.lo toom32_mul$U.lo toom42_mul$U.lo toom52_mul$U.lo toom62_mul$U.lo toom33_mul$U.lo toom43_mul$U.lo toom53_mul$U.lo toom63_mul$U.lo toom44_mul$U.lo toom6h_mul$U.lo toom6_sqr$U.lo toom8h_mul$U.lo toom8_sqr$U.lo toom_couple_handling$U.lo toom2_sqr$U.lo toom3_sqr$U.lo toom4_sqr$U.lo toom_eval_dgr3_pm1$U.lo toom_eval_dgr3_pm2$U.lo toom_eval_pm1$U.lo toom_eval_pm2$U.lo toom_eval_pm2exp$U.lo toom_eval_pm2rexp$U.lo toom_interpolate_5pts$U.lo toom_interpolate_6pts$U.lo toom_interpolate_7pts$U.lo toom_interpolate_8pts$U.lo toom_interpolate_12pts$U.lo toom_interpolate_16pts$U.lo invertappr$U.lo invert$U.lo binvert$U.lo mulmod_bnm1$U.lo sqrmod_bnm1$U.lo sbpi1_div_q$U.lo sbpi1_div_qr$U.lo sbpi1_divappr_q$U.lo dcpi1_div_q$U.lo dcpi1_div_qr$U.lo dcpi1_divappr_q$U.lo mu_div_qr$U.lo mu_divappr_q$U.lo mu_div_q$U.lo bdiv_q_1.lo sbpi1_bdiv_q$U.lo sbpi1_bdiv_qr$U.lo dcpi1_bdiv_q$U.lo dcpi1_bdiv_qr$U.lo mu_bdiv_q$U.lo mu_bdiv_qr$U.lo bdiv_q$U.lo bdiv_qr$U.lo divexact$U.lo bdiv_dbm1c.lo redc_1.lo redc_2$U.lo redc_n$U.lo powm$U.lo powlo$U.lo powm_sec$U.lo subcnd_n$U.lo redc_1_sec$U.lo trialdiv$U.lo remove$U.lo and_n.lo andn_n.lo nand_n.lo ior_n.lo iorn_n.lo nior_n.lo xor_n.lo xnor_n.lo copyi.lo copyd.lo zero$U.lo invert_limb.lo mul_2.lo addmul_2.lo addlsh1_n.lo sublsh1_n.lo rsblsh1_n.lo rsh1add_n.lo rsh1sub_n.lo addlsh2_n.lo rsblsh2_n.lo addlsh_n.lo rsblsh_n.lo addaddmul_1msb0.lo
+mpn_objs_in_libgmp =  mpn/add$U.lo mpn/add_1$U.lo mpn/add_n.lo mpn/sub$U.lo mpn/sub_1$U.lo mpn/sub_n.lo mpn/neg$U.lo mpn/com.lo mpn/mul_1.lo mpn/addmul_1.lo mpn/submul_1.lo mpn/lshift.lo mpn/rshift.lo mpn/dive_1.lo mpn/diveby3$U.lo mpn/divis$U.lo mpn/divrem$U.lo mpn/divrem_1.lo mpn/divrem_2.lo mpn/fib2_ui$U.lo mpn/mod_1$U.lo mpn/mod_34lsub1.lo mpn/mode1o.lo mpn/pre_mod_1$U.lo mpn/dump$U.lo mpn/mod_1_1$U.lo mpn/mod_1_2$U.lo mpn/mod_1_3$U.lo mpn/mod_1_4.lo mpn/lshiftc.lo mpn/mul$U.lo mpn/mul_fft$U.lo mpn/mul_n$U.lo mpn/sqr$U.lo mpn/mul_basecase.lo mpn/sqr_basecase.lo mpn/nussbaumer_mul$U.lo mpn/random$U.lo mpn/random2$U.lo mpn/pow_1$U.lo mpn/rootrem$U.lo mpn/sqrtrem$U.lo mpn/get_str$U.lo mpn/set_str$U.lo mpn/scan0$U.lo mpn/scan1$U.lo mpn/popcount.lo mpn/hamdist.lo mpn/cmp$U.lo mpn/perfsqr$U.lo mpn/perfpow$U.lo mpn/gcd_1.lo mpn/gcd$U.lo mpn/gcdext_1$U.lo mpn/gcdext$U.lo mpn/gcd_lehmer$U.lo mpn/gcd_subdiv_step$U.lo mpn/gcdext_lehmer$U.lo mpn/gcdext_subdiv_step$U.lo mpn/div_q$U.lo mpn/tdiv_qr$U.lo mpn/jacbase$U.lo mpn/get_d$U.lo mpn/matrix22_mul$U.lo mpn/hgcd2$U.lo mpn/hgcd$U.lo mpn/mullo_n$U.lo mpn/mullo_basecase$U.lo mpn/toom22_mul$U.lo mpn/toom32_mul$U.lo mpn/toom42_mul$U.lo mpn/toom52_mul$U.lo mpn/toom62_mul$U.lo mpn/toom33_mul$U.lo mpn/toom43_mul$U.lo mpn/toom53_mul$U.lo mpn/toom63_mul$U.lo mpn/toom44_mul$U.lo mpn/toom6h_mul$U.lo mpn/toom6_sqr$U.lo mpn/toom8h_mul$U.lo mpn/toom8_sqr$U.lo mpn/toom_couple_handling$U.lo mpn/toom2_sqr$U.lo mpn/toom3_sqr$U.lo mpn/toom4_sqr$U.lo mpn/toom_eval_dgr3_pm1$U.lo mpn/toom_eval_dgr3_pm2$U.lo mpn/toom_eval_pm1$U.lo mpn/toom_eval_pm2$U.lo mpn/toom_eval_pm2exp$U.lo mpn/toom_eval_pm2rexp$U.lo mpn/toom_interpolate_5pts$U.lo mpn/toom_interpolate_6pts$U.lo mpn/toom_interpolate_7pts$U.lo mpn/toom_interpolate_8pts$U.lo mpn/toom_interpolate_12pts$U.lo mpn/toom_interpolate_16pts$U.lo mpn/invertappr$U.lo mpn/invert$U.lo mpn/binvert$U.lo mpn/mulmod_bnm1$U.lo mpn/sqrmod_bnm1$U.lo mpn/sbpi1_div_q$U.lo mpn/sbpi1_div_qr$U.lo mpn/sbpi1_divappr_q$U.lo mpn/dcpi1_div_q$U.lo mpn/dcpi1_div_qr$U.lo mpn/dcpi1_divappr_q$U.lo mpn/mu_div_qr$U.lo mpn/mu_divappr_q$U.lo mpn/mu_div_q$U.lo mpn/bdiv_q_1.lo mpn/sbpi1_bdiv_q$U.lo mpn/sbpi1_bdiv_qr$U.lo mpn/dcpi1_bdiv_q$U.lo mpn/dcpi1_bdiv_qr$U.lo mpn/mu_bdiv_q$U.lo mpn/mu_bdiv_qr$U.lo mpn/bdiv_q$U.lo mpn/bdiv_qr$U.lo mpn/divexact$U.lo mpn/bdiv_dbm1c.lo mpn/redc_1.lo mpn/redc_2$U.lo mpn/redc_n$U.lo mpn/powm$U.lo mpn/powlo$U.lo mpn/powm_sec$U.lo mpn/subcnd_n$U.lo mpn/redc_1_sec$U.lo mpn/trialdiv$U.lo mpn/remove$U.lo mpn/and_n.lo mpn/andn_n.lo mpn/nand_n.lo mpn/ior_n.lo mpn/iorn_n.lo mpn/nior_n.lo mpn/xor_n.lo mpn/xnor_n.lo mpn/copyi.lo mpn/copyd.lo mpn/zero$U.lo mpn/invert_limb.lo mpn/mul_2.lo mpn/addmul_2.lo mpn/addlsh1_n.lo mpn/sublsh1_n.lo mpn/rsblsh1_n.lo mpn/rsh1add_n.lo mpn/rsh1sub_n.lo mpn/addlsh2_n.lo mpn/rsblsh2_n.lo mpn/addlsh_n.lo mpn/rsblsh_n.lo mpn/addaddmul_1msb0.lo
+mpn_objs_in_libmp =  mpn/add$U.lo mpn/add_1$U.lo mpn/add_n.lo mpn/sub$U.lo mpn/sub_1$U.lo mpn/sub_n.lo mpn/neg$U.lo mpn/com.lo mpn/mul_1.lo mpn/addmul_1.lo mpn/submul_1.lo mpn/lshift.lo mpn/rshift.lo mpn/dive_1.lo mpn/diveby3$U.lo mpn/divis$U.lo mpn/divrem$U.lo mpn/divrem_1.lo mpn/divrem_2.lo mpn/fib2_ui$U.lo mpn/mod_1$U.lo mpn/mod_34lsub1.lo mpn/mode1o.lo mpn/pre_mod_1$U.lo mpn/dump$U.lo mpn/mod_1_1$U.lo mpn/mod_1_2$U.lo mpn/mod_1_3$U.lo mpn/mod_1_4.lo mpn/lshiftc.lo mpn/mul$U.lo mpn/mul_fft$U.lo mpn/mul_n$U.lo mpn/sqr$U.lo mpn/mul_basecase.lo mpn/sqr_basecase.lo mpn/nussbaumer_mul$U.lo mpn/pow_1$U.lo mpn/rootrem$U.lo mpn/sqrtrem$U.lo mpn/get_str$U.lo mpn/set_str$U.lo mpn/scan0$U.lo mpn/scan1$U.lo mpn/popcount.lo mpn/hamdist.lo mpn/cmp$U.lo mpn/perfsqr$U.lo mpn/perfpow$U.lo mpn/gcd_1.lo mpn/gcd$U.lo mpn/gcdext_1$U.lo mpn/gcdext$U.lo mpn/gcd_lehmer$U.lo mpn/gcd_subdiv_step$U.lo mpn/gcdext_lehmer$U.lo mpn/gcdext_subdiv_step$U.lo mpn/div_q$U.lo mpn/tdiv_qr$U.lo mpn/jacbase$U.lo mpn/get_d$U.lo mpn/matrix22_mul$U.lo mpn/hgcd2$U.lo mpn/hgcd$U.lo mpn/mullo_n$U.lo mpn/mullo_basecase$U.lo mpn/toom22_mul$U.lo mpn/toom32_mul$U.lo mpn/toom42_mul$U.lo mpn/toom52_mul$U.lo mpn/toom62_mul$U.lo mpn/toom33_mul$U.lo mpn/toom43_mul$U.lo mpn/toom53_mul$U.lo mpn/toom63_mul$U.lo mpn/toom44_mul$U.lo mpn/toom6h_mul$U.lo mpn/toom6_sqr$U.lo mpn/toom8h_mul$U.lo mpn/toom8_sqr$U.lo mpn/toom_couple_handling$U.lo mpn/toom2_sqr$U.lo mpn/toom3_sqr$U.lo mpn/toom4_sqr$U.lo mpn/toom_eval_dgr3_pm1$U.lo mpn/toom_eval_dgr3_pm2$U.lo mpn/toom_eval_pm1$U.lo mpn/toom_eval_pm2$U.lo mpn/toom_eval_pm2exp$U.lo mpn/toom_eval_pm2rexp$U.lo mpn/toom_interpolate_5pts$U.lo mpn/toom_interpolate_6pts$U.lo mpn/toom_interpolate_7pts$U.lo mpn/toom_interpolate_8pts$U.lo mpn/toom_interpolate_12pts$U.lo mpn/toom_interpolate_16pts$U.lo mpn/invertappr$U.lo mpn/invert$U.lo mpn/binvert$U.lo mpn/mulmod_bnm1$U.lo mpn/sqrmod_bnm1$U.lo mpn/sbpi1_div_q$U.lo mpn/sbpi1_div_qr$U.lo mpn/sbpi1_divappr_q$U.lo mpn/dcpi1_div_q$U.lo mpn/dcpi1_div_qr$U.lo mpn/dcpi1_divappr_q$U.lo mpn/mu_div_qr$U.lo mpn/mu_divappr_q$U.lo mpn/mu_div_q$U.lo mpn/bdiv_q_1.lo mpn/sbpi1_bdiv_q$U.lo mpn/sbpi1_bdiv_qr$U.lo mpn/dcpi1_bdiv_q$U.lo mpn/dcpi1_bdiv_qr$U.lo mpn/mu_bdiv_q$U.lo mpn/mu_bdiv_qr$U.lo mpn/bdiv_q$U.lo mpn/bdiv_qr$U.lo mpn/divexact$U.lo mpn/bdiv_dbm1c.lo mpn/redc_1.lo mpn/redc_2$U.lo mpn/redc_n$U.lo mpn/powm$U.lo mpn/powlo$U.lo mpn/powm_sec$U.lo mpn/subcnd_n$U.lo mpn/redc_1_sec$U.lo mpn/trialdiv$U.lo mpn/remove$U.lo mpn/and_n.lo mpn/andn_n.lo mpn/nand_n.lo mpn/ior_n.lo mpn/iorn_n.lo mpn/nior_n.lo mpn/xor_n.lo mpn/xnor_n.lo mpn/copyi.lo mpn/copyd.lo mpn/zero$U.lo mpn/invert_limb.lo mpn/mul_2.lo mpn/addmul_2.lo mpn/addlsh1_n.lo mpn/sublsh1_n.lo mpn/rsblsh1_n.lo mpn/rsh1add_n.lo mpn/rsh1sub_n.lo mpn/addlsh2_n.lo mpn/rsblsh2_n.lo mpn/addlsh_n.lo mpn/rsblsh_n.lo mpn/addaddmul_1msb0.lo
 oldincludedir = /usr/include
 pdfdir = ${docdir}
 prefix = /usr/local
@@ -270,7 +270,7 @@ top_srcdir = ..
 INCLUDES = -D__GMP_WITHIN_GMP -I$(top_srcdir) \
   -DOPERATION_`echo $* | sed 's/_$$//'`
 
-OFILES =  add$U.lo add_1$U.lo add_n.lo sub$U.lo sub_1$U.lo sub_n.lo neg$U.lo com$U.lo mul_1.lo addmul_1.lo submul_1.lo lshift.lo rshift.lo dive_1.lo diveby3$U.lo divis$U.lo divrem$U.lo divrem_1.lo divrem_2.lo fib2_ui$U.lo mod_1$U.lo mod_34lsub1.lo mode1o.lo pre_mod_1$U.lo dump$U.lo mod_1_1$U.lo mod_1_2$U.lo mod_1_3$U.lo mod_1_4.lo lshiftc$U.lo mul$U.lo mul_fft$U.lo mul_n$U.lo sqr$U.lo mul_basecase.lo sqr_basecase.lo nussbaumer_mul$U.lo random$U.lo random2$U.lo pow_1$U.lo rootrem$U.lo sqrtrem$U.lo get_str$U.lo set_str$U.lo scan0$U.lo scan1$U.lo popcount.lo hamdist.lo cmp$U.lo perfsqr$U.lo perfpow$U.lo gcd_1$U.lo gcd$U.lo gcdext_1$U.lo gcdext$U.lo gcd_lehmer$U.lo gcd_subdiv_step$U.lo gcdext_lehmer$U.lo gcdext_subdiv_step$U.lo div_q$U.lo tdiv_qr$U.lo jacbase$U.lo get_d$U.lo matrix22_mul$U.lo hgcd2$U.lo hgcd$U.lo mullo_n$U.lo mullo_basecase$U.lo toom22_mul$U.lo toom32_mul$U.lo toom42_mul$U.lo toom52_mul$U.lo toom62_mul$U.lo toom33_mul$U.lo toom43_mul$U.lo toom53_mul$U.lo toom63_mul$U.lo toom44_mul$U.lo toom6h_mul$U.lo toom6_sqr$U.lo toom8h_mul$U.lo toom8_sqr$U.lo toom_couple_handling$U.lo toom2_sqr$U.lo toom3_sqr$U.lo toom4_sqr$U.lo toom_eval_dgr3_pm1$U.lo toom_eval_dgr3_pm2$U.lo toom_eval_pm1$U.lo toom_eval_pm2$U.lo toom_eval_pm2exp$U.lo toom_eval_pm2rexp$U.lo toom_interpolate_5pts$U.lo toom_interpolate_6pts$U.lo toom_interpolate_7pts$U.lo toom_interpolate_8pts$U.lo toom_interpolate_12pts$U.lo toom_interpolate_16pts$U.lo invertappr$U.lo invert$U.lo binvert$U.lo mulmod_bnm1$U.lo sqrmod_bnm1$U.lo sbpi1_div_q$U.lo sbpi1_div_qr$U.lo sbpi1_divappr_q$U.lo dcpi1_div_q$U.lo dcpi1_div_qr$U.lo dcpi1_divappr_q$U.lo mu_div_qr$U.lo mu_divappr_q$U.lo mu_div_q$U.lo bdiv_q_1$U.lo sbpi1_bdiv_q$U.lo sbpi1_bdiv_qr$U.lo dcpi1_bdiv_q$U.lo dcpi1_bdiv_qr$U.lo mu_bdiv_q$U.lo mu_bdiv_qr$U.lo bdiv_q$U.lo bdiv_qr$U.lo divexact$U.lo bdiv_dbm1c.lo redc_1$U.lo redc_2$U.lo redc_n$U.lo powm$U.lo powlo$U.lo powm_sec$U.lo subcnd_n$U.lo redc_1_sec$U.lo trialdiv$U.lo remove$U.lo and_n$U.lo andn_n$U.lo nand_n$U.lo ior_n$U.lo iorn_n$U.lo nior_n$U.lo xor_n$U.lo xnor_n$U.lo copyi.lo copyd.lo zero$U.lo umul.lo udiv.lo invert_limb.lo
+OFILES =  add$U.lo add_1$U.lo add_n.lo sub$U.lo sub_1$U.lo sub_n.lo neg$U.lo com.lo mul_1.lo addmul_1.lo submul_1.lo lshift.lo rshift.lo dive_1.lo diveby3$U.lo divis$U.lo divrem$U.lo divrem_1.lo divrem_2.lo fib2_ui$U.lo mod_1$U.lo mod_34lsub1.lo mode1o.lo pre_mod_1$U.lo dump$U.lo mod_1_1$U.lo mod_1_2$U.lo mod_1_3$U.lo mod_1_4.lo lshiftc.lo mul$U.lo mul_fft$U.lo mul_n$U.lo sqr$U.lo mul_basecase.lo sqr_basecase.lo nussbaumer_mul$U.lo random$U.lo random2$U.lo pow_1$U.lo rootrem$U.lo sqrtrem$U.lo get_str$U.lo set_str$U.lo scan0$U.lo scan1$U.lo popcount.lo hamdist.lo cmp$U.lo perfsqr$U.lo perfpow$U.lo gcd_1.lo gcd$U.lo gcdext_1$U.lo gcdext$U.lo gcd_lehmer$U.lo gcd_subdiv_step$U.lo gcdext_lehmer$U.lo gcdext_subdiv_step$U.lo div_q$U.lo tdiv_qr$U.lo jacbase$U.lo get_d$U.lo matrix22_mul$U.lo hgcd2$U.lo hgcd$U.lo mullo_n$U.lo mullo_basecase$U.lo toom22_mul$U.lo toom32_mul$U.lo toom42_mul$U.lo toom52_mul$U.lo toom62_mul$U.lo toom33_mul$U.lo toom43_mul$U.lo toom53_mul$U.lo toom63_mul$U.lo toom44_mul$U.lo toom6h_mul$U.lo toom6_sqr$U.lo toom8h_mul$U.lo toom8_sqr$U.lo toom_couple_handling$U.lo toom2_sqr$U.lo toom3_sqr$U.lo toom4_sqr$U.lo toom_eval_dgr3_pm1$U.lo toom_eval_dgr3_pm2$U.lo toom_eval_pm1$U.lo toom_eval_pm2$U.lo toom_eval_pm2exp$U.lo toom_eval_pm2rexp$U.lo toom_interpolate_5pts$U.lo toom_interpolate_6pts$U.lo toom_interpolate_7pts$U.lo toom_interpolate_8pts$U.lo toom_interpolate_12pts$U.lo toom_interpolate_16pts$U.lo invertappr$U.lo invert$U.lo binvert$U.lo mulmod_bnm1$U.lo sqrmod_bnm1$U.lo sbpi1_div_q$U.lo sbpi1_div_qr$U.lo sbpi1_divappr_q$U.lo dcpi1_div_q$U.lo dcpi1_div_qr$U.lo dcpi1_divappr_q$U.lo mu_div_qr$U.lo mu_divappr_q$U.lo mu_div_q$U.lo bdiv_q_1.lo sbpi1_bdiv_q$U.lo sbpi1_bdiv_qr$U.lo dcpi1_bdiv_q$U.lo dcpi1_bdiv_qr$U.lo mu_bdiv_q$U.lo mu_bdiv_qr$U.lo bdiv_q$U.lo bdiv_qr$U.lo divexact$U.lo bdiv_dbm1c.lo redc_1.lo redc_2$U.lo redc_n$U.lo powm$U.lo powlo$U.lo powm_sec$U.lo subcnd_n$U.lo redc_1_sec$U.lo trialdiv$U.lo remove$U.lo and_n.lo andn_n.lo nand_n.lo ior_n.lo iorn_n.lo nior_n.lo xor_n.lo xnor_n.lo copyi.lo copyd.lo zero$U.lo invert_limb.lo mul_2.lo addmul_2.lo addlsh1_n.lo sublsh1_n.lo rsblsh1_n.lo rsh1add_n.lo rsh1sub_n.lo addlsh2_n.lo rsblsh2_n.lo addlsh_n.lo rsblsh_n.lo addaddmul_1msb0.lo
 
 # All possible mpn normal and optional function files are listed here, to
 # get automake to generate ansi2knr rules for each.  Such rules will be

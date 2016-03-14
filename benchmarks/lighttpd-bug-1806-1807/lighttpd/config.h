@@ -434,7 +434,7 @@
 #define RETSIGTYPE void
 
 /* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG 8
+#define SIZEOF_LONG 4
 
 /* The size of `off_t', as computed by sizeof. */
 #define SIZEOF_OFF_T 8

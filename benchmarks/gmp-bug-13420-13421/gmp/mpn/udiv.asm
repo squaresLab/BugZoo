@@ -1,1 +1,0 @@
-../mpn/x86/udiv.asm

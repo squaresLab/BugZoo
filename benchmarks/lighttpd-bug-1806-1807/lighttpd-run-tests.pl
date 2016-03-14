@@ -2,6 +2,9 @@
 use strict;
 use feature ":5.10";
 use Test::Harness qw(&runtests $verbose);
+
+print "hello!";
+
 $verbose = (defined $ENV{'VERBOSE'} ? $ENV{'VERBOSE'} : 0);
 my $tests = (defined $ENV{'RUNTESTS'} ? $ENV{'RUNTESTS'} : '');
 my $srcdir = (defined $ENV{'srcdir'} ? $ENV{'srcdir'} : '.');
@@ -33,6 +36,3 @@ my @tests =  ("core-condition.t" ,  #1
 push @fs, $srcdir.'/'.$tests[$arg];
 closedir DIR;
 runtests @fs;
-
-
-

@@ -27,7 +27,7 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.
 
 /* The gmp-mparam.h file (a string) the tune program should suggest updating.
    */
-#define GMP_MPARAM_H_SUGGEST "./mpn/x86/p6/sse2/gmp-mparam.h"
+#define GMP_MPARAM_H_SUGGEST "./mpn/x86_64/gmp-mparam.h"
 
 /* Define to 1 if you have the `alarm' function. */
 #define HAVE_ALARM 1
@@ -63,7 +63,7 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.
 #define HAVE_CLOCK 1
 
 /* Define to 1 if you have the `clock_gettime' function. */
-/* #undef HAVE_CLOCK_GETTIME */
+#define HAVE_CLOCK_GETTIME 1
 
 /* Define to 1 if you have the `cputime' function. */
 /* #undef HAVE_CPUTIME */
@@ -136,8 +136,8 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.
 /* #undef HAVE_HOST_CPU_FAMILY_m68k */
 /* #undef HAVE_HOST_CPU_FAMILY_power */
 /* #undef HAVE_HOST_CPU_FAMILY_powerpc */
-#define HAVE_HOST_CPU_FAMILY_x86 1
-/* #undef HAVE_HOST_CPU_FAMILY_x86_64 */
+/* #undef HAVE_HOST_CPU_FAMILY_x86 */
+#define HAVE_HOST_CPU_FAMILY_x86_64 1
 
 /* Define one of the following to 1 for the host CPU, as per the output of
    ./config.guess.  If your CPU is not listed here, leave all undefined.  */
@@ -216,82 +216,82 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.
 #define HAVE_NATIVE_mpn_add_n 1
 /* #undef HAVE_NATIVE_mpn_add_n_sub_n */
 #define HAVE_NATIVE_mpn_add_nc 1
-/* #undef HAVE_NATIVE_mpn_addaddmul_1msb0 */
-/* #undef HAVE_NATIVE_mpn_addlsh1_n */
-/* #undef HAVE_NATIVE_mpn_addlsh2_n */
-/* #undef HAVE_NATIVE_mpn_addlsh_n */
+#define HAVE_NATIVE_mpn_addaddmul_1msb0 1
+#define HAVE_NATIVE_mpn_addlsh1_n 1
+#define HAVE_NATIVE_mpn_addlsh2_n 1
+#define HAVE_NATIVE_mpn_addlsh_n 1
 /* #undef HAVE_NATIVE_mpn_addmul_1c */
-/* #undef HAVE_NATIVE_mpn_addmul_2 */
+#define HAVE_NATIVE_mpn_addmul_2 1
 /* #undef HAVE_NATIVE_mpn_addmul_3 */
 /* #undef HAVE_NATIVE_mpn_addmul_4 */
 /* #undef HAVE_NATIVE_mpn_addmul_5 */
 /* #undef HAVE_NATIVE_mpn_addmul_6 */
 /* #undef HAVE_NATIVE_mpn_addmul_7 */
 /* #undef HAVE_NATIVE_mpn_addmul_8 */
-/* #undef HAVE_NATIVE_mpn_and_n */
-/* #undef HAVE_NATIVE_mpn_andn_n */
+#define HAVE_NATIVE_mpn_and_n 1
+#define HAVE_NATIVE_mpn_andn_n 1
 #define HAVE_NATIVE_mpn_bdiv_dbm1c 1
-/* #undef HAVE_NATIVE_mpn_bdiv_q_1 */
-/* #undef HAVE_NATIVE_mpn_pi1_bdiv_q_1 */
-/* #undef HAVE_NATIVE_mpn_com */
+#define HAVE_NATIVE_mpn_bdiv_q_1 1
+#define HAVE_NATIVE_mpn_pi1_bdiv_q_1 1
+#define HAVE_NATIVE_mpn_com 1
 #define HAVE_NATIVE_mpn_copyd 1
 #define HAVE_NATIVE_mpn_copyi 1
 #define HAVE_NATIVE_mpn_divexact_1 1
 /* #undef HAVE_NATIVE_mpn_divexact_by3c */
 #define HAVE_NATIVE_mpn_divrem_1 1
-#define HAVE_NATIVE_mpn_divrem_1c 1
+/* #undef HAVE_NATIVE_mpn_divrem_1c */
 #define HAVE_NATIVE_mpn_divrem_2 1
-/* #undef HAVE_NATIVE_mpn_gcd_1 */
+#define HAVE_NATIVE_mpn_gcd_1 1
 #define HAVE_NATIVE_mpn_hamdist 1
 #define HAVE_NATIVE_mpn_invert_limb 1
-/* #undef HAVE_NATIVE_mpn_ior_n */
-/* #undef HAVE_NATIVE_mpn_iorn_n */
+#define HAVE_NATIVE_mpn_ior_n 1
+#define HAVE_NATIVE_mpn_iorn_n 1
 #define HAVE_NATIVE_mpn_lshift 1
-/* #undef HAVE_NATIVE_mpn_lshiftc */
+#define HAVE_NATIVE_mpn_lshiftc 1
 /* #undef HAVE_NATIVE_mpn_lshsub_n */
 /* #undef HAVE_NATIVE_mpn_mod_1 */
 /* #undef HAVE_NATIVE_mpn_mod_1_1p */
 /* #undef HAVE_NATIVE_mpn_mod_1c */
 /* #undef HAVE_NATIVE_mpn_mod_1s_2p */
-/* #undef HAVE_NATIVE_mpn_mod_1s_4p */
+#define HAVE_NATIVE_mpn_mod_1s_4p 1
 #define HAVE_NATIVE_mpn_mod_34lsub1 1
 #define HAVE_NATIVE_mpn_modexact_1_odd 1
 #define HAVE_NATIVE_mpn_modexact_1c_odd 1
 #define HAVE_NATIVE_mpn_mul_1 1
-/* #undef HAVE_NATIVE_mpn_mul_1c */
-/* #undef HAVE_NATIVE_mpn_mul_2 */
+#define HAVE_NATIVE_mpn_mul_1c 1
+#define HAVE_NATIVE_mpn_mul_2 1
 /* #undef HAVE_NATIVE_mpn_mul_3 */
 /* #undef HAVE_NATIVE_mpn_mul_4 */
 #define HAVE_NATIVE_mpn_mul_basecase 1
-/* #undef HAVE_NATIVE_mpn_nand_n */
-/* #undef HAVE_NATIVE_mpn_nior_n */
+#define HAVE_NATIVE_mpn_nand_n 1
+#define HAVE_NATIVE_mpn_nior_n 1
 #define HAVE_NATIVE_mpn_popcount 1
 #define HAVE_NATIVE_mpn_preinv_divrem_1 1
 /* #undef HAVE_NATIVE_mpn_preinv_mod_1 */
-/* #undef HAVE_NATIVE_mpn_redc_1 */
+#define HAVE_NATIVE_mpn_redc_1 1
 /* #undef HAVE_NATIVE_mpn_redc_2 */
-/* #undef HAVE_NATIVE_mpn_rsblsh1_n */
-/* #undef HAVE_NATIVE_mpn_rsblsh2_n */
-/* #undef HAVE_NATIVE_mpn_rsblsh_n */
-/* #undef HAVE_NATIVE_mpn_rsh1add_n */
-/* #undef HAVE_NATIVE_mpn_rsh1add_nc */
-/* #undef HAVE_NATIVE_mpn_rsh1sub_n */
-/* #undef HAVE_NATIVE_mpn_rsh1sub_nc */
+#define HAVE_NATIVE_mpn_rsblsh1_n 1
+#define HAVE_NATIVE_mpn_rsblsh2_n 1
+#define HAVE_NATIVE_mpn_rsblsh_n 1
+#define HAVE_NATIVE_mpn_rsh1add_n 1
+#define HAVE_NATIVE_mpn_rsh1add_nc 1
+#define HAVE_NATIVE_mpn_rsh1sub_n 1
+#define HAVE_NATIVE_mpn_rsh1sub_nc 1
 #define HAVE_NATIVE_mpn_rshift 1
 #define HAVE_NATIVE_mpn_sqr_basecase 1
 /* #undef HAVE_NATIVE_mpn_sqr_diagonal */
 #define HAVE_NATIVE_mpn_sub_n 1
 #define HAVE_NATIVE_mpn_sub_nc 1
-/* #undef HAVE_NATIVE_mpn_sublsh1_n */
+#define HAVE_NATIVE_mpn_sublsh1_n 1
 /* #undef HAVE_NATIVE_mpn_sublsh2_n */
 /* #undef HAVE_NATIVE_mpn_sublsh_n */
 /* #undef HAVE_NATIVE_mpn_submul_1c */
-#define HAVE_NATIVE_mpn_udiv_qrnnd 1
+/* #undef HAVE_NATIVE_mpn_udiv_qrnnd */
 /* #undef HAVE_NATIVE_mpn_udiv_qrnnd_r */
-#define HAVE_NATIVE_mpn_umul_ppmm 1
+/* #undef HAVE_NATIVE_mpn_umul_ppmm */
 /* #undef HAVE_NATIVE_mpn_umul_ppmm_r */
-/* #undef HAVE_NATIVE_mpn_xor_n */
-/* #undef HAVE_NATIVE_mpn_xnor_n */
+#define HAVE_NATIVE_mpn_xor_n 1
+#define HAVE_NATIVE_mpn_xnor_n 1
 
 /* Define to 1 if you have the `nl_langinfo' function. */
 #define HAVE_NL_LANGINFO 1
@@ -485,19 +485,19 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.
 #define RETSIGTYPE void
 
 /* The size of `mp_limb_t', as computed by sizeof. */
-#define SIZEOF_MP_LIMB_T 4
+#define SIZEOF_MP_LIMB_T 8
 
 /* The size of `unsigned', as computed by sizeof. */
 #define SIZEOF_UNSIGNED 4
 
 /* The size of `unsigned long', as computed by sizeof. */
-#define SIZEOF_UNSIGNED_LONG 4
+#define SIZEOF_UNSIGNED_LONG 8
 
 /* The size of `unsigned short', as computed by sizeof. */
 #define SIZEOF_UNSIGNED_SHORT 2
 
 /* The size of `void *', as computed by sizeof. */
-#define SIZEOF_VOID_P 4
+#define SIZEOF_VOID_P 8
 
 /* Define to 1 if sscanf requires writable inputs */
 /* #undef SSCANF_WRITABLE_INPUT */
@@ -509,7 +509,7 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.
 #define TIME_WITH_SYS_TIME 1
 
 /* Maximum size the tune program can test for SQR_TOOM2_THRESHOLD */
-/* #undef TUNE_SQR_TOOM2_MAX */
+#define TUNE_SQR_TOOM2_MAX 80
 
 /* Version number of package */
 #define VERSION "5.0.1"
@@ -557,7 +557,7 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.
 
 /* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
    `char[]'. */
-#define YYTEXT_POINTER 1
+/* #undef YYTEXT_POINTER */
 
 /* Define like PROTOTYPES; this can be used by system headers. */
 #define __PROTOTYPES 1

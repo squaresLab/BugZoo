@@ -1,1 +1,0 @@
-../mpn/x86/p6/sse2/mod_1_4.asm

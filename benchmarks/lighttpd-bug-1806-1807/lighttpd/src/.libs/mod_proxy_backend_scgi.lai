@@ -17,7 +17,7 @@ old_library=''
 inherited_linker_flags=' -pthread'
 
 # Libraries that this one depends upon.
-dependency_libs=' -lpcre -lrt'
+dependency_libs=' -L/usr/lib/i386-linux-gnu -lpcre -lrt'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''

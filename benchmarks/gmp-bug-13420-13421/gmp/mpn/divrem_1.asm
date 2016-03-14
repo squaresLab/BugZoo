@@ -1,1 +1,0 @@
-../mpn/x86/p6/mmx/divrem_1.asm

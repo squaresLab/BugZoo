@@ -1,54 +1,58 @@
-status_counter.o: status_counter.c /usr/include/stdc-predef.h \
- /usr/include/stdlib.h /usr/include/features.h \
- /usr/include/x86_64-linux-gnu/sys/cdefs.h \
- /usr/include/x86_64-linux-gnu/bits/wordsize.h \
- /usr/include/x86_64-linux-gnu/gnu/stubs.h \
- /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h \
- /usr/include/x86_64-linux-gnu/bits/waitflags.h \
- /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
- /usr/include/x86_64-linux-gnu/bits/endian.h \
- /usr/include/x86_64-linux-gnu/bits/byteswap.h \
- /usr/include/x86_64-linux-gnu/bits/types.h \
- /usr/include/x86_64-linux-gnu/bits/typesizes.h \
- /usr/include/x86_64-linux-gnu/bits/byteswap-16.h \
- /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/time.h \
- /usr/include/x86_64-linux-gnu/sys/select.h \
- /usr/include/x86_64-linux-gnu/bits/select.h \
- /usr/include/x86_64-linux-gnu/bits/sigset.h \
- /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/select2.h \
- /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
- /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h status_counter.h array.h \
+status_counter.o: status_counter.c /usr/include/stdlib.h \
+ /usr/include/features.h /usr/include/i386-linux-gnu/bits/predefs.h \
+ /usr/include/i386-linux-gnu/sys/cdefs.h \
+ /usr/include/i386-linux-gnu/bits/wordsize.h \
+ /usr/include/i386-linux-gnu/gnu/stubs.h \
+ /usr/include/i386-linux-gnu/gnu/stubs-32.h \
+ /usr/lib/gcc/i686-linux-gnu/4.6/include/stddef.h \
+ /usr/include/i386-linux-gnu/bits/waitflags.h \
+ /usr/include/i386-linux-gnu/bits/waitstatus.h /usr/include/endian.h \
+ /usr/include/i386-linux-gnu/bits/endian.h \
+ /usr/include/i386-linux-gnu/bits/byteswap.h \
+ /usr/include/i386-linux-gnu/sys/types.h \
+ /usr/include/i386-linux-gnu/bits/types.h \
+ /usr/include/i386-linux-gnu/bits/typesizes.h /usr/include/time.h \
+ /usr/include/i386-linux-gnu/sys/select.h \
+ /usr/include/i386-linux-gnu/bits/select.h \
+ /usr/include/i386-linux-gnu/bits/sigset.h \
+ /usr/include/i386-linux-gnu/bits/time.h \
+ /usr/include/i386-linux-gnu/bits/select2.h \
+ /usr/include/i386-linux-gnu/sys/sysmacros.h \
+ /usr/include/i386-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h \
+ /usr/include/i386-linux-gnu/bits/stdlib.h status_counter.h array.h \
  settings.h ../config.h /usr/include/glib-2.0/glib.h \
  /usr/include/glib-2.0/glib/galloca.h /usr/include/glib-2.0/glib/gtypes.h \
- /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h \
+ /usr/lib/i386-linux-gnu/glib-2.0/include/glibconfig.h \
  /usr/include/glib-2.0/glib/gmacros.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include/float.h \
+ /usr/lib/gcc/i686-linux-gnu/4.6/include-fixed/limits.h \
+ /usr/lib/gcc/i686-linux-gnu/4.6/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/i386-linux-gnu/bits/posix1_lim.h \
+ /usr/include/i386-linux-gnu/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/i386-linux-gnu/bits/posix2_lim.h \
+ /usr/lib/gcc/i686-linux-gnu/4.6/include/float.h \
  /usr/include/glib-2.0/glib/gversionmacros.h /usr/include/xlocale.h \
  /usr/include/glib-2.0/glib/garray.h \
  /usr/include/glib-2.0/glib/gasyncqueue.h \
  /usr/include/glib-2.0/glib/gthread.h \
  /usr/include/glib-2.0/glib/gatomic.h /usr/include/glib-2.0/glib/gerror.h \
- /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h \
+ /usr/lib/gcc/i686-linux-gnu/4.6/include/stdarg.h \
  /usr/include/glib-2.0/glib/gquark.h \
  /usr/include/glib-2.0/glib/gbacktrace.h /usr/include/signal.h \
- /usr/include/x86_64-linux-gnu/bits/signum.h \
- /usr/include/x86_64-linux-gnu/bits/siginfo.h \
- /usr/include/x86_64-linux-gnu/bits/sigaction.h \
- /usr/include/x86_64-linux-gnu/bits/sigcontext.h \
- /usr/include/x86_64-linux-gnu/bits/sigstack.h \
- /usr/include/x86_64-linux-gnu/sys/ucontext.h \
- /usr/include/x86_64-linux-gnu/bits/sigthread.h \
+ /usr/include/i386-linux-gnu/bits/signum.h \
+ /usr/include/i386-linux-gnu/bits/siginfo.h \
+ /usr/include/i386-linux-gnu/bits/sigaction.h \
+ /usr/include/i386-linux-gnu/bits/sigcontext.h \
+ /usr/include/i386-linux-gnu/asm/sigcontext.h /usr/include/linux/types.h \
+ /usr/include/i386-linux-gnu/asm/types.h /usr/include/asm-generic/types.h \
+ /usr/include/asm-generic/int-ll64.h \
+ /usr/include/i386-linux-gnu/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
+ /usr/include/linux/stddef.h \
+ /usr/include/i386-linux-gnu/asm/posix_types.h \
+ /usr/include/i386-linux-gnu/asm/posix_types_32.h \
+ /usr/include/i386-linux-gnu/bits/sigstack.h \
+ /usr/include/i386-linux-gnu/sys/ucontext.h \
+ /usr/include/i386-linux-gnu/bits/sigthread.h \
  /usr/include/glib-2.0/glib/gbase64.h \
  /usr/include/glib-2.0/glib/gbitlock.h \
  /usr/include/glib-2.0/glib/gbookmarkfile.h \
@@ -59,12 +63,11 @@ status_counter.o: status_counter.c /usr/include/stdc-predef.h \
  /usr/include/glib-2.0/glib/gdataset.h /usr/include/glib-2.0/glib/gdate.h \
  /usr/include/glib-2.0/glib/gdatetime.h \
  /usr/include/glib-2.0/glib/gtimezone.h /usr/include/glib-2.0/glib/gdir.h \
- /usr/include/dirent.h /usr/include/x86_64-linux-gnu/bits/dirent.h \
  /usr/include/glib-2.0/glib/genviron.h \
  /usr/include/glib-2.0/glib/gfileutils.h \
  /usr/include/glib-2.0/glib/ggettext.h /usr/include/glib-2.0/glib/ghash.h \
  /usr/include/glib-2.0/glib/glist.h /usr/include/glib-2.0/glib/gmem.h \
- /usr/include/glib-2.0/glib/gnode.h /usr/include/glib-2.0/glib/ghmac.h \
+ /usr/include/glib-2.0/glib/ghmac.h \
  /usr/include/glib-2.0/glib/gchecksum.h \
  /usr/include/glib-2.0/glib/ghook.h \
  /usr/include/glib-2.0/glib/ghostutils.h \
@@ -77,7 +80,7 @@ status_counter.o: status_counter.c /usr/include/stdc-predef.h \
  /usr/include/glib-2.0/glib/gmappedfile.h \
  /usr/include/glib-2.0/glib/gmarkup.h \
  /usr/include/glib-2.0/glib/gmessages.h \
- /usr/include/glib-2.0/glib/goption.h \
+ /usr/include/glib-2.0/glib/gnode.h /usr/include/glib-2.0/glib/goption.h \
  /usr/include/glib-2.0/glib/gpattern.h \
  /usr/include/glib-2.0/glib/gprimes.h /usr/include/glib-2.0/glib/gqsort.h \
  /usr/include/glib-2.0/glib/gqueue.h /usr/include/glib-2.0/glib/grand.h \
@@ -103,73 +106,66 @@ status_counter.o: status_counter.c /usr/include/stdc-predef.h \
  /usr/include/glib-2.0/glib/deprecated/gmain.h \
  /usr/include/glib-2.0/glib/deprecated/grel.h \
  /usr/include/glib-2.0/glib/deprecated/gthread.h /usr/include/pthread.h \
- /usr/include/sched.h /usr/include/x86_64-linux-gnu/bits/sched.h \
- /usr/include/x86_64-linux-gnu/bits/setjmp.h \
- /usr/include/x86_64-linux-gnu/sys/sendfile.h \
- /usr/include/x86_64-linux-gnu/sys/uio.h \
- /usr/include/x86_64-linux-gnu/bits/uio.h \
- /usr/include/x86_64-linux-gnu/sys/mman.h \
- /usr/include/x86_64-linux-gnu/bits/mman.h \
- /usr/include/x86_64-linux-gnu/bits/mman-linux.h /usr/include/pcre.h \
- buffer.h array-static.h
-
-/usr/include/stdc-predef.h:
+ /usr/include/sched.h /usr/include/i386-linux-gnu/bits/sched.h \
+ /usr/include/i386-linux-gnu/bits/setjmp.h \
+ /usr/include/i386-linux-gnu/sys/sendfile.h \
+ /usr/include/i386-linux-gnu/sys/uio.h \
+ /usr/include/i386-linux-gnu/bits/uio.h \
+ /usr/include/i386-linux-gnu/sys/mman.h \
+ /usr/include/i386-linux-gnu/bits/mman.h /usr/include/pcre.h buffer.h \
+ array-static.h
 
 /usr/include/stdlib.h:
 
 /usr/include/features.h:
 
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+/usr/include/i386-linux-gnu/bits/predefs.h:
 
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+/usr/include/i386-linux-gnu/sys/cdefs.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+/usr/include/i386-linux-gnu/bits/wordsize.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+/usr/include/i386-linux-gnu/gnu/stubs.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h:
+/usr/include/i386-linux-gnu/gnu/stubs-32.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+/usr/lib/gcc/i686-linux-gnu/4.6/include/stddef.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+/usr/include/i386-linux-gnu/bits/waitflags.h:
+
+/usr/include/i386-linux-gnu/bits/waitstatus.h:
 
 /usr/include/endian.h:
 
-/usr/include/x86_64-linux-gnu/bits/endian.h:
+/usr/include/i386-linux-gnu/bits/endian.h:
 
-/usr/include/x86_64-linux-gnu/bits/byteswap.h:
+/usr/include/i386-linux-gnu/bits/byteswap.h:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
+/usr/include/i386-linux-gnu/sys/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+/usr/include/i386-linux-gnu/bits/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/byteswap-16.h:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:
+/usr/include/i386-linux-gnu/bits/typesizes.h:
 
 /usr/include/time.h:
 
-/usr/include/x86_64-linux-gnu/sys/select.h:
+/usr/include/i386-linux-gnu/sys/select.h:
 
-/usr/include/x86_64-linux-gnu/bits/select.h:
+/usr/include/i386-linux-gnu/bits/select.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigset.h:
+/usr/include/i386-linux-gnu/bits/sigset.h:
 
-/usr/include/x86_64-linux-gnu/bits/time.h:
+/usr/include/i386-linux-gnu/bits/time.h:
 
-/usr/include/x86_64-linux-gnu/bits/select2.h:
+/usr/include/i386-linux-gnu/bits/select2.h:
 
-/usr/include/x86_64-linux-gnu/sys/sysmacros.h:
+/usr/include/i386-linux-gnu/sys/sysmacros.h:
 
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+/usr/include/i386-linux-gnu/bits/pthreadtypes.h:
 
 /usr/include/alloca.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+/usr/include/i386-linux-gnu/bits/stdlib.h:
 
 status_counter.h:
 
@@ -185,25 +181,25 @@ settings.h:
 
 /usr/include/glib-2.0/glib/gtypes.h:
 
-/usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h:
+/usr/lib/i386-linux-gnu/glib-2.0/include/glibconfig.h:
 
 /usr/include/glib-2.0/glib/gmacros.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/limits.h:
+/usr/lib/gcc/i686-linux-gnu/4.6/include-fixed/limits.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/syslimits.h:
+/usr/lib/gcc/i686-linux-gnu/4.6/include-fixed/syslimits.h:
 
 /usr/include/limits.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+/usr/include/i386-linux-gnu/bits/posix1_lim.h:
 
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+/usr/include/i386-linux-gnu/bits/local_lim.h:
 
 /usr/include/linux/limits.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+/usr/include/i386-linux-gnu/bits/posix2_lim.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include/float.h:
+/usr/lib/gcc/i686-linux-gnu/4.6/include/float.h:
 
 /usr/include/glib-2.0/glib/gversionmacros.h:
 
@@ -219,7 +215,7 @@ settings.h:
 
 /usr/include/glib-2.0/glib/gerror.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stdarg.h:
+/usr/lib/gcc/i686-linux-gnu/4.6/include/stdarg.h:
 
 /usr/include/glib-2.0/glib/gquark.h:
 
@@ -227,19 +223,41 @@ settings.h:
 
 /usr/include/signal.h:
 
-/usr/include/x86_64-linux-gnu/bits/signum.h:
+/usr/include/i386-linux-gnu/bits/signum.h:
 
-/usr/include/x86_64-linux-gnu/bits/siginfo.h:
+/usr/include/i386-linux-gnu/bits/siginfo.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigaction.h:
+/usr/include/i386-linux-gnu/bits/sigaction.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigcontext.h:
+/usr/include/i386-linux-gnu/bits/sigcontext.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigstack.h:
+/usr/include/i386-linux-gnu/asm/sigcontext.h:
 
-/usr/include/x86_64-linux-gnu/sys/ucontext.h:
+/usr/include/linux/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigthread.h:
+/usr/include/i386-linux-gnu/asm/types.h:
+
+/usr/include/asm-generic/types.h:
+
+/usr/include/asm-generic/int-ll64.h:
+
+/usr/include/i386-linux-gnu/asm/bitsperlong.h:
+
+/usr/include/asm-generic/bitsperlong.h:
+
+/usr/include/linux/posix_types.h:
+
+/usr/include/linux/stddef.h:
+
+/usr/include/i386-linux-gnu/asm/posix_types.h:
+
+/usr/include/i386-linux-gnu/asm/posix_types_32.h:
+
+/usr/include/i386-linux-gnu/bits/sigstack.h:
+
+/usr/include/i386-linux-gnu/sys/ucontext.h:
+
+/usr/include/i386-linux-gnu/bits/sigthread.h:
 
 /usr/include/glib-2.0/glib/gbase64.h:
 
@@ -265,10 +283,6 @@ settings.h:
 
 /usr/include/glib-2.0/glib/gdir.h:
 
-/usr/include/dirent.h:
-
-/usr/include/x86_64-linux-gnu/bits/dirent.h:
-
 /usr/include/glib-2.0/glib/genviron.h:
 
 /usr/include/glib-2.0/glib/gfileutils.h:
@@ -280,8 +294,6 @@ settings.h:
 /usr/include/glib-2.0/glib/glist.h:
 
 /usr/include/glib-2.0/glib/gmem.h:
-
-/usr/include/glib-2.0/glib/gnode.h:
 
 /usr/include/glib-2.0/glib/ghmac.h:
 
@@ -312,6 +324,8 @@ settings.h:
 /usr/include/glib-2.0/glib/gmarkup.h:
 
 /usr/include/glib-2.0/glib/gmessages.h:
+
+/usr/include/glib-2.0/glib/gnode.h:
 
 /usr/include/glib-2.0/glib/goption.h:
 
@@ -375,21 +389,19 @@ settings.h:
 
 /usr/include/sched.h:
 
-/usr/include/x86_64-linux-gnu/bits/sched.h:
+/usr/include/i386-linux-gnu/bits/sched.h:
 
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+/usr/include/i386-linux-gnu/bits/setjmp.h:
 
-/usr/include/x86_64-linux-gnu/sys/sendfile.h:
+/usr/include/i386-linux-gnu/sys/sendfile.h:
 
-/usr/include/x86_64-linux-gnu/sys/uio.h:
+/usr/include/i386-linux-gnu/sys/uio.h:
 
-/usr/include/x86_64-linux-gnu/bits/uio.h:
+/usr/include/i386-linux-gnu/bits/uio.h:
 
-/usr/include/x86_64-linux-gnu/sys/mman.h:
+/usr/include/i386-linux-gnu/sys/mman.h:
 
-/usr/include/x86_64-linux-gnu/bits/mman.h:
-
-/usr/include/x86_64-linux-gnu/bits/mman-linux.h:
+/usr/include/i386-linux-gnu/bits/mman.h:
 
 /usr/include/pcre.h:
 
