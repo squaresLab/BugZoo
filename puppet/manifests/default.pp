@@ -30,6 +30,11 @@ package { "libglib2.0-dev":
   require => Exec["apt-get update"]
 }
 
+package { "libgmp3-dev":
+  ensure => present,
+  require => Exec["apt-get update"]
+}
+
 exec { "ppa:ocaml+opam":
   command =>"add-apt-repository --yes ppa:avsm/ocaml42+opam120; apt-get update",
   require => Package["python-software-properties"]
