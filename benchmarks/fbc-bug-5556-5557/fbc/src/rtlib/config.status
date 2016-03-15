@@ -337,7 +337,7 @@ Copyright (C) 2006 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/ct584/git/ieee-sbse-2016/benchmarks/benchmarks/fbc-bug-5556-5557/fbc/src/rtlib'
+ac_pwd='/vagrant/benchmarks/fbc-bug-5556-5557/fbc/src/rtlib'
 srcdir='.'
 # If no file are specified by the user, then we need to provide default
 # value.  By we need to know if files were specified by the user.
@@ -519,21 +519,21 @@ s,@LIBS@,|#_!!_#|,g
 s,@build_alias@,|#_!!_#|,g
 s,@host_alias@,|#_!!_#|,g
 s,@target_alias@,|#_!!_#|,g
-s,@build@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@build_cpu@,|#_!!_#|x86_64,g
-s,@build_vendor@,|#_!!_#|unknown,g
+s,@build@,|#_!!_#|i686-pc-linux-gnu,g
+s,@build_cpu@,|#_!!_#|i686,g
+s,@build_vendor@,|#_!!_#|pc,g
 s,@build_os@,|#_!!_#|linux-gnu,g
-s,@host@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@host_cpu@,|#_!!_#|x86_64,g
-s,@host_vendor@,|#_!!_#|unknown,g
+s,@host@,|#_!!_#|i686-pc-linux-gnu,g
+s,@host_cpu@,|#_!!_#|i686,g
+s,@host_vendor@,|#_!!_#|pc,g
 s,@host_os@,|#_!!_#|linux-gnu,g
-s,@target@,|#_!!_#|x86_64-unknown-linux-gnu,g
-s,@target_cpu@,|#_!!_#|x86_64,g
-s,@target_vendor@,|#_!!_#|unknown,g
+s,@target@,|#_!!_#|i686-pc-linux-gnu,g
+s,@target_cpu@,|#_!!_#|i686,g
+s,@target_vendor@,|#_!!_#|pc,g
 s,@target_os@,|#_!!_#|linux-gnu,g
 s,@FBRT_TARGET_BASE@,|#_!!_#|unix,g
 s,@FBRT_TARGET@,|#_!!_#|linux,g
-s,@FBRT_CPU@,|#_!!_#|x86_64,g
+s,@FBRT_CPU@,|#_!!_#|x86,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@CC@,|#_!!_#|gcc,g
 s,@CFLAGS@,|#_!!_#|-g -O2,g
@@ -546,9 +546,9 @@ s,@CPP@,|#_!!_#|gcc -E,g
 s,@GREP@,|#_!!_#|/bin/grep,g
 s,@EGREP@,|#_!!_#|/bin/grep -E,g
 s,@RANLIB@,|#_!!_#|ranlib,g
-s,@ACLOCAL@,|#_!!_#|aclocal,g
-s,@AUTOCONF@,|#_!!_#|autoconf,g
-s,@AUTOHEADER@,|#_!!_#|autoheader,g
+s,@ACLOCAL@,|#_!!_#|/vagrant/benchmarks/fbc-bug-5556-5557/fbc/src/config/missing aclocal,g
+s,@AUTOCONF@,|#_!!_#|/vagrant/benchmarks/fbc-bug-5556-5557/fbc/src/config/missing autoconf,g
+s,@AUTOHEADER@,|#_!!_#|/vagrant/benchmarks/fbc-bug-5556-5557/fbc/src/config/missing autoheader,g
 s,@XMKMF@,|#_!!_#|,g
 s,@X_INCLUDES@,|#_!!_#|,g
 s,@ALLOCA@,|#_!!_#|,g
@@ -809,7 +809,7 @@ s,^\([	 #]*\)[^	 ]*\([	 ]*PACKAGE_STRING\)[	 (].*,\1define\2 "fbrtlib 0.22.0" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*PACKAGE_BUGREPORT\)[	 (].*,\1define\2 "http://sourceforge.net/projects/fbc" ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*TARGET_LINUX\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*TARGET_BASE_UNIX\)[	 (].*,\1define\2 1 ,
-s,^\([	 #]*\)[^	 ]*\([	 ]*TARGET_X86_64\)[	 (].*,\1define\2 1 ,
+s,^\([	 #]*\)[^	 ]*\([	 ]*TARGET_X86\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*WITH_X\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*HAVE_DIRENT_H\)[	 (].*,\1define\2 1 ,
 s,^\([	 #]*\)[^	 ]*\([	 ]*STDC_HEADERS\)[	 (].*,\1define\2 1 ,

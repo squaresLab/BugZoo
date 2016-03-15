@@ -352,10 +352,10 @@
 /* #undef TARGET_WIN32 */
 
 /* x86 build */
-/* #undef TARGET_X86 */
+#define TARGET_X86 1
 
 /* x86_64 build */
-#define TARGET_X86_64 1
+/* #undef TARGET_X86_64 */
 
 /* Xbox build */
 /* #undef TARGET_XBOX */

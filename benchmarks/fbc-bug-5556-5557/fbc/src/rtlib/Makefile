@@ -8,9 +8,9 @@
 
 AR = ar
 ARFLAGS = cru
-ACLOCAL = aclocal
-AUTOCONF = autoconf
-AUTOHEADER = autoheader
+ACLOCAL = /vagrant/benchmarks/fbc-bug-5556-5557/fbc/src/config/missing aclocal
+AUTOCONF = /vagrant/benchmarks/fbc-bug-5556-5557/fbc/src/config/missing autoconf
+AUTOHEADER = /vagrant/benchmarks/fbc-bug-5556-5557/fbc/src/config/missing autoheader
 CC = gcc
 CFLAGS = -g -O2
 DEFS = -DHAVE_CONFIG_H
@@ -28,9 +28,9 @@ RANLIB = ranlib
 SHELL = /bin/bash
 
 ifneq (,unix)
-    VPATH =  ./linux ./unix ./x86_64 ./static
+    VPATH =  ./linux ./unix ./x86 ./static
 else
-    VPATH =  ./linux ./x86_64 ./static
+    VPATH =  ./linux ./x86 ./static
 endif
 
 datadir = ${prefix}/share
@@ -48,9 +48,9 @@ ifdef DEBUG
 endif
 
 ifneq (,unix)
-    INCLUDES = -I$(srcdir) -I$(srcdir)/linux -I$(srcdir)/unix -I$(srcdir)/x86_64 -I.
+    INCLUDES = -I$(srcdir) -I$(srcdir)/linux -I$(srcdir)/unix -I$(srcdir)/x86 -I.
 else
-    INCLUDES = -I$(srcdir) -I$(srcdir)/linux -I$(srcdir)/x86_64 -I.
+    INCLUDES = -I$(srcdir) -I$(srcdir)/linux -I$(srcdir)/x86 -I.
 endif
 
 INCLUDES += 
@@ -81,12 +81,12 @@ FBRT_OBJS := $(patsubst ./%.c,$(FBRT_OBJDEST)/%.o,$(wildcard ./*.c))
 FBRT_OBJS += $(patsubst ./%.s,$(FBRT_OBJDEST)/%.o,$(wildcard ./*.s))
 FBRT_OSDEPOBJS := $(patsubst ./linux/%.c,$(FBRT_OBJDEST)/%.o,$(wildcard ./linux/*.c))
 FBRT_OSDEPOBJS += $(patsubst ./linux/%.s,$(FBRT_OBJDEST)/%.o,$(wildcard ./linux/*.s))
-FBRT_CPUDEPOBJS := $(patsubst ./x86_64/%.c,$(FBRT_OBJDEST)/%.o,$(wildcard ./x86_64/*.c))
-FBRT_CPUDEPOBJS += $(patsubst ./x86_64/%.s,$(FBRT_OBJDEST)/%.o,$(wildcard ./x86_64/*.s))
+FBRT_CPUDEPOBJS := $(patsubst ./x86/%.c,$(FBRT_OBJDEST)/%.o,$(wildcard ./x86/*.c))
+FBRT_CPUDEPOBJS += $(patsubst ./x86/%.s,$(FBRT_OBJDEST)/%.o,$(wildcard ./x86/*.s))
 FBRT_STATICOBJS := $(patsubst ./static/%.c,$(FBRT_OBJDEST)/%.o,$(wildcard ./static/*.c))
 FBRT_HEADERS := $(wildcard ./*.h)
 FBRT_HEADERS += $(wildcard ./linux/*.h)
-FBRT_HEADERS += $(wildcard ./x86_64/*.h)
+FBRT_HEADERS += $(wildcard ./x86/*.h)
 FBRT_BASEDEPOBJS :=
 
 ifneq (,unix)
