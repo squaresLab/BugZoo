@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svnroot/fbc/!svn/ver/5111/trunk/FreeBASIC/tests/qb
+END
+call.bas
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4291/trunk/FreeBASIC/tests/qb/call.bas
+END
+align_qb.bas
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/4989/trunk/FreeBASIC/tests/qb/align_qb.bas
+END
+file_open_cons_fail.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3655/trunk/FreeBASIC/tests/qb/file_open_cons_fail.bas
+END
+suffixes2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/4291/trunk/FreeBASIC/tests/qb/suffixes2.bas
+END
+file_open_lpt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3655/trunk/FreeBASIC/tests/qb/file_open_lpt.bas
+END
+literal_types.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/5111/trunk/FreeBASIC/tests/qb/literal_types.bas
+END
+file_open_scrn_fail.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3655/trunk/FreeBASIC/tests/qb/file_open_scrn_fail.bas
+END
+file_open_cons.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/4291/trunk/FreeBASIC/tests/qb/file_open_cons.bas
+END
+scope_block.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3132/trunk/FreeBASIC/tests/qb/scope_block.bas
+END
+file_open_scrn.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/4291/trunk/FreeBASIC/tests/qb/file_open_scrn.bas
+END
+qbtypes.bas
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/fbc/!svn/ver/4507/trunk/FreeBASIC/tests/qb/qbtypes.bas
+END
+file_open_com_fail.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3655/trunk/FreeBASIC/tests/qb/file_open_com_fail.bas
+END
+suffixes.bas
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/fbc/!svn/ver/3131/trunk/FreeBASIC/tests/qb/suffixes.bas
+END
+file_open_com.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3655/trunk/FreeBASIC/tests/qb/file_open_com.bas
+END
+mkcv.bas
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4484/trunk/FreeBASIC/tests/qb/mkcv.bas
+END
+file_open.bas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/4291/trunk/FreeBASIC/tests/qb/file_open.bas
+END
+str.bas
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/4724/trunk/FreeBASIC/tests/qb/str.bas
+END
+literal_sizes.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4989/trunk/FreeBASIC/tests/qb/literal_sizes.bas
+END
+data.bas
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/fbc/!svn/ver/4291/trunk/FreeBASIC/tests/qb/data.bas
+END
+file_open_lpt_fail.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3655/trunk/FreeBASIC/tests/qb/file_open_lpt_fail.bas
+END

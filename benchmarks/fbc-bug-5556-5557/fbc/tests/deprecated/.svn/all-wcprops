@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svnroot/fbc/!svn/ver/4152/trunk/FreeBASIC/tests/deprecated
+END
+implicit_explicit.bas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/fbc/!svn/ver/3131/trunk/FreeBASIC/tests/deprecated/implicit_explicit.bas
+END
+innerdup.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3131/trunk/FreeBASIC/tests/deprecated/innerdup.bas
+END
+shadow_inherit.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3131/trunk/FreeBASIC/tests/deprecated/shadow_inherit.bas
+END
+string_suffix.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/3133/trunk/FreeBASIC/tests/deprecated/string_suffix.bas
+END

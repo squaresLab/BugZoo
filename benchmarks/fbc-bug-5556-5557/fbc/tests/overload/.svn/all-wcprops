@@ -1,0 +1,239 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/5231/trunk/FreeBASIC/tests/overload
+END
+op_ctor_coercion_ref.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3587/trunk/FreeBASIC/tests/overload/op_ctor_coercion_ref.bas
+END
+op_deref.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3632/trunk/FreeBASIC/tests/overload/op_deref.bas
+END
+arg_cast.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3894/trunk/FreeBASIC/tests/overload/arg_cast.bas
+END
+sub_call.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/sub_call.bas
+END
+void_resolution.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/5231/trunk/FreeBASIC/tests/overload/void_resolution.bas
+END
+strings.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/strings.bas
+END
+simple.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/simple.bas
+END
+op_global.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3754/trunk/FreeBASIC/tests/overload/op_global.bas
+END
+sub_call2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/sub_call2.bas
+END
+bydesc.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/bydesc.bas
+END
+tostring.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/4321/trunk/FreeBASIC/tests/overload/tostring.bas
+END
+const_enum.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/const_enum.bas
+END
+funptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/funptr.bas
+END
+strings_ptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/strings_ptr.bas
+END
+op_missing_parent.bas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/fbc/!svn/ver/3754/trunk/FreeBASIC/tests/overload/op_missing_parent.bas
+END
+hex_oct_bin.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/hex_oct_bin.bas
+END
+bop_coercion2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3184/trunk/FreeBASIC/tests/overload/bop_coercion2.bas
+END
+implicit_ctor2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/4828/trunk/FreeBASIC/tests/overload/implicit_ctor2.bas
+END
+type_vararg.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3999/trunk/FreeBASIC/tests/overload/type_vararg.bas
+END
+op_ctor_coercion.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3587/trunk/FreeBASIC/tests/overload/op_ctor_coercion.bas
+END
+op_to_self.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3632/trunk/FreeBASIC/tests/overload/op_to_self.bas
+END
+integer_width.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3891/trunk/FreeBASIC/tests/overload/integer_width.bas
+END
+op_addrof.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3588/trunk/FreeBASIC/tests/overload/op_addrof.bas
+END
+anontype.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/anontype.bas
+END
+overruled_ctor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/4828/trunk/FreeBASIC/tests/overload/overruled_ctor.bas
+END
+allow_byval_ptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/fbc/!svn/ver/4552/trunk/FreeBASIC/tests/overload/allow_byval_ptr.bas
+END
+bop_coercion.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3210/trunk/FreeBASIC/tests/overload/bop_coercion.bas
+END
+implicit_ctor.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/4828/trunk/FreeBASIC/tests/overload/implicit_ctor.bas
+END
+op_ctor_coercion_udt.bas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/fbc/!svn/ver/3587/trunk/FreeBASIC/tests/overload/op_ctor_coercion_udt.bas
+END
+uop_coersion.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3403/trunk/FreeBASIC/tests/overload/uop_coersion.bas
+END
+op_to_ptr.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3587/trunk/FreeBASIC/tests/overload/op_to_ptr.bas
+END
+op_deref2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3632/trunk/FreeBASIC/tests/overload/op_deref2.bas
+END
+op_concat.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3632/trunk/FreeBASIC/tests/overload/op_concat.bas
+END
+access_mode.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3542/trunk/FreeBASIC/tests/overload/access_mode.bas
+END
+arg_cast2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3895/trunk/FreeBASIC/tests/overload/arg_cast2.bas
+END
+defaults.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3998/trunk/FreeBASIC/tests/overload/defaults.bas
+END
+op_new_delete.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3690/trunk/FreeBASIC/tests/overload/op_new_delete.bas
+END
+op_cast_coercion.bas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/fbc/!svn/ver/3587/trunk/FreeBASIC/tests/overload/op_cast_coercion.bas
+END
+addressof.bas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/overload/addressof.bas
+END
