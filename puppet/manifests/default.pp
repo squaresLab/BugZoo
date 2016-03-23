@@ -75,8 +75,8 @@ exec { "opam":
 }
 exec { "opam init":
   require => [Exec["opam"], User['vagrant']],
-  command => "opam init -y --root=/home/vagrant",
-  unless => "bash -c 'test -f /home/vagrant/.ocamlinit'",
+  command => "opam init -y --root=/home/vagrant/.opam",
+  unless => "bash -c 'test -f /home/vagrant/.opam'",
   logoutput => on_failure,
   user => "vagrant"
 }
@@ -89,23 +89,23 @@ exec { "opam config":
 }
 exec { "opam update":
   require => [Exec["opam config"], User['vagrant']],
-  command => "opam update --root=/home/vagrant",
+  command => "opam update --root=/home/vagrant/.opam",
   user => "vagrant"
 }
 
 # install OPAM packages
 exec { "ocamlfind":
   require => [Exec["opam update"], User['vagrant']],
-  command => "opam install -y ocamlfind --root=/home/vagrant",
+  command => "opam install -y ocamlfind --root=/home/vagrant/.opam",
   user => "vagrant"
 }
 exec { "yojson":
-  command => "opam install -y yojson --root=/home/vagrant",
+  command => "opam install -y yojson --root=/home/vagrant/.opam",
   require => [Exec["opam update"], User['vagrant']],
   user => "vagrant"
 }
 exec { "cil":
-  command => "opam install -y cil --root=/home/vagrant",
+  command => "opam install -y cil --root=/home/vagrant/.opam",
   require => [Exec["ocamlfind"], Exec["opam update"], User['vagrant']],
   user => "vagrant"
 }
