@@ -7,6 +7,14 @@ Package {
   ensure => present
 }
 
+user { 'vagrant':
+  ensure => 'present',
+  gid => '1000',
+  uid => '1000',
+  shell => '/bin/bash',
+  home => '/home/vagrant'
+}
+
 exec { "apt-get update": }
 
 package { "python-software-properties":
@@ -50,28 +58,54 @@ exec { "ocaml":
 }
 
 # install and initialise OPAM 1.2.2, before updating package listings
+# 
+# This section of code illustrates Puppet at its very worst!
+# Ideally, we would like to be able to execute opam commands using the
+# vagrant user, rather than the root, as is usually the case when executing
+# commands in Puppet. Despite specifying the user at the top of the manifest,
+# and explicitly starting the commands should be run with that user, opam
+# simply ignores this and continues to run as root.
+#
+# As an annoying workaround, for all opam commands, we manually specify the
+# root directory of the opam config files as the vagrant users home directory.
 exec { "opam":
   require => Exec["ocaml"],
   command => "apt-get install -y --force-yes opam",
   unless => "which opam"
 }
 exec { "opam init":
-  require => Exec["opam"],
-  command => "opam init -y; echo 'eval $(opam config env)' > /etc/profile.d/opam.sh; bash -c 'source ~/.profile'",
-  unless => "bash -c 'test -f /etc/profile.d/opam.sh'"
+  require => [Exec["opam"], User['vagrant']],
+  command => "opam init -y --root=/home/vagrant",
+  unless => "bash -c 'test -f /home/vagrant/.ocamlinit'",
+  logoutput => on_failure,
+  user => "vagrant"
 }
-exec { "opam update": require => Exec["opam init"] }
+exec { "opam config":
+  require => [Exec["opam init"], User['vagrant']],
+  command => "echo 'eval $(opam config env)' > /home/vagrant/.opamrc && . /home/vagrant/.profile",
+  unless => "bash -c 'test -f /home/vagrant/.opamrc'",
+  logoutput => on_failure,
+  user => "vagrant"
+}
+exec { "opam update":
+  require => [Exec["opam config"], User['vagrant']],
+  command => "opam update --root=/home/vagrant",
+  user => "vagrant"
+}
 
 # install OPAM packages
 exec { "ocamlfind":
-  require => Exec["opam update"],
-  command => "opam install -y ocamlfind"
+  require => [Exec["opam update"], User['vagrant']],
+  command => "opam install -y ocamlfind --root=/home/vagrant",
+  user => "vagrant"
 }
 exec { "yojson":
-  command => "opam install -y yojson",
-  require => Exec["opam update"]
+  command => "opam install -y yojson --root=/home/vagrant",
+  require => [Exec["opam update"], User['vagrant']],
+  user => "vagrant"
 }
 exec { "cil":
-  command => "opam install -y cil",
-  require => [Exec["ocamlfind"], Exec["opam update"]]
+  command => "opam install -y cil --root=/home/vagrant",
+  require => [Exec["ocamlfind"], Exec["opam update"], User['vagrant']],
+  user => "vagrant"
 }
