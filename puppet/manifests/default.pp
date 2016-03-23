@@ -52,7 +52,7 @@ exec { "ocaml":
 # install and initialise OPAM 1.2.2, before updating package listings
 exec { "opam":
   require => Exec["ocaml"],
-  command => "apt-get install -y --force-yes opam; opam init -y -a; echo 'eval $(opam config env)' >> ~/.profile; source ~/.profile",
+  command => "apt-get install -y --force-yes opam; opam init -y -a; echo 'eval $(opam config env)' >> ~/.profile; bash -c 'source ~/.profile'",
   unless => "which opam"
 }
 exec { "opam update": require => Exec["opam"] }
