@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 115
+quirk_arraystatement.exe
+function_array.log
+gfx_methAsMod.log
+gfx_propertiesasbuffers.log
+quirk_arraystatement.log
+
+END

@@ -1,0 +1,27 @@
+K 10
+svn:ignore
+V 341
+align_qb.exe
+call.exe
+data.exe
+file_open.exe
+file_open_cons.exe
+file_open_scrn.exe
+str.exe
+align_qb.log
+call.log
+data.log
+file_open.log
+file_open_com.log
+file_open_com_fail.log
+file_open_cons.log
+file_open_cons_fail.log
+file_open_lpt.log
+file_open_lpt_fail.log
+file_open_scrn.log
+file_open_scrn_fail.log
+scope_block.log
+str.log
+suffixes.log
+
+END

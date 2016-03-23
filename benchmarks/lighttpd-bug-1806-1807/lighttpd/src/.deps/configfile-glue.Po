@@ -1,0 +1,1 @@
+configfile-glue.o: configfile-glue.c

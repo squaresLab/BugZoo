@@ -92,7 +92,8 @@ case $TEST_ID in
     result=$?
     rm -f p7.txt p7.txt.cpt;;
 
-  # checks that the program terminates without error when supplied with 
+  # checks that the program terminates without error when supplied with the
+  # negative plaintext and when /dev/null is fed to the program
   n1)
     cp $DIR/test/n1.in n1.txt
     cp $DIR/test/n1.cpt n1.txt.cpt

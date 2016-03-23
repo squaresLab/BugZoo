@@ -1,0 +1,67 @@
+Big thanks for Ben Harper (rogojin at gmail.com) for initial work and little help to get first setups.
+
+
+Prerequisities:
+
+First you need build environment. I recommend to get Visual Studio Express C++ from Microsoft.
+Then you need Platform SDK for Windows.
+
+CMake is used to build (http://www.cmake.org)
+
+And then you need few libraries to make Lighty work well:
+pkg-config (prebuilt can be found at: http://www.gimp.org/~tml/gimp/win32/pkg-config-0.20.zip)
+
+libg-2.0 library  (prebuilt can be found at: http://ftp.gtk.org/pub/glib/2.12/win32/)
+Don't forget to download dependencies also!
+
+PCRE library (Psyon provides prebuilt: http://www.psyon.org/projects/pcre-win32/index.php)
+
+ZLib (You can get one from http://www.zlib.net/ )
+
+Current build doesn't support this yet, but good to know:
+
+OpenSSL (Shining Light Productions provides nice prebuilt set: http://www.slproweb.com/products/Win32OpenSSL.html)
+
+Install all libraries under same root, for example c:\sys\ - you need to separate PCRE .lib in "lib" dir, includes in "include" dir and
+
+Setting up environment:
+
+After installing you need few environments to setup. I recommend to make following batch files.
+Update paths as propriate:
+
+----------------------------------------------------------------------------------------------------
+
+cmakeenv.bat:
+
+@echo off
+
+set PATH=C:\sys\bin\;C:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Bin;%PATH%
+set INCLUDE=C:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include;%INCLUDE%
+set LIB=C:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Lib;%LIB%
+set PKG_CONFIG_PATH=c:\sys\lib\pkgconfig
+
+ if not exist "C:\Program Files\Microsoft Visual Studio 8\VC\vcvarsall.bat" goto missing
+ echo call "C:\Program Files\Microsoft Visual Studio 8\VC\vcvarsall.bat"
+ call "C:\Program Files\Microsoft Visual Studio 8\VC\vcvarsall.bat"
+ goto :eof
+
+ :missing
+ echo Missing file
+ echo "C:\Program Files\Microsoft Visual Studio 8\VC\vcvarsall.bat"
+ goto :eof
+
+----------------------------------------------------------------------------------------------------
+
+configure.bat:
+
+SET CMAKE_INCLUDE_PATH=c:\sys\include
+SET CMAKE_LIBRARY_PATH=c:\sys\lib
+
+----------------------------------------------------------------------------------------------------
+
+Run from commandline:
+
+cmake -G"NMake Makefiles" .
+
+or run cmakesetup to use GUI...
+

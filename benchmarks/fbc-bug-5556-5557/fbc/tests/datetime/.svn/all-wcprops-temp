@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/datetime
+END
+testdate.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/datetime/testdate.bas
+END
+testtime.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/datetime/testtime.bas
+END
+calc.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3066/trunk/FreeBASIC/tests/datetime/calc.bas
+END

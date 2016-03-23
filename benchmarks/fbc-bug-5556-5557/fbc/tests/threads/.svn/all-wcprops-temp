@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svnroot/fbc/!svn/ver/4684/trunk/FreeBASIC/tests/threads
+END
+bad_call.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/4391/trunk/FreeBASIC/tests/threads/bad_call.bas
+END
+racecondition.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/4684/trunk/FreeBASIC/tests/threads/racecondition.bas
+END

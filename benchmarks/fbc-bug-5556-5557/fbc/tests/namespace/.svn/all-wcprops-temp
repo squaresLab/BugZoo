@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svnroot/fbc/!svn/ver/4571/trunk/FreeBASIC/tests/namespace
+END
+dups.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3771/trunk/FreeBASIC/tests/namespace/dups.bas
+END
+using_rec.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3771/trunk/FreeBASIC/tests/namespace/using_rec.bas
+END
+using_reimp.bas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svnroot/fbc/!svn/ver/3771/trunk/FreeBASIC/tests/namespace/using_reimp.bas
+END
+global2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/global2.bas
+END
+redim2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3436/trunk/FreeBASIC/tests/namespace/redim2.bas
+END
+cpp.mk
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svnroot/fbc/!svn/ver/3275/trunk/FreeBASIC/tests/namespace/cpp.mk
+END
+using.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/4571/trunk/FreeBASIC/tests/namespace/using.bas
+END
+using_nested.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3782/trunk/FreeBASIC/tests/namespace/using_nested.bas
+END
+dups_fail2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3771/trunk/FreeBASIC/tests/namespace/dups_fail2.bas
+END
+multi_nested.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/multi_nested.bas
+END
+interf_imp.bas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/interf_imp.bas
+END
+dups2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3771/trunk/FreeBASIC/tests/namespace/dups2.bas
+END
+reimp1.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/reimp1.bas
+END
+reimp2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/reimp2.bas
+END
+reimp3.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/reimp3.bas
+END
+redim.bas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svnroot/fbc/!svn/ver/3436/trunk/FreeBASIC/tests/namespace/redim.bas
+END
+global.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/global.bas
+END
+dups_qkwd.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3782/trunk/FreeBASIC/tests/namespace/dups_qkwd.bas
+END
+using_reimp2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/fbc/!svn/ver/3782/trunk/FreeBASIC/tests/namespace/using_reimp2.bas
+END
+enum.bas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/enum.bas
+END
+sum.bas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/sum.bas
+END
+extimp.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3143/trunk/FreeBASIC/tests/namespace/extimp.bas
+END
+dups_fail.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3771/trunk/FreeBASIC/tests/namespace/dups_fail.bas
+END
+dim_array.bas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svnroot/fbc/!svn/ver/3098/trunk/FreeBASIC/tests/namespace/dim_array.bas
+END
+using2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/fbc/!svn/ver/3771/trunk/FreeBASIC/tests/namespace/using2.bas
+END
+using_nested2.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/3782/trunk/FreeBASIC/tests/namespace/using_nested2.bas
+END
+import_method.bas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/fbc/!svn/ver/3215/trunk/FreeBASIC/tests/namespace/import_method.bas
+END

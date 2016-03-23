@@ -1,0 +1,88 @@
+
+============
+Installation from svn repo
+============
+
+:author: mOo
+:Date: $Date: $
+:Revision: $Revision: $
+
+Prerequirement
+------------
+subversion (required, for svn co, svn up)
+perl (optional, for check)
+php (optional, for check)
+
+Choose one of the build systems:
+1. build with autotools
+autotools (required for autogen.sh)
+
+2. build with scons:
+an text editor (for config.py)
+scons v0.96.91.D001 or newer (required for scons build)
+
+Check out the source
+------------
+Review which source you want to checkout at:
+http://trac.lighttpd.net/trac/browser
+http://trac.lighttpd.net/trac/browser/tags
+
+note the current lastest version is lighttpd-merge-1.4.x not trunk:
+http://trac.lighttpd.net/trac/browser/branches/lighttpd-merge-1.4.x
+
+and check it out by ::
+
+  svn co svn://svn.lighttpd.net/lighttpd/branches/lighttpd-merge-1.4.x
+
+
+Build, Test and Install
+------------
+
+with autoconf
+------------
+
+  $ cd lighttpd-1.x.x
+  $ ./autogen.sh
+if you have problem with autogen.sh, check aclocal autoconf automake version
+
+check configure options
+  $ ./configure --help
+  $ ./configure --prefix=/usr/local/lighttpd/ --enable-...
+  $ make clean
+  $ make check
+  $ src/lighttpd -Df your_test.conf
+  (Ctrl+C once or twice to terminate lighttpd)
+  $ su -
+  # make install
+  # exit
+
+with scons
+------------
+copy and modify config.py for your own needs with your favorite editor:
+  $ cp config.py-sample config.py
+  $ $EDITOR config.py
+
+make sure your scons version is up to date, v0.96.91.D001 works. old version is known to have problem to build lighttpd.
+  $ scons --version
+  $ scons
+  $ scons check
+  $ src/lighttpd -Df your_test.conf
+  (Ctrl+C once or twice to terminate lighttpd)
+
+  $ su -
+  # scons install
+as scons make some file owned by root now, you have to do:
+  # chown yourusername:yourgroup -R .
+  # exit
+
+
+take look at the configfile in ./doc/lighttpd.conf,
+make your own copy of that file before modify it for your needs.
+
+Keep up to date with lastest svn repo
+------------
+simply do:
+  $ svn up
+and follow the instructions in "Build and Install".
+
+Do not make a non-released version on production server, you have been warned.
