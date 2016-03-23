@@ -3,35 +3,37 @@ Exec {
   path => ['/bin/', '/usr/bin/', '/usr/local/sbin', '/usr/sbin', '/sbin']
 }
 
+Package {
+  ensure => present
+}
+
 exec { "apt-get update": }
 
 package { "python-software-properties":
-  ensure  => present,
   require => Exec["apt-get update"]
 }
 
 package { "make":
-  ensure  => present,
   require => Exec["apt-get update"]
 }
 
 package { "git":
-  ensure  => present,
+  require => Exec["apt-get update"]
+}
+
+package { "vim":
   require => Exec["apt-get update"]
 }
 
 package { "m4":
-  ensure  => present,
   require => Exec["apt-get update"]
 }
 
 package { "libglib2.0-dev":
-  ensure => present,
   require => Exec["apt-get update"]
 }
 
 package { "libgmp3-dev":
-  ensure => present,
   require => Exec["apt-get update"]
 }
 
@@ -50,7 +52,7 @@ exec { "ocaml":
 # install and initialise OPAM 1.2.2, before updating package listings
 exec { "opam":
   require => Exec["ocaml"],
-  command => "apt-get install -y --force-yes opam; opam init -y; echo 'eval $(opam config env)' >> ~/.profile; source ~/.profile",
+  command => "apt-get install -y --force-yes opam; opam init -y -a; echo 'eval $(opam config env)' >> ~/.profile; source ~/.profile",
   unless => "which opam"
 }
 exec { "opam update": require => Exec["opam"] }
