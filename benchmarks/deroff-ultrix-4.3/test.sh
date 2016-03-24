@@ -36,13 +36,11 @@ negative()
 }
 
 case $TEST_ID in
-  p1) positive t1;;
-  p2) positive t2;;
-  p3) positive t4;;
-  p4) positive t7;;
-  p5) positive t8;;
-
-  # This doesn't seem right...
+  p1) positive p1;;
+  p2) positive p2;;
+  p3) positive p3;;
+  p4) positive p4;;
+  p5) positive p5;;
   n1) negative;;
 esac 
 exit $?
