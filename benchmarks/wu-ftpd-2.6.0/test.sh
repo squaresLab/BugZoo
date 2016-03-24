@@ -18,9 +18,9 @@ else
 fi
 
 # Treats the test case as a positive test case.
-exec_pos()
+positive()
 {
-  timeout 60 bash -c "$EXECUTABLE -s -p $PORT" &> /dev/null
+  timeout 60 bash -c "$EXECUTABLE -s -p $PORT" &> /dev/null # how can this timeout work?
   sleep 3s # sleep while the server starts up
 
   if [ $cov = 0 ]; then
@@ -34,15 +34,10 @@ exec_pos()
 }
 
 # Treats the test case as a negative test case.
-exec_neg()
+negative()
 {
-  if [ $cov = 0 ]; then
-    timeout 1 $EXECUTABLE < $DIR/test/n1 &> /dev/null \
-      && [ ! -f core* ] &> /dev/null
-  else
-    timeout 10 $EXECUTABLE < $DIR/test/n1 &> /dev/null \
-      && [ ! -f core* ] &> /dev/null
-  fi
+  [ $cov = 0 ] && TIMEOUT=1 || TIMEOUT=10
+  $GOD -t localhost -g -w $PORT -s 4 |& grep "leave shell" &> /dev/null
   return $?
 }
 
@@ -51,12 +46,12 @@ ulimit -c 8
 
 # Execute the test case with the given ID.
 case $TEST_ID in
-  p1) exec_pos;;
-  p2) exec_pos;;
-  p3) exec_pos;;
-  p4) exec_pos;;
-  p5) exec_pos;;
-  n1) rm -rf core*; exec_neg;;
+  p1) positive;;
+  p2) positive;;
+  p3) positive;;
+  p4) positive;;
+  p5) positive;;
+  n1) rm -f core*; negative;;
 esac
 
 # Find the result of the test case execution.
