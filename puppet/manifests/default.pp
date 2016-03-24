@@ -82,7 +82,7 @@ exec { "opam init":
 }
 exec { "opam config":
   require => [Exec["opam init"], User['vagrant']],
-  command => "echo 'eval $(opam config env)' > /home/vagrant/.opamrc && . /home/vagrant/.profile",
+  command => "echo 'eval $(opam config env)' >> /home/vagrant/.profile && touch /home/vagrant/.opamrc && . /home/vagrant/.profile",
   unless => "bash -c 'test -f /home/vagrant/.opamrc'",
   logoutput => on_failure,
   user => "vagrant"
@@ -117,3 +117,6 @@ package { 'libsdl1.2-dev': require => Package['make'] }
 package { 'libsdl-ttf2.0-0': require => Package['make'] }
 package { 'libsdl-ttf2.0-dev': require => Package['make'] }
 package { 'libsdl-ttf-gst': require => Package['make'] }
+
+# required by PHP
+package { "libxml2-dev": require => Exec["apt-get update"] }
