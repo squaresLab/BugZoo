@@ -6,7 +6,7 @@
     "name": "ccrypt-1.2",
     "program": "ccrypt_comb.c",
     "executable_name": "ccrypt",
-    "positive_tests": 6,
+    "positive_tests": 5,
     "negative_tests": 1
   }
 }

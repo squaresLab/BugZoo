@@ -34,9 +34,9 @@ case $TEST_ID in
   p2)
     cp $DIR/test/p2.in p2.txt
     timeout $TIMEOUT bash -c " \
-      $EXECUTABLE -e -E KEY p2.txt &> /dev/null && \
-      $EXECUTABLE -d -E KEY p2.txt &> /dev/null && \
-      diff p2.txt $DIR/test/p2.in"
+      $EXECUTABLE -e -E KEY p2.txt && \
+      $EXECUTABLE -d -E KEY p2.txt && \
+      diff p2.txt $DIR/test/p2.in" &> /dev/null
     result=$?
     rm -f p2.txt p2.txt.cpt;; 
 
@@ -53,9 +53,9 @@ case $TEST_ID in
     exec 3<> yes.txt
 
     timeout $TIMEOUT bash -c " \
-      $EXECUTABLE -e -E KEY p4.txt <&3 &> /dev/null && \
-      $EXECUTABLE -d -E KEY p4.txt &> /dev/null && \
-      diff p4.txt $DIR/test/p2.in"
+      $EXECUTABLE -e -E KEY p4.txt <&3 && \
+      $EXECUTABLE -d -E KEY p4.txt && \
+      diff p4.txt $DIR/test/p2.in" &> /dev/null
     result=$?
 
     # remove yes.txt from file descriptor 3, and destroy all temporary files.
@@ -74,7 +74,7 @@ case $TEST_ID in
     cp $DIR/test/p2.in p5.txt
     cp $DIR/test/placeholder.cpt p5.txt.cpt
 
-    timeout $TIMEOUT bash -c "$EXECUTABLE -e -E KEY p5.txt <&4 &> /dev/null" \
+    timeout $TIMEOUT bash -c "$EXECUTABLE -e -E KEY p5.txt <&4" &> /dev/null \
       && test -f p5.txt && diff p5.txt $DIR/test/p2.in &> /dev/null \
       && test -f p5.txt.cpt && diff p5.txt.cpt $DIR/test/placeholder.cpt &> /dev/null
     result=$?
@@ -82,20 +82,16 @@ case $TEST_ID in
     exec 4>&-
     rm -f no.txt p5.txt p5.txt.cpt;;
 
-  # the program should terminate when fed /dev/null
+  # the program should terminate without performing encryption when fed
+  # /dev/null as the standard input
   n1)
     cp $DIR/test/n1.in n1.txt
     cp $DIR/test/placeholder.cpt n1.txt.cpt
-
-    timeout $TIMEOUT bash -c "$EXECUTABLE -e -E KEY n1.txt < /dev/null &> /dev/null" \
+    timeout $TIMEOUT bash -c "$EXECUTABLE -e -E KEY n1.txt < /dev/null" &> /dev/null \
       && test -f n1.txt && diff $DIR/test/n1.in n1.txt &> /dev/null \
       && test -f n1.txt.cpt && diff $DIR/test/placeholder.cpt n1.txt.cpt &> /dev/null
     result=$?
-    if [ ! -f core.* ]
-    then
-      result=0
-    fi
-    rm -rf core.*
+    rm -f core.*
     rm -f n1.txt n1.txt.cpt;;
 esac
 
