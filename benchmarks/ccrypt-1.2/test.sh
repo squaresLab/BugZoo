@@ -34,8 +34,8 @@ case $TEST_ID in
   p2)
     cp $DIR/test/p2.in p2.txt
     timeout $TIMEOUT bash -c " \
-      $EXECUTABLE -e -E KEY p2.txt && \
-      $EXECUTABLE -d -E KEY p2.txt && \
+      $EXECUTABLE -e -E KEY p2.txt &> /dev/null && \
+      $EXECUTABLE -d -E KEY p2.txt &> /dev/null && \
       diff p2.txt $DIR/test/p2.in"
     result=$?
     rm -f p2.txt p2.txt.cpt;; 
@@ -53,8 +53,8 @@ case $TEST_ID in
     exec 3<> yes.txt
 
     timeout $TIMEOUT bash -c " \
-      $EXECUTABLE -e -E KEY p4.txt <&3 && \
-      $EXECUTABLE -d -E KEY p4.txt && \
+      $EXECUTABLE -e -E KEY p4.txt <&3 &> /dev/null && \
+      $EXECUTABLE -d -E KEY p4.txt &> /dev/null && \
       diff p4.txt $DIR/test/p2.in"
     result=$?
 
@@ -74,23 +74,22 @@ case $TEST_ID in
     cp $DIR/test/p2.in p5.txt
     cp $DIR/test/placeholder.cpt p5.txt.cpt
 
-    timeout $TIMEOUT bash -c " \
-      $EXECUTABLE -e -E KEY p5.txt <&4 && \
-      diff p5.txt $DIR/test/p2.in && \
-      diff p5.txt.cp $DIR/test/placeholder.cpt"
+    timeout $TIMEOUT bash -c "$EXECUTABLE -e -E KEY p5.txt <&4 &> /dev/null" \
+      && test -f p5.txt && diff p5.txt $DIR/test/p2.in &> /dev/null \
+      && test -f p5.txt.cpt && diff p5.txt.cpt $DIR/test/placeholder.cpt &> /dev/null
     result=$?
 
     exec 4>&-
-    rm -f no.txt p6.txt p6.txt.cpt;;
+    rm -f no.txt p5.txt p5.txt.cpt;;
 
   # the program should terminate when fed /dev/null
   n1)
     cp $DIR/test/n1.in n1.txt
-    cp $DIR/test/n1.cpt n1.txt.cpt
+    cp $DIR/test/placeholder.cpt n1.txt.cpt
 
-    timeout $TIMEOUT bash -c "$EXECUTABLE -e -E KEY n1.txt < /dev/null" \
-      && diff $DIR/test/n1.in n1.txt \
-      && diff $DIR/test/n1.cpt n1.txt.cpt
+    timeout $TIMEOUT bash -c "$EXECUTABLE -e -E KEY n1.txt < /dev/null &> /dev/null" \
+      && test -f n1.txt && diff $DIR/test/n1.in n1.txt &> /dev/null \
+      && test -f n1.txt.cpt && diff $DIR/test/placeholder.cpt n1.txt.cpt &> /dev/null
     result=$?
     if [ ! -f core.* ]
     then
