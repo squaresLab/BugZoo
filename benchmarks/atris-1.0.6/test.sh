@@ -28,7 +28,7 @@ execute_test()
   if [ $(basename $EXECUTABLE) = "coverage" ]; then
     $1 |& diff $DIR/test/$2 - &> /dev/null
   else
-    timeout 2 $1 |& diff $DIR/test/$2 - &> /dev/null
+    timeout 1 $1 |& diff $DIR/test/$2 - &> /dev/null
   fi
 }
 
