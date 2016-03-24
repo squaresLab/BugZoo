@@ -1,5 +1,0 @@
-commit 6746b873b6a201bbb55b797b7fa47361d67de2f8
-Author: dron <dron>
-Date:   Wed Dec 14 13:59:52 2005 +0000
-
-    Return non-zero status when reading fails (again).
