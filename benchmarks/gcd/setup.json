@@ -1,5 +1,6 @@
 {
   "problem": {
+    "name": "gcd",
     "program": "gcd.c",
     "executable_name": "gcd",
     "positive_tests": 10,

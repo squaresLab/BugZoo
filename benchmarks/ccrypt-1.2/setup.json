@@ -3,6 +3,7 @@
     "options": "-lefence -lcrypt"
   },
   "problem": {
+    "name": "ccrypt-1.2",
     "program": "ccrypt_comb.c",
     "executable_name": "ccrypt",
     "positive_tests": 6,

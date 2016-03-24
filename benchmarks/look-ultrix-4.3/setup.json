@@ -1,5 +1,6 @@
 {
   "problem": {
+    "name": "look-ultrix-4.3",
     "program": "preprocessed.c",
     "executable_name": "look",
     "positive_tests": 4,

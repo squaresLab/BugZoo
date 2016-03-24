@@ -3,6 +3,7 @@
     "options": "-lSDL -lpthread -lSDL_ttf"
   },
   "problem": {
+    "name": "atris-1.0.6",
     "program": "atris_comb.c",
     "executable_name": "atris",
     "positive_tests": 2,

@@ -3,6 +3,7 @@
     "options": "-m32 -lresolv -lcrypt -lnsl"
   },
   "problem": {
+    "name": "wu-ftpd-2.6.0",
     "program": "ftpd_comb.c",
     "executable_name": "wuftpd",
     "positive_tests": 5,

@@ -1,9 +1,10 @@
 {
+  "threads": 1,
   "problem": {
+    "name": "uniq-ultrix-4.3",
     "program": "preprocessed.c",
     "executable_name": "units",
     "positive_tests": 5,
     "negative_tests": 1
-  },
-  "evaluation": { "in_parallel": 1 }
+  }
 }

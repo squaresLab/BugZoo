@@ -1,5 +1,6 @@
 {
   "problem": {
+    "name": "flex-2.5.4a",
     "program": "flex_comb.c",
     "executable_name": "flex",
     "positive_tests": 5,

@@ -1,5 +1,6 @@
 {
   "problem": {
+    "name": "deroff-ultrix-4.3",
     "program": "deroff.c",
     "executable_name": "deroff",
     "positive_tests": 5,
