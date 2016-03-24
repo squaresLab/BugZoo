@@ -1,9 +1,0 @@
-K 10
-svn:ignore
-V 69
-mysql_test.exe
-postgresql_test.exe
-sqlite2_test.exe
-sqlite3_test.exe
-
-END

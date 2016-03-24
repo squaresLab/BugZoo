@@ -1,9 +1,0 @@
-K 10
-svn:ignore
-V 45
-local.exe
-shared.exe
-module1.exe
-module3.exe
-
-END

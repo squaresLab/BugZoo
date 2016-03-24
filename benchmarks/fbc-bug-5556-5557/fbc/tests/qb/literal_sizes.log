@@ -1,5 +1,0 @@
-qb/literal_sizes.bas : TEST_MODE=COMPILE_AND_RUN_OK
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang qb -g -w 0  -m qb/literal_sizes -c qb/literal_sizes.bas -o qb/literal_sizes.o
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g qb/literal_sizes.o -x qb/literal_sizes
-qb/literal_sizes.o() warning 22(2): Object files or libraries with mixed language (-lang) options
-qb/literal_sizes.bas : RESULT=PASSED

@@ -1,4 +1,0 @@
-const/rtl-mid.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/rtl-mid.bas(3) error 189: Expected initializer in 'dim as const string cs'
-const/rtl-mid.bas(4) error 109: Cannot modify a constant, before ',' in 'mid( cs, 1, 1 ) = "hi"'
-const/rtl-mid.bas : RESULT=PASSED

@@ -1,2 +1,0 @@
-structs/implicit_dtor.bas : TEST_MODE=COMPILE_ONLY_OK
-structs/implicit_dtor.bas : RESULT=PASSED

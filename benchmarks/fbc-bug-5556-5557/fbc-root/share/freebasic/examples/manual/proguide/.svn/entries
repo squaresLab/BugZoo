@@ -1,224 +1,0 @@
-10
-
-dir
-5556
-https://fbc.svn.sourceforge.net/svnroot/fbc/trunk/FreeBASIC/examples/manual/proguide
-https://fbc.svn.sourceforge.net/svnroot/fbc
-
-
-
-2011-04-29T03:55:56.804068Z
-5541
-dkls
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-b3cc3fc2-2e32-0410-b709-837b935790e1
-
-helloworld.bas
-file
-
-
-
-
-2013-06-25T20:27:12.000000Z
-92043b3e27b7424679dd175ca609d30c
-2008-11-30T15:45:00.567191Z
-5187
-jeffmarshall
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-299
-
-literals
-dir
-
-varscope
-dir
-
-comments
-dir
-
-typalias
-dir
-
-procs
-dir
-
-sourcefiles.bas
-file
-
-
-
-
-2013-06-25T20:27:12.000000Z
-28658373e69bd40953617c263b89f287
-2008-11-30T15:45:00.567191Z
-5187
-jeffmarshall
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-501
-
-libs
-dir
-
-members
-dir
-
-static-lib
-dir
-
-udt
-dir
-
-primer
-dir
-
-arrays
-dir
-
-labels
-dir
-
-init
-dir
-
-pointers
-dir
-
-opovld
-dir
-
-dates.bas
-file
-
-
-
-
-2013-06-25T20:27:12.000000Z
-c1e739b14eec3c801addf55b50ebb6f7
-2008-11-30T15:45:00.567191Z
-5187
-jeffmarshall
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-576
-
-variables
-dir
-
-shared-lib
-dir
-
-procptrs
-dir
-
-errors
-dir
-
-constants
-dir
-
-object-class.bas
-file
-
-
-
-
-2013-06-25T20:27:12.000000Z
-7b4e65431e6268c94909f68526aa0a92
-2008-11-30T15:45:00.567191Z
-5187
-jeffmarshall
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-11763
-

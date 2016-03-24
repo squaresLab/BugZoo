@@ -1,4 +1,0 @@
-structs/obj_access_const3.bas : TEST_MODE=COMPILE_ONLY_FAIL
-structs/obj_access_const3.bas(18) error 175: Illegal member access, found 'first' in 'var r = t.first.one'
-structs/obj_access_const3.bas(19) error 175: Illegal member access, found 'one' in 'r = t.one'
-structs/obj_access_const3.bas : RESULT=PASSED

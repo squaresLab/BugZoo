@@ -1,5 +1,0 @@
-deprecated/string_suffix.bas : TEST_MODE=COMPILE_AND_RUN_OK
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang deprecated -g -w 0  -m deprecated/string_suffix -c deprecated/string_suffix.bas -o deprecated/string_suffix.o
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g deprecated/string_suffix.o -x deprecated/string_suffix
-deprecated/string_suffix.o() warning 22(2): Object files or libraries with mixed language (-lang) options
-deprecated/string_suffix.bas : RESULT=PASSED

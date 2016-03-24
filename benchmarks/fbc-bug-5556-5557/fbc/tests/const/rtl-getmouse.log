@@ -1,4 +1,0 @@
-const/rtl-getmouse.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/rtl-getmouse.bas(3) error 189: Expected initializer, found ',' in 'dim as const integer x, y, w, b, c'
-const/rtl-getmouse.bas(4) error 159: Invalid assignment/conversion, at parameter 1 of GETMOUSE() in 'getmouse x, y, w, b, c'
-const/rtl-getmouse.bas : RESULT=PASSED

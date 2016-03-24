@@ -1,4 +1,0 @@
-const/rtl-swap.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/rtl-swap.bas(3) error 189: Expected initializer, found ',' in 'dim as const integer f, b'
-const/rtl-swap.bas(4) error 109: Cannot modify a constant in 'swap f, b'
-const/rtl-swap.bas : RESULT=PASSED

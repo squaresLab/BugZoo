@@ -1,359 +1,0 @@
-10
-
-dir
-5565
-https://fbc.svn.sourceforge.net/svnroot/fbc/trunk/FreeBASIC/tests
-https://fbc.svn.sourceforge.net/svnroot/fbc
-
-
-
-2011-05-03T13:20:39.498008Z
-5556
-counting_pine
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-b3cc3fc2-2e32-0410-b709-837b935790e1
-
-fbcu
-dir
-
-dirlist.mk
-file
-
-
-
-
-2013-06-25T20:26:16.000000Z
-981493f8a36a7990fda47906c91dff89
-2010-10-25T15:30:34.507490Z
-5417
-dkls
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-477
-
-expressions
-dir
-
-compound
-dir
-
-comments
-dir
-
-crt
-dir
-
-cunit-tests.mk
-file
-
-
-
-
-2013-06-25T20:26:16.000000Z
-87c7096b8e0ce1ffaf835b9419496a24
-2011-04-15T14:20:23.707685Z
-5514
-dkls
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3377
-
-threads
-dir
-
-quirk
-dir
-
-namespace
-dir
-
-typedef
-dir
-
-pointers
-dir
-
-optimizations
-dir
-
-data
-dir
-
-dim
-dir
-
-numbers
-dir
-
-Makefile
-file
-
-
-
-
-2013-06-25T20:26:16.000000Z
-3d82f75c6b7c5fce8f91aa46c99b237e
-2011-04-15T14:20:23.707685Z
-5514
-dkls
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6374
-
-interactive
-dir
-
-file
-dir
-
-pp
-dir
-
-macros
-dir
-
-const
-dir
-
-pretest
-dir
-
-log-tests.mk
-file
-
-
-
-
-2013-06-25T20:26:16.000000Z
-6b4077acc94280e19ac90d99911f1573
-2011-04-15T14:20:23.707685Z
-5514
-dkls
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-13144
-
-bmk-make.mk
-file
-
-
-
-
-2013-06-25T20:26:16.000000Z
-64f01ff588b492cffb908450863334f5
-2008-10-05T14:15:54.964602Z
-5148
-jeffmarshall
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2048
-
-datetime
-dir
-
-scopes
-dir
-
-wstring
-dir
-
-common.mk
-file
-
-
-
-
-2013-06-25T20:26:16.000000Z
-468bc929fbe35ea26267547db2352a64
-2006-09-02T11:23:19.000000Z
-3116
-jeffmarshall
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-645
-
-deprecated
-dir
-
-qb
-dir
-
-console
-dir
-
-string
-dir
-
-structs
-dir
-
-functions
-dir
-
-swap
-dir
-
-overload
-dir
-
-readme.txt
-file
-
-
-
-
-2013-06-25T20:26:16.000000Z
-a296aec1d4ac10c140c4c8c7df4f9847
-2008-05-31T14:39:33.965215Z
-4852
-jeffmarshall
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6853
-

@@ -1,2 +1,0 @@
-pretest/compile_only_ok.bas : TEST_MODE=COMPILE_ONLY_OK
-pretest/compile_only_ok.bas : RESULT=PASSED

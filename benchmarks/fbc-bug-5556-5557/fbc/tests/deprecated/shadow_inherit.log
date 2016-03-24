@@ -1,5 +1,0 @@
-deprecated/shadow_inherit.bas : TEST_MODE=COMPILE_AND_RUN_OK
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang deprecated -g -w 0  -m deprecated/shadow_inherit -c deprecated/shadow_inherit.bas -o deprecated/shadow_inherit.o
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g deprecated/shadow_inherit.o -x deprecated/shadow_inherit
-deprecated/shadow_inherit.o() warning 22(2): Object files or libraries with mixed language (-lang) options
-deprecated/shadow_inherit.bas : RESULT=PASSED

@@ -1,3 +1,0 @@
-const/rtl-line.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/rtl-line.bas(4) error 109: Cannot modify a constant, before ',' in 'line foo, (0, 0)-(0, 0), 15'
-const/rtl-line.bas : RESULT=PASSED

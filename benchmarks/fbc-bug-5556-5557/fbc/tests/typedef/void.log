@@ -1,3 +1,0 @@
-typedef/void.bas : TEST_MODE=COMPILE_ONLY_FAIL
-typedef/void.bas(4) error 25: Invalid data types, found 'x' in 'dim as t x'
-typedef/void.bas : RESULT=PASSED

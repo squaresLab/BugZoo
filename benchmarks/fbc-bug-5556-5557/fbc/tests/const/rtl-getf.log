@@ -1,4 +1,0 @@
-const/rtl-getf.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/rtl-getf.bas(3) error 189: Expected initializer in 'dim as const longint filepos'
-const/rtl-getf.bas(4) error 109: Cannot modify a constant in 'get #1, , filepos'
-const/rtl-getf.bas : RESULT=PASSED

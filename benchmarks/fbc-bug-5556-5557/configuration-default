@@ -1,2 +1,0 @@
--test-command __TEST_SCRIPT__ __TEST_NAME__ __EXE_NAME__ >& /dev/null
---prefix preprocessed

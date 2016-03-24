@@ -1,3 +1,0 @@
-const/typedef-const-forward-ptr-1-1.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/typedef-const-forward-ptr-1-1.bas(6) error 109: Cannot modify a constant, before ''' in '*p = 0      '' error'
-const/typedef-const-forward-ptr-1-1.bas : RESULT=PASSED

@@ -1,5 +1,0 @@
-structs/const_method5.bas : TEST_MODE=COMPILE_ONLY_FAIL
-structs/const_method5.bas(14) error 109: Cannot modify a constant in 'value = 4'
-structs/const_method5.bas(16) error 109: Cannot modify a constant in 'this.value = 5'
-structs/const_method5.bas(19) error 109: Cannot modify a constant in '.value = 6'
-structs/const_method5.bas : RESULT=PASSED

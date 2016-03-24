@@ -1,1 +1,0 @@
-SRCLIST += wstring/len.bas

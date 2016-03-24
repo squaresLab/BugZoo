@@ -1,5 +1,0 @@
-qb/file_open_scrn.bas : TEST_MODE=COMPILE_AND_RUN_OK
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang qb -g -w 0  -m qb/file_open_scrn -c qb/file_open_scrn.bas -o qb/file_open_scrn.o
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g qb/file_open_scrn.o -x qb/file_open_scrn
-qb/file_open_scrn.o() warning 22(2): Object files or libraries with mixed language (-lang) options
-qb/file_open_scrn.bas : RESULT=PASSED

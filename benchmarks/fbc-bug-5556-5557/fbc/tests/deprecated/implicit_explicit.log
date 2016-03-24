@@ -1,9 +1,0 @@
-deprecated/implicit_explicit.bas : TEST_MODE=COMPILE_AND_RUN_OK
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang deprecated -g -w 0  -m deprecated/implicit_explicit -c deprecated/implicit_explicit.bas -o deprecated/implicit_explicit.o
-deprecated/implicit_explicit.bas(27) warning 12(0): Implicit variable allocation, c
-deprecated/implicit_explicit.bas(32) warning 12(0): Implicit variable allocation, c
-deprecated/implicit_explicit.bas(36) warning 12(0): Implicit variable allocation, b
-deprecated/implicit_explicit.bas(38) warning 12(0): Implicit variable allocation, c
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g deprecated/implicit_explicit.o -x deprecated/implicit_explicit
-deprecated/implicit_explicit.o() warning 22(2): Object files or libraries with mixed language (-lang) options
-deprecated/implicit_explicit.bas : RESULT=PASSED

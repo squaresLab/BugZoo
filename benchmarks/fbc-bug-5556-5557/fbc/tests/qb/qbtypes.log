@@ -1,5 +1,0 @@
-qb/qbtypes.bas : TEST_MODE=COMPILE_AND_RUN_OK
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -lang qb -g -w 0  -m qb/qbtypes -c qb/qbtypes.bas -o qb/qbtypes.o
-/root/mountpoint-genprog/genprog-many-bugs/fbc-bug-5556-5557//fbc-root/bin/fbc  -g qb/qbtypes.o -x qb/qbtypes
-qb/qbtypes.o() warning 22(2): Object files or libraries with mixed language (-lang) options
-qb/qbtypes.bas : RESULT=PASSED

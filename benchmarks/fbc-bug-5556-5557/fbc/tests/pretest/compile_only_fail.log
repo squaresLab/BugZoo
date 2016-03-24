@@ -1,3 +1,0 @@
-pretest/compile_only_fail.bas : TEST_MODE=COMPILE_ONLY_FAIL
-pretest/compile_only_fail.bas(4) error 14: Expected identifier, found 'invalid_type' in 'dim x as invalid_type'
-pretest/compile_only_fail.bas : RESULT=PASSED

@@ -1,8 +1,0 @@
-K 10
-svn:ignore
-V 35
-assert.exe
-assertwarn.exe
-stop.exe
-
-END

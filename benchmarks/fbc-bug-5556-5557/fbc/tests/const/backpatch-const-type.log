@@ -1,3 +1,0 @@
-const/backpatch-const-type.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/backpatch-const-type.bas(6) error 109: Cannot modify a constant, before ''' in 'i = 0   '' error'
-const/backpatch-const-type.bas : RESULT=PASSED

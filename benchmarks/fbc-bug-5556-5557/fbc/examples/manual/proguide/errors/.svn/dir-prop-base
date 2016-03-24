@@ -1,9 +1,0 @@
-K 10
-svn:ignore
-V 45
-err.exe
-on-error.exe
-on-local.exe
-result.exe
-
-END

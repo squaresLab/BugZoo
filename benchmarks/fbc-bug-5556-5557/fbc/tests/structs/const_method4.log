@@ -1,3 +1,0 @@
-structs/const_method4.bas : TEST_MODE=COMPILE_ONLY_FAIL
-structs/const_method4.bas(16) error 109: Cannot modify a constant in 'this = x'
-structs/const_method4.bas : RESULT=PASSED

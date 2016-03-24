@@ -1,9 +1,0 @@
-K 10
-svn:ignore
-V 76
-bload-workaround.exe
-check-for-close.exe
-image-header.exe
-RGB-component.exe
-
-END

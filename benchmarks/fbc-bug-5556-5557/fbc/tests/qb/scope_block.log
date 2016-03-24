@@ -1,5 +1,0 @@
-qb/scope_block.bas : TEST_MODE=COMPILE_ONLY_FAIL
-qb/scope_block.bas(5) error 10: Expected '='
-Scope
-^
-qb/scope_block.bas : RESULT=PASSED

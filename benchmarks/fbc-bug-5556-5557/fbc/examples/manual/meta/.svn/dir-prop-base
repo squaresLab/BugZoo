@@ -1,9 +1,0 @@
-K 10
-svn:ignore
-V 44
-dynamic.exe
-include.exe
-static.exe
-lang.exe
-
-END

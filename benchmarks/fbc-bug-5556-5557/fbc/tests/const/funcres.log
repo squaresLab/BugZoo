@@ -1,3 +1,0 @@
-const/funcres.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/funcres.bas(7) error 109: Cannot modify a constant in '*la( ) = 6'
-const/funcres.bas : RESULT=PASSED

@@ -1,4 +1,0 @@
-const/member.bas : TEST_MODE=COMPILE_ONLY_FAIL
-const/member.bas(7) error 189: Expected initializer in 'dim as const foo kah'
-const/member.bas(8) error 109: Cannot modify a constant in 'kah.__ = 69'
-const/member.bas : RESULT=PASSED

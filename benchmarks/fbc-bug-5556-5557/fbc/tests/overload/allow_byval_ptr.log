@@ -1,2 +1,0 @@
-overload/allow_byval_ptr.bas : TEST_MODE=COMPILE_ONLY_OK
-overload/allow_byval_ptr.bas : RESULT=PASSED
