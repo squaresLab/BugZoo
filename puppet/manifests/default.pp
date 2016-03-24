@@ -109,3 +109,11 @@ exec { "cil":
   require => [Exec["ocamlfind"], Exec["opam update"], User['vagrant']],
   user => "vagrant"
 }
+
+# Required by various benchmarks
+# Atris
+package { 'libsdl1.2debian': require => Package['make'] }
+package { 'libsdl1.2-dev': require => Package['make'] }
+package { 'libsdl-ttf2.0-0': require => Package['make'] }
+package { 'libsdl-ttf2.0-dev': require => Package['make'] }
+package { 'libsdl-ttf-gst': require => Package['make'] }
