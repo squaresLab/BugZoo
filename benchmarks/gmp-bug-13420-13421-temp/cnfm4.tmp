@@ -1,0 +1,1 @@
+define(<CONFIG_TOP_SRCDIR>,<`../gmp'>)

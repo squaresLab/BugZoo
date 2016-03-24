@@ -1,1 +1,0 @@
-../mpn/generic/matrix22_mul1_inverse_vector.c
