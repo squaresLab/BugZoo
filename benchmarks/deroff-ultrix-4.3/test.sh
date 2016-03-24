@@ -23,7 +23,7 @@ positive()
     && diff $DIR/test/$case.out result.$case.tmp
   result=$?
   rm -f result.$case.tmp
-  rm -f core.*
+  rm -f core*
   exit $result
 }
 
@@ -31,7 +31,7 @@ negative()
 {
   timeout $TIMEOUT $EXECUTABLE < $DIR/test/n1.in
   result=$?
-  rm -f core.*
+  rm -f core*
   exit $result
 }
 
