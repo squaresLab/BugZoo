@@ -1,5 +1,7 @@
 #!/bin/bash
-bugrev=e7a1d5004e
+
+# Find the directory that this test script belongs to.
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
 if [ `basename $2` = "coverage" ] ; then
@@ -10,10 +12,10 @@ fi
 
 run_test()
 {
-    cd php
-    /root/mountpoint-genprog/genprog-many-bugs/php-bug-2011-01-06-e7a1d5004e-3571c955b5/limit /root/mountpoint-genprog/genprog-many-bugs/php-bug-2011-01-06-e7a1d5004e-3571c955b5/php-run-tests $1
+    pushd php
+    $DIR/limit $DIR/php-run-tests $1
     RESULT=$?
-    cd ..
+    popd
     return $RESULT
 }
 case $1 in
