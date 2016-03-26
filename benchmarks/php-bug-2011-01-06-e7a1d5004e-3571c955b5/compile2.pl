@@ -31,10 +31,10 @@ sub make
   print "Compiling $PATCH_DIR to $DEST_DIR\n";
 
   # destroy the executable
-  system("rm $DEST_DIR/sapi/cli/php -f");
+  system("rm $HOST_DIR/sapi/cli/php -f");
 
   # copy patch to host directory
-  system("cp $PATCH_DIR/* $HOST_DIR -r -p");
+  system("cp $PATCH_DIR/* $HOST_DIR -r");
   
   # copy all files from patch to dest
 #  system("cp $HOST_DIR $DEST_DIR -r -n -p");
