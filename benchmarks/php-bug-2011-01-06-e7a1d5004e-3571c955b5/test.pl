@@ -11469,14 +11469,11 @@ my @TESTS = (
 );
 
 my $EXECUTABLE = Cwd::abs_path($ARGV[0]);
-my $EXECUTABLE = $ARGV[0];
 my $TEST_NAME = $TESTS[$ARGV[1] - 1];
 
 my $FILE_DIR = Cwd::abs_path(dirname(__FILE__));
 my $TEST_DIR = $FILE_DIR . "/php";
-my $TEST_DIR = "php";
 my $HELPER = $FILE_DIR . "/php/php-helper.php";
-my $HELPER = "php/php-helper.php";
 
 my $CMD = "$EXECUTABLE $HELPER -p $EXECUTABLE -q $TEST_DIR/$TEST_NAME";
 print "$CMD\n";
