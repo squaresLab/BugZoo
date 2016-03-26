@@ -9,11 +9,8 @@
 #     repair. We first read in $project_list, then look for each file therein
 #     and copy them to the proper folder in the $project directory. Then we run
 #     make etc.
-
 use strict;
 use File::Basename;
-#use File::pushd;
-#use File::popd;
 
 my $DIR = dirname(__FILE__);
 my $SRC_DIR = "$DIR/php";
@@ -37,9 +34,8 @@ sub make
   system("cp $PATCH_DIR $DEST_DIR -r");
 
   # let's try make
-  #pushd($DEST_DIR);
-  #system("make");
-  #popd();
+  chdir $DEST_DIR;
+  system("make");
 }
 
 print "Let's try compile...\n";
