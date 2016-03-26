@@ -1,19 +1,21 @@
 #!/bin/bash
 
-# Find the directory that this test script belongs to.
+# Retrieve and store the provided command-line arguments.
+EXECUTABLE=$( dirname $1 )
+TEST_ID=$2
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
-if [ `basename $2` = "coverage" ] ; then
-    cov=0
+if [ `basename $1` = "coverage" ] ; then
+  TIMEOUT=10
 else
-    cov=1
+  TIMEOUT=3
 fi
 
 run_test()
 {
     pushd php
-    timeout 3 $DIR/php-run-tests $1
+    timeout $TIMEOUT $DIR/test.pl $EXECUTABLE/php $1
     RESULT=$?
     popd
     return $RESULT
