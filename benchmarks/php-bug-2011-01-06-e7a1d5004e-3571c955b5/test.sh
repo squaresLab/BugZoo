@@ -13,7 +13,7 @@ fi
 run_test()
 {
     pushd php
-    $DIR/limit $DIR/php-run-tests $1
+    timeout 3 $DIR/php-run-tests $1
     RESULT=$?
     popd
     return $RESULT

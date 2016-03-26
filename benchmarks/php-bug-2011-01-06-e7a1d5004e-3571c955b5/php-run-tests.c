@@ -11467,9 +11467,15 @@ char * TESTS[] =
 };
 
 int run_test(char* name) {
+
+    // what happens if we append php/ onto the name of the test?
+    
+
     char buffer[1024];
-    sprintf(buffer, "./sapi/cli/php ../php-helper.php -p ./sapi/cli/php -q %s", name);
-    int killed = system("killall php &> /dev/null");
+    sprintf(buffer, "php/sapi/cli/php php/php-helper.php -p php/sapi/cli/php -q php/%s", name);
+    int killed = system("killall php &> /dev/null"); // this fails - php doesn't exist
+
+    // why is this useful?
     if (killed == 0) {
         system("echo A php process was killed > A-PHP-Process-Was-Killed");    }
     int res = system(buffer);
@@ -11510,6 +11516,7 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Invalid test number: %d\n", num);
         exit(255);
     }
+
     char* name = tests[num];
     return run_test(name);
 }
