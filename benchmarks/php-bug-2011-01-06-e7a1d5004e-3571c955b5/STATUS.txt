@@ -1,1 +1,0 @@
-./php-run-tests only works when executed within the PHP directory at present
