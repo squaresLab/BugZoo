@@ -30,10 +30,13 @@ sub make
 
   # destroy the executable
   system("rm $DEST_DIR/sapi/cli/php -f");
+
+  # copy patch to host directory
+  system("cp $PATCH_DIR/* $DEST_DIR -r -n -p");
   
   # copy all files from patch to dest
-  system("cp $HOST_DIR $DEST_DIR -r -n");
-  system("cp $PATCH_DIR $DEST_DIR -r -n");
+#  system("cp $HOST_DIR $DEST_DIR -r -n -p");
+#  system("cp $PATCH_DIR $DEST_DIR -r -n -p");
 
   # let's try make
   chdir $DEST_DIR;
