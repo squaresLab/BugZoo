@@ -12,6 +12,7 @@
 #     make etc.
 use strict;
 use File::Basename;
+use Cwd;
 
 my $DIR = dirname(__FILE__);
 my $SRC_DIR = "$DIR/php";
@@ -22,9 +23,10 @@ my $VARIANT_DIR = $ARGV[1];
 # Copy contents of patch to the target directory.
 sub make
 {
-  my $PATCH_DIR = $_[0];
-  my $HOST_DIR = $_[1];
-  my $DEST_DIR = $_[2];
+  my $PATCH_DIR = Cwd::abs_path($_[0]);
+  my $HOST_DIR = Cwd::abs_path($_[1]);
+  my $DEST_DIR = Cwd::abs_path($_[2]);
+  my $CWD = cwd();
 
   print "Compiling $PATCH_DIR to $DEST_DIR\n";
 
@@ -32,16 +34,21 @@ sub make
   system("rm $DEST_DIR/sapi/cli/php -f");
 
   # copy patch to host directory
-  system("cp $PATCH_DIR/* $DEST_DIR -r -n -p");
+  system("cp $PATCH_DIR/* $HOST_DIR -r -p");
   
   # copy all files from patch to dest
 #  system("cp $HOST_DIR $DEST_DIR -r -n -p");
 #  system("cp $PATCH_DIR $DEST_DIR -r -n -p");
 
   # let's try make
-  chdir $DEST_DIR;
+  chdir $HOST_DIR;
   system("make");
+  
+  # copy executable files to destination directory
+  system("cp sapi/cli/php $DEST_DIR");
+  chdir $CWD;
 }
 
 print "Let's try compile...\n";
-make($VARIANT_DIR, $SRC_DIR, "compiled-t1");
+make($VARIANT_DIR, $SRC_DIR, $VARIANT_DIR);
+#make($VARIANT_DIR, $SRC_DIR, "compiled-t1");

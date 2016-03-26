@@ -1,9 +1,10 @@
-#!/usr/bin/python
-import subprocess
-import sys
-import os
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Cwd;
+use File::Basename;
 
-TESTS = [
+my @TESTS = (
   "tests/strings/002.phpt",
   "tests/strings/004.phpt",
   "tests/strings/bug26703.phpt",
@@ -11465,14 +11466,27 @@ TESTS = [
   "ext/sybase_ct/tests/bug29064.phpt",
   "ext/sybase_ct/tests/bug30312.phpt",
   "ext/sybase_ct/tests/test_connection_caching.phpt"
-]
+);
 
-if __name__ == "__main__":
-  exe = os.path.abspath(sys.argv[1])
-  test = TESTS[int(sys.argv[2])]
-  cmd = "%s php/php-helper.php -p %s -q php/%s" % (exe, exe, test)
-  print cmd
+my $EXECUTABLE = Cwd::abs_path($ARGV[0]);
+my $TEST_NAME = $TESTS[$ARGV[1]];
 
-  res = subprocess.call([exe, "php/php-helper.php", "-p " + exe, "-q", "php/" + test], shell=True)
-  sys.exit(res)
-  #sys.exit(os.system(cmd))
+my $FILE_DIR = Cwd::abs_path(dirname(__FILE__));
+my $TEST_DIR = $FILE_DIR . "/php";
+my $HELPER = $FILE_DIR . "/php/php-helper.php";
+
+my $CMD = "$EXECUTABLE $HELPER -p $EXECUTABLE -q $TEST_DIR/$TEST_NAME";
+
+print "$CMD\n";
+
+exit system($CMD);
+
+
+#  exe = os.path.abspath(sys.argv[1])
+#  test = TESTS[int(sys.argv[2])]
+#  cmd = "%s php/php-helper.php -p %s -q php/%s" % (exe, exe, test)
+#  print cmd
+#
+#  res = subprocess.call([exe, "php/php-helper.php", "-p " + exe, "-q", "php/" + test], shell=True)
+#  sys.exit(res)
+#  #sys.exit(os.system(cmd))
