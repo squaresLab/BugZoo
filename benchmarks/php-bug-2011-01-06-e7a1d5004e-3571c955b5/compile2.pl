@@ -1,9 +1,10 @@
 #!/usr/bin/perl -w
 #
-# Compilation script for repair scenarios
+# Compilation script for repair scenarios; can't be used in a multi-threaded
+# context
 # 
 # USAGE: 
-# perl compile.pl __EXE_NAME__ 
+# perl compile.pl __EXE_NAME__ __SOURCE_NAME__
 # 
 # In normal usage __EXE_NAME__ is actually a drectory containing the files to
 #     repair. We first read in $project_list, then look for each file therein
@@ -14,7 +15,7 @@ use File::Basename;
 
 my $DIR = dirname(__FILE__);
 my $SRC_DIR = "$DIR/php";
-my $VARIANT_DIR = $ARGV[0];
+my $VARIANT_DIR = $ARGV[1];
 
 # Make to the original directory, for now, as much as I very much dislike this.
 # How do we undo this?
@@ -31,7 +32,8 @@ sub make
   system("rm $DEST_DIR/sapi/cli/php -f");
   
   # copy all files from patch to dest
-  system("cp $PATCH_DIR $DEST_DIR -r");
+  system("cp $HOST_DIR $DEST_DIR -r -n");
+  system("cp $PATCH_DIR $DEST_DIR -r -n");
 
   # let's try make
   chdir $DEST_DIR;
@@ -39,4 +41,4 @@ sub make
 }
 
 print "Let's try compile...\n";
-make($VARIANT_DIR, $SRC_DIR, $SRC_DIR);
+make($VARIANT_DIR, $SRC_DIR, "compiled-t1");
