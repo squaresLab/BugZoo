@@ -49,6 +49,4 @@ sub make
   chdir $CWD;
 }
 
-print "Let's try compile...\n";
 make($VARIANT_DIR, $SRC_DIR, $VARIANT_DIR);
-#make($VARIANT_DIR, $SRC_DIR, "compiled-t1");
