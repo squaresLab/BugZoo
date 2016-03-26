@@ -11469,24 +11469,21 @@ my @TESTS = (
 );
 
 my $EXECUTABLE = Cwd::abs_path($ARGV[0]);
-my $TEST_NAME = $TESTS[$ARGV[1]];
+my $EXECUTABLE = $ARGV[0];
+my $TEST_NAME = $TESTS[$ARGV[1] - 1];
 
 my $FILE_DIR = Cwd::abs_path(dirname(__FILE__));
 my $TEST_DIR = $FILE_DIR . "/php";
+my $TEST_DIR = "php";
 my $HELPER = $FILE_DIR . "/php/php-helper.php";
+my $HELPER = "php/php-helper.php";
 
 my $CMD = "$EXECUTABLE $HELPER -p $EXECUTABLE -q $TEST_DIR/$TEST_NAME";
-
 print "$CMD\n";
 
-exit system($CMD);
-
-
-#  exe = os.path.abspath(sys.argv[1])
-#  test = TESTS[int(sys.argv[2])]
-#  cmd = "%s php/php-helper.php -p %s -q php/%s" % (exe, exe, test)
-#  print cmd
-#
-#  res = subprocess.call([exe, "php/php-helper.php", "-p " + exe, "-q", "php/" + test], shell=True)
-#  sys.exit(res)
-#  #sys.exit(os.system(cmd))
+my $res = system("$CMD");
+if ($res == 0) {
+  exit 0;
+} else {
+  exit 1;
+}
