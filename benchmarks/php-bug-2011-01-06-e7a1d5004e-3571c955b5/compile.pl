@@ -17,6 +17,8 @@ use File::Basename;
 $ARGV[0]  =~ s/\/[.]\//\//g;
 my $subdir = basename(dirname($ARGV[0]));
 
+print $ARGV[0] + "\n";
+
 # These are filled in by scripter.py
 my $project = "php";
 my $project_list = "bugged-program.txt";
