@@ -1,97 +1,52 @@
 #!/usr/bin/perl -w
 #
-# Compilation script for repair scenarios
+# Compilation script for repair scenarios; can't be used in a multi-threaded
+# context
 # 
 # USAGE: 
-# perl compile.pl __EXE_NAME__ 
+# perl compile.pl __EXE_NAME__ __SOURCE_NAME__
 # 
 # In normal usage __EXE_NAME__ is actually a drectory containing the files to
 #     repair. We first read in $project_list, then look for each file therein
 #     and copy them to the proper folder in the $project directory. Then we run
 #     make etc.
-
 use strict;
 use File::Basename;
+use Cwd;
 
-#flatten the path to remove /./'s
-$ARGV[0]  =~ s/\/[.]\//\//g;
-my $subdir = basename(dirname($ARGV[0]));
+my $DIR = dirname(__FILE__);
+my $SRC_DIR = "$DIR/php";
+my $VARIANT_DIR = $ARGV[1];
 
-print $ARGV[0] + "\n";
-
-# These are filled in by scripter.py
-my $project = "php";
-my $project_list = "bugged-program.txt";
-
-
-sub say {
-    my $msg = $_[0];
-    print STDERR "|[$0]|: $msg \n";
-}
-
-sub execute 
-{
-    my $cmd = $_[0];
-    my $res = system($cmd);
-    print "$cmd\n";
-    if ($res != 0)
-    {
-        say "Command '$cmd' failed: $!"; 
-        
-    }
-}
-
+# Make to the original directory, for now, as much as I very much dislike this.
+# How do we undo this?
+# Copy contents of patch to the target directory.
 sub make
 {
-    my $is_php = ($project =~ "php");
-    if ($is_php) {
-        system("rm ./sapi/cli/php"); # rebuilds exe
-    }
-    my $res = system("timeout 10m make 2>&1");
-    if ($res == 0) {
-      my $res2 = system("sh ../php-tests-untar.sh");
-      exit $res2;
-    }
-    elsif ($is_php && (-f "./sapi/cli/php"))
-    {
-      my $res2 = system("sh ../php-tests-untar.sh");
-      exit $res2;
-    }
-    exit 1;
-}
-# We want to change /home/mkd5m/genprog-many-bugs/libtiff-A-B/sanity/repair.sanity.c into sanity
+  my $PATCH_DIR = Cwd::abs_path($_[0]);
+  my $HOST_DIR = Cwd::abs_path($_[1]);
+  my $DEST_DIR = Cwd::abs_path($_[2]);
+  my $CWD = cwd();
 
-open(FILE, "<$project_list");
-my @file_list = <FILE>;
-chomp @file_list;
-# double % preserves % for scripter.py
-my %pfiles= map { $_, 1 } @file_list;
-close(FILE);
-my @filtered = ();
+  print "Compiling $PATCH_DIR to $DEST_DIR\n";
 
-foreach my $file (`find $subdir`)
-{
-    chomp $file;
-    if (-f $file && ! ($file =~ m/.*coverage[.]path.*/))
-    {
-        $file =~ s/^[^\/]*\///;
-        push(@filtered, $file);
-    } 
-    else
-    {
-        next;
-    }
-    (-f "$subdir/$file") or die "Invalid file to copy: $subdir/$file";
-    execute("cp $subdir/$file $project/$file");
+  # destroy the executable
+  system("rm $HOST_DIR/sapi/cli/php -f");
+
+  # copy patch to host directory
+  system("cp $PATCH_DIR/* $HOST_DIR -r");
+  
+  # copy all files from patch to dest
+#  system("cp $HOST_DIR $DEST_DIR -r -n -p");
+#  system("cp $PATCH_DIR $DEST_DIR -r -n -p");
+
+  # let's try make
+  chdir $HOST_DIR;
+  system("make");
+  
+  # copy executable files to destination directory
+  system("cp sapi/cli/php $DEST_DIR");
+  chdir $CWD;
 }
 
-print "Repair files: @file_list \n";
-print "Allfiles: @filtered\n";
-
-chdir $project or die "fail chdir $project: $!";
-system("killall $project >& /dev/null");
-make ();
-chdir ".." or die "failed chdir ..: $!";
-
-
-
+make($VARIANT_DIR, $SRC_DIR, $VARIANT_DIR);
