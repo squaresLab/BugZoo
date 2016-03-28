@@ -1,6 +1,6 @@
 {
   "compiler": {
-    "command": "perl compile2.pl __EXE_NAME__ __SOURCE_NAME__ > /dev/null"
+    "command": "perl compile.pl __EXE_NAME__ __SOURCE_NAME__"
   },
   "problem": {
     "name": "php-bug-2011-01-06-e7a1d5004e-3571c955b5",

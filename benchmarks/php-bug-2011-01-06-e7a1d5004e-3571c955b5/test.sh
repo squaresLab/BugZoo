@@ -20,7 +20,7 @@ run_test()
     popd
     return $RESULT
 }
-case $1 in
+case $TEST_ID in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
     p3) run_test 3 && exit 0 ;; 

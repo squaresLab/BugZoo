@@ -16,7 +16,7 @@ use Cwd;
 
 my $DIR = dirname(__FILE__);
 my $SRC_DIR = "$DIR/php";
-my $VARIANT_DIR = $ARGV[1];
+my $VARIANT_DIR = dirname($ARGV[0]);
 
 # Make to the original directory, for now, as much as I very much dislike this.
 # How do we undo this?
@@ -27,8 +27,6 @@ sub make
   my $HOST_DIR = Cwd::abs_path($_[1]);
   my $DEST_DIR = Cwd::abs_path($_[2]);
   my $CWD = cwd();
-
-  print "Compiling $PATCH_DIR to $DEST_DIR\n";
 
   # destroy the executable
   system("rm $HOST_DIR/sapi/cli/php -f");
@@ -45,8 +43,12 @@ sub make
   system("make");
   
   # copy executable files to destination directory
-  system("cp sapi/cli/php $DEST_DIR");
+  my $RES = system("cp sapi/cli/php $DEST_DIR");
   chdir $CWD;
+
+  return $RES;
 }
 
 make($VARIANT_DIR, $SRC_DIR, $VARIANT_DIR);
+
+exit 0;
