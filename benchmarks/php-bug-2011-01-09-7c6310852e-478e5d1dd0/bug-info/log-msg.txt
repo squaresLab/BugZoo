@@ -1,0 +1,8 @@
+commit 478e5d1dd027c68fd1637add6d6ba0913969112a
+Author: Stefan Marr <gron@php.net>
+Date:   Sun Jan 9 19:57:41 2011 +0000
+
+    Added trait_exists() [TRAITS] [DOC]
+    
+    - also changed class_exists() to return false for traits
+    - added related tests, and get_declared_traits() tests in ext/s/t/co
