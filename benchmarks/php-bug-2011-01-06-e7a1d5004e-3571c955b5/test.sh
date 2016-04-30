@@ -15,10 +15,10 @@ fi
 # I think $EXECUTABLE/php should just be $EXECUTABLE
 run_test()
 {
-    pushd php
-    timeout $TIMEOUT $DIR/test.pl $EXECUTABLE $1
+    #pushd php
+    timeout $TIMEOUT $DIR/test.pl $EXECUTABLE/php $1
     RESULT=$?
-    popd
+    #popd
     return $RESULT
 }
 case $TEST_ID in
