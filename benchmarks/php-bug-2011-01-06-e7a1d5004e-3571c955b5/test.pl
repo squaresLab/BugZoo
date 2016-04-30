@@ -11475,6 +11475,10 @@ my $FILE_DIR = Cwd::abs_path(dirname(__FILE__));
 my $TEST_DIR = $FILE_DIR . "/php";
 my $HELPER = $FILE_DIR . "/php/php-helper.php";
 
+print "Executing test: $TEST_NAME\n";
+print "PHP executable: $EXECUTABLE\n";
+print "\n";
+
 my $CMD = "$EXECUTABLE $HELPER -p $EXECUTABLE -q $TEST_DIR/$TEST_NAME";
 print "$CMD\n";
 

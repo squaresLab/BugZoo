@@ -12,10 +12,11 @@ else
   TIMEOUT=3
 fi
 
+# I think $EXECUTABLE/php should just be $EXECUTABLE
 run_test()
 {
     pushd php
-    timeout $TIMEOUT $DIR/test.pl $EXECUTABLE/php $1
+    timeout $TIMEOUT $DIR/test.pl $EXECUTABLE $1
     RESULT=$?
     popd
     return $RESULT
