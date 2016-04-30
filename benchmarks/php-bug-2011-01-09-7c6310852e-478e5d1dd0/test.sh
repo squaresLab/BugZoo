@@ -13,10 +13,10 @@ fi
 
 run_test()
 {
-    pushd php
+    #pushd php
     timeout $TIMEOUT $DIR/test.pl $EXECUTABLE/php $1
     RESULT=$?
-    popd
+    #popd
     return $RESULT
 }
 case $TEST_ID in

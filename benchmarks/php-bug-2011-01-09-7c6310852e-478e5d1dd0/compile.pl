@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
-#
-# Compilation script for repair scenarios; can't be used in a multi-threaded
-# context
+# Compilation script for repair scenarios; resulting executables can be safely
+# executed in a multi-threaded context, but must be compiled by a single
+# thread.
 # 
 # USAGE: 
 # perl compile.pl __EXE_NAME__ __SOURCE_NAME__
