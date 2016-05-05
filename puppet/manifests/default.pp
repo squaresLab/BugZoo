@@ -5,6 +5,8 @@ Exec {
 
 Package {
   ensure => present
+#,
+#  require => Exec["update packages"]
 }
 
 user { 'vagrant':
@@ -15,47 +17,29 @@ user { 'vagrant':
   home => '/home/vagrant'
 }
 
-exec { "apt-get update": }
-
-package { "python-software-properties":
-  require => Exec["apt-get update"]
+exec { "update packages":
+  command => "yum update",
 }
 
-package { "make":
-  require => Exec["apt-get update"]
-}
+package { "python-software-properties": }
+package { "make": }
+package { "git": }
+package { "vim": ]
+package { "m4": }
+package { "libglib2.0-dev": }
+package { "libgmp3-dev": }
 
-package { "git":
-  require => Exec["apt-get update"]
-}
-
-package { "vim":
-  require => Exec["apt-get update"]
-}
-
-package { "m4":
-  require => Exec["apt-get update"]
-}
-
-package { "libglib2.0-dev":
-  require => Exec["apt-get update"]
-}
-
-package { "libgmp3-dev":
-  require => Exec["apt-get update"]
-}
-
-exec { "ppa:ocaml+opam":
-  command =>"add-apt-repository --yes ppa:avsm/ocaml42+opam120; apt-get update",
-  require => Package["python-software-properties"]
-}
+#exec { "ppa:ocaml+opam":
+#  command =>"add-apt-repository --yes ppa:avsm/ocaml42+opam120; apt-get update",
+#  require => Package["python-software-properties"]
+#}
 
 # install ocaml-4.02.1
-exec { "ocaml":
-  require => [Exec["ppa:ocaml+opam"], Package["m4"]],
-  command => "apt-get install -y --force-yes ocaml",
-  unless => "which ocaml"
-}
+#exec { "ocaml":
+#  require => [Exec["ppa:ocaml+opam"], Package["m4"]],
+#  command => "apt-get install -y --force-yes ocaml",
+#  unless => "which ocaml"
+#}
 
 # install and initialise OPAM 1.2.2, before updating package listings
 # 
@@ -68,55 +52,55 @@ exec { "ocaml":
 #
 # As an annoying workaround, for all opam commands, we manually specify the
 # root directory of the opam config files as the vagrant users home directory.
-exec { "opam":
-  require => Exec["ocaml"],
-  command => "apt-get install -y --force-yes opam",
-  unless => "which opam"
-}
-exec { "opam init":
-  require => [Exec["opam"], User['vagrant']],
-  command => "opam init -y --root=/home/vagrant/.opam",
-  unless => "bash -c 'test -f /home/vagrant/.opam'",
-  logoutput => on_failure,
-  user => "vagrant"
-}
-exec { "opam config":
-  require => [Exec["opam init"], User['vagrant']],
-  command => "echo 'eval $(opam config env)' >> /home/vagrant/.profile && touch /home/vagrant/.opamrc && . /home/vagrant/.profile",
-  unless => "bash -c 'test -f /home/vagrant/.opamrc'",
-  logoutput => on_failure,
-  user => "vagrant"
-}
-exec { "opam update":
-  require => [Exec["opam config"], User['vagrant']],
-  command => "opam update --root=/home/vagrant/.opam",
-  user => "vagrant"
-}
-
-# install OPAM packages
-exec { "ocamlfind":
-  require => [Exec["opam update"], User['vagrant']],
-  command => "opam install -y ocamlfind --root=/home/vagrant/.opam",
-  user => "vagrant"
-}
-exec { "yojson":
-  command => "opam install -y yojson --root=/home/vagrant/.opam",
-  require => [Exec["opam update"], User['vagrant']],
-  user => "vagrant"
-}
-exec { "cil":
-  command => "opam install -y cil --root=/home/vagrant/.opam",
-  require => [Exec["ocamlfind"], Exec["opam update"], User['vagrant']],
-  user => "vagrant"
-}
-
-# Required by various benchmarks
-# Atris
-package { 'libsdl1.2debian': require => Package['make'] }
-package { 'libsdl1.2-dev': require => Package['make'] }
-package { 'libsdl-ttf2.0-0': require => Package['make'] }
-package { 'libsdl-ttf2.0-dev': require => Package['make'] }
-package { 'libsdl-ttf-gst': require => Package['make'] }
-
-# required by PHP
-package { "libxml2-dev": require => Exec["apt-get update"] }
+#exec { "opam":
+#  require => Exec["ocaml"],
+#  command => "apt-get install -y --force-yes opam",
+#  unless => "which opam"
+#}
+#exec { "opam init":
+#  require => [Exec["opam"], User['vagrant']],
+#  command => "opam init -y --root=/home/vagrant/.opam",
+#  unless => "bash -c 'test -f /home/vagrant/.opam'",
+#  logoutput => on_failure,
+#  user => "vagrant"
+#}
+#exec { "opam config":
+#  require => [Exec["opam init"], User['vagrant']],
+#  command => "echo 'eval $(opam config env)' >> /home/vagrant/.profile && touch /home/vagrant/.opamrc && . /home/vagrant/.profile",
+#  unless => "bash -c 'test -f /home/vagrant/.opamrc'",
+#  logoutput => on_failure,
+#  user => "vagrant"
+#}
+#exec { "opam update":
+#  require => [Exec["opam config"], User['vagrant']],
+#  command => "opam update --root=/home/vagrant/.opam",
+#  user => "vagrant"
+#}
+#
+## install OPAM packages
+#exec { "ocamlfind":
+#  require => [Exec["opam update"], User['vagrant']],
+#  command => "opam install -y ocamlfind --root=/home/vagrant/.opam",
+#  user => "vagrant"
+#}
+#exec { "yojson":
+#  command => "opam install -y yojson --root=/home/vagrant/.opam",
+#  require => [Exec["opam update"], User['vagrant']],
+#  user => "vagrant"
+#}
+#exec { "cil":
+#  command => "opam install -y cil --root=/home/vagrant/.opam",
+#  require => [Exec["ocamlfind"], Exec["opam update"], User['vagrant']],
+#  user => "vagrant"
+#}
+#
+## Required by various benchmarks
+## Atris
+#package { 'libsdl1.2debian': require => Package['make'] }
+#package { 'libsdl1.2-dev': require => Package['make'] }
+#package { 'libsdl-ttf2.0-0': require => Package['make'] }
+#package { 'libsdl-ttf2.0-dev': require => Package['make'] }
+#package { 'libsdl-ttf-gst': require => Package['make'] }
+#
+## required by PHP
+#package { "libxml2-dev": require => Exec["apt-get update"] }
