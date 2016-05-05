@@ -6,6 +6,7 @@ sudo dnf install -y puppet
 # script.
 sudo dnf install -y python-software-properties
 sudo dnf install -y make
+sudo dnf install -y vim
 sudo dnf install -y git
 sudo dnf install -y m4
 sudo dnf install -y ncurses-devel
@@ -18,9 +19,10 @@ sudo dnf install -y ocaml
 if ! [ -f /usr/local/bin/opam ] ; then
   sudo wget https://raw.github.com/ocaml/opam/master/shell/opam_installer.sh \
     -O - | sh -s /usr/local/bin
-  opam update
+  opam config setup -a
 fi
 
+opam update
 opam install -y depext
 opam install -y ocamlfind
 opam install -y yojson
