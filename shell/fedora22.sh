@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# NOTE: ocamlfind isn't available when executing sudo; could installing opam
+#   to /usr/bin/ fix this?
 sudo dnf update
 sudo dnf install -y puppet
 
@@ -6,6 +9,7 @@ sudo dnf install -y puppet
 # script.
 sudo dnf install -y python-software-properties
 sudo dnf install -y make
+sudo dnf upgrade -y vim-minimal
 sudo dnf install -y vim
 sudo dnf install -y git
 sudo dnf install -y m4
