@@ -1,4 +1,7 @@
 {
+  "compiler": {
+    "options": "-m32"
+  },
   "problem": {
     "name": "deroff-ultrix-4.3",
     "program": "deroff.c",
