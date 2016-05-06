@@ -7,7 +7,6 @@ sudo dnf install -y puppet
 
 # Since Puppet is refusing to work, let's just install things using a shell
 # script.
-sudo dnf install -y python-software-properties
 sudo dnf install -y make
 sudo dnf upgrade -y vim-minimal
 sudo dnf install -y vim
