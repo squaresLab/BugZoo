@@ -2,7 +2,6 @@
 #
 # NOTE: ocamlfind isn't available when executing sudo; could installing opam
 #   to /usr/bin/ fix this?
-sudo dnf update
 sudo dnf install -y puppet
 
 # Since Puppet is refusing to work, let's just install things using a shell
@@ -21,8 +20,13 @@ sudo dnf install -y libstdc++-devel.i686
 sudo dnf install -y glibc-static
 sudo dnf install -y ElectricFence.x86_64
 sudo dnf install -y ElectricFence.i686
+
 sudo dnf install -y SDL-devel.i686
 sudo dnf install -y SDL-devel.x86_64
+sudo dnf install -y SDL_ttf.i686
+sudo dnf install -y SDL_ttf.x86_64
+sudo dnf install -y SDL_ttf-devel.i686
+sudo dnf install -y SDL_ttf-devel.x86_64
 
 # Install ocaml and opam
 sudo dnf install -y ocaml
