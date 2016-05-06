@@ -21,6 +21,7 @@ sudo dnf install -y glibc-devel.i686
 sudo dnf install -y libstdc++-devel.i686
 sudo dnf install -y glibc-static
 sudo dnf install -y ElectricFence.x86_64
+sudo dnf install -y ElectricFence.i686
 
 # Install ocaml and opam
 sudo dnf install -y ocaml
