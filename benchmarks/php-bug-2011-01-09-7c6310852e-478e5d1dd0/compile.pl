@@ -40,7 +40,7 @@ sub make
 
   # let's try make
   chdir $HOST_DIR;
-  system("make");
+  system("make &> /dev/null");
   
   # copy executable files to destination directory
   my $RES = system("cp sapi/cli/php $DEST_DIR");
