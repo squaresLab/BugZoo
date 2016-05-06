@@ -28,6 +28,20 @@ sudo dnf install -y SDL_ttf.x86_64
 sudo dnf install -y SDL_ttf-devel.i686
 sudo dnf install -y SDL_ttf-devel.x86_64
 
+# PHP requirements
+sudo dnf install -y libxml2.i686
+sudo dnf install -y libxml2.x86_64
+sudo dnf install -y libxml2-devel.i686
+sudo dnf install -y libxml2-devel.x86_64
+sudo dnf install -y libxml.i686
+sudo dnf install -y libxml.x86_64
+sudo dnf install -y libxml-devel.i686
+sudo dnf install -y libxml-devel.x86_64
+
+# PHP fix: https://bugs.php.net/bug.php?id=43917
+sudo dnf install -y zlib-devel.i686
+sudo dnf install -y zlib-devel.x86_64
+
 # Install ocaml and opam
 sudo dnf install -y ocaml
 if ! [ -f /usr/local/bin/opam ] ; then
@@ -44,17 +58,3 @@ opam install -y cil
 
 #sudo dnf install -y libgmp3-dev
 #sudo dnf install -y m4 libglib2.0-dev libgmp3-dev
-
-# Atris requirements
-#opam install -y SDL*
-
-## Required by various benchmarks
-## Atris
-#package { 'libsdl1.2debian': require => Package['make'] }
-#package { 'libsdl1.2-dev': require => Package['make'] }
-#package { 'libsdl-ttf2.0-0': require => Package['make'] }
-#package { 'libsdl-ttf2.0-dev': require => Package['make'] }
-#package { 'libsdl-ttf-gst': require => Package['make'] }
-#
-## required by PHP
-#package { "libxml2-dev": require => Exec["apt-get update"] }
