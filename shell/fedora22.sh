@@ -17,6 +17,10 @@ sudo dnf install -y ncurses-devel
 sudo dnf install -y pkgconfig
 sudo dnf install -y perl-devel
 sudo dnf install -y perl-CPAN
+sudo dnf install -y glibc-devel.i686
+sudo dnf install -y libstdc++-devel.i686
+sudo dnf install -y glibc-static
+sudo dnf install -y ElectricFence.x86_64
 
 # Install ocaml and opam
 sudo dnf install -y ocaml
