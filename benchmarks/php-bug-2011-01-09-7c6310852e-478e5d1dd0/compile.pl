@@ -1,7 +1,10 @@
 #!/usr/bin/perl -w
 # Compilation script for repair scenarios; resulting executables can be safely
-# executed in a multi-threaded context, but must be compiled by a single
-# thread.
+# executed in a multi-threaded context; compilation may also be multi-threaded.
+#
+# For now, this ability to executing tests in parallel comes at the cost of
+# a rather hefty disk usage.  The compile script now copies the entirety of the
+# PHP directory into the candidate's directory and executes make.
 # 
 # USAGE: 
 # perl compile.pl __EXE_NAME__ __SOURCE_NAME__
@@ -28,20 +31,12 @@ sub make
   my $DEST_DIR = Cwd::abs_path($_[2]);
   my $CWD = cwd();
 
-  # destroy the executable
-  system("rm $HOST_DIR/sapi/cli/php -f");
-
-  # copy patch to host directory
-  system("cp $PATCH_DIR/* $HOST_DIR -r");
-
-  # let's try make
-  chdir $HOST_DIR;
-  system("make &> /dev/null");
-  
-  # copy executable files and SAPI dir to destination directory
-  my $RES = system("cp sapi/cli/php $DEST_DIR");
-  $RES = $RES && system("cp sapi $DEST_DIR -r");
-  chdir $CWD;
+  # copy PHP files into candidate directory then call make.
+  # this consumes lots of memory, but it sadly seems to be the only way to get
+  # PHP to pass all of its tests.
+  chdir $PATCH_DIR;
+  system("cp -r -n $HOST_DIR/* $DEST_DIR");
+  my $RES = system("make");
 
   return $RES;
 }
