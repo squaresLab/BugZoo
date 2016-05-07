@@ -1,0 +1,56 @@
+
+---- EXPECTED OUTPUT
+*** Testing open_basedir configuration [linkinfo] ***
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+int(%d)
+int(%d)
+int(%d)
+int(%d)
+int(%d)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+int(%d)
+
+Warning: unlink(): open_basedir restriction in effect. File(%s/test/ok/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+*** Finished testing open_basedir configuration [linkinfo] ***
+---- ACTUAL OUTPUT
+*** Testing open_basedir configuration [linkinfo] ***
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+
+Warning: symlink(): Protocol error in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 10
+bool(false)
+
+Warning: linkinfo(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 14
+int(-1)
+
+Warning: linkinfo(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 15
+int(-1)
+
+Warning: linkinfo(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 16
+int(-1)
+
+Warning: linkinfo(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 17
+int(-1)
+
+Warning: linkinfo(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 18
+int(-1)
+
+Warning: symlink(): Protocol error in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 22
+bool(false)
+
+Warning: linkinfo(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 23
+int(-1)
+
+Warning: unlink(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/ok/symlink.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_linkinfo.php on line 24
+bool(false)
+*** Finished testing open_basedir configuration [linkinfo] ***
+---- FAILED

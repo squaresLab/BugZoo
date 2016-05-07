@@ -1,0 +1,10 @@
+
+---- EXPECTED OUTPUT
+good :)
+bool(true)
+---- ACTUAL OUTPUT
+good :)
+
+Warning: unlink(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/basic/sess_14c5025fadce675e2406df4ee4eca73b): Text file busy in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/basic/bug20539.php on line 4
+bool(false)
+---- FAILED

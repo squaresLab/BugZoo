@@ -1,0 +1,11 @@
+
+---- EXPECTED OUTPUT
+resource(%d) of type (stream)
+resource(%d) of type (process)
+resource(%d) of type (stream)
+resource(%d) of type (stream)
+resource(%d) of type (stream)
+---- ACTUAL OUTPUT
+Warning: stream_socket_server(): unable to connect to unix:///vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/sapi/cli/tests/022.sock (Unknown error) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/sapi/cli/tests/022.php on line 8
+bool(false)
+---- FAILED

@@ -11469,17 +11469,21 @@ my @TESTS = (
     "ext/sybase_ct/tests/test_connection_caching.phpt"
 );
 
-my $EXECUTABLE = Cwd::abs_path($ARGV[0]);
 my $TEST_NAME = $TESTS[$ARGV[1] - 1];
+my $ORIGINAL_DIR = cwd;
+my $EXECUTABLE_DIR = dirname(Cwd::abs_path($ARGV[0]));
 
 my $FILE_DIR = Cwd::abs_path(dirname(__FILE__));
 my $TEST_DIR = $FILE_DIR . "/php";
 my $HELPER = $FILE_DIR . "/php/php-helper.php";
 
-my $CMD = "$EXECUTABLE $HELPER -p $EXECUTABLE -q $TEST_DIR/$TEST_NAME";
+my $CMD = "./php $HELPER -p ./php -q $TEST_DIR/$TEST_NAME";
 print "$CMD\n";
 
+chdir $EXECUTABLE_DIR;
 my $res = system("$CMD");
+chdir $ORIGINAL_DIR;
+
 if ($res == 0) {
   exit 0;
 } else {

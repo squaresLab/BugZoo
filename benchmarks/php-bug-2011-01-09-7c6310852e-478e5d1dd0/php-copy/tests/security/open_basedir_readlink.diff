@@ -1,0 +1,20 @@
+006- bool(true)
+007+ Warning: symlink(): Protocol error in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 10
+008- Warning: readlink(): open_basedir restriction in effect. File(symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+010+ Warning: readlink(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 14
+011- Warning: readlink(): open_basedir restriction in effect. File(../ok/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+013+ Warning: readlink(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 15
+014- Warning: readlink(): open_basedir restriction in effect. File(../ok/./symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+016+ Warning: readlink(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 16
+017- Warning: readlink(): open_basedir restriction in effect. File(./symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+019+ Warning: readlink(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 17
+020- Warning: readlink(): open_basedir restriction in effect. File(%s/test/ok/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+022+ Warning: readlink(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 18
+023- Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+025+ Warning: symlink(): Protocol error in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 22
+026- Warning: readlink(): open_basedir restriction in effect. File(%s/test/ok/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+028+ Warning: readlink(): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 23
+029+ bool(false)
+030+ 
+031+ Warning: unlink(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/ok/symlink.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_readlink.php on line 24
+029- Warning: unlink(): open_basedir restriction in effect. File(%s/test/ok/symlink.txt) is not within the allowed path(s): (.) in %s on line %d

@@ -1,0 +1,80 @@
+
+---- EXPECTED OUTPUT
+*** Testing open_basedir configuration [link] ***
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/bad/link.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/link.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/bad/link.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/link.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/bad) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(%s/test/bad) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+bool(true)
+bool(true)
+*** Finished testing open_basedir configuration [link] ***
+---- ACTUAL OUTPUT
+*** Testing open_basedir configuration [link] ***
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/link.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 7
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/link.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 8
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/link.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 9
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/link.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 10
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/bad.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 13
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 14
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/bad.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 15
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/bad.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 16
+bool(false)
+
+Warning: link(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 17
+bool(false)
+
+Warning: link(): Operation not permitted in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 21
+bool(false)
+
+Warning: unlink(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/ok/link.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 22
+bool(false)
+*** Finished testing open_basedir configuration [link] ***
+---- FAILED

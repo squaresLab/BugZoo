@@ -1,0 +1,35 @@
+*** Testing open_basedir configuration [is_executable] ***
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+
+Warning: is_executable(): open_basedir restriction in effect. File(../bad) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 78
+bool(false)
+
+Warning: is_executable(): open_basedir restriction in effect. File(../bad/bad.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 79
+bool(false)
+
+Warning: is_executable(): open_basedir restriction in effect. File(..) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 80
+bool(false)
+
+Warning: is_executable(): open_basedir restriction in effect. File(../) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 81
+bool(false)
+
+Warning: is_executable(): open_basedir restriction in effect. File(/) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 82
+bool(false)
+
+Warning: is_executable(): open_basedir restriction in effect. File(../bad/.) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 83
+bool(false)
+
+Warning: is_executable(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/bad.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 85
+bool(false)
+
+Warning: is_executable(): open_basedir restriction in effect. File(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/../bad/bad.txt) is not within the allowed path(s): (.) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir.inc on line 86
+bool(false)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+*** Finished testing open_basedir configuration [is_executable] ***

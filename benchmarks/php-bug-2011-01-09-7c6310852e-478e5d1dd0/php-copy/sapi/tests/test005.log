@@ -1,0 +1,10 @@
+
+---- EXPECTED OUTPUT
+Status: 404
+--HEADERS--
+No input file specified.
+---- ACTUAL OUTPUT
+
+--HEADERS--
+HELLO
+---- FAILED

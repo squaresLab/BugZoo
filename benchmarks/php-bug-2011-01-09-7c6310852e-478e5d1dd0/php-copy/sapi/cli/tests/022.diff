@@ -1,0 +1,7 @@
+001+ Warning: stream_socket_server(): unable to connect to unix:///vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/sapi/cli/tests/022.sock (Unknown error) in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/sapi/cli/tests/022.php on line 8
+002+ bool(false)
+001- resource(%d) of type (stream)
+002- resource(%d) of type (process)
+003- resource(%d) of type (stream)
+004- resource(%d) of type (stream)
+005- resource(%d) of type (stream)

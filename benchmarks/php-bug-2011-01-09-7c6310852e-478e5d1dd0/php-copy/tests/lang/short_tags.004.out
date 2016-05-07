@@ -1,0 +1,12 @@
+<%= 'so should this' %>
+
+
+<?= $a?>
+
+<%= $a%>
+
+<? $b=3; ?>
+
+
+Notice: Undefined variable: b in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/lang/short_tags.004.php on line 14
+<?= "{$b}"?>

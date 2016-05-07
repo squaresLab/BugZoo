@@ -1,0 +1,39 @@
+*** Testing open_basedir configuration [symlink] ***
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/symlink.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+
+Warning: symlink(): open_basedir restriction in effect. File(%s/test/bad) is not within the allowed path(s): (.) in %s on line %d
+bool(false)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+bool(true)
+*** Finished testing open_basedir configuration [symlink] ***

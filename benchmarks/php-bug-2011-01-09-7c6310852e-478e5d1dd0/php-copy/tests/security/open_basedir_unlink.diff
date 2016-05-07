@@ -1,0 +1,12 @@
+007+ bool(true)
+008- Warning: unlink(): open_basedir restriction in effect. File(../bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+009+ Warning: unlink(.././bad/bad.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_unlink.php on line 7
+011- Warning: unlink(): open_basedir restriction in effect. File(.././bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+012+ Warning: unlink(../bad/../bad/bad.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_unlink.php on line 8
+014- Warning: unlink(): open_basedir restriction in effect. File(../bad/../bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+015+ Warning: unlink(./.././bad/bad.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_unlink.php on line 9
+017- Warning: unlink(): open_basedir restriction in effect. File(./.././bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+018+ Warning: unlink(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/bad/bad.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_unlink.php on line 10
+019- 
+020- Warning: unlink(): open_basedir restriction in effect. File(%s/test/bad/bad.txt) is not within the allowed path(s): (.) in %s on line %d
+021- bool(false)
