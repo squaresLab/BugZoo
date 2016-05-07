@@ -1,3 +1,0 @@
-012+ <?= "{$b}"?>
-012- 
-013- Notice: Undefined variable: b in %s on line %d

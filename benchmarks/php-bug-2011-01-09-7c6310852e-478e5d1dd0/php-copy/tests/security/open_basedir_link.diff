@@ -1,8 +1,0 @@
-034+ 
-035+ Warning: link(): Operation not permitted in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 21
-036+ bool(false)
-037+ 
-038+ Warning: unlink(/vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/test/ok/link.txt): No such file or directory in /vagrant/benchmarks/php-bug-2011-01-09-7c6310852e-478e5d1dd0/php/tests/security/open_basedir_link.php on line 22
-039+ bool(false)
-034- bool(true)
-035- bool(true)

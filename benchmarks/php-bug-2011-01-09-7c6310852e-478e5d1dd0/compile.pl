@@ -33,17 +33,14 @@ sub make
 
   # copy patch to host directory
   system("cp $PATCH_DIR/* $HOST_DIR -r");
-  
-  # copy all files from patch to dest
-#  system("cp $HOST_DIR $DEST_DIR -r -n -p");
-#  system("cp $PATCH_DIR $DEST_DIR -r -n -p");
 
   # let's try make
   chdir $HOST_DIR;
   system("make &> /dev/null");
   
-  # copy executable files to destination directory
+  # copy executable files and SAPI dir to destination directory
   my $RES = system("cp sapi/cli/php $DEST_DIR");
+  $RES = $RES && system("cp sapi $DEST_DIR -r");
   chdir $CWD;
 
   return $RES;
