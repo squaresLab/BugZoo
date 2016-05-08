@@ -344,15 +344,7 @@ my $test = $TESTS[$ARGV[0] - 1];
 my $orig_dir = cwd;
 my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/php";
 
-my $command = "python/python.exe -m test $test";
+my $command = "$project_dir/python/python.exe -m test $test";
 print "$command\n";
 
-chdir $project_dir;
-my $res = system("$command &> /dev/null");
-chdir $orig_dir;
-
-if ($res == 0) {
-  exit 0;
-} else {
-  exit 1;
-}
+exit system("$command") == 0;
