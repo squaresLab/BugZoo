@@ -11471,17 +11471,13 @@ my @TESTS = (
 
 my $TEST_NAME = $TESTS[$ARGV[1] - 1];
 my $ORIGINAL_DIR = cwd;
-my $EXECUTABLE_DIR = dirname(Cwd::abs_path($ARGV[0]));
-my $FILE_DIR = Cwd::abs_path(dirname(__FILE__));
-$EXECUTABLE_DIR = $FILE_DIR;
+my $CANDIDATE_DIR = dirname(Cwd::abs_path($ARGV[0]));
+my $FILE_DIR = Cwd::abs_path(dirname(__FILE__)) . "/php";
 
-my $TEST_DIR = $FILE_DIR . "/php";
-my $HELPER = $FILE_DIR . "/php/php-helper.php";
-
-my $CMD = "./php $HELPER -p ./php -q $TEST_DIR/$TEST_NAME";
+my $CMD = "./php php-helper.php -p ./php -q $TEST_NAME";
 print "$CMD\n";
 
-chdir $EXECUTABLE_DIR;
+chdir $FILE_DIR;
 my $res = system("$CMD");
 chdir $ORIGINAL_DIR;
 
