@@ -1,0 +1,28 @@
+version: beta-2.0
+program: python
+bug revision: 69223
+fix revision: 69224
+repos: hg, http://hg.python.org/cpython
+failing tests:
+    "test_select"
+
+minutes between bug rev and fix rev: 649
+files edited: 1
+lines added or changed: 5
+lines deleted or changed: 0
+bug report priority: Normal
+bug management links: http://bugs.python.org/issue11757
+Security related?: 
+Bug type: Incorrect behavior; runtime error
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

@@ -1,0 +1,5 @@
+changeset:   69224:3982be773b54
+user:        Antoine Pitrou <solipsis@pitrou.net>
+date:        Sat Apr 09 23:49:58 2011 +0200
+summary:     Issue #11757: select.select() now raises ValueError when a negative timeout
+

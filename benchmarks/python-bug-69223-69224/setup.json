@@ -1,0 +1,13 @@
+{
+  "compiler": {
+    "command": "perl compile.pl __EXE_NAME__ __SOURCE_NAME__"
+  },
+  "problem": {
+    "name": "python-bug-69223-69224",
+    "multi_file": true,
+    "program": "preprocessed/manifest.txt",
+    "executable_name": "python",
+    "positive_tests": 284,
+    "negative_tests": 1
+  }
+}
