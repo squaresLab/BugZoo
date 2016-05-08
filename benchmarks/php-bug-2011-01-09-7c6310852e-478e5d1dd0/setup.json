@@ -4,7 +4,7 @@
   },
   "problem": {
     "name": "php-bug-2011-01-06-e7a1d5004e-3571c955b5",
-    "multi_file": true,
+    "__multi_file": true,
     "program": "preprocessed/manifest.txt",
     "executable_name": "php",
     "positive_tests": 7570,
