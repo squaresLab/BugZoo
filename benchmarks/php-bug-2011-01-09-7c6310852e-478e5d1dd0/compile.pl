@@ -31,16 +31,17 @@ sub make
   my $DEST_DIR = Cwd::abs_path($_[2]);
   my $CWD = cwd();
 
-  # copy PHP files into candidate directory then call make.
   # this consumes lots of memory, but it sadly seems to be the only way to get
   # PHP to pass all of its tests.
-  chdir $PATCH_DIR;
-  system("cp -r -n $HOST_DIR/* $DEST_DIR");
+  chdir $HOST_DIR;
+  system("rm $DEST_DIR/sapi/cli/php -f");
+  system("cp -r $PATCH_DIR/* $DEST_DIR");
   my $RES = system("make");
+  chdir $CWD;
 
   return $RES;
 }
 
-make($VARIANT_DIR, $SRC_DIR, $VARIANT_DIR);
+make($VARIANT_DIR, $SRC_DIR, $SRC_DIR);
 
 exit 0;

@@ -11472,8 +11472,9 @@ my @TESTS = (
 my $TEST_NAME = $TESTS[$ARGV[1] - 1];
 my $ORIGINAL_DIR = cwd;
 my $EXECUTABLE_DIR = dirname(Cwd::abs_path($ARGV[0]));
-
 my $FILE_DIR = Cwd::abs_path(dirname(__FILE__));
+$EXECUTABLE_DIR = $FILE_DIR;
+
 my $TEST_DIR = $FILE_DIR . "/php";
 my $HELPER = $FILE_DIR . "/php/php-helper.php";
 
