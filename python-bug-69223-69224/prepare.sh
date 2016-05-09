@@ -7,6 +7,6 @@ if [ ! -d python ]; then
   popd
 fi
 
-if [ ! -d tests ]; then
+if [ ! -d test ]; then
   tar -xf tests.tar.gz
 fi
