@@ -1,23 +1,23 @@
 #!/bin/bash
-bugrev=69223
-time_limit=300
+
+# Retrieve and store the provided command-line arguments.
+EXECUTABLE=$( dirname $1 )
+TEST_ID=$2
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
-if [ `basename $2` = "coverage" ] ; then
-    cov=0
+if [ `basename $1` = "coverage" ] ; then
+  TIMEOUT=10
 else
-    cov=1
+  TIMEOUT=3
 fi
 
 run_test()
 {
-    cd python
-    /root/mountpoint-genprog/genprog-many-bugs/python-bug-69223-69224/limit /usr/bin/perl ..//python-run-tests.pl $1
-    RESULT=$?
-    killall python
-    cd ..
-    return $RESULT
+    timeout $TIMEOUT $DIR/test.pl $1
+    return $?
 }
+
 case $1 in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
