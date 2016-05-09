@@ -1,1 +1,0 @@
-include(CONFIG_TOP_SRCDIR`/mpn/asm-defs.m4')

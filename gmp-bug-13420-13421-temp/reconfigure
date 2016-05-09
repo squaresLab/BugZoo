@@ -1,3 +1,0 @@
-#!/bin/bash
-# Must be run from the $project directory
-./configure
