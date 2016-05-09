@@ -344,12 +344,14 @@ if (length($ARGV[0]) == 0)
 
 my $test = $TESTS[$ARGV[0] - 1];
 my $orig_dir = cwd;
-my $project_dir = Cwd::abs_path(dirname(__FILE__));
+my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/python";
 
-my $command = "$project_dir/python/python -m test $test";
+#chdir $project_dir;
+my $command = "$project_dir/python -m test $test";
 print "$command\n";
-
 my $res = system("$command");
+#chdir $orig_dir;
+
 if ($res == 0) {
   exit 0;
 } else {

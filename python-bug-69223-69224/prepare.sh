@@ -9,4 +9,5 @@ fi
 
 if [ ! -d test ]; then
   tar -xf tests.tar.gz
+  mv test python
 fi

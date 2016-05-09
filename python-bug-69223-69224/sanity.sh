@@ -1,6 +1,5 @@
 #!/bin/bash
-rm sanity.results sanity.verbose -f
-touch sanity.verbose
+rm sanity.results -f
 touch sanity.results
 
 # Positive tests
