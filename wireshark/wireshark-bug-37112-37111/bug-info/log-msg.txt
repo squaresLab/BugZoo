@@ -1,0 +1,8 @@
+------------------------------------------------------------------------
+r37112 | etxrab | 2011-05-13 01:19:23 -0400 (Fri, 13 May 2011) | 5 lines
+
+We should get rid of g_mem_chunk_alloc() as it leaks memory
+http://www.wireshark.org/lists/wireshark-dev/200910/msg00074.html
+g_slice allocing the keys should make it possible to walk the
+fragment table and free the fragments once they are g_slice_alloced.
+It remains fo figure out how to do that.
