@@ -1,0 +1,13 @@
+{
+  "compiler": {
+    "command": "perl compile.pl __EXE_NAME__ __SOURCE_NAME__"
+  },
+  "problem": {
+    "name": "gzip-bug-2009-08-16-3fe0caeada-39a362ae9d",
+    "multi_file": true,
+    "program": "preprocessed/manifest.txt",
+    "executable_name": "gzip",
+    "positive_tests": 2,
+    "negative_tests": 1
+  }
+}
