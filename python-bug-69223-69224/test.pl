@@ -350,4 +350,8 @@ my $command = "$project_dir/python/python -m test $test";
 print "$command\n";
 
 my $res = system("$command");
-exit $res;
+if ($res == 0) {
+  exit 0;
+} else {
+  exit 1;
+}
