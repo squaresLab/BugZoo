@@ -1,0 +1,28 @@
+version: beta-2.0
+program: wireshark
+bug revision: 35419
+fix revision: 35414
+repos: svn, https://anonsvn.wireshark.org/wireshark/trunk
+failing tests:
+
+minutes between bug rev and fix rev: 494
+files edited: 3
+lines added or changed: 89
+lines deleted or changed: 1173
+bug report priority: 
+bug management links: 
+Security related?: 
+Bug type: Incorrect behavior or incorrect output
+Additional bug info: 
+  <many>
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: Yes
+    changes arguments to a function?: Yes
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: Yes
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: Yes
+    adds a whole new function?: Yes
