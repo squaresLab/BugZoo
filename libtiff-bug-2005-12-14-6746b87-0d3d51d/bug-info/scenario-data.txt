@@ -1,0 +1,29 @@
+version: beta-2.0
+program: libtiff
+bug revision: 6746b87
+fix revision: 0d3d51d
+repos: git, https://github.com/vadz/libtiff.git
+failing tests:
+    "tiffcp-split.sh.log",
+    "tiffcp-split-join.sh.log",
+
+minutes between bug rev and fix rev: 
+files edited: 1
+lines added or changed: 33
+lines deleted or changed: 45
+bug report priority: 
+bug management links: 
+Security related?: 
+Bug type: Incorrect behavior in exceptional situation
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: Yes
+    adds new variables?: Yes
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: Yes
+    adds a whole new function?: No
