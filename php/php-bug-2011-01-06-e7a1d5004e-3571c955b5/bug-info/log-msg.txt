@@ -1,0 +1,6 @@
+commit 3571c955b5cf646f2117afce28769d6ca1dcc619
+Author: Adam Harvey <aharvey@php.net>
+Date:   Thu Jan 6 02:32:02 2011 +0000
+
+    Implement request #53659 (Implementing RegexIterator::getRegex() method). Patch
+    by Joshua Thijssen.
