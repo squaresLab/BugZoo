@@ -17,6 +17,7 @@ rm -f bug-failures fault.lines fix.lines fix-failures repair.debug.0
 rm -f configuration-oracle reconfigure
 mv -f bugged-program.txt preprocessed/manifest.txt
 mv -f fixed-program.txt fixed/manifest.txt
+mv -f gzip-run-tests.pl test.pl
 
 find . -name .svn -exec rm -rf {} \;
 find . -name .git -exec rm -rf {} \;
