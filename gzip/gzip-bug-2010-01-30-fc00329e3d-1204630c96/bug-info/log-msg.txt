@@ -1,0 +1,9 @@
+commit 1204630c96e0c368b4325f95cbaef95c3f9c482a
+Author: Mark Adler <madler@alumni.caltech.edu>
+Date:   Wed Feb 3 10:11:33 2010 +0100
+
+    gzip -cdf now handles concatenation of gzip'd and uncompressed data
+    
+    * util.c (copy): Change semantics so as to honor a decremented inptr.
+    * gzip.c (get_method): When needed (-cdf), decrement inptr rather
+    than clearing it -- and output the first magic byte.
