@@ -1,27 +1,25 @@
 #!/bin/bash
-bugrev=1a085b1446
+EXECUTABLE=$( dirname $1 )
+TEST_ID=$2
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
-if [ `basename $2` = "coverage" ] ; then
-    cov=0
+if [ `basename $1` = "coverage" ] ; then
+  TIMEOUT=120
 else
-    cov=1
+  TIMEOUT=60
 fi
 
 run_test()
 {
-    cd gzip
-    if [ $cov -eq 0 ] ; then
-        /usr/bin/perl /root/mountpoint-genprog/genprog-many-bugs/gzip-bug-2009-10-09-1a085b1446-118a107f2d/gzip-run-tests.pl $1
-    else
-        /root/mountpoint-genprog/genprog-many-bugs/gzip-bug-2009-10-09-1a085b1446-118a107f2d/limit /usr/bin/perl /root/mountpoint-genprog/genprog-many-bugs/gzip-bug-2009-10-09-1a085b1446-118a107f2d/gzip-run-tests.pl $1
-    fi
+    pushd gzip
+    timeout $TIMEOUT $DIR/test.pl $1
     RESULT=$?
-    
-    cd ..
+    popd
     return $RESULT
 }
-case $1 in
+
+case $TEST_ID in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 3 && exit 0 ;; 
     p3) run_test 4 && exit 0 ;; 
