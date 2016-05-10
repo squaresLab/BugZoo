@@ -1,0 +1,28 @@
+version: beta-2.0
+program: lighttpd
+bug revision: 1913
+fix revision: 1914
+repos: svn, svn://svn.lighttpd.net/lighttpd/trunk
+failing tests:
+              "mod-cgi.t",          #9
+
+minutes between bug rev and fix rev: 12
+files edited: 1
+lines added or changed: 7
+lines deleted or changed: 5
+bug report priority: 
+bug management links: http://redmine.lighttpd.net/projects/lighttpd/repository/revisions/1914
+Security related?: 
+Bug type: Buffer underflow
+Additional bug info: Only add content-length (a user specified argument) to environment if it is greater than 0.
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

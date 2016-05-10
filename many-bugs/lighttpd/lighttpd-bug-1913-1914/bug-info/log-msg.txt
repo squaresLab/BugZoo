@@ -1,0 +1,10 @@
+------------------------------------------------------------------------
+r1914 | jan | 2007-08-15 07:38:49 -0400 (Wed, 15 Aug 2007) | 6 lines
+
+added protection that CONTENT_LENGTH is only added to the env 
+if it is > 0
+
+- added the CGI test cases to the test-suite again
+- added testcase to verify the patch works
+
+------------------------------------------------------------------------
