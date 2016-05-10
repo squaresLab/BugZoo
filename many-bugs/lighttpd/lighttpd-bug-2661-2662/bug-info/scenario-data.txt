@@ -1,0 +1,31 @@
+version: beta-2.0
+program: lighttpd
+bug revision: 2661
+fix revision: 2662
+repos: svn, svn://svn.lighttpd.net/lighttpd/trunk
+failing tests:
+              "core.t",             #10
+              "core-request.t",     #11
+
+minutes between bug rev and fix rev: 130
+files edited: 1
+lines added or changed: 1
+lines deleted or changed: 0
+bug report priority: Normal
+bug management links: http://redmine.lighttpd.net/issues/1551
+Security related?: Possibly, see link
+Bug type: Segfault
+Additional bug info: Problem with escaping user input; possible to corrupt or
+"inject stuff" into the access log, though the test failure manifests as a
+segmentation fault
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No
