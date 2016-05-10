@@ -1,5 +1,6 @@
 #!/bin/bash
-LOCAL_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) . "/local-root"
+LOCAL_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+LOCAL_ROOT="$LOCAL_ROOT/local-root"
 
 pushd fbc
 
