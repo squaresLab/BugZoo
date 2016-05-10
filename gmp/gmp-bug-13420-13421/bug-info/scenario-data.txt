@@ -1,0 +1,30 @@
+version: beta-2.0
+program: gmp
+bug revision: 13420
+fix revision: 13421
+repos: hg, http://hg.gmplib.org:8000/gmp
+failing tests: 
+    "tests/mpz/t-powm",
+    "tests/mpz/reuse",
+    "tests/mpz/t-jac",
+
+minutes between bug rev and fix rev: 10
+files edited: 1
+lines added or changed: 7
+lines deleted or changed: 10
+Bug report priority:  
+Bug management links:  
+Security related?:  
+Bug type: segmentation fault
+Additional bug detail: out of memory in computation of R = U^E mod M
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: Yes
+    added 1 or more function calls?: No
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: No
+    adds 1 or more loops?: No
+    adds a whole new function?: No
