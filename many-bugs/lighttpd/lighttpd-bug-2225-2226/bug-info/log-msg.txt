@@ -1,0 +1,8 @@
+------------------------------------------------------------------------
+r2226 | stbuehler | 2008-07-28 09:56:07 -0400 (Mon, 28 Jul 2008) | 4 lines
+
+Fix http response parser so it doesn't require any header except the status line.
+
+Fixes "nph" tests in mod-cgi.t, added a new test (content w/o header)
+
+------------------------------------------------------------------------

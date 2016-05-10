@@ -1,0 +1,29 @@
+version: beta-2.0
+program: lighttpd
+bug revision: 2225
+fix revision: 2226
+repos: svn, svn://svn.lighttpd.net/lighttpd/trunk
+failing tests:
+              "mod-cgi.t",
+
+minutes between bug rev and fix rev: 0
+files edited: 2
+lines added or changed: 51
+lines deleted or changed: 46
+bug report priority: 
+bug management links: http://redmine.lighttpd.net/projects/lighttpd/repository/revisions/2226
+Security related?: 
+Bug type: Incorrect behavior
+Additional bug info: related to nph functionality; log suggests HTTP Response
+parser should not require more than one line, but it did; this fixed it
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No
