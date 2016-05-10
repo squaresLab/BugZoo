@@ -1,17 +1,26 @@
 #!/bin/bash
-run_abbrev=False
-bugrev=13420
-time_limit=25
+
+# Retrieve and store the provided command-line arguments.
+EXECUTABLE=$( dirname $1 )
+TEST_ID=$2
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+if [ `basename $1` = "coverage" ] ; then
+  TIMEOUT=45
+else
+  TIMEOUT=15
+fi
+
 run_test()
 {
-    cd gmp
-    /root/genprog-many-bugs/gmp-bug-13420-13421/limit /usr/bin/perl /root/genprog-many-bugs/gmp-bug-13420-13421/gmp-run-tests.pl $1 $run_abbrev
+    pushd gmp
+    timeout $TIMEOUT $DIR/test.pl $1
     RESULT=$?
-    killall -r lt-.*
-    cd ..
+    popd
     return $RESULT
 }
-case $1 in
+
+case $TEST_ID in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
     p3) run_test 3 && exit 0 ;; 
