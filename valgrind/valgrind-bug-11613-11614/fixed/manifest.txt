@@ -1,0 +1,2 @@
+fixed/drd/drd_clientreq.c
+fixed/drd/drd_pthread_intercepts.c

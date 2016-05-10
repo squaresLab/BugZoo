@@ -1,0 +1,5 @@
+------------------------------------------------------------------------
+r11614 | bart | 2011-03-09 12:53:28 -0500 (Wed, 09 Mar 2011) | 1 line
+
+DRD: Report an error if an invalid argument is passed to pthread_detach(). Do not assume that pthread_detach() returns an error code if its argument is invalid. Should fix #267968.
+------------------------------------------------------------------------
