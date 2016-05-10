@@ -19,6 +19,13 @@ mv -f bugged-program.txt preprocessed/manifest.txt
 mv -f fixed-program.txt fixed/manifest.txt
 mv -f gzip-run-tests.pl test.pl
 
+# Rebuild the test harness
+cp $DIR/test.head.sh .
+tail -n +25 test.sh > test.tail.sh
+cat test.head.sh test.tail.sh > test.sh
+rm test.tail.sh test.head.sh
+
+# Chuck out all the version control artefacts
 find . -name .svn -exec rm -rf {} \;
 find . -name .git -exec rm -rf {} \;
 find . -name .hg -exec rm -rf {} \;
