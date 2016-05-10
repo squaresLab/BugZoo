@@ -1,6 +1,7 @@
 #!/bin/bash
 if [ "$#" -ne 2 ]; then
   echo "Failed to run sanity check: expected number of positive and negative test cases as arguments."
+  exit 1
 fi
 
 NUM_POSITIVE=$1
