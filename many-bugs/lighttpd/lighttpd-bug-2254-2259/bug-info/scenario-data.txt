@@ -1,0 +1,28 @@
+version: beta-2.0
+program: lighttpd
+bug revision: 2254
+fix revision: 2259
+repos: svn, svn://svn.lighttpd.net/lighttpd/trunk
+failing tests:
+              "mod-secdownload.t",  
+
+minutes between bug rev and fix rev: 1147
+files edited: 1
+lines added or changed: 4
+lines deleted or changed: 3
+bug report priority: Normal
+bug management links: http://redmine.lighttpd.net/issues/1688  http://redmine.lighttpd.net/issues/1440
+Security related?: 
+Bug type: Incorrect behavior or incorrect output
+Additional bug info: Improper error response codes from mod_secdownload
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: Yes
+    adds new variables?: No
+    adds 1 or more if-statements?: No
+    adds 1 or more loops?: No
+    adds a whole new function?: No

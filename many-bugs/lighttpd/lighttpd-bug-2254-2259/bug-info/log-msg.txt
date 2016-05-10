@@ -1,0 +1,7 @@
+------------------------------------------------------------------------
+r2259 | stbuehler | 2008-07-31 12:44:57 -0400 (Thu, 31 Jul 2008) | 3 lines
+
+Fix mod_secdownload problem with unsigned time_t (#1688)
+Fix sending "408 - Timeout" instead of "410 - Gone" for timedout urls in mod_secdownload (#1440)
+
+------------------------------------------------------------------------
