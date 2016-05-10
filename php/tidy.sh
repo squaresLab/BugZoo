@@ -4,6 +4,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 BENCHMARK_DIR="$DIR/$BENCHMARK"
 
 cp $DIR/prepare.sh $BENCHMARK_DIR
+cp $DIR/libxml.patch $BENCHMARK_DIR
 cp $DIR/.gitignore $BENCHMARK_DIR
 
 pushd $BENCHMARK_DIR
