@@ -6,6 +6,7 @@ if [ ! -d php ]; then
   mkdir -p local-root/bin
   tar -xf php.tar.gz
   cp libxml.patch php
+  gcc php-run-tests.c -o php-run-tests
   pushd php
   cat libxml.patch | patch -p0
   rm libxml.patch

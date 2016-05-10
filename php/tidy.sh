@@ -14,7 +14,7 @@ rm -f *~
 rm -rf coverage diffs local-root sanity
 rm -f coverage.path* .Indicator_Makefiles limit* *.cache test_paths.txt
 rm -f bug-failures fault.lines fix.lines fix-failures repair.debug.0
-rm -f configuration-oracle reconfigure
+rm -f configuration-oracle reconfigure php-run-tests
 mv -f bugged-program.txt preprocessed/manifest.txt
 mv -f fixed-program.txt fixed/manifest.txt
 

@@ -13,7 +13,7 @@ fi
 
 run_test()
 {
-    pushd php
+    pushd local-root/bin
     timeout $TIMEOUT $DIR/php-run-tests $1
     RESULT=$?
     popd
