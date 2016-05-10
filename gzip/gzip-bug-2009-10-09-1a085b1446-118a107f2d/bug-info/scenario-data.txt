@@ -1,0 +1,28 @@
+version: beta-2.0
+program: gzip
+bug revision: 1a085b1446a23b
+fix revision: 118a107f2d3ae5
+repos: git, http://git.savannah.gnu.org/cgit/gzip.git
+failing tests:
+    "trailing-nul.log",
+
+minutes between bug rev and fix rev: 922
+files edited: 1
+lines added or changed: 7
+lines deleted or changed: 2
+bug report priority: 
+bug management links: 
+Security related?: 
+Bug type: Fatal error of unspecified type
+Additional bug info:  addresses a failure when input file has "exactly one trailing NUL byte"
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

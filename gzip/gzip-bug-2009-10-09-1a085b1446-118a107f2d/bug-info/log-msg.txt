@@ -1,0 +1,8 @@
+commit 118a107f2d3ae5267b42e1aaac58a8b5ce9d1925
+Author: Daniel Barkalow <barkalow@iabervon.org>
+Date:   Sat Oct 10 11:35:13 2009 +0200
+
+    gzip: don't fail when there is exactly one trailing NUL byte
+    
+    * gzip.c (get_method): Require the second byte of magic only if
+    the first byte was nonzero.
