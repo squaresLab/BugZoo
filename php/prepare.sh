@@ -3,7 +3,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 INSTALL_TO="$DIR/local-root"
 
 if [ ! -d php ]; then
-  mkdir -p local-root
+  mkdir -p local-root/bin
   tar -xf php.tar.gz
   cp libxml.patch php
   pushd php
