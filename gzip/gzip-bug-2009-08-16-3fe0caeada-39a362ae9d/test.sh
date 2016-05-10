@@ -13,7 +13,7 @@ fi
 run_test()
 {
     pushd gzip
-    timeout $TIMEOUT $DIR/php-run-tests $1
+    timeout $TIMEOUT $DIR/test.pl $1
     RESULT=$?
     popd
     return $RESULT
