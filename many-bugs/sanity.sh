@@ -17,19 +17,23 @@ benchmark_dir=$1
 benchmark=$(basename $1)
 
 echo "Sanity checking: $benchmark"
-pushd $benchmark
 
-if [ ! -f problem.json ]; then
+if [ ! -f "$benchmark_dir/problem.json" ]; then
   echo "ERROR: couldn't find problem.json within benchmark directory"
-  popd
   exit 1
 fi
+
+pushd $benchmark_dir
 
 pos_tests=$(jq ".problem.positive_tests" problem.json)
 neg_tests=$(jq ".problem.negative_tests" problem.json)
 
 rm sanity.results -f
 touch sanity.results
+
+# Prepare and compile benchmark
+./prepare.sh
+./compile.sh sanity
 
 # Positive tests
 for i in $(seq 1 $pos_tests); do
@@ -48,3 +52,5 @@ for i in $(seq 1 $neg_tests); do
     echo "n$i - FAIL (GOOD)";
   fi
 done |& tee -a sanity.results
+
+popd
