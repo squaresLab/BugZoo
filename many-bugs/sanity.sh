@@ -32,8 +32,14 @@ rm sanity.results -f
 touch sanity.results
 
 # Prepare and compile benchmark
-./prepare.sh
-./compile.sh sanity
+if ! $(./prepare.sh); then
+  echo "ERROR: failed to prepare benchmark for compilation"
+  exit 1
+fi
+if ! $(./compile.sh preprocessed); then
+  echo "ERROR: failed to compile benchmark"
+  exit 1
+fi
 
 # Positive tests
 for i in $(seq 1 $pos_tests); do
