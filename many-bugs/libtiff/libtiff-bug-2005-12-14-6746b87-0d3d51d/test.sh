@@ -1,27 +1,25 @@
 #!/bin/bash
-bugrev=6746b87
+EXECUTABLE=$( dirname $1 )
+TEST_ID=$2
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
-if [ `basename $2` = "coverage" ] ; then
-    cov=0
+if [ `basename $1` = "coverage" ] ; then
+  TIMEOUT=120
 else
-    cov=1
+  TIMEOUT=60
 fi
 
 run_test()
 {
-    cd libtiff
-    if [ $cov -eq 0 ] ; then
-        /usr/bin/perl /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff-run-tests.pl $1
-    else
-        /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/limit /usr/bin/perl /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2005-12-14-6746b87-0d3d51d/libtiff-run-tests.pl $1
-    fi
+    pushd libtiff
+    timeout $TIMEOUT $DIR/test.pl $1
     RESULT=$?
-    
-    cd ..
+    popd
     return $RESULT
 }
-case $1 in
+
+case $TEST_ID in
     p1) run_test 2 && exit 0 ;; 
     p2) run_test 3 && exit 0 ;; 
     p3) run_test 4 && exit 0 ;; 
