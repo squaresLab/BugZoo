@@ -12,7 +12,7 @@ fi
 
 run_test()
 {
-    pushd libtiff
+    pushd src
     timeout $TIMEOUT $DIR/test.pl $1
     RESULT=$?
     popd
