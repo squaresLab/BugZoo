@@ -1,7 +1,7 @@
 #!/bin/bash
-if [ ! -d libtiff ]; then
-  tar -xf libtiff.tar.gz
-  pushd libtiff
+if [ ! -d src ]; then
+  tar -xf src.tar.gz
+  pushd src
   make clean
   aclocal
   autoconf
