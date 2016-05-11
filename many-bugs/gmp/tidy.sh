@@ -19,8 +19,9 @@ rm -f configuration-oracle reconfigure
 mv -f bugged-program.txt preprocessed/manifest.txt
 mv -f fixed-program.txt fixed/manifest.txt
 
-# lighttpd
+# gmp
 mv -f gmp-run-tests.pl test.pl
+chmod +x test.pl
 
 # Rebuild the test harness
 cp $DIR/test.head.sh .
