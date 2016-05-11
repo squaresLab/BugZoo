@@ -3,10 +3,10 @@
     "command": "perl compile.pl __EXE_NAME__ > /dev/null"
   },
   "problem": {
-    "name": __PROBLEM_NAME__,
+    "name": "__PROBLEM_NAME__",
     "multi_file": true,
     "program": "preprocessed/manifest.txt",
-    "executable_name": __PROGRAM_NAME__,
+    "executable_name": "__PROGRAM_NAME__",
     "positive_tests": __POS_TESTS__,
     "negative_tests": __NEG_TESTS__
   }
