@@ -1,0 +1,59 @@
+#!/bin/bash
+#
+# This script tidies up a downloaded ManyBugs scenario, clearing any
+# redundant files, archiving program source and test cases, and preparing it
+# for use with the newest version of GenProg.
+#
+# Usage:
+#
+#   Provided with the path to a ManyBugs benchmark directory, the script
+#   performs tidying within that directory.
+#
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+benchmark_dir=$1
+benchmark_name=$(basename $benchmark_dir)
+_parts=(${benchmark_name//-/ })
+program=${_parts[0]}
+
+# Copy the appropriate prepare script into the benchmark directory
+cp $dir/prepare.sh $benchmark_dir
+
+pushd $benchmark_dir
+
+# Chuck out all the version control artefacts
+find . -name .svn -exec rm -rf {} \;
+find . -name .git -exec rm -rf {} \;
+find . -name .hg -exec rm -rf {} \;
+
+# Remove redundant files
+rm -f *~
+rm -rf coverage diffs local-root sanity
+rm -f coverage.path* .Indicator_Makefiles limit* *.cache test_paths.txt
+rm -f bug-failures fault.lines fix.lines fix-failures repair.debug.0
+rm -f configuration-oracle reconfigure
+
+# Move the program manifests to their correct locations
+mv -f bugged-program.txt preprocessed/manifest.txt
+mv -f fixed-program.txt fixed/manifest.txt
+
+# Tidy the test harness
+test -f "$(program)-run-tests.sh" && mv -f "$(program)-run-tests.sh test-helper.sh"
+chmod +X test_helper.sh
+chmod +X test.sh
+
+# Archive and compress the source code
+mv $program src
+pushd src
+make clean
+popd
+tar -czf src.tar.gz src
+rm -rf src
+
+# Archive and compress any test cases
+test -d "test" && mv "test" tests
+if [ -d tests ]; then
+  tar -czf tests.tar.gz tests
+  rm -rf tests
+fi
+
+popd
