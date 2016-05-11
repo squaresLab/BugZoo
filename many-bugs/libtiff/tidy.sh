@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# A nearly generic tidy script for the ManyBugs benchmarks!
+#
 BENCHMARK=$1
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 BENCHMARK_DIR="$DIR/$BENCHMARK"
@@ -15,13 +18,14 @@ rm -f coverage.path* .Indicator_Makefiles limit* *.cache test_paths.txt
 rm -f bug-failures fault.lines fix.lines fix-failures repair.debug.0
 rm -f configuration-oracle reconfigure
 
-# Move manifests
+# Move and rename files
 mv -f bugged-program.txt preprocessed/manifest.txt
 mv -f fixed-program.txt fixed/manifest.txt
-
-# libtiff
-mv -f libtiff-run-tests.pl test.pl
+mv -f *-run-tests.pl test.pl
 chmod +x test.pl
+
+# Move the source folder
+test -d "libtiff" && mv libtiff src
 
 # Rebuild the test harness
 cp $DIR/test.head.sh .
@@ -35,19 +39,20 @@ find . -name .git -exec rm -rf {} \;
 find . -name .hg -exec rm -rf {} \;
 
 # Create source archive
-pushd libtiff
+pushd src
 make clean
 popd
-tar -cvzf libtiff.tar.gz gmp
-rm -rf libtiff
+tar -czf src.tar.gz src
+rm -rf src
 
 # Create tests archive
-if [ -d "test" ]; then
-  pushd "test"
+test -d "test" && mv "test" "tests"
+if [ -d "tests" ]; then
+  pushd "tests"
   make clean
   popd
-  tar -cvzf test.tar.gz "test"
-  rm -rf "test"
+  tar -czf tests.tar.gz "tests"
+  rm -rf "tests"
 fi
 
 popd
