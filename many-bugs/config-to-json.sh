@@ -7,8 +7,8 @@
 # * produces its JSON equivalent in the same directory as the original file,
 #   before deleting it
 #
-$cfg=$1
-$cfg_dir=$(dirname $1)
-$benchmark=$(basename $cfg_dir)
+cfg=$1
+cfg_dir=$(dirname $1)
+benchmark=$(basename $cfg_dir)
 
 echo "Converting configuration-default in $cfg_dir...";
