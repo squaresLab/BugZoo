@@ -1,36 +1,50 @@
 #!/bin/bash
 #
-# Generic sanity checking script for all ManyBugs benchmarks
-# Must be executed within the root directory of the particular benchmark you
-# wish to sanity check.
+# Sanity checking script for all ManyBugs benchmarks.
 #
-# Writes results to sanity.results
+# Usage:
 #
-if [ "$#" -ne 2 ]; then
-  echo "Failed to run sanity check: expected number of positive and negative test cases as arguments."
+# Performs sanity checking on a ManyBugs benchmark at a specified location,
+# writing the results to both the terminal and "sanity.results" within the
+# benchmark's directory.
+#
+if [ "$#" -ne 1 ]; then
+  echo "ERROR: no benchmark path provided"
   exit 1
 fi
 
-NUM_POSITIVE=$1
-NUM_NEGATIVE=$2
+benchmark_dir=$1
+benchmark=$(basename $1)
+
+echo "Sanity checking: $benchmark"
+pushd $benchmark
+
+if [ ! -f problem.json ]; then
+  echo "ERROR: couldn't find problem.json within benchmark directory"
+  popd
+  exit 1
+fi
+
+pos_tests=$(jq ".problem.positive_tests" problem.json)
+neg_tests=$(jq ".problem.negative_tests" problem.json)
 
 rm sanity.results -f
 touch sanity.results
 
 # Positive tests
-for i in $(seq 1 $NUM_POSITIVE); do
+for i in $(seq 1 $pos_tests); do
   if ./test.sh sanity p$i &> /dev/null; then
     echo "p$i - PASS (GOOD)";
   else
     echo "p$i - FAIL (BAD)";
   fi
-done 2>&1 | tee -a sanity.results
+done |& tee -a sanity.results
 
 # Negative tests
-for i in $(seq 1 $NUM_NEGATIVE); do
+for i in $(seq 1 $neg_tests); do
   if ./test.sh sanity n$i &> /dev/null; then
     echo "n$i - PASS (BAD)";
   else
     echo "n$i - FAIL (GOOD)";
   fi
-done 2>&1 | tee -a sanity.results
+done |& tee -a sanity.results
