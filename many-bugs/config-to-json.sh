@@ -3,12 +3,14 @@
 # Converts a given configuration-default file into a JSON configuration for
 # newer versions of GenProg
 #
-# * accepts the path to a configuration file as its input
-# * produces its JSON equivalent in the same directory as the original file,
-#   before deleting it
+# Usage:
+# 
+#   Accepts the path to a benchmark, possibly containing an old GenProg
+#   configuration file, and destructively converts that file to its  JSON
+#   equivalent.
 #
-cfg=$1
-cfg_dir=$(dirname $1)
+cfg_dir=$1
+cfg="$cfg_dir/configuration-default"
 json="$cfg_dir/problem.json"
 benchmark=$(basename $cfg_dir)
 
