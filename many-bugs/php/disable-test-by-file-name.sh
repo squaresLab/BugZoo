@@ -23,9 +23,9 @@ function does_test_exist {
 }
 
 function find_test_num {
-  offset=$(grep "case \$test_id in" test.sh -n | cut -d ":" -f1 -)
+  offset=$(grep "my @tests = (" test.pl -n | cut -d ":" -f1 -)
   raw=$(grep $1 test.pl -n | cut -d ":" -f1 -)
-  num=$(($raw - $offset - 1))
+  num=$(($raw - $offset))
   echo $num
 }
 
