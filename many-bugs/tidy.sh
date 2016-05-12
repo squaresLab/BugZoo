@@ -17,7 +17,11 @@ _parts=(${benchmark_name//-/ })
 program=${_parts[0]}
 
 # Copy the program's prepare script into the benchmark directory
-cp $progrma_dir/prepare.sh $benchmark_dir
+cp $program_dir/prepare.sh $benchmark_dir
+
+# Copy across the generic compile script
+cp $dir/compile.sh $benchmark_dir
+chmod +x $dir/compile.sh
 
 pushd $benchmark_dir
 
@@ -45,6 +49,7 @@ fi
 
 # Rebuild the test harness
 offset=$(grep "case \$1 in" test.sh -n | cut -d ":" -f1 -)
+offset=$(($offset + 1))
 mv test.sh test.tmp.sh
 tail -n +$offset test.tmp.sh | cat $dir/test.head.sh - > test.sh
 chmod +x test.sh
