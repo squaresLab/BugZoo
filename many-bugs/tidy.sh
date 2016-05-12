@@ -36,10 +36,18 @@ rm -f configuration-oracle reconfigure
 mv -f bugged-program.txt preprocessed/manifest.txt
 mv -f fixed-program.txt fixed/manifest.txt
 
-# Tidy the test harness
-test -f "$(program)-run-tests.sh" && mv -f "$(program)-run-tests.sh test-helper.sh"
-chmod +X test_helper.sh
-chmod +X test.sh
+# Tidy the test helper, if there is one
+if [ -f "$(program)-run-tests.sh" ]; then
+  mv -f "$(program)-run-tests.sh test-helper.sh"
+  chmod +X test_helper.sh
+fi
+
+# Rebuild the test harness
+offset=$(grep "case \$1 in" test.sh -n | cut -d ":" -f1 -)
+mv test.sh test.tmp.sh
+tail -n +$offset test.tmp.sh | cat $dir/test.head.sh - > test.sh
+chmod +x test.sh
+rm test.tmp.sh
 
 # Archive and compress the source code
 mv $program src
