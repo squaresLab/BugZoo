@@ -1,0 +1,13 @@
+{
+  "compiler": {
+    "command": "perl compile.pl __EXE_NAME__ > /dev/null"
+  },
+  "problem": {
+    "name": "php-bug-2011-01-24-a6c0a4e474-1a8b87d2c5",
+    "multi_file": true,
+    "program": "preprocessed/manifest.txt",
+    "executable_name": "php",
+    "positive_tests": 7562,
+    "negative_tests": 1
+  }
+}

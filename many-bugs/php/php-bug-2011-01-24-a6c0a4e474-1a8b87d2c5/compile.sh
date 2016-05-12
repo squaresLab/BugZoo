@@ -17,12 +17,14 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 src_dir="$here_dir/src"
 
 if [ $# -ne 1 ]; then
-  echo "ERROR: no executable name provided"
+  echo "ERROR: no executable path provided"
   exit 1
 fi
 
 exe_name=$1
 candidate_dir=$(dirname $1)
+
+echo "DAH DAH DAH"
 
 # Copy all the files across from the candidate directory into the source
 # directory for this problem, before re-making the program.
@@ -31,10 +33,17 @@ if !(cp $candidate_dir/* $src_dir -rf); then
   exit 1
 fi
 
+echo "DAH DAH DAH"
+
 # TODO: may need to handle special cases, such as FBC here
 pushd $src_dir
 if !(make > /dev/null); then
   echo "ERROR: failed to execute make within problem src directory"
   exit 1
 fi
+
+echo "POPPING?"
+
 popd
+
+exit 0

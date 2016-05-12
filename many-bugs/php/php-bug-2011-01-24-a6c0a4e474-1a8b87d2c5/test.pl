@@ -1,8 +1,10 @@
-#include <stdlib.h>
-#include <stdio.h>
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Cwd;
+use File::Basename;
 
-char * TESTS[] =
- {
+my @tests = (
     "ext/sockets/tests/mcast_ipv4_recv.phpt",
     "ext/sockets/tests/bug46360.phpt",
     "ext/sockets/tests/socket_create_pair-wrongparams.phpt",
@@ -11465,52 +11467,17 @@ char * TESTS[] =
     "sapi/cli/tests/bug44564.phpt",
     "sapi/cli/tests/019.phpt",
     "sapi/cli/tests/009.phpt",
-};
+);
 
-int run_test(char* name) {
-    char buffer[1024];
-    sprintf(buffer, "./sapi/cli/php ../php-helper.php -p ./sapi/cli/php -q %s", name);
-    int killed = system("killall php &> /dev/null");
-    if (killed == 0) {
-        system("echo A php process was killed > A-PHP-Process-Was-Killed");    }
-    int res = system(buffer);
+my $test_name = $tests[$ARGV[0] - 1];
+my $here_dir = Cwd::abs_path(dirname(__FILE__));
 
-    if (res == 0) {
-        printf("PASS: %s\n", name);
-        return 0;
-    } else {
-        printf("FAIL: %s\n", name);
-        return 1;
-    }
-}
+my $cmd = "./sapi/cli/php ../php-helper.php -p ./sapi/cli/php -q $test_name";
+print "$cmd\n";
 
-/*
- * Usage:
- * ./php-run-tests TESTNUM [True]
- * ./php-run-tests length [True]
- *     TESTNUM is an integer specifying the test to run. If 'length' is given,
- *       we return the total number of tests to stdout then exit.
- *     The optional third argument should be True if we want to run
- *       abreviated tests.
-*/
-int main(int argc, char** argv) {
-    // If we wanted the length, atoi will return 0 which is just fine
-    int num = atoi(argv[1]) - 1;
-
-    char** tests;
-    int length;
-    tests = TESTS;
-    length = sizeof(TESTS)/sizeof(char*);
-    // Check if we just wanted the number of tests, if so give it and die
-    if (argv[1][0] == 'l') {
-        printf("%d", length);
-        exit(0);
-    }
-
-    if (num < 0 || num >= length) {
-        fprintf(stderr, "Invalid test number: %d\n", num);
-        exit(255);
-    }
-    char* name = tests[num];
-    return run_test(name);
+my $res = system("$cmd");
+if ($res == 0) {
+  exit 0;
+} else {
+  exit 1;
 }
