@@ -73,4 +73,7 @@ fi
 # Convert the configuration file to its JSON equivalent
 $dir/config-to-json.sh $benchmark_dir
 
+# Perform any program specific tidying
+test -f $program_dir/prepare.sh && $program_dir/prepare.sh $benchmark_dir
+
 popd
