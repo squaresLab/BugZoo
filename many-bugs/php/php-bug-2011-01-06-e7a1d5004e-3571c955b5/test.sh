@@ -1,27 +1,27 @@
 #!/bin/bash
 
 # Retrieve and store the provided command-line arguments.
-EXECUTABLE=$( dirname $1 )
-TEST_ID=$2
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+executable=$( dirname $1 )
+test_id=$2
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
 if [ `basename $1` = "coverage" ] ; then
-  TIMEOUT=10
+  timeout=120
 else
-  TIMEOUT=3
+  timeout=60
 fi
 
 # I think $EXECUTABLE/php should just be $EXECUTABLE
 run_test()
 {
-    #pushd php
-    timeout $TIMEOUT $DIR/test.pl $EXECUTABLE/php $1
-    RESULT=$?
-    #popd
-    return $RESULT
+    pushd src
+    timeout $timeout $dir/test.pl $executable/php $1
+    result=$?
+    popd
+    return $result
 }
-case $TEST_ID in
+case $test_id in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
     p3) run_test 3 && exit 0 ;; 

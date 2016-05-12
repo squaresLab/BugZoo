@@ -1,7 +1,6 @@
 );
 
 my $test_name = $tests[$ARGV[0] - 1];
-my $here_dir = Cwd::abs_path(dirname(__FILE__));
 
 my $cmd = "./sapi/cli/php ../php-helper.php -p ./sapi/cli/php -q $test_name";
 print "$cmd\n";

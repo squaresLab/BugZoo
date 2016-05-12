@@ -23,3 +23,4 @@ tail -n +6 $benchmark_dir/php-run-tests.c \
   | head -n -49 - \
   | cat $here_dir/test.head.pl - $here_dir/test.tail.pl > $benchmark_dir/test.pl
 chmod +x $benchmark_dir/test.pl
+rm $benchmark_dir/php-run-tests.c

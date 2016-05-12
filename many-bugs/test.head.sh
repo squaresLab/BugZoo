@@ -12,10 +12,10 @@ fi
 
 run_test()
 {
-    pushd src
+    pushd src > /dev/null
     timeout $timeout $dir/test.pl $1
-    RESULT=$?
-    popd
+    result=$?
+    popd > /dev/null
     return $result
 }
 
