@@ -5,12 +5,12 @@
 # benchmark directory, and then proceeds to performing tidying in that
 # directory.
 #
-here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+here=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 benchmark_dir=$1
 
-$here_dir/build-test-harness.sh $benchmark_dir
+$here/build-test-harness.sh $benchmark_dir
 
-# COPY ACROSS FIXED TEST HELPER!
+cp $here/php-helper.php $benchmark_dir
 
 rm -rf $benchmark_dir/local-root
 rm -f $benchmark_dir/php-tests-*tar.sh
