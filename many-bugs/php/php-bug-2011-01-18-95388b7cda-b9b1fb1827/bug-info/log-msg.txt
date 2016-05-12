@@ -1,5 +1,0 @@
-commit b9b1fb18278bc3a415dc5a73624b8b0e60cf5fec
-Author: Gustavo André dos Santos Lopes <cataphract@php.net>
-Date:   Wed Jan 19 00:22:06 2011 +0000
-
-    - Hopefully finally fixed the mess in rev 307562 and rev 307563.
