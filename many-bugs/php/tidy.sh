@@ -13,3 +13,4 @@ $here_dir/build-test-harness.sh $benchmark_dir
 # COPY ACROSS FIXED TEST HELPER!
 
 rm -rf $benchmark_dir/local-root
+rm -f $benchmark_dir/php-tests-*tar.sh
