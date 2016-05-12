@@ -6,9 +6,9 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
 if [ `basename $1` = "coverage" ] ; then
-  TIMEOUT=10
+  TIMEOUT=120
 else
-  TIMEOUT=3
+  TIMEOUT=60
 fi
 
 run_test()

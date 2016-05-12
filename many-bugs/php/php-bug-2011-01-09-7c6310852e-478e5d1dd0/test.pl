@@ -11474,7 +11474,7 @@ my $ORIGINAL_DIR = cwd;
 my $CANDIDATE_DIR = dirname(Cwd::abs_path($ARGV[0]));
 my $FILE_DIR = Cwd::abs_path(dirname(__FILE__)) . "/php";
 
-my $CMD = "./php php-helper.php -p ./php -q $TEST_NAME";
+my $CMD = "./sapi/cli/php ../php-helper.php -p ./sapi/cli/php -q $TEST_NAME";
 print "$CMD\n";
 
 chdir $FILE_DIR;
