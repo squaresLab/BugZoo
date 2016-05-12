@@ -70,4 +70,7 @@ if [ -d tests ]; then
   rm -rf tests
 fi
 
+# Convert the configuration file to its JSON equivalent
+$dir/config-to-json.sh $benchmark_dir
+
 popd
