@@ -30,7 +30,7 @@ function find_test_num {
 }
 
 function disable_test_by_num {
-  sed "s/run_test $1 \&\& exit 0 ;;/exit 0 ;;# disabled: $1/" test.sh
+  sed "s/run_test $1 \&\& exit 0 ;;/exit 0 ;;# disabled: $1/" test.sh > test.sh
 }
 
 if [ ! -d $benchmark ]; then
@@ -46,5 +46,4 @@ if !(does_test_exist $test_fn); then
 fi
 
 test_num=$(find_test_num $test_fn)
-disable_test_by_num $test_num > test.sh
 popd > /dev/null
