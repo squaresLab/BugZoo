@@ -18,15 +18,19 @@ fi
 benchmark=$1
 test_fn=$2
 
+function does_test_exist {
+  grep -q $1 test.pl
+}
+
 function find_test_num {
-  offset=$(grep "case \$test_id in" "test.sh" -n | cut -d ":" -f1 -)
-  raw=$(grep $1 "test.pl" -n | cut -d ":" -f1 -)
+  offset=$(grep "case \$test_id in" test.sh -n | cut -d ":" -f1 -)
+  raw=$(grep $1 test.pl -n | cut -d ":" -f1 -)
   num=$(($raw - $offset - 1))
   echo $num
 }
 
 function disable_test_by_num {
-  sed "s/run tests $1 \&\& exit 0;;/exit 0;;# disabled: $1" 'test.sh'
+  sed "s/run tests $1 \&\& exit 0;;/exit 0;;# disabled: $1" test.sh
 }
 
 if [ ! -d $benchmark ]; then
@@ -35,6 +39,12 @@ if [ ! -d $benchmark ]; then
 fi
 
 pushd $benchmark > /dev/null
+
+if !(find_test_num $1); then
+  echo "NOTICE: given test file not found, skipping"
+  exit 0
+fi
+
 test_num=$(find_test_num $test_fn)
 disable_test_by_num $test_num
 popd > /dev/null
