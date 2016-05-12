@@ -11,6 +11,7 @@ benchmark_dir=$1
 $here/build-test-harness.sh $benchmark_dir
 
 cp $here/php-helper.php $benchmark_dir
+cp $here/libxml.patch $benchmark_dir
 
 rm -rf $benchmark_dir/local-root
 rm -f $benchmark_dir/php-tests-*tar.sh

@@ -10,7 +10,7 @@
 #   performs tidying within that directory.
 #
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-benchmark_dir=$1
+benchmark_dir=$(realpath $1)
 program_dir=$(dirname $benchmark_dir)
 benchmark_name=$(basename $benchmark_dir)
 _parts=(${benchmark_name//-/ })
@@ -42,8 +42,8 @@ mv -f bugged-program.txt preprocessed/manifest.txt
 mv -f fixed-program.txt fixed/manifest.txt
 
 # Tidy the test helper, if there is one
-if [ -f "$(program)-run-tests.sh" ]; then
-  mv -f "$(program)-run-tests.sh test-helper.sh"
+if [ -f "$($program)-run-tests.sh" ]; then
+  mv -f "$($program)-run-tests.sh test-helper.sh"
   chmod +X test_helper.sh
 fi
 
@@ -70,10 +70,10 @@ if [ -d tests ]; then
   rm -rf tests
 fi
 
+popd
+
 # Convert the configuration file to its JSON equivalent
 $dir/config-to-json.sh $benchmark_dir
 
 # Perform any program specific tidying
-test -f $program_dir/prepare.sh && $program_dir/prepare.sh $benchmark_dir
-
-popd
+test -f $program_dir/tidy.sh && $program_dir/tidy.sh $benchmark_dir

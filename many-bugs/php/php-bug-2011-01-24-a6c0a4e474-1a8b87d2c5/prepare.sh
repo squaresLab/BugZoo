@@ -4,7 +4,6 @@ dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 if [ ! -d src ]; then
   tar -xf src.tar.gz
   cp libxml.patch src
-  gcc php-run-tests.c -o php-run-tests
   pushd src
   cat libxml.patch | patch -p0
   rm libxml.patch

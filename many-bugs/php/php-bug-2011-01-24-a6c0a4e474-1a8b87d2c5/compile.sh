@@ -17,7 +17,7 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 src_dir="$here_dir/src"
 
 if [ $# -ne 1 ]; then
-  echo "ERROR: no executable path provided"
+  echo "ERROR: no executable name provided"
   exit 1
 fi
 
@@ -37,7 +37,4 @@ if !(make > /dev/null); then
   echo "ERROR: failed to execute make within problem src directory"
   exit 1
 fi
-
 popd
-
-exit 0
