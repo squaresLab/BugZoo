@@ -1,0 +1,13 @@
+{
+  "compiler": {
+    "command": "perl compile.pl __EXE_NAME__ > /dev/null"
+  },
+  "problem": {
+    "name": "lighttpd-bug-1794-1795",
+    "multi_file": true,
+    "program": "preprocessed/manifest.txt",
+    "executable_name": "lighttpd",
+    "positive_tests": 4,
+    "negative_tests": 1
+  }
+}
