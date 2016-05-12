@@ -2262,7 +2262,7 @@ function show_result($result, $tested, $tested_file, $extra = '', $temp_filename
 {
 	global $html_output, $html_file, $temp_target, $temp_urlbase;
 	///////////////////////////////mkd5m
-	if ($result == "PASS") {
+	if ($result == "PASS" || $result == "SKIP") {
 		exit( 0) ;//. $result ;
 	} else {
 		exit( 1) ;//. $result ;
