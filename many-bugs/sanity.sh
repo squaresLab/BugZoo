@@ -43,7 +43,7 @@ fi
 
 # Positive tests
 for i in $(seq 1 $pos_tests); do
-  if ./test.sh sanity p$i &> /dev/null; then
+  if (./test.sh sanity p$i &> /dev/null); then
     echo "p$i - PASS (GOOD)";
   else
     echo "p$i - FAIL (BAD)";
@@ -52,7 +52,7 @@ done |& tee -a sanity.results
 
 # Negative tests
 for i in $(seq 1 $neg_tests); do
-  if ./test.sh sanity n$i &> /dev/null; then
+  if (./test.sh sanity n$i &> /dev/null); then
     echo "n$i - PASS (BAD)";
   else
     echo "n$i - FAIL (GOOD)";

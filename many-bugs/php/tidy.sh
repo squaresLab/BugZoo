@@ -11,9 +11,11 @@ benchmark_dir=$1
 $here/build-test-harness.sh $benchmark_dir
 
 cp $here/php-helper.php $benchmark_dir
+cp $here/libxml.patch $benchmark_dir
 
-rm -rf $benchmark_dir/local-root
+rm -rf $benchmark_dir/local-root $benchmark_dir/php
 rm -f $benchmark_dir/php-tests-*tar.sh
+rm -f $benchmark_dir/php-run-tests*
 
 # Disable problematic tests
 $here/../disable-test-by-file-name.sh $benchmark_dir "ext/standard/tests/time/strptime_basic.phpt"
