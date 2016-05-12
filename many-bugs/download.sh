@@ -38,3 +38,6 @@ pushd $program_dir
 tar -xf $archive
 rm $archive
 popd
+
+echo "Tidying the benchmark directory"
+$dir_here/tidy.sh $benchmark_dir
