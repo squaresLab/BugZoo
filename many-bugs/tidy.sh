@@ -11,12 +11,13 @@
 #
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 benchmark_dir=$1
+program_dir=$(dirname $benchmark_dir)
 benchmark_name=$(basename $benchmark_dir)
 _parts=(${benchmark_name//-/ })
 program=${_parts[0]}
 
-# Copy the appropriate prepare script into the benchmark directory
-cp $dir/prepare.sh $benchmark_dir
+# Copy the program's prepare script into the benchmark directory
+cp $progrma_dir/prepare.sh $benchmark_dir
 
 pushd $benchmark_dir
 
