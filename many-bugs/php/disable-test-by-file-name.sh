@@ -30,7 +30,7 @@ function find_test_num {
 }
 
 function disable_test_by_num {
-  sed "s/run tests $1 \&\& exit 0;;/exit 0;;# disabled: $1" test.sh
+  sed "s/run_test $1 \&\& exit 0 ;;/exit 0 ;;# disabled: $1/" test.sh
 }
 
 if [ ! -d $benchmark ]; then
@@ -40,7 +40,7 @@ fi
 
 pushd $benchmark > /dev/null
 
-if !(find_test_num $1); then
+if !(does_test_exist $test_fn); then
   echo "NOTICE: given test file not found, skipping"
   exit 0
 fi
