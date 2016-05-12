@@ -1,0 +1,5 @@
+commit a6c0a4e4746084df2828ea5875cf52ad9ae674f0
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Mon Jan 24 01:15:41 2011 +0000
+
+    Fixed Bug #52063 (DateTime constructor's second argument doesn't have a null default value)
