@@ -6,9 +6,9 @@
 #
 # Usage: ./disable-test-by-file-name.sh directory_path test_name
 #
-#
-# TODO: Doesn't deal with cases when the test doesn't exist!
-#
+# TODO: This only works with PHP for now, on account of the "my @tests"
+#   pattern in the grep command for `find_test_num`. Would need a small bit of
+#   tweaking to work across other test.pl scripts.
 #
 if [ $# -ne 2 ]; then
   echo "ERROR: unexpected number of arguments."
@@ -46,5 +46,5 @@ if !(does_test_exist $test_fn); then
 fi
 
 test_num=$(find_test_num $test_fn)
-disable_test_by_num $test_num
+disable_test_by_num $test_num > test.sh
 popd > /dev/null
