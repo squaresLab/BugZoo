@@ -1,0 +1,6 @@
+commit 187eb235fecce05cbc6426322f6792363f1650f2
+Author: Adam Harvey <aharvey@php.net>
+Date:   Wed Apr 6 10:23:06 2011 +0000
+
+    Implement FR #54459 (Range function accuracy) by changing the way range()
+    calculates values when used with floating point bounds/step.

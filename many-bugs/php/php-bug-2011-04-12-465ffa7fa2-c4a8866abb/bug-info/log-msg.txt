@@ -1,0 +1,5 @@
+commit c4a8866abb8e748f8a9b78d7b2d3836a542569a7
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Wed Apr 13 06:32:41 2011 +0000
+
+    fix bug #54238 (use-after-free in substr_replace())

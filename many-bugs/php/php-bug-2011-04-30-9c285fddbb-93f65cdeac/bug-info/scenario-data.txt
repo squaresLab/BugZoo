@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: 9c285fddbb
+fix revision: 93f65cdeac
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	ext/standard/tests/streams/bug54623.phpt
+
+minutes between bug rev and fix rev: 458
+files edited: 1
+lines added or changed: 26
+lines deleted or changed: 3
+bug report priority: No information regarding priority in bug report
+bug management links: https://bugs.php.net/bug.php?id=54623
+Security related?: No
+Bug type: Segfault
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: Yes
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: Yes
+    adds a whole new function?: No

@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: 53204a26d2
+fix revision: 118695a4ea
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	ext/filter/tests/054.phpt
+
+minutes between bug rev and fix rev: 905
+files edited: 1
+lines added or changed: 14
+lines deleted or changed: 8
+bug report priority: 
+bug management links: 
+Security related?: 
+Bug type: Feature add
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: Yes
+    changes arguments to a function?: Yes
+    added 1 or more function calls?: Yes
+    changes conditional?: Yes
+    adds new variables?: Yes
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

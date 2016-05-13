@@ -1,0 +1,5 @@
+commit 09b990f499caa582528689751294500ce310a500
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Sat Apr 9 18:32:55 2011 +0000
+
+    - Fixed bug #54440: libxml extension ignores default context.

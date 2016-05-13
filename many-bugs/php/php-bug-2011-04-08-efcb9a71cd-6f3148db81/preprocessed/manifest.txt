@@ -1,0 +1,2 @@
+Zend/zend_builtin_functions.c
+Zend/zend_exceptions.c

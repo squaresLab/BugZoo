@@ -1,0 +1,6 @@
+commit efcb9a71cdb3efde06dd3b347e64b21e4418c9db
+Author: Dmitry Stogov <dmitry@php.net>
+Date:   Fri Apr 8 10:02:07 2011 +0000
+
+    - Fixed bug #54358 (Closure, use and reference)
+    - Fixed bug #54039 (use() of static variables in lambda functions can break staticness)

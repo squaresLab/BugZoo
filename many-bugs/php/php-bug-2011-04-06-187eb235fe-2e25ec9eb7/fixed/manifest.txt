@@ -1,0 +1,1 @@
+fixed/Zend/zend_object_handlers.c
