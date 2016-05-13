@@ -1,0 +1,5 @@
+commit 1e91069eb497a7d1ead7b09948b56fc50fc6cc82
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Sun Jan 30 10:18:12 2011 +0000
+
+    Fix bug #52290 (setDate, setISODate, setTime works wrong when DateTime created from timestamp)
