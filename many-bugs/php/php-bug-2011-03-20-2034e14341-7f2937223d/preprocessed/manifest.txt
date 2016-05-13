@@ -1,0 +1,2 @@
+ext/standard/file.c
+main/streams/streams.c

@@ -1,0 +1,29 @@
+version: beta-2.0
+program: php
+bug revision: 5d0c948296
+fix revision: 8deb11c0c3
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	ext/spl/tests/bug54291.phpt
+
+minutes between bug rev and fix rev: 144
+files edited: 1
+lines added or changed: 5
+lines deleted or changed: 1
+bug report priority: No information regarding priority in bug report
+bug management links: https://bugs.php.net/bug.php?id=54291
+Security related?: No
+Bug type: Crash; Segfault
+Additional bug info: Improper handling of strings starting with null character
+(specifically for directory names)
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

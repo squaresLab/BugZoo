@@ -1,0 +1,8 @@
+commit f7b7b6aa9eb43e5969dac9c8fcd92f0f2cb3e6d7
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Sun Mar 27 22:44:34 2011 +0000
+
+    - Improved upon r309729.
+    - Extented strategy to remaining the classes on spl_directory.c, even those that don't crash.
+    - UPGRADING.
+    - Better bug54384.phpt, with all the classes covered.

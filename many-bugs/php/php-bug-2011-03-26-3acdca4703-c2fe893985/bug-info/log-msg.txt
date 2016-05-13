@@ -1,0 +1,15 @@
+commit c2fe893985f619fdb4f8d17c16405e8ce7926db5
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Sun Mar 27 04:21:06 2011 +0000
+
+    - Fixed bug #54384: Several SPL classes crash when parent constructor is
+      not called.
+    #Merge to 5.3 pending (slight BC break on AppendIterator, as it's no
+    #longer possible to defer the call to the parent constructor until
+    #after the constructor is performed).
+    #Bugs fixed in an atypical way for SPL. The parent constructor call
+    #check is performed at construction time by using a wrapper constructor
+    #instead of a check on the beginning of each instance method.
+    #Perhaps this should be uniformized in trunk; this method was mainly
+    #applied only to the ones crashing, except a few iterators (at least
+    #AppendIterator and RecursiveIteratorIterator).

@@ -1,0 +1,5 @@
+commit 6e74d95f34c7d6352a91eff456d6a69a18953287
+Author: Pierrick Charron <pierrick@php.net>
+Date:   Sun Mar 13 04:02:56 2011 +0000
+
+    Fixed bug #54180 (parse_url() incorrectly parses path when ? in fragment)

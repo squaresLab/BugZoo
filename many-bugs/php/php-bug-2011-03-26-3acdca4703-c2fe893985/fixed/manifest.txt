@@ -1,0 +1,3 @@
+fixed/ext/spl/php_spl.c
+fixed/ext/spl/spl_directory.c
+fixed/ext/spl/spl_iterators.c

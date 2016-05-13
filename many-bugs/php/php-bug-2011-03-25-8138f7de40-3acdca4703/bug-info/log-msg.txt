@@ -1,0 +1,5 @@
+commit 3acdca47030e6dc973cffc0063d45e1bef354a3e
+Author: Felipe Pena <felipe@php.net>
+Date:   Sat Mar 26 17:02:34 2011 +0000
+
+    - Fixed bug #54395 (Phar::mount() crashes when calling with wrong parameters)
