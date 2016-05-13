@@ -1,0 +1,5 @@
+commit 05c5c8958ea59ea11f3709acab39503ba9674d0b
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Sun Oct 16 00:34:01 2011 +0000
+
+    Bug #55754 - Only variables should be passed by reference for ZEND_SEND_PREFER_REF params

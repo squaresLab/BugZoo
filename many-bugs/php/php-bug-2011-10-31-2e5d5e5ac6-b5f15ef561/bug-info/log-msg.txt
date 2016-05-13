@@ -1,0 +1,5 @@
+commit b5f15ef561fcf8348fc9e3b986f096eacf4e243c
+Author: Stefan Marr <gron@php.net>
+Date:   Tue Nov 1 00:39:10 2011 +0000
+
+    Fixed Bug #60145 (Usage of trait's use statement inside interfaces not properly checked.)

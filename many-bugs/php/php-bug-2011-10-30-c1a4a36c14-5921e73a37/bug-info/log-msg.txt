@@ -1,0 +1,6 @@
+commit 5921e73a37e488425dc11865ba5e1e3238285a83
+Author: Xinchen Hui <laruence@php.net>
+Date:   Mon Oct 31 03:47:11 2011 +0000
+
+    Fixed bug #60174 (Notice when array in method prototype error)
+    this should also exists in ext/reflection. since the new warning of "array to string convert" is introduced in zend_make_printable_zval which is used in ext/reflection too

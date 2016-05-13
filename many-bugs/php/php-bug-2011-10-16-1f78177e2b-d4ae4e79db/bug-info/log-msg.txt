@@ -1,0 +1,5 @@
+commit d4ae4e79db0e898fc74a9a6b7b938b59463a8c7d
+Author: Ilia Alshanetsky <iliaa@php.net>
+Date:   Mon Oct 17 23:51:25 2011 +0000
+
+    Fixed bug #55543 (json_encode() with JSON_NUMERIC_CHECK fails on objects with numeric string properties)
