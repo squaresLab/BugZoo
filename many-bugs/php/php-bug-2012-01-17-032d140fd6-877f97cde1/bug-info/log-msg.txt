@@ -1,0 +1,5 @@
+commit 877f97cde18e14f2a8245ce029bfeb8dabcedfe5
+Author: Dmitry Stogov <dmitry@php.net>
+Date:   Tue Jan 17 08:11:32 2012 +0000
+
+    Regenerated scanners

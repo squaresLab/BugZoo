@@ -1,0 +1,5 @@
+commit 7c3177e5ab4129f9b9e9764ed0e4faa4f87e443b
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Sun Jan 1 23:54:25 2012 +0000
+
+    fix bug #54374, bug #55500 - filter file names better, no dangling [s

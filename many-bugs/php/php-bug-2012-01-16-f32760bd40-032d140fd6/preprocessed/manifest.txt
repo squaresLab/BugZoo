@@ -1,0 +1,5 @@
+Zend/zend_compile.c
+Zend/zend_constants.c
+Zend/zend_execute_API.c
+Zend/zend_language_parser.c
+Zend/zend_language_scanner.c

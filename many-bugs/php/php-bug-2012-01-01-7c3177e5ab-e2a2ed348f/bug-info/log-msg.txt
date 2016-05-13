@@ -1,0 +1,5 @@
+commit e2a2ed348f6a238c1e43eb01e2e0aa5a70b217c2
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Mon Jan 2 00:47:57 2012 +0000
+
+    fix bug #55871 - Interruption in substr_replace()

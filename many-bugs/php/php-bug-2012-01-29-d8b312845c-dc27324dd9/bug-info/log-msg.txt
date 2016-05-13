@@ -1,0 +1,6 @@
+commit dc27324dd926571442ca37c5586f418aafa72b94
+Author: Rasmus Lerdorf <rasmus@php.net>
+Date:   Sun Jan 29 04:22:23 2012 +0000
+
+    createCollation() for pdo_sqlite as well
+    Closes bug #55226

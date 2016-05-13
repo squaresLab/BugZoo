@@ -1,0 +1,5 @@
+commit d74a258f240e3d1dcb14ec086ba6fe48a4864dad
+Author: Xinchen Hui <laruence@php.net>
+Date:   Mon Jan 16 09:53:45 2012 +0000
+
+    Fixed Bug #60573 (type hinting with "self" keyword causes weird errors)

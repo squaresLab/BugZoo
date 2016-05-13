@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: 544e36dfff
+fix revision: acaf9c5227
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	ext/session/tests/bug60860.phpt
+
+minutes between bug rev and fix rev: 469
+files edited: 1
+lines added or changed: 7
+lines deleted or changed: 0
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60860
+Security related?: 
+Bug type: Segfault
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

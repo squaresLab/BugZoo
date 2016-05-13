@@ -1,0 +1,5 @@
+commit 4dc8b1ad111f3b1ed74b01fdf5efcc9d58858230
+Author: Adam Harvey <aharvey@php.net>
+Date:   Mon Jan 30 13:29:15 2012 +0000
+
+    Fix bug #60801 (strpbrk() mishandles NUL byte) on trunk only for now.

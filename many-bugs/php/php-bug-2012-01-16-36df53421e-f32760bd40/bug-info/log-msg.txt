@@ -1,0 +1,11 @@
+commit f32760bd40aa368beeccd8ce53b425b2ebae159c
+Author: Michael Wallner <mike@php.net>
+Date:   Mon Jan 16 17:51:35 2012 +0000
+
+    Fix bug #60768  Output buffer not discarded
+    
+     in php_output_handler_op():
+      * if appending to buffer succeeds, just return HANDLER_NO_DATA
+        and do nothing else
+      * if a zero sized string or true is returned from the handler
+        function, reset the context as well as the handler's buffer

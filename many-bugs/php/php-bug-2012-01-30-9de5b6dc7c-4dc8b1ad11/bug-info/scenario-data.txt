@@ -1,0 +1,29 @@
+version: beta-2.0
+program: php
+bug revision: 9de5b6dc7c
+fix revision: 4dc8b1ad11
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	ext/standard/tests/strings/bug60801.phpt
+
+minutes between bug rev and fix rev: 
+files edited: 1
+lines added or changed: 8
+lines deleted or changed: 0
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60801
+Security related?: 
+Bug type: Incorrect behavior or incorrect output
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: Yes
+    added 1 or more function calls?: No
+    changes conditional?: Yes
+    adds new variables?: Yes
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: Yes
+    adds a whole new function?: No
+
