@@ -1,0 +1,5 @@
+commit d1d61ce6120c1a84aa1e8b003159566158fa4ae1
+Author: Hannes Magnusson <bjori@php.net>
+Date:   Mon Feb 14 15:32:02 2011 +0000
+
+    Bug#54016 (finfo_file() Cannot determine filetype in archives)

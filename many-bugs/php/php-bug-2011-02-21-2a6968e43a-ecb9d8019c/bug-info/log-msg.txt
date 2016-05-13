@@ -1,0 +1,5 @@
+commit ecb9d8019c4d63ad483fc8d1955e4e2de92a8a6f
+Author: Scott MacVicar <scottmac@php.net>
+Date:   Mon Feb 21 08:09:02 2011 +0000
+
+    Fix Bug #54058, invalid utf-8 doesn't set json_encode() in all cases

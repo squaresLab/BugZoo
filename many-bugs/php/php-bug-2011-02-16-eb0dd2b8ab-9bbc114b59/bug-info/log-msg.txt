@@ -1,0 +1,7 @@
+commit 9bbc114b593ddc66785021a954fde9078afd08fb
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Thu Feb 17 00:25:32 2011 +0000
+
+    - Classes that implement stream wrappers can define a method called
+      stream_truncate that will respond to truncation, e.g. through ftruncate.
+      Closes feature request #53888.

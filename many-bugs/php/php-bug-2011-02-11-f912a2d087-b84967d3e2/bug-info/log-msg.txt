@@ -1,0 +1,5 @@
+commit b84967d3e2c85e2b20f86cf3cb05b10ea53cc939
+Author: Dmitry Stogov <dmitry@php.net>
+Date:   Mon Feb 14 08:46:53 2011 +0000
+
+    Fixed Bug #53971 (isset() and empty() produce apparently spurious runtime error)

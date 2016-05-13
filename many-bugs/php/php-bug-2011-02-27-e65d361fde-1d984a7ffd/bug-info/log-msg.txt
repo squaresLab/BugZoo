@@ -1,0 +1,5 @@
+commit 1d984a7ffd60a36875e04cbc2d4bbf1d4b1524c8
+Author: Ilia Alshanetsky <iliaa@php.net>
+Date:   Mon Feb 28 15:18:27 2011 +0000
+
+    Fixed bug #54089 (token_get_all() does not stop after __halt_compiler).
