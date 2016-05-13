@@ -1,1 +1,5 @@
 *.tar.gz filter=lfs diff=lfs merge=lfs -text
+*.zip -delta
+*.tar.gz -delta
+*.jpg -delta
+*.png -delta
