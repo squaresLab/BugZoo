@@ -1,0 +1,6 @@
+commit dfa08dc3258b6405f25aec04106d705b3140c778
+Author: Ilia Alshanetsky <iliaa@php.net>
+Date:   Sun Dec 4 14:52:40 2011 +0000
+
+    Fixed Bug #55478 (FILTER_VALIDATE_EMAIL fails with internationalized
+    domain name addresses containing >1 -).

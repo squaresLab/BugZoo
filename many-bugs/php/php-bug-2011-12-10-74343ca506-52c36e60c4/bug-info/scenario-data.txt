@@ -1,0 +1,30 @@
+version: beta-2.0
+program: php
+bug revision: 74343ca506
+fix revision: 52c36e60c4
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	ext/standard/tests/streams/bug60455_01.phpt
+	ext/standard/tests/streams/bug60455_02.phpt
+	ext/standard/tests/streams/bug60455_03.phpt
+
+minutes between bug rev and fix rev: 1383
+files edited: 1
+lines added or changed: 2
+lines deleted or changed: 3
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60455
+Security related?: 
+Bug type: Incorrect behavior or incorrect output
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: Yes
+    adds new variables?: No
+    adds 1 or more if-statements?: No
+    adds 1 or more loops?: No
+    adds a whole new function?: No

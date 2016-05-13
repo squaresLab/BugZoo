@@ -1,0 +1,6 @@
+commit 52c36e60c4667456cc61574f9ad2d4ec56f04fa5
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Sun Dec 11 21:08:15 2011 +0000
+
+    - Fixed bug #60455: stream_get_line misbehaves if EOF is not detected together
+      with the last read.

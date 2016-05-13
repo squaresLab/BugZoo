@@ -1,0 +1,37 @@
+version: beta-2.0
+program: php
+bug revision: beda5efd41
+fix revision: 622412d8e6
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	tests/strings/offsets_general.phpt
+	tests/strings/offsets_chaining_5.phpt
+	tests/lang/bug29566.phpt
+	Zend/tests/offset_string.phpt
+	Zend/tests/indexing_001.phpt
+	Zend/tests/bug60362.phpt
+	Zend/tests/offset_assign.phpt
+	Zend/tests/bug39018.phpt
+	Zend/tests/bug54262.phpt
+	Zend/tests/bug31098.phpt
+
+minutes between bug rev and fix rev: 1250
+files edited: 1
+lines added or changed: 20
+lines deleted or changed: 2
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60362
+Security related?: 
+Bug type: Incorrect behavior or incorrect output; fixing a regression
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No
