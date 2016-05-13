@@ -1,0 +1,5 @@
+commit 109b8e99e012051ee07839ea9e14093f04ceed1e
+Author: Ilia Alshanetsky <iliaa@php.net>
+Date:   Fri Feb 4 21:41:15 2011 +0000
+
+    Fixed bug #53924 (FILTER_VALIDATE_URL doesn't validate port number).
