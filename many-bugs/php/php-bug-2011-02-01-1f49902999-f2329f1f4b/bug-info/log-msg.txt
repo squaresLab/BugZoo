@@ -1,0 +1,7 @@
+commit f2329f1f4bff08bf61a7b8d82009a035f20d53c4
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Thu Feb 3 12:38:25 2011 +0000
+
+    - Fixed bug #53915: ReflectionClass::getConstant(s) emits fatal error on
+      constants with self::.
+    - Reflown some NEWS entries to have lines no longer than 80 chars.
