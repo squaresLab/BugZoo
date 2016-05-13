@@ -1,0 +1,5 @@
+commit cfa9c90b20637796dcf97bd14a9926a102bec9de
+Author: Xinchen Hui <laruence@php.net>
+Date:   Sat Feb 25 04:36:08 2012 +0000
+
+    Fixed bug #61165 (Segfault - strip_tags())

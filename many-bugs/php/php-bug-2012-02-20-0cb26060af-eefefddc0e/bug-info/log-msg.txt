@@ -1,0 +1,5 @@
+commit eefefddc0ee0dadc37b1bf05cada8685e546461e
+Author: Etienne Kneuss <colder@php.net>
+Date:   Mon Feb 20 18:28:57 2012 +0000
+
+    Fix #61095 (Lexing 0x0*+<NUM> incorrectly)

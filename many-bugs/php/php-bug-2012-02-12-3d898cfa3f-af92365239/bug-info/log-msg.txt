@@ -1,0 +1,5 @@
+commit af92365239fccda0c20c37e0ae9583ad2a11f3cc
+Author: Xinchen Hui <laruence@php.net>
+Date:   Sun Feb 12 05:32:24 2012 +0000
+
+    Improved fix for #61058, and add test script

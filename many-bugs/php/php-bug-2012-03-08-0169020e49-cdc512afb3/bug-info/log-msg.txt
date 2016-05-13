@@ -1,0 +1,5 @@
+commit cdc512afb39f7da84a798f7702b1cc4de3524463
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Thu Mar 8 12:39:48 2012 +0000
+
+    - Oops committed old version of the patch in r324020. Fixed. See bug #61253.

@@ -1,0 +1,5 @@
+commit 7337a901b78f792ef2f18d0bf807ec505dec57f0
+Author: Ilia Alshanetsky <iliaa@php.net>
+Date:   Mon Mar 12 16:53:07 2012 +0000
+
+    Fixed bug #60222 (time_nanosleep() does validate input params).

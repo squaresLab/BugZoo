@@ -1,0 +1,5 @@
+commit 5e80c05deb8ae2c60ebb86085b42b4e59fec3b33
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Wed Mar 7 07:38:57 2012 +0000
+
+    MFH: Fixed bug #61173 (Unable to detect error from finfo constructor).

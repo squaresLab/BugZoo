@@ -1,0 +1,29 @@
+version: beta-2.0
+program: php
+bug revision: 38b549ea2f
+fix revision: 1923ecfe25
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	Zend/tests/bug43450.phpt
+
+minutes between bug rev and fix rev: 41
+files edited: 1
+lines added or changed: 2
+lines deleted or changed: 3
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=61165
+Security related?: 
+Bug type: Segfault
+Additional bug info: fix is for bug 61165, since first fix for 61165 caused
+45450 to fail
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: No
+    adds 1 or more loops?: No
+    adds a whole new function?: No

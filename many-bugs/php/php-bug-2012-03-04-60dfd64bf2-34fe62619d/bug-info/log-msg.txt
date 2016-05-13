@@ -1,0 +1,5 @@
+commit 34fe62619dcb0df395ea6f916e3891463574ef8a
+Author: Stefan Marr <gron@php.net>
+Date:   Sun Mar 4 18:33:33 2012 +0000
+
+    Fixed Bug #60911 (Confusing error message when extending traits)

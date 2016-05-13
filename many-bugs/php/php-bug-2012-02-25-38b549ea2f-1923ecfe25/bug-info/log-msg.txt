@@ -1,0 +1,5 @@
+commit 1923ecfe2552851b4ed19cadcc78b1f957bf58ef
+Author: Xinchen Hui <laruence@php.net>
+Date:   Sun Feb 26 14:56:26 2012 +0000
+
+    Improve fix for #61165, the previous one cause #43450 test failed

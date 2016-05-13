@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: 0cb26060af
+fix revision: eefefddc0e
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	Zend/tests/bug61095.phpt
+
+minutes between bug rev and fix rev: 147
+files edited: 1
+lines added or changed: 188
+lines deleted or changed: 184
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=61095
+Security related?: 
+Bug type: Incorrect behavior or incorrect output; bounds check
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

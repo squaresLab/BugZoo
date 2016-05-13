@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: 730b54a374
+fix revision: 1953161b8c
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	Zend/tests/bug61225.phpt
+
+minutes between bug rev and fix rev: 148
+files edited: 1
+lines added or changed: 191
+lines deleted or changed: 187
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=61225
+Security related?: 
+Bug type: Incorrect behavior or incorrect output
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

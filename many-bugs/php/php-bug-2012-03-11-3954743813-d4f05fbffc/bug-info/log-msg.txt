@@ -1,0 +1,5 @@
+commit d4f05fbffc6f63e094c0f737e0477e27f1bf5f7f
+Author: Ilia Alshanetsky <iliaa@php.net>
+Date:   Sun Mar 11 18:15:13 2012 +0000
+
+    Fixed bug #60569 (Nullbyte truncates Exception $message).

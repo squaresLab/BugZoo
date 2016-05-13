@@ -1,0 +1,5 @@
+commit e6ec1fb166bfb22969ed28746b8f952dce05673e
+Author: Xinchen Hui <laruence@php.net>
+Date:   Sun Mar 11 08:27:55 2012 +0000
+
+    Fixed bug #61347 (inconsist isset behavior of Arrayobject)

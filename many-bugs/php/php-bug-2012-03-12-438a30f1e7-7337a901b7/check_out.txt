@@ -1,0 +1,201 @@
+nohup: ignoring input
+0
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+1
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+2
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+3
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+4
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+5
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+6
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+7
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+8
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+9
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+10
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+11
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+12
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+13
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+14
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+15
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+16
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+17
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+18
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+19
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+20
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+21
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+22
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+23
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+24
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+25
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+26
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+27
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+28
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+29
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+30
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+31
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+32
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+33
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+34
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+35
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+36
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+37
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+38
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+39
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+40
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+41
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+42
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+43
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+44
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+45
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+46
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+47
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+48
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+49
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+50
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+51
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+52
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+53
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+54
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+55
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+56
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+57
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+58
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+59
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+60
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+61
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+62
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+63
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+64
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+65
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+66
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+67
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+68
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+69
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+70
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+71
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+72
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+73
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+74
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+75
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+76
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+77
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+78
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+79
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+80
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+81
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+82
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+83
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+84
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+85
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+86
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+87
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+88
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+89
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+90
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+91
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+92
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+93
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+94
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+95
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+96
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+97
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+98
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt
+99
+PASS: ext/session/tests/session_set_save_handler_class_012.phpt

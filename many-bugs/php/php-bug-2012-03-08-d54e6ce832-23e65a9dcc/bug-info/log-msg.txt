@@ -1,0 +1,5 @@
+commit 23e65a9dcc71cf11ee5ec82c256588626545d4db
+Author: Gustavo André dos Santos Lopes <cataphract@php.net>
+Date:   Sat Mar 10 17:19:39 2012 +0000
+
+    - Fixed bug #61326 (ArrayObject comparison).
