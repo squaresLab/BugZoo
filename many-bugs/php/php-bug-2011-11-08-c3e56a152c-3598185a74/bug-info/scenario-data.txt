@@ -1,0 +1,30 @@
+version: beta-2.0
+program: php
+bug revision: c3e56a152c
+fix revision: 3598185a74
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	ext/standard/tests/class_object/is_a.phpt
+	ext/standard/tests/class_object/is_a_error_001.phpt
+	ext/standard/tests/class_object/is_subclass_of_error_001.phpt
+
+minutes between bug rev and fix rev: 530
+files edited: 1
+lines added or changed: 13
+lines deleted or changed: 6
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=55475
+Security related?: 
+Bug type: Incorrect behavior or incorrect output
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: Yes
+    adds new variables?: Yes
+    adds 1 or more if-statements?: No
+    adds 1 or more loops?: No
+    adds a whole new function?: No

@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: 55acfdf7bd
+fix revision: 3c7a573a2c
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	Zend/tests/bug60099.phpt
+
+minutes between bug rev and fix rev: 58
+files edited: 1
+lines added or changed: 5
+lines deleted or changed: 0
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60099
+Security related?: 
+Bug type: Should raise error but doesn't
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

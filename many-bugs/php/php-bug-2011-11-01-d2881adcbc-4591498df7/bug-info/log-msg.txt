@@ -1,0 +1,9 @@
+commit 4591498df78e5f80b6ae70f04bb39812de82c2b4
+Author: Stefan Marr <gron@php.net>
+Date:   Tue Nov 1 15:25:24 2011 +0000
+
+    Fixed Bug #60153 (Interface method prototypes not enforced when implementd via traits.)
+    # Moved the freeing of overriden functions to a point after the check.
+    # The new check comes after the normal inheritance check to give the first check
+    # the opportunity to abort with a more detailed error.
+    # Also fixed a small type in an unrelated test.

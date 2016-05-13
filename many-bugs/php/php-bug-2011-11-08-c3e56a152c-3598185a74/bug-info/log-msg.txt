@@ -1,0 +1,5 @@
+commit 3598185a745234b5fa7ab40622e25172bc00ea98
+Author: Stanislav Malyshev <stas@php.net>
+Date:   Wed Nov 9 05:27:45 2011 +0000
+
+    fix bug #55475 - implement is_a BC solution

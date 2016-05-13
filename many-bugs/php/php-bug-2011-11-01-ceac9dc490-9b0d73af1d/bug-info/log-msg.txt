@@ -1,0 +1,5 @@
+commit 9b0d73af1d8a59f48336bc60513f44edd4d4c34d
+Author: Stefan Marr <gron@php.net>
+Date:   Tue Nov 1 13:42:53 2011 +0000
+
+    Added missing consistency check for abstract methods required by one trait and implemented by another.

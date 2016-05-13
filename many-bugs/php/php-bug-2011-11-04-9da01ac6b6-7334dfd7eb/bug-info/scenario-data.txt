@@ -1,0 +1,30 @@
+version: beta-2.0
+program: php
+bug revision: 9da01ac6b6
+fix revision: 7334dfd7eb
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	Zend/tests/traits/bug60217c.phpt
+	Zend/tests/traits/bug60217b.phpt
+	Zend/tests/traits/bug60217a.phpt
+
+minutes between bug rev and fix rev: 393
+files edited: 1
+lines added or changed: 32
+lines deleted or changed: 19
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60217
+Security related?: 
+Bug type: Fatal error of unspecified type; incorrect behavior or incorrect output
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No

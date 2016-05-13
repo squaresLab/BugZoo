@@ -1,0 +1,6 @@
+commit 7334dfd7ebbdcda7227fab45b1e5bafee278ff38
+Author: Stefan Marr <gron@php.net>
+Date:   Sat Nov 5 01:46:40 2011 +0000
+
+    Fixed Bug #60217 (Requiring the same method from different traits)
+    - also added test to check for inconsistent abstract method definitions, they need to be compatible

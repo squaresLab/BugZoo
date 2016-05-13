@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: eca88d3064
+fix revision: db0888dfc1
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	Zend/tests/traits/bug60369.phpt
+
+minutes between bug rev and fix rev: 3
+files edited: 1
+lines added or changed: 3
+lines deleted or changed: 2
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60369
+Security related?: 
+Bug type: Crash; Segfault
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: Yes
+    adds new variables?: No
+    adds 1 or more if-statements?: No
+    adds 1 or more loops?: No
+    adds a whole new function?: No

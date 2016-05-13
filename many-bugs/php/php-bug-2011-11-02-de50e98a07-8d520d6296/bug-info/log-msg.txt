@@ -1,0 +1,5 @@
+commit 8d520d62961cd4d474db8cba7a2e615c78dfb17c
+Author: Antony Dovgal <tony2001@php.net>
+Date:   Wed Nov 2 21:05:36 2011 +0000
+
+    initialize variable and fix segfaulting tests

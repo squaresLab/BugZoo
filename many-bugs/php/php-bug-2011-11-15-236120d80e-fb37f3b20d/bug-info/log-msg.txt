@@ -1,0 +1,5 @@
+commit fb37f3b20d9b9e19a497c0784aea9db4be66595f
+Author: Felipe Pena <felipe@php.net>
+Date:   Tue Nov 15 16:59:59 2011 +0000
+
+    - Fixed bug #52624 (tempnam() by-pass open_basedir with inexistent directory)

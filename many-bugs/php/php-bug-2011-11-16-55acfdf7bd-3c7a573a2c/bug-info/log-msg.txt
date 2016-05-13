@@ -1,0 +1,5 @@
+commit 3c7a573a2c56f68ca63514b265d29d9200a397d0
+Author: Felipe Pena <felipe@php.net>
+Date:   Wed Nov 16 17:41:40 2011 +0000
+
+    - Fixed bug #60099 (__halt_compiler() works in braced namespaces)

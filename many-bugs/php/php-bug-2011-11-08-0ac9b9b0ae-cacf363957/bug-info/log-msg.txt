@@ -1,0 +1,5 @@
+commit cacf36395750da86c78f6118d8d4a0bc157bc877
+Author: Dmitry Stogov <dmitry@php.net>
+Date:   Tue Nov 8 10:11:25 2011 +0000
+
+    Fixed bug #60104 (Segmentation Fault in pdo_sqlite when using sqliteCreateFunction())

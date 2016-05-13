@@ -1,0 +1,28 @@
+version: beta-2.0
+program: php
+bug revision: 735efbdd04
+fix revision: e0f781f496
+repos: git, https://github.com/php/php-src.git
+failing tests:
+	Zend/tests/bug60139.phpt
+
+minutes between bug rev and fix rev: 540
+files edited: 3
+lines added or changed: 189
+lines deleted or changed: 228
+bug report priority: 
+bug management links: https://bugs.php.net/bug.php?id=60139
+Security related?: 
+Bug type: Memory leak
+Additional bug info: Cycles not detected by GC
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: Yes
+    adds new variables?: Yes
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: Yes

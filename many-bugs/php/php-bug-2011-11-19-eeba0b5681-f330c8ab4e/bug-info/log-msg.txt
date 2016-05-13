@@ -1,0 +1,5 @@
+commit f330c8ab4e8458bdff2ff5773cbcb38a7ff6bd46
+Author: Pierre Joye <pajoye@php.net>
+Date:   Sun Nov 20 10:10:43 2011 +0000
+
+    - restore correct window_size

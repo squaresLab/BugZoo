@@ -1,0 +1,5 @@
+commit 9b86852d6ee2976b68e81f8fb8e1b44de3d7c631
+Author: Peter Cowburn <salathe@php.net>
+Date:   Wed Nov 2 13:24:46 2011 +0000
+
+    add 3rd parameter to arg info for splfileobject fgetcsv/setcsvcontrol (bug #60201)
