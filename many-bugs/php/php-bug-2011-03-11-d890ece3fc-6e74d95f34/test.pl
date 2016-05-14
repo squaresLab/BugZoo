@@ -11466,13 +11466,9 @@ my @tests = (
     "sapi/cli/tests/bug44564.phpt",
     "sapi/cli/tests/019.phpt",
     "sapi/cli/tests/009.phpt",
-};
-
-int run_test(char* name, int feedback) {
 );
 
 my $test_name = $tests[$ARGV[0] - 1];
-
 my $cmd = "./sapi/cli/php ../php-helper.php -p ./sapi/cli/php -q $test_name";
 print "$cmd\n";
 my $res = system("$cmd");
