@@ -7,6 +7,6 @@ if [ ! -d src ]; then
   pushd src
   cat libxml.patch | patch -p0
   rm libxml.patch
-  ./configure --build=i686-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+  ./configure --build=i686-pc-linux-gnu "CFLAGS=-m32 -std=gnu99" "CXXFLAGS=-m32" "LDFLAGS=-m32"
   popd
 fi
