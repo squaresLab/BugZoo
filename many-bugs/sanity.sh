@@ -59,4 +59,7 @@ for i in $(seq 1 $neg_tests); do
   fi
 done |& tee -a sanity.results
 
+# Destroy the source directory
+rm -rf src
+
 popd
