@@ -11467,16 +11467,9 @@ my @tests = (
     "ext/sybase_ct/tests/bug29064.phpt",
     "ext/sybase_ct/tests/bug30312.phpt",
     "ext/sybase_ct/tests/test_connection_caching.phpt",
-};
-
-int run_test(char* name) {
-    char buffer[1024];
-    if(name == "ext/session/tests/session_set_save_handler_class_012.phpt" ||
-       name == "ext/session/tests/session_set_save_handler_class_005.phpt")
 );
 
 my $test_name = $tests[$ARGV[0] - 1];
-
 my $cmd = "./sapi/cli/php ../php-helper.php -p ./sapi/cli/php -q $test_name";
 print "$cmd\n";
 my $res = system("$cmd");
