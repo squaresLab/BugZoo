@@ -32,3 +32,8 @@ http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=290230
 * **Positive:** contains one test case which checks the standard help output
   is retained, by checking it against a reference output, and another checks
   whether a standard invocation returns an expected output.
+
+## Requirements
+
+* libsdl1.2
+* libsdl-ttf2.0
