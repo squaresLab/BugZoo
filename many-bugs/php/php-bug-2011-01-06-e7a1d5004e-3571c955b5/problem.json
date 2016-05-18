@@ -1,6 +1,6 @@
 {
   "compiler": {
-    "command": "perl compile.pl __EXE_NAME__ > /dev/null"
+    "command": "perl compile.sh __EXE_NAME__ > /dev/null"
   },
   "problem": {
     "name": "php-bug-2011-01-06-e7a1d5004e-3571c955b5",
@@ -9,5 +9,6 @@
     "executable_name": "php",
     "positive_tests": 7546,
     "negative_tests": 1
-  }
+  },
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__"
 }
