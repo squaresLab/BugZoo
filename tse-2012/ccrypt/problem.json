@@ -1,12 +1,12 @@
 {
   "compiler": {
-    "options": "-lefence -lcrypt"
+    "command": "./compile.sh __EXE_NAME__"
   },
   "problem": {
     "name": "ccrypt-1.2",
     "program": "ccrypt_comb.c",
     "executable_name": "ccrypt",
-    "positive_tests": 5,
+    "positive_tests": 4,
     "negative_tests": 1
   }
 }

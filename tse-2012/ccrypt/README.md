@@ -15,6 +15,9 @@ prompt with NULL/EOF, which ccrypt dereferences without checking.
 
 ## Notes
 
+0. **Can't be compiled to 32-bit on a 64-bit platform, otherwise files will be
+   ignored.**
+
 1.  To ease the creation of the test scripts, I changed the the source code such
     that it reads from stdin instead of tty when it seeks user input.  In the
     original source code, the calls to fopen that reference tty are at line 16

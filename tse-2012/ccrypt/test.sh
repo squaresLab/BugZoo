@@ -22,6 +22,7 @@ fi
 ulimit -c 8
 
 # Execute the test case with the given ID.
+result=1
 case $TEST_ID in
 
   # test that the help function works correctly.
@@ -43,7 +44,7 @@ case $TEST_ID in
   # attempt to forcibly encrypt the same input from test 2, whilst there is an
   # encrypted file with a matching name (plus a .cpt suffix) in the same
   # directory.
-  p4)
+  p3) # previously p4
     cp $DIR/test/placeholder.cpt p4.txt.cpt
     cp $DIR/test/p2.in p4.txt
 
@@ -67,7 +68,7 @@ case $TEST_ID in
   # Unlike P4, the program is told not to overwrite the existing file when
   # prompted. This test case ensures that the program successfully executes,
   # and that the original files are preserved.
-  p5)
+  p4) # previously p5
     echo "\n\n" > no.txt
     exec 4<> no.txt
 
