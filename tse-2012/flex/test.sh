@@ -45,16 +45,11 @@ ulimit -c 8
 
 # Execute the test case with the given ID.
 case $TEST_ID in
-  p1) exec_pos;;
-  p2) exec_pos;;
-  p3) exec_pos;;
-  p4) exec_pos;;
-  p5) exec_pos;;
-  n1) rm -rf core*; exec_neg;;
+  p1) exec_pos && exit 0;;
+  p2) exec_pos && exit 0;;
+  p3) exec_pos && exit 0;;
+  p4) exec_pos && exit 0;;
+  p5) exec_pos && exit 0;;
+  n1) rm -rf core* && exec_neg && exit 0;;
 esac
-
-# Find the result of the test case execution.
-result=$?
-
-# Return the result of the test case execution
-exit $result
+exit 1
