@@ -1,11 +1,12 @@
 #!/bin/bash
-if [ ! -d gzip ]; then
-  tar -xf gzip.tar.gz
-  pushd gzip
+if [ ! -d src ]; then
+  tar -xf src.tar.gz
+  pushd src
   make clean
   ./configure --build=i686-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
   popd
-  patch gzip/lib/stdio.h < stdio.patch
+  cp ../stdio.patch .
+  patch src/lib/stdio.in.h < stdio.patch
   rm -f stdio.patch
 fi
 
