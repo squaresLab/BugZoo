@@ -27,7 +27,8 @@ timeout 1 curl -t 1 -s "http://localhost:8080/hello.php" |&
   diff $here_dir/test/hello.100 - &> /dev/null && (echo "PASSED P2")
 
 # N1: exploit
-#timeout 1 $here_dir/hoagie -d localhost -p 8080 -s /hello.php -o exploit
-#diff exploit /etc/passwd &> /dev/null || (echo "exploit" >> $OUT)
+rm -f exploit
+timeout 1 $here_dir/hoagie -d localhost -p 8080 -s /hello.php -o exploit &> /dev/null
+diff exploit /etc/passwd &> /dev/null || (echo "PASSED N1")
 
 killall lighttpd
