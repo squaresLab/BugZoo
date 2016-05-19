@@ -32,7 +32,7 @@ case $test_name in
   n1)
     rm -f exploit
     timeout 1 $here_dir/hoagie -d localhost -p 8080 -s /hello.php -o exploit &> /dev/null && \
-      diff exploit /etc/passwd &> /dev/null
+      ! diff exploit /etc/passwd &> /dev/null
     result=$?;;
 esac
 
