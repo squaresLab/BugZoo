@@ -1,0 +1,14 @@
+{
+  "compiler": {
+    "command": "./compile.sh __EXE_NAME__"
+  },
+  "problem": {
+    "name": "uniq-ultrix-4.3",
+    "program": "preprocessed.c",
+    "multi_file": true,
+    "executable_name": "uniq",
+    "positive_tests": 5,
+    "negative_tests": 1
+  },
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null"
+}
