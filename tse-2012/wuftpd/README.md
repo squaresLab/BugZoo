@@ -1,5 +1,9 @@
 # wu-ftpd 2.6.0
 
+Source code requires a bit of tweaking to build. Relies of an older version
+of Bison: https://gcc.gnu.org/ml/gcc-help/2004-07/msg00129.html
+
+
 An FTP server daemon for UNIX systems.
 
 **Bug:** format string vulnerability; the first such found in the wild:
