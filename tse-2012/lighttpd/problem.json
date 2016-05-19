@@ -1,0 +1,14 @@
+{
+  "threads": 1,
+  "compiler": {
+    "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+  },
+  "problem": {
+    "name": "lighttpd",
+    "program": "preprocessed/mod_fastcgi.c",
+    "executable_name": "lighttpd",
+    "multi_file": true,
+    "positive_tests": 2,
+    "negative_tests": 1
+  }
+}
