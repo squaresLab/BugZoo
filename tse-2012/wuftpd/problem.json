@@ -1,11 +1,11 @@
 {
   "compiler": {
-    "options": "-m32 -lresolv -lcrypt -lnsl"
+    "command": "./compile.sh __EXE_NAME__ &> /dev/null"
   },
   "problem": {
     "name": "wu-ftpd-2.6.0",
     "program": "ftpd_comb.c",
-    "executable_name": "wuftpd",
+    "executable_name": "ftpd",
     "positive_tests": 5,
     "negative_tests": 2
   }
