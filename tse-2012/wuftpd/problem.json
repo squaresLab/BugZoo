@@ -8,5 +8,6 @@
     "executable_name": "ftpd",
     "positive_tests": 5,
     "negative_tests": 2
-  }
+  },
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ __PORT__ &> /dev/null"
 }
