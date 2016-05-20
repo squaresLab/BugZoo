@@ -9,7 +9,7 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 test_dir="$here_dir/test"
 
 # Check if this test script is being used to compute coverage information.
-cov=$([[ $(basename $1) = "coverage" ]])
+cov=$([[ $(basename $executable) = "coverage" ]])
 
 # Treats the test case as a positive test case.
 exec_pos()

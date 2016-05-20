@@ -4,7 +4,7 @@
   },
   "problem": {
     "name": "uniq-ultrix-4.3",
-    "program": "preprocessed.c",
+    "program": "uniq.c",
     "multi_file": true,
     "executable_name": "uniq",
     "positive_tests": 5,

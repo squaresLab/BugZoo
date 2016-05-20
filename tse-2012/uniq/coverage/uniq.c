@@ -331,7 +331,8 @@ __inline static unsigned int __bswap_32(unsigned int __bsx )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -355,7 +356,8 @@ __inline static __uint64_t __bswap_64(__uint64_t __bsx )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -453,7 +455,8 @@ int main(int argc , char **argv )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -794,7 +797,8 @@ int gline(char *buf )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -878,7 +882,8 @@ int pline(char *buf )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -977,7 +982,8 @@ int equal(char *b1___0 , char *b2___0 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -1096,7 +1102,8 @@ char *skip(char *s )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -1300,7 +1307,8 @@ int printe(char *p , char *s )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/uniq/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
