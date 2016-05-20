@@ -1,26 +1,26 @@
 #!/bin/bash
 exe=$1
-exe_dir=$(dirname exe)
 test_name=$2
 port=$3
+exe_dir=$(dirname $exe)
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 test_dir="$here_dir/test"
 
 # Are we running coverage?
-[[ $(basename $exe) = "coverage" ]] && is_cov=0 || is_cov=1
-$is_cov && timeout=30 || timeout=5
+#[[ $(basename $exe) = "coverage" ]] && is_cov=0 || is_cov=1
+timeout=30
 
 # Execute in directory of server
-pushd $exe_dir
+#pushd $exe_dir
 
 # Start the server
 $exe -s -p $port &
 server_pid=$!
-sleep 2s
+sleep 5s
 
 result=1
 case $test_name in
-  p1) timeout $timeout ftp -in 127.0.0.1 $port < $test_dir/ftp-command-1 |&
+  p1) ftp -in 127.0.0.1 $port < $test_dir/ftp-command-1 |&
         diff $test_dir/ftp-command-1.out - && result=0;;
 
   p2) timeout $timeout ftp -in 127.0.0.1 $port < $test_dir/ftp-command-2 |&
