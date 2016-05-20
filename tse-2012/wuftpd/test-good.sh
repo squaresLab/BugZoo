@@ -28,6 +28,12 @@ nc 127.0.0.1 $port < $test_dir/nc-command-4 | grep -v 220 | grep -v Total | grep
 nc 127.0.0.1 $port < $test_dir/nc-command-5 | grep -v 220 |&
   diff $test_dir/nc-command-5.out - && (echo "PASSED P5")
 
+timeout 5 $here_dir/wuftpd-god -t 127.0.0.1 -g -w $port -s 4 |&
+  grep -q "leave shell" - && (echo "PASSED N1")
+
+timeout 5 $here_dir/wuftpd-god -t 127.0.0.1 -g -w $port -s 4 |&
+  grep -q "leave shell" - && (echo "PASSED N2")
+
 # Try to kill JUST the server; this prevents multi-threading :-(
 killall `basename $exe`
 wait 
