@@ -41,30 +41,27 @@ exec_neg()
 
 # Execute the appropriate test case.
 case $TEST_ID in
-  p1) exec_pos;;
-  p2) exec_pos;;
-  p3) exec_pos;;
-  p4) exec_pos;;
-  p5) exec_pos;;
-  p6) exec_pos;;
-  p7) exec_pos;;
-  p8) exec_pos;;
-  p9) exec_pos;;
-  p10) exec_pos;;
-  p11) exec_pos;;
-  p12) exec_pos;;
-  p13) exec_pos;;
-  p14) exec_pos;;
-  p15) exec_pos;;
-  p16) exec_pos;;
-  p17) exec_pos;;
-  p18) exec_pos;;
-  n1) exec_neg;;
-  n2) exec_neg;;
-  n3) exec_neg;;
-  n4) exec_neg;;
+  p1) exec_pos && exit 0;;
+  p2) exec_pos && exit 0;;
+  p3) exec_pos && exit 0;;
+  p4) exec_pos && exit 0;;
+  p5) exec_pos && exit 0;;
+  p6) exec_pos && exit 0;;
+  p7) exec_pos && exit 0;;
+  p8) exec_pos && exit 0;;
+  p9) exec_pos && exit 0;;
+  p10) exec_pos && exit 0;;
+  p11) exec_pos && exit 0;;
+  p12) exec_pos && exit 0;;
+  p13) exec_pos && exit 0;;
+  p14) exec_pos && exit 0;;
+  p15) exec_pos && exit 0;;
+  p16) exec_pos && exit 0;;
+  p17) exec_pos && exit 0;;
+  p18) exec_pos && exit 0;;
+  n1) exec_neg && exit 0;;
+  n2) exec_neg && exit 0;;
+  n3) exec_neg && exit 0;;
+  n4) exec_neg && exit 0;;
 esac
-
-# Find the result of the test case execution.
-result=$?
-exit $result
+exit 1
