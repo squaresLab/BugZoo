@@ -5,5 +5,11 @@
     "executable_name": "zune",
     "positive_tests": 18,
     "negative_tests": 4
+  },
+  "algorithm": {
+    "type": "genetic",
+    "evaluation": { 
+      "terminate_early": false
+    }
   }
 }
