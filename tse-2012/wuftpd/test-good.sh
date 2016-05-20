@@ -20,7 +20,7 @@ ftp -in 127.0.0.1 $port < $test_dir/ftp-command-2 |&
 
 ftp -in 127.0.0.1 $port < $test_dir/ftp-command-3 |&
   diff $test_dir/ftp-command-3.out - &&
-  diff dmesg bin/dmesg && (echo "PASSED P3")
+  diff dmesg /bin/dmesg && (echo "PASSED P3")
 
 nc 127.0.0.1 $port < $test_dir/nc-command-4 | grep -v 220 | grep -v Total | grep -v 200- |&
   diff $test_dir/nc-command-4.out - && (echo "PASSED P4")
