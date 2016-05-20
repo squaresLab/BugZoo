@@ -10,14 +10,15 @@ ManyBugs benchmark set instead.
 
 **Verified to be working with GenProg on RepairVM:**
 
-* gcd
-* zune
-* flex
-* ccrypt
-* lighttpd
-* look-svr
-* look-ultrix
-* uniq
+1. gcd
+2. zune
+3. flex
+4. ccrypt
+5. lighttpd
+6. look-svr
+7. look-ultrix
+8. uniq
+9. units
 
 **Currently not working with GenProg on RepairVM:**
 
