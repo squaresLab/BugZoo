@@ -17,6 +17,7 @@ ManyBugs benchmark set instead.
 * lighttpd
 * look-svr
 * look-ultrix
+* uniq
 
 **Currently not working with GenProg on RepairVM:**
 
