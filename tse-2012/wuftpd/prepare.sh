@@ -16,5 +16,8 @@ ftp -in 127.0.0.1 $port < $test_dir/ftp-command-2 &> $test_dir/ftp-command-2.out
 ftp -in 127.0.0.1 $port < $test_dir/ftp-command-3 &> $test_dir/ftp-command-3.out
 rm passwd dmesg
 
+nc 127.0.0.1 $port < $test_dir/nc-command-4 | grep -v 220 | grep -v Total | grep -v 200- &> $test_dir/nc-command-4.out
+nc 127.0.0.1 $port < $test_dir/nc-command-5 | grep -v 220 &> $test_dir/nc-command-5.out
+
 killall $(basename $oracle)
 wait
