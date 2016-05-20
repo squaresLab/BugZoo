@@ -1,6 +1,13 @@
 TSE 2012
 ========
 
+One should take the results of the TSE 2012 benchmarks with a rather large
+pinch of salt. Many of the benchmarks in this set are very easily deceived, as
+most rely solely on an error-free termination of the program, and do not check
+to see whether the correct output was returned for any of the test cases. If
+you intend to compare automated repair approaches, we advise the use of the
+ManyBugs benchmark set instead.
+
 **Verified to be working with GenProg on RepairVM:**
 
 * gcd
@@ -8,6 +15,7 @@ TSE 2012
 * flex
 * ccrypt
 * lighttpd
+* look-svr
 
 **Currently not working with GenProg on RepairVM:**
 
