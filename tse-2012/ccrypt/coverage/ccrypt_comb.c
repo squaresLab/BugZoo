@@ -242,7 +242,8 @@ void usage(FILE *fout )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -267,7 +268,8 @@ void version(FILE *fout )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -292,7 +294,8 @@ void license(FILE *fout )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -325,7 +328,8 @@ void output_commandline(cmdline cmd___0 , FILE *fout )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -641,7 +645,8 @@ cmdline read_commandline(int ac , char **av )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -1980,7 +1985,8 @@ void sigint(int dummy )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -2095,7 +2101,8 @@ int main(int ac , char **av )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3214,7 +3221,8 @@ __inline static int ( __attribute__((__nonnull__(1,2))) stat)(char const   * __r
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3241,7 +3249,8 @@ __inline static int ( __attribute__((__nonnull__(1,2))) lstat)(char const   * __
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3284,7 +3293,8 @@ void reset_inodes(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3344,7 +3354,8 @@ int known_inode(ino_t ino , dev_t dev )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3525,7 +3536,8 @@ int has_suffix(char *filename , char *suffix )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3705,7 +3717,8 @@ char *add_suffix(char *filename , char *suffix )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3773,7 +3786,8 @@ char *remove_suffix(char *filename , char *suffix )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3880,7 +3894,8 @@ int prompt(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4145,7 +4160,8 @@ int file_exists(char *filename )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4182,7 +4198,8 @@ void set_attributes(char *filename , struct stat *bufp )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4227,7 +4244,8 @@ int crypt_filename(char *filename )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4377,7 +4395,8 @@ int crypt_cat(char *infile )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4543,7 +4562,8 @@ void file_action(char *filename )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5543,7 +5563,8 @@ int get_filelist(char *dirname , char ***filelistp , int *countp )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5942,7 +5963,8 @@ void free_filelist(char **filelist , int count___0 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6009,7 +6031,8 @@ void traverse_file(char *filename )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6244,7 +6267,8 @@ void traverse_files(char **filelist , int count___0 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6307,7 +6331,8 @@ void *xalloc(size_t size , char *myname )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6359,7 +6384,8 @@ void *xrealloc(void *p , size_t size , char *myname )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6414,7 +6440,8 @@ char *xreadline(FILE *fin , char *myname )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6577,7 +6604,8 @@ char *readkey(char *prompt___0 , char *myname )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6714,7 +6742,8 @@ void hashstring(char *keystring , word32 *hash )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6870,7 +6899,8 @@ void make_nonce(word32 *nonce )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6928,7 +6958,8 @@ char const   *ccrypt_error(int st )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7000,7 +7031,8 @@ int ccencrypt(reader *r , writer *w , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7264,7 +7296,8 @@ int ccdecrypt(reader *r , writer *w , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7721,7 +7754,8 @@ int cckeychange(reader *r , writer *w , char *keyword_in , char *keyword_out )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8231,7 +8265,8 @@ int ccencrypt_file(int fd , char *filename , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8290,7 +8325,8 @@ int ccdecrypt_file(int fd , char *filename , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8349,7 +8385,8 @@ int cckeychange_file(int fd , char *filename , char *key_in , char *key_out )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8408,7 +8445,8 @@ int ccencrypt_streams(FILE *fin , FILE *fout , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8472,7 +8510,8 @@ int ccdecrypt_streams(FILE *fin , FILE *fout , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8536,7 +8575,8 @@ int cckeychange_streams(FILE *fin , FILE *fout , char *key_in , char *key_out )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8604,7 +8644,8 @@ int sgetc(reader *this )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8645,7 +8686,8 @@ int sputc(int c , writer *this )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8696,7 +8738,8 @@ int seof(writer *this )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8716,7 +8759,8 @@ reader *new_stream_reader(FILE *in )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8756,7 +8800,8 @@ writer *new_stream_writer(FILE *out )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8804,7 +8849,8 @@ int bflush(file_readwriter *b , int n )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9001,7 +9047,8 @@ int bgetc(reader *this )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9123,7 +9170,8 @@ int bputc(int c , writer *this )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9227,7 +9275,8 @@ int beof(writer *this )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9301,7 +9350,8 @@ readwriter *new_file_readwriter(int fd , char *filename )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9403,7 +9453,8 @@ char *crypt_sun(char const   *key , char const   *salt )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9575,7 +9626,8 @@ void unixcrypt_init(unixcrypt_state *st , char *key )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9886,7 +9938,8 @@ int unixcrypt_char(unixcrypt_state *st , int c )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9988,7 +10041,8 @@ int unixcrypt(reader *r , writer *w , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10104,7 +10158,8 @@ int unixcrypt_file(int fd , char *filename , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10163,7 +10218,8 @@ int unixcrypt_streams(FILE *fin , FILE *fout , char *keyword )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10235,7 +10291,8 @@ void xKeyAddition(word8 (*res)[4] , word8 (*a)[4] , word32 *rk , word8 BC )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10294,7 +10351,8 @@ void xShiftRow(word8 (*res)[4] , word8 (*a)[4] , int *shift , word8 BC )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10428,7 +10486,8 @@ void xSubstitution(word8 (*a)[4] , word8 *box , word8 BC )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10521,7 +10580,8 @@ void xShiftSubst(word8 (*res)[4] , word8 (*a)[4] , int *shift , word8 BC ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10693,7 +10753,8 @@ void xMixColumn(word8 (*res)[4] , word8 (*a)[4] , word8 BC )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10771,7 +10832,8 @@ void xMixAdd(word8 (*res)[4] , word8 (*a)[4] , word32 *rk , word8 BC )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10854,7 +10916,8 @@ void xInvMixColumn(word8 (*res)[4] , word8 (*a)[4] , word8 BC )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -10932,7 +10995,8 @@ void xAddInvMix(word8 (*res)[4] , word8 (*a)[4] , word32 *rk , word8 BC )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -11023,7 +11087,8 @@ int xrijndaelKeySched(word32 *key , int keyBits , int blockBits , roundkey *rkk 
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -11614,7 +11679,8 @@ void xrijndaelEncrypt(word32 *block , roundkey *rkk )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -11732,7 +11798,8 @@ void xrijndaelDecrypt(word32 *block , roundkey *rkk )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/ccrypt/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
