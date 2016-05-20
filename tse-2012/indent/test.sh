@@ -1,11 +1,7 @@
 #!/bin/bash
-
-# Retrieve and store the provided command-line arguments.
 EXECUTABLE=$1
 TEST_ID=$2
-
-# Find the directory that this test script belongs to.
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Check if this test script is being used to compute coverage information.
 if [ $(basename $1) = "coverage" ]; then
@@ -18,11 +14,11 @@ fi
 exec_pos()
 {
   if [ $cov = 0 ]; then
-    timeout 2 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
-      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
+    timeout 2 bash -c "$EXECUTABLE < $here_dir/test/$TEST_ID" \
+      |& diff $here_dir/test/output.$TEST_ID - &> /dev/null
   else
     bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
-      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
+      |& diff $here_dir/test/output.$TEST_ID - &> /dev/null
   fi
   return $?
 }
@@ -31,24 +27,20 @@ exec_pos()
 exec_neg()
 {
   if [ $cov = 0 ]; then
-    timeout 1 $EXECUTABLE < $DIR/test/n1 &> /dev/null
+    timeout 1 $EXECUTABLE < $here_dir/test/n1 &> /dev/null
   else
-    timeout 10 $EXECUTABLE < $DIR/test/n1 &> /dev/null
+    timeout 10 $EXECUTABLE < $here_dir/test/n1 &> /dev/null
   fi
   return $?
 }
 
 # Execute the appropriate test case.
 case $TEST_ID in
-  p1) exec_pos;;
-  p2) exec_pos;;
-  p3) exec_pos;;
-  p4) exec_pos;;
-  p5) exec_pos;;
-  n1) exec_neg;;
+  p1) exec_pos && exit 0;;
+  p2) exec_pos && exit 0;;
+  p3) exec_pos && exit 0;;
+  p4) exec_pos && exit 0;;
+  p5) exec_pos && exit 0;;
+  n1) exec_neg && exit 0;;
 esac
-
-# Find the result of the test case execution.
-result=$?
-
-exit $result
+exit 1
