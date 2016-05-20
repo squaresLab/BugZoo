@@ -1,12 +1,11 @@
-Trying 127.0.0.1...
-total 12748
--rw-r--r-- 1 root   78675 2008-02-10 17:37 config-2.6.23.15-80.fc7
--rw-r--r-- 1 root   78675 2008-05-15 00:42 config-2.6.23.17-88.fc7
-drwxr-xr-x 2 root    1024 2008-09-01 16:26 grub
--rw------- 1 root 3560877 2008-02-17 23:30 initrd-2.6.23.15-80.fc7.img
--rw------- 1 root 3606206 2008-09-01 16:22 initrd-2.6.23.17-88.fc7.img
-drwx------ 2 root   12288 2007-04-07 12:29 lost+found
--rw-r--r-- 1 root  846499 2008-02-10 17:37 System.map-2.6.23.15-80.fc7
--rw-r--r-- 1 root  846522 2008-05-15 00:42 System.map-2.6.23.17-88.fc7
--rw-r--r-- 1 root 1974848 2008-02-10 17:37 vmlinuz-2.6.23.15-80.fc7
--rw-r--r-- 1 root 1975008 2008-05-15 00:42 vmlinuz-2.6.23.17-88.fc7
+total 60017
+-rw-r--r--. 1 root   154733 May 21  2015 config-4.0.4-301.fc22.x86_64
+drwxr-xr-x. 6 root     1024 Jan 10 03:01 grub2
+-rw-r--r--. 1 root 32302438 Jan 10 03:00 initramfs-0-rescue-0135d9bbac0643549faebf099f447555.img
+-rw-------. 1 root 13911201 Jan 10 03:01 initramfs-4.0.4-301.fc22.x86_64.img
+-rw-r--r--. 1 root   211982 Jan 10 03:01 initrd-plymouth.img
+drwx------. 2 root    12288 Jan  9 18:58 lost+found
+-rw-------. 1 root  3052020 May 21  2015 System.map-4.0.4-301.fc22.x86_64
+-rwxr-xr-x. 1 root  5897400 Jan 10 03:01 vmlinuz-0-rescue-0135d9bbac0643549faebf099f447555
+-rwxr-xr-x. 1 root  5897400 May 21  2015 vmlinuz-4.0.4-301.fc22.x86_64
+-rw-r--r--. 1 root      166 May 21  2015 .vmlinuz-4.0.4-301.fc22.x86_64.hmac
