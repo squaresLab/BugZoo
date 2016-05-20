@@ -13,7 +13,8 @@ sleep 5s
 
 ftp -in 127.0.0.1 $port < $test_dir/ftp-command-1 &> $test_dir/ftp-command-1.out
 ftp -in 127.0.0.1 $port < $test_dir/ftp-command-2 &> $test_dir/ftp-command-2.out
-#rm -f passwd
+ftp -in 127.0.0.1 $port < $test_dir/ftp-command-3 &> $test_dir/ftp-command-3.out
+rm passwd dmesg
 
 killall $(basename $oracle)
 wait
