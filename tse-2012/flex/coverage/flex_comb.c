@@ -117,7 +117,8 @@ void ccladd(int cclp , int ch )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -251,7 +252,8 @@ int cclinit(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -357,7 +359,8 @@ void cclnegate(int cclp )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -384,7 +387,8 @@ void list_character_set(FILE *file , int *cset )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -635,7 +639,8 @@ void check_for_backing_up(int ds , int *state )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -748,7 +753,8 @@ void check_trailing_context(int *nfa_states , int num_states , int *accset ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -913,7 +919,8 @@ void dump_associated_rules(FILE *file , int ds )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -1143,7 +1150,8 @@ void dump_transitions(FILE *file , int *state )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -1305,7 +1313,8 @@ int *epsclosure(int *t , int *ns_addr , int *accset , int *nacc_addr ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -2037,7 +2046,8 @@ void increase_max_dfas(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -2200,7 +2210,8 @@ void ntod(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -3631,7 +3642,8 @@ int snstods(int *sns , int numstates , int *accset , int nacc , int hashval ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4125,7 +4137,8 @@ int symfollowset(int *ds , int dsize , int transsym , int *nset )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4512,7 +4525,8 @@ void sympartition(int *ds , int numstates , int *symlist , int *duplist )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -4920,7 +4934,8 @@ void ccl2ecl(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5054,7 +5069,8 @@ int cre8ecs(int *fwd , int *bck , int num )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5179,7 +5195,8 @@ void mkeccl(unsigned char *ccls , int lenccl , int *fwd , int *bck , int llsiz ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5565,7 +5582,8 @@ void mkechar(int tch , int *fwd , int *bck )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5741,7 +5759,8 @@ void do_indent(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5831,7 +5850,8 @@ void gen_backing_up(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -5926,7 +5946,8 @@ void gen_bu_action(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6046,7 +6067,8 @@ void genctbl(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6397,7 +6419,8 @@ void genecs(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -6638,7 +6661,8 @@ void gen_find_action(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7069,7 +7093,8 @@ void genftbl(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7216,7 +7241,8 @@ void gen_next_compressed_state(char *char_map )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7320,7 +7346,8 @@ void gen_next_match(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7663,7 +7690,8 @@ void gen_next_state(int worry_about_NULs )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -7947,7 +7975,8 @@ void gen_NUL_trans(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8259,7 +8288,8 @@ void gen_start_state(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -8366,7 +8396,8 @@ void gentabs(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9528,7 +9559,8 @@ void indent_put2s(char *fmt , char *arg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9562,7 +9594,8 @@ void indent_puts(char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -9598,7 +9631,8 @@ void make_tables(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -11587,7 +11621,8 @@ int main(int argc , char **argv )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -11742,7 +11777,8 @@ void check_options(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -12654,7 +12690,8 @@ void flexend(int exit_status )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -13787,7 +13824,8 @@ void flexinit(int argc , char **argv )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -15312,7 +15350,8 @@ void readin(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -16142,7 +16181,8 @@ void set_up_initial_allocations(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -16524,7 +16564,8 @@ void usage(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -16827,7 +16868,8 @@ __inline static int tolower(int __c )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -16902,7 +16944,8 @@ void action_define(char *defname , int value )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -16962,7 +17005,8 @@ void add_action(char *new_text )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17059,7 +17103,8 @@ void *allocate_array(int size , size_t element_size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17105,7 +17150,8 @@ int all_lower(char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17186,7 +17232,8 @@ int all_upper(char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17269,7 +17316,8 @@ void bubble(int *v , int n )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17382,7 +17430,8 @@ void check_char(int c )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17449,7 +17498,8 @@ unsigned char clower(int c )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17530,7 +17580,8 @@ char *copy_string(char const   *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17671,7 +17722,8 @@ unsigned char *copy_unsigned_string(unsigned char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17790,7 +17842,8 @@ void cshell(unsigned char *v , int n , int special_case_0 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -17993,7 +18046,8 @@ void dataend(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18044,7 +18098,8 @@ void dataflush(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18100,7 +18155,8 @@ void flexerror(char const   *msg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18130,7 +18186,8 @@ void flexfatal(char const   *msg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18156,7 +18213,8 @@ int htoi(unsigned char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18181,7 +18239,8 @@ void lerrif(char const   *msg , int arg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18211,7 +18270,8 @@ void lerrsf(char const   *msg , char const   *arg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18253,7 +18313,8 @@ void line_directive_out(FILE *output_file , int do_infile )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18516,7 +18577,8 @@ void mark_defs1(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18570,7 +18632,8 @@ void mark_prolog(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18614,7 +18677,8 @@ void mk2data(int value )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18682,7 +18746,8 @@ void mkdata(int value )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18750,7 +18815,8 @@ int myctoi(char *array )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -18787,7 +18853,8 @@ unsigned char myesc(unsigned char *array )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19028,7 +19095,8 @@ int otoi(unsigned char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19053,7 +19121,8 @@ void out(char const   *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19082,7 +19151,8 @@ void out_dec(char const   *fmt , int n )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19111,7 +19181,8 @@ void out_dec2(char const   *fmt , int n1 , int n2 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19140,7 +19211,8 @@ void out_hex(char const   *fmt , unsigned int x )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19169,7 +19241,8 @@ void out_line_count(char const   *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19238,7 +19311,8 @@ void out_str(char const   *fmt , char const   *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19273,7 +19347,8 @@ void out_str3(char const   *fmt , char const   *s1 , char const   *s2 ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19317,7 +19392,8 @@ void out_str_dec(char const   *fmt , char const   *str , int n )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19351,7 +19427,8 @@ void outc(int c )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19392,7 +19469,8 @@ void outn(char const   *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19427,7 +19505,8 @@ char *readable_form(int c )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19562,7 +19641,8 @@ void *reallocate_array(void *array , int size , size_t element_size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19613,7 +19693,8 @@ void skelout(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19790,7 +19871,8 @@ void transition_struct_out(int element_v , int element_n )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19864,7 +19946,8 @@ void *yy_flex_xmalloc(int size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19912,7 +19995,8 @@ void zero_out(char *region_ptr , size_t size_in_bytes )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -19995,7 +20079,8 @@ void add_accept(int mach , int accepting_number )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20048,7 +20133,8 @@ int copysingl(int singl , int num )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20119,7 +20205,8 @@ void dumpnfa(int state1 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20244,7 +20331,8 @@ int dupmachine(int mach )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20407,7 +20495,8 @@ void finish_rule(int mach , int variable_trail_rule___0 , int headcnt___0 ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20603,7 +20692,8 @@ int link_machines(int first , int last )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20690,7 +20780,8 @@ void mark_beginning_as_normal(int mach )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20789,7 +20880,8 @@ int mkbranch(int first , int second )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20853,7 +20945,8 @@ int mkclos(int state )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20882,7 +20975,8 @@ int mkopt(int mach )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -20956,7 +21050,8 @@ int mkor(int first , int second )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -21153,7 +21248,8 @@ int mkposcl(int state )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -21238,7 +21334,8 @@ int mkrep(int mach , int lb , int ub )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -21361,7 +21458,8 @@ int mkstate(int sym )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -21630,7 +21728,8 @@ void mkxtion(int statefrom , int stateto )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -21697,7 +21796,8 @@ void new_rule(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -22106,7 +22206,8 @@ static void yydestruct(char const   *yymsg , int yytype , int *yyvaluep )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -22220,7 +22321,8 @@ int yyparse(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26479,7 +26581,8 @@ void build_eof_action(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26576,7 +26679,8 @@ void format_synerr(char *msg , char *arg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26606,7 +26710,8 @@ void synerr(char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26635,7 +26740,8 @@ void format_warn(char *msg , char *arg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26665,7 +26771,8 @@ void warn(char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26689,7 +26796,8 @@ void format_pinpoint_message(char *msg , char *arg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26719,7 +26827,8 @@ void pinpoint_message(char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26743,7 +26852,8 @@ void line_warning(char *str , int line )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26785,7 +26895,8 @@ void line_pinpoint(char *str , int line )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -26811,7 +26922,8 @@ void yyerror(char *msg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -29010,7 +29122,8 @@ int flexscan(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -36056,7 +36169,8 @@ static int yy_get_next_buffer(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -36595,7 +36709,8 @@ static yy_state_type yy_get_previous_state(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -36754,7 +36869,8 @@ static yy_state_type yy_try_NUL_trans(yy_state_type yy_current_state )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -36880,7 +36996,8 @@ static void yyunput(int c , char *yy_bp )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37040,7 +37157,8 @@ static int input(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37201,7 +37319,8 @@ void yyrestart(FILE *input_file )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37247,7 +37366,8 @@ void yy_switch_to_buffer(YY_BUFFER_STATE new_buffer )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37325,7 +37445,8 @@ void yy_load_buffer_state(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37371,7 +37492,8 @@ YY_BUFFER_STATE yy_create_buffer(FILE *file , int size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37459,7 +37581,8 @@ void yy_delete_buffer(YY_BUFFER_STATE b )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37536,7 +37659,8 @@ void yy_init_buffer(YY_BUFFER_STATE b , FILE *file )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37597,7 +37721,8 @@ void yy_flush_buffer(YY_BUFFER_STATE b )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37681,7 +37806,8 @@ YY_BUFFER_STATE yy_scan_buffer(char *base___0 , yy_size_t size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37824,7 +37950,8 @@ YY_BUFFER_STATE yy_scan_string(char const   *yy_str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -37885,7 +38012,8 @@ YY_BUFFER_STATE yy_scan_bytes(char const   *bytes , int len )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38014,7 +38142,8 @@ static void yy_push_state(int new_state )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38119,7 +38248,8 @@ static void yy_pop_state(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38165,7 +38295,8 @@ static void yy_fatal_error(char const   *msg )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38190,7 +38321,8 @@ static void *yy_flex_alloc(yy_size_t size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38214,7 +38346,8 @@ static void *yy_flex_realloc(void *ptr , yy_size_t size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38238,7 +38371,8 @@ static void yy_flex_free(void *ptr )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38262,7 +38396,8 @@ int yywrap(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38312,7 +38447,8 @@ void set_input_file(char *file )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38501,7 +38637,8 @@ void *flex_alloc(size_t size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38525,7 +38662,8 @@ void *flex_realloc(void *ptr , size_t size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38549,7 +38687,8 @@ void flex_free(void *ptr )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -38991,7 +39130,8 @@ int addsym(char *sym , char *str_def , int int_def , hash_table table ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39255,7 +39395,8 @@ void cclinstal(unsigned char *ccltxt , int cclnum )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39284,7 +39425,8 @@ int ccllookup(unsigned char *ccltxt )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39315,7 +39457,8 @@ struct hash_entry *findsym(char *sym , hash_table table , int table_size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39497,7 +39640,8 @@ int hashfunct(char *str , int hash_size )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39571,7 +39715,8 @@ void ndinstal(char *name , unsigned char *definition )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39622,7 +39767,8 @@ unsigned char *ndlookup(char *nd )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39650,7 +39796,8 @@ void scextend(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39733,7 +39880,8 @@ void scinstal(char *str , int xcluflg___0 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39826,7 +39974,8 @@ int sclookup(char *str )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -39864,7 +40013,8 @@ void bldtbl(int *state , int statenum , int totaltrans , int comstate ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -40147,7 +40297,8 @@ void cmptmps(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -40367,7 +40518,8 @@ void expand_nxt_chk(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -40431,7 +40583,8 @@ int find_table_space(int *state , int numtrans )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -40692,7 +40845,8 @@ void inittbl(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -40797,7 +40951,8 @@ void mkdeftbl(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -40938,7 +41093,8 @@ void mkentry(int *state , int numchars , int statenum , int deflink ,
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -41633,7 +41789,8 @@ void mk1tbl(int state , int sym , int onenxt , int onedef___0 )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -41780,7 +41937,8 @@ void mkprot(int *state , int statenum , int comstate )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -41940,7 +42098,8 @@ void mktemplate(int *state , int statenum , int comstate )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -42104,7 +42263,8 @@ void mv2front(int qelm )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -42197,7 +42357,8 @@ void place_state(int *state , int statenum , int transnum )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -42323,7 +42484,8 @@ void stack1(int statenum , int sym , int nextstate , int deflink )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -42383,7 +42545,8 @@ int tbldiff(int *state , int pr , int *ext )
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
@@ -42499,7 +42662,8 @@ int yylex(void)
   {
   if (_coverage_fout == 0) {
     {
-    _coverage_fout = fopen("./coverage/cov.tmp", "wb");
+    _coverage_fout = fopen("/home/vagrant/benchmarks/tse-2012/flex/./coverage/cov.tmp",
+                           "wb");
     }
   }
   }
