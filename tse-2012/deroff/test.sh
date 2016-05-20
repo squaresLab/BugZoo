@@ -36,11 +36,11 @@ negative()
 }
 
 case $TEST_ID in
-  p1) positive p1;;
-  p2) positive p2;;
-  p3) positive p3;;
-  p4) positive p4;;
-  p5) positive p5;;
-  n1) negative;;
+  p1) positive p1 && exit 0;;
+  p2) positive p2 && exit 0;;
+  p3) positive p3 && exit 0;;
+  p4) positive p4 && exit 0;;
+  p5) positive p5 && exit 0;;
+  n1) negative && exit 0;;
 esac 
-exit $?
+exit 1
