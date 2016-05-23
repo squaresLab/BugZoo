@@ -19,6 +19,7 @@ ManyBugs benchmark set instead.
 7. look-ultrix
 8. uniq
 9. units
+10. tiff
 
 **Currently not working with GenProg on RepairVM:**
 
