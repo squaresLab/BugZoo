@@ -11,11 +11,13 @@ test_dir="$here_dir/test"
 timeout=30
 
 # Execute in directory of server
-#pushd $exe_dir
+pushd $exe_dir &> /dev/null
 
 # Start the server
+echo "$exe -s -p $port"
 $exe -s -p $port &
 server_pid=$!
+echo "starting server: $server_pid"
 sleep 5s
 
 result=1
@@ -40,7 +42,7 @@ case $test_name in
   n1) timeout $timeout $here_dir/wuftpd-god -t 127.0.0.1 -g -w $port -s 4 |&
         grep -q "leave shell" - && result=0;;
 esac
-popd
+popd &> /dev/null
 kill $server_pid
 wait 
 exit $result
