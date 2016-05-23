@@ -6,7 +6,7 @@ project_dir="$here_dir/src"
 target_dir="$project_dir/libtiff"
 
 #rm -f $target_dir/tif_lzw.*
-cp $target_dir/tif_lzw.c $target_dir/tif_lzw.c
+cp $patch_dir/tif_lzw.c $target_dir/tif_lzw.c
 pushd $project_dir
-make install && exit 0
+make clean && make install && exit 0
 exit 1
