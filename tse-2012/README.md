@@ -22,6 +22,8 @@ ManyBugs benchmark set instead.
 
 **Currently not working with GenProg on RepairVM:**
 
+* wuftpd: passes local sanity checks, but fails when run within GenProg; refuses
+  to connect to server; permissions problems?
 * atris: no video device; need to trick the VM
 * indent: fails to compile, appears to be missing some ldflags
 * deroff: fails sanity checks, and with no human repair, it's tricky to know
