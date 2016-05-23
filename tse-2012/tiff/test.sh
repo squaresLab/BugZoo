@@ -18,7 +18,7 @@ ulimit -c 8
 
 case $test_id in
   p1) timeout $timeout $bin_dir/tiffcp -s $test_dir/flower-rgb-planar-08.tif $test_dir/mytest && exit 0;;
-  p2) timeout $timeout $bin_dir/tiffcp -s $test_dir/tests/flower-rgb-contig-08.tif $here_dir/mytest && exit 0;;
+  p2) timeout $timeout $bin_dir/tiffcp -s $test_dir/flower-rgb-contig-08.tif $here_dir/mytest && exit 0;;
   p3) timeout $timeout $bin_dir/tiffcp -s $test_dir/cramps.tif $here_dir/mytest && exit 0;;
   p4) timeout $timeout $bin_dir/tiffcp -s $test_dir/flower-minisblack-32.tif $here_dir/mytest && exit 0;;
   p5) timeout $timeout $bin_dir/tiffcp -s $test_dir/flower-minisblack-14.tif $test_dir/mytest && exit 0;; 
