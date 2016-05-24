@@ -1,25 +1,26 @@
 #!/bin/bash
-EXECUTABLE=$( dirname $1 )
-TEST_ID=$2
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+bugrev=1948
+executable=$( dirname $1 )
+test_id=$2
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
-if [ `basename $1` = "coverage" ] ; then
-  TIMEOUT=120
+if [ `basename $executable` = "coverage" ] ; then
+  timeout=180
 else
-  TIMEOUT=60
+  timeout=90
 fi
 
 run_test()
 {
-    pushd lighttpd
-    timeout $TIMEOUT $DIR/test.pl $1
-    RESULT=$?
+    pushd src
+    timeout $timeout $here_dir/helper.pl $1 $bugrev
+    result=$?
     popd
-    return $RESULT
+    return $result
 }
 
-case $TEST_ID in
+case $test_id in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
     p3) run_test 3 && exit 0 ;; 
