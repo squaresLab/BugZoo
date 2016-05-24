@@ -344,7 +344,8 @@ if (length($ARGV[0]) == 0)
 
 my $test = $TESTS[$ARGV[0] - 1];
 my $orig_dir = cwd;
-my $exe = Cwd::abs_path(dirname(__FILE__)) . "/src/python";
+my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/src";
+my $exe = "$project_dir/python";
 
 #chdir $project_dir;
 my $command = "$exe -m test $test";
