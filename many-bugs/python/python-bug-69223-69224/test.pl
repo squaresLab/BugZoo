@@ -4,7 +4,7 @@ use warnings;
 use Cwd;
 use File::Basename;
 
-my @TESTS = (
+my @tests = (
     "test_grammar",
     "test_opcodes",
     "test_dict",
