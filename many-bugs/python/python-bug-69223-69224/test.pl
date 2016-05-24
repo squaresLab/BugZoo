@@ -347,11 +347,9 @@ my $orig_dir = cwd;
 my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/src";
 my $exe = "$project_dir/python";
 
-#chdir $project_dir;
 my $command = "$exe -m test $test";
 print "$command\n";
 my $res = system("$command");
-#chdir $orig_dir;
 
 if ($res == 0) {
   exit 0;
