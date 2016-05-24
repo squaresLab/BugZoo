@@ -1,24 +1,22 @@
 #!/bin/bash
-
-# Retrieve and store the provided command-line arguments.
-EXECUTABLE=$( dirname $1 )
-TEST_ID=$2
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+exe=$( dirname $1 )
+test_id=$2
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
-if [ `basename $1` = "coverage" ] ; then
-  TIMEOUT=120
+if [ `basename $exe` = "coverage" ] ; then
+  timeout=180
 else
-  TIMEOUT=45
+  timeout=90
 fi
 
 run_test()
 {
-    timeout $TIMEOUT $DIR/test.pl $1
+    timeout $timeout $here_dir/test.pl $1
     return $?
 }
 
-case $TEST_ID in
+case $test_id in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
     p3) run_test 3 && exit 0 ;; 
