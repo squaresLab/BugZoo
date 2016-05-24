@@ -1,0 +1,13 @@
+{
+  "compiler": {
+    "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+  },
+  "problem": {
+    "name": "libtiff-bug-2006-03-03-eec4c06-ee65c74",
+    "multi_file": true,
+    "program": "preprocessed/manifest.txt",
+    "executable_name": "libtiff",
+    "positive_tests": 31,
+    "negative_tests": 5
+  }
+}
