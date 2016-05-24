@@ -1,26 +1,30 @@
-#!/usr/bin/perl -w
-use strict ;
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Cwd;
+use Cwd 'abs_path';
+use File::Basename;
 
-my $arg = $ARGV[0] ;
-#If the string "length" is the only argument, then return the number of test cases, 21, and exit without error.
-if($arg eq "length") {
-    print("21");
-    exit 0
-}
-my $bugrev = $ARGV[1] ;
+my $orig_dir = getcwd();
+my $here_dir = abs_path(dirname(__FILE__));
+my $arg = $ARGV[0];
+my $bugrev = $ARGV[1];
+
 # we have two ../../ because we are in lighttpd/tests
-chdir("tests") ;
-system("sh prepare.sh") ;
-my @results = `perl ../../lighttpd-run-tests.pl $arg $bugrev 2>&1` ;
+chdir("$here_dir/src/tests");
+system("sh prepare.sh");
+my @results = `perl $here_dir/test.pl $arg $bugrev 2>&1` ;
 system("sh cleanup.sh") ;
-system("killall -9 lighttpd") ;
-chdir("../") ;
+system("killall -9 lighttpd") ; # I don't like this! BAD.
+chdir($orig_dir);
+
 my $retval = 0;
 #print STDERR "\n\n@results\n\n" ;
 my $testname = "";
 foreach my $line (@results)
 {
     chomp $line ;
+    print $line ;
     if ($line =~ m/[a-z]+[.]t/)
     {
         my $copy = $line ;
@@ -71,4 +75,3 @@ else
     print STDERR "FAIL: $testname\n" ;
 }
 exit $retval ;
-
