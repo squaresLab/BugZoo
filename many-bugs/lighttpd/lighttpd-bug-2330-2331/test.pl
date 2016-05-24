@@ -33,6 +33,3 @@ my @tests =  ("core-condition.t" ,  #1
 push @fs, $srcdir.'/'.$tests[$arg];
 closedir DIR;
 runtests @fs;
-
-
-

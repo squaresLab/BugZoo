@@ -2,12 +2,9 @@
 use strict;
 use feature ":5.10";
 use Test::Harness qw(&runtests $verbose);
-
-# No idea...
 $verbose = (defined $ENV{'VERBOSE'} ? $ENV{'VERBOSE'} : 0);
 my $tests = (defined $ENV{'RUNTESTS'} ? $ENV{'RUNTESTS'} : '');
 my $srcdir = (defined $ENV{'srcdir'} ? $ENV{'srcdir'} : '.');
-
 opendir DIR, $srcdir;
 my (@fs, $f);
 my $arg = $ARGV[0] - 1;
