@@ -342,9 +342,11 @@ if (length($ARGV[0]) == 0)
 
 my $test = $TESTS[$ARGV[0] - 1];
 my $orig_dir = cwd;
-my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/php";
+my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/src";
+my $exe = "$project_dir/python";
 
-my $command = "$project_dir/python/python -m test $test";
+my $command = "$exe -m test $test";
 print "$command\n";
+my $res = system("$command");
 
 exit system("$command") == 0;
