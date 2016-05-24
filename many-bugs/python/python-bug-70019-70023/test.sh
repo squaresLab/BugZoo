@@ -1,24 +1,22 @@
 #!/bin/bash
-bugrev=70019
+exe=$( dirname $1 )
+test_id=$2
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
-if [ `basename $2` = "coverage" ] ; then
-    cov=0
+if [ `basename $exe` = "coverage" ] ; then
+  timeout=180
 else
-    cov=1
+  timeout=90
 fi
 
 run_test()
 {
-    cd python
-        /root/mountpoint-genprog/genprog-many-bugs/python-bug-70019-70023/limit /usr/bin/perl /root/mountpoint-genprog/genprog-many-bugs/python-bug-70019-70023/python-run-tests.pl $1
-    RESULT=$?
-    killall python
-
-    cd ..
-    return $RESULT
+    timeout $timeout $here_dir/test.pl $1
+    return $?
 }
-case $1 in
+
+case $test_id in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
     p3) run_test 3 && exit 0 ;; 

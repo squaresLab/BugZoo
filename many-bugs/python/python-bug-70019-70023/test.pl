@@ -337,33 +337,17 @@ if (length($ARGV[0]) == 0)
     die "Must specify a test number";
 }
 
+my $test = $TESTS[$ARGV[0] - 1];
+my $orig_dir = cwd;
+my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/src";
+my $exe = "$project_dir/python";
 
-my $length = scalar @tests;
-#If the string "length" is the only argument, then return the number of test cases and exit without error.
-if ($ARGV[0] =~ m/length/) { print $length; exit 0 }
-my $num = $ARGV[0] - 1;
-my $name = $tests[$num];
+my $command = "$exe -m test $test";
+print "$command\n";
+my $res = system("$command");
 
-
-if ($num < 0 || $num > $length)
-{
-    die "Invalid test number: $num";
+if ($res == 0) {
+  exit 0;
+} else {
+  exit 1;
 }
-my $result = system("./python -m test $name &> /dev/null");
-#my $killall = system("killall python &> /dev/null");
-#if ($killall == 0)
-#{
-#    print STDERR "PYTHON KILLED\n";
-#}
-if ($result == 0)
-{
-    print "PASS: $name\n";
-    exit 0;
-}
-else 
-{
-    print "FAIL: $name\n";
-    exit 1;
-}
-
-
