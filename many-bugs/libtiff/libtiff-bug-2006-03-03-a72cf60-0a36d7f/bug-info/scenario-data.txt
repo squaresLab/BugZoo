@@ -1,0 +1,32 @@
+version: beta-2.0
+program: libtiff
+bug revision: a72cf60
+fix revision: 0a36d7f
+repos: git, https://github.com/vadz/libtiff.git
+failing tests:
+    "long_tag.log",
+    "short_tag.log",
+    "strip_rw.log",
+    "tiffcp-split.sh.log",
+    "tiffcp-split-join.sh.log",
+
+minutes between bug rev and fix rev: 106
+files edited: 1
+lines added or changed: 1
+lines deleted or changed: 1
+bug report priority: 
+bug management links: 
+Security related?: 
+Bug type: Buffer overflow
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: No
+    changes conditional?: Yes
+    adds new variables?: No
+    adds 1 or more if-statements?: No
+    adds 1 or more loops?: No
+    adds a whole new function?: No
