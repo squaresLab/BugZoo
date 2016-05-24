@@ -1,4 +1,5 @@
 #!/bin/bash
+bugrev=1913
 executable=$( dirname $1 )
 test_id=$2
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -13,7 +14,7 @@ fi
 run_test()
 {
     pushd src
-    timeout $timeout $here_dir/test.pl $1
+    timeout $timeout $here_dir/helper.pl $1 $bugrev
     result=$?
     popd
     return $result
