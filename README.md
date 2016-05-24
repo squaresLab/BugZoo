@@ -3,6 +3,21 @@
 This repository contains a series of benchmark problems for automated program
 repair, written in C, tailored to be solved using GenProg.
 
+## Installation
+
+**Warning:** Please **do not** try to fully clone this repository. If you're
+only interested in using these benchmarks, then download a zipped release (or
+a zipped form of the latest repo state). If you wish to contribute (you're
+awesome), then please clone the repository using the following command:
+
+```
+git clone git://github.com/ChrisTimperley/AutomatedRepairBenchmarks.c --depth 1
+```
+
+Producing a shallow clone takes far less time, and the git protocol both
+reduces that further and helps to prevent any hangs you might otherwise
+experience using https.
+
 ## Benchmark Structure
 Each benchmark, contained within its own sub-directory of the
 `benchmarks` directory, contains the following:
