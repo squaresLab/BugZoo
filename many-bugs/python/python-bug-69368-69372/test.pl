@@ -349,4 +349,8 @@ my $command = "$exe -m test $test";
 print "$command\n";
 my $res = system("$command");
 
-exit system("$command") == 0;
+if ($res == 0) {
+  exit 0;
+} else {
+  exit 1;
+}
