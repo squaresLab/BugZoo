@@ -1,0 +1,28 @@
+version: beta-2.0
+program: libtiff
+bug revision: b2ce5d8
+fix revision: 207c78a
+repos: git, https://github.com/vadz/libtiff.git
+failing tests:
+    "short_tag.log",
+
+minutes between bug rev and fix rev: 11
+files edited: 1
+lines added or changed: 6
+lines deleted or changed: 1
+bug report priority: 
+bug management links: http://bugzilla.remotesensing.org/show_bug.cgi?id=1088
+Security related?: 
+Bug type: Segfault
+Additional bug info: bug report saved in this directory
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No
