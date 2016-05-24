@@ -33,7 +33,7 @@ fi
 
 # TODO: may need to handle special cases, such as FBC here
 pushd $src_dir
-if !(make > /dev/null); then
+if !(make clean && make > /dev/null); then
   echo "ERROR: failed to execute make within problem src directory"
   exit 1
 fi
