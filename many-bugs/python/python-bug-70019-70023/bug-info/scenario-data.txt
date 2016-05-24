@@ -1,0 +1,28 @@
+version: beta-2.0
+program: python
+bug revision: 70019
+fix revision: 70023
+repos: hg, http://hg.python.org/cpython
+failing tests:
+    "test_json",
+
+minutes between bug rev and fix rev: 69
+files edited: 1
+lines added or changed: 15
+lines deleted or changed: 2
+bug report priority: Normal
+bug management links: http://bugs.python.org/issue12051
+Security related?: 
+Bug type: Segfault
+Additional bug info: 
+
+Human patch:
+    changes data structures or types?: No
+    changes method signature?: No
+    changes arguments to a function?: No
+    added 1 or more function calls?: Yes
+    changes conditional?: No
+    adds new variables?: No
+    adds 1 or more if-statements?: Yes
+    adds 1 or more loops?: No
+    adds a whole new function?: No
