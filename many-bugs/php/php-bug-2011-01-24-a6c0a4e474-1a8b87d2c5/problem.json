@@ -8,6 +8,8 @@
     "program": "preprocessed/manifest.txt",
     "executable_name": "php",
     "positive_tests": 7562,
-    "negative_tests": 1
-  }
+    "negative_tests": 1,
+    "ignore_failed_sanity": true
+  },
+  "coverage_unique": true
 }
