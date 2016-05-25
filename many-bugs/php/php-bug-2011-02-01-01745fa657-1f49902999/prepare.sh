@@ -10,3 +10,7 @@ if [ ! -d src ]; then
   ./configure --host=i686-pc-linux-gnu "CFLAGS=-m32 -std=gnu99" "CXXFLAGS=-m32" "LDFLAGS=-m32"
   popd
 fi
+
+if [ ! -d coverage ]; then
+  tar -xf coverage.tar.gz
+fi
