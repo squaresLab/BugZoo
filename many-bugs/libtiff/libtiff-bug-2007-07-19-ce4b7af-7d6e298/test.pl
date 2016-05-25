@@ -93,15 +93,16 @@ if ($ARGV[0] =~ m/length/) { print $length; exit 0 }
 my $num = $ARGV[0] - 1;
 my $name = $tests[$num];
 
-
 if ($num < 0 || $num > $length)
 {
     die "Invalid test number: $num";
 }
+
 chdir "test" or die "We're in the wrong directory: $!";
 system("rm -f $name");
 my @result = `make $name`;
 chdir "..";
+
 foreach my $line(@result)
 {
     system("killall -r lt-.*" );
@@ -117,6 +118,3 @@ foreach my $line(@result)
         exit 1;
     }
 }
-
-
-
