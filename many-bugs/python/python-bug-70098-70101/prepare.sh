@@ -7,7 +7,6 @@ if [ ! -d src ]; then
   popd
 fi
 
-#if [ ! -d test ]; then
-#  tar -xf tests.tar.gz
-#  mv test python
-#fi
+if [ ! -d coverage ]; then
+  tar -xf coverage.tar.gz
+fi
