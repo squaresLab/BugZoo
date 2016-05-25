@@ -342,8 +342,7 @@ if (length($ARGV[0]) == 0)
     die "Must specify a test number";
 }
 
-my $test = $TESTS[$ARGV[0] - 1];
-my $orig_dir = cwd;
+my $test = $tests[$ARGV[0] - 1];
 my $project_dir = Cwd::abs_path(dirname(__FILE__)) . "/src";
 my $exe = "$project_dir/python";
 
