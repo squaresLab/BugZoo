@@ -1,3 +1,5 @@
+
+  Electric Fence 2.2.2 Copyright (C) 1987-1999 Bruce Perens <bruce@perens.com>
 NAME VERSION. Secure encryption and decryption of files and streams.
 
 Usage: NAME [mode] [options] [file...]
