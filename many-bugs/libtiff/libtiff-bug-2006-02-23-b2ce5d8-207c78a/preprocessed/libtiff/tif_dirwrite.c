@@ -1,7 +1,8 @@
 # 1 "tif_dirwrite.c"
-# 1 "/root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-2006-02-23-b2ce5d8-207c78a/libtiff/libtiff//"
 # 1 "<built-in>"
 # 1 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 1 "<command-line>" 2
 # 1 "tif_dirwrite.c"
 # 32 "tif_dirwrite.c"
 # 1 "tiffiop.h" 1
@@ -11,45 +12,34 @@
 
 
 # 1 "/usr/include/fcntl.h" 1 3 4
-# 27 "/usr/include/fcntl.h" 3 4
+# 25 "/usr/include/fcntl.h" 3 4
 # 1 "/usr/include/features.h" 1 3 4
-# 361 "/usr/include/features.h" 3 4
+# 368 "/usr/include/features.h" 3 4
 # 1 "/usr/include/sys/cdefs.h" 1 3 4
-# 365 "/usr/include/sys/cdefs.h" 3 4
+# 410 "/usr/include/sys/cdefs.h" 3 4
 # 1 "/usr/include/bits/wordsize.h" 1 3 4
-# 366 "/usr/include/sys/cdefs.h" 2 3 4
-# 362 "/usr/include/features.h" 2 3 4
-# 385 "/usr/include/features.h" 3 4
+# 411 "/usr/include/sys/cdefs.h" 2 3 4
+# 369 "/usr/include/features.h" 2 3 4
+# 392 "/usr/include/features.h" 3 4
 # 1 "/usr/include/gnu/stubs.h" 1 3 4
+# 10 "/usr/include/gnu/stubs.h" 3 4
+# 1 "/usr/include/gnu/stubs-64.h" 1 3 4
+# 11 "/usr/include/gnu/stubs.h" 2 3 4
+# 393 "/usr/include/features.h" 2 3 4
+# 26 "/usr/include/fcntl.h" 2 3 4
 
 
 
-# 1 "/usr/include/bits/wordsize.h" 1 3 4
-# 5 "/usr/include/gnu/stubs.h" 2 3 4
-
-
-# 1 "/usr/include/gnu/stubs-32.h" 1 3 4
-# 8 "/usr/include/gnu/stubs.h" 2 3 4
-# 386 "/usr/include/features.h" 2 3 4
-# 28 "/usr/include/fcntl.h" 2 3 4
-
-
-
-
-
-
-# 1 "/usr/include/bits/fcntl.h" 1 3 4
-# 25 "/usr/include/bits/fcntl.h" 3 4
-# 1 "/usr/include/sys/types.h" 1 3 4
-# 28 "/usr/include/sys/types.h" 3 4
 
 
 # 1 "/usr/include/bits/types.h" 1 3 4
-# 28 "/usr/include/bits/types.h" 3 4
+# 27 "/usr/include/bits/types.h" 3 4
 # 1 "/usr/include/bits/wordsize.h" 1 3 4
-# 29 "/usr/include/bits/types.h" 2 3 4
+# 28 "/usr/include/bits/types.h" 2 3 4
 
 
+
+# 30 "/usr/include/bits/types.h" 3 4
 typedef unsigned char __u_char;
 typedef unsigned short int __u_short;
 typedef unsigned int __u_int;
@@ -63,11 +53,8 @@ typedef unsigned short int __uint16_t;
 typedef signed int __int32_t;
 typedef unsigned int __uint32_t;
 
-
-
-
-__extension__ typedef signed long long int __int64_t;
-__extension__ typedef unsigned long long int __uint64_t;
+typedef signed long int __int64_t;
+typedef unsigned long int __uint64_t;
 
 
 
@@ -75,60 +62,67 @@ __extension__ typedef unsigned long long int __uint64_t;
 
 
 
-__extension__ typedef long long int __quad_t;
-__extension__ typedef unsigned long long int __u_quad_t;
-# 131 "/usr/include/bits/types.h" 3 4
+typedef long int __quad_t;
+typedef unsigned long int __u_quad_t;
+# 121 "/usr/include/bits/types.h" 3 4
 # 1 "/usr/include/bits/typesizes.h" 1 3 4
-# 132 "/usr/include/bits/types.h" 2 3 4
+# 122 "/usr/include/bits/types.h" 2 3 4
 
 
-__extension__ typedef __u_quad_t __dev_t;
-__extension__ typedef unsigned int __uid_t;
-__extension__ typedef unsigned int __gid_t;
-__extension__ typedef unsigned long int __ino_t;
-__extension__ typedef __u_quad_t __ino64_t;
-__extension__ typedef unsigned int __mode_t;
-__extension__ typedef unsigned int __nlink_t;
-__extension__ typedef long int __off_t;
-__extension__ typedef __quad_t __off64_t;
-__extension__ typedef int __pid_t;
-__extension__ typedef struct { int __val[2]; } __fsid_t;
-__extension__ typedef long int __clock_t;
-__extension__ typedef unsigned long int __rlim_t;
-__extension__ typedef __u_quad_t __rlim64_t;
-__extension__ typedef unsigned int __id_t;
-__extension__ typedef long int __time_t;
-__extension__ typedef unsigned int __useconds_t;
-__extension__ typedef long int __suseconds_t;
+typedef unsigned long int __dev_t;
+typedef unsigned int __uid_t;
+typedef unsigned int __gid_t;
+typedef unsigned long int __ino_t;
+typedef unsigned long int __ino64_t;
+typedef unsigned int __mode_t;
+typedef unsigned long int __nlink_t;
+typedef long int __off_t;
+typedef long int __off64_t;
+typedef int __pid_t;
+typedef struct { int __val[2]; } __fsid_t;
+typedef long int __clock_t;
+typedef unsigned long int __rlim_t;
+typedef unsigned long int __rlim64_t;
+typedef unsigned int __id_t;
+typedef long int __time_t;
+typedef unsigned int __useconds_t;
+typedef long int __suseconds_t;
 
-__extension__ typedef int __daddr_t;
-__extension__ typedef long int __swblk_t;
-__extension__ typedef int __key_t;
-
-
-__extension__ typedef int __clockid_t;
+typedef int __daddr_t;
+typedef int __key_t;
 
 
-__extension__ typedef void * __timer_t;
+typedef int __clockid_t;
 
 
-__extension__ typedef long int __blksize_t;
+typedef void * __timer_t;
 
+
+typedef long int __blksize_t;
 
 
 
-__extension__ typedef long int __blkcnt_t;
-__extension__ typedef __quad_t __blkcnt64_t;
+
+typedef long int __blkcnt_t;
+typedef long int __blkcnt64_t;
 
 
-__extension__ typedef unsigned long int __fsblkcnt_t;
-__extension__ typedef __u_quad_t __fsblkcnt64_t;
+typedef unsigned long int __fsblkcnt_t;
+typedef unsigned long int __fsblkcnt64_t;
 
 
-__extension__ typedef unsigned long int __fsfilcnt_t;
-__extension__ typedef __u_quad_t __fsfilcnt64_t;
+typedef unsigned long int __fsfilcnt_t;
+typedef unsigned long int __fsfilcnt64_t;
 
-__extension__ typedef int __ssize_t;
+
+typedef long int __fsword_t;
+
+typedef long int __ssize_t;
+
+
+typedef long int __syscall_slong_t;
+
+typedef unsigned long int __syscall_ulong_t;
 
 
 
@@ -137,11 +131,134 @@ typedef __quad_t *__qaddr_t;
 typedef char *__caddr_t;
 
 
-__extension__ typedef int __intptr_t;
+typedef long int __intptr_t;
 
 
-__extension__ typedef unsigned int __socklen_t;
-# 31 "/usr/include/sys/types.h" 2 3 4
+typedef unsigned int __socklen_t;
+# 32 "/usr/include/fcntl.h" 2 3 4
+
+
+
+# 1 "/usr/include/bits/fcntl.h" 1 3 4
+# 35 "/usr/include/bits/fcntl.h" 3 4
+struct flock
+  {
+    short int l_type;
+    short int l_whence;
+
+    __off_t l_start;
+    __off_t l_len;
+
+
+
+
+    __pid_t l_pid;
+  };
+# 61 "/usr/include/bits/fcntl.h" 3 4
+# 1 "/usr/include/bits/fcntl-linux.h" 1 3 4
+# 345 "/usr/include/bits/fcntl-linux.h" 3 4
+
+# 419 "/usr/include/bits/fcntl-linux.h" 3 4
+
+# 61 "/usr/include/bits/fcntl.h" 2 3 4
+# 36 "/usr/include/fcntl.h" 2 3 4
+# 50 "/usr/include/fcntl.h" 3 4
+typedef __mode_t mode_t;
+
+
+
+
+
+typedef __off_t off_t;
+# 69 "/usr/include/fcntl.h" 3 4
+typedef __pid_t pid_t;
+
+
+
+
+
+
+# 1 "/usr/include/time.h" 1 3 4
+# 120 "/usr/include/time.h" 3 4
+struct timespec
+  {
+    __time_t tv_sec;
+    __syscall_slong_t tv_nsec;
+  };
+# 77 "/usr/include/fcntl.h" 2 3 4
+# 1 "/usr/include/bits/stat.h" 1 3 4
+# 46 "/usr/include/bits/stat.h" 3 4
+struct stat
+  {
+    __dev_t st_dev;
+
+
+
+
+    __ino_t st_ino;
+
+
+
+
+
+
+
+    __nlink_t st_nlink;
+    __mode_t st_mode;
+
+    __uid_t st_uid;
+    __gid_t st_gid;
+
+    int __pad0;
+
+    __dev_t st_rdev;
+
+
+
+
+    __off_t st_size;
+
+
+
+    __blksize_t st_blksize;
+
+    __blkcnt_t st_blocks;
+# 91 "/usr/include/bits/stat.h" 3 4
+    struct timespec st_atim;
+    struct timespec st_mtim;
+    struct timespec st_ctim;
+# 106 "/usr/include/bits/stat.h" 3 4
+    __syscall_slong_t __glibc_reserved[3];
+# 115 "/usr/include/bits/stat.h" 3 4
+  };
+# 78 "/usr/include/fcntl.h" 2 3 4
+# 169 "/usr/include/fcntl.h" 3 4
+extern int fcntl (int __fd, int __cmd, ...);
+# 179 "/usr/include/fcntl.h" 3 4
+extern int open (const char *__file, int __oflag, ...) __attribute__ ((__nonnull__ (1)));
+# 203 "/usr/include/fcntl.h" 3 4
+extern int openat (int __fd, const char *__file, int __oflag, ...)
+     __attribute__ ((__nonnull__ (2)));
+# 225 "/usr/include/fcntl.h" 3 4
+extern int creat (const char *__file, mode_t __mode) __attribute__ ((__nonnull__ (1)));
+# 254 "/usr/include/fcntl.h" 3 4
+extern int lockf (int __fd, int __cmd, off_t __len);
+# 271 "/usr/include/fcntl.h" 3 4
+extern int posix_fadvise (int __fd, off_t __offset, off_t __len,
+     int __advise) __attribute__ ((__nothrow__ , __leaf__));
+# 293 "/usr/include/fcntl.h" 3 4
+extern int posix_fallocate (int __fd, off_t __offset, off_t __len);
+# 315 "/usr/include/fcntl.h" 3 4
+
+# 37 "tiffiop.h" 2
+
+
+
+# 1 "/usr/include/sys/types.h" 1 3 4
+# 27 "/usr/include/sys/types.h" 3 4
+
+
+
 
 
 
@@ -160,46 +277,22 @@ typedef __loff_t loff_t;
 
 
 
-
-
-typedef __ino64_t ino_t;
-# 61 "/usr/include/sys/types.h" 3 4
+typedef __ino_t ino_t;
+# 60 "/usr/include/sys/types.h" 3 4
 typedef __dev_t dev_t;
 
 
 
 
 typedef __gid_t gid_t;
-
-
-
-
-typedef __mode_t mode_t;
-
-
-
-
+# 75 "/usr/include/sys/types.h" 3 4
 typedef __nlink_t nlink_t;
 
 
 
 
 typedef __uid_t uid_t;
-
-
-
-
-
-
-
-typedef __off64_t off_t;
-# 99 "/usr/include/sys/types.h" 3 4
-typedef __pid_t pid_t;
-
-
-
-
-
+# 104 "/usr/include/sys/types.h" 3 4
 typedef __id_t id_t;
 
 
@@ -219,39 +312,39 @@ typedef __caddr_t caddr_t;
 
 
 typedef __key_t key_t;
-# 133 "/usr/include/sys/types.h" 3 4
+# 132 "/usr/include/sys/types.h" 3 4
 # 1 "/usr/include/time.h" 1 3 4
-# 58 "/usr/include/time.h" 3 4
+# 57 "/usr/include/time.h" 3 4
 
 
 typedef __clock_t clock_t;
 
 
 
-# 74 "/usr/include/time.h" 3 4
+# 73 "/usr/include/time.h" 3 4
 
 
 typedef __time_t time_t;
 
 
 
-# 92 "/usr/include/time.h" 3 4
+# 91 "/usr/include/time.h" 3 4
 typedef __clockid_t clockid_t;
-# 104 "/usr/include/time.h" 3 4
+# 103 "/usr/include/time.h" 3 4
 typedef __timer_t timer_t;
-# 134 "/usr/include/sys/types.h" 2 3 4
-# 147 "/usr/include/sys/types.h" 3 4
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h" 1 3 4
-# 211 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h" 3 4
-typedef unsigned int size_t;
-# 148 "/usr/include/sys/types.h" 2 3 4
+# 133 "/usr/include/sys/types.h" 2 3 4
+# 146 "/usr/include/sys/types.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stddef.h" 1 3 4
+# 216 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stddef.h" 3 4
+typedef long unsigned int size_t;
+# 147 "/usr/include/sys/types.h" 2 3 4
 
 
 
 typedef unsigned long int ulong;
 typedef unsigned short int ushort;
 typedef unsigned int uint;
-# 195 "/usr/include/sys/types.h" 3 4
+# 194 "/usr/include/sys/types.h" 3 4
 typedef int int8_t __attribute__ ((__mode__ (__QI__)));
 typedef int int16_t __attribute__ ((__mode__ (__HI__)));
 typedef int int32_t __attribute__ ((__mode__ (__SI__)));
@@ -264,25 +357,51 @@ typedef unsigned int u_int32_t __attribute__ ((__mode__ (__SI__)));
 typedef unsigned int u_int64_t __attribute__ ((__mode__ (__DI__)));
 
 typedef int register_t __attribute__ ((__mode__ (__word__)));
-# 217 "/usr/include/sys/types.h" 3 4
+# 216 "/usr/include/sys/types.h" 3 4
 # 1 "/usr/include/endian.h" 1 3 4
-# 37 "/usr/include/endian.h" 3 4
+# 36 "/usr/include/endian.h" 3 4
 # 1 "/usr/include/bits/endian.h" 1 3 4
-# 38 "/usr/include/endian.h" 2 3 4
-# 61 "/usr/include/endian.h" 3 4
+# 37 "/usr/include/endian.h" 2 3 4
+# 60 "/usr/include/endian.h" 3 4
 # 1 "/usr/include/bits/byteswap.h" 1 3 4
-# 62 "/usr/include/endian.h" 2 3 4
-# 218 "/usr/include/sys/types.h" 2 3 4
+# 28 "/usr/include/bits/byteswap.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/bits/byteswap.h" 2 3 4
+
+
+
+
+
+
+# 1 "/usr/include/bits/byteswap-16.h" 1 3 4
+# 36 "/usr/include/bits/byteswap.h" 2 3 4
+# 44 "/usr/include/bits/byteswap.h" 3 4
+static __inline unsigned int
+__bswap_32 (unsigned int __bsx)
+{
+  return __builtin_bswap32 (__bsx);
+}
+# 108 "/usr/include/bits/byteswap.h" 3 4
+static __inline __uint64_t
+__bswap_64 (__uint64_t __bsx)
+{
+  return __builtin_bswap64 (__bsx);
+}
+# 61 "/usr/include/endian.h" 2 3 4
+# 217 "/usr/include/sys/types.h" 2 3 4
 
 
 # 1 "/usr/include/sys/select.h" 1 3 4
-# 31 "/usr/include/sys/select.h" 3 4
+# 30 "/usr/include/sys/select.h" 3 4
 # 1 "/usr/include/bits/select.h" 1 3 4
-# 32 "/usr/include/sys/select.h" 2 3 4
+# 22 "/usr/include/bits/select.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 23 "/usr/include/bits/select.h" 2 3 4
+# 31 "/usr/include/sys/select.h" 2 3 4
 
 
 # 1 "/usr/include/bits/sigset.h" 1 3 4
-# 24 "/usr/include/bits/sigset.h" 3 4
+# 22 "/usr/include/bits/sigset.h" 3 4
 typedef int __sig_atomic_t;
 
 
@@ -292,7 +411,7 @@ typedef struct
   {
     unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))];
   } __sigset_t;
-# 35 "/usr/include/sys/select.h" 2 3 4
+# 34 "/usr/include/sys/select.h" 2 3 4
 
 
 
@@ -303,22 +422,16 @@ typedef __sigset_t sigset_t;
 
 
 # 1 "/usr/include/time.h" 1 3 4
-# 120 "/usr/include/time.h" 3 4
-struct timespec
-  {
-    __time_t tv_sec;
-    long int tv_nsec;
-  };
-# 45 "/usr/include/sys/select.h" 2 3 4
+# 44 "/usr/include/sys/select.h" 2 3 4
 
 # 1 "/usr/include/bits/time.h" 1 3 4
-# 75 "/usr/include/bits/time.h" 3 4
+# 30 "/usr/include/bits/time.h" 3 4
 struct timeval
   {
     __time_t tv_sec;
     __suseconds_t tv_usec;
   };
-# 47 "/usr/include/sys/select.h" 2 3 4
+# 46 "/usr/include/sys/select.h" 2 3 4
 
 
 typedef __suseconds_t suseconds_t;
@@ -328,7 +441,7 @@ typedef __suseconds_t suseconds_t;
 
 
 typedef long int __fd_mask;
-# 67 "/usr/include/sys/select.h" 3 4
+# 64 "/usr/include/sys/select.h" 3 4
 typedef struct
   {
 
@@ -348,96 +461,89 @@ typedef struct
 
 
 typedef __fd_mask fd_mask;
-# 99 "/usr/include/sys/select.h" 3 4
+# 96 "/usr/include/sys/select.h" 3 4
 
-# 109 "/usr/include/sys/select.h" 3 4
+# 106 "/usr/include/sys/select.h" 3 4
 extern int select (int __nfds, fd_set *__restrict __readfds,
      fd_set *__restrict __writefds,
      fd_set *__restrict __exceptfds,
      struct timeval *__restrict __timeout);
-# 121 "/usr/include/sys/select.h" 3 4
+# 118 "/usr/include/sys/select.h" 3 4
 extern int pselect (int __nfds, fd_set *__restrict __readfds,
       fd_set *__restrict __writefds,
       fd_set *__restrict __exceptfds,
       const struct timespec *__restrict __timeout,
       const __sigset_t *__restrict __sigmask);
+# 131 "/usr/include/sys/select.h" 3 4
 
-
-
-# 221 "/usr/include/sys/types.h" 2 3 4
+# 220 "/usr/include/sys/types.h" 2 3 4
 
 
 # 1 "/usr/include/sys/sysmacros.h" 1 3 4
-# 30 "/usr/include/sys/sysmacros.h" 3 4
+# 24 "/usr/include/sys/sysmacros.h" 3 4
+
+
 __extension__
 extern unsigned int gnu_dev_major (unsigned long long int __dev)
-     __attribute__ ((__nothrow__));
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 __extension__
 extern unsigned int gnu_dev_minor (unsigned long long int __dev)
-     __attribute__ ((__nothrow__));
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
 __extension__
 extern unsigned long long int gnu_dev_makedev (unsigned int __major,
             unsigned int __minor)
-     __attribute__ ((__nothrow__));
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+# 58 "/usr/include/sys/sysmacros.h" 3 4
 
-
-__extension__ extern __inline unsigned int
-__attribute__ ((__nothrow__)) gnu_dev_major (unsigned long long int __dev)
-{
-  return ((__dev >> 8) & 0xfff) | ((unsigned int) (__dev >> 32) & ~0xfff);
-}
-
-__extension__ extern __inline unsigned int
-__attribute__ ((__nothrow__)) gnu_dev_minor (unsigned long long int __dev)
-{
-  return (__dev & 0xff) | ((unsigned int) (__dev >> 12) & ~0xff);
-}
-
-__extension__ extern __inline unsigned long long int
-__attribute__ ((__nothrow__)) gnu_dev_makedev (unsigned int __major, unsigned int __minor)
-{
-  return ((__minor & 0xff) | ((__major & 0xfff) << 8)
-   | (((unsigned long long int) (__minor & ~0xff)) << 12)
-   | (((unsigned long long int) (__major & ~0xfff)) << 32));
-}
-# 224 "/usr/include/sys/types.h" 2 3 4
+# 223 "/usr/include/sys/types.h" 2 3 4
 
 
 
 
 
 typedef __blksize_t blksize_t;
-# 249 "/usr/include/sys/types.h" 3 4
-typedef __blkcnt64_t blkcnt_t;
 
 
 
-typedef __fsblkcnt64_t fsblkcnt_t;
 
 
 
-typedef __fsfilcnt64_t fsfilcnt_t;
-# 271 "/usr/include/sys/types.h" 3 4
+typedef __blkcnt_t blkcnt_t;
+
+
+
+typedef __fsblkcnt_t fsblkcnt_t;
+
+
+
+typedef __fsfilcnt_t fsfilcnt_t;
+# 270 "/usr/include/sys/types.h" 3 4
 # 1 "/usr/include/bits/pthreadtypes.h" 1 3 4
-# 36 "/usr/include/bits/pthreadtypes.h" 3 4
+# 21 "/usr/include/bits/pthreadtypes.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 22 "/usr/include/bits/pthreadtypes.h" 2 3 4
+# 60 "/usr/include/bits/pthreadtypes.h" 3 4
 typedef unsigned long int pthread_t;
 
 
-typedef union
+union pthread_attr_t
 {
-  char __size[36];
+  char __size[56];
   long int __align;
-} pthread_attr_t;
+};
+
+typedef union pthread_attr_t pthread_attr_t;
 
 
-typedef struct __pthread_internal_slist
+
+
+
+typedef struct __pthread_internal_list
 {
-  struct __pthread_internal_slist *__next;
-} __pthread_slist_t;
-
-
-
-
+  struct __pthread_internal_list *__prev;
+  struct __pthread_internal_list *__next;
+} __pthread_list_t;
+# 90 "/usr/include/bits/pthreadtypes.h" 3 4
 typedef union
 {
   struct __pthread_mutex_s
@@ -446,23 +552,25 @@ typedef union
     unsigned int __count;
     int __owner;
 
+    unsigned int __nusers;
+
+
 
     int __kind;
-    unsigned int __nusers;
-    __extension__ union
-    {
-      int __spins;
-      __pthread_slist_t __list;
-    };
+
+    short __spins;
+    short __elision;
+    __pthread_list_t __list;
+# 125 "/usr/include/bits/pthreadtypes.h" 3 4
   } __data;
-  char __size[24];
+  char __size[40];
   long int __align;
 } pthread_mutex_t;
 
 typedef union
 {
   char __size[4];
-  long int __align;
+  int __align;
 } pthread_mutexattr_t;
 
 
@@ -488,7 +596,7 @@ typedef union
 typedef union
 {
   char __size[4];
-  long int __align;
+  int __align;
 } pthread_condattr_t;
 
 
@@ -505,6 +613,7 @@ typedef int pthread_once_t;
 
 typedef union
 {
+
   struct
   {
     int __lock;
@@ -513,15 +622,24 @@ typedef union
     unsigned int __writer_wakeup;
     unsigned int __nr_readers_queued;
     unsigned int __nr_writers_queued;
-
-
-    unsigned char __flags;
-    unsigned char __shared;
-    unsigned char __pad1;
-    unsigned char __pad2;
     int __writer;
+    int __shared;
+    signed char __rwelision;
+
+
+
+
+    unsigned char __pad1[7];
+
+
+    unsigned long int __pad2;
+
+
+    unsigned int __flags;
+
   } __data;
-  char __size[32];
+# 220 "/usr/include/bits/pthreadtypes.h" 3 4
+  char __size[56];
   long int __align;
 } pthread_rwlock_t;
 
@@ -542,7 +660,7 @@ typedef volatile int pthread_spinlock_t;
 
 typedef union
 {
-  char __size[20];
+  char __size[32];
   long int __align;
 } pthread_barrier_t;
 
@@ -551,185 +669,93 @@ typedef union
   char __size[4];
   int __align;
 } pthread_barrierattr_t;
-# 272 "/usr/include/sys/types.h" 2 3 4
+# 271 "/usr/include/sys/types.h" 2 3 4
 
 
 
-# 26 "/usr/include/bits/fcntl.h" 2 3 4
-# 150 "/usr/include/bits/fcntl.h" 3 4
-struct flock
-  {
-    short int l_type;
-    short int l_whence;
-
-
-
-
-    __off64_t l_start;
-    __off64_t l_len;
-
-    __pid_t l_pid;
-  };
-# 235 "/usr/include/bits/fcntl.h" 3 4
-
-# 281 "/usr/include/bits/fcntl.h" 3 4
-
-# 35 "/usr/include/fcntl.h" 2 3 4
-
-
-
-
-
-# 1 "/usr/include/time.h" 1 3 4
-# 41 "/usr/include/fcntl.h" 2 3 4
-# 1 "/usr/include/bits/stat.h" 1 3 4
-# 39 "/usr/include/bits/stat.h" 3 4
-struct stat
-  {
-    __dev_t st_dev;
-    unsigned short int __pad1;
-
-
-
-    __ino_t __st_ino;
-
-    __mode_t st_mode;
-    __nlink_t st_nlink;
-    __uid_t st_uid;
-    __gid_t st_gid;
-    __dev_t st_rdev;
-    unsigned short int __pad2;
-
-
-
-    __off64_t st_size;
-
-    __blksize_t st_blksize;
-
-
-
-
-    __blkcnt64_t st_blocks;
-# 73 "/usr/include/bits/stat.h" 3 4
-    struct timespec st_atim;
-    struct timespec st_mtim;
-    struct timespec st_ctim;
-# 91 "/usr/include/bits/stat.h" 3 4
-    __ino64_t st_ino;
-
-  };
-# 42 "/usr/include/fcntl.h" 2 3 4
-# 122 "/usr/include/fcntl.h" 3 4
-extern int fcntl (int __fd, int __cmd, ...);
-# 134 "/usr/include/fcntl.h" 3 4
-extern int open (__const char *__file, int __oflag, ...) __asm__ ("" "open64")
-     __attribute__ ((__nonnull__ (1)));
-# 159 "/usr/include/fcntl.h" 3 4
-extern int openat (int __fd, __const char *__file, int __oflag, ...) __asm__ ("" "openat64")
-                    __attribute__ ((__nonnull__ (2)));
-# 180 "/usr/include/fcntl.h" 3 4
-extern int creat (__const char *__file, __mode_t __mode) __asm__ ("" "creat64")
-                  __attribute__ ((__nonnull__ (1)));
-# 209 "/usr/include/fcntl.h" 3 4
-extern int lockf (int __fd, int __cmd, __off64_t __len) __asm__ ("" "lockf64");
-# 227 "/usr/include/fcntl.h" 3 4
-extern int posix_fadvise (int __fd, __off64_t __offset, __off64_t __len, int __advise) __asm__ ("" "posix_fadvise64") __attribute__ ((__nothrow__))
-
-                      ;
-# 248 "/usr/include/fcntl.h" 3 4
-extern int posix_fallocate (int __fd, __off64_t __offset, __off64_t __len) __asm__ ("" "posix_fallocate64")
-
-                           ;
-# 267 "/usr/include/fcntl.h" 3 4
-
-# 37 "tiffiop.h" 2
-
-
-
-
+# 41 "tiffiop.h" 2
 
 
 
 # 1 "/usr/include/string.h" 1 3 4
-# 29 "/usr/include/string.h" 3 4
+# 27 "/usr/include/string.h" 3 4
 
 
 
 
 
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h" 1 3 4
-# 35 "/usr/include/string.h" 2 3 4
-
-
-
-
-
-
-
-
-
-extern void *memcpy (void *__restrict __dest,
-       __const void *__restrict __src, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern void *memmove (void *__dest, __const void *__src, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stddef.h" 1 3 4
+# 33 "/usr/include/string.h" 2 3 4
 
 
 
 
 
 
-extern void *memccpy (void *__restrict __dest, __const void *__restrict __src,
+
+
+
+extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
+       size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern void *memmove (void *__dest, const void *__src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+
+extern void *memccpy (void *__restrict __dest, const void *__restrict __src,
         int __c, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
 
 
 
-extern void *memset (void *__s, int __c, size_t __n) __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1)));
+extern void *memset (void *__s, int __c, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
-extern int memcmp (__const void *__s1, __const void *__s2, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 95 "/usr/include/string.h" 3 4
-extern void *memchr (__const void *__s, int __c, size_t __n)
-      __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern int memcmp (const void *__s1, const void *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 92 "/usr/include/string.h" 3 4
+extern void *memchr (const void *__s, int __c, size_t __n)
+      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 
 
-# 126 "/usr/include/string.h" 3 4
+# 123 "/usr/include/string.h" 3 4
 
 
-extern char *strcpy (char *__restrict __dest, __const char *__restrict __src)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 extern char *strncpy (char *__restrict __dest,
-        __const char *__restrict __src, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+        const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
-extern char *strcat (char *__restrict __dest, __const char *__restrict __src)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
-extern char *strncat (char *__restrict __dest, __const char *__restrict __src,
-        size_t __n) __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern int strcmp (__const char *__s1, __const char *__s2)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-extern int strncmp (__const char *__s1, __const char *__s2, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *strncat (char *__restrict __dest, const char *__restrict __src,
+        size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
-extern int strcoll (__const char *__s1, __const char *__s2)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int strcmp (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strcoll (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 
 extern size_t strxfrm (char *__restrict __dest,
-         __const char *__restrict __src, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (2)));
+         const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 
 
 
@@ -737,7 +763,7 @@ extern size_t strxfrm (char *__restrict __dest,
 
 
 # 1 "/usr/include/xlocale.h" 1 3 4
-# 28 "/usr/include/xlocale.h" 3 4
+# 27 "/usr/include/xlocale.h" 3 4
 typedef struct __locale_struct
 {
 
@@ -754,405 +780,182 @@ typedef struct __locale_struct
 
 
 typedef __locale_t locale_t;
-# 163 "/usr/include/string.h" 2 3 4
+# 160 "/usr/include/string.h" 2 3 4
 
 
-extern int strcoll_l (__const char *__s1, __const char *__s2, __locale_t __l)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
+extern int strcoll_l (const char *__s1, const char *__s2, __locale_t __l)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
 
-extern size_t strxfrm_l (char *__dest, __const char *__src, size_t __n,
-    __locale_t __l) __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (2, 4)));
-
-
-
-
-
-extern char *strdup (__const char *__s)
-     __attribute__ ((__nothrow__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
+extern size_t strxfrm_l (char *__dest, const char *__src, size_t __n,
+    __locale_t __l) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
 
 
 
 
-
-
-extern char *strndup (__const char *__string, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
-# 210 "/usr/include/string.h" 3 4
-
-# 235 "/usr/include/string.h" 3 4
-extern char *strchr (__const char *__s, int __c)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 262 "/usr/include/string.h" 3 4
-extern char *strrchr (__const char *__s, int __c)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-
-
-# 281 "/usr/include/string.h" 3 4
-
-
-
-extern size_t strcspn (__const char *__s, __const char *__reject)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-
-
-extern size_t strspn (__const char *__s, __const char *__accept)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 314 "/usr/include/string.h" 3 4
-extern char *strpbrk (__const char *__s, __const char *__accept)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 342 "/usr/include/string.h" 3 4
-extern char *strstr (__const char *__haystack, __const char *__needle)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *strdup (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
 
 
 
 
-extern char *strtok (char *__restrict __s, __const char *__restrict __delim)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (2)));
+
+
+extern char *strndup (const char *__string, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
+# 206 "/usr/include/string.h" 3 4
+
+# 231 "/usr/include/string.h" 3 4
+extern char *strchr (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 258 "/usr/include/string.h" 3 4
+extern char *strrchr (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+# 277 "/usr/include/string.h" 3 4
+
+
+
+extern size_t strcspn (const char *__s, const char *__reject)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern size_t strspn (const char *__s, const char *__accept)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 310 "/usr/include/string.h" 3 4
+extern char *strpbrk (const char *__s, const char *__accept)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 337 "/usr/include/string.h" 3 4
+extern char *strstr (const char *__haystack, const char *__needle)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern char *strtok (char *__restrict __s, const char *__restrict __delim)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 
 
 
 
 extern char *__strtok_r (char *__restrict __s,
-    __const char *__restrict __delim,
+    const char *__restrict __delim,
     char **__restrict __save_ptr)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (2, 3)));
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
 
-extern char *strtok_r (char *__restrict __s, __const char *__restrict __delim,
+extern char *strtok_r (char *__restrict __s, const char *__restrict __delim,
          char **__restrict __save_ptr)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (2, 3)));
-# 397 "/usr/include/string.h" 3 4
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+# 392 "/usr/include/string.h" 3 4
 
 
-extern size_t strlen (__const char *__s)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-
-
-
-
-
-extern size_t strnlen (__const char *__string, size_t __maxlen)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern size_t strlen (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 
 
 
 
 
-extern char *strerror (int __errnum) __attribute__ ((__nothrow__));
+extern size_t strnlen (const char *__string, size_t __maxlen)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 
-# 427 "/usr/include/string.h" 3 4
-extern int strerror_r (int __errnum, char *__buf, size_t __buflen) __asm__ ("" "__xpg_strerror_r") __attribute__ ((__nothrow__))
+
+
+
+
+extern char *strerror (int __errnum) __attribute__ ((__nothrow__ , __leaf__));
+
+# 422 "/usr/include/string.h" 3 4
+extern int strerror_r (int __errnum, char *__buf, size_t __buflen) __asm__ ("" "__xpg_strerror_r") __attribute__ ((__nothrow__ , __leaf__))
 
                         __attribute__ ((__nonnull__ (2)));
-# 445 "/usr/include/string.h" 3 4
-extern char *strerror_l (int __errnum, __locale_t __l) __attribute__ ((__nothrow__));
+# 440 "/usr/include/string.h" 3 4
+extern char *strerror_l (int __errnum, __locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
 
 
-extern void __bzero (void *__s, size_t __n) __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1)));
+extern void __bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
 
-extern void bcopy (__const void *__src, void *__dest, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+extern void bcopy (const void *__src, void *__dest, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
-extern void bzero (void *__s, size_t __n) __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1)));
+extern void bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
-extern int bcmp (__const void *__s1, __const void *__s2, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 489 "/usr/include/string.h" 3 4
-extern char *index (__const char *__s, int __c)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
-# 517 "/usr/include/string.h" 3 4
-extern char *rindex (__const char *__s, int __c)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+extern int bcmp (const void *__s1, const void *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 484 "/usr/include/string.h" 3 4
+extern char *index (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 512 "/usr/include/string.h" 3 4
+extern char *rindex (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
 
 
 
 
-extern int ffs (int __i) __attribute__ ((__nothrow__)) __attribute__ ((__const__));
-# 536 "/usr/include/string.h" 3 4
-extern int strcasecmp (__const char *__s1, __const char *__s2)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int ffs (int __i) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+# 529 "/usr/include/string.h" 3 4
+extern int strcasecmp (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
-extern int strncasecmp (__const char *__s1, __const char *__s2, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
-# 559 "/usr/include/string.h" 3 4
+extern int strncasecmp (const char *__s1, const char *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 552 "/usr/include/string.h" 3 4
 extern char *strsep (char **__restrict __stringp,
-       __const char *__restrict __delim)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+       const char *__restrict __delim)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
 
 
-extern char *strsignal (int __sig) __attribute__ ((__nothrow__));
+extern char *strsignal (int __sig) __attribute__ ((__nothrow__ , __leaf__));
 
 
-extern char *__stpcpy (char *__restrict __dest, __const char *__restrict __src)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
-extern char *stpcpy (char *__restrict __dest, __const char *__restrict __src)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *__stpcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *stpcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
 
 extern char *__stpncpy (char *__restrict __dest,
-   __const char *__restrict __src, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
+   const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 extern char *stpncpy (char *__restrict __dest,
-        __const char *__restrict __src, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__nonnull__ (1, 2)));
-# 634 "/usr/include/string.h" 3 4
-# 1 "/usr/include/bits/string.h" 1 3 4
-# 635 "/usr/include/string.h" 2 3 4
-
-
-# 1 "/usr/include/bits/string2.h" 1 3 4
-# 394 "/usr/include/bits/string2.h" 3 4
-extern void *__rawmemchr (const void *__s, int __c);
-# 969 "/usr/include/bits/string2.h" 3 4
-extern __inline size_t __strcspn_c1 (__const char *__s, int __reject);
-extern __inline size_t
-__strcspn_c1 (__const char *__s, int __reject)
-{
-  register size_t __result = 0;
-  while (__s[__result] != '\0' && __s[__result] != __reject)
-    ++__result;
-  return __result;
-}
-
-extern __inline size_t __strcspn_c2 (__const char *__s, int __reject1,
-         int __reject2);
-extern __inline size_t
-__strcspn_c2 (__const char *__s, int __reject1, int __reject2)
-{
-  register size_t __result = 0;
-  while (__s[__result] != '\0' && __s[__result] != __reject1
-  && __s[__result] != __reject2)
-    ++__result;
-  return __result;
-}
-
-extern __inline size_t __strcspn_c3 (__const char *__s, int __reject1,
-         int __reject2, int __reject3);
-extern __inline size_t
-__strcspn_c3 (__const char *__s, int __reject1, int __reject2,
-       int __reject3)
-{
-  register size_t __result = 0;
-  while (__s[__result] != '\0' && __s[__result] != __reject1
-  && __s[__result] != __reject2 && __s[__result] != __reject3)
-    ++__result;
-  return __result;
-}
-# 1045 "/usr/include/bits/string2.h" 3 4
-extern __inline size_t __strspn_c1 (__const char *__s, int __accept);
-extern __inline size_t
-__strspn_c1 (__const char *__s, int __accept)
-{
-  register size_t __result = 0;
-
-  while (__s[__result] == __accept)
-    ++__result;
-  return __result;
-}
-
-extern __inline size_t __strspn_c2 (__const char *__s, int __accept1,
-        int __accept2);
-extern __inline size_t
-__strspn_c2 (__const char *__s, int __accept1, int __accept2)
-{
-  register size_t __result = 0;
-
-  while (__s[__result] == __accept1 || __s[__result] == __accept2)
-    ++__result;
-  return __result;
-}
-
-extern __inline size_t __strspn_c3 (__const char *__s, int __accept1,
-        int __accept2, int __accept3);
-extern __inline size_t
-__strspn_c3 (__const char *__s, int __accept1, int __accept2, int __accept3)
-{
-  register size_t __result = 0;
-
-  while (__s[__result] == __accept1 || __s[__result] == __accept2
-  || __s[__result] == __accept3)
-    ++__result;
-  return __result;
-}
-# 1121 "/usr/include/bits/string2.h" 3 4
-extern __inline char *__strpbrk_c2 (__const char *__s, int __accept1,
-         int __accept2);
-extern __inline char *
-__strpbrk_c2 (__const char *__s, int __accept1, int __accept2)
-{
-
-  while (*__s != '\0' && *__s != __accept1 && *__s != __accept2)
-    ++__s;
-  return *__s == '\0' ? ((void *)0) : (char *) (size_t) __s;
-}
-
-extern __inline char *__strpbrk_c3 (__const char *__s, int __accept1,
-         int __accept2, int __accept3);
-extern __inline char *
-__strpbrk_c3 (__const char *__s, int __accept1, int __accept2,
-       int __accept3)
-{
-
-  while (*__s != '\0' && *__s != __accept1 && *__s != __accept2
-  && *__s != __accept3)
-    ++__s;
-  return *__s == '\0' ? ((void *)0) : (char *) (size_t) __s;
-}
-# 1172 "/usr/include/bits/string2.h" 3 4
-extern __inline char *__strtok_r_1c (char *__s, char __sep, char **__nextp);
-extern __inline char *
-__strtok_r_1c (char *__s, char __sep, char **__nextp)
-{
-  char *__result;
-  if (__s == ((void *)0))
-    __s = *__nextp;
-  while (*__s == __sep)
-    ++__s;
-  __result = ((void *)0);
-  if (*__s != '\0')
-    {
-      __result = __s++;
-      while (*__s != '\0')
- if (*__s++ == __sep)
-   {
-     __s[-1] = '\0';
-     break;
-   }
-    }
-  *__nextp = __s;
-  return __result;
-}
-# 1204 "/usr/include/bits/string2.h" 3 4
-extern char *__strsep_g (char **__stringp, __const char *__delim);
-# 1222 "/usr/include/bits/string2.h" 3 4
-extern __inline char *__strsep_1c (char **__s, char __reject);
-extern __inline char *
-__strsep_1c (char **__s, char __reject)
-{
-  register char *__retval = *__s;
-  if (__retval != ((void *)0) && (*__s = (__extension__ (__builtin_constant_p (__reject) && !__builtin_constant_p (__retval) && (__reject) == '\0' ? (char *) __rawmemchr (__retval, __reject) : __builtin_strchr (__retval, __reject)))) != ((void *)0))
-    *(*__s)++ = '\0';
-  return __retval;
-}
-
-extern __inline char *__strsep_2c (char **__s, char __reject1, char __reject2);
-extern __inline char *
-__strsep_2c (char **__s, char __reject1, char __reject2)
-{
-  register char *__retval = *__s;
-  if (__retval != ((void *)0))
-    {
-      register char *__cp = __retval;
-      while (1)
- {
-   if (*__cp == '\0')
-     {
-       __cp = ((void *)0);
-   break;
-     }
-   if (*__cp == __reject1 || *__cp == __reject2)
-     {
-       *__cp++ = '\0';
-       break;
-     }
-   ++__cp;
- }
-      *__s = __cp;
-    }
-  return __retval;
-}
-
-extern __inline char *__strsep_3c (char **__s, char __reject1, char __reject2,
-       char __reject3);
-extern __inline char *
-__strsep_3c (char **__s, char __reject1, char __reject2, char __reject3)
-{
-  register char *__retval = *__s;
-  if (__retval != ((void *)0))
-    {
-      register char *__cp = __retval;
-      while (1)
- {
-   if (*__cp == '\0')
-     {
-       __cp = ((void *)0);
-   break;
-     }
-   if (*__cp == __reject1 || *__cp == __reject2 || *__cp == __reject3)
-     {
-       *__cp++ = '\0';
-       break;
-     }
-   ++__cp;
- }
-      *__s = __cp;
-    }
-  return __retval;
-}
-# 1298 "/usr/include/bits/string2.h" 3 4
-# 1 "/usr/include/stdlib.h" 1 3 4
-# 33 "/usr/include/stdlib.h" 3 4
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h" 1 3 4
-# 34 "/usr/include/stdlib.h" 2 3 4
-
-
-# 469 "/usr/include/stdlib.h" 3 4
-
-
-extern void *malloc (size_t __size) __attribute__ ((__nothrow__)) __attribute__ ((__malloc__)) ;
-
-extern void *calloc (size_t __nmemb, size_t __size)
-     __attribute__ ((__nothrow__)) __attribute__ ((__malloc__)) ;
-
-# 964 "/usr/include/stdlib.h" 3 4
-
-# 1299 "/usr/include/bits/string2.h" 2 3 4
-
-
-
-
-extern char *__strdup (__const char *__string) __attribute__ ((__nothrow__)) __attribute__ ((__malloc__));
-# 1322 "/usr/include/bits/string2.h" 3 4
-extern char *__strndup (__const char *__string, size_t __n)
-     __attribute__ ((__nothrow__)) __attribute__ ((__malloc__));
-# 638 "/usr/include/string.h" 2 3 4
-# 646 "/usr/include/string.h" 3 4
+        const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+# 658 "/usr/include/string.h" 3 4
 
 # 45 "tiffiop.h" 2
 
 
 
 # 1 "/usr/include/assert.h" 1 3 4
-# 66 "/usr/include/assert.h" 3 4
+# 64 "/usr/include/assert.h" 3 4
 
 
 
-extern void __assert_fail (__const char *__assertion, __const char *__file,
-      unsigned int __line, __const char *__function)
-     __attribute__ ((__nothrow__)) __attribute__ ((__noreturn__));
+extern void __assert_fail (const char *__assertion, const char *__file,
+      unsigned int __line, const char *__function)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 
 
-extern void __assert_perror_fail (int __errnum, __const char *__file,
-      unsigned int __line,
-      __const char *__function)
-     __attribute__ ((__nothrow__)) __attribute__ ((__noreturn__));
+extern void __assert_perror_fail (int __errnum, const char *__file,
+      unsigned int __line, const char *__function)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 
 
 
 
 extern void __assert (const char *__assertion, const char *__file, int __line)
-     __attribute__ ((__nothrow__)) __attribute__ ((__noreturn__));
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 
 
 
@@ -1163,23 +966,23 @@ extern void __assert (const char *__assertion, const char *__file, int __line)
 
 
 # 1 "/usr/include/search.h" 1 3 4
-# 26 "/usr/include/search.h" 3 4
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h" 1 3 4
-# 27 "/usr/include/search.h" 2 3 4
+# 25 "/usr/include/search.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stddef.h" 1 3 4
+# 26 "/usr/include/search.h" 2 3 4
 
 
-# 45 "/usr/include/search.h" 3 4
-extern void insque (void *__elem, void *__prev) __attribute__ ((__nothrow__));
+# 44 "/usr/include/search.h" 3 4
+extern void insque (void *__elem, void *__prev) __attribute__ ((__nothrow__ , __leaf__));
 
 
-extern void remque (void *__elem) __attribute__ ((__nothrow__));
-
-
-
+extern void remque (void *__elem) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
-typedef int (*__compar_fn_t) (__const void *, __const void *);
+
+
+
+typedef int (*__compar_fn_t) (const void *, const void *);
 
 
 
@@ -1203,15 +1006,15 @@ ENTRY;
 
 
 struct _ENTRY;
-# 88 "/usr/include/search.h" 3 4
-extern ENTRY *hsearch (ENTRY __item, ACTION __action) __attribute__ ((__nothrow__));
+# 87 "/usr/include/search.h" 3 4
+extern ENTRY *hsearch (ENTRY __item, ACTION __action) __attribute__ ((__nothrow__ , __leaf__));
 
 
-extern int hcreate (size_t __nel) __attribute__ ((__nothrow__));
+extern int hcreate (size_t __nel) __attribute__ ((__nothrow__ , __leaf__));
 
 
-extern void hdestroy (void) __attribute__ ((__nothrow__));
-# 119 "/usr/include/search.h" 3 4
+extern void hdestroy (void) __attribute__ ((__nothrow__ , __leaf__));
+# 118 "/usr/include/search.h" 3 4
 typedef enum
 {
   preorder,
@@ -1223,35 +1026,35 @@ VISIT;
 
 
 
-extern void *tsearch (__const void *__key, void **__rootp,
+extern void *tsearch (const void *__key, void **__rootp,
         __compar_fn_t __compar);
 
 
 
-extern void *tfind (__const void *__key, void *__const *__rootp,
+extern void *tfind (const void *__key, void *const *__rootp,
       __compar_fn_t __compar);
 
 
-extern void *tdelete (__const void *__restrict __key,
+extern void *tdelete (const void *__restrict __key,
         void **__restrict __rootp,
         __compar_fn_t __compar);
 
 
 
-typedef void (*__action_fn_t) (__const void *__nodep, VISIT __value,
+typedef void (*__action_fn_t) (const void *__nodep, VISIT __value,
           int __level);
 
 
 
 
-extern void twalk (__const void *__root, __action_fn_t __action);
-# 165 "/usr/include/search.h" 3 4
-extern void *lfind (__const void *__key, __const void *__base,
+extern void twalk (const void *__root, __action_fn_t __action);
+# 164 "/usr/include/search.h" 3 4
+extern void *lfind (const void *__key, const void *__base,
       size_t *__nmemb, size_t __size, __compar_fn_t __compar);
 
 
 
-extern void *lsearch (__const void *__key, void *__base,
+extern void *lsearch (const void *__key, void *__base,
         size_t *__nmemb, size_t __size, __compar_fn_t __compar);
 
 
@@ -1267,6 +1070,8 @@ extern void *lsearch (__const void *__key, void *__base,
 # 30 "tiff.h"
 # 1 "tiffconf.h" 1
 # 31 "tiff.h" 2
+# 65 "tiff.h"
+
 # 65 "tiff.h"
 typedef signed char int8;
 
@@ -1436,14 +1241,16 @@ typedef struct {
 } TIFFCodec;
 
 # 1 "/usr/include/stdio.h" 1 3 4
-# 30 "/usr/include/stdio.h" 3 4
+# 29 "/usr/include/stdio.h" 3 4
 
 
 
 
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h" 1 3 4
-# 35 "/usr/include/stdio.h" 2 3 4
-# 45 "/usr/include/stdio.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stddef.h" 1 3 4
+# 34 "/usr/include/stdio.h" 2 3 4
+# 44 "/usr/include/stdio.h" 3 4
+
+# 44 "/usr/include/stdio.h" 3 4
 struct _IO_FILE;
 
 
@@ -1454,21 +1261,21 @@ typedef struct _IO_FILE FILE;
 
 
 
-# 65 "/usr/include/stdio.h" 3 4
+# 64 "/usr/include/stdio.h" 3 4
 typedef struct _IO_FILE __FILE;
-# 75 "/usr/include/stdio.h" 3 4
+# 74 "/usr/include/stdio.h" 3 4
 # 1 "/usr/include/libio.h" 1 3 4
-# 32 "/usr/include/libio.h" 3 4
+# 31 "/usr/include/libio.h" 3 4
 # 1 "/usr/include/_G_config.h" 1 3 4
 # 15 "/usr/include/_G_config.h" 3 4
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stddef.h" 1 3 4
 # 16 "/usr/include/_G_config.h" 2 3 4
 
 
 
 
 # 1 "/usr/include/wchar.h" 1 3 4
-# 83 "/usr/include/wchar.h" 3 4
+# 82 "/usr/include/wchar.h" 3 4
 typedef struct
 {
   int __count;
@@ -1483,7 +1290,6 @@ typedef struct
   } __value;
 } __mbstate_t;
 # 21 "/usr/include/_G_config.h" 2 3 4
-
 typedef struct
 {
   __off_t __pos;
@@ -1494,20 +1300,19 @@ typedef struct
   __off64_t __pos;
   __mbstate_t __state;
 } _G_fpos64_t;
-# 53 "/usr/include/_G_config.h" 3 4
-typedef int _G_int16_t __attribute__ ((__mode__ (__HI__)));
-typedef int _G_int32_t __attribute__ ((__mode__ (__SI__)));
-typedef unsigned int _G_uint16_t __attribute__ ((__mode__ (__HI__)));
-typedef unsigned int _G_uint32_t __attribute__ ((__mode__ (__SI__)));
-# 33 "/usr/include/libio.h" 2 3 4
-# 53 "/usr/include/libio.h" 3 4
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stdarg.h" 1 3 4
-# 40 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stdarg.h" 3 4
+# 32 "/usr/include/libio.h" 2 3 4
+# 49 "/usr/include/libio.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stdarg.h" 1 3 4
+# 40 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stdarg.h" 3 4
 typedef __builtin_va_list __gnuc_va_list;
-# 54 "/usr/include/libio.h" 2 3 4
-# 170 "/usr/include/libio.h" 3 4
+# 50 "/usr/include/libio.h" 2 3 4
+# 144 "/usr/include/libio.h" 3 4
 struct _IO_jump_t; struct _IO_FILE;
-# 180 "/usr/include/libio.h" 3 4
+
+
+
+
+
 typedef void _IO_lock_t;
 
 
@@ -1521,7 +1326,7 @@ struct _IO_marker {
 
 
   int _pos;
-# 203 "/usr/include/libio.h" 3 4
+# 173 "/usr/include/libio.h" 3 4
 };
 
 
@@ -1532,7 +1337,7 @@ enum __codecvt_result
   __codecvt_error,
   __codecvt_noconv
 };
-# 271 "/usr/include/libio.h" 3 4
+# 241 "/usr/include/libio.h" 3 4
 struct _IO_FILE {
   int _flags;
 
@@ -1573,15 +1378,21 @@ struct _IO_FILE {
 
 
   _IO_lock_t *_lock;
-# 319 "/usr/include/libio.h" 3 4
+# 289 "/usr/include/libio.h" 3 4
   __off64_t _offset;
-# 328 "/usr/include/libio.h" 3 4
+
+
+
+
+
+
+
   void *__pad1;
   void *__pad2;
   void *__pad3;
   void *__pad4;
-  size_t __pad5;
 
+  size_t __pad5;
   int _mode;
 
   char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
@@ -1597,7 +1408,7 @@ struct _IO_FILE_plus;
 extern struct _IO_FILE_plus _IO_2_1_stdin_;
 extern struct _IO_FILE_plus _IO_2_1_stdout_;
 extern struct _IO_FILE_plus _IO_2_1_stderr_;
-# 364 "/usr/include/libio.h" 3 4
+# 333 "/usr/include/libio.h" 3 4
 typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
 
 
@@ -1606,7 +1417,7 @@ typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
 
 
 
-typedef __ssize_t __io_write_fn (void *__cookie, __const char *__buf,
+typedef __ssize_t __io_write_fn (void *__cookie, const char *__buf,
      size_t __n);
 
 
@@ -1619,15 +1430,15 @@ typedef int __io_seek_fn (void *__cookie, __off64_t *__pos, int __w);
 
 
 typedef int __io_close_fn (void *__cookie);
-# 416 "/usr/include/libio.h" 3 4
+# 385 "/usr/include/libio.h" 3 4
 extern int __underflow (_IO_FILE *);
 extern int __uflow (_IO_FILE *);
 extern int __overflow (_IO_FILE *, int);
-# 460 "/usr/include/libio.h" 3 4
+# 429 "/usr/include/libio.h" 3 4
 extern int _IO_getc (_IO_FILE *__fp);
 extern int _IO_putc (int __c, _IO_FILE *__fp);
-extern int _IO_feof (_IO_FILE *__fp) __attribute__ ((__nothrow__));
-extern int _IO_ferror (_IO_FILE *__fp) __attribute__ ((__nothrow__));
+extern int _IO_feof (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ferror (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
 
 extern int _IO_peekc_locked (_IO_FILE *__fp);
 
@@ -1635,10 +1446,10 @@ extern int _IO_peekc_locked (_IO_FILE *__fp);
 
 
 
-extern void _IO_flockfile (_IO_FILE *) __attribute__ ((__nothrow__));
-extern void _IO_funlockfile (_IO_FILE *) __attribute__ ((__nothrow__));
-extern int _IO_ftrylockfile (_IO_FILE *) __attribute__ ((__nothrow__));
-# 490 "/usr/include/libio.h" 3 4
+extern void _IO_flockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern void _IO_funlockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ftrylockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 459 "/usr/include/libio.h" 3 4
 extern int _IO_vfscanf (_IO_FILE * __restrict, const char * __restrict,
    __gnuc_va_list, int *__restrict);
 extern int _IO_vfprintf (_IO_FILE *__restrict, const char *__restrict,
@@ -1649,24 +1460,24 @@ extern size_t _IO_sgetn (_IO_FILE *, void *, size_t);
 extern __off64_t _IO_seekoff (_IO_FILE *, __off64_t, int, int);
 extern __off64_t _IO_seekpos (_IO_FILE *, __off64_t, int);
 
-extern void _IO_free_backup_area (_IO_FILE *) __attribute__ ((__nothrow__));
-# 76 "/usr/include/stdio.h" 2 3 4
+extern void _IO_free_backup_area (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 75 "/usr/include/stdio.h" 2 3 4
 
 
 
 
 typedef __gnuc_va_list va_list;
-# 109 "/usr/include/stdio.h" 3 4
+# 108 "/usr/include/stdio.h" 3 4
+
+
+typedef _G_fpos_t fpos_t;
 
 
 
 
-typedef _G_fpos64_t fpos_t;
-
-
-# 161 "/usr/include/stdio.h" 3 4
+# 164 "/usr/include/stdio.h" 3 4
 # 1 "/usr/include/bits/stdio_lim.h" 1 3 4
-# 162 "/usr/include/stdio.h" 2 3 4
+# 165 "/usr/include/stdio.h" 2 3 4
 
 
 
@@ -1680,33 +1491,35 @@ extern struct _IO_FILE *stderr;
 
 
 
+extern int remove (const char *__filename) __attribute__ ((__nothrow__ , __leaf__));
 
-
-extern int remove (__const char *__filename) __attribute__ ((__nothrow__));
-
-extern int rename (__const char *__old, __const char *__new) __attribute__ ((__nothrow__));
+extern int rename (const char *__old, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
 
-extern int renameat (int __oldfd, __const char *__old, int __newfd,
-       __const char *__new) __attribute__ ((__nothrow__));
-
-
-
-# 197 "/usr/include/stdio.h" 3 4
-extern FILE *tmpfile (void) __asm__ ("" "tmpfile64") ;
-# 208 "/usr/include/stdio.h" 3 4
-extern char *tmpnam (char *__s) __attribute__ ((__nothrow__)) ;
+extern int renameat (int __oldfd, const char *__old, int __newfd,
+       const char *__new) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
 
 
-extern char *tmpnam_r (char *__s) __attribute__ ((__nothrow__)) ;
-# 226 "/usr/include/stdio.h" 3 4
-extern char *tempnam (__const char *__dir, __const char *__pfx)
-     __attribute__ ((__nothrow__)) __attribute__ ((__malloc__)) ;
+
+
+
+extern FILE *tmpfile (void) ;
+# 209 "/usr/include/stdio.h" 3 4
+extern char *tmpnam (char *__s) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+
+extern char *tmpnam_r (char *__s) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 227 "/usr/include/stdio.h" 3 4
+extern char *tempnam (const char *__dir, const char *__pfx)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) ;
 
 
 
@@ -1722,56 +1535,58 @@ extern int fclose (FILE *__stream);
 
 extern int fflush (FILE *__stream);
 
-# 251 "/usr/include/stdio.h" 3 4
+# 252 "/usr/include/stdio.h" 3 4
 extern int fflush_unlocked (FILE *__stream);
-# 265 "/usr/include/stdio.h" 3 4
-
-# 282 "/usr/include/stdio.h" 3 4
-extern FILE *fopen (__const char *__restrict __filename, __const char *__restrict __modes) __asm__ ("" "fopen64")
-
-  ;
-extern FILE *freopen (__const char *__restrict __filename, __const char *__restrict __modes, FILE *__restrict __stream) __asm__ ("" "freopen64")
-
-
-  ;
+# 266 "/usr/include/stdio.h" 3 4
 
 
 
 
 
 
-# 305 "/usr/include/stdio.h" 3 4
-extern FILE *fdopen (int __fd, __const char *__modes) __attribute__ ((__nothrow__)) ;
-# 318 "/usr/include/stdio.h" 3 4
-extern FILE *fmemopen (void *__s, size_t __len, __const char *__modes)
-  __attribute__ ((__nothrow__)) ;
+extern FILE *fopen (const char *__restrict __filename,
+      const char *__restrict __modes) ;
 
 
 
 
-extern FILE *open_memstream (char **__bufloc, size_t *__sizeloc) __attribute__ ((__nothrow__)) ;
+extern FILE *freopen (const char *__restrict __filename,
+        const char *__restrict __modes,
+        FILE *__restrict __stream) ;
+# 295 "/usr/include/stdio.h" 3 4
+
+# 306 "/usr/include/stdio.h" 3 4
+extern FILE *fdopen (int __fd, const char *__modes) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 319 "/usr/include/stdio.h" 3 4
+extern FILE *fmemopen (void *__s, size_t __len, const char *__modes)
+  __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern FILE *open_memstream (char **__bufloc, size_t *__sizeloc) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
 
 
 
 
-extern void setbuf (FILE *__restrict __stream, char *__restrict __buf) __attribute__ ((__nothrow__));
+extern void setbuf (FILE *__restrict __stream, char *__restrict __buf) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
 extern int setvbuf (FILE *__restrict __stream, char *__restrict __buf,
-      int __modes, size_t __n) __attribute__ ((__nothrow__));
+      int __modes, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
 
 
 extern void setbuffer (FILE *__restrict __stream, char *__restrict __buf,
-         size_t __size) __attribute__ ((__nothrow__));
+         size_t __size) __attribute__ ((__nothrow__ , __leaf__));
 
 
-extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__));
+extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
@@ -1781,29 +1596,29 @@ extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__));
 
 
 extern int fprintf (FILE *__restrict __stream,
-      __const char *__restrict __format, ...);
+      const char *__restrict __format, ...);
 
 
 
 
-extern int printf (__const char *__restrict __format, ...);
+extern int printf (const char *__restrict __format, ...);
 
 extern int sprintf (char *__restrict __s,
-      __const char *__restrict __format, ...) __attribute__ ((__nothrow__));
+      const char *__restrict __format, ...) __attribute__ ((__nothrow__));
 
 
 
 
 
-extern int vfprintf (FILE *__restrict __s, __const char *__restrict __format,
+extern int vfprintf (FILE *__restrict __s, const char *__restrict __format,
        __gnuc_va_list __arg);
 
 
 
 
-extern int vprintf (__const char *__restrict __format, __gnuc_va_list __arg);
+extern int vprintf (const char *__restrict __format, __gnuc_va_list __arg);
 
-extern int vsprintf (char *__restrict __s, __const char *__restrict __format,
+extern int vsprintf (char *__restrict __s, const char *__restrict __format,
        __gnuc_va_list __arg) __attribute__ ((__nothrow__));
 
 
@@ -1811,18 +1626,18 @@ extern int vsprintf (char *__restrict __s, __const char *__restrict __format,
 
 
 extern int snprintf (char *__restrict __s, size_t __maxlen,
-       __const char *__restrict __format, ...)
+       const char *__restrict __format, ...)
      __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 4)));
 
 extern int vsnprintf (char *__restrict __s, size_t __maxlen,
-        __const char *__restrict __format, __gnuc_va_list __arg)
+        const char *__restrict __format, __gnuc_va_list __arg)
      __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 0)));
 
-# 416 "/usr/include/stdio.h" 3 4
-extern int vdprintf (int __fd, __const char *__restrict __fmt,
+# 412 "/usr/include/stdio.h" 3 4
+extern int vdprintf (int __fd, const char *__restrict __fmt,
        __gnuc_va_list __arg)
      __attribute__ ((__format__ (__printf__, 2, 0)));
-extern int dprintf (int __fd, __const char *__restrict __fmt, ...)
+extern int dprintf (int __fd, const char *__restrict __fmt, ...)
      __attribute__ ((__format__ (__printf__, 2, 3)));
 
 
@@ -1833,25 +1648,25 @@ extern int dprintf (int __fd, __const char *__restrict __fmt, ...)
 
 
 extern int fscanf (FILE *__restrict __stream,
-     __const char *__restrict __format, ...) ;
+     const char *__restrict __format, ...) ;
 
 
 
 
-extern int scanf (__const char *__restrict __format, ...) ;
+extern int scanf (const char *__restrict __format, ...) ;
 
-extern int sscanf (__const char *__restrict __s,
-     __const char *__restrict __format, ...) __attribute__ ((__nothrow__));
-# 447 "/usr/include/stdio.h" 3 4
-extern int fscanf (FILE *__restrict __stream, __const char *__restrict __format, ...) __asm__ ("" "__isoc99_fscanf")
+extern int sscanf (const char *__restrict __s,
+     const char *__restrict __format, ...) __attribute__ ((__nothrow__ , __leaf__));
+# 443 "/usr/include/stdio.h" 3 4
+extern int fscanf (FILE *__restrict __stream, const char *__restrict __format, ...) __asm__ ("" "__isoc99_fscanf")
 
                                ;
-extern int scanf (__const char *__restrict __format, ...) __asm__ ("" "__isoc99_scanf")
+extern int scanf (const char *__restrict __format, ...) __asm__ ("" "__isoc99_scanf")
                               ;
-extern int sscanf (__const char *__restrict __s, __const char *__restrict __format, ...) __asm__ ("" "__isoc99_sscanf") __attribute__ ((__nothrow__))
+extern int sscanf (const char *__restrict __s, const char *__restrict __format, ...) __asm__ ("" "__isoc99_sscanf") __attribute__ ((__nothrow__ , __leaf__))
 
                       ;
-# 467 "/usr/include/stdio.h" 3 4
+# 463 "/usr/include/stdio.h" 3 4
 
 
 
@@ -1860,7 +1675,7 @@ extern int sscanf (__const char *__restrict __s, __const char *__restrict __form
 
 
 
-extern int vfscanf (FILE *__restrict __s, __const char *__restrict __format,
+extern int vfscanf (FILE *__restrict __s, const char *__restrict __format,
       __gnuc_va_list __arg)
      __attribute__ ((__format__ (__scanf__, 2, 0))) ;
 
@@ -1868,28 +1683,28 @@ extern int vfscanf (FILE *__restrict __s, __const char *__restrict __format,
 
 
 
-extern int vscanf (__const char *__restrict __format, __gnuc_va_list __arg)
+extern int vscanf (const char *__restrict __format, __gnuc_va_list __arg)
      __attribute__ ((__format__ (__scanf__, 1, 0))) ;
 
 
-extern int vsscanf (__const char *__restrict __s,
-      __const char *__restrict __format, __gnuc_va_list __arg)
-     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__scanf__, 2, 0)));
-# 498 "/usr/include/stdio.h" 3 4
-extern int vfscanf (FILE *__restrict __s, __const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vfscanf")
+extern int vsscanf (const char *__restrict __s,
+      const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__scanf__, 2, 0)));
+# 494 "/usr/include/stdio.h" 3 4
+extern int vfscanf (FILE *__restrict __s, const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vfscanf")
 
 
 
      __attribute__ ((__format__ (__scanf__, 2, 0))) ;
-extern int vscanf (__const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vscanf")
+extern int vscanf (const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vscanf")
 
      __attribute__ ((__format__ (__scanf__, 1, 0))) ;
-extern int vsscanf (__const char *__restrict __s, __const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vsscanf") __attribute__ ((__nothrow__))
+extern int vsscanf (const char *__restrict __s, const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vsscanf") __attribute__ ((__nothrow__ , __leaf__))
 
 
 
      __attribute__ ((__format__ (__scanf__, 2, 0)));
-# 526 "/usr/include/stdio.h" 3 4
+# 522 "/usr/include/stdio.h" 3 4
 
 
 
@@ -1908,10 +1723,10 @@ extern int getc (FILE *__stream);
 
 extern int getchar (void);
 
-# 554 "/usr/include/stdio.h" 3 4
+# 550 "/usr/include/stdio.h" 3 4
 extern int getc_unlocked (FILE *__stream);
 extern int getchar_unlocked (void);
-# 565 "/usr/include/stdio.h" 3 4
+# 561 "/usr/include/stdio.h" 3 4
 extern int fgetc_unlocked (FILE *__stream);
 
 
@@ -1933,7 +1748,7 @@ extern int putc (int __c, FILE *__stream);
 
 extern int putchar (int __c);
 
-# 598 "/usr/include/stdio.h" 3 4
+# 594 "/usr/include/stdio.h" 3 4
 extern int fputc_unlocked (int __c, FILE *__stream);
 
 
@@ -1964,15 +1779,9 @@ extern int putw (int __w, FILE *__stream);
 
 extern char *fgets (char *__restrict __s, int __n, FILE *__restrict __stream)
      ;
+# 640 "/usr/include/stdio.h" 3 4
 
-
-
-
-
-
-extern char *gets (char *__s) ;
-
-# 660 "/usr/include/stdio.h" 3 4
+# 665 "/usr/include/stdio.h" 3 4
 extern __ssize_t __getdelim (char **__restrict __lineptr,
           size_t *__restrict __n, int __delimiter,
           FILE *__restrict __stream) ;
@@ -1997,13 +1806,13 @@ extern __ssize_t getline (char **__restrict __lineptr,
 
 
 
-extern int fputs (__const char *__restrict __s, FILE *__restrict __stream);
+extern int fputs (const char *__restrict __s, FILE *__restrict __stream);
 
 
 
 
 
-extern int puts (__const char *__s);
+extern int puts (const char *__s);
 
 
 
@@ -2023,14 +1832,14 @@ extern size_t fread (void *__restrict __ptr, size_t __size,
 
 
 
-extern size_t fwrite (__const void *__restrict __ptr, size_t __size,
-        size_t __n, FILE *__restrict __s) ;
+extern size_t fwrite (const void *__restrict __ptr, size_t __size,
+        size_t __n, FILE *__restrict __s);
 
-# 732 "/usr/include/stdio.h" 3 4
+# 737 "/usr/include/stdio.h" 3 4
 extern size_t fread_unlocked (void *__restrict __ptr, size_t __size,
          size_t __n, FILE *__restrict __stream) ;
-extern size_t fwrite_unlocked (__const void *__restrict __ptr, size_t __size,
-          size_t __n, FILE *__restrict __stream) ;
+extern size_t fwrite_unlocked (const void *__restrict __ptr, size_t __size,
+          size_t __n, FILE *__restrict __stream);
 
 
 
@@ -2051,45 +1860,43 @@ extern long int ftell (FILE *__stream) ;
 
 extern void rewind (FILE *__stream);
 
-# 776 "/usr/include/stdio.h" 3 4
-extern int fseeko (FILE *__stream, __off64_t __off, int __whence) __asm__ ("" "fseeko64")
-
-                  ;
-extern __off64_t ftello (FILE *__stream) __asm__ ("" "ftello64");
+# 773 "/usr/include/stdio.h" 3 4
+extern int fseeko (FILE *__stream, __off_t __off, int __whence);
 
 
 
 
-
-
-
-
-# 801 "/usr/include/stdio.h" 3 4
-extern int fgetpos (FILE *__restrict __stream, fpos_t *__restrict __pos) __asm__ ("" "fgetpos64")
-                                          ;
-extern int fsetpos (FILE *__stream, __const fpos_t *__pos) __asm__ ("" "fsetpos64")
-                                                            ;
+extern __off_t ftello (FILE *__stream) ;
+# 792 "/usr/include/stdio.h" 3 4
 
 
 
 
 
 
-# 819 "/usr/include/stdio.h" 3 4
-
-
-extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__));
-
-extern int feof (FILE *__stream) __attribute__ ((__nothrow__)) ;
-
-extern int ferror (FILE *__stream) __attribute__ ((__nothrow__)) ;
+extern int fgetpos (FILE *__restrict __stream, fpos_t *__restrict __pos);
 
 
 
 
-extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__));
-extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__)) ;
-extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__)) ;
+extern int fsetpos (FILE *__stream, const fpos_t *__pos);
+# 815 "/usr/include/stdio.h" 3 4
+
+# 824 "/usr/include/stdio.h" 3 4
+
+
+extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int feof (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+extern int ferror (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
 
@@ -2098,7 +1905,7 @@ extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__)) ;
 
 
 
-extern void perror (__const char *__s);
+extern void perror (const char *__s);
 
 
 
@@ -2106,22 +1913,22 @@ extern void perror (__const char *__s);
 
 
 # 1 "/usr/include/bits/sys_errlist.h" 1 3 4
-# 27 "/usr/include/bits/sys_errlist.h" 3 4
+# 26 "/usr/include/bits/sys_errlist.h" 3 4
 extern int sys_nerr;
-extern __const char *__const sys_errlist[];
-# 849 "/usr/include/stdio.h" 2 3 4
+extern const char *const sys_errlist[];
+# 854 "/usr/include/stdio.h" 2 3 4
 
 
 
 
-extern int fileno (FILE *__stream) __attribute__ ((__nothrow__)) ;
+extern int fileno (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
 
 
-extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__)) ;
-# 868 "/usr/include/stdio.h" 3 4
-extern FILE *popen (__const char *__command, __const char *__modes) ;
+extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 872 "/usr/include/stdio.h" 3 4
+extern FILE *popen (const char *__command, const char *__modes) ;
 
 
 
@@ -2133,112 +1940,23 @@ extern int pclose (FILE *__stream);
 
 
 
-extern char *ctermid (char *__s) __attribute__ ((__nothrow__));
-# 908 "/usr/include/stdio.h" 3 4
-extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__));
+extern char *ctermid (char *__s) __attribute__ ((__nothrow__ , __leaf__));
+# 912 "/usr/include/stdio.h" 3 4
+extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
-extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__)) ;
+extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
-extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__));
-# 929 "/usr/include/stdio.h" 3 4
-# 1 "/usr/include/bits/stdio.h" 1 3 4
-# 36 "/usr/include/bits/stdio.h" 3 4
-extern __inline int
-vprintf (__const char *__restrict __fmt, __gnuc_va_list __arg)
-{
-  return vfprintf (stdout, __fmt, __arg);
-}
-
-
-
-extern __inline int
-getchar (void)
-{
-  return _IO_getc (stdin);
-}
-
-
-
-
-extern __inline int
-fgetc_unlocked (FILE *__fp)
-{
-  return (__builtin_expect (((__fp)->_IO_read_ptr >= (__fp)->_IO_read_end), 0) ? __uflow (__fp) : *(unsigned char *) (__fp)->_IO_read_ptr++);
-}
-
-
-
-
-
-extern __inline int
-getc_unlocked (FILE *__fp)
-{
-  return (__builtin_expect (((__fp)->_IO_read_ptr >= (__fp)->_IO_read_end), 0) ? __uflow (__fp) : *(unsigned char *) (__fp)->_IO_read_ptr++);
-}
-
-
-extern __inline int
-getchar_unlocked (void)
-{
-  return (__builtin_expect (((stdin)->_IO_read_ptr >= (stdin)->_IO_read_end), 0) ? __uflow (stdin) : *(unsigned char *) (stdin)->_IO_read_ptr++);
-}
-
-
-
-
-extern __inline int
-putchar (int __c)
-{
-  return _IO_putc (__c, stdout);
-}
-
-
-
-
-extern __inline int
-fputc_unlocked (int __c, FILE *__stream)
-{
-  return (__builtin_expect (((__stream)->_IO_write_ptr >= (__stream)->_IO_write_end), 0) ? __overflow (__stream, (unsigned char) (__c)) : (unsigned char) (*(__stream)->_IO_write_ptr++ = (__c)));
-}
-
-
-
-
-
-extern __inline int
-putc_unlocked (int __c, FILE *__stream)
-{
-  return (__builtin_expect (((__stream)->_IO_write_ptr >= (__stream)->_IO_write_end), 0) ? __overflow (__stream, (unsigned char) (__c)) : (unsigned char) (*(__stream)->_IO_write_ptr++ = (__c)));
-}
-
-
-extern __inline int
-putchar_unlocked (int __c)
-{
-  return (__builtin_expect (((stdout)->_IO_write_ptr >= (stdout)->_IO_write_end), 0) ? __overflow (stdout, (unsigned char) (__c)) : (unsigned char) (*(stdout)->_IO_write_ptr++ = (__c)));
-}
-# 125 "/usr/include/bits/stdio.h" 3 4
-extern __inline int
-__attribute__ ((__nothrow__)) feof_unlocked (FILE *__stream)
-{
-  return (((__stream)->_flags & 0x10) != 0);
-}
-
-
-extern __inline int
-__attribute__ ((__nothrow__)) ferror_unlocked (FILE *__stream)
-{
-  return (((__stream)->_flags & 0x20) != 0);
-}
-# 930 "/usr/include/stdio.h" 2 3 4
-# 938 "/usr/include/stdio.h" 3 4
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+# 942 "/usr/include/stdio.h" 3 4
 
 # 250 "tiffio.h" 2
-# 1 "/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stdarg.h" 1 3 4
+# 1 "/usr/lib/gcc/x86_64-redhat-linux/6.1.1/include/stdarg.h" 1 3 4
 # 251 "tiffio.h" 2
+# 260 "tiffio.h"
+
 # 260 "tiffio.h"
 typedef void (*TIFFErrorHandler)(const char*, const char*, va_list);
 typedef void (*TIFFErrorHandlerExt)(thandle_t, const char*, const char*, va_list);
@@ -2740,7 +2458,11 @@ _TIFFWriteDirectory(TIFF* tif, int done)
  unsigned long b, fields[4];
  int fi, nfi;
 
- if (tif->tif_mode == 00)
+ if (tif->tif_mode == 
+# 94 "tif_dirwrite.c" 3 4
+                     00
+# 94 "tif_dirwrite.c"
+                             )
   return (1);
 
 
@@ -2769,7 +2491,11 @@ _TIFFWriteDirectory(TIFF* tif, int done)
      }
      if ((tif->tif_flags & 0x0200) && tif->tif_rawdata) {
       _TIFFfree(tif->tif_rawdata);
-      tif->tif_rawdata = ((void *)0);
+      tif->tif_rawdata = 
+# 123 "tif_dirwrite.c" 3 4
+                        ((void *)0)
+# 123 "tif_dirwrite.c"
+                            ;
       tif->tif_rawcc = 0;
       tif->tif_rawdatasize = 0;
      }
@@ -2789,7 +2515,11 @@ _TIFFWriteDirectory(TIFF* tif, int done)
         nfields += td->td_customValueCount;
  dirsize = nfields * sizeof (TIFFDirEntry);
  data = (char*) _TIFFmalloc(dirsize);
- if (data == ((void *)0)) {
+ if (data == 
+# 143 "tif_dirwrite.c" 3 4
+            ((void *)0)
+# 143 "tif_dirwrite.c"
+                ) {
   TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
       "Cannot write directory, out of space");
   return (0);
@@ -2805,7 +2535,11 @@ _TIFFWriteDirectory(TIFF* tif, int done)
      tif->tif_diroff + sizeof (uint16) + dirsize + sizeof (toff_t));
  if (tif->tif_dataoff & 1)
   tif->tif_dataoff++;
- (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(tif->tif_dataoff),0));
+ (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(tif->tif_dataoff),
+# 159 "tif_dirwrite.c" 3 4
+       0
+# 159 "tif_dirwrite.c"
+       ));
  tif->tif_curdir++;
  dir = (TIFFDirEntry*) data;
 
@@ -2977,7 +2711,12 @@ _TIFFWriteDirectory(TIFF* tif, int done)
    }
    break;
   default:
-   if (!TIFFWriteNormalTag(tif, dir, fip))
+
+   if (fip->field_tag == 336) {
+    if (!TIFFSetupShortPair(tif, fip->field_tag, dir))
+     goto bad;
+   }
+   else if (!TIFFWriteNormalTag(tif, dir, fip))
     goto bad;
    break;
   }
@@ -2993,7 +2732,7 @@ _TIFFWriteDirectory(TIFF* tif, int done)
  dircount = (uint16) nfields;
  diroff = (uint32) tif->tif_nextdiroff;
  if (tif->tif_flags & 0x0080) {
-# 364 "tif_dirwrite.c"
+# 369 "tif_dirwrite.c"
   for (dir = (TIFFDirEntry*) data; dircount; dir++, dircount--) {
    TIFFSwabArrayOfShort(&dir->tdir_tag, 2);
    TIFFSwabArrayOfLong(&dir->tdir_count, 2);
@@ -3002,7 +2741,11 @@ _TIFFWriteDirectory(TIFF* tif, int done)
   TIFFSwabShort(&dircount);
   TIFFSwabLong(&diroff);
  }
- (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(tif->tif_diroff),0));
+ (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(tif->tif_diroff),
+# 377 "tif_dirwrite.c" 3 4
+       0
+# 377 "tif_dirwrite.c"
+       ));
  if (!(((*(tif)->tif_writeproc)((tif)->tif_clientdata,(tdata_t) &dircount,(tsize_t) sizeof (dircount))) == (tsize_t) sizeof (dircount))) {
   TIFFErrorExt(tif->tif_clientdata, tif->tif_name, "Error writing directory count");
   goto bad;
@@ -3051,10 +2794,18 @@ TIFFCheckpointDirectory(TIFF* tif)
 {
  int rc;
 
- if (tif->tif_dir.td_stripoffset == ((void *)0))
+ if (tif->tif_dir.td_stripoffset == 
+# 426 "tif_dirwrite.c" 3 4
+                                   ((void *)0)
+# 426 "tif_dirwrite.c"
+                                       )
      (void) TIFFSetupStrips(tif);
  rc = _TIFFWriteDirectory(tif, 0);
- (void) TIFFSetWriteOffset(tif, ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(0),2)));
+ (void) TIFFSetWriteOffset(tif, ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(0),
+# 429 "tif_dirwrite.c" 3 4
+                               2
+# 429 "tif_dirwrite.c"
+                               )));
  return rc;
 }
 
@@ -3297,7 +3048,7 @@ TIFFSetupShort(TIFF* tif, ttag_t tag, TIFFDirEntry* dir, uint16 v)
  dir->tdir_type = (short) TIFF_SHORT;
  dir->tdir_offset = ((uint32) ((tif)->tif_header.tiff_magic == 0x4d4d ? ((v) & (tif)->tif_typemask[(int) TIFF_SHORT]) << (tif)->tif_typeshift[(int) TIFF_SHORT] : (v) & (tif)->tif_typemask[(int) TIFF_SHORT]));
 }
-# 676 "tif_dirwrite.c"
+# 681 "tif_dirwrite.c"
 static int
 TIFFWritePerSampleShorts(TIFF* tif, ttag_t tag, TIFFDirEntry* dir)
 {
@@ -3308,7 +3059,11 @@ TIFFWritePerSampleShorts(TIFF* tif, ttag_t tag, TIFFDirEntry* dir)
 
  if (samples > (sizeof (buf) / sizeof (buf[0]))) {
   w = (uint16*) _TIFFmalloc(samples * sizeof (uint16));
-  if (w == ((void *)0)) {
+  if (w == 
+# 691 "tif_dirwrite.c" 3 4
+          ((void *)0)
+# 691 "tif_dirwrite.c"
+              ) {
    TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
        "No space to write per-sample shorts");
    return (0);
@@ -3343,7 +3098,11 @@ TIFFWritePerSampleAnys(TIFF* tif,
 
  if (samples > (sizeof (buf) / sizeof (buf[0]))) {
   w = (double*) _TIFFmalloc(samples * sizeof (double));
-  if (w == ((void *)0)) {
+  if (w == 
+# 726 "tif_dirwrite.c" 3 4
+          ((void *)0)
+# 726 "tif_dirwrite.c"
+              ) {
    TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
        "No space to write per-sample values");
    return (0);
@@ -3462,7 +3221,11 @@ TIFFWriteRationalArray(TIFF* tif, TIFFDirEntry* dir, float* v)
  int status;
 
  t = (uint32*) _TIFFmalloc(2 * dir->tdir_count * sizeof (uint32));
- if (t == ((void *)0)) {
+ if (t == 
+# 845 "tif_dirwrite.c" 3 4
+         ((void *)0)
+# 845 "tif_dirwrite.c"
+             ) {
   TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
       "No space to write RATIONAL array");
   return (0);
@@ -3512,7 +3275,7 @@ TIFFWriteDoubleArray(TIFF* tif, TIFFDirEntry* dir, double* v)
  ;
  return (TIFFWriteData(tif, dir, (char*) v));
 }
-# 900 "tif_dirwrite.c"
+# 905 "tif_dirwrite.c"
 static int
 TIFFWriteAnyArray(TIFF* tif,
     TIFFDataType type, ttag_t tag, TIFFDirEntry* dir, uint32 n, double* v)
@@ -3523,7 +3286,11 @@ TIFFWriteAnyArray(TIFF* tif,
 
  if (n * TIFFDataWidth(type) > sizeof buf) {
   w = (char*) _TIFFmalloc(n * TIFFDataWidth(type));
-  if (w == ((void *)0)) {
+  if (w == 
+# 915 "tif_dirwrite.c" 3 4
+          ((void *)0)
+# 915 "tif_dirwrite.c"
+              ) {
    TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
        "No space to write array");
    return (0);
@@ -3679,7 +3446,11 @@ TIFFWriteData(TIFF* tif, TIFFDirEntry* dir, char* cp)
  }
  dir->tdir_offset = tif->tif_dataoff;
  cc = dir->tdir_count * TIFFDataWidth((TIFFDataType) dir->tdir_type);
- if ((((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) dir->tdir_offset),0)) == (toff_t) dir->tdir_offset) &&
+ if ((((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) dir->tdir_offset),
+# 1071 "tif_dirwrite.c" 3 4
+    0
+# 1071 "tif_dirwrite.c"
+    )) == (toff_t) dir->tdir_offset) &&
      (((*(tif)->tif_writeproc)((tif)->tif_clientdata,(tdata_t) cp,(tsize_t) cc)) == (tsize_t) cc)) {
   tif->tif_dataoff += (cc + 1) & ~1;
   return (1);
@@ -3688,7 +3459,7 @@ TIFFWriteData(TIFF* tif, TIFFDirEntry* dir, char* cp)
      TIFFFieldWithTag(tif, dir->tdir_tag)->field_name);
  return (0);
 }
-# 1083 "tif_dirwrite.c"
+# 1088 "tif_dirwrite.c"
 int
 TIFFRewriteDirectory( TIFF *tif )
 {
@@ -3709,7 +3480,11 @@ TIFFRewriteDirectory( TIFF *tif )
         tif->tif_header.tiff_diroff = 0;
         tif->tif_diroff = 0;
 
-        ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t)(2 +2)),0))
+        ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t)(2 +2)),
+# 1108 "tif_dirwrite.c" 3 4
+       0
+# 1108 "tif_dirwrite.c"
+       ))
                 ;
         if (!(((*(tif)->tif_writeproc)((tif)->tif_clientdata,(tdata_t) &(tif->tif_header.tiff_diroff),(tsize_t) sizeof (tif->tif_diroff))) == (tsize_t) sizeof (tif->tif_diroff))
                                               )
@@ -3726,14 +3501,22 @@ TIFFRewriteDirectory( TIFF *tif )
  do {
   uint16 dircount;
 
-  if (!(((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) nextdir),0)) == (toff_t) nextdir) ||
+  if (!(((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) nextdir),
+# 1125 "tif_dirwrite.c" 3 4
+      0
+# 1125 "tif_dirwrite.c"
+      )) == (toff_t) nextdir) ||
       !(((*(tif)->tif_readproc)((tif)->tif_clientdata,(tdata_t) &dircount,(tsize_t)(sizeof (dircount)))) == (tsize_t)(sizeof (dircount)))) {
    TIFFErrorExt(tif->tif_clientdata, module, "Error fetching directory count");
    return (0);
   }
   if (tif->tif_flags & 0x0080)
    TIFFSwabShort(&dircount);
-  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(dircount * sizeof (TIFFDirEntry)),1))
+  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(dircount * sizeof (TIFFDirEntry)),
+# 1132 "tif_dirwrite.c" 3 4
+        1
+# 1132 "tif_dirwrite.c"
+        ))
                                                  ;
   if (!(((*(tif)->tif_readproc)((tif)->tif_clientdata,(tdata_t) &nextdir,(tsize_t)(sizeof (nextdir)))) == (tsize_t)(sizeof (nextdir)))) {
    TIFFErrorExt(tif->tif_clientdata, module, "Error fetching directory link");
@@ -3742,8 +3525,16 @@ TIFFRewriteDirectory( TIFF *tif )
   if (tif->tif_flags & 0x0080)
    TIFFSwabLong(&nextdir);
  } while (nextdir != tif->tif_diroff && nextdir != 0);
-        off = ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(0),1));
-        (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(off - (toff_t)sizeof(nextdir)),0));
+        off = ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(0),
+# 1141 "tif_dirwrite.c" 3 4
+             1
+# 1141 "tif_dirwrite.c"
+             ));
+        (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(off - (toff_t)sizeof(nextdir)),
+# 1142 "tif_dirwrite.c" 3 4
+              0
+# 1142 "tif_dirwrite.c"
+              ));
         tif->tif_diroff = 0;
  if (!(((*(tif)->tif_writeproc)((tif)->tif_clientdata,(tdata_t) &(tif->tif_diroff),(tsize_t) sizeof (nextdir))) == (tsize_t) sizeof (nextdir))) {
   TIFFErrorExt(tif->tif_clientdata, module, "Error writing directory link");
@@ -3770,7 +3561,11 @@ TIFFLinkDirectory(TIFF* tif)
  toff_t nextdir;
  toff_t diroff, off;
 
- tif->tif_diroff = (((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) 0),2))+1) &~ 1;
+ tif->tif_diroff = (((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) 0),
+# 1169 "tif_dirwrite.c" 3 4
+                   2
+# 1169 "tif_dirwrite.c"
+                   ))+1) &~ 1;
  diroff = tif->tif_diroff;
  if (tif->tif_flags & 0x0080)
   TIFFSwabLong(&diroff);
@@ -3779,7 +3574,11 @@ TIFFLinkDirectory(TIFF* tif)
 
 
         if (tif->tif_flags & 0x2000) {
-  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(tif->tif_subifdoff),0));
+  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(tif->tif_subifdoff),
+# 1178 "tif_dirwrite.c" 3 4
+        0
+# 1178 "tif_dirwrite.c"
+        ));
   if (!(((*(tif)->tif_writeproc)((tif)->tif_clientdata,(tdata_t) &diroff,(tsize_t) sizeof (diroff))) == (tsize_t) sizeof (diroff))) {
    TIFFErrorExt(tif->tif_clientdata, module,
        "%s: Error writing SubIFD directory link",
@@ -3803,7 +3602,11 @@ TIFFLinkDirectory(TIFF* tif)
 
 
   tif->tif_header.tiff_diroff = tif->tif_diroff;
-  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t)(2 +2)),0))
+  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t)(2 +2)),
+# 1202 "tif_dirwrite.c" 3 4
+        0
+# 1202 "tif_dirwrite.c"
+        ))
 
                                              ;
   if (!(((*(tif)->tif_writeproc)((tif)->tif_clientdata,(tdata_t) &diroff,(tsize_t) sizeof (diroff))) == (tsize_t) sizeof (diroff))) {
@@ -3819,14 +3622,22 @@ TIFFLinkDirectory(TIFF* tif)
  do {
   uint16 dircount;
 
-  if (!(((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) nextdir),0)) == (toff_t) nextdir) ||
+  if (!(((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)((toff_t) nextdir),
+# 1218 "tif_dirwrite.c" 3 4
+      0
+# 1218 "tif_dirwrite.c"
+      )) == (toff_t) nextdir) ||
       !(((*(tif)->tif_readproc)((tif)->tif_clientdata,(tdata_t) &dircount,(tsize_t)(sizeof (dircount)))) == (tsize_t)(sizeof (dircount)))) {
    TIFFErrorExt(tif->tif_clientdata, module, "Error fetching directory count");
    return (0);
   }
   if (tif->tif_flags & 0x0080)
    TIFFSwabShort(&dircount);
-  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(dircount * sizeof (TIFFDirEntry)),1))
+  (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(dircount * sizeof (TIFFDirEntry)),
+# 1225 "tif_dirwrite.c" 3 4
+        1
+# 1225 "tif_dirwrite.c"
+        ))
                                                  ;
   if (!(((*(tif)->tif_readproc)((tif)->tif_clientdata,(tdata_t) &nextdir,(tsize_t)(sizeof (nextdir)))) == (tsize_t)(sizeof (nextdir)))) {
    TIFFErrorExt(tif->tif_clientdata, module, "Error fetching directory link");
@@ -3835,8 +3646,16 @@ TIFFLinkDirectory(TIFF* tif)
   if (tif->tif_flags & 0x0080)
    TIFFSwabLong(&nextdir);
  } while (nextdir != 0);
-        off = ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(0),1));
-        (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(off - (toff_t)sizeof(nextdir)),0));
+        off = ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(0),
+# 1234 "tif_dirwrite.c" 3 4
+             1
+# 1234 "tif_dirwrite.c"
+             ));
+        (void) ((*(tif)->tif_seekproc)((tif)->tif_clientdata,(toff_t)(off - (toff_t)sizeof(nextdir)),
+# 1235 "tif_dirwrite.c" 3 4
+              0
+# 1235 "tif_dirwrite.c"
+              ));
  if (!(((*(tif)->tif_writeproc)((tif)->tif_clientdata,(tdata_t) &diroff,(tsize_t) sizeof (diroff))) == (tsize_t) sizeof (diroff))) {
   TIFFErrorExt(tif->tif_clientdata, module, "Error writing directory link");
   return (0);
