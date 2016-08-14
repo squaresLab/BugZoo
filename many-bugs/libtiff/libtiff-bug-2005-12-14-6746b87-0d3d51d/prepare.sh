@@ -7,6 +7,4 @@ if [ ! -d src ]; then
 fi
 
 # Install test scripts
-tar -xf tests.tar.gz
-cp tests/* src/test -r
-rm tests -rf
+cp ../tests/* src/test -rf
