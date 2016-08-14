@@ -14,10 +14,8 @@ run_test()
 {
     pushd $dir/src/test > /dev/null
     test_script=$(sed "$1q;d" $dir/TESTS)
-    timeout $timeout $dir/tests/$test_script
-    result=$?
-    popd > /dev/null
-    return $result
+    timeout $timeout ./$test_script &> /dev/null
+    return $?
 }
 
 case $test_id in
