@@ -1,25 +1,26 @@
 #!/bin/bash
-EXECUTABLE=$( dirname $1 )
-TEST_ID=$2
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+executable=$( dirname $1 )
+test_id=$2
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
 if [ `basename $1` = "coverage" ] ; then
-  TIMEOUT=120
+  timeout=120
 else
-  TIMEOUT=60
+  timeout=60
 fi
 
 run_test()
 {
-    pushd src
-    timeout $TIMEOUT $DIR/test.pl $1
-    RESULT=$?
-    popd
-    return $RESULT
+    pushd $dir/src/test > /dev/null
+    test_script=$(sed "$1q;d" $dir/TESTS)
+    timeout $timeout $dir/tests/$test_script
+    result=$?
+    popd > /dev/null
+    return $result
 }
 
-case $TEST_ID in
+case $test_id in
     p1) run_test 2 && exit 0 ;; 
     p2) run_test 3 && exit 0 ;; 
     p3) run_test 4 && exit 0 ;; 

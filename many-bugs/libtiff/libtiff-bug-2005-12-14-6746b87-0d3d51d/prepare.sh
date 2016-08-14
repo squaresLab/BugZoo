@@ -2,13 +2,11 @@
 if [ ! -d src ]; then
   tar -xf src.tar.gz
   pushd src
-  make clean
-  aclocal
-  autoconf
-  ./configure --host=i686-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+  ./configure
   popd
 fi
 
-if [ ! -d tests ]; then
-  tar -xf tests.tar.gz
-fi
+# Install test scripts
+tar -xf tests.tar.gz
+cp tests/* src/test -r
+rm tests -rf
