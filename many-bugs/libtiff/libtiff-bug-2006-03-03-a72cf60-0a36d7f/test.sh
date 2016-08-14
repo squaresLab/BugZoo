@@ -12,11 +12,10 @@ fi
 
 run_test()
 {
-    pushd src > /dev/null
-    timeout $timeout $dir/test.pl $1
-    result=$?
-    popd > /dev/null
-    return $result
+    pushd $dir/src/test > /dev/null
+    test_script=$(sed "$1q;d" $dir/../TESTS)
+    timeout $timeout ./$test_script &> /dev/null
+    return $?
 }
 
 case $test_id in
