@@ -4,6 +4,9 @@
     "program": "gcd.c",
     "executable_name": "gcd",
     "positive_tests": 10,
-    "negative_tests": 1
+    "negative_tests": 1,
+    "compiler": {
+      "executable": "gcd"
+    }
   }
 }
