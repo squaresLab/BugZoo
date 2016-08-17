@@ -1,5 +1,8 @@
 # ccrypt 1.2
 
+**NEED TO CHECK THAT THIS IS SAFE WHEN EXECUTED ACROSS MULTIPLE INSTANCES
+  SIMULTANEOUSLY**
+
 From the sourceforge page: "A command-line file and stream
 encryption utility based on Rijndael, designed to replace crypt."
 
