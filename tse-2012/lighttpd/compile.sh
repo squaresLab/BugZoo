@@ -1,5 +1,5 @@
 #!/bin/sh
-TIME_LIMIT=5
+TIME_LIMIT=10
 patch_exe=$1
 patch_dir=$(dirname $1)
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
