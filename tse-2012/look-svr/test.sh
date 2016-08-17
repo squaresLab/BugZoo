@@ -1,43 +1,33 @@
 #!/bin/bash
-exe=$1
+executable=$1
 test_id=$2
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+test_dir="$here_dir/test"
 
 # Check if this test script is being used to compute coverage information.
-if [ $(basename $exe) = "coverage" ]; then
-  cov=1
-else
-  cov=0
-fi
+coverage=$([[ $(basename $executable) = "coverage" ]])
+[[ $coverage = 0 ]] && timeout=10 || timeout=1
 
-# Treats the test case as a positive test case.
-exec_pos()
+# Perform necessary preparations before running the test case.
+ulimit -c 8
+
+positive()
 {
-  if [ $cov = 0 ]; then
-    timeout 1 $exe $here_dir/test/input $here_dir/test/$test_id &> /dev/null
-  else
-    $exe $here_dir/test/input $here_dir/test/$test_id &> /dev/null
-  fi
-  return $?
+  timeout $timeout $executable $test_dir/input $test_dir/$test_id |& \
+    diff $test_dir/$test_id.out -
 }
 
-# Treats the test case as a negative test case.
-exec_neg()
+negative()
 {
-  if [ $cov = 0 ]; then
-    timeout 1 $exe $here_dir/test/input $here_dir/test/input &> /dev/null
-  else
-    $exe $here_dir/test/input $here_dir/test/$test_id &> /dev/null
-  fi
-  return $?
+  timeout $timeout $executable $test_dir/input $test_dir/input
 }
 
 case $test_id in
-  p1) exec_pos && exit 0;;
-  p2) exec_pos && exit 0;;
-  p3) exec_pos && exit 0;;
-  p4) exec_pos && exit 0;;
-  #p5) exec_pos && exit 0;;
-  n1) exec_neg && exit 0;;
+  p1) positive && exit 0;;
+  p2) positive && exit 0;;
+  p3) positive && exit 0;;
+  p4) positive && exit 0;;
+  p5) positive && exit 0;;
+  n1) negative && exit 0;;
 esac
 exit 1
