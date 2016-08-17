@@ -6,10 +6,9 @@ test_id=$2
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 test_dir="$here_dir/test"
 
-# Check if this test script is being used to compute coverage information,
-# and from that determine an appropriate timeout for the script.
-cov=$([[ $(basename $executable) = "coverage" ]])
-[[ $cov = 0 ]] && timeout=1 || timeout=10
+# Check if this test script is being used to compute coverage information.
+[[ $(dirname $executable) = "coverage" ]] && coverage=0 || coverage=1
+[[ $coverage = 0 ]] && timeout=10 || timeout=1
 
 positive()
 {
@@ -29,6 +28,6 @@ execute()
 case $test_id in
   p1) positive; execute "$executable -h";;
   p2) positive; execute $executable;;
-  n1) negative;  execute $executable;;
+  n1) negative; execute $executable;;
 esac 
 exit $?
