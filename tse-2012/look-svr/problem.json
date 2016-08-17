@@ -3,7 +3,7 @@
     "name": "look-svr-4.0-1.1",
     "program": "look.c",
     "executable_name": "look",
-    "positive_tests": 4,
+    "positive_tests": 5,
     "negative_tests": 1,
     "compiler": {
       "executable": "look",
