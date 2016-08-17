@@ -44,21 +44,12 @@ if [ ! $DIR = $PWD ]; then
 fi
 
 # Execute the appropriate test case.
-result=1
 case $TEST_ID in
-  p1) exec_pos && result=0;;
-  p2) exec_pos && result=0;;
-  p3) exec_pos && result=0;;
-  p4) exec_pos && result=0;;
-  p5) exec_pos && result=0;;
-  n1) exec_neg && result=0;;
+  p1) exec_pos && exit 0;;
+  p2) exec_pos && exit 0;;
+  p3) exec_pos && exit 0;;
+  p4) exec_pos && exit 0;;
+  p5) exec_pos && exit 0;;
+  n1) exec_neg && exit 0;;
 esac
-
-# Remove the unittab file from the PWD (unless we're operating inside the
-# test directory itself).
-if [ ! $DIR = $PWD ]; then
-  rm -f $PWD/unittab
-fi
-
-# Return the result of the test case execution
-exit $result
+exit 1
