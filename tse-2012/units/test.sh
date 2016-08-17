@@ -1,55 +1,36 @@
 #!/bin/bash
+executable=$1
+exe_dir=$( cd "$(dirname $executable)" && pwd )
+test_id=$2
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# Retrieve and store the provided command-line arguments.
-EXECUTABLE=$1
-TEST_ID=$2
+# Are we computing coverage?
+[[ $(basename $1) = "coverage" ]] && coverage=0 || coverage=1
 
-# Find the directory that this test script belongs to.
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
-# Check if this test script is being used to compute coverage information.
-if [ $(basename $1) = "coverage" ]; then
-  cov=1
-else
-  cov=0
-fi
-
-# Treats the test case as a positive test case.
-exec_pos()
+positive()
 {
-  if [ $cov = 0 ]; then
-    timeout 2 bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
-      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
-  else
-    bash -c "$EXECUTABLE < $DIR/test/$TEST_ID" \
-      |& diff $DIR/test/output.$TEST_ID - &> /dev/null
-  fi
-  return $?
+  [[ $coverage = 0 ]] && timeout=10 || timeout=2
+  timeout $timeout $executable < $here_dir/test/$test_id \
+    |& diff $here_dir/test/output.$test_id - &> /dev/null
 }
 
-# Treats the test case as a negative test case.
-exec_neg()
+negative()
 {
-  if [ $cov = 0 ]; then
-    timeout 1 $EXECUTABLE < $DIR/test/bad1 &> /dev/null
-  else
-    timeout 10 $EXECUTABLE < $DIR/test/bad1 &> /dev/null
-  fi
-  return $?
+  [[ $coverage = 0 ]] && timeout=10 || timeout=1
+  timeout $timeout $executable < $here_dir/test/bad1
 }
 
-# Copy the unittab file into the PWD.
-if [ ! $DIR = $PWD ]; then
-  cp $DIR/unittab $PWD/unittab
+# Copy the unittab file into the executable directory.
+if [ ! $here_dir = $exe_dir ]; then
+  cp $here_dir/unittab $exe_dir/unittab
 fi
 
-# Execute the appropriate test case.
-case $TEST_ID in
-  p1) exec_pos && exit 0;;
-  p2) exec_pos && exit 0;;
-  p3) exec_pos && exit 0;;
-  p4) exec_pos && exit 0;;
-  p5) exec_pos && exit 0;;
-  n1) exec_neg && exit 0;;
+case $test_id in
+  p1) positive && exit 0;;
+  p2) positive && exit 0;;
+  p3) positive && exit 0;;
+  p4) positive && exit 0;;
+  p5) positive && exit 0;;
+  n1) negative && exit 0;;
 esac
 exit 1
