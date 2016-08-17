@@ -10,7 +10,7 @@ positive()
 {
   [[ $coverage = 0 ]] && timeout=60 || timeout=2
   timeout $timeout $executable < $here_dir/test/$test_id \
-    |& diff $here_dir/test/$(test_id).out - &> /dev/null
+    |& diff $here_dir/test/$test_id.out - &> /dev/null
 }
 
 negative()
