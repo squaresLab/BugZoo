@@ -1,5 +1,5 @@
 #!/bin/bash
-TIME_LIMIT=3
+TIME_LIMIT=10
 target_exe=$1
 target_dir=$(dirname $target_exe)
 
