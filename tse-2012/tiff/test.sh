@@ -6,13 +6,9 @@ test_dir="$here_dir/tests"
 local_root="$here_dir/local-root"
 bin_dir=$local_root/bin
 
-# Determine whether coverage is being computed, and from that choose an
-# appropriate timeout length
-if [ $(basename $exe) = "coverage" ]; then
-  timeout=10
-else
-  timeout=2
-fi
+# Check if this test script is being used to compute coverage information.
+coverage=$([[ $(basename $executable) = "coverage" ]])
+[[ $coverage = 0 ]] && timeout=10 || timeout=2
 
 ulimit -c 8
 
