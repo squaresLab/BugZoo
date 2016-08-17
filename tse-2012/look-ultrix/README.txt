@@ -2,6 +2,10 @@
 * look utx 4.3              *
 *****************************
 
+NOTE: This is an improved version of the original look-ultrix bug scenario from
+the TSE 2012 benchmark suite. Checking of the results has been added for the
+positive test cases.
+
 Description: The look utility displays any lines in file which contain
 string as a prefix. This benchmark and its test inputs are taken from
 Miller et al.'s work on fuzz testing.
