@@ -5,21 +5,20 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 test_dir="$here_dir/test"
 
 # Check if this test script is being used to compute coverage information.
-coverage=$([[ $(basename $executable) = "coverage" ]])
+[[ $(dirname $executable) = "coverage" ]] && coverage=0 || coverage=1
+[[ $coverage = 0 ]] && timeout=10 || timeout=1
 
 # Perform necessary preparations before running the test case.
 ulimit -c 8
 
 positive()
 {
-  [[ $coverage = 0 ]] && timeout=1 || timeout=10
   timeout $timeout $executable < $test_dir/$test_id.in |& \
     diff $test_dir/$test_id.out -
 }
 
 negative()
 {
-  [[ $coverage = 0 ]] && timeout=1 || timeout=10
   timeout $timeout $executable < $test_dir/n1.in
 }
 
