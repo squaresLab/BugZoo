@@ -1,4 +1,5 @@
 #!/bin/bash
+TIME_LIMIT=2
 exe=$1
 exe_dir=$(dirname $exe)
-gcc $exe_dir/units.c -o $exe -m32
+timeout $TIME_LIMIT gcc $exe_dir/units.c -o $exe -m32
