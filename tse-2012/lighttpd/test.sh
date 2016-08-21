@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # For now, this test script may only be used in a strictly single-threaded
 # environment.
@@ -19,6 +19,7 @@ root_dir="$here_dir/fake-root"
 
 # Fire up the server
 $root_dir/sbin/lighttpd -D -f $root_dir/lighttpd.conf -m $root_dir/lib/ &
+server_pid=$!
 sleep 1s
 
 # Run the appropriate test
@@ -41,5 +42,5 @@ case $test_name in
 esac
 
 # Kill the server
-killall lighttpd
+kill $server_pid
 exit $result
