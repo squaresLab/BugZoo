@@ -9,10 +9,19 @@ php_exe="$here_dir/src/sapi/cli/php"
 coverage=$([[ $(basename $executable) = "coverage" ]])
 #[[ $coverage = 0 ]] && timeout=10 || timeout=q0
 
-positive(){
-   $php_exe "$test_dir/$test_id.php" | head -n 100 | diff "$test_dir/$test_id.out" -
+positive() {
+   $php_exe "$test_dir/$test_id.php" |& head -n 100 | \
+     diff "$test_dir/$test_id.out" - &> /dev/null
 }
 
-negative(){
-  $php_exe "$test_dir/n1.php" &| diff "$test_dir/n1.out" -
+negative() {
+  $php_exe "$test_dir/n1.php" |& diff "$test_dir/n1.out" - &> /dev/null
 }
+
+case $test_id in
+  p1) positive && exit 0;;
+  p2) positive && exit 0;;
+  p3) positive && exit 0;;
+  n1) negative && exit 0;;
+esac
+exit 1
