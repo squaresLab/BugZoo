@@ -11,3 +11,7 @@ if [ ! -d src ]; then
     make && make install
   popd
 fi
+
+if [ ! -d images ]; then
+  tar -xf images.tar.gz
+fi
