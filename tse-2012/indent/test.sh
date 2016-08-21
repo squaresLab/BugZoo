@@ -8,14 +8,14 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 positive()
 {
-  [[ $coverage = 0 ]] && timeout=60 || timeout=1
+  [[ $coverage = 0 ]] && timeout=60 || timeout=2
   timeout $timeout $executable < $here_dir/test/$test_id \
     |& diff $here_dir/test/$test_id.out - &> /dev/null
 }
 
 negative()
 {
-  [[ $coverage = 0 ]] && timeout=10 || timeout=1
+  [[ $coverage = 0 ]] && timeout=10 || timeout=2
   timeout $timeout $executable < $here_dir/test/n1 &> /dev/null
 }
 
