@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 TIME_LIMIT=10
 patch_exe=$1
 patch_dir=$(dirname $1)
