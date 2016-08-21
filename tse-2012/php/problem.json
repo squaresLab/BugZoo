@@ -1,0 +1,15 @@
+{
+  "problem": {
+    "name": "php",
+    "program": "string.c",
+    "positive_tests": 3,
+    "negative_tests": 1,
+    "multi_file": true,
+    "executable_name": "php",
+    "compiler": {
+      "executable": "php",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+    }
+  },
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null"
+}

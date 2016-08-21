@@ -1,14 +1,11 @@
 #!/bin/bash
+executable=$1
+test_id=$2
+port=$3
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+test_dir="$here_dir/test"
 
-# Find the directory that this test script belongs to.
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
-# Check if this test script is being used to compute coverage information.
-if [ $(basename $1) = "coverage" ]; then
-  cov=1
-else
-  cov=0
-fi
+timeout=10
 
 # Performs the necessary setup for all positive test cases.
 setup_pos()
@@ -18,12 +15,6 @@ setup_pos()
 # Performs the necessary setup for all negative test cases.
 start_neg()
 {
-  if [ $cov = 0 ]; then
-    ulimit -t 5
-  else
-    ulimit -t 10
-  fi
-
   export PROG=$1
   export OUT=$2
   export PORT=$3
@@ -52,20 +43,20 @@ start_neg()
 
 end_neg()
 {
-  kill -9 $!  # What does this do?
-  killall `basename $PROG`
-  killall -9 `basename $PROG`
+  #kill -9 $!  # What does this do?
+  #killall `basename $PROG`
+  #killall -9 `basename $PROG`
 }
 
 # Execute the appropriate test case.
-case $2 in
+case $test_id in
   n1)
-    start_neg
-    bash -c $PROG # launch server
-    $DIR/test/nullhttpd-exploit -h localhost -p $PORT"1" -t2 # attempt exploit
-    wget -q0- "http://localhost:"$PORT"1"/index.html | diff $DIR/test/index.html -
-    $failed=$?
-    end_neg
-    exit $failed ;;
+    #start_neg
+    timeout $timeout $executable # launch server
+    #$DIR/test/nullhttpd-exploit -h localhost -p $PORT"1" -t2 # attempt exploit
+    #wget -q0- "http://localhost:"$PORT"1"/index.html | diff $DIR/test/index.html -
+    #$failed=$?
+    #end_neg
+    #exit $failed ;;
 esac 
 exit 1

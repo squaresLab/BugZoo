@@ -13,13 +13,9 @@ port=$3
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 root_dir="$here_dir/fake-root"
 
-# Determine whether coverage is being computed, and from that choose an
-# appropriate timeout length
-if [ $(basename $exe) = "coverage" ]; then
-  timeout=10
-else
-  timeout=1
-fi
+# Check if this test script is being used to compute coverage information.
+[[ $(dirname $exe) = "coverage" ]] && coverage=0 || coverage=1
+[[ $coverage = 0 ]] && timeout=10 || timeout=1
 
 # Fire up the server
 $root_dir/sbin/lighttpd -D -f $root_dir/lighttpd.conf -m $root_dir/lib/ &
@@ -46,5 +42,4 @@ esac
 
 # Kill the server
 killall lighttpd
-
 exit $result

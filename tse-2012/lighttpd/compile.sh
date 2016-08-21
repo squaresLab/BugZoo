@@ -1,4 +1,5 @@
 #!/bin/sh
+TIME_LIMIT=10
 patch_exe=$1
 patch_dir=$(dirname $1)
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -10,7 +11,7 @@ lib_dir="$here_dir/fake-root/lib/"
 cp $patch_dir/mod_fastcgi.c $project_dir/src
 pushd $project_dir/src
 rm -rf mod_fastcgi.I? .libs/mod_fastcgi.so .libs/mod/fast_cgi.o 
-make
+timeout $TIME_LIMIT make || exit 1
 
 # If the project was successfully compiled, updated the library in the fake
 # root, otherwise report failure
