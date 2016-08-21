@@ -35,28 +35,28 @@ echo SERVER_PORT     = \"$port"0"\" >> $server_dir/etc/httpd.cfg
 pushd $server_dir/bin
 
 # Get the server running?
-timeout $timeout $executable &
+$executable &
 pid=$!
-sleep 5s
+echo "Running on $pid"
+sleep 3s
 
 timeout $timeout curl --silent -t 1 "$server_url/index.html" | \
-diff $test_dir/index.html - && echo "index.html"
+diff $test_dir/index.html - &> /dev/null && echo "index.html"
 
 timeout $timeout curl --silent -t 1 "$server_url/blank.html" |& \
-diff $test_dir/blank.html - && echo "blank.html"
+diff $test_dir/blank.html - &> /dev/null && echo "blank.html"
 
 timeout $timeout curl --silent -t 1 "$server_url/notfound.html" |& \
-diff $test_dir/notfound.html - && echo "notfound.html"
+diff $test_dir/notfound.html - &> /dev/null && echo "notfound.html"
 
 timeout $timeout curl --silent -t 1 "$server_url/images/default.gif" |& \
-diff $test_dir/default.gif - && echo "default.gif"
+diff $test_dir/default.gif - &> /dev/null && echo "default.gif"
 
+timeout $timeout curl --silent -t 1 "$server_url/images/" |& head -n 4 |& \
+diff $test_dir/images.html - &> /dev/null && echo "images.html"
 
-timeout $timeout curl --silent -t 1 "$server_url/images/" |& \
-diff $test_dir/images.html - && echo "images.html"
-
-timeout $timeout curl --silent -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
-diff $test_dir/hello.pl - && echo "hello.pl"
+timeout $timeout wget -O - -o /dev/null -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
+diff $test_dir/hello.out - && echo "hello.pl"
 
 kill -9 $pid
 wait 

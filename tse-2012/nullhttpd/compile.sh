@@ -6,4 +6,4 @@ target_dir=$(dirname $target_exe)
 pushd $target_dir
 
 # Compile the server executable
-timeout $TIME_LIMIT gcc httpd_comb.c -o httpd -m32 -lpthread
+timeout $TIME_LIMIT gcc httpd_comb.c -o nullhttpd -m32 -lpthread
