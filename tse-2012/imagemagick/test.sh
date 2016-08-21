@@ -16,15 +16,19 @@ execute(){
   tmp_image_file=$(mktemp)
   timeout $timeout $fake_root/bin/convert "$image_dir/$png.PNG" -function Arcsin 4 $tmp_image_file && \
   timeout $timeout $fake_root/bin/identify -verbose $tmp_image_file | head -n 22 | tail -n 6 |& \
-  diff "$test_dir/test_"$png".out" - &> /dev/null && echo "passed "$png".PNG" || echo "failed "$png".PNG"
+  diff "$test_dir/test_"$png".out" - &> /dev/null
+  result=$?
   rm -f $tmp_image_file
+  exit $result
 }
 
-execute BASI0G01
-execute BASN3P01
-execute G10N2C08
-execute S37N3P04
-execute TBWN3P08
-execute G05N0G16
-
-exit 0
+# Execute the specified test
+case $test_id in
+  p1) execute BASI0G01 && exit 0;;
+  p2) execute BASN3P01 && exit 0;;
+  p3) execute G10N2C08 && exit 0;;
+  p4) execute S37N3P04 && exit 0;;
+  p5) execute TBWN3P08 && exit 0;;
+  n1) execute G05N0G16 && exit 0;;
+esac
+exit 1
