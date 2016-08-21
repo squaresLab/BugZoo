@@ -1,5 +1,5 @@
 #!/bin/bash
-TIME_LIMIT=60
+TIME_LIMIT=120
 patch_dir=$(dirname "$1")
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 project_dir="$here_dir/src"
