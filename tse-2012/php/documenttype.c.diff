@@ -1,0 +1,19 @@
+--- documenttype.c.bk	2016-08-21 14:56:31.047112766 +0100
++++ documenttype.c	2016-08-21 15:00:52.799104556 +0100
+@@ -216,9 +216,14 @@
+ 		if (buff != NULL) {
+ 			xmlNodeDumpOutput (buff, NULL, (xmlNodePtr) intsubset, 0, 0, NULL);
+ 			xmlOutputBufferFlush(buff);
+-			strintsubset = xmlStrndup(buff->buffer->content, buff->buffer->use);
++
++      #ifdef LIBXML2_NEW_BUFFER
++        ZVAL_STRINGL(*retval, xmlOutputBufferGetContent(buff), xmlOutputBufferGetSize(buff), 1);
++      #else
++        ZVAL_STRINGL(*retval, buff->buffer->content, buff->buffer->use, 1);
++      #endif
++
+ 			(void)xmlOutputBufferClose(buff);
+-			ZVAL_STRING(*retval, (char *) strintsubset, 1);
+ 			return SUCCESS;
+ 		}
+ 	}
