@@ -1,41 +1,28 @@
 #!/bin/bash
-EXECUTABLE=$1
-TEST_ID=$2
+executable=$1
+test_id=$2
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+test_dir="$here_dir/test"
 
-# Find the directory that this test script belongs to.
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
-# Determine whether coverage is being computed, and from that choose an
-# appropriate timeout length
-if [ $(basename $EXECUTABLE) = "coverage" ]; then
-  TIMEOUT=10
-else
-  TIMEOUT=1
-fi
+# Check if this test script is being used to compute coverage information.
+[[ $(dirname $executable) = "coverage" ]] && coverage=0 || coverage=1
+[[ $coverage = 0 ]] && timeout=10 || timeout=1
 
 # Perform necessary preparations before running the test case.
 ulimit -c 8
 
 positive()
 {
-  case=$1
-  timeout $TIMEOUT $EXECUTABLE < $DIR/test/$case.in &> result.$case.tmp \
-    && diff $DIR/test/$case.out result.$case.tmp
-  result=$?
-  rm -f result.$case.tmp
-  rm -f core*
-  exit $result
+  timeout $timeout $executable < $test_dir/$test_id.in |& \
+    diff $test_dir/$test_id.out -
 }
 
 negative()
 {
-  timeout $TIMEOUT $EXECUTABLE < $DIR/test/n1.in
-  result=$?
-  rm -f core*
-  exit $result
+  timeout $timeout $executable < $test_dir/n1.in
 }
 
-case $TEST_ID in
+case $test_id in
   p1) positive p1 && exit 0;;
   p2) positive p2 && exit 0;;
   p3) positive p3 && exit 0;;

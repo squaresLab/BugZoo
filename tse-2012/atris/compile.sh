@@ -1,3 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+TIME_LIMIT=20
+target_exe=$1
+target_dir=$(dirname $target_exe)
 
-gcc ./atris_comb.c -o ./atris -lSDL -lpthread -lSDL_ttf -m32
+pushd $target_dir
+timeout $TIME_LIMIT gcc ./atris_comb.c -o ./atris -lSDL -lpthread -lSDL_ttf -m32

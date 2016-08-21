@@ -1,13 +1,14 @@
 {
-  "compiler": {
-    "command": "./compile.sh __EXE_NAME__ &> /dev/null"
-  },
   "problem": {
     "name": "look-svr-4.0-1.1",
     "program": "look.c",
     "executable_name": "look",
-    "positive_tests": 4,
-    "negative_tests": 1
+    "positive_tests": 5,
+    "negative_tests": 1,
+    "compiler": {
+      "executable": "look",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+    }
   },
   "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null"
 }

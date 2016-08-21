@@ -4,11 +4,12 @@ exe_dir=$( cd "$(dirname $executable)" && pwd )
 test_id=$2
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# Are we computing coverage?
-[[ $(basename $1) = "coverage" ]] && coverage=0 || coverage=1
+# Check if this test script is being used to compute coverage information.
+coverage=$([[ $(basename $executable) = "coverage" ]])
 
 positive()
 {
+
   [[ $coverage = 0 ]] && timeout=10 || timeout=2
   timeout $timeout $executable < $here_dir/test/$test_id \
     |& diff $here_dir/test/output.$test_id - &> /dev/null
@@ -16,7 +17,7 @@ positive()
 
 negative()
 {
-  [[ $coverage = 0 ]] && timeout=10 || timeout=1
+  [[ $coverage = 0 ]] && timeout=10 || timeout=2
   timeout $timeout $executable < $here_dir/test/bad1
 }
 

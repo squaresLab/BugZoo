@@ -1,12 +1,13 @@
 {
-  "compiler": {
-    "options": "-m32"
-  },
   "problem": {
     "name": "deroff-ultrix-4.3",
     "program": "deroff.c",
     "executable_name": "deroff",
     "positive_tests": 5,
-    "negative_tests": 1  
+    "negative_tests": 1,
+    "compiler": {
+      "executable": "deroff",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+    }
   }
 }
