@@ -1,17 +1,15 @@
 #!/bin/bash
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-executable=$1
+executable=$(readlink -f "$1")
 test_id=$2
 port=$3
 test_dir="$here_dir/test"
+server_dir="$executable-g"
+server_url="http://localhost:"$port"0"
 
 # Check if this test script is being used to compute coverage information.
 coverage=$([[ $(basename $executable) = "coverage" ]])
-[[ $coverage = 0 ]] && timeout=10 || timeout=10
-
-export OUT=$2
-
-export server_dir=$executable"-g"
+[[ $coverage = 0 ]] && timeout=30 || timeout=30
 
 # Rebuild the server directory; this is limiting us to single-threaded
 # execution!
@@ -23,10 +21,10 @@ cp -ra $test_dir/htdocs $server_dir/htdocs
 cp -ra $test_dir/cgi-bin $server_dir/cgi-bin
 
 # Build the httpd.cfg file
-echo SERVER_BASE_server_dir = \"$PWD/$server_dir/\" >> $server_dir/etc/httpd.cfg 
-echo SERVER_BIN_server_dir = \"$PWD/$server_dir/bin/\" >> $server_dir/etc/httpd.cfg 
-echo SERVER_CGI_server_dir = \"$PWD/$server_dir/cgi-bin/\" >> $server_dir/etc/httpd.cfg 
-echo SERVER_ETC_server_dir = \"$PWD/$server_dir/etc/\" >> $server_dir/etc/httpd.cfg 
+echo SERVER_BASE_server_dir = \"$server_dir/\" >> $server_dir/etc/httpd.cfg 
+echo SERVER_BIN_server_dir = \"$server_dir/bin/\" >> $server_dir/etc/httpd.cfg 
+echo SERVER_CGI_server_dir = \"$server_dir/cgi-bin/\" >> $server_dir/etc/httpd.cfg 
+echo SERVER_ETC_server_dir = \"$server_dir/etc/\" >> $server_dir/etc/httpd.cfg 
 echo SERVER_HTTP_server_dir = \"$PWD/$server_dir/htdocs/\" >> $server_dir/etc/httpd.cfg 
 echo SERVER_LOGLEVEL = \"1\" >> $server_dir/etc/httpd.cfg
 echo SERVER_HOSTNAME = \"localhost\" >> $server_dir/etc/httpd.cfg
@@ -36,30 +34,30 @@ echo SERVER_PORT     = \"$port"0"\" >> $server_dir/etc/httpd.cfg
 
 pushd $server_dir/bin
 
-timeout $timeout $executable 
-timeout $timeout wget -t 1 "http://localhost:"$port"0"/index.html
-diff index.html ../../index.html && (echo "index.html" >> ../../$OUT)
+# Get the server running?
+timeout $timeout $executable &
+pid=$!
+sleep 5s
 
-timeout $timeout wget -t 1 "http://localhost:"$port"0"/blank.html
-diff blank.html ../../blank.html && (echo "blank.html" >> ../../$OUT)
+timeout $timeout curl --silent -t 1 "$server_url/index.html" | \
+diff $test_dir/index.html - && echo "index.html"
 
-timeout $timeout wget -t 1 "http://localhost:"$port"0"/notfound.html
-diff notfound.html ../../notfound.html && (echo "notfound.html" >> ../../$OUT)
+timeout $timeout curl --silent -t 1 "$server_url/blank.html" |& \
+diff $test_dir/blank.html - && echo "blank.html"
 
-timeout $timeout wget -t 1 "http://localhost:"$port"0"/images/default.gif
-diff default.gif ../../default.gif && (echo "default.gif" >> ../../$OUT)
+timeout $timeout curl --silent -t 1 "$server_url/notfound.html" |& \
+diff $test_dir/notfound.html - && echo "notfound.html"
 
-rm -rf index.html
+timeout $timeout curl --silent -t 1 "$server_url/images/default.gif" |& \
+diff $test_dir/default.gif - && echo "default.gif"
 
-timeout $timeout wget -t 1 "http://localhost:"$port"0"/images/
-diff index.html ../../images.html && (echo "images.html" >> ../../$OUT)
 
-timeout $timeout wget -t 1 --post-data 'name=westley&submit=submit' "http://localhost:"$port"0"/cgi-bin/hello.pl
-diff hello.pl ../../hello.pl && (echo "hello.pl" >> ../../$OUT)
+timeout $timeout curl --silent -t 1 "$server_url/images/" |& \
+diff $test_dir/images.html - && echo "images.html"
 
-kill -9 $! 
-killall `basename $executable`
-killall -9 `basename $executable`
+timeout $timeout curl --silent -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
+diff $test_dir/hello.pl - && echo "hello.pl"
 
+kill -9 $pid
 wait 
 exit 0
