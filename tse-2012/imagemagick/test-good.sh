@@ -10,13 +10,21 @@ fake_root="$here_dir/fake-root"
 [[ $(dirname $executable) = "coverage" ]] && coverage=0 || coverage=1
 [[ $coverage = 0 ]] && timeout=10 || timeout=2
 
-for png in BASI0G01 BASN3P01 G10N2C08 S37N3P04 TBWN3P08 
-do
+# Performs the test on a given file from the image directory
+execute(){
+  png=$1
   tmp_image_file=$(mktemp)
   timeout $timeout $fake_root/bin/convert "$image_dir/$png.PNG" -function Arcsin 4 $tmp_image_file && \
   timeout $timeout $fake_root/bin/identify -verbose $tmp_image_file | head -n 22 | tail -n 6 |& \
-  diff "$test_dir/test_"$png".out" - && echo "passed "$png".PNG"
+  diff "$test_dir/test_"$png".out" - &> /dev/null && echo "passed "$png".PNG" || echo "failed "$png".PNG"
   rm -f $tmp_image_file
-done
+}
+
+execute BASI0G01
+execute BASN3P01
+execute G10N2C08
+execute S37N3P04
+execute TBWN3P08
+execute G05N0G16
 
 exit 0
