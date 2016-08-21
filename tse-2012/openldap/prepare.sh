@@ -17,9 +17,8 @@ mkdir -p "$root_dir"
 
 # Unextract, configure, and build
 pushd "$src_dir"
-#./configure --build=i386-pc-linux-gnu --prefix="$root_dir" \
 export CPPFLAGS="-I/usr/local/BerkeleyDB.4.2/include"
 export LDFLAGS="-L/usr/local/BerkeleyDB.4.2/lib"
 export LD_LIBRARY_PATH="/usr/local/BerkeleyDB.4.2/lib"
-./configure
+./configure --build=i386-pc-linux-gnu --prefix="$root_dir"
 popd
