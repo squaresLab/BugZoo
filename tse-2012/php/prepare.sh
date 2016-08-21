@@ -13,6 +13,6 @@ if [ ! -d src ]; then
 fi
 
 # Generate expected test outputs for positive tests
-$php_exe "$test_dir/p1.php" |& head -n 100 &> "$test_dir/p1.out"
-$php_exe "$test_dir/p2.php" |& head -n 100 &> "$test_dir/p2.out"
-$php_exe "$test_dir/p3.php" |& head -n 100 &> "$test_dir/p3.out"
+$php_exe "$test_dir/p1.php" |& head -n 100 |& tail -n 95 &> "$test_dir/p1.out"
+$php_exe "$test_dir/p2.php" |& head -n 100 |& tail -n 95 &> "$test_dir/p2.out"
+$php_exe "$test_dir/p3.php" |& head -n 100 |& tail -n 95 &> "$test_dir/p3.out"

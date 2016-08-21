@@ -7,15 +7,17 @@ php_exe="$here_dir/src/sapi/cli/php"
 
 # Check if this test script is being used to compute coverage information.
 coverage=$([[ $(basename $executable) = "coverage" ]])
-#[[ $coverage = 0 ]] && timeout=10 || timeout=q0
+[[ $coverage = 0 ]] && timeout=60 || timeout=1
 
 positive() {
-   $php_exe "$test_dir/$test_id.php" |& head -n 100 | \
+   timeout $timeout $php_exe "$test_dir/$test_id.php" |& \
+     head -n 100 | tail -n 95 |& \
      diff "$test_dir/$test_id.out" - &> /dev/null
 }
 
 negative() {
-  $php_exe "$test_dir/n1.php" |& diff "$test_dir/n1.out" - &> /dev/null
+  timeout $timeout $php_exe "$test_dir/n1.php" |& \
+    diff "$test_dir/n1.out" - &> /dev/null
 }
 
 case $test_id in
