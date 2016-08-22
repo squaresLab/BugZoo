@@ -1,15 +1,14 @@
 {
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ >> test.log",
   "problem": {
     "name": "zune",
     "program": "zune.c",
     "executable_name": "zune",
     "positive_tests": 18,
-    "negative_tests": 4
-  },
-  "algorithm": {
-    "type": "genetic",
-    "evaluation": { 
-      "terminate_early": false
+    "negative_tests": 4,
+    "compiler": {
+      "executable": "zune",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
     }
   }
 }
