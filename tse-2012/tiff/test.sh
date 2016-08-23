@@ -7,7 +7,7 @@ local_root="$here_dir/local-root"
 bin_dir=$local_root/bin
 
 # Check if this test script is being used to compute coverage information.
-coverage=$([[ $(basename $executable) = "coverage" ]])
+coverage=$([[ $(dirname $executable) = "coverage" ]])
 [[ $coverage = 0 ]] && timeout=10 || timeout=2
 
 ulimit -c 8
