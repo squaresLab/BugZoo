@@ -6,7 +6,7 @@ test_dir="$here_dir/test"
 
 # Check if this test script is being used to compute coverage information.
 coverage=$([[ $(basename "$executable") = "coverage" ]])
-[[ $coverage = 0 ]] && timeout=30 || timeout=3
+[[ $coverage = 0 ]] && timeout=30 || timeout=1
 
 case $test_id in
   p1|p2|p3|p4|p5|p6|p7|p8|p9|p10|p11|p12|p13|p14|p15|p16|p17|p18|n1|n2|n3|n4)
