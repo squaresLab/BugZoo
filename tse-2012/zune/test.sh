@@ -5,7 +5,7 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 test_dir="$here_dir/test"
 
 # Check if this test script is being used to compute coverage information.
-coverage=$([[ $(basename "$executable") = "coverage" ]])
+coverage=$([[ $(dirname "$executable") = "coverage" ]])
 [[ $coverage = 0 ]] && timeout=30 || timeout=1
 
 case $test_id in
