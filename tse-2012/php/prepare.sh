@@ -8,8 +8,9 @@ if [ ! -d src ]; then
   tar -xf src.tar.gz
   cp libxml.patch src
   pushd src
-  ./configure --host=i386-pc-linux-gnu "CFLAGS=-m32"
-  cat libxml.patch | patch -p0 && make
+  ./configure --host=i686-pc-linux-gnu
+  cat libxml.patch | patch -p0
+  make
 fi
 
 # Generate expected test outputs for positive tests
