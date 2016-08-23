@@ -4,7 +4,7 @@ test_id=$2
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 test_dir="$here_dir/tests"
 local_root="$here_dir/local-root"
-bin_dir=$local_root/bin
+bin_dir="$local_root/bin"
 
 # Check if this test script is being used to compute coverage information.
 coverage=$([[ $(dirname $executable) = "coverage" ]])
