@@ -5,5 +5,5 @@ exe=$1
 exe_dir=$(dirname "$exe")
 
 pushd $exe_dir
-timeout $TIME_LIMIT gcc zune.c -o zune -m32
-exit $?
+timeout $TIME_LIMIT gcc zune.c -o zune -m32 && exit 0
+exit 1
