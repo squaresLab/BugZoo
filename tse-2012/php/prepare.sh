@@ -10,7 +10,7 @@ if [ ! -d src ]; then
   pushd src
   ./configure --host=i686-pc-linux-gnu
   cat libxml.patch | patch -p0
-  make
+  make -j8
 fi
 
 # Generate expected test outputs for positive tests
