@@ -52,6 +52,10 @@ diff $test_dir/images.html - && echo "images.html"
 timeout $timeout wget -O - -o /dev/null -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
 diff $test_dir/hello.out - && echo "hello.pl"
 
+$test_dir/exploit -h localhost -p $port -t2 && \
+timeout $timeout curl --silent -t 1 "$server_url/index.html" |& \
+diff $test_dir/index.html - && echo "exploit"
+
 # Destroy the temporary root and kill the server
 pid=$(ps aux | grep "$executable $port" | grep -v grep | awk '{print $2}')
 sudo kill -9 $pid
