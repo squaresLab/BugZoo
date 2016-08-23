@@ -32,14 +32,13 @@ exec_neg()
 ulimit -c 8
 
 # Execute the appropriate test case.
-result=1
 case $test_id in
-  p1) exec_pos && result=0;;
-  p2) exec_pos && result=0;;
-  p3) exec_pos && result=0;;
-  p4) exec_pos && result=0;;
-  p5) exec_pos && result=0;;
-  n1) exec_neg && result=0;;
+  p1) exec_pos && exit 0;;
+  p2) exec_pos && exit 0;;
+  p3) exec_pos && exit 0;;
+  p4) exec_pos && exit 0;;
+  p5) exec_pos && exit 0;;
+  n1) exec_neg && exit 0;;
 esac 
 rm -rf core*
-exit $result
+exit 1
