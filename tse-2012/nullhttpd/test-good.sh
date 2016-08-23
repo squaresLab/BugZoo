@@ -1,13 +1,15 @@
 #!/bin/bash
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 executable=$(readlink -f "$1")
+executable_dir=$(dirname "$executable")
+executable="$executable_dir/nullhttpd"
 test_id=$2
 port=$3
 test_dir="$here_dir/test"
 server_url="http://localhost:"$port""
 
 # Check if this test script is being used to compute coverage information.
-coverage=$([[ $(basename $executable) = "coverage" ]])
+coverage=$([[ "$executable_dir" = "coverage" ]])
 [[ $coverage = 0 ]] && timeout=30 || timeout=30
 
 build_root(){
@@ -29,30 +31,29 @@ build_root $server_dir $port
 
 # Get the server running?
 pushd $server_dir/bin
-sudo $executable &
-pid=$!
-echo "Running on $pid"
-sleep 5s
+sudo $executable $port &
+sleep 1s
 
-timeout $timeout curl --silent -t 1 "$server_url/index.html" | \
+timeout $timeout curl --silent -t 1 "$server_url/index.html" |& \
 diff $test_dir/index.html - &> /dev/null && echo "index.html"
 
 timeout $timeout curl --silent -t 1 "$server_url/blank.html" |& \
-diff $test_dir/blank.html - &> /dev/null && echo "blank.html"
+diff $test_dir/blank.html - && echo "blank.html"
 
 timeout $timeout curl --silent -t 1 "$server_url/notfound.html" |& \
-diff $test_dir/notfound.html - &> /dev/null && echo "notfound.html"
+diff $test_dir/notfound.html - && echo "notfound.html"
 
 timeout $timeout curl --silent -t 1 "$server_url/images/default.gif" |& \
-diff $test_dir/default.gif - &> /dev/null && echo "default.gif"
+diff $test_dir/default.gif - && echo "default.gif"
 
 timeout $timeout curl --silent -t 1 "$server_url/images/" |& head -n 4 |& \
-diff $test_dir/images.html - &> /dev/null && echo "images.html"
+diff $test_dir/images.html - && echo "images.html"
 
 timeout $timeout wget -O - -o /dev/null -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
-diff $test_dir/hello.out - &> /dev/null && echo "hello.pl"
+diff $test_dir/hello.out - && echo "hello.pl"
 
 # Destroy the temporary root and kill the server
+pid=$(ps aux | grep "$executable $port" | grep -v grep | awk '{print $2}')
 sudo kill -9 $pid
 rm -rf $server_dir
 wait 
