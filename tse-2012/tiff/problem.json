@@ -1,14 +1,15 @@
 {
-  "compiler": {
-    "command": "./compile.sh __EXE_NAME__ &> /dev/null"
-  },
   "problem": {
     "name": "tiff",
     "program": "tif_lzw.c",
     "executable_name": "tiff",
     "positive_tests": 5,
     "negative_tests": 1,
-    "multi_file": true
+    "multi_file": true,
+    "compiler": {
+      "executable": "tiff",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+    }
   },
   "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null"
 }
