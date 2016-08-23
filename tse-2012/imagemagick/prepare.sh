@@ -7,8 +7,9 @@ if [ ! -d src ]; then
   tar -xf src.tar.gz
   cp blob.c.fixed src/magick/blob.c
   pushd src
-  ./configure --build=i386-pc-linux-gnu --prefix="$fake_root" --with-perl=no CFLAGS="-m32 -std=c99" CXXFLAGS="-m32" LDFLAGS="-m32" && \
-   make && make install
+  #./configure --build=i686-pc-linux-gnu --prefix="$fake_root" --with-perl=no CFLAGS="-m32 -std=c99" CXXFLAGS="-m32" LDFLAGS="-m32" && \
+  ./configure --prefix="$fake_root" --with-perl=no
+  make && make install
   popd
 fi
 
