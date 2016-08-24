@@ -6,8 +6,8 @@ test_dir="$here_dir/test"
 php_exe="$here_dir/src/sapi/cli/php"
 
 # Check if this test script is being used to compute coverage information.
-coverage=$([[ $(basename $executable) = "coverage" ]])
-[[ $coverage = 0 ]] && timeout=60 || timeout=1
+coverage=$([[ $(dirname "$executable") = "coverage" ]])
+[[ $coverage = 0 ]] && timeout=30 || timeout=1
 
 positive() {
    timeout $timeout $php_exe "$test_dir/$test_id.php" |& \

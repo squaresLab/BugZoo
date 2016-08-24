@@ -1,9 +1,10 @@
 #!/bin/bash
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 TIME_LIMIT=10
 target_exe=$1
-target_dir=$(dirname $target_exe)
+target_dir=$(readlink -f "$(dirname "$target_exe")")
+test_dir="$here_dir/test"
 
 pushd $target_dir
-
-# Compile the server executable
-timeout $TIME_LIMIT gcc httpd_comb.c -o httpd -m32 -lpthread
+timeout $TIME_LIMIT gcc httpd_comb.c -o nullhttpd -m32 -lpthread && exit 0
+exit 1

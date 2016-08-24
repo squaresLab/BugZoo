@@ -1,13 +1,13 @@
 #!/bin/bash
-TIME_LIMIT=10
+TIME_LIMIT=30
 exe=$1
 patch_dir=$(dirname $1)
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 project_dir="$here_dir/src"
 target_dir="$project_dir/libtiff"
 
-#rm -f $target_dir/tif_lzw.*
+rm -f $target_dir/tif_lzw.*
 cp $patch_dir/tif_lzw.c $target_dir/tif_lzw.c
 pushd $project_dir
-make clean && timeout $TIME_LIMIT make install && exit 0
+timeout $TIME_LIMIT make install && exit 0
 exit 1
