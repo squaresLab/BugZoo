@@ -1,62 +1,61 @@
 #!/bin/bash
-executable=$1
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+executable=$(readlink -f "$1")
+executable_dir=$(dirname "$executable")
+executable="$executable_dir/nullhttpd"
 test_id=$2
 port=$3
-here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 test_dir="$here_dir/test"
+server_url="http://localhost:"$port""
 
-timeout=10
+# Check if this test script is being used to compute coverage information.
+coverage=$([[ "$executable_dir" = "coverage" ]])
+[[ $coverage = 0 ]] && sleepytime=15 || sleepytime=1
 
-# Performs the necessary setup for all positive test cases.
-setup_pos()
-{
+build_root(){
+  root_dir=$1
+  port=$2
+  pushd $root_dir
+  mkdir etc
+  mkdir bin
+  cp -ra $test_dir/* .
+  mv httpd.cfg.base etc/httpd.cfg
+  sed -i'' "s;__SERVER_ROOT__;$root_dir;g" $root_dir/etc/httpd.cfg
+  sed -i'' "s;__SERVER_PORT__;$port;g" $root_dir/etc/httpd.cfg
+  popd
 }
 
-# Performs the necessary setup for all negative test cases.
-start_neg()
-{
-  export PROG=$1
-  export OUT=$2
-  export PORT=$3
-  export SERVER_DIR=$PROG"-b"
+# Create a fake root
+server_dir=$(mktemp -d)
+build_root $server_dir $port
 
-  # Create the root directory for the server.
-  rm -rf $SERVER_DIR
-  mkdir $SERVER_DIR
-  mkdir $SERVER_DIR/etc
-  mkdir $SERVER_DIR/bin
-  cp -ra $DIR/htdocs $SERVER_DIR/htdocs
-  cp -ra $DIR/cgi-bin $SERVER_DIR/cgi-bin
+# Get the server running?
+pushd $server_dir/bin
+sudo $executable $port &
+sleep "$sleepytime"s
 
-  # Setup the httpd.cfg file.
-  echo SERVER_BASE_DIR = \"$PWD/$SERVER_DIR/\" >> $SERVER_DIR/etc/httpd.cfg 
-  echo SERVER_BIN_DIR = \"$PWD/$SERVER_DIR/bin/\" >> $SERVER_DIR/etc/httpd.cfg 
-  echo SERVER_CGI_DIR = \"$PWD/$SERVER_DIR/cgi-bin/\" >> $SERVER_DIR/etc/httpd.cfg 
-  echo SERVER_ETC_DIR = \"$PWD/$SERVER_DIR/etc/\" >> $SERVER_DIR/etc/httpd.cfg 
-  echo SERVER_HTTP_DIR = \"$PWD/$SERVER_DIR/htdocs/\" >> $SERVER_DIR/etc/httpd.cfg 
-  echo SERVER_LOGLEVEL = \"1\" >> $SERVER_DIR/etc/httpd.cfg
-  echo SERVER_HOSTNAME = \"localhost\" >> $SERVER_DIR/etc/httpd.cfg
-  echo SERVER_MAXCONN  = \"50\" >> $SERVER_DIR/etc/httpd.cfg
-  echo SERVER_MAXIDLE  = \"120\" >> $SERVER_DIR/etc/httpd.cfg
-  echo SERVER_PORT     = \"$PORT"1"\" >> $SERVER_DIR/etc/httpd.cfg
-}
-
-end_neg()
-{
-  #kill -9 $!  # What does this do?
-  #killall `basename $PROG`
-  #killall -9 `basename $PROG`
-}
-
-# Execute the appropriate test case.
+result=1
 case $test_id in
-  n1)
-    #start_neg
-    timeout $timeout $executable # launch server
-    #$DIR/test/nullhttpd-exploit -h localhost -p $PORT"1" -t2 # attempt exploit
-    #wget -q0- "http://localhost:"$PORT"1"/index.html | diff $DIR/test/index.html -
-    #$failed=$?
-    #end_neg
-    #exit $failed ;;
-esac 
-exit 1
+  p1) timeout 1 curl --silent -t 1 "$server_url/index.html" |& \
+      diff $test_dir/index.html - &> /dev/null && result=0;;
+  p2) timeout 1 curl --silent -t 1 "$server_url/blank.html" |& \
+      diff $test_dir/blank.html - && result=0;;
+  p3) timeout 1 curl --silent -t 1 "$server_url/notfound.html" |& \
+      diff $test_dir/notfound.html - && result=0;;
+  p4) timeout 1 curl --silent -t 1 "$server_url/images/default.gif" |& \
+      diff $test_dir/default.gif - && result=0;;
+  p5) timeout 1 curl --silent -t 1 "$server_url/images/" |& head -n 4 |& \
+      diff $test_dir/images.html - && result=0;;
+  p6) timeout 1 wget -O - -o /dev/null -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
+      diff $test_dir/hello.out - && result=0;;
+  n1) timeout 5 $test_dir/exploit -h localhost -p $port -t2
+      timeout 1 curl --silent -t 1 "$server_url/index.html" |& \
+      diff $test_dir/index.html - && result=0;;
+esac
+
+# Destroy the temporary root and kill the server
+pid=$(ps aux | grep "$executable $port" | grep -v grep | awk '{print $2}')
+sudo kill -9 $pid
+rm -rf $server_dir
+wait 
+exit $result

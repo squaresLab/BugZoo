@@ -1,4 +1,4 @@
-Configure Command =>  './configure' '--host=i386-pc-linux-gnu'
+Configure Command =>  './configure' '--host=i686-pc-linux-gnu'
 Server API => Command Line Interface
 Virtual Directory Support => disabled
 Configuration File (php.ini) Path => /usr/local/lib

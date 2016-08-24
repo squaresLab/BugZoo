@@ -7,7 +7,7 @@ image_dir="$here_dir/images"
 fake_root="$here_dir/fake-root"
 
 # Check if this test script is being used to compute coverage information.
-[[ $(dirname $executable) = "coverage" ]] && coverage=0 || coverage=1
+[[ $(dirname "$executable") = "coverage" ]] && coverage=0 || coverage=1
 [[ $coverage = 0 ]] && timeout=10 || timeout=2
 
 # Performs the test on a given file from the image directory
