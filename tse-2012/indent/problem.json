@@ -1,15 +1,13 @@
 {
-  "compiler": {
-    "command": "./compile.sh __EXE_NAME__ &> /dev/null"
-  },
   "problem": {
     "name": "indent-1.9.1",
-    "program": "indent_comb.c",
+    "program": "indent.c",
     "executable_name": "indent",
     "positive_tests": 5,
     "negative_tests": 1,
     "compiler": {
-      "executable": "indent"
+      "executable": "indent",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
     }
   }
 }
