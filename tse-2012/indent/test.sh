@@ -1,10 +1,12 @@
 #!/bin/bash
 executable=$1
+executable_dir=$(dirname "$executable")
+executable="$executable_dir/indent"
 test_id=$2
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Check if this test script is being used to compute coverage information.
-[[ $(dirname "$executable") = "coverage" ]] && coverage=0 || coverage=1
+[[ "$executable" = "coverage" ]] && coverage=0 || coverage=1
 
 positive()
 {
