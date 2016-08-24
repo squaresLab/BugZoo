@@ -34,31 +34,28 @@ pushd $server_dir/bin
 sudo $executable $port &
 sleep "$sleepytime"s
 
-timeout 1 curl --silent -t 1 "$server_url/index.html" |& \
-diff $test_dir/index.html - &> /dev/null && echo "index.html"
-
-timeout 1 curl --silent -t 1 "$server_url/blank.html" |& \
-diff $test_dir/blank.html - && echo "blank.html"
-
-timeout 1 curl --silent -t 1 "$server_url/notfound.html" |& \
-diff $test_dir/notfound.html - && echo "notfound.html"
-
-timeout 1 curl --silent -t 1 "$server_url/images/default.gif" |& \
-diff $test_dir/default.gif - && echo "default.gif"
-
-timeout 1 curl --silent -t 1 "$server_url/images/" |& head -n 4 |& \
-diff $test_dir/images.html - && echo "images.html"
-
-timeout 1 wget -O - -o /dev/null -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
-diff $test_dir/hello.out - && echo "hello.pl"
-
-timeout 5 $test_dir/exploit -h localhost -p $port -t2
-timeout 1 curl --silent -t 1 "$server_url/index.html" |& \
-diff $test_dir/index.html - && echo "exploit"
+result=1
+case $test_id in
+  p1) timeout 1 curl --silent -t 1 "$server_url/index.html" |& \
+      diff $test_dir/index.html - &> /dev/null && result=0;;
+  p2) timeout 1 curl --silent -t 1 "$server_url/blank.html" |& \
+      diff $test_dir/blank.html - && result=0;;
+  p3) timeout 1 curl --silent -t 1 "$server_url/notfound.html" |& \
+      diff $test_dir/notfound.html - && result=0;;
+  p4) timeout 1 curl --silent -t 1 "$server_url/images/default.gif" |& \
+      diff $test_dir/default.gif - && result=0;;
+  p5) timeout 1 curl --silent -t 1 "$server_url/images/" |& head -n 4 |& \
+      diff $test_dir/images.html - && result=0;;
+  p6) timeout 1 wget -O - -o /dev/null -t 1 --post-data 'name=westley&submit=submit' "$server_url/cgi-bin/hello.pl" |& \
+      diff $test_dir/hello.out - && result=0;;
+  n1) timeout 5 $test_dir/exploit -h localhost -p $port -t2
+      timeout 1 curl --silent -t 1 "$server_url/index.html" |& \
+      diff $test_dir/index.html - && result=0;;
+esac
 
 # Destroy the temporary root and kill the server
 pid=$(ps aux | grep "$executable $port" | grep -v grep | awk '{print $2}')
 sudo kill -9 $pid
 rm -rf $server_dir
 wait 
-exit 0
+exit $result
