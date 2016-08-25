@@ -1,7 +1,7 @@
 {
   "problem": {
     "name": "nullhttpd",
-    "program": "nullhttpd_comb.c",
+    "program": "httpd_comb.c",
     "executable_name": "nullhttpd",
     "multi_file": false,
     "positive_tests": 6,
