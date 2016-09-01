@@ -27,13 +27,13 @@ candidate_dir=$(dirname "$1")
 
 # Copy all the files across from the candidate directory into the source
 # directory for this problem, before re-making the program.
-if !(cp "$candidate_dir/*" "$src_dir" -rf); then
+if !(cp $candidate_dir/* $src_dir -rf); then
   echo "ERROR: failed to copy patched files to src directory"
   exit 1
 fi
 
 pushd "$src_dir"
-if !(timeout $TIME_LIMIT make clean && make > /dev/null); then
+if !(timeout $TIME_LIMIT make clean && make); then
   echo "ERROR: failed to execute make within problem src directory"
   exit 1
 fi
