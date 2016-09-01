@@ -4,9 +4,6 @@ if [ ! -d src ]; then
   pushd src
   make clean
   ./configure --host=i686-pc-linux-gnu --with-dbmliborder=gdbm --with-threads "CFLAGS=-m32 -std=gnu99 -fgnu89-inline" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+  make
   popd
-fi
-
-if [ ! -d coverage ]; then
-  tar -xf coverage.tar.gz
 fi
