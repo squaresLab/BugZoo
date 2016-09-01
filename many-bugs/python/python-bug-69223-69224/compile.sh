@@ -13,6 +13,7 @@
 #
 # Usage: ./compile.sh __EXE_NAME__
 #
+NUM_JOBS=$(( $(nproc) * 2 ))
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 src_dir="$here_dir/src"
 
@@ -33,7 +34,7 @@ fi
 
 # TODO: may need to handle special cases, such as FBC here
 pushd $src_dir
-if !(make clean && make > /dev/null); then
+if !(make clean && make -j$NUM_JOBS); then
   echo "ERROR: failed to execute make within problem src directory"
   exit 1
 fi
