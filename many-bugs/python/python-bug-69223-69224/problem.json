@@ -1,4 +1,5 @@
 {
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null",
   "problem": {
     "name": "python-bug-69223-69224",
     "multi_file": true,
