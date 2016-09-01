@@ -32,7 +32,7 @@ if !(cp $candidate_dir/* $src_dir -rf); then
   exit 1
 fi
 
-pushd "$src_dir"
+pushd $src_dir
 if !(timeout $TIME_LIMIT make clean && make); then
   echo "ERROR: failed to execute make within problem src directory"
   exit 1
