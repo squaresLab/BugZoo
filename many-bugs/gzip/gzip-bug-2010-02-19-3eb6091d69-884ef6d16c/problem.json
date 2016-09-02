@@ -1,6 +1,6 @@
 {
   "problem": {
-    "name": "gzip-bug-2009-09-26-a1d3d4019d-f17cbd13a1",
+    "name": "gzip-bug-2010-02-19-3eb6091d69-884ef6d16c",
     "multi_file": true,
     "program": "preprocessed/manifest.txt",
     "executable_name": "gzip",
