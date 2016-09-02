@@ -1,0 +1,12 @@
+helin-segv.log
+help-version.log
+hufts.log
+memcpy-abuse.log
+mixed.log
+null-suffix-clobber.log
+stdin.log
+trailing-nul.log
+zdiff.log
+zgrep-f.log
+zgrep-signal.log
+znew-k.log
