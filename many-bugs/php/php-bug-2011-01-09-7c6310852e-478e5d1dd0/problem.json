@@ -1,13 +1,15 @@
 {
-  "compiler": {
-    "command": "./compile.sh __EXE_NAME__ > /dev/null"
-  },
   "problem": {
     "name": "php-bug-2011-01-09-7c6310852e-478e5d1dd0",
     "multi_file": true,
     "program": "preprocessed/manifest.txt",
     "executable_name": "php",
     "positive_tests": 7570,
-    "negative_tests": 10
-  }
+    "negative_tests": 10,
+    "compiler": {
+      "executable": "php",
+      "command": "./compile.sh __EXE_NAME__ &> dev/null"
+    }
+  },
+  "coverage_unique": true
 }
