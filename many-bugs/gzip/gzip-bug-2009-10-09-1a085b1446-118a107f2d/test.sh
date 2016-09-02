@@ -5,18 +5,17 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 #Check if coverage is being run. If so, don't use time limit.
 if [ `basename $1` = "coverage" ] ; then
-  TIMEOUT=120
-else
   TIMEOUT=60
+else
+  TIMEOUT=2
 fi
 
 run_test()
 {
-    pushd gzip
-    timeout $TIMEOUT $DIR/test.pl $1
-    RESULT=$?
-    popd
-    return $RESULT
+    test_name=$(sed "$1q;d" "$DIR/TESTS")
+    pushd src/tests
+    rm -f "$test_name"
+    timeout $TIMEOUT make "$test_name" |& grep "PASS:"
 }
 
 case $TEST_ID in
