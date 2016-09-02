@@ -14,13 +14,13 @@ run_test()
 {
     test_name=$(sed "$1q;d" "$DIR/TESTS")
     pushd src/tests
-    print "Running $test_name"
     rm -f "$test_name"
-    make "$test_name"
-    #timeout $TIMEOUT make "$test_name" |& grep "PASS:"
+    timeout $TIMEOUT make "$test_name" |& grep "PASS:"
 }
 
 case $TEST_ID in
+    p1) run_test 1 && exit 0 ;; 
+    p2) run_test 3 && exit 0 ;; 
     p3) run_test 4 && exit 0 ;; 
     p4) run_test 5 && exit 0 ;; 
     p5) run_test 7 && exit 0 ;; 
