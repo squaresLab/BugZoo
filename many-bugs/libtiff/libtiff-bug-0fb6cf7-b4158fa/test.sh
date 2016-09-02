@@ -1,16 +1,25 @@
 #!/bin/bash
-run_abbrev=False
-bugrev=0fb6cf7
-time_limit=12
+executable=$( dirname $1 )
+test_id=$2
+dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+#Check if coverage is being run. If so, don't use time limit.
+if [ `basename $1` = "coverage" ] ; then
+  timeout=60
+else
+  timeout=5
+fi
+
 run_test()
 {
-    cd libtiff 
-    perl -e 'alarm shift @ARGV; exec @ARGV' $time_limit perl ../libtiff-run-tests.pl $1 $run_abbrev
-    RESULT=$?
-    cd ..
-    return $RESULT
+    pushd $dir/src/test > /dev/null
+    test_output=$(sed "$1q;d" $dir/TESTS)
+    rm -f $test_output
+    timeout $timeout make $test_output
+    return $?
 }
-case $1 in
+
+case $test_id in
     p1) run_test 1 && exit 0 ;; 
     p2) run_test 2 && exit 0 ;; 
     p3) run_test 3 && exit 0 ;; 
