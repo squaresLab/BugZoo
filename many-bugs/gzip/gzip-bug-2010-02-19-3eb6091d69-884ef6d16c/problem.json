@@ -4,7 +4,7 @@
     "multi_file": true,
     "program": "preprocessed/manifest.txt",
     "executable_name": "gzip",
-    "positive_tests": 3,
+    "positive_tests": 8,
     "negative_tests": 1,
     "compiler": {
       "executable": "gzip",
