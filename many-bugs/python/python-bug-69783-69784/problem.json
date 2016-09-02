@@ -1,0 +1,17 @@
+{
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null",
+  "problem": {
+    "name": "python-bug-69783-69784",
+    "multi_file": true,
+    "program": "preprocessed/manifest.txt",
+    "executable_name": "python",
+    "positive_tests": 302,
+    "negative_tests": 1,
+    "ignore_failed_sanity": true,
+    "compiler": {
+      "executable": "python",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+    }
+  },
+  "coverage_unique": true
+}
