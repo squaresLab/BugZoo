@@ -7,8 +7,9 @@ PROJECT_DIR="$HERE_DIR/src"
 
 # Remove the object file for the affected source code file
 cp "$PATCH_DIR/inflate.c" "$PROJECT_DIR/inflate.c" && \
+cp "$PATCH_DIR/util.c" "$PROJECT_DIR/util.c" && \
 pushd "$PROJECT_DIR" && \
-rm -f inflate.o && \
+rm -f gzip.o util.o && \
 
 # Clear the results of any test executions for any previous patches
 pushd tests && \
