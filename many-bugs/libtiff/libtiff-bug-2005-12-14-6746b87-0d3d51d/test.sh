@@ -13,8 +13,11 @@ fi
 run_test()
 {
     pushd $dir/src/test > /dev/null
-    test_script=$(sed "$1q;d" $dir/../TESTS)
-    timeout $timeout ./$test_script &> /dev/null
+    test_script=$(sed "$1q;d" $dir/TESTS)
+    test_script_log="$test_script.log"
+    rm -f $test_script_log
+    timeout $timeout make $test_script_log
+    #timeout $timeout ./$test_script
     return $?
 }
 
