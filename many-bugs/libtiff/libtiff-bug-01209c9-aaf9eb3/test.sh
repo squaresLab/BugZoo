@@ -15,7 +15,7 @@ run_test()
     pushd $dir/src/test > /dev/null
     test_output=$(sed "$1q;d" $dir/TESTS)
     rm -f $test_output
-    timeout $timeout make $test_output
+    timeout $timeout make $test_output |& grep "PASS:"
     return $?
 }
 
