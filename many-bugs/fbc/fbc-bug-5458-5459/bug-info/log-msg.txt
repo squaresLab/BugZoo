@@ -1,0 +1,7 @@
+------------------------------------------------------------------------
+r5459 | counting_pine | 2011-02-25 09:00:31 -0500 (Fri, 25 Feb 2011) | 3 lines
+
+Fix/change: more intuitive/QB-like behavior for MID(s,n,l)=t when l=0 (was treating 0 as omitted, like -1).  Now sets 0 chars (i.e. leaves s unchanged).
+- Fix inner code in fb_StrAssignMid() (change len<1 to len<0) but also add in len==0 short-circuit check, making first fix superfluous
+- Add test case to check behaviours for combinations of n>=1 and l>=0
+------------------------------------------------------------------------
