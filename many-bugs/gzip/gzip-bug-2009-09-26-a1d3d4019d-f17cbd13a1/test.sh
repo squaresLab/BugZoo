@@ -12,11 +12,10 @@ fi
 
 run_test()
 {
-    pushd src
-    timeout $TIMEOUT $DIR/test.pl $1
-    RESULT=$?
-    popd
-    return $RESULT
+    test_name=$(sed "$1q;d" "$DIR/TESTS")
+    pushd src/tests
+    rm -f "$test_name"
+    timeout $TIMEOUT make "$test_name" |& grep "PASS:"
 }
 
 case $TEST_ID in
