@@ -1,4 +1,0 @@
-PASS: tiff2ps-PS1.sh (exit: 0)
-==============================
-
- /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiff2ps -a -p -1 /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/test/images/miniswhite-1c-1b.tiff > o-tiff2ps-PS1.ps
