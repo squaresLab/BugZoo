@@ -1,0 +1,21 @@
+PASS: tiffcrop-extractz14-minisblack-2c-8b-alpha.sh (exit: 0)
+=============================================================
+
+ /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiffcrop -E left -Z1:4,2:4 ./images/minisblack-2c-8b-alpha.tiff o-tiffcrop-extractz14-minisblack-2c-8b-alpha.tiff
+ /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiffinfo -D o-tiffcrop-extractz14-minisblack-2c-8b-alpha.tiff
+TIFF Directory at offset 0x85c (2140)
+  Image Width: 32 Image Length: 64
+  Resolution: 300, 300 pixels/inch
+  Bits/Sample: 8
+  Sample Format: unsigned integer
+  Compression Scheme: PackBits
+  Photometric Interpretation: min-is-black
+  Extra Samples: 1<assoc-alpha>
+  Orientation: row 0 top, col 0 lhs
+  Samples/Pixel: 2
+  Rows/Strip: 64
+  Planar Configuration: separate image planes
+  ImageDescription: Close up of a ladder
+  Software: Adobe Photoshop CS3 Windows
+  DateTime: 2009:01:22 14:56:39
+  Artist: Stockdisc

@@ -1,0 +1,6 @@
+test_arrays.o: test_arrays.c \
+ /usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h test_arrays.h
+
+/usr/lib/gcc/i686-redhat-linux/4.4.5/include/stddef.h:
+
+test_arrays.h:

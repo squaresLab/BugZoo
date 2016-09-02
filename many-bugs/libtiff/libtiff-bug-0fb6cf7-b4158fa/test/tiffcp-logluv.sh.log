@@ -1,0 +1,5 @@
+PASS: tiffcp-logluv.sh (exit: 0)
+================================
+
+ /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiffcp -c none ./images/logluv-3c-16b.tiff o-tiffcp-logluv-raw.tiff
+ /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiffcp -c sgilog o-tiffcp-logluv-raw.tiff o-tiffcp-logluv-sgilog.tiff

@@ -1,0 +1,4 @@
+PASS: tiffcp-g3-1d.sh (exit: 0)
+===============================
+
+ /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiffcp -c g3:1d /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/test/images/miniswhite-1c-1b.tiff o-tiffcp-g3-1d.tiff

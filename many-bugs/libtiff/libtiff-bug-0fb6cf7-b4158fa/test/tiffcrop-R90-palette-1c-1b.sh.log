@@ -1,0 +1,19 @@
+PASS: tiffcrop-R90-palette-1c-1b.sh (exit: 0)
+=============================================
+
+ /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiffcrop -R90 ./images/palette-1c-1b.tiff o-tiffcrop-R90-palette-1c-1b.tiff
+ /root/mountpoint-genprog/genprog-many-bugs/libtiff-bug-0fb6cf7-b4158fa/libtiff/tools/tiffinfo -D o-tiffcrop-R90-palette-1c-1b.tiff
+TIFF Directory at offset 0xbb0 (2992)
+  Image Width: 151 Image Length: 157
+  Bits/Sample: 1
+  Sample Format: unsigned integer
+  Compression Scheme: None
+  Photometric Interpretation: palette color (RGB from colormap)
+  Orientation: row 0 top, col 0 lhs
+  Samples/Pixel: 1
+  Rows/Strip: 409
+  Planar Configuration: single image plane
+  Page Number: 0-1
+  Color Map: (present)
+  DocumentName: palette-1c-1b.tiff
+  Software: GraphicsMagick 1.2 unreleased Q16 http://www.GraphicsMagick.org/
