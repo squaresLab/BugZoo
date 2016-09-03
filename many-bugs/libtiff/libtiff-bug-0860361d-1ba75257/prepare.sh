@@ -2,8 +2,16 @@
 if [ ! -d src ]; then
   tar -xf src.tar.gz
   pushd src
-  ./autogen.sh
-  ./configure#"CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+  make distclean
+  rm -f aclocal.m4
+  sed -i "s#ACLOCAL_AMFLAGS = -I ./m4#ACLOCAL_AMFLAGS = -I m4#g" Makefile.in
+  sed -i "s#ACLOCAL_AMFLAGS = -I ./m4#ACLOCAL_AMFLAGS = -I m4#g" Makefile.am
+  aclocal
+  libtoolize --force --copy
+  automake --add-missing
+  autoreconf
+  ./configure
+  make
   popd
-  ./compile.sh preprocessed/libtiff 
+  #./compile.sh preprocessed/libtiff 
 fi
