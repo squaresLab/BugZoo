@@ -1,12 +1,12 @@
 {
   "problem": {
-    "name": "libtiff-bug-01209c9-aaf9eb3",
+    "name": "libtiff-bug-3af26048-72391804",
     "multi_file": true,
     "program": "preprocessed/manifest.txt",
     "executable_name": "libtiff",
     "ignore_failed_sanity": true,
-    "positive_tests": 73,
-    "negative_tests": 1,
+    "positive_tests": 31,
+    "negative_tests": 5,
     "compiler": {
       "executable": "libtiff",
       "command": "./compile.sh __EXE_NAME__ &> /dev/null"
