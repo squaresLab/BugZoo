@@ -1,0 +1,5 @@
+libtiff/tif_dir.c
+libtiff/tif_dirread.c
+libtiff/tif_dirwrite.c
+libtiff/tif_read.c
+libtiff/tif_write.c
