@@ -1,0 +1,16 @@
+{
+  "problem": {
+    "name": "libtiff-bug-0860361d-1ba75257",
+    "multi_file": true,
+    "program": "preprocessed/manifest.txt",
+    "executable_name": "libtiff",
+    "ignore_failed_sanity": true,
+    "positive_tests": 31,
+    "negative_tests": 5,
+    "compiler": {
+      "executable": "libtiff",
+      "command": "./compile.sh __EXE_NAME__ &> /dev/null"
+    }
+  },
+  "coverage_unique": true
+}
