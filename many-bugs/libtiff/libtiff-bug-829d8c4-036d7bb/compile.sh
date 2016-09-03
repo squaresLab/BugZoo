@@ -12,7 +12,7 @@ candidate_dir=$(dirname $1)
 
 # Copy all the files across from the candidate directory into the source
 # directory for this problem, before re-making the program.
-rm -f $src_dir/tools/tiffcp.o
+rm -f $src_dir/tools/tiffcrop.o
 if !(cp $candidate_dir/* $src_dir -rf); then
   echo "ERROR: failed to copy patched files to src directory"
   exit 1
