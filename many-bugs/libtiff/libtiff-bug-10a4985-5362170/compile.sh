@@ -1,5 +1,5 @@
 #!/bin/bash
-TIMEOUT=30
+TIMEOUT=60
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 src_dir="$here_dir/src"
 
