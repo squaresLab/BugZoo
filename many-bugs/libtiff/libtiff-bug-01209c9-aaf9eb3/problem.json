@@ -4,6 +4,7 @@
     "multi_file": true,
     "program": "preprocessed/manifest.txt",
     "executable_name": "libtiff",
+    "ignore_failed_sanity": true,
     "positive_tests": 73,
     "negative_tests": 1,
     "compiler": {
