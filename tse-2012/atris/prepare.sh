@@ -5,7 +5,7 @@ test_dir="$here_dir/test"
 executable="$here_dir/atris"
 
 # compile
-./compile.sh $executable
+"$here_dir/compile.sh" $executable
 
 # Generate the output for P1
 source $test_dir/env.good.sh
