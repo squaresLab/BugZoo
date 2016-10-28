@@ -1,5 +1,10 @@
 #!/bin/bash
-local_root="$PWD/local-root"
+
+# Ensure that we're in the directory containing this script
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+local_root="$here_dir/local-root"
+pushd "$here_dir"
+
 if [ ! -d src ]; then
   tar -xf src.tar.gz
   mkdir -p local-root
