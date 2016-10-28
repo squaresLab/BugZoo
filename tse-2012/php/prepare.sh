@@ -3,6 +3,9 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 php_exe="$here_dir/src/sapi/cli/php"
 test_dir="$here_dir/test"
 
+# Ensure that we're in the directory containing this script
+pushd "$here_dir"
+
 # Unextract the source code, configure, and compile
 if [ ! -d src ]; then
   tar -xf src.tar.gz
