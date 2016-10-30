@@ -4,6 +4,8 @@ test_dir="$here_dir/test"
 oracle=$here_dir/oracle/ftpd
 port=8931
 
+pushd "$here_dir"
+
 # Compile the exploit
 gcc $here_dir/wuftpd-god.c -o $here_dir/wuftpd-god -m32
 
