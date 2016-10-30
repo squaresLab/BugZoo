@@ -1,3 +1,3 @@
-FROM repairbox:latest
+FROM repairbox:fedora64
 
 ADD . /experiment
