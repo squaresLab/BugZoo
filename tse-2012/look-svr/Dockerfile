@@ -1,4 +1,4 @@
-FROM repairbox:ubuntu64
+FROM repairbox:fedora64
 
 # Mount the files for this benchmark in /experiment, then perform any
 # necessary prep
