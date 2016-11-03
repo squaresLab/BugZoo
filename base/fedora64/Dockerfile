@@ -153,7 +153,7 @@ RUN sudo dnf install -y gpm-devel.i686 binutils-devel.i686
 
 # Download and install GenProg 3, before ensuring it is in its most up-to-date
 # form
-ENV GenProgVersion 7407a62199afbcd312b0702c724a4dacb3c13df9
+ENV GenProgVersion 7a9834befe13340083b46419d260dfefc3b65a3d
 RUN git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 && \
   pushd genprog/src && make && sudo make install && popd && \
   rm -rf /repair/genprog/src; exit 0

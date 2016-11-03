@@ -25,3 +25,6 @@ docker build -t repairbox:uniq tse-2012/uniq
 docker build -t repairbox:units tse-2012/units
 #docker build -t repairbox:wuftpd tse-2012/wuftpd
 docker build -t repairbox:zune tse-2012/zune
+
+# ManyBugs; manually listed for now, but I'll automate this later
+docker build -t repairbox:python-69224 many-bugs/python/python-bug-69223-69224
