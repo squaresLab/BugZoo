@@ -18,11 +18,13 @@ ENV OPAMYES 1
 
 RUN sudo -u repair sh -c "sudo apt-get install -y ocaml ocaml-native-compilers camlp4-extra opam"
 #RUN sudo -u repair sh -c "wget https://raw.github.com/ocaml/opam/master/shell/opam_installer.sh -q -O - | sh -s /usr/local/bin"
-RUN opam init -a -y /home/repair/.opam
+#RUN sudo -u repair sh -c "opam init -a -y"
+#RUN sudo -u repair sh -c "opam init -a -y /home/repair/.opam"
+RUN opam init -a -y
 
 # Update the environmental variables to those otherwise produced by calling:
 # eval $(opam config env)
-ENV CAML_LD_LIBRARY_PATH home/repair/.opam/4.02.1/lib/stublibs
+ENV CAML_LD_LIBRARY_PATH /home/repair/.opam/4.02.1/lib/stublibs
 ENV MANPATH /home/repair/.opam/4.02.1/man:$MANPATH
 ENV PERL5LIB /home/repair/.opam/4.02.1/lib/perl5
 ENV OCAML_TOPLEVEL_PATH /home/repair/.opam/4.02.1/lib/toplevel
@@ -33,14 +35,13 @@ RUN opam update
 RUN opam install -y depext ocamlfind yojson cil
 
 # Download and install the latest version of GenProg 3; leave no mess
-RUN git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 && \
-  pushd genprog/src && make && sudo make install
-CMD ["pushd /home/repair/genprog; git pull; make clean && make && popd && rm -rf /home/repair/genprog"]
+RUN eval $(opam config env) && git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 && \
+    cd genprog/src && make && sudo make install && cd && rm -rf genprog
 
 # Install CCache to help speed things up
-RUN sudo apt-get install ccache
-ENV PATH /usr/lib/ccache:$PATH
+#RUN sudo apt-get install ccache
+#ENV PATH /usr/lib/ccache:$PATH
 
 # Tidy up temporary files
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN apt-get clean
+#RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
