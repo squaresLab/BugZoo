@@ -51,6 +51,6 @@ RUN wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 &&\
 RUN sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Download and install the latest version of GenProg 3; leave no mess
-ENV GenProgVersion e2b8870416ef7933b3d19c509fd38f6cd9efe16f
+ENV GenProgVersion 3774cd863fd871c0fc99362a89828860b481395f
 RUN eval $(opam config env) && git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 && \
     cd genprog/src && make && sudo make install && cd && rm -rf genprog
