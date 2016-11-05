@@ -39,8 +39,17 @@ RUN eval $(opam config env) && git clone https://bitbucket.org/ChrisTimperley/GP
     cd genprog/src && make && sudo make install && cd && rm -rf genprog
 
 # Install CCache to help speed things up
-RUN sudo apt-get install ccache
+RUN sudo apt-get install -y ccache
 ENV PATH /usr/lib/ccache:$PATH
+
+# Install tar
+RUN sudo apt-get install -y tar
+
+# Install JQ 1.5 (32-bit)
+RUN wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 &&\
+    mv jq-linux32 jq &&\
+    sudo chmod +x jq &&\
+    mv jq /usr/bin
 
 # Tidy up temporary files
 RUN sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

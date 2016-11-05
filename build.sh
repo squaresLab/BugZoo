@@ -9,8 +9,8 @@ docker build -t repairbox:ubuntu32 base/ubuntu32
 
 # TSE benchmarks
 docker build -t repairbox:atris tse-2012/atris
-# docker build -t repairbox:ccrypt tse-2012/ccrypt
-# docker build -t repairbox:deroff tse-2012/deroff
+ docker build -t repairbox:ccrypt tse-2012/ccrypt
+ docker build -t repairbox:deroff tse-2012/deroff
 docker build -t repairbox:flex tse-2012/flex
 docker build -t repairbox:gcd tse-2012/gcd
 #docker build -t repairbox:imagemagick tse-2012/imagemagick
