@@ -34,10 +34,6 @@ ENV PATH /home/repair/.opam/4.02.1/bin:$PATH
 RUN opam update
 RUN opam install -y depext ocamlfind yojson cil
 
-# Download and install the latest version of GenProg 3; leave no mess
-RUN eval $(opam config env) && git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 && \
-    cd genprog/src && make && sudo make install && cd && rm -rf genprog
-
 # Install CCache to help speed things up
 RUN sudo apt-get install -y ccache
 ENV PATH /usr/lib/ccache:$PATH
@@ -53,3 +49,8 @@ RUN wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32 &&\
 
 # Tidy up temporary files
 RUN sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Download and install the latest version of GenProg 3; leave no mess
+ENV GenProgVersion e2b8870416ef7933b3d19c509fd38f6cd9efe16f
+RUN eval $(opam config env) && git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 && \
+    cd genprog/src && make && sudo make install && cd && rm -rf genprog
