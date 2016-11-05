@@ -3,6 +3,8 @@ here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 fake_root="$here_dir/fake-root"
 mkdir -p $fake_root
 
+pushd "$here_dir"
+
 if [ ! -d src ]; then
   tar -xf src.tar.gz
   cp blob.c.fixed src/magick/blob.c
