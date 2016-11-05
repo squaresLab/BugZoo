@@ -1,12 +1,11 @@
-FROM otomato/ubuntu32:14.04
+FROM repairbox:ubuntu32
+MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-RUN apt-get update
-RUN apt-get install -y gcc
-RUN apt-get install -y electric-fence
-
-# Slim down the Docker image by chucking out unnecessary packages and temp files
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Install ElectricFence, then throw out unnecessary files
+RUN sudo apt-get update &&\
+    sudo apt-get install -y electric-fence &&\
+    sudo apt-get clean &&\
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Mount the files for this benchmark in /experiment, then perform any
 # necessary prep

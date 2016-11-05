@@ -8,27 +8,26 @@ to see whether the correct output was returned for any of the test cases. If
 you intend to compare automated repair approaches, we advise the use of the
 ManyBugs benchmark set instead.
 
-**Verified to be working with GenProg on RepairVM:**
+**Bug scenarios with correctly functioning Docker images::**
 
-1. gcd
-2. zune
-3. flex
-4. ccrypt
-5. lighttpd
-6. look-svr
-7. look-ultrix
-8. uniq
-9. units
-10. tiff
+0. gcd
+0. zune
+0. flex
+0. lighttpd
+0. look-svr
+0. look-ultrix
+0. uniq
+0. units
+0. tiff
+0. php
+0. deroff
+0. indent
+0. atris
 
-**Currently not working with GenProg on RepairVM:**
+**Bug scenarios with malfunctioning Docker images:**
 
-* wuftpd: passes local sanity checks, but fails when run within GenProg; refuses
-  to connect to server; permissions problems?
-* atris: no video device; need to trick the VM
-* indent: fails to compile, appears to be missing some ldflags
-* deroff: fails sanity checks, and with no human repair, it's tricky to know
-    what the intended semantics should be. Regardless, it doesn't seem to
-    encounter a segmentation fault.
-* ImageMagick: zlib incompatibility prevents compilation
-* 
+0. ccrypt (requires execution on a real 32-bit platform, otherwise files are ignored)
+0. lighttpd (permissions problems?)
+0. imagemagick (missing PNG delegate installation in Dockerfile)
+0. wuftpd (permissions problems?)
+0. openldap (requires a very old version of GCC to compile)
