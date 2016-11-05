@@ -39,9 +39,8 @@ RUN eval $(opam config env) && git clone https://bitbucket.org/ChrisTimperley/GP
     cd genprog/src && make && sudo make install && cd && rm -rf genprog
 
 # Install CCache to help speed things up
-#RUN sudo apt-get install ccache
-#ENV PATH /usr/lib/ccache:$PATH
+RUN sudo apt-get install ccache
+ENV PATH /usr/lib/ccache:$PATH
 
 # Tidy up temporary files
-#RUN apt-get clean
-#RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
