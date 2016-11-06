@@ -16,7 +16,8 @@ test_dir="$here_dir/test"
 exec_pos()
 {
   [[ $cov = 0 ]] && timeout=1 || timeout=10
-  timeout $timeout $executable < $test_dir/$test_id &> /dev/null
+  timeout $timeout $executable < $test_dir/$test_id.in |&
+    diff $test_dir/$test_id.out -
   return $?
 }
 
@@ -24,7 +25,7 @@ exec_pos()
 exec_neg()
 {
   [[ $cov = 0 ]] && timeout=1 || timeout=4
-  timeout $timeout $executable < $test_dir/$test_id &> /dev/null
+  timeout $timeout $executable < $test_dir/$test_id.in &> /dev/null
   return $?
 }
 
