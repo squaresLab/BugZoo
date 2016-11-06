@@ -15,16 +15,14 @@ test_dir="$here_dir/test"
 # Treats the test case as a positive test case.
 exec_pos()
 {
-  [[ $cov = 0 ]] && timeout=1 || timeout=10
   timeout $timeout $executable < $test_dir/$test_id.in |&
-    diff $test_dir/$test_id.out -
+    timeout 1 diff $test_dir/$test_id.out -
   return $?
 }
 
 # Treats the test case as a negative test case.
 exec_neg()
 {
-  [[ $cov = 0 ]] && timeout=1 || timeout=4
   timeout $timeout $executable < $test_dir/$test_id.in &> /dev/null
   return $?
 }
