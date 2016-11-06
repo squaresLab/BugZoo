@@ -2,6 +2,7 @@
 
 # Ensure that we're in the directory containing this script
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+test_dir="$here_dir/tests"
 local_root="$here_dir/local-root"
 pushd "$here_dir"
 
@@ -18,3 +19,10 @@ fi
 if [ ! -d tests ]; then
   tar -xf tests.tar.gz
 fi
+
+# generated expected outputs
+$local_root/bin/tiffcp -s $test_dir/flower-rgb-planar-08.tif $test_dir/p1.out
+$local_root/bin/tiffcp -s $test_dir/flower-rgb-contig-08.tif $test_dir/p2.out
+$local_root/bin/tiffcp -s $test_dir/cramps.tif $test_dir/p3.out
+$local_root/bin/tiffcp -s $test_dir/flower-minisblack-32.tif $test_dir/p4.out
+$local_root/bin/tiffcp -s $test_dir/flower-minisblack-14.tif $test_dir/p5.out
