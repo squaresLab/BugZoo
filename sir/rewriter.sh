@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Requires: sponge (provided by manyutils on Linux and OSX)
 
 # Remove the boilerplate at the top of the file
 tail -n +11 test.sh > tester.sh
