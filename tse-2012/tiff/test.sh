@@ -27,6 +27,8 @@ case $test_id in
       diff $tmp_img_file $test_dir/p4.out &> /dev/null && result=0;;
   p5) timeout $timeout $bin_dir/tiffcp -s $test_dir/flower-minisblack-14.tif $tmp_img_file &&\
       diff $tmp_img_file $test_dir/p5.out &> /dev/null && result=0;; 
+  p6) timeout $timeout $bin_dir/tiffcp $test_dir/flower-minisblack-14.tif $tmp_img_file &&\
+      diff $tmp_img_file $test_dir/p6.out &> /dev/null && result=0;; 
   n1) timeout $timeout $bin_dir/tiffcp $test_dir/wololo.tif $tmp_img_file &&\
       result=0;;
 esac

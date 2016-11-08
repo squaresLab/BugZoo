@@ -3,7 +3,7 @@
     "name": "tiff",
     "program": "tif_lzw.c",
     "executable_name": "tiff",
-    "positive_tests": 5,
+    "positive_tests": 6,
     "negative_tests": 1,
     "multi_file": true,
     "compiler": {

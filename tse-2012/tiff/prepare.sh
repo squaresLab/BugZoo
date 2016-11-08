@@ -26,3 +26,4 @@ $local_root/bin/tiffcp -s $test_dir/flower-rgb-contig-08.tif $test_dir/p2.out
 $local_root/bin/tiffcp -s $test_dir/cramps.tif $test_dir/p3.out
 $local_root/bin/tiffcp -s $test_dir/flower-minisblack-32.tif $test_dir/p4.out
 $local_root/bin/tiffcp -s $test_dir/flower-minisblack-14.tif $test_dir/p5.out
+$local_root/bin/tiffcp $test_dir/flower-minisblack-14.tif $test_dir/p6.out
