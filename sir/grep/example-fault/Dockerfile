@@ -11,14 +11,12 @@ RUN cp -r versions.alt/versions.orig/${PROGRAM_VER}/* source
 RUN cd source && make build
 
 # Fix a bug in the grep test universe file
-
-
-# Generate expected test output fetching script
-RUN cd scripts &&\
-    mts .. ../source/grep.exe ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL
+RUN sed -i "76 s#QUOTE}#QUOTE}\"#" testplans.alt/$PROGRAM_VER/v0.cov.universe.esc
 
 # Generate oracle outputs
-#    ./test.sh &&\
-#    rm test.sh &&\
-#    mkdir ../oracle &&\
-#    mv outputs/* ../oracle
+RUN cd scripts &&\
+    mts .. ../source/grep.exe ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL &&\
+    (./test.sh; exit 0) &&\
+    mkdir ../oracle &&\
+    mv ../outputs/* ../oracle &&\
+    rm test.sh
