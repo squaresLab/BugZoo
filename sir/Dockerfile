@@ -8,5 +8,11 @@ RUN apt-get install -y ant
 
 # install the mts executable
 ADD dependencies /tmp/dependencies
-RUN mkdir mts && cd /tmp/dependencies && tar -xf mts.tar.gz -C /mts
-#RUN cd mts && ant build
+RUN mkdir mts &&\
+    cd /tmp/dependencies &&\
+    tar -xf mts.tar.gz -C /mts &&\
+    mv /mts/mts/* /mts &&\
+    rmdir /mts/mts
+RUN cd /mts && ant build
+RUN sed -i 's#^MTS_PATH=\${0%\/\*}#MTS_PATH="/mts"#g' /mts/bin/bsh/mts
+RUN cp /mts/bin/bsh/mts /usr/local/bin/mts
