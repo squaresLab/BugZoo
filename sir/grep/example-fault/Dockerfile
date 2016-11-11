@@ -1,6 +1,7 @@
 FROM repairbox:sir-grep
 
 # Environmental variables for fault details?
+ENV EXECUTABLE grep.exe
 ENV PROGRAM_VER v1
 ENV FAULT_NUM 1
 
@@ -15,7 +16,7 @@ RUN sed -i "76 s#QUOTE}#QUOTE}\"#" testplans.alt/$PROGRAM_VER/v0.cov.universe.es
 
 # Generate oracle outputs
 RUN cd scripts &&\
-    mts .. ../source/grep.exe ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL &&\
+    mts .. ../source/${EXECUTABLE} ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL &&\
     (./test.sh; exit 0) &&\
     mkdir ../oracle &&\
     mv ../outputs/* ../oracle &&\
@@ -28,3 +29,16 @@ RUN cp -r versions.alt/versions.seeded/${PROGRAM_VER}/* source
 RUN cd source &&\
     sed -i "${FAULT_NUM} s#\/\* ##" FaultSeeds.h &&\
     sed -i "${FAULT_NUM} s#\*\/##" FaultSeeds.h
+
+# Build faulty program
+RUN cd source && make build
+
+# Build the original test script for the problem
+RUN cd scripts &&\
+    mts ..\
+        ../source/${EXECUTABLE}\
+        ../testplans.alt/${PROGRAM_VER}/v0.cov.universe.esc\
+        D\
+        test.sh\
+        NULL\
+        ../outputs.alt
