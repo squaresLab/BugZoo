@@ -16,3 +16,9 @@ RUN mkdir mts &&\
 RUN cd /mts && ant build
 RUN sed -i 's#^MTS_PATH=\${0%\/\*}#MTS_PATH="/mts"#g' /mts/bin/bsh/mts
 RUN cp /mts/bin/bsh/mts /usr/local/bin/mts
+
+# install the essential packages we need to build most of the objects
+RUN apt-get update && apt-get install -y build-essential gcc moreutils
+
+# clean image
+RUN apt-get clean && rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
