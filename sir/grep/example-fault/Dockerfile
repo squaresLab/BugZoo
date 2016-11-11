@@ -20,3 +20,11 @@ RUN cd scripts &&\
     mkdir ../oracle &&\
     mv ../outputs/* ../oracle &&\
     rm test.sh
+
+# Copy faulty version of program to "source"
+RUN cp -r versions.alt/versions.seeded/${PROGRAM_VER}/* source
+
+# Activate selected fault
+RUN cd source &&\
+    sed -i "${FAULT_NUM} s#\/\* ##" FaultSeeds.h &&\
+    sed -i "${FAULT_NUM} s#\*\/##" FaultSeeds.h
