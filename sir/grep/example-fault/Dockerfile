@@ -42,3 +42,19 @@ RUN cd scripts &&\
         test.sh\
         NULL\
         ../outputs.alt
+
+# Remove the boilerplate at the top of the file
+RUN cd scripts &&\
+    tail -n +11 test.sh > test.commands &&\
+    sed -i 's#../source/grep.exe#$EXECUTABLE#g' test.commands &&\
+    sed -i 's#../inputs/#$INPUTS/#g' test.commands &&\
+    grep '^$EXECUTABLE' test.commands | sponge test.commands &&\
+    sed -i 's#> ../outputs/.*$##g' test.commands &&\
+    rm test.sh
+
+# Remove unnecessary files
+RUN rm -rf  testplans testplans.alt\
+            traces traces.alt\
+            versions versions.alt\
+            outputs outputs.alt\
+            originals info docs
