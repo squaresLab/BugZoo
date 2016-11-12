@@ -8,8 +8,10 @@ RUN apt-get install -y ant
 
 ADD dependencies /tmp/dependencies
 
-# install the mapping generator
-RUN mv /tmp/dependencies/generate-mapping /usr/bin/local
+# install the mapping generator and test helpers
+RUN mv /tmp/dependencies/generate-mapping /usr/local/bin
+RUN mv /tmp/dependencies/run-test-with-num /usr/local/bin
+RUN mv /tmp/dependencies/run-test-with-id /usr/local/bin
 
 # install the mts executable
 RUN mkdir mts &&\

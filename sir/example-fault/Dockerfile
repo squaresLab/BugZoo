@@ -58,3 +58,6 @@ RUN rm -rf  testplans testplans.alt\
             versions versions.alt\
             outputs outputs.alt\
             originals info docs
+
+# Move the test commands to the root of the bug scenario
+RUN mv scripts/test.commands test.commands && rmdir scripts
