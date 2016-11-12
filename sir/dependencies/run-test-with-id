@@ -1,0 +1,7 @@
+#!/bin/bash
+TEST_ID=$0
+MAP_FILE="test.mapping"
+TEST_NUM=$(grep -n "^${TEST_ID}$" ${MAP_FILE} | cut -f1 -d:)
+
+# Forward the request onto the test runner
+run-test-with-num ${TEST_NUM}
