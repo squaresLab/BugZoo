@@ -1,7 +1,7 @@
 FROM repairbox:sir-grep
 
 # Environmental variables for fault details?
-ENV EXECUTABLE grep.exe
+ENV EXECUTABLE source/grep.exe
 ENV PROGRAM_VER v1
 ENV FAULT_NUM 1
 
@@ -16,7 +16,7 @@ RUN sed -i "76 s#QUOTE}#QUOTE}\"#" testplans.alt/$PROGRAM_VER/v0.cov.universe.es
 
 # Generate oracle outputs
 RUN cd scripts &&\
-    mts .. ../source/${EXECUTABLE} ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL &&\
+    mts .. ../${EXECUTABLE} ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL &&\
     (./test.sh; exit 0) &&\
     mkdir ../oracle &&\
     mv ../outputs/* ../oracle &&\
@@ -36,7 +36,7 @@ RUN cd source && make build
 # Build the original test script for the problem
 RUN cd scripts &&\
     mts ..\
-        ../source/${EXECUTABLE}\
+        ../${EXECUTABLE}\
         ../testplans.alt/${PROGRAM_VER}/v0.cov.universe.esc\
         D\
         test.sh\
@@ -46,9 +46,9 @@ RUN cd scripts &&\
 # Remove the boilerplate at the top of the file
 RUN cd scripts &&\
     tail -n +11 test.sh > test.commands &&\
-    sed -i 's#../source/grep.exe#$EXECUTABLE#g' test.commands &&\
-    sed -i 's#../inputs/#$INPUTS/#g' test.commands &&\
-    grep '^$EXECUTABLE' test.commands | sponge test.commands &&\
+    sed -i "s#../${EXECUTABLE}#${EXECUTABLE}#g" test.commands &&\
+    sed -i "s#../inputs/#inputs/#g" test.commands &&\
+    grep "^${EXECUTABLE}" test.commands | sponge test.commands &&\
     sed -i 's#> ../outputs/.*$##g' test.commands &&\
     rm test.sh
 
@@ -61,3 +61,5 @@ RUN rm -rf  testplans testplans.alt\
 
 # Move the test commands to the root of the bug scenario
 RUN mv scripts/test.commands test.commands && rmdir scripts
+
+# Generate the 
