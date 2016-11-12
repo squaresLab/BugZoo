@@ -1,4 +1,8 @@
+#
+# TODO: oracle generation isn't reading std. err?
+#
 FROM repairbox:sir-grep
+MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Environmental variables for fault details?
 ENV EXECUTABLE source/grep.exe
@@ -62,4 +66,5 @@ RUN rm -rf  testplans testplans.alt\
 # Move the test commands to the root of the bug scenario
 RUN mv scripts/test.commands test.commands && rmdir scripts
 
-# Generate the 
+# Generate the test case mapping
+RUN generate-mapping

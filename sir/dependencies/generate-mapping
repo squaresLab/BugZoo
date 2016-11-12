@@ -6,7 +6,7 @@
 # test on the same line in "test.commands".
 
 # How many test cases do we have?
-num_tests=$(wc -l test.commands)
+num_tests=$(wc -l < test.commands)
 
 # Keep a counter of the number of positive and negative tests that we've
 # encountered so far
@@ -17,13 +17,13 @@ positives=0
 rm -f test.mapping && touch test.mapping
 
 # Execute each test case
-for (( i = 1; i < num_tests; i++ )); do
+for (( i = 1; i<${num_tests}; i++ )); do
   if run-test-with-num $i; then
     positives=$((positives+1))
-    test_name="^p${positives}$"
+    test_name="p${positives}"
   else
     negatives=$((negatives+1))
-    test_name="^n${negatives}$"
+    test_name="n${negatives}"
   fi
   echo "$test_name" >> test.mapping
 done
