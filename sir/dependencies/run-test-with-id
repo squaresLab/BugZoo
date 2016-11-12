@@ -1,7 +1,16 @@
 #!/bin/bash
+#
+# Executes a test with a given (GenProg style) identifier (e.g. p1 or n7) on
+# a provided executable and returns the result. Must be executed within the
+# directory of the problem (as it relies on the presence of various files in
+# the correct locations, such as the test mapping and command files).
+#
+# Usage:
+# run-test-with-id <id> <executable>
 TEST_ID=$0
+EXECUTABLE=$1
 MAP_FILE="test.mapping"
 TEST_NUM=$(grep -n "^${TEST_ID}$" ${MAP_FILE} | cut -f1 -d:)
 
 # Forward the request onto the test runner
-run-test-with-num ${TEST_NUM}
+run-test-with-num ${TEST_NUM} ${EXECUTABLE}
