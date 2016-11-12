@@ -1,0 +1,32 @@
+# Base Dockerfile for program versions
+#
+# TODO: Dispose of low quality test cases automatically?
+#
+FROM <BASE_FILE>
+MAINTAINER Chris Timperley "christimperley@gmail.com"
+
+# Environmental variables for fault details?
+ENV PROGRAM_VERSION <PROGRAM_VERSION>
+
+# Copy source code for original, fixed version of the program into "source"
+RUN cp -r versions.alt/versions.orig/${PROGRAM_VERSION}/* source
+
+# Build the original version of the program
+RUN cd source && make build
+
+# Generate oracle outputs and a list of test commands
+RUN generate-oracle "${EXECUTABLE}" ${PROGRAM_VERSION}
+
+# Copy faulty version of program to "source"
+RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source
+
+# Fix the source code file such that the FaultSeeds header file is included
+RUN sed -i '1i#include "FaultSeeds.h"' ${SOURCE_FILE}
+
+# Remove unnecessary files
+RUN rm -rf  testplans testplans.alt\
+            traces traces.alt\
+            versions versions.alt\
+            outputs outputs.alt\
+            originals info docs\
+            scripts

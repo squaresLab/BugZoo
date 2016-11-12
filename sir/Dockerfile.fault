@@ -1,0 +1,25 @@
+FROM <BASE_FILE>
+
+# Dockerfile template for a particular fault instance
+MAINTAINER Chris Timperley "christimperley@gmail.com"
+
+# Fault identifier
+ENV FAULT_NUM <FAULT_NUM>
+
+## Activate selected fault
+RUN cd source &&\
+    sed -i "${FAULT_NUM} s#\/\* ##" FaultSeeds.h &&\
+    sed -i "${FAULT_NUM} s#\*\/##" FaultSeeds.h
+
+# Build faulty program
+RUN cd source && make build
+
+# Build the original test script for the problem
+RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
+
+# Preprocess the source code file and remove all others
+RUN sed -i 's#\$(COMPILE_PARAMETERS)#-save-temps#' source/Makefile
+RUN cd source && make build
+RUN mv "$PREPROCESSED_FILE" "$SOURCE_FILE"
+RUN rm -f source/*.exe source/*.h source/*.i source/*.o source/*.s
+RUN sed -i 's#-save-temps##' source/Makefile
