@@ -6,8 +6,12 @@ RUN apt-get update && apt-get install -y openjdk-8-jdk
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 RUN apt-get install -y ant
 
-# install the mts executable
 ADD dependencies /tmp/dependencies
+
+# install the mapping generator
+RUN mv /tmp/dependencies/generate-mapping /usr/bin/local
+
+# install the mts executable
 RUN mkdir mts &&\
     cd /tmp/dependencies &&\
     tar -xf mts.tar.gz -C /mts &&\
