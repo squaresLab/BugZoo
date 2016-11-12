@@ -17,4 +17,4 @@ INPUTS="inputs"
 COMMAND=$(sed "${NUM}q;d" "$TEST_FILE")
 
 # Compare the output of the test against the expected output
-$COMMAND |& diff $ORACLE/t${NUM} - &> /dev/null && exit 0
+$COMMAND |& cat |& diff $ORACLE/t${NUM} - &> /dev/null && exit 0

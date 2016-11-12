@@ -23,7 +23,7 @@ RUN sed -i 's#^MTS_PATH=\${0%\/\*}#MTS_PATH="/mts"#g' /mts/bin/bsh/mts
 RUN cp /mts/bin/bsh/mts /usr/local/bin/mts
 
 # install the mapping generator and test helpers
-RUN mv /tmp/dependencies/generate-mapping /usr/local/bin
+RUN mv /tmp/dependencies/generate-test-runner /usr/local/bin
 RUN mv /tmp/dependencies/generate-oracle /usr/local/bin
 RUN mv /tmp/dependencies/run-test-with-num /usr/local/bin
 RUN mv /tmp/dependencies/run-test-with-id /usr/local/bin
