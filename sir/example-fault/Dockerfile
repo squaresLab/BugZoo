@@ -19,52 +19,53 @@ RUN cd source && make build
 RUN sed -i "76 s#QUOTE}#QUOTE}\"#" testplans.alt/$PROGRAM_VER/v0.cov.universe.esc
 
 # Generate oracle outputs
-RUN cd scripts &&\
-    mts .. ../${EXECUTABLE} ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL &&\
-    (./test.sh; exit 0) &&\
-    mkdir ../oracle &&\
-    mv ../outputs/* ../oracle &&\
-    rm test.sh
+RUN generate-oracle "${EXECUTABLE}" ${PROGRAM_VER}
+#RUN cd scripts &&\
+#    mts .. ../${EXECUTABLE} ../testplans.alt/$PROGRAM_VER/v0.cov.universe.esc R test.sh NULL NULL &&\
+#    (./test.sh; exit 0) &&\
+#    mkdir ../oracle &&\
+#    mv ../outputs/* ../oracle &&\
+#    rm test.sh
 
 # Copy faulty version of program to "source"
-RUN cp -r versions.alt/versions.seeded/${PROGRAM_VER}/* source
-
-# Activate selected fault
-RUN cd source &&\
-    sed -i "${FAULT_NUM} s#\/\* ##" FaultSeeds.h &&\
-    sed -i "${FAULT_NUM} s#\*\/##" FaultSeeds.h
-
-# Build faulty program
-RUN cd source && make build
-
-# Build the original test script for the problem
-RUN cd scripts &&\
-    mts ..\
-        ../${EXECUTABLE}\
-        ../testplans.alt/${PROGRAM_VER}/v0.cov.universe.esc\
-        D\
-        test.sh\
-        NULL\
-        ../outputs.alt
-
-# Remove the boilerplate at the top of the file
-RUN cd scripts &&\
-    tail -n +11 test.sh > test.commands &&\
-    sed -i "s#../${EXECUTABLE}#${EXECUTABLE}#g" test.commands &&\
-    sed -i "s#../inputs/#inputs/#g" test.commands &&\
-    grep "^${EXECUTABLE}" test.commands | sponge test.commands &&\
-    sed -i 's#> ../outputs/.*$##g' test.commands &&\
-    rm test.sh
-
-# Remove unnecessary files
-RUN rm -rf  testplans testplans.alt\
-            traces traces.alt\
-            versions versions.alt\
-            outputs outputs.alt\
-            originals info docs
-
+#RUN cp -r versions.alt/versions.seeded/${PROGRAM_VER}/* source
+#
+## Activate selected fault
+#RUN cd source &&\
+#    sed -i "${FAULT_NUM} s#\/\* ##" FaultSeeds.h &&\
+#    sed -i "${FAULT_NUM} s#\*\/##" FaultSeeds.h
+#
+## Build faulty program
+#RUN cd source && make build
+#
+## Build the original test script for the problem
+#RUN cd scripts &&\
+#    mts ..\
+#        ../${EXECUTABLE}\
+#        ../testplans.alt/${PROGRAM_VER}/v0.cov.universe.esc\
+#        D\
+#        test.sh\
+#        NULL\
+#        ../outputs.alt
+#
+## Remove the boilerplate at the top of the file
+#RUN cd scripts &&\
+#    tail -n +11 test.sh > test.commands &&\
+#    sed -i "s#../${EXECUTABLE}#${EXECUTABLE}#g" test.commands &&\
+#    sed -i "s#../inputs/#inputs/#g" test.commands &&\
+#    grep "^${EXECUTABLE}" test.commands | sponge test.commands &&\
+#    sed -i 's#> ../outputs/.*$##g' test.commands &&\
+#    rm test.sh
+#
+## Remove unnecessary files
+#RUN rm -rf  testplans testplans.alt\
+#            traces traces.alt\
+#            versions versions.alt\
+#            outputs outputs.alt\
+#            originals info docs
+#
 # Move the test commands to the root of the bug scenario
-RUN mv scripts/test.commands test.commands && rmdir scripts
-
+#RUN mv scripts/test.commands test.commands && rmdir scripts
+#
 # Generate the test case mapping
-RUN generate-mapping
+#RUN generate-mapping
