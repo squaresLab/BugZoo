@@ -1,8 +1,21 @@
 #!/bin/bash
-TEST_NUM=$0
+#
+# Using the list of test commands provided in the current directory, together
+# with their associated inputs and expected outputs (located in inputs/ and
+# oracle/, respectively), this script runs a test with a given number on a
+# program with a provided executable and returns 0 if the produced output
+# matches the expected output.
+#
+# Usage:
+# run-test-with-num <num> <executable>
+NUM=$0
+EXECUTABLE=$1
 TEST_FILE="test.commands"
 ORACLE="oracle"
-TEST_COMMAND=$(sed "${TEST_NUM}q;d" ${TEST_FILE})
+INPUTS="inputs"
+
+# Generate the test command
+COMMAND=$(sed "${NUM}q;d; s#\$EXECUTABLE#${EXECUTABLE}#1; s#\$INPUTS#${INPUTS}#1" ${TEST_FILE})
 
 # Compare the output of the test against the expected output
-$TEST_COMMAND |& diff $ORACLE/t${TEST_NUM} -- &> /dev/null && exit 0
+$COMMAND |& diff $ORACLE/t${NUM} -- &> /dev/null && exit 0
