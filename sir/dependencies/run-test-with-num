@@ -7,15 +7,14 @@
 # matches the expected output.
 #
 # Usage:
-# run-test-with-num <num> <executable>
+# run-test-with-num <num>
 NUM=$0
-EXECUTABLE=$1
 TEST_FILE="test.commands"
 ORACLE="oracle"
 INPUTS="inputs"
 
 # Generate the test command
-COMMAND=$(sed "${NUM}q;d; s#\$EXECUTABLE#${EXECUTABLE}#1; s#\$INPUTS#${INPUTS}#1" ${TEST_FILE})
+COMMAND=$(sed "${NUM}q;d" $TEST_FILE)
 
 # Compare the output of the test against the expected output
 $COMMAND |& diff $ORACLE/t${NUM} -- &> /dev/null && exit 0

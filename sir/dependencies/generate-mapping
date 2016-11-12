@@ -4,13 +4,6 @@
 # identifier, saving the result to "test.mapping" within the same directory.
 # Each line in "test.mapping" gives the corresponding test identifier for the
 # test on the same line in "test.commands".
-#
-# Must be provided the path to the executable file that should be used to
-# generate the test outputs.
-#
-# Usage:
-# generate-mapping <executable>
-EXECUTABLE=$1
 
 # How many test cases do we have?
 num_tests=$(wc -l test.commands)
@@ -25,7 +18,7 @@ rm -f test.mapping && touch test.mapping
 
 # Execute each test case
 for (( i = 1; i < num_tests; i++ )); do
-  if run-test-with-num $i $EXECUTABLE; then
+  if run-test-with-num $i; then
     positives=$((positives+1))
     test_name="^p${positives}$"
   else
