@@ -1,0 +1,8 @@
+#!/bin/bash
+TEST_NUM=$0
+TEST_FILE="test.commands"
+ORACLE="oracle"
+TEST_COMMAND=$(sed "${TEST_NUM}q;d" ${TEST_FILE})
+
+# Compare the output of the test against the expected output
+$TEST_COMMAND |& diff $ORACLE/t${TEST_NUM} -- &> /dev/null && exit 0

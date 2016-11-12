@@ -15,7 +15,7 @@ rm -f test.mapping && touch test.mapping
 
 # Execute each test case
 for (( i = 1; i < num_tests; i++ )); do
-  if test-runner $i; then
+  if run-test-with-num $i; then
     positives=$((positives+1))
     test_name="^p${positives}$"
   else
