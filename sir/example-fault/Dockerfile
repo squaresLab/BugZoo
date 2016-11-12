@@ -6,6 +6,8 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Environmental variables for fault details?
 ENV EXECUTABLE source/grep.exe
+ENV SOURCE_FILE source/grep.c
+ENV PREPROCESSED_FILE source/grep.i
 ENV PROGRAM_VER v1
 ENV FAULT_NUM 1
 
@@ -23,19 +25,21 @@ RUN generate-oracle "${EXECUTABLE}" ${PROGRAM_VER}
 
 # Copy faulty version of program to "source"
 RUN cp -r versions.alt/versions.seeded/${PROGRAM_VER}/* source
-#
+
+# Fix the source code file such that the FaultSeeds header file is included
+RUN sed -i '1i#include "FaultSeeds.h"' ${SOURCE_FILE}
+
+# Modify the Makefile to save temps
+
 ## Activate selected fault
 RUN cd source &&\
     sed -i "${FAULT_NUM} s#\/\* ##" FaultSeeds.h &&\
     sed -i "${FAULT_NUM} s#\*\/##" FaultSeeds.h
 
-## Build faulty program
+# Build faulty program
 RUN cd source && make build
 
-## Build the original test script for the problem
-RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
-
-## Remove unnecessary files
+# Remove unnecessary files
 RUN rm -rf  testplans testplans.alt\
             traces traces.alt\
             versions versions.alt\
@@ -43,5 +47,12 @@ RUN rm -rf  testplans testplans.alt\
             originals info docs\
             scripts
 
-# Generate the test case mapping
-#RUN generate-mapping
+# Build the original test script for the problem
+RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
+
+# Preprocess the source code file and remove all others
+RUN sed -i 's#\$(COMPILE_PARAMETERS)#-save-temps#' source/Makefile
+RUN cd source && make build
+RUN mv "$PREPROCESSED_FILE" "$SOURCE_FILE"
+RUN rm -f source/*.exe source/*.h source/*.i source/*.o source/*.s
+RUN sed -i 's#-save-temps##' source/Makefile

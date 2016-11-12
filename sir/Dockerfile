@@ -27,6 +27,7 @@ RUN mv /tmp/dependencies/generate-test-runner /usr/local/bin
 RUN mv /tmp/dependencies/generate-oracle /usr/local/bin
 RUN mv /tmp/dependencies/run-test-with-num /usr/local/bin
 RUN mv /tmp/dependencies/run-test-with-id /usr/local/bin
+RUN mv /tmp/dependencies/run-test-suite /usr/local/bin
 
 # clean image
 RUN apt-get clean && rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
