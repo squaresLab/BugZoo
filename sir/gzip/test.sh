@@ -1,4 +1,8 @@
 #!/bin/bash
+
+TMP_TEST_DIR=$(mktemp -d)
+
+
 case $TEST_NUM in
   1) $EXECUTABLE -h;;
   2) $EXECUTABLE --help;;
@@ -8,16 +12,14 @@ case $TEST_NUM in
   6) $EXECUTABLE --version < $INPUTS/;;
   # can we repeat this pattern?
   7)
-    fn=$(mktemp)
-    cp $INPUTS/testdir/file26 $fn
-    $EXECUTABLE $INPUTS/testdir/file26.tmp -c &&\
-      !test -f $fn &&\
-      eat ${fn}.gz 
-    rm -f ${fn}*;;
+    cp $INPUTS/testdir/file26 "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -c &&\
+      !test -f $fn && eat ${fn}.gz;;
   8)
     t=$(copy_tz "$INPUTS/gzdir/file9.z")
     cp $INPUTS/testdir/file27 $t
     $EXECUTABLE --stdout < $t &&\
+    result=$?
     rm -f ${t}*;;
   9)
     fn=$(mktemp)
@@ -26,18 +28,21 @@ case $TEST_NUM in
     $EXECUTABLE -d < $fnz &&\
       !test -f $fnz &&\
       eat ${fn}
+    result=$?
     rm -f ${fn}*;;
   10)
     tz=$(copy_tz "$INPUTS/gzdir/file9.z")
     $EXECUTABLE $tz -d &&\
       !test -f $t &&\
       eat ${tz%:.z}
+    result=$?
     rm -f ${tz%:.z}*;;
   11)
     tz=$(copy_tz "$INPUTS/gzdir/file5.z")
     $EXECUTABLE --decompress < $tz &&\
       !test -f $t &&\
       eat ${tz%:.z}
+    result=$?
     rm -f ${tz%:.z}*;;
   12)
     tz=$(copy_tz "$INPUTS/gzdir/file6.z")
@@ -50,45 +55,56 @@ case $TEST_NUM in
     $EXECUTABLE $tz -f &&\
       !test -f $t &&\
       eat ${tz}.z
+    result=$?
     rm -f ${tz}*;;
   14)
     tz=$(copy_tz "$INPUTS/gzdir/file4")
     $EXECUTABLE --force < $tz &&\
       !test -f $t &&\
       eat ${tz}.z
+    result=$?
     rm -f ${tz}*;;
   15)
     tz=$(copy_tz "$INPUTS/gzdir/file32")
     $EXECUTABLE $tz -q &&\
       !test -f $t &&\
       eat ${tz}.z
+    result=$?
     rm -f ${tz}*;;
   16)
     tz=$(copy_tz "$INPUTS/testdir/file10")
     $EXECUTABLE --quiet < $tz &&\
       !test -f $t &&\
       eat ${tz}.z
+    result=$?
     rm -f ${tz}*;;
   17)
     t=$(mktmp -d)
     cp $INPUTS/test/subdir1/file $t/file
     $EXECUTABLE -r $t &&\
       !test -f "${t}/file" && eat ${t}/file.gz
+    result=$?
     rm -rf ${t};;
   18)
     t=$(mktmp -d)
     cp $INPUTS/test/subdir2/file $t/file
     $EXECUTABLE $t -r &&\
       !test -f "${t}/file" && eat ${t}/file.gz
+    result=$?
     rm -rf ${t};;
   19)
     t=$(mktmp -d)
     cp $INPUTS/test/subdir3/file $t/file
     $EXECUTABLE --recurse $t &&\
       !test -f "${t}/file" && eat ${t}/file.gz
+    result=$?
     rm -rf ${t};;
   20)
-    $EXECUTABLE -t < $INPUTS/gzdir/file1.z;;
+    t=$(mktmp)
+    cp $INPUTS/gzdir/file1.z $t
+    $EXECUTABLE -t < $t
+    result=$?
+    rm -f $t;;
   21)
     $EXECUTABLE $INPUTS/gzdir/file1.z -t;;
   22)
@@ -490,3 +506,10 @@ case $TEST_NUM in
     $EXECUTABLE -8 < $INPUTS/testdir/file2;;
   214)
     $EXECUTABLE -9 < $INPUTS/testdir/file2;;
+esac
+result=$?
+
+# remove temporary files
+rm -rf $TMP_TEST_DIR
+
+exit $result
