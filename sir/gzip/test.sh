@@ -10,81 +10,49 @@ case $TEST_NUM in
   4) $EXECUTABLE --license;;
   5) $EXECUTABLE -V < $INPUTS/;;
   6) $EXECUTABLE --version < $INPUTS/;;
-  # can we repeat this pattern?
   7)
-    cp $INPUTS/testdir/file26 "$TMP_TEST_DIR/f"
+    cp "$INPUTS/testdir/file26" "$TMP_TEST_DIR/f"
     $EXECUTABLE "$TMP_TEST_DIR/f" -c &&\
       !test -f $fn && eat ${fn}.gz;;
-  8)
-    t=$(copy_tz "$INPUTS/gzdir/file9.z")
-    cp $INPUTS/testdir/file27 $t
-    $EXECUTABLE --stdout < $t &&\
-    result=$?
-    rm -f ${t}*;;
+  8) 
+    cp "$INPUTS/testdir/file27" "$TMP_TEST_DIR/f"
+    $EXECUTABLE --stdout < "$TMP_TEST_DIR/f";;
   9)
-    fn=$(mktemp)
-    fnz="$fn.z"
-    cp $INPUTS/gzdir/file8.z $fnz
-    $EXECUTABLE -d < $fnz &&\
-      !test -f $fnz &&\
-      eat ${fn}
-    result=$?
-    rm -f ${fn}*;;
+    cp "$INPUTS/gzdir/file8.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE -d < "$TMP_TEST_DIR/f.z" &&\
+      !test -f "$TMP_TEST_DIR/f.z" && eat "$TMP_TEST_DIR/f";;
   10)
-    tz=$(copy_tz "$INPUTS/gzdir/file9.z")
-    $EXECUTABLE $tz -d &&\
-      !test -f $t &&\
-      eat ${tz%:.z}
-    result=$?
-    rm -f ${tz%:.z}*;;
+    cp "$INPUTS/gzdir/file9.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE "$TMP_TEST_DIR/f.z" -d &&\
+      !test -f "$TMP_TEST_DIR/f.z" && eat "$TMP_TEST_DIR/f";;
   11)
-    tz=$(copy_tz "$INPUTS/gzdir/file5.z")
-    $EXECUTABLE --decompress < $tz &&\
-      !test -f $t &&\
-      eat ${tz%:.z}
-    result=$?
-    rm -f ${tz%:.z}*;;
+    cp "$INPUTS/gzdir/file5.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE  --decompress < "$TMP_TEST_DIR/f.z" &&\
+      !test -f "$TMP_TEST_DIR/f.z" && eat "$TMP_TEST_DIR/f";;
   12)
-    tz=$(copy_tz "$INPUTS/gzdir/file6.z")
-    $EXECUTABLE --uncompress < $tz &&\
-      !test -f $t &&\
-      eat ${tz%:.z}
-    rm -f ${tz%:.z}*;;
+    cp "$INPUTS/gzdir/file6.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE  --uncompress < "$TMP_TEST_DIR/f.z" &&\
+      !test -f "$TMP_TEST_DIR/f.z" && eat "$TMP_TEST_DIR/f";;
   13)
-    tz=$(copy_tz "$INPUTS/gzdir/file3")
-    $EXECUTABLE $tz -f &&\
-      !test -f $t &&\
-      eat ${tz}.z
-    result=$?
-    rm -f ${tz}*;;
+    cp "$INPUTS/gzdir/file3" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -f &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   14)
-    tz=$(copy_tz "$INPUTS/gzdir/file4")
-    $EXECUTABLE --force < $tz &&\
-      !test -f $t &&\
-      eat ${tz}.z
-    result=$?
-    rm -f ${tz}*;;
+    cp "$INPUTS/gzdir/file4" "$TMP_TEST_DIR/f"
+    $EXECUTABLE --force < "$TMP_TEST_DIR/f" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   15)
-    tz=$(copy_tz "$INPUTS/gzdir/file32")
-    $EXECUTABLE $tz -q &&\
-      !test -f $t &&\
-      eat ${tz}.z
-    result=$?
-    rm -f ${tz}*;;
+    cp "$INPUTS/gzdir/file32" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -q &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   16)
-    tz=$(copy_tz "$INPUTS/testdir/file10")
-    $EXECUTABLE --quiet < $tz &&\
-      !test -f $t &&\
-      eat ${tz}.z
-    result=$?
-    rm -f ${tz}*;;
+    cp "$INPUTS/gzdir/file10" "$TMP_TEST_DIR/f"
+    $EXECUTABLE --quiet < "$TMP_TEST_DIR/f" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   17)
-    t=$(mktmp -d)
-    cp $INPUTS/test/subdir1/file $t/file
-    $EXECUTABLE -r $t &&\
-      !test -f "${t}/file" && eat ${t}/file.gz
-    result=$?
-    rm -rf ${t};;
+    cp "$INPUTS/test/subdir1/file" "$TMP_TEST_DIR/f"
+    $EXECUTABLE -r "$TMP_TEST_DIR/f" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   18)
     t=$(mktmp -d)
     cp $INPUTS/test/subdir2/file $t/file
