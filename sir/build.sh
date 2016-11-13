@@ -14,11 +14,9 @@ build_program_version(){
   program=$1
   version=$2
 
-  # Compute the name of the base image for the program
+  # Compute the name of the image for this program version
   program_image="repairbox:sir-${program}"
-
-  # Compute the name of the image for this version
-  version_image="${program_image}-v${version}"
+  version_image="${program_image}-${version}"
 
   # Construct the image for this program version
   docker_dir=$(mktemp -d)
@@ -26,9 +24,9 @@ build_program_version(){
   cp ${HERE_DIR}/Dockerfile.version ${docker_file}
   sed -i "s#^FROM <BASE_FILE>\$#FROM ${program_image}#" ${docker_file}
   sed -i "s#<PROGRAM_VERSION>#${version}#" ${docker_file}
-  cat ${docker_file}
 
   # Build the docker image
+  echo "Building: ${version_image}"
   docker build -t ${version_image} ${docker_dir}
 
   # Destroy the temporary directory
@@ -40,9 +38,28 @@ build_fault(){
   program=$1
   version=$2
   fault=$3
+
+  # compute the name of the Docker image
+  version_image="repairbox:sir-${program}-${version}"
+  fault_image="${version_image}-${fault}"
+
+  # construct the Docker image
+  docker_dir=$(mktemp -d)
+  docker_file="${docker_dir}/Dockerfile"
+  cp ${HERE_DIR}/Dockerfile.fault ${docker_file}
+  sed -i "s#^FROM <BASE_FILE>\$#FROM ${version_image}#" ${docker_file}
+  sed -i "s#<FAULT_ID>#${fault}#" ${docker_file}
+
+  # Build the docker image
+  echo "Building: ${fault_image}"
+  docker build -t ${fault_image} ${docker_dir}
+
+  rm -rf ${docker_dir}
 }
 
 
 build_program grep
 
 build_program_version grep v1
+
+build_fault grep v1 DG_4

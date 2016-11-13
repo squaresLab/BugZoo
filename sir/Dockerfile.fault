@@ -4,12 +4,11 @@ FROM <BASE_FILE>
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Fault identifier
-ENV FAULT_NUM <FAULT_NUM>
+ENV FAULT_ID <FAULT_ID>
 
 ## Activate selected fault
 RUN cd source &&\
-    sed -i "${FAULT_NUM} s#\/\* ##" FaultSeeds.h &&\
-    sed -i "${FAULT_NUM} s#\*\/##" FaultSeeds.h
+  sed -i "s;/\* #define FAULTY_F_${FAULT_ID} \*/;#define FAULTY_F_${FAULT_ID};" FaultSeeds.h
 
 # Build faulty program
 RUN cd source && make build
@@ -20,6 +19,6 @@ RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
 # Preprocess the source code file and remove all others
 RUN sed -i 's#\$(COMPILE_PARAMETERS)#-save-temps#' source/Makefile
 RUN cd source && make build
-RUN mv "$PREPROCESSED_FILE" "$SOURCE_FILE"
+RUN mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}"
 RUN rm -f source/*.exe source/*.h source/*.i source/*.o source/*.s
 RUN sed -i 's#-save-temps##' source/Makefile
