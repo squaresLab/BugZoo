@@ -54,63 +54,73 @@ case $TEST_NUM in
     $EXECUTABLE -r "$TMP_TEST_DIR/f" &&\
       !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   18)
-    t=$(mktmp -d)
-    cp $INPUTS/test/subdir2/file $t/file
-    $EXECUTABLE $t -r &&\
-      !test -f "${t}/file" && eat ${t}/file.gz
-    result=$?
-    rm -rf ${t};;
+    cp "$INPUTS/test/subdir2/file" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -r &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   19)
-    t=$(mktmp -d)
-    cp $INPUTS/test/subdir3/file $t/file
-    $EXECUTABLE --recurse $t &&\
-      !test -f "${t}/file" && eat ${t}/file.gz
-    result=$?
-    rm -rf ${t};;
+    cp "$INPUTS/test/subdir3/file" "$TMP_TEST_DIR/f"
+    $EXECUTABLE --recurse "$TMP_TEST_DIR/f" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   20)
-    t=$(mktmp)
-    cp $INPUTS/gzdir/file1.z $t
-    $EXECUTABLE -t < $t
-    result=$?
-    rm -f $t;;
+    cp "$INPUTS/gzdir/file1.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE -t < "$TMP_TEST_DIR/f.z" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   21)
-    $EXECUTABLE $INPUTS/gzdir/file1.z -t;;
+    cp "$INPUTS/gzdir/file1.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE "$TMP_TEST_DIR/f.z" -t &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   22)
-    $EXECUTABLE --test < $INPUTS/gzdir/file1.z;;
+    cp "$INPUTS/gzdir/file1.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE --test < "$TMP_TEST_DIR/f.z" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   23)
-    $EXECUTABLE $INPUTS/testdir/file11 -v
-    ../testplans.alt/testscripts/cpoptv.sh;;
+    cp "$INPUTS/testdir/file11" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -v &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   24)
-    $EXECUTABLE --verbose < $INPUTS/testdir/file12;;
+    cp "$INPUTS/testdir/file12" "$TMP_TEST_DIR/f"
+    $EXECUTABLE --verbose < "$TMP_TEST_DIR/f" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   25)
-    $EXECUTABLE $INPUTS/testdir/file13 -1
-    ../testplans.alt/testscripts/cpopt1.sh;;
+    cp "$INPUTS/testdir/file13" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -1 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   26)
-    $EXECUTABLE --fast < $INPUTS/testdir/file14;;
+    cp "$INPUTS/testdir/file14" "$TMP_TEST_DIR/f"
+    $EXECUTABLE --fast < "$TMP_TEST_DIR/f" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   27)
-    $EXECUTABLE $INPUTS/testdir/file15 -2
-    ../testplans.alt/testscripts/cpopt2.sh;;
+    cp "$INPUTS/testdir/file15" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -2 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   28)
-    $EXECUTABLE $INPUTS/testdir/file16 -3
-    ../testplans.alt/testscripts/cpopt3.sh;;
+    cp "$INPUTS/testdir/file16" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -3 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   29)
-    $EXECUTABLE $INPUTS/testdir/file17 -4
-    ../testplans.alt/testscripts/cpopt4.sh;;
-  30) # what are these commands doing?
-    $EXECUTABLE $INPUTS/testdir/file18 -5
-    ../testplans.alt/testscripts/cpopt5.sh;;
+    cp "$INPUTS/testdir/file17" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -4 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
+  30)
+    cp "$INPUTS/testdir/file18" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -5 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   31)
-    $EXECUTABLE $INPUTS/testdir/file19 -6
-    ../testplans.alt/testscripts/cpopt6.sh;;
+    cp "$INPUTS/testdir/file19" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -6 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   32)
-    $EXECUTABLE $INPUTS/testdir/file20 -7
-    ../testplans.alt/testscripts/cpopt7.sh;;
+    cp "$INPUTS/testdir/file20" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -7 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   33)
-    $EXECUTABLE $INPUTS/testdir/file21 -8
-    ../testplans.alt/testscripts/cpopt8.sh;;
+    cp "$INPUTS/testdir/file21" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -8 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   34)
-    $EXECUTABLE $INPUTS/testdir/file22 -9
-    ../testplans.alt/testscripts/cpopt9.sh;;
+    cp "$INPUTS/testdir/file22" "$TMP_TEST_DIR/f"
+    $EXECUTABLE "$TMP_TEST_DIR/f" -9 &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   35)
     $EXECUTABLE --best < $INPUTS/testdir/file23;;
   36) # TODO: directory
