@@ -13,5 +13,8 @@ WORKDIR /experiment
 # Unextract archive contents into /experiment
 RUN tar -xf ${OBJECT_ARCHIVE} && mv gzip/* . && rmdir gzip && rm gzip.tar.gz
 
-# TODO: Fix bug in each of the universe files
-#RUN sed -i "76 s#QUOTE}#QUOTE}\"#" testplans.alt/$PROGRAM_VER/v0.cov.universe.esc
+# Fix path problem in test scripts
+RUN cd testplans.alt/testscripts &&\
+    rm -f *.old &&\
+    find .  -name '*.sh'\
+            -exec sed -i 's#$experiment_root/gzip/#/experiment/#g' "{}" \;
