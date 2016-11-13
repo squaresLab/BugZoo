@@ -22,6 +22,15 @@ RUN cd /mts && ant build
 RUN sed -i 's#^MTS_PATH=\${0%\/\*}#MTS_PATH="/mts"#g' /mts/bin/bsh/mts
 RUN cp /mts/bin/bsh/mts /usr/local/bin/mts
 
+# install the tsl executable
+RUN cd /tmp/dependencies &&\
+    tar -xf tsl.tar.gz &&\
+    cd tsl &&\
+    make build &&\
+    cp tsl /usr/local/bin/tsl &&\
+    cd /tmp/dependencies &&\
+    rm -rf /tmp/dependencies/tsl
+
 # install the mapping generator and test helpers
 RUN mv /tmp/dependencies/generate-test-runner /usr/local/bin
 RUN mv /tmp/dependencies/generate-oracle /usr/local/bin

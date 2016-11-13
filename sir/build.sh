@@ -57,8 +57,13 @@ build_fault(){
   rm -rf ${docker_dir}
 }
 
+# Build the base image for all SIR scenarios
+docker build -t repairbox:sir .
 
 build_program grep
+build_program gzip
+
+build_version gzip v1
 
 build_version grep v1
 build_version grep v2
