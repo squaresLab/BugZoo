@@ -69,11 +69,11 @@ case $TEST_NUM in
       !test -f $t &&\
       eat ${tz}.z
     rm -f ${tz}*;;
-  17) # recursive compress?
+  17)
     t=$(mktmp -d)
-    cp $INPUTS/test/subdir1/* $t
-    $EXECUTABLE -r $t
-    # TODO: CHECK 
+    cp $INPUTS/test/subdir1/file $t/file
+    $EXECUTABLE -r $t &&\
+      !test -f "${t}/file" && eat ${t}/file.gz
     rm -rf ${t};;
   18) # TODO: recursive compress
     $EXECUTABLE $INPUTS/testdir/subdir2 -r
