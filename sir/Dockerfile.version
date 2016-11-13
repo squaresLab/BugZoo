@@ -9,7 +9,7 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 ENV PROGRAM_VERSION <PROGRAM_VERSION>
 
 # Copy source code for original, fixed version of the program into "source"
-RUN cp -r versions.alt/versions.orig/${PROGRAM_VERSION}/* source
+RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source
 
 # Build the original version of the program
 RUN cd source && make build
