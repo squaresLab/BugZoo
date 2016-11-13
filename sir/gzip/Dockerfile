@@ -1,6 +1,7 @@
 FROM repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
+ENV UNIVERSE_FILE /experiment/testplans.alt/v0.tsl.universe
 ENV OBJECT_ARCHIVE gzip.tar.gz
 ENV EXECUTABLE source/gzip.exe
 ENV SOURCE_FILE source/allfile.c

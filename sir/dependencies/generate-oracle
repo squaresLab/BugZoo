@@ -9,7 +9,9 @@ EXECUTABLE=$1
 PROGRAM_VER=$2
 
 # Generate a list of test commands and save to "test.commands"
-mts . ${EXECUTABLE} ${UNIVERSE_FILE} R test.sh NULL NULL &&\
+echo "mts . \"${EXECUTABLE}\" \"${UNIVERSE_FILE}\" R test.sh NULL NULL"
+mts . "${EXECUTABLE}" "${UNIVERSE_FILE}" R test.sh NULL NULL &&\
+  cat test.sh &&\
   grep "^${EXECUTABLE}" test.sh |\
   sed "s# > \./outputs/.*##g; s#\.\./inputs/#inputs/#g" > test.commands &&\
   rm test.sh
