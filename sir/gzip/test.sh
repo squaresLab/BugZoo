@@ -75,12 +75,18 @@ case $TEST_NUM in
     $EXECUTABLE -r $t &&\
       !test -f "${t}/file" && eat ${t}/file.gz
     rm -rf ${t};;
-  18) # TODO: recursive compress
-    $EXECUTABLE $INPUTS/testdir/subdir2 -r
-    ../testplans.alt/testscripts/cpoptr.sh;;
-  19) # TODO: recursive
-    $EXECUTABLE --recurse $INPUTS/testdir/subdir3
-    ../testplans.alt/testscripts/cpoptr2.sh;;
+  18)
+    t=$(mktmp -d)
+    cp $INPUTS/test/subdir2/file $t/file
+    $EXECUTABLE $t -r &&\
+      !test -f "${t}/file" && eat ${t}/file.gz
+    rm -rf ${t};;
+  19)
+    t=$(mktmp -d)
+    cp $INPUTS/test/subdir3/file $t/file
+    $EXECUTABLE --recurse $t &&\
+      !test -f "${t}/file" && eat ${t}/file.gz
+    rm -rf ${t};;
   20)
     $EXECUTABLE -t < $INPUTS/gzdir/file1.z;;
   21)
