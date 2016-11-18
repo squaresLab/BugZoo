@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# TODO: standard input should not be affected, no files should be saved (in
+# cases where std. input is used to provide input).
 
 TMP_TEST_DIR=$(mktemp -d)
 
@@ -122,14 +125,26 @@ case $TEST_NUM in
     $EXECUTABLE "$TMP_TEST_DIR/f" -9 &&\
       !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
   35)
-    $EXECUTABLE --best < $INPUTS/testdir/file23;;
-  36) # TODO: directory
-    $EXECUTABLE < $INPUTS/testdir/subdir;;
+    cp "$INPUTS/testdir/file23" "$TMP_TEST_DIR/f"
+    $EXECUTABLE --best < "$TMP_TEST_DIR/f" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
+  
+  # these commands should refuse to do anything
+  36)
+    cp "$INPUTS/testdir/subdir/34file" "$TMP_TEST_DIR/f"
+    $EXECUTABLE < "$TMP_TEST_DIR" && eat "$TMP_TEST_DIR/f";;
   37)
-    $EXECUTABLE < $INPUTS/testdir/zerobytefile;;
-  38)
+    cp "$INPUTS/testdir/zerobytefile" "$TMP_TEST_DIR/f"
+    $EXECUTABLE < "$TMP_TEST_DIR/f" && test -f "$TMP_TEST_DIR/f";;
+  # TODO: Wow. That's not a file that we want to copy...
+  38) # or this?
     $EXECUTABLE < $INPUTS/testdir/2gbfile;;
+
   39)
+    cp "$INPUTS/gzdir/corruptfile.z" "$TMP_TEST_DIR/f.z"
+    $EXECUTABLE -d < "$TMP_TEST_DIR/f.z" &&\
+      !test -f "$TMP_TEST_DIR/f" && eat "$TMP_TEST_DIR/f.z";;
+ 
     $EXECUTABLE -d < $INPUTS/gzdir/corruptfile.z;;
   40)
     $EXECUTABLE < $INPUTS/gzdir/zfile.z;;

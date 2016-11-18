@@ -73,6 +73,8 @@ build_version grep v5
 
 # Confirmed to be working:
 build_fault grep v1 DG_4
+build_fault grep v1 DG_9
+build_fault grep v1 KP_2
 build_fault grep v1 KP_5
 build_fault grep v2 DG_1
 build_fault grep v3 DG_3
