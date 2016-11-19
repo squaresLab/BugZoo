@@ -1,0 +1,10 @@
+2857a2858
+> 		memset(&dateobj->time->relative, 0, sizeof(struct timelib_rel_time));
+2864,2865d2864
+< 		dateobj->time->relative.weekday = 0;
+< 		dateobj->time->relative.have_weekday_relative = 0;
+2904a2904
+> 	memset(&dateobj->time->relative, 0, sizeof(struct timelib_rel_time));
+2912,2913d2911
+< 	dateobj->time->relative.weekday = 0;
+< 	dateobj->time->relative.have_weekday_relative = 0;

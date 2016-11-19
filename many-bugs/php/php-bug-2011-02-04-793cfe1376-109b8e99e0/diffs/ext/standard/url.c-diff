@@ -1,0 +1,22 @@
+183c183
+< 		
+---
+> 
+187c187
+< 		
+---
+> 
+191a192,196
+> 			if (!ret->port && (pp - p) > 0) {
+> 				STR_FREE(ret->scheme);
+> 				efree(ret);
+> 				return NULL;
+> 			}
+269a275,281
+> 				if (!ret->port && (e - p)) {
+> 					STR_FREE(ret->scheme);
+> 					STR_FREE(ret->user);
+> 					STR_FREE(ret->pass);
+> 					efree(ret);
+> 					return NULL;
+> 				}

@@ -1,0 +1,8 @@
+3618a3619,3621
+> 				/* Make sure they are compatible */
+> 				do_inheritance_check_on_method(fn, other_trait_fn TSRMLS_CC);
+> 				
+3625a3629,3631
+> 					/* Make sure they are compatible */
+> 					do_inheritance_check_on_method(other_trait_fn, fn TSRMLS_CC);
+> 					

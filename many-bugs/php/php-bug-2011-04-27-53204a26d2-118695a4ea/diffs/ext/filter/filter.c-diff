@@ -1,0 +1,42 @@
+98a99
+> 	ZEND_ARG_INFO(0, add_empty)
+103a105
+> 	ZEND_ARG_INFO(0, add_empty)
+679c681
+< static void php_filter_array_handler(zval *input, zval **op, zval *return_value TSRMLS_DC) /* {{{ */
+---
+> static void php_filter_array_handler(zval *input, zval **op, zval *return_value, zend_bool add_empty TSRMLS_DC) /* {{{ */
+714c716,718
+< 				add_assoc_null_ex(return_value, arg_key, arg_key_len);
+---
+> 				if (add_empty) {
+> 					add_assoc_null_ex(return_value, arg_key, arg_key_len);
+> 				}
+811c815
+< /* {{{ proto mixed filter_input_array(constant type, [, mixed options]])
+---
+> /* {{{ proto mixed filter_input_array(constant type, [, mixed options [, bool add_empty]]])
+817a822
+> 	zend_bool add_empty = 1;
+819c824
+< 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l|Z",  &fetch_from, &op) == FAILURE) {
+---
+> 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l|Zb",  &fetch_from, &op, &add_empty) == FAILURE) {
+855c860
+< 	php_filter_array_handler(array_input, op, return_value TSRMLS_CC);
+---
+> 	php_filter_array_handler(array_input, op, return_value, add_empty TSRMLS_CC);
+859c864
+< /* {{{ proto mixed filter_var_array(array data, [, mixed options]])
+---
+> /* {{{ proto mixed filter_var_array(array data, [, mixed options [, bool add_empty]]])
+864a870
+> 	zend_bool add_empty = 1;
+866c872
+< 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|Z",  &array_input, &op) == FAILURE) {
+---
+> 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a|Zb",  &array_input, &op, &add_empty) == FAILURE) {
+877c883
+< 	php_filter_array_handler(array_input, op, return_value TSRMLS_CC);
+---
+> 	php_filter_array_handler(array_input, op, return_value, add_empty TSRMLS_CC);

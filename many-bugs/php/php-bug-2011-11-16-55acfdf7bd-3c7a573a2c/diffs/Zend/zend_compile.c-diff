@@ -1,0 +1,6 @@
+5313a5314,5318
+> 	
+> 	if (CG(has_bracketed_namespaces) && CG(in_namespace)) {
+> 		zend_error(E_COMPILE_ERROR, "__HALT_COMPILER() can only be used from the outermost scope");
+> 	}
+> 	

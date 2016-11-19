@@ -1,0 +1,25 @@
+3665,3666c3665,3669
+< 			if (!aliases[i]->trait_method->ce || (fn->common.scope == aliases[i]->trait_method->ce &&
+< 				(zend_binary_strcasecmp(aliases[i]->trait_method->method_name,
+---
+>       
+> 			if (/* Scope unset or equal to the function we compare to */
+>           (!aliases[i]->trait_method->ce || fn->common.scope == aliases[i]->trait_method->ce)
+>           && /* and, the alias applies to fn */
+>           (zend_binary_strcasecmp(aliases[i]->trait_method->method_name,
+3668c3671
+< 																 fn->common.function_name, fnname_len) == 0))) {
+---
+> 																 fn->common.function_name, fnname_len) == 0)) {
+3706,3709c3709,3714
+< 				if ((!aliases[i]->trait_method->ce || fn->common.scope == aliases[i]->trait_method->ce) &&
+< 					(zend_binary_strcasecmp(aliases[i]->trait_method->method_name,
+< 																	 aliases[i]->trait_method->mname_len,
+< 																	 fn->common.function_name, fnname_len) == 0)) {
+---
+> 				if (/* Scope unset or equal to the function we compare to */
+>             (!aliases[i]->trait_method->ce || fn->common.scope == aliases[i]->trait_method->ce)
+>             && /* and, the alias applies to fn */
+> 					  (zend_binary_strcasecmp(aliases[i]->trait_method->method_name,
+>                                     aliases[i]->trait_method->mname_len,
+> 																	  fn->common.function_name, fnname_len) == 0)) {

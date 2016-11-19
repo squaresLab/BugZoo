@@ -1,0 +1,16 @@
+2812c2812
+< 	zend_function *function;
+---
+> 	zend_function *function, *new_function;
+2873,2874c2873,2874
+< 		zend_hash_update(&ce->function_table, ZEND_CONSTRUCTOR_FUNC_NAME, sizeof(ZEND_CONSTRUCTOR_FUNC_NAME), function, sizeof(zend_function), NULL);
+< 		function_add_ref(function);
+---
+> 		zend_hash_update(&ce->function_table, ZEND_CONSTRUCTOR_FUNC_NAME, sizeof(ZEND_CONSTRUCTOR_FUNC_NAME), function, sizeof(zend_function), (void**)&new_function);
+> 		function_add_ref(new_function);
+2887,2888c2887,2888
+< 					zend_hash_update(&ce->function_table, lc_parent_class_name, ce->parent->name_length+1, function, sizeof(zend_function), NULL);
+< 					function_add_ref(function);
+---
+> 					zend_hash_update(&ce->function_table, lc_parent_class_name, ce->parent->name_length+1, function, sizeof(zend_function), (void**)new_function);
+> 					function_add_ref(new_function);

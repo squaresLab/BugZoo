@@ -1,0 +1,8 @@
+82a83,89
+> 	
+> 	if (PSF(open) == NULL) {
+> 		php_error_docref(NULL TSRMLS_CC, E_WARNING,
+> 			"user session functions not defined");
+> 			
+> 		return FAILURE;
+> 	}

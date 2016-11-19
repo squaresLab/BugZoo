@@ -1,0 +1,15 @@
+888c888,889
+< 		status = PHP_OUTPUT_HANDLER_NO_DATA;
+---
+> 		context->op = original_op;
+> 		return PHP_OUTPUT_HANDLER_NO_DATA;
+964,967d964
+< 		case PHP_OUTPUT_HANDLER_SUCCESS:
+< 			/* no more buffered data */
+< 			handler->buffer.used = 0;
+< 			break;
+970a968,971
+> 			/* no break */
+> 		case PHP_OUTPUT_HANDLER_SUCCESS:
+> 			/* no more buffered data */
+> 			handler->buffer.used = 0;

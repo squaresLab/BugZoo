@@ -1,0 +1,37 @@
+69c69
+< 	cwf->common.scope					 = NULL; /* to be filled */
+---
+> 	cwf->common.scope					 = NULL; /* to be filled w/ object runtime class */
+818d817
+< 	zf			= zend_get_std_object_handlers()->get_constructor(this TSRMLS_CC);
+819a819,829
+> 	
+> 	/* The call of this internal function did not change the scope because
+> 	 * zend_do_fcall_common_helper doesn't do that for internal instance
+> 	 * function calls. So the visibility checks on zend_std_get_constructor
+> 	 * will still work. Reflection refuses to instantiate classes whose
+> 	 * constructor is not public so we're OK there too*/
+> 	zf		  = zend_std_get_constructor(this TSRMLS_CC);
+> 	
+> 	if (zf == NULL) {
+> 		return;
+> 	}
+831c841
+< 			return;
+---
+> 			goto cleanup;
+836c846
+< 
+---
+> 	
+838,839c848,851
+< 	fci_cache.called_scope		= EG(current_execute_data)->called_scope;
+< 	fci_cache.calling_scope		= EG(current_execute_data)->current_scope;
+---
+> 	fci_cache.called_scope		= this_ce; /* set called scope to class of this */
+> 	/* function->common.scope will replace it, except for
+> 	 * ZEND_OVERLOADED_FUNCTION, which we won't get */
+> 	fci_cache.calling_scope		= EG(scope);
+854a867,868
+> 	/* no need to cleanup zf, zend_std_get_constructor never allocates a new
+> 	 * function (so no ZEND_OVERLOADED_FUNCTION or call-via-handlers) */

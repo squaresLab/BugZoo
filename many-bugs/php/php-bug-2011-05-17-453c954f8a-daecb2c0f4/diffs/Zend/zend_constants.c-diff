@@ -1,0 +1,4 @@
+144c144
+< 		c.flags = CONST_PERSISTENT | CONST_CS;
+---
+> 		c.flags = CONST_PERSISTENT;

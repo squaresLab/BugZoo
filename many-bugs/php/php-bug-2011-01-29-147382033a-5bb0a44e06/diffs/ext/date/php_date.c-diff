@@ -1,0 +1,18 @@
+3459,3460c3459,3472
+< 		*rt = p;
+< 		retval = SUCCESS;
+---
+> 		if(p) {
+> 			*rt = p;
+> 			retval = SUCCESS;
+> 		} else {
+> 			if(b && e) {
+> 				timelib_update_ts(b, NULL);
+> 				timelib_update_ts(e, NULL);
+> 				*rt = timelib_diff(b, e);
+> 				retval = SUCCESS;
+> 			} else {
+> 				php_error_docref(NULL TSRMLS_CC, E_WARNING, "Failed to parse interval (%s)", format);
+> 				retval = FAILURE;
+> 			}
+> 		}

@@ -1,0 +1,60 @@
+3116,3137d3115
+< /* {{{ proto public void ReflectionMethod::setFinal([bool isFinal = true])
+<       Sets/unsets class as final */
+< ZEND_METHOD(reflection_method, setFinal)
+< {
+< 	reflection_object *intern;
+< 	zend_function *mptr;
+< 	zend_bool isFinal = 1;
+< 
+< 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "|b", &isFinal) == FAILURE) {
+< 		return;
+< 	}
+< 
+< 	GET_REFLECTION_OBJECT_PTR(mptr);
+< 
+< 	if (isFinal) {
+< 		mptr->common.fn_flags |= ZEND_ACC_FINAL;
+< 	} else {
+< 		mptr->common.fn_flags &= ~ZEND_ACC_FINAL;
+< 	}
+< }
+< /* }}} */
+< 
+4072,4093d4049
+< /* {{{ proto public void ReflectionClass::setFinal([bool isFinal = true])
+<    Sets/unsets class as final */
+< ZEND_METHOD(reflection_class, setFinal)
+< {
+< 	reflection_object *intern;
+< 	zend_class_entry *ce;
+< 	zend_bool isFinal = 1;
+< 
+< 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "|b", &isFinal) == FAILURE) {
+< 		return;
+< 	}
+< 
+< 	GET_REFLECTION_OBJECT_PTR(ce);
+< 
+< 	if (isFinal) {
+< 		ce->ce_flags |= ZEND_ACC_FINAL_CLASS;
+< 	} else {
+< 		ce->ce_flags &= ~ZEND_ACC_FINAL_CLASS;
+< 	}
+< }
+< /* }}} */
+< 
+5698,5701d5653
+< ZEND_BEGIN_ARG_INFO(arginfo_reflection_method_setFinal, 0)
+< 	ZEND_ARG_INFO(0, value)
+< ZEND_END_ARG_INFO()
+< 
+5715d5666
+< 	ZEND_ME(reflection_method, setFinal, arginfo_reflection_method_setFinal, 0)
+5785,5788d5735
+< ZEND_BEGIN_ARG_INFO(arginfo_reflection_class_setFinal, 0)
+< 	ZEND_ARG_INFO(0, value)
+< ZEND_END_ARG_INFO()
+< 
+5841d5787
+< 	ZEND_ME(reflection_class, setFinal, arginfo_reflection_class_setFinal, 0)

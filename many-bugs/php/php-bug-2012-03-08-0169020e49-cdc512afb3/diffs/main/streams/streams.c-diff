@@ -1,0 +1,4 @@
+213c213
+< 					l += brlen;
+---
+> 					strcat(msg, br);

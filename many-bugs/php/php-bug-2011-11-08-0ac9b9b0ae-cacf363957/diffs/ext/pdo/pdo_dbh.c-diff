@@ -1,0 +1,8 @@
+1313c1313
+< 			ifunc->fn_flags = funcs->flags;
+---
+> 			ifunc->fn_flags = funcs->flags | ZEND_ACC_NEVER_CACHE;
+1315c1315
+< 			ifunc->fn_flags = ZEND_ACC_PUBLIC;
+---
+> 			ifunc->fn_flags = ZEND_ACC_PUBLIC | ZEND_ACC_NEVER_CACHE;

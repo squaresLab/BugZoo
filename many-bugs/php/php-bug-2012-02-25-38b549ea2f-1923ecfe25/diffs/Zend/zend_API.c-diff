@@ -1,0 +1,9 @@
+266,267c266
+< 		ALLOC_ZVAL(obj);
+< 		MAKE_COPY_ZVAL(arg, obj);
+---
+> 		MAKE_STD_ZVAL(obj);
+275c274
+< 		zval_ptr_dtor(&obj);
+---
+> 		efree(obj);

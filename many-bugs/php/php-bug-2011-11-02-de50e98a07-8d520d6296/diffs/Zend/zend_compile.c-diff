@@ -1,0 +1,4 @@
+3826c3826
+< 	zend_function* existing_fn;
+---
+> 	zend_function* existing_fn = NULL;

@@ -1,0 +1,29 @@
+1149a1150
+> 
+1152a1154,1161
+> 							if (IS_LONG == is_numeric_string(Z_STRVAL_P(dim), Z_STRLEN_P(dim), NULL, NULL, -1)) {
+> 								break;
+> 							}
+> 							if (type != BP_VAR_UNSET) {
+> 								zend_error(E_WARNING, "Illegal string offset '%s'", dim->value.str.val);
+> 							}
+> 
+> 							break;
+1156c1165
+< 							/* do nothing */
+---
+> 							zend_error(E_NOTICE, "String offset cast occured");
+1267a1277,1283
+> 							if (IS_LONG == is_numeric_string(Z_STRVAL_P(dim), Z_STRLEN_P(dim), NULL, NULL, -1)) {
+> 								break;
+> 							}
+> 							if (type != BP_VAR_IS) {
+> 								zend_error(E_WARNING, "Illegal string offset '%s'", dim->value.str.val);
+> 							}
+> 							break;
+1271c1287,1289
+< 							/* do nothing */
+---
+> 							if (type != BP_VAR_IS) {
+> 								zend_error(E_NOTICE, "String offset cast occured");
+> 							}

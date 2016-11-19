@@ -1,0 +1,4 @@
+136c136
+< 					zend_hash_del(ht, var, var_len + 1);
+---
+> 					zend_symtable_del(ht, var, var_len + 1);
