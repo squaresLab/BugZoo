@@ -1,0 +1,5 @@
+541d540
+< 	JSON_G(error_code) = PHP_JSON_ERROR_NONE;
+682a682,683
+> 	JSON_G(error_code) = PHP_JSON_ERROR_NONE;
+> 

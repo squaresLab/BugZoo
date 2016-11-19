@@ -1,0 +1,6 @@
+1261c1261,1263
+< 					zend_error(E_NOTICE, "Uninitialized string offset: %ld", Z_LVAL_P(dim));
+---
+> 					if (type != BP_VAR_IS) {
+> 						zend_error(E_NOTICE, "Uninitialized string offset: %ld", Z_LVAL_P(dim));
+> 					}

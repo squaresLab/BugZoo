@@ -1,0 +1,52 @@
+79c79
+< /* {{{ finfo_objects_dtor
+---
+> /* {{{ finfo_objects_free
+81c81
+< static void finfo_objects_dtor(void *object, zend_object_handle handle TSRMLS_DC)
+---
+> static void finfo_objects_free(void *object TSRMLS_DC)
+110c110,111
+< 	retval.handle = zend_objects_store_put(intern, finfo_objects_dtor, NULL, NULL TSRMLS_CC);
+---
+> 	retval.handle = zend_objects_store_put(intern, NULL,
+> 		finfo_objects_free, NULL TSRMLS_CC);
+277a279,287
+> #define FILEINFO_DESTROY_OBJECT(object)							\
+> 	do {														\
+> 		if (object) {											\
+> 			zend_object_store_ctor_failed(object TSRMLS_CC);	\
+> 			zval_dtor(object);									\
+> 			ZVAL_NULL(object);									\
+> 		}														\
+> 	} while (0)
+> 
+289a300
+> 		FILEINFO_DESTROY_OBJECT(object);
+292c303
+< 	
+---
+> 
+295c306
+< 		
+---
+> 
+311a323
+> 			FILEINFO_DESTROY_OBJECT(object);
+314a327
+> 			FILEINFO_DESTROY_OBJECT(object);
+328c341,342
+< 		RETURN_FALSE;	
+---
+> 		FILEINFO_DESTROY_OBJECT(object);
+> 		RETURN_FALSE;
+334a349
+> 		FILEINFO_DESTROY_OBJECT(object);
+336c351
+< 	}	
+---
+> 	}
+342c357
+< 	}	
+---
+> 	}

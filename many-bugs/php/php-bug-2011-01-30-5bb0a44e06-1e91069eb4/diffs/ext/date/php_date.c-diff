@@ -1,0 +1,2 @@
+3087a3088
+> 	memset(&dateobj->time->relative, 0, sizeof(dateobj->time->relative));

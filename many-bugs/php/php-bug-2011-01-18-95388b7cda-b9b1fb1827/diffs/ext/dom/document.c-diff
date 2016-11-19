@@ -1,0 +1,23 @@
+2321,2324c2321,2328
+< 		htmlNodeDumpFormatOutput(buf, docp, node, 0, format);
+< 		mem = (xmlChar*) xmlBufferContent(buf);
+< 		if (!mem) {
+< 			RETVAL_FALSE;
+---
+> 		size = htmlNodeDump(buf, docp, node);
+> 		if (size >= 0) {
+> 			mem = (xmlChar*) xmlBufferContent(buf);
+> 			if (!mem) {
+> 				RETVAL_FALSE;
+> 			} else {
+> 				RETVAL_STRINGL((const char*) mem, size, 1);
+> 			}
+2326c2330,2331
+< 			RETVAL_STRING(mem, 1);
+---
+> 			php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error dumping HTML node");
+> 			RETVAL_FALSE;
+2338c2343
+< 			RETVAL_STRINGL(mem, size, 1);
+---
+> 			RETVAL_STRINGL((const char*) mem, size, 1);

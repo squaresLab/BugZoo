@@ -1,0 +1,17 @@
+559c559
+< 	
+---
+> 
+944a945,948
+> 				/* Brackets should always be closed */
+> 				if(c != 0) {
+> 					skip_upload = 1;
+> 				}
+980c984
+< 			
+---
+> 
+1278c1282
+< }	
+---
+> }

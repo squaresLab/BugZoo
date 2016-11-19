@@ -1,0 +1,8 @@
+2119a2120,2124
+> 		
+> ZEND_BEGIN_ARG_INFO(arginfo_stream_set_chunk_size, 0)
+> 	ZEND_ARG_INFO(0, fp)
+> 	ZEND_ARG_INFO(0, chunk_size)
+> ZEND_END_ARG_INFO()
+3121a3127
+> 	PHP_FE(stream_set_chunk_size,											arginfo_stream_set_chunk_size)

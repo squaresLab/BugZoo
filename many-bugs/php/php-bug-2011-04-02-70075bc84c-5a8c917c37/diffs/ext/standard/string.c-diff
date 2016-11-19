@@ -1,0 +1,5 @@
+5255,5258d5254
+< 	if (len > s1_len - offset) {
+< 		len = s1_len - offset;
+< 	}
+< 

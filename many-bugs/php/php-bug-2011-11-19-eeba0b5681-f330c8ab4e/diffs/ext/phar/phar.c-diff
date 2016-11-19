@@ -1,0 +1,4 @@
+1573c1573
+< 	const int window_size = 1024 + sizeof(token);
+---
+> 	const int window_size = 1024;

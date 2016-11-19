@@ -1,0 +1,81 @@
+1032c1032
+< 			offset->abbr = malloc(9); /* GMT±xxxx\0 */
+---
+> 			offset->abbr = malloc(9); /* GMTï¿½xxxx\0 */
+1240c1240
+< 			offset->abbr = malloc(9); /* GMT±xxxx\0 */
+---
+> 			offset->abbr = malloc(9); /* GMTï¿½xxxx\0 */
+1998a1999
+> 	date_object_handlers_interval.get_property_ptr_ptr = NULL;
+3484a3486
+> 		break;								  \
+3486,3493c3488,3505
+< 	GET_VALUE_FROM_STRUCT(y, "y");
+< 	GET_VALUE_FROM_STRUCT(m, "m");
+< 	GET_VALUE_FROM_STRUCT(d, "d");
+< 	GET_VALUE_FROM_STRUCT(h, "h");
+< 	GET_VALUE_FROM_STRUCT(i, "i");
+< 	GET_VALUE_FROM_STRUCT(s, "s");
+< 	GET_VALUE_FROM_STRUCT(invert, "invert");
+< 	GET_VALUE_FROM_STRUCT(days, "days");
+---
+> 	do {
+> 		GET_VALUE_FROM_STRUCT(y, "y");
+> 		GET_VALUE_FROM_STRUCT(m, "m");
+> 		GET_VALUE_FROM_STRUCT(d, "d");
+> 		GET_VALUE_FROM_STRUCT(h, "h");
+> 		GET_VALUE_FROM_STRUCT(i, "i");
+> 		GET_VALUE_FROM_STRUCT(s, "s");
+> 		GET_VALUE_FROM_STRUCT(invert, "invert");
+> 		GET_VALUE_FROM_STRUCT(days, "days");
+> 		/* didn't find any */
+> 		retval = (zend_get_std_object_handlers())->read_property(object, member, type, key TSRMLS_CC);
+> 
+> 		if (member == &tmp_member) {
+> 			zval_dtor(member);
+> 		}
+> 
+> 		return retval;
+> 	} while(0);
+3498,3501d3509
+< 	if (value == -1) {
+< 		php_error_docref(NULL TSRMLS_CC, E_ERROR, "Unknown property (%s)", Z_STRVAL_P(member));
+< 	}
+< 
+3535,3539c3543,3547
+< 		found = 1;                            \
+< 		obj->diff->n = Z_LVAL_P(value); \
+< 		if (value == &tmp_value) {         \
+< 			zval_dtor(value);              \
+< 		}                                  \
+---
+> 		obj->diff->n = Z_LVAL_P(value);       \
+> 		if (value == &tmp_value) {            \
+> 			zval_dtor(value);                 \
+> 		}                                     \
+> 		break;								  \
+3542,3552c3550,3560
+< 	SET_VALUE_FROM_STRUCT(y, "y");
+< 	SET_VALUE_FROM_STRUCT(m, "m");
+< 	SET_VALUE_FROM_STRUCT(d, "d");
+< 	SET_VALUE_FROM_STRUCT(h, "h");
+< 	SET_VALUE_FROM_STRUCT(i, "i");
+< 	SET_VALUE_FROM_STRUCT(s, "s");
+< 	SET_VALUE_FROM_STRUCT(invert, "invert");
+< 
+< 	if (!found) {
+< 		php_error_docref(NULL TSRMLS_CC, E_ERROR, "Unknown property (%s)", Z_STRVAL_P(member));
+< 	}
+---
+> 	do {
+> 		SET_VALUE_FROM_STRUCT(y, "y");
+> 		SET_VALUE_FROM_STRUCT(m, "m");
+> 		SET_VALUE_FROM_STRUCT(d, "d");
+> 		SET_VALUE_FROM_STRUCT(h, "h");
+> 		SET_VALUE_FROM_STRUCT(i, "i");
+> 		SET_VALUE_FROM_STRUCT(s, "s");
+> 		SET_VALUE_FROM_STRUCT(invert, "invert");
+> 		/* didn't find any */
+> 		(zend_get_std_object_handlers())->write_property(object, member, value, key TSRMLS_CC);
+> 	} while(0);

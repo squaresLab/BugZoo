@@ -1,0 +1,4 @@
+3765c3765
+< 	if (isostr_len) {
+---
+> 	if (isostr) {

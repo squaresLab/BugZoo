@@ -1,0 +1,126 @@
+2355c2355,2364
+< 			convert_to_string_ex(tmp_str);
+---
+> 			zval *orig_str;
+> 			zval dummy;
+> 			if(Z_TYPE_PP(tmp_str) != IS_STRING) {
+> 				dummy = **tmp_str;
+> 				orig_str = &dummy;
+> 				zval_copy_ctor(orig_str);
+> 				convert_to_string(orig_str);
+> 			} else {
+> 				orig_str = *tmp_str;
+> 			}
+2359c2368,2375
+< 					convert_to_long_ex(tmp_from);
+---
+> 					if(Z_TYPE_PP(tmp_from) != IS_LONG) {
+> 						zval dummy = **tmp_from;
+> 						zval_copy_ctor(&dummy);
+> 						convert_to_long(&dummy);
+> 						f = Z_LVAL(dummy);
+> 					} else {
+> 						f = Z_LVAL_PP(tmp_from);
+> 					}
+2361d2376
+< 					f = Z_LVAL_PP(tmp_from);
+2363c2378
+< 						f = Z_STRLEN_PP(tmp_str) + f;
+---
+> 						f = Z_STRLEN_P(orig_str) + f;
+2367,2368c2382,2383
+< 					} else if (f > Z_STRLEN_PP(tmp_str)) {
+< 						f = Z_STRLEN_PP(tmp_str);
+---
+> 					} else if (f > Z_STRLEN_P(orig_str)) {
+> 						f = Z_STRLEN_P(orig_str);
+2377c2392
+< 					f = Z_STRLEN_PP(tmp_str) + f;
+---
+> 					f = Z_STRLEN_P(orig_str) + f;
+2381,2382c2396,2397
+< 				} else if (f > Z_STRLEN_PP(tmp_str)) {
+< 					f = Z_STRLEN_PP(tmp_str);
+---
+> 				} else if (f > Z_STRLEN_P(orig_str)) {
+> 					f = Z_STRLEN_P(orig_str);
+2388c2403,2410
+< 					convert_to_long_ex(tmp_len);
+---
+> 					if(Z_TYPE_PP(tmp_len) != IS_LONG) {
+> 						zval dummy = **tmp_len;
+> 						zval_copy_ctor(&dummy);
+> 						convert_to_long(&dummy);
+> 						l = Z_LVAL(dummy);
+> 					} else {
+> 						l = Z_LVAL_PP(tmp_len);
+> 					}
+2393c2415
+< 					l = Z_STRLEN_PP(tmp_str);
+---
+> 					l = Z_STRLEN_P(orig_str);
+2398c2420
+< 				l = Z_STRLEN_PP(tmp_str);
+---
+> 				l = Z_STRLEN_P(orig_str);
+2402c2424
+< 				l = (Z_STRLEN_PP(tmp_str) - f) + l;
+---
+> 				l = (Z_STRLEN_P(orig_str) - f) + l;
+2408,2409c2430,2431
+< 			if ((f + l) > Z_STRLEN_PP(tmp_str)) {
+< 				l = Z_STRLEN_PP(tmp_str) - f;
+---
+> 			if ((f + l) > Z_STRLEN_P(orig_str)) {
+> 				l = Z_STRLEN_P(orig_str) - f;
+2412c2434
+< 			result_len = Z_STRLEN_PP(tmp_str) - l;
+---
+> 			result_len = Z_STRLEN_P(orig_str) - l;
+2416,2417c2438,2449
+< 					convert_to_string_ex(tmp_repl);
+< 					result_len += Z_STRLEN_PP(tmp_repl);
+---
+> 					zval *repl_str;
+> 					zval zrepl;
+> 					if(Z_TYPE_PP(tmp_repl) != IS_STRING) {
+> 						zrepl = **tmp_repl;
+> 						repl_str = &zrepl;
+> 						zval_copy_ctor(repl_str);
+> 						convert_to_string(repl_str);
+> 					} else {
+> 						repl_str = *tmp_repl;
+> 					}
+> 
+> 					result_len += Z_STRLEN_P(repl_str);
+2421,2423c2453,2458
+< 					memcpy(result, Z_STRVAL_PP(tmp_str), f);
+< 					memcpy((result + f), Z_STRVAL_PP(tmp_repl), Z_STRLEN_PP(tmp_repl));
+< 					memcpy((result + f + Z_STRLEN_PP(tmp_repl)), Z_STRVAL_PP(tmp_str) + f + l, Z_STRLEN_PP(tmp_str) - f - l);
+---
+> 					memcpy(result, Z_STRVAL_P(orig_str), f);
+> 					memcpy((result + f), Z_STRVAL_P(repl_str), Z_STRLEN_P(repl_str));
+> 					memcpy((result + f + Z_STRLEN_P(repl_str)), Z_STRVAL_P(orig_str) + f + l, Z_STRLEN_P(orig_str) - f - l);
+> 					if(Z_TYPE_PP(tmp_repl) != IS_STRING) {
+> 						zval_dtor(repl_str);
+> 					}
+2427,2428c2462,2463
+< 					memcpy(result, Z_STRVAL_PP(tmp_str), f);
+< 					memcpy((result + f), Z_STRVAL_PP(tmp_str) + f + l, Z_STRLEN_PP(tmp_str) - f - l);
+---
+> 					memcpy(result, Z_STRVAL_P(orig_str), f);
+> 					memcpy((result + f), Z_STRVAL_P(orig_str) + f + l, Z_STRLEN_P(orig_str) - f - l);
+2435c2470
+< 				memcpy(result, Z_STRVAL_PP(tmp_str), f);
+---
+> 				memcpy(result, Z_STRVAL_P(orig_str), f);
+2437c2472
+< 				memcpy((result + f + Z_STRLEN_PP(repl)), Z_STRVAL_PP(tmp_str) + f + l, Z_STRLEN_PP(tmp_str) - f - l);
+---
+> 				memcpy((result + f + Z_STRLEN_PP(repl)), Z_STRVAL_P(orig_str) + f + l, Z_STRLEN_P(orig_str) - f - l);
+2442c2477,2479
+< 
+---
+> 			if(Z_TYPE_PP(tmp_str) != IS_STRING) {
+> 				zval_dtor(orig_str);
+> 			}

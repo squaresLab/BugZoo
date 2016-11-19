@@ -1,0 +1,56 @@
+850a851,878
+> static int spl_recursive_it_constructor_validator(void *object_data TSRMLS_DC) /* {{{ */
+> {
+> 	spl_recursive_it_object *sobj = object_data;
+> 	return (sobj->iterators != NULL);
+> }
+> /* }}} */
+> 
+> static zend_function *spl_recursive_it_get_constructor(zval *object TSRMLS_DC) /* {{{ */
+> {
+> 	return php_spl_get_constructor_helper(object,
+> 			spl_recursive_it_constructor_validator TSRMLS_CC);
+> }
+> /* }}} */
+> 
+> static int spl_dual_it_constructor_validator(void *object_data TSRMLS_DC) /* {{{ */
+> {
+> 	spl_dual_it_object *dobj = object_data;
+> 	return (dobj->dit_type != DIT_Unknown);
+> }
+> /* }}} */
+> 
+> static zend_function *spl_dual_it_get_constructor(zval *object TSRMLS_DC) /* {{{ */
+> {
+> 	return php_spl_get_constructor_helper(object,
+> 			spl_dual_it_constructor_validator TSRMLS_CC);
+> }
+> /* }}} */
+> 
+1324,1332d1351
+< #define SPL_CHECK_CTOR(intern, classname) \
+< 	if (intern->dit_type == DIT_Unknown) { \
+< 		zend_throw_exception_ex(spl_ce_BadMethodCallException, 0 TSRMLS_CC, "Classes derived from %s must call %s::__construct()", \
+< 				(spl_ce_##classname)->name, (spl_ce_##classname)->name); \
+< 		return; \
+< 	}
+< 
+< #define APPENDIT_CHECK_CTOR(intern) SPL_CHECK_CTOR(intern, AppendIterator)
+< 
+3169,3170d3187
+< 	
+< 	APPENDIT_CHECK_CTOR(intern);
+3247,3248c3264
+< 
+< 	APPENDIT_CHECK_CTOR(intern);
+---
+> 	
+3263,3264c3279
+< 
+< 	APPENDIT_CHECK_CTOR(intern);
+---
+> 	
+3493a3509
+> 	spl_handlers_rec_it_it.get_constructor = spl_recursive_it_get_constructor;
+3498a3515
+> 	spl_handlers_dual_it.get_constructor = spl_dual_it_get_constructor;

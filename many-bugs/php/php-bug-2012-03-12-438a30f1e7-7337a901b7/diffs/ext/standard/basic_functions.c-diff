@@ -1,0 +1,10 @@
+4469a4470,4478
+> 	if (tv_sec < 0) {
+> 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "The seconds value must be greater than 0");
+> 		RETURN_FALSE;
+> 	}
+> 	if (tv_nsec < 0) {
+> 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "The nanoseconds value must be greater than 0");
+> 		RETURN_FALSE;
+> 	}
+> 

@@ -1,0 +1,899 @@
+39c39
+< /* 
+---
+> /*
+92c92
+< 	/* If last members of struct lconv equal CHAR_MAX, no grouping is done */	
+---
+> 	/* If last members of struct lconv equal CHAR_MAX, no grouping is done */
+113c113
+< 	
+---
+> 
+135c135
+< 	
+---
+> 
+142c142
+< 	if (newlen) 
+---
+> 	if (newlen)
+181,182c181,182
+< 	
+< 	if (newlen) 
+---
+> 
+> 	if (newlen)
+248c248
+< 	
+---
+> 
+270c270
+< 	
+---
+> 
+284c284
+< 	
+---
+> 
+289c289
+< 	
+---
+> 
+293c293
+< 	
+---
+> 
+295c295
+< 	
+---
+> 
+304c304
+< 	
+---
+> 
+311c311
+< 	
+---
+> 
+331c331
+< 	
+---
+> 
+527c527
+< 	
+---
+> 
+715c715
+< 	
+---
+> 
+720c720
+< 	RETURN_LONG(strcoll((const char *) s1, 
+---
+> 	RETURN_LONG(strcoll((const char *) s1,
+728c728
+<  * it needs to be incrementing.  
+---
+>  * it needs to be incrementing.
+739,740c739,740
+< 		c=*input; 
+< 		if ((input+3 < end) && input[1] == '.' && input[2] == '.' 
+---
+> 		c=*input;
+> 		if ((input+3 < end) && input[1] == '.' && input[2] == '.'
+761c761
+< 			} 
+---
+> 			}
+830c830
+< 	
+---
+> 
+834c834
+< 	
+---
+> 
+1004c1004
+< PHPAPI void php_explode(zval *delim, zval *str, zval *return_value, long limit) 
+---
+> PHPAPI void php_explode(zval *delim, zval *str, zval *return_value, long limit)
+1030c1030
+< PHPAPI void php_explode_negative_limit(zval *delim, zval *str, zval *return_value, long limit) 
+---
+> PHPAPI void php_explode_negative_limit(zval *delim, zval *str, zval *return_value, long limit)
+1034c1034
+< 	
+---
+> 
+1058c1058
+< 		
+---
+> 
+1062c1062
+< 			add_next_index_stringl(return_value, positions[i], 
+---
+> 			add_next_index_stringl(return_value, positions[i],
+1081c1081
+< 	
+---
+> 
+1085c1085
+< 	
+---
+> 
+1096c1096
+< 		} 
+---
+> 		}
+1118c1118
+< PHPAPI void php_implode(zval *delim, zval *arr, zval *return_value TSRMLS_DC) 
+---
+> PHPAPI void php_implode(zval *delim, zval *arr, zval *return_value TSRMLS_DC)
+1153c1153
+< 			
+---
+> 
+1183c1183
+< 				
+---
+> 
+1211c1211
+< 	
+---
+> 
+1238c1238
+< 	
+---
+> 
+1247c1247
+< #define STRTOK_TABLE(p) BG(strtok_table)[(unsigned char) *p]	
+---
+> #define STRTOK_TABLE(p) BG(strtok_table)[(unsigned char) *p]
+1252c1252
+< {		
+---
+> {
+1256c1256
+< 	
+---
+> 
+1262c1262
+< 	
+---
+> 
+1281c1281
+< 	
+---
+> 
+1288c1288
+< 	
+---
+> 
+1295c1295
+< 	
+---
+> 
+1306,1307c1306,1307
+< 	
+< 	/* We know at this place that *p is no delimiter, so skip it */	
+---
+> 
+> 	/* We know at this place that *p is no delimiter, so skip it */
+1310c1310
+< 			goto return_token;	
+---
+> 			goto return_token;
+1313c1313
+< 	
+---
+> 
+1326c1326
+< 	
+---
+> 
+1338c1338
+< 	
+---
+> 
+1356c1356
+< 	
+---
+> 
+1362c1362
+< 	php_strtoupper(arg, arglen);	
+---
+> 	php_strtoupper(arg, arglen);
+1372c1372
+< 	
+---
+> 
+1390c1390
+< 	
+---
+> 
+1511c1511
+< 	
+---
+> 
+1534c1534
+< 	
+---
+> 
+1537c1537
+< 	
+---
+> 
+1547c1547
+< 	
+---
+> 
+1552c1552
+< 	
+---
+> 
+1568c1568
+< 	
+---
+> 
+1697c1697
+< 	
+---
+> 
+1730c1730
+< 		}			
+---
+> 		}
+1750c1750
+< 	
+---
+> 
+1797c1797
+< 	
+---
+> 
+1881,1883c1881,1883
+< 		found = php_memnstr(haystack_dup + offset, 
+< 							needle_char, 
+< 							sizeof(needle_char) - 1, 
+---
+> 		found = php_memnstr(haystack_dup + offset,
+> 							needle_char,
+> 							sizeof(needle_char) - 1,
+2005c2005
+< 		/* Single character search can shortcut memcmps 
+---
+> 		/* Single character search can shortcut memcmps
+2086c2086
+< 	
+---
+> 
+2119c2119
+< 	int out_len; 
+---
+> 	int out_len;
+2165c2165
+< PHP_FUNCTION(chunk_split) 
+---
+> PHP_FUNCTION(chunk_split)
+2174c2174
+< 	
+---
+> 
+2190,2191c2190,2191
+< 		result[result_len] = '\0'; 
+< 		RETURN_STRINGL(result, result_len, 0);	
+---
+> 		result[result_len] = '\0';
+> 		RETURN_STRINGL(result, result_len, 0);
+2216c2216
+< 	
+---
+> 
+2230c2230
+< 	
+---
+> 
+2293c2293
+< 	
+---
+> 
+2327c2327
+< 			(argc == 3 && Z_TYPE_PP(from) == IS_ARRAY) || 
+---
+> 			(argc == 3 && Z_TYPE_PP(from) == IS_ARRAY) ||
+2331c2331
+< 			RETURN_STRINGL(Z_STRVAL_PP(str), Z_STRLEN_PP(str), 1);		
+---
+> 			RETURN_STRINGL(Z_STRVAL_PP(str), Z_STRLEN_PP(str), 1);
+2336c2336
+< 				RETURN_STRINGL(Z_STRVAL_PP(str), Z_STRLEN_PP(str), 1);		
+---
+> 				RETURN_STRINGL(Z_STRVAL_PP(str), Z_STRLEN_PP(str), 1);
+2340c2340
+< 	
+---
+> 
+2398c2398
+< 			RETURN_STRINGL(Z_STRVAL_PP(str), Z_STRLEN_PP(str), 1);	
+---
+> 			RETURN_STRINGL(Z_STRVAL_PP(str), Z_STRLEN_PP(str), 1);
+2422a2423,2425
+> 			ulong refcount;
+> 			int was_ref;
+> 
+2430a2434,2436
+> 			was_ref = Z_ISREF_P(orig_str);
+> 			Z_UNSET_ISREF_P(orig_str);
+> 			refcount = Z_REFCOUNT_P(orig_str);
+2481c2487
+< 			} else if (argc > 3) { 
+---
+> 			} else if (argc > 3) {
+2512a2519,2523
+> 					if(Z_REFCOUNT_P(orig_str) != refcount) {
+> 						php_error_docref(NULL TSRMLS_CC, E_WARNING, "Argument was modified while replacing");
+> 						break;
+> 					}
+> 
+2514c2525
+< 					zend_hash_move_forward_ex(Z_ARRVAL_PP(repl), &pos_repl);	
+---
+> 					zend_hash_move_forward_ex(Z_ARRVAL_PP(repl), &pos_repl);
+2525c2536
+< 	
+---
+> 
+2548a2560,2561
+> 			} else {
+> 				Z_SET_ISREF_TO_P(orig_str, was_ref);
+2569c2582
+< 	
+---
+> 
+2571c2584
+< 		
+---
+> 
+2575c2588
+< 	
+---
+> 
+2577c2590
+< 	
+---
+> 
+2610c2623
+< 	
+---
+> 
+2614c2627
+< 	
+---
+> 
+2643c2656
+< static void php_ucfirst(char *str) 
+---
+> static void php_ucfirst(char *str)
+2657c2670
+< 	
+---
+> 
+2708c2721
+< 	
+---
+> 
+2770c2783
+< 	
+---
+> 
+2788,2789c2801,2802
+< 				break; 
+< 			
+---
+> 				break;
+> 
+2793c2806
+< 			
+---
+> 
+2823c2836
+< 			
+---
+> 
+2848c2861
+< 			} 
+---
+> 			}
+2866c2879
+< {								
+---
+> {
+2871c2884
+< 	
+---
+> 
+2875c2888
+< 	
+---
+> 
+2892c2905
+< 		
+---
+> 
+2897c2910
+< 				  MIN(Z_STRLEN_PP(from), 
+---
+> 				  MIN(Z_STRLEN_PP(from),
+2910c2923
+< 	
+---
+> 
+2914c2927
+< 	
+---
+> 
+2917c2930
+< 	
+---
+> 
+2919c2932
+< 	
+---
+> 
+2923c2936
+< 	
+---
+> 
+2925c2938
+< 	
+---
+> 
+2938c2951
+< 	
+---
+> 
+2963c2976
+< 			sum += php_similar_char(txt1, pos1, 
+---
+> 			sum += php_similar_char(txt1, pos1,
+2967c2980
+< 			sum += php_similar_char(txt1 + pos1 + max, len1 - pos1 - max, 
+---
+> 			sum += php_similar_char(txt1 + pos1 + max, len1 - pos1 - max,
+2985c2998
+< 	
+---
+> 
+2989c3002
+< 	
+---
+> 
+2993c3006
+< 	
+---
+> 
+3001,3002c3014,3015
+< 	
+< 	sim = php_similar_char(t1, t1_len, t2, t2_len);	
+---
+> 
+> 	sim = php_similar_char(t1, t1_len, t2, t2_len);
+3085c3098
+< 	
+---
+> 
+3095,3096c3108,3109
+< 	                             str_len, 
+< 	                             &Z_STRLEN_P(return_value), 0 
+---
+> 	                             str_len,
+> 	                             &Z_STRLEN_P(return_value), 0
+3107c3120
+< 	
+---
+> 
+3123c3136
+< 	
+---
+> 
+3136c3149
+< char *php_strerror(int errnum) 
+---
+> char *php_strerror(int errnum)
+3187,3188c3200,3201
+< 				default: 
+< 					i=0; 
+---
+> 				default:
+> 					i=0;
+3214c3227
+< 			
+---
+> 
+3233c3246
+< 		c = *source; 
+---
+> 		c = *source;
+3248c3261
+< 			} 
+---
+> 			}
+3277c3290
+<  	        
+---
+> 
+3289c3302
+< 	
+---
+> 
+3303c3316
+< 				break;	
+---
+> 				break;
+3308c3321
+< 	
+---
+> 
+3332c3345
+< 		
+---
+> 
+3351c3364
+< 	
+---
+> 
+3405c3418
+< PHPAPI char *php_str_to_str_ex(char *haystack, int length, 
+---
+> PHPAPI char *php_str_to_str_ex(char *haystack, int length,
+3577c3590
+< PHPAPI char *php_str_to_str(char *haystack, int length, 
+---
+> PHPAPI char *php_str_to_str(char *haystack, int length,
+3581c3594
+< } 
+---
+> }
+3594c3607
+< 	/* Make sure we're dealing with strings. */	
+---
+> 	/* Make sure we're dealing with strings. */
+3601c3614
+< 	
+---
+> 
+3606c3619
+< 		
+---
+> 
+3619c3632
+< 			/* Make sure we're dealing with strings. */	
+---
+> 			/* Make sure we're dealing with strings. */
+3634c3647
+< 					/* Make sure we're dealing with strings. */	
+---
+> 					/* Make sure we're dealing with strings. */
+3636c3649
+< 					
+---
+> 
+3648c3661
+< 			
+---
+> 
+3751c3764
+< 		
+---
+> 
+3756c3769
+< 	}	
+---
+> 	}
+3793c3806
+< 	
+---
+> 
+3797c3810
+< 	
+---
+> 
+3817c3830
+< 	
+---
+> 
+3887c3900
+< 		
+---
+> 
+3903c3916
+< 			
+---
+> 
+3917c3930
+< 		
+---
+> 
+3981c3994
+< 	
+---
+> 
+3985c3998
+< 	
+---
+> 
+3988c4001
+< 	
+---
+> 
+4003c4016
+< 		
+---
+> 
+4006c4019
+< 	
+---
+> 
+4033c4046
+< 				
+---
+> 
+4041c4054
+< 	
+---
+> 
+4044c4057
+< 	
+---
+> 
+4066c4079
+< 	
+---
+> 
+4095c4108
+< 		convert_to_long_ex(pcategory);	
+---
+> 		convert_to_long_ex(pcategory);
+4100c4113
+< 		
+---
+> 
+4102c4115
+< 		
+---
+> 
+4124c4137
+< 			
+---
+> 
+4127c4140
+< 			}			
+---
+> 			}
+4135c4148
+< 	
+---
+> 
+4147c4160
+< 		
+---
+> 
+4172c4185
+< 		
+---
+> 
+4213c4226
+< 		
+---
+> 
+4227c4240
+<  * Check if tag is in a set of tags 
+---
+>  * Check if tag is in a set of tags
+4230c4243
+<  * 
+---
+>  *
+4242c4255
+< 	
+---
+> 
+4248c4261
+< 	/* 
+---
+> 	/*
+4276c4289
+< 	}  
+---
+> 	}
+4278c4291
+< 	*n = '\0'; 
+---
+> 	*n = '\0';
+4296,4298c4309,4311
+<  
+< 	A simple little state-machine to strip out html and php tags 
+< 	
+---
+> 
+> 	A simple little state-machine to strip out html and php tags
+> 
+4387c4400
+< 				break;	
+---
+> 				break;
+4405c4418
+< 				break;	
+---
+> 				break;
+4436c4449
+< 						
+---
+> 
+4443c4456
+< 						
+---
+> 
+4491,4492c4504,4505
+< 			
+< 			case '!': 
+---
+> 
+> 			case '!':
+4494c4507
+< 				if (state == 1 && *(p-1) == '<') { 
+---
+> 				if (state == 1 && *(p-1) == '<') {
+4521c4534
+< 				if (state == 1 && *(p-1) == '<') { 
+---
+> 				if (state == 1 && *(p-1) == '<') {
+4566c4579
+< 				} 
+---
+> 				}
+4571c4584
+< 	}	
+---
+> 	}
+4597c4610
+< 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|sss", &str, &str_len, &delim_str, &delim_len, 
+---
+> 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|sss", &str, &str_len, &delim_str, &delim_len,
+4601c4614
+< 	
+---
+> 
+4619c4632
+< 	
+---
+> 
+4634c4647
+< 	/* Initialize the result string */	
+---
+> 	/* Initialize the result string */
+4637c4650
+< 	
+---
+> 
+4640c4653
+< 		memset(result, *(input_str), mult); 
+---
+> 		memset(result, *(input_str), mult);
+4648c4661
+< 		
+---
+> 
+4657c4670
+< 	
+---
+> 
+4723c4736
+< 	
+---
+> 
+4822c4835
+<    
+---
+> 
+4911c4924
+< 	
+---
+> 
+4917c4930
+< 		RETURN_FALSE;		
+---
+> 		RETURN_FALSE;
+4922c4935
+< 		RETURN_FALSE;		
+---
+> 		RETURN_FALSE;
+4930c4943
+< 			RETURN_FALSE;		
+---
+> 			RETURN_FALSE;
+4938c4951
+< 	
+---
+> 
+4955c4968
+< /* }}} */	
+---
+> /* }}} */
+4965c4978
+< 	
+---
+> 
+4990c5003
+< 	
+---
+> 
+4999c5012
+< 		return;	
+---
+> 		return;
+5038c5051
+<    
+---
+> 
+5047c5060
+< 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss*", &str, &str_len, &format, &format_len, 
+---
+> 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss*", &str, &str_len, &format, &format_len,
+5051c5064
+< 	
+---
+> 
+5053c5066
+< 	
+---
+> 
+5091c5104
+< 	
+---
+> 
+5097c5110
+< 	
+---
+> 
+5122c5135
+< 	if (Z_STRLEN_P(return_value) > 1) { 
+---
+> 	if (Z_STRLEN_P(return_value) > 1) {
+5134c5147
+<    	
+---
+> 
+5171c5184
+< 	
+---
+> 
+5202c5215
+< 					break;		
+---
+> 					break;
+5207c5220
+< 	
+---
+> 
+5209c5222
+< 		RETURN_LONG(word_count);		
+---
+> 		RETURN_LONG(word_count);
+5233c5246
+< 			p += 2;	
+---
+> 			p += 2;
+5265c5278
+< 	
+---
+> 
+5303c5316
+< 	
+---
+> 
+5310c5323
+< 		RETURN_FALSE;	
+---
+> 		RETURN_FALSE;

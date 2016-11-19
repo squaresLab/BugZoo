@@ -1,0 +1,8 @@
+3135a3136,3138
+> 						} else if (Z_TYPE_P(zv) == IS_ARRAY) {
+> 							memcpy(offset, "Array", 5);
+> 							offset += 5;
+3158c3161
+< 			REALLOC_BUF_IF_EXCEED(buf, offset, length, 23);
+---
+> 			REALLOC_BUF_IF_EXCEED(buf, offset, length, 32);

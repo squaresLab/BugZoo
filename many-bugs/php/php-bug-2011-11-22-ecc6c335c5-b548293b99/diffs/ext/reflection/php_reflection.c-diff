@@ -1,0 +1,3 @@
+748a749,750
+> 			} else if (Z_TYPE_P(zv) == IS_ARRAY) {
+> 				string_write(str, "Array", sizeof("Array")-1);

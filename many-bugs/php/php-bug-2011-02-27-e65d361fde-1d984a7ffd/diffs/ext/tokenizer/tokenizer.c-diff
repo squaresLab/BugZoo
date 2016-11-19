@@ -1,0 +1,5 @@
+153a154,157
+> 
+> 		if (token_type == T_HALT_COMPILER) {
+> 			break;
+> 		}

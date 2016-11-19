@@ -1,0 +1,74 @@
+4236a4237
+> 	zend_bool parent_prop_is_private = 0;
+4273a4275
+> 					parent_prop_is_private = (coliding_prop->flags & ZEND_ACC_PRIVATE) == ZEND_ACC_PRIVATE;
+4275,4282c4277,4292
+< 				if (   (coliding_prop->flags & (ZEND_ACC_PPP_MASK | ZEND_ACC_STATIC))
+< 					== (property_info->flags & (ZEND_ACC_PPP_MASK | ZEND_ACC_STATIC))) {
+< 					/* flags are identical, now the value needs to be checked */
+< 					if (property_info->flags & ZEND_ACC_STATIC) {
+< 						not_compatible = (FAILURE == compare_function(&compare_result,
+<                                           ce->default_static_members_table[coliding_prop->offset],
+<                                           ce->traits[i]->default_static_members_table[property_info->offset] TSRMLS_CC))
+<                               || (Z_LVAL(compare_result) != 0);
+---
+> 				
+> 				if (!parent_prop_is_private) {
+> 					if (   (coliding_prop->flags & (ZEND_ACC_PPP_MASK | ZEND_ACC_STATIC))
+> 						== (property_info->flags & (ZEND_ACC_PPP_MASK | ZEND_ACC_STATIC))) {
+> 						/* flags are identical, now the value needs to be checked */
+> 						if (property_info->flags & ZEND_ACC_STATIC) {
+> 							not_compatible = (FAILURE == compare_function(&compare_result,
+> 											  ce->default_static_members_table[coliding_prop->offset],
+> 											  ce->traits[i]->default_static_members_table[property_info->offset] TSRMLS_CC))
+> 								  || (Z_LVAL(compare_result) != 0);
+> 						} else {
+> 							not_compatible = (FAILURE == compare_function(&compare_result,
+> 											  ce->default_properties_table[coliding_prop->offset],
+> 											  ce->traits[i]->default_properties_table[property_info->offset] TSRMLS_CC))
+> 								  || (Z_LVAL(compare_result) != 0);
+> 						}
+4284,4287c4294,4295
+< 						not_compatible = (FAILURE == compare_function(&compare_result,
+<                                           ce->default_properties_table[coliding_prop->offset],
+<                                           ce->traits[i]->default_properties_table[property_info->offset] TSRMLS_CC))
+<                               || (Z_LVAL(compare_result) != 0);
+---
+> 						/* the flags are not identical, thus, we assume properties are not compatible */
+> 						not_compatible = 1;
+4289,4292d4296
+< 				} else {
+< 					/* the flags are not identical, thus, we assume properties are not compatible */
+< 					not_compatible = 1;
+< 				}
+4294,4307c4298,4312
+< 				if (not_compatible) {
+< 					zend_error(E_COMPILE_ERROR, 
+< 							   "%s and %s define the same property ($%s) in the composition of %s. However, the definition differs and is considered incompatible. Class was composed",
+< 								find_first_definition(ce, i, prop_name, prop_name_length, prop_hash, coliding_prop->ce)->name,
+< 								property_info->ce->name,
+< 								prop_name,
+< 								ce->name);
+< 				} else {
+< 					zend_error(E_STRICT, 
+< 							   "%s and %s define the same property ($%s) in the composition of %s. This might be incompatible, to improve maintainability consider using accessor methods in traits instead. Class was composed",
+< 								find_first_definition(ce, i, prop_name, prop_name_length, prop_hash, coliding_prop->ce)->name,
+< 								property_info->ce->name,
+< 								prop_name,
+< 								ce->name);
+---
+> 					if (not_compatible) {
+> 						zend_error(E_COMPILE_ERROR, 
+> 								   "%s and %s define the same property ($%s) in the composition of %s. However, the definition differs and is considered incompatible. Class was composed",
+> 									find_first_definition(ce, i, prop_name, prop_name_length, prop_hash, coliding_prop->ce)->name,
+> 									property_info->ce->name,
+> 									prop_name,
+> 									ce->name);
+> 					} else {
+> 						zend_error(E_STRICT, 
+> 								   "%s and %s define the same property ($%s) in the composition of %s. This might be incompatible, to improve maintainability consider using accessor methods in traits instead. Class was composed",
+> 									find_first_definition(ce, i, prop_name, prop_name_length, prop_hash, coliding_prop->ce)->name,
+> 									property_info->ce->name,
+> 									prop_name,
+> 									ce->name);
+> 					}

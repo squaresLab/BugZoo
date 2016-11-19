@@ -1,0 +1,27 @@
+477c477
+< 			struct stat sb;
+---
+> 			php_stream_statbuf ssb;
+485,495d484
+< 			if (php_sys_stat(buffer, &sb) == 0) {
+< 					  if (sb.st_mode & _S_IFDIR) {
+< 								 ret_val = mime_directory;
+< 								 goto common;
+< 					  }
+< 			} else {
+< 				php_error_docref(NULL TSRMLS_CC, E_WARNING, "File or path not found '%s'", buffer);
+< 				RETVAL_FALSE;
+< 				goto clean;
+< 			}
+< 
+511c500,507
+< 				ret_val = (char *)magic_stream(magic, stream);
+---
+> 				if (php_stream_stat(stream, &ssb) == SUCCESS) {
+> 					if (ssb.sb.st_mode & S_IFDIR) {
+> 						ret_val = mime_directory;
+> 					} else {
+> 						ret_val = (char *)magic_stream(magic, stream);
+> 					}
+> 				}
+> 
