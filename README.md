@@ -1,4 +1,4 @@
-# AutomatedRepairBenchmarks.c
+# RepairBox
 
 This repository contains a series of benchmark problems for automated program
 repair, written in C, tailored to be solved using GenProg.
