@@ -46,7 +46,7 @@ RUN opam init -a -y /home/repair/.opam
 # eval $(opam config env)
 # This feels like a hideous hack, but without it, the environmental variables
 # within Docker are otherwise unaffected
-ENV CAML_LD_LIBRARY_PATH home/repair/.opam/4.02.1/lib/stublibs
+ENV CAML_LD_LIBRARY_PATH /home/repair/.opam/4.02.1/lib/stublibs
 ENV MANPATH /home/repair/.opam/4.02.1/man:$MANPATH
 ENV PERL5LIB /home/repair/.opam/4.02.1/lib/perl5
 ENV OCAML_TOPLEVEL_PATH /home/repair/.opam/4.02.1/lib/toplevel
@@ -63,6 +63,6 @@ RUN opam update &&\
 # Download and install GenProg 3, before ensuring it is in its most up-to-date
 # form
 ENV GenProgVersion ce62daf66baf34477caf3d75ec335d82b89ad2c3
-#RUN git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 && \
-#    $(cd genprog/src && sudo make install) &&\
-#    rm genprog -rf
+RUN git clone https://bitbucket.org/ChrisTimperley/GP3 genprog --depth 1 &&\
+  cd genprog/src && make && sudo make install && cd ../../ &&\
+  rm genprog -rf
