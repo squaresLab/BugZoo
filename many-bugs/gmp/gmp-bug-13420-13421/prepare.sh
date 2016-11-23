@@ -1,11 +1,15 @@
 #!/bin/bash
-if [ ! -d gmp ]; then
-  tar -xf gmp.tar.gz
-  pushd gmp
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+pushd "$here_dir"
+
+if [ ! -d src ]; then
+  tar -xf src.tar.gz
+  cp configure.patched src/configure
+  pushd src 
   make clean
   aclocal
   autoconf
-  ./configure --build=i686-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+  ./configure "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
   popd
 fi
 
