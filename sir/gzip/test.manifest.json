@@ -12,15 +12,31 @@
     "command": "<<EXECUTABLE>> --license",
   },
   {
-    "command": "<<EXECUTABLE>> -V < <<INPUTS>>",
+    "command": "<<EXECUTABLE>> -V < <<INPUT>>",
   },
   {
-    "command": "<<EXECUTABLE>> --version < <<INPUTS>>",
+    "command": "<<EXECUTABLE>> --version < <<INPUT>>",
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUTS>>/f' -c",
-    "inputs": {
+    "description": "compresses a file at a given location to a zip archive",
+    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -c",
+    "input": {
       "f": "testdir/file26"
     }
   },
+  {
+    "description": "compresses a file passed by stdin to a zip archive",
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file27"
+    }
+  },
+  {
+    "description": "decrypts a zip archive passed by stdin",
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "testdir/file8.z"
+    }
+  },
+
 ]
