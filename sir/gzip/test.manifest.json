@@ -1,20 +1,26 @@
 [
   {
-    "command": "<<EXECTUABLE>> -h",
+    "command": "<<EXECUTABLE>> -h",
   },
   {
-    "command": "<<EXECTUABLE>> --help",
+    "command": "<<EXECUTABLE>> --help",
   },
   {
-    "command": "<<EXECTUABLE>> -l",
+    "command": "<<EXECUTABLE>> -l",
   },
   {
-    "command": "<<EXECTUABLE>> --license",
+    "command": "<<EXECUTABLE>> --license",
   },
   {
-    "command": "<<EXECTUABLE>> -V < <<INPUTS>>",
+    "command": "<<EXECUTABLE>> -V < <<INPUTS>>",
   },
   {
-    "command": "<<EXECTUABLE>> --version < <<INPUTS>>",
+    "command": "<<EXECUTABLE>> --version < <<INPUTS>>",
+  },
+  {
+    "command": "<<EXECUTABLE>> '<<INPUTS>>/f' -c",
+    "inputs": {
+      "f": "testdir/file26"
+    }
   },
 ]
