@@ -75,4 +75,21 @@
       "f": "testdir/file4"
     }
   },
+  {
+    "description": "compresses a file at a given location",
+    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -q",
+    "input": {
+      "f": "testdir/file32"
+    }
+  },
+  {
+    "description": "compresses a file at a given location",
+    "command": "<<EXECUTABLE>> --quiet < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file10"
+    }
+  },
+  {
+    "num": 17
+  }
 ]
