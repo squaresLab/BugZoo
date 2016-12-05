@@ -1,0 +1,20 @@
+[
+  {
+    "command": "<<EXECTUABLE>> -h",
+  },
+  {
+    "command": "<<EXECTUABLE>> --help",
+  },
+  {
+    "command": "<<EXECTUABLE>> -l",
+  },
+  {
+    "command": "<<EXECTUABLE>> --license",
+  },
+  {
+    "command": "<<EXECTUABLE>> -V < <<INPUTS>>",
+  },
+  {
+    "command": "<<EXECTUABLE>> --version < <<INPUTS>>",
+  },
+]
