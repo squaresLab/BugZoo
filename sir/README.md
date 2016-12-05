@@ -8,3 +8,9 @@ original C objects in the (awesome) Software Infrastructure Repository
 generated for each of the bugs. As with the other bug scenarios provided by
 RepairBox, all files are located within the `/example` directory, and are
 tailored for automated program repair experiments.
+
+## Test Harness Construction
+
+* checks standard output against oracle
+* checks standard error against oracle
+* checks contents of (temporary) working directory against oracle
