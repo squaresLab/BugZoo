@@ -18,25 +18,61 @@
     "command": "<<EXECUTABLE>> --version < <<INPUT>>",
   },
   {
-    "description": "compresses a file at a given location to a zip archive",
+    "description": "compresses a file at a given location",
     "command": "<<EXECUTABLE>> '<<INPUT>>/f' -c",
     "input": {
       "f": "testdir/file26"
     }
   },
   {
-    "description": "compresses a file passed by stdin to a zip archive",
+    "description": "compresses a file passed by stdin",
     "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
     "input": {
       "f": "testdir/file27"
     }
   },
   {
-    "description": "decrypts a zip archive passed by stdin",
+    "description": "decompresses a zip archive passed by stdin",
     "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
     "input": {
       "f.z": "testdir/file8.z"
     }
   },
-
+  {
+    "description": "decompresses a zip archive at a given location",
+    "command": "<<EXECUTABLE>> -d <<INPUT>>/f.z",
+    "input": {
+      "f.z": "testdir/file9.z"
+    }
+  },
+  {
+    "description": "decompresses a zip archive passed by stdin",
+    "command": "<<EXECUTABLE>> --decompress < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "testdir/file5.z"
+    }
+  },
+  {
+    "description": "decompresses a zip archive passed by stdin",
+    "command": "<<EXECUTABLE>> --uncompress < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "testdir/file6.z"
+    }
+  },
+  {
+    "TODO": "there may already be a file at f.z",
+    "description": "compresses a file at a given location",
+    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -f",
+    "input": {
+      "f": "testdir/file3"
+    }
+  },
+  {
+    "TODO": "there may already be a file at f.z",
+    "description": "compresses a file at a given location",
+    "command": "<<EXECUTABLE>> --force < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file4"
+    }
+  },
 ]
