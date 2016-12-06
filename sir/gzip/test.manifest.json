@@ -216,4 +216,190 @@
       "f": "testdir/file23"
     }
   },
+  {
+    "command": "<<EXECUTABLE>> < '<<INPUT>>'",
+    "input": {
+      "f": "testdir/subdir/34file"
+    }
+  },
+  {
+    "description": "attempts to compress a zero-byte file, passed via the stdin",
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/zerobytefile"
+    }
+  },
+  {
+    "TODO": "this is not a file we want to copy!",
+    "description": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/2gbfile"
+    }
+  },
+  {
+    "description": "attempts to decompress a corrupt archive, passed via the stdin",
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "gzdir/corruptfile.z"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "gzdir/zfile.z"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.zip'",
+    "input": {
+      "f.zip": "gzdir/zipfile.zip"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.Z'",
+    "input": {
+      "f.Z": "gzdir/compressfile.Z"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.Z'",
+    "input": {
+      "f.Z": "gzdir/pkzipfile.Z"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.Z'",
+    "input": {
+      "f.Z": "gzdir/packfile.Z"
+    }
+  },
+  {
+    "TODO": "need to set-up a symbolic file",
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/symbolicfile"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file4"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/binaryfile0"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "gzdir/file101.z"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/encryptfile"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "gzdir/encryptfile1.z"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "input": {
+      "f.z": "gzdir/errorfile.z"
+    }
+  },
+  {
+    "TODO": "this is just weird?",
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/binaryfile1"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> < '<<INPUT>>/f.tar'",
+    "input": {
+      "f.tar": "testdir/tarfile.tar"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.tgz'",
+    "input": {
+      "f.tar": "testdir/tarfile.tgz"
+    }
+  },
+  {
+    "TODO": "relies on testplans.alt/testscripts/longefilename.sh, then calls cplongname.sh",
+    "command": "<<EXECUTABLE>> '<<INPUT>>/abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde'",
+    "input": {
+      "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde": "TODO-NEED-AN-INPUT-FILE"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv1 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv2 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv3 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv4 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv5 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv6 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv7 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv8 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv9 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fqrv < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  }
 ]
