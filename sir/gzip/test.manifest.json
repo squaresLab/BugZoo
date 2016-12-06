@@ -468,6 +468,64 @@
       "f": "testdir/file2"
     }
   },
-
-
+  {
+    "command": "<<EXECUTABLE>> -fq1 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq2 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq3 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq4 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq5 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq6 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq7 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq8 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq9 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fq < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
 ]
