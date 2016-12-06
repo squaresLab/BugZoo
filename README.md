@@ -1,7 +1,12 @@
 # RepairBox
 
-This repository contains a series of benchmark problems for automated program
-repair, written in C, tailored to be solved using GenProg.
+RepairBox is an ongoing effort to provide a series of controlled environments
+for performing experiments on automated program repair of C programs. RepairBox
+provides a number of bug scenarios, adapted from existing publicly-available
+datasets, including [ManyBugs](http://repairbenchmarks.cs.umass.edu/),
+[GenProg's earlier benchmarks](http://dijkstra.cs.virginia.edu/genprog/), and
+several datasets from the
+[Software Infrastructure Repository](http://sir.unl.edu/).
 
 ## Installation
 
