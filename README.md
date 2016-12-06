@@ -16,6 +16,11 @@ RepairBox incurs fewer overheads (resulting in a much higher performance; crucia
 for rigorous experimental trials), makes dependencies easier to manage, and
 results in a smaller disk footprint.
 
+In the future, we plan to host the associated Docker images for each of bug
+scenario on DockerHub, allowing researchers to quickly download and use an
+image via a single terminal command, without needing to build the images
+themselves.
+
 ## Installation
 
 **Warning:** Please **do not** try to fully clone this repository. If you're
