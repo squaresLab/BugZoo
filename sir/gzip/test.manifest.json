@@ -1014,3 +1014,9 @@
       "f": "testdir/file2"
     }
   },
+  {
+    "command": "<<EXECUTABLE>> -r3 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
