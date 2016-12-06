@@ -10,10 +10,11 @@ several datasets from the
 
 As well as providing the files necessary to study each bug,
 RepairBox also provides a minimal, isolated environment for execution, in the
-form of an accompanying Docker container. By providing a small container for
+form of an accompanying Docker container. By providing a container for
 each bug, rather than a single, monolithic virtual machine for a group of bugs,
 RepairBox incurs fewer overheads (resulting in a much higher performance; crucial
-for rigorous experimental trials), and maintains a small disk footprint.
+for rigorous experimental trials), makes dependencies easier to manage, and
+results in a smaller disk footprint.
 
 ## Installation
 
