@@ -588,4 +588,66 @@
       "f": "testdir/file2"
     }
   },
+  {
+    "command": "<<EXECUTABLE>> -fr1 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr2 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr3 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr4 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr5 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr6 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr7 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr8 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr9 < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -fr < '<<INPUT>>/f'",
+    "input": {
+      "f": "testdir/file2"
+    }
+  },
+
+
 ]
