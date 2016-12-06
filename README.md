@@ -21,7 +21,7 @@ scenario on DockerHub, allowing researchers to quickly download and use an
 image via a single terminal command, without needing to build the images
 themselves.
 
-## Installation
+## Cloning the Repo
 
 **Warning:** Please **do not** try to fully clone this repository. If you're
 only interested in using these benchmarks, then download a zipped release (or
