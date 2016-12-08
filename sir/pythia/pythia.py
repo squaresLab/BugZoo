@@ -75,17 +75,14 @@ def ensuredir(d):
     if not os.path.exists(d):
         os.makedirs(d)
 
-# Generates the oracle directory for a given problem
-#
-#   generate [manifest] [executable] [inputd] [oracled]
+# Generates the oracle for a given problem, storing its knowledge to disk at a
+# specified oracle directory
 def generate(manifest, executable, inputd, oracled):
-    assert os.path.isfile(manifest), "specified manifest file must exist"
-    assert manifest[-4:] == '.json', "specified manifest file must end in .json"
     assert os.path.isfile(executable), "specified executable must exist"
     assert os.path.isdir(inputd), "specified input directory must exist"
 
-    # Build the oracle directory
-    ensuredir(oracled)
+    manifest = TestManifest(manifest)
+    oracle = Oracle.generate(manifest, executable, inputd, oracled) 
 
 def test_by_num(num, manifest, executable, inputd, oracled):
     assert os.path.isfile(executable), "specified executable must exist"
