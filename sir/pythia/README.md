@@ -6,11 +6,11 @@
 [
 	{
 		"description": "compresses a file at a given location",
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -c",
-    "input": {
-      "f": "testdir/file26"
-    }
-  },
+		"command": "<<EXECUTABLE>> '<<INPUT>>/f' -c",
+		"input": {
+			"f": "testdir/file26"
+		}
+	},
   ...
 ]
 ```
