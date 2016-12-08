@@ -67,24 +67,33 @@ class TestCase(object):
         return self.__num
     def command(self):
         return self.__command
-    def execute(self, executable, inputd, sandboxd):
-        cmd = self.command.replace("<<EXECUTABLE>>", executable)
-        cmd = cmd.replace("<<SANDBOX>>", sandboxd)
+    def execute(self, executable, inputd):
+        # generate a sandbox directory for this test execution
+        sandboxd = tempfile.mkdtemp()
 
-        # prepare the inputs
-        # TODO: for now the inputs are copied into the sandbox; in the
-        #   future, we should allow the creation of symbolic links (when
-        #   specified by the user).
-        for inpt in self.__inpts:
-            cp_from = os.path.join(inputd, inpt.maps_from())
-            cp_to = os.path.join(sandboxd, inpt.maps_to())
-            shutil.copy2(cp_from, cp_to)
+        # execute the test case within the sandbox, then ensure it's destroyed
+        try:
+            cmd = self.command.replace("<<EXECUTABLE>>", executable)
+            cmd = cmd.replace("<<SANDBOX>>", sandboxd)
 
-        # execute the command within the sandbox
-        p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
-        stdout, stderr = p.communicate()
-        retcode = p.returncode
-        state = sandbox_state(sandboxd)
+            # prepare the inputs
+            # TODO: for now the inputs are copied into the sandbox; in the
+            #   future, we should allow the creation of symbolic links (when
+            #   specified by the user).
+            for inpt in self.__inpts:
+                cp_from = os.path.join(inputd, inpt.maps_from())
+                cp_to = os.path.join(sandboxd, inpt.maps_to())
+                shutil.copy2(cp_from, cp_to)
+
+            # execute the command within the sandbox
+            p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
+            stdout, stderr = p.communicate()
+            retcode = p.returncode
+            state = sandbox_state(sandboxd)
+
+        finally:
+            if os.path.exists(sandboxd):
+                shutil.remove(sandboxd)
 
         # return the outcome of the execution
         return TestOutcome(stdout, stderr, retcode, state)
