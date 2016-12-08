@@ -1,11 +1,10 @@
 #!/usr/bin/python3
+from subprocess import Popen, PIPE
 import click
 import os.path
 import json
 import shutil
 import subprocess
-
-from subprocess import Popen, PIPE
 
 # Notice: these files are no longer used, as the oracle is now written to a
 # single JSON file instead (rather than a structured set of files).
@@ -18,7 +17,9 @@ from subprocess import Popen, PIPE
 #ENV_ORACLE_FN = "pythia.env"
 
 # Describes the state of the sandbox as a dictionary of file names and their
-# associated SHA1 hashes
+# associated SHA1 hashes.
+#
+# TODO: what happens when the sandbox is empty?
 def sandbox_state(d):
     cmd = ("find %d -type f -print0 | xargs -0 sha1sum" % d)
     state = subprocess.check_output(cmd, shell=True).splitlines(True)
@@ -91,11 +92,16 @@ class TestCase(object):
 # Describes the outcome of a test case execution in terms of the standard
 # output, standard error, return code, and state of the sandbox.
 def TestOutcome(object):
-    def __init__(self, stdout, stderr, retcode, state):
+    def __init__(self, stdout, stderr, retcode, sandbox):
         self.__stdout = stdout
         self.__stderr = stderr
         self.__retcode = retcode
-        self.__state = state
+        self.__sandbox = sandbox
+    def to_json(self):
+        return {'out': self.__stdout,\
+                'err': self.__stderr,\
+                'retcode': self.__retcode,\
+                'sandbox': self.__sandbox}
 
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
@@ -109,7 +115,7 @@ class Oracle(object):
             os.makedirs(oracled)
             for case in manifest.contents():
                 cased = os.path.join(oracled, case.number())
-                case.execute(executable, inputd, cased)
+                outcome = case.execute(executable, inputd, cased)
 
         # in the event of an error, destroy the oracle directory; don't allow
         # partial oracles
