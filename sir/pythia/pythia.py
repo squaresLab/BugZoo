@@ -62,7 +62,7 @@ class TestCase(object):
     @staticmethod
     def from_json(num, jsn):
         assert 'command' in jsn, "test case definition must specify 'command'"
-        inpts = [TestInput(t, f) for (t, f) in jsn.get('inputs', {}).items()]
+        inpts = [TestInput(t, f) for (t, f) in jsn.get('input', {}).items()]
         return TestCase(num, jsn['command'], inpts)
     def __init__(self, num, command, inpts):
         self.__num = num
@@ -93,6 +93,7 @@ class TestCase(object):
             # execute the command within the sandbox
             p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
             stdout, stderr = p.communicate()
+            stdout = stdout.
             retcode = p.returncode
             state = sandbox_state(sandboxd)
 
