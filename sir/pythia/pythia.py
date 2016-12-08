@@ -4,6 +4,8 @@ import os.path
 import json
 import shutil
 
+from subprocess import Popen, PIPE
+
 # Names of the files that the standard output and standard error from running
 # a given test command should be written to.
 STDOUT_STORAGE_FN = "pythia.out"
@@ -53,8 +55,8 @@ class TestCase(object):
     def execute(self, executable, inputd, workd):
         cmd = self.command.replace("<<EXECUTABLE>>", executable)
         cmd = cmd.replace("<<WORKDIR>>", workd)
-        cmd = "%s > '%s' 2> '%s'; echo $? > '%s'" % \
-            (cmd, STDOUT_STORAGE_FN, STDERR_STORAGE_FN, EXIT_CODE_STORAGE_FN)
+        #cmd = "%s > '%s' 2> '%s'; echo $? > '%s'" % \
+        #    (cmd, STDOUT_STORAGE_FN, STDERR_STORAGE_FN, EXIT_CODE_STORAGE_FN)
 
         # prepare the inputs
         # TODO: for now the inputs are copied into the work directory; in the
@@ -66,6 +68,9 @@ class TestCase(object):
             shutil.copy2(cp_from, cp_to)
 
         # execute the command in the work directory
+        p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
+        stdout, stderr = p.communicate()
+        retcode = p.returncode
 
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
