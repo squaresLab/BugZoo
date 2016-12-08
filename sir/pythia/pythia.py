@@ -57,6 +57,7 @@ class TestInput(object):
 class TestCase(object):
     @staticmethod
     def from_json(num, jsn):
+        assert 'command' in jsn, "test case definition must specify 'command'"
         inpts = [TestInput(t, f) for (t, f) in jsn.get('inputs', {}).items()]
         return TestCase(num, jsn['command'], inpts)
     def __init__(self, num, command, inpts):
