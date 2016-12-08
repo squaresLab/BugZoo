@@ -2,6 +2,7 @@
 import click
 import os.path
 import json
+import shutil
 
 # Names of the files that the standard output and standard error from running
 # a given test command should be written to.
@@ -18,19 +19,26 @@ class TestManifest(object):
         with open(fn, 'r') as f:
             cases  = json.load(f)
             assert isinstance(cases, list), "manifest file must contain a JSON list"
-            cases = [TestCase.from_json(c) for c in cases]
+            cases = [TestCase.from_json(i + 1, c) for (i, c) in cases.enumerate()]
             self.__cases = cases
 
+    def contents(self):
+        return self.__cases
     # returns a test case from the manifest by its one-indexed number
-    def getByNum(num):
+    def getByNum(self, num):
         return self.__cases[num - 1]
 
 class TestCase(object):
     @staticmethod
-    def from_json(jsn):
+    def from_json(num, jsn):
         return TestCase(jsn['command'])
-    def __init__(self, command):
-        self.command = command
+    def __init__(self, num, command):
+        self.__num = num
+        self.__command = command
+    def number(self):
+        return self.__num
+    def command(self):
+        return self.__command
     def execute(self, executable, workd):
         cmd = self.command.replace("<<EXECUTABLE>>", executable)
         cmd = cmd.replace("<<WORKDIR>>", workd)
@@ -44,14 +52,21 @@ class Oracle(object):
         assert isinstance(manifest, TestManifest), "manifest should be provided as a TestManifest object"
         assert not os.path.isdir(oracled), "oracle directory must not already exist"
 
-        #
+        # attempt to construct the oracle directory
+        try:
+            os.makedirs(oracled)
+            for case in manifest.contents():
+                cased = os.path.join(oracled, case.number())
+                case.execute(executable, cased)
 
+        # in the event of an error, destroy the oracle directory; don't allow
+        # partial oracles
+        except:
+            shutil.rmtree(oracled)
 
     def __init__(self, directory):
         assert os.path.isdir(directory), "specified oracle directory must exist"
         self.__directory = directory
-
-# Run 
 
 # Ensures a given directory exists; may encounter a race condition if a
 # directory or file is created between the first and second lines, but that
