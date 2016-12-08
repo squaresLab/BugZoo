@@ -158,7 +158,7 @@ def generate(manifest_fn, executable_fn, input_d, oracle_fn):
 
     manifest = TestManifest(manifest_fn)
     print("Generating oracle...")
-    Oracle.generate(manifest, executable, input_d, oracle_fn)
+    Oracle.generate(manifest, executable_fn, input_d, oracle_fn)
     print("Finished. Saved to disk at: %s" % oracle_fn)
 
 #def test_by_num(num, manifest, executable, inputd, oracled):
