@@ -38,5 +38,8 @@ RUN mv /tmp/dependencies/run-test-with-num /usr/local/bin
 RUN mv /tmp/dependencies/run-test-with-id /usr/local/bin
 RUN mv /tmp/dependencies/run-test-suite /usr/local/bin
 
+# install Pythia
+ADD pythia/pythia.py /usr/local/bin/pythia
+
 # clean image
 RUN apt-get clean && rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*

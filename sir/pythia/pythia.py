@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 from subprocess import Popen, PIPE
-import click
 import os.path
 import json
 import shutil
 import subprocess
+import sys
 
 # Notice: these files are no longer used, as the oracle is now written to a
 # single JSON file instead (rather than a structured set of files).
@@ -166,3 +166,9 @@ def generate(manifest_fn, executable_fn, input_d, oracle_fn):
 #
 #    manifest = TestManifest(manifest)
 #    case = manifest.getByNum(num)
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if args[0] == 'generate-oracle':
+        args = args[1:]
+        generate(args[0], args[1], args[2], args[3])
