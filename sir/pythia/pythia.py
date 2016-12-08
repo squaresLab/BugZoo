@@ -34,6 +34,12 @@ class TestCase(object):
         cmd = cmd.replace("<<WORKDIR>>", workd)
         cmd = "%s > %s 2> %s" % (cmd, STDOUT_STORAGE_FN, STDERR_STORAGE_FN)
 
+# Defines the intended behaviour for a program on a given test suite
+class Oracle(object):
+    def __init__(self, directory):
+        assert os.path.isdir(directory), "specified oracle directory must exist"
+        self.__directory = directory
+
 # Run 
 
 # Ensures a given directory exists; may encounter a race condition if a
