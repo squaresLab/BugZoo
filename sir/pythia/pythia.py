@@ -151,20 +151,18 @@ class Oracle(object):
 
 # Generates the oracle for a given problem, storing its knowledge to disk at a
 # specified oracle directory
-def generate(manifest, executable, inputd, oracled):
-    assert os.path.isfile(executable), "specified executable must exist"
-    assert os.path.isdir(inputd), "specified input directory must exist"
+def generate(manifest_fn, executable_fn, input_d, oracle_fn):
+    assert os.path.isfile(executable_fn), "specified executable must exist"
+    assert os.path.isdir(input_d), "specified input directory must exist"
 
-    manifest = TestManifest(manifest)
-    oracle = Oracle.generate(manifest, executable, inputd, oracled) 
+    manifest = TestManifest(manifest_fn)
+    print("Generating oracle...")
+    Oracle.generate(manifest, executable, input_d, oracle_fn)
+    print("Finished. Saved to disk at: %s" % oracle_fn)
 
-def test_by_num(num, manifest, executable, inputd, oracled):
-    assert os.path.isfile(executable), "specified executable must exist"
-    assert os.path.isdir(inputd), "specified input directory must exist"
-
-    manifest = TestManifest(manifest)
-    case = manifest.getByNum(num)
-
-# run 78
-
-# run a given command and compare against oracle
+#def test_by_num(num, manifest, executable, inputd, oracled):
+#    assert os.path.isfile(executable), "specified executable must exist"
+#    assert os.path.isdir(inputd), "specified input directory must exist"
+#
+#    manifest = TestManifest(manifest)
+#    case = manifest.getByNum(num)
