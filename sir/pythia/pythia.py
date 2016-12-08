@@ -3,14 +3,25 @@ import click
 import os.path
 import json
 import shutil
+import subprocess
 
 from subprocess import Popen, PIPE
 
 # Names of the files that the standard output and standard error from running
 # a given test command should be written to.
-STDOUT_STORAGE_FN = "pythia.out"
-STDERR_STORAGE_FN = "pythia.err"
-EXIT_CODE_STORAGE_FN = "python.exit"
+STDOUT_ORACLE_FN = "pythia.out"
+STDERR_ORACLE_FN = "pythia.err"
+RETVAL_ORACLE_FN = "pythia.ret"
+ENV_ORACLE_FN = "pythia.env"
+
+# Describes the state of the sandbox as a dictionary of file names and their
+# associated SHA1 hashes
+def describe_sandbox(d):
+    cmd = ("find %d -type f -print0 | xargs -0 sha1sum" % d)
+    state = subprocess.check_output(cmd, shell=True).splitlines(True)
+    state = map(lambda l: l.split(' ', 1), state)
+    state = {f[2:]: h for (f, h) in state} # trim leading ./
+    return state
 
 # Provides a detailed description of a particular test suite
 class TestManifest(object):
@@ -71,6 +82,14 @@ class TestCase(object):
         p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         retcode = p.returncode
+
+        # compute the SHA1 for each file within the work directory
+        for fn in glob.iglob(('%s/**/*' % workd), recursive=True):
+             
+
+# Records the outcome of a test case execution
+def TestOutcome(object):
+            
 
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
