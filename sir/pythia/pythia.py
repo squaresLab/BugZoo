@@ -106,32 +106,39 @@ def TestOutcome(object):
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
     @staticmethod
-    def generate(manifest, executable, inputd, oracled):
+    def generate(manifest, executable_fn, input_d, oracle_fn):
         assert isinstance(manifest, TestManifest), "manifest should be provided as a TestManifest object"
-        assert not os.path.isdir(oracled), "oracle directory must not already exist"
+        assert not os.path.exists(oracle_fn), "oracle file must not already exist"
+        assert oracle_fn[-5:] == '.json', "oracle file must end in '.json'"
 
-        # attempt to construct the oracle directory
+        # compute the expected outcomes for each test
+        outcomes = [case.execute(executable, input_d)\
+                    for case in manifest.contents()]
+
+        # write the outcomes to the specified file, ensuring the file is
+        # destroyed in the event of an exception (preventing a corrupted
+        # oracle).
         try:
-            os.makedirs(oracled)
-            for case in manifest.contents():
-                cased = os.path.join(oracled, case.number())
-                outcome = case.execute(executable, inputd, cased)
-
-        # in the event of an error, destroy the oracle directory; don't allow
-        # partial oracles
+            with open(oracle_fn, 'w') as f:
+                json.dump(outcomes, f)
         except:
-            shutil.rmtree(oracled)
+            if os.path.exists(oracle_fn):
+                os.remove(oracle_fn)
+            raise
 
-    def __init__(self, directory):
-        assert os.path.isdir(directory), "specified oracle directory must exist"
-        self.__directory = directory
+        return Oracle(outcomes)
 
-# Ensures a given directory exists; may encounter a race condition if a
-# directory or file is created between the first and second lines, but that
-# shouldn't happen in this context.
-def ensuredir(d):
-    if not os.path.exists(d):
-        os.makedirs(d)
+    # Attempts to load an oracle from a given file
+    @staticmethod
+    def load(oracle_fn):
+        assert os.path.isfile(oracle_fn), "oracle file must exist"
+        assert oracle_fn[-5:] == '.json', "oracle file must end in '.json'"
+
+        with open(oracle_fn, 'r') as f:
+            return Oracle(json.load(f))
+
+    def __init__(self, outcomes):
+        self.__outcomes = outcomes
 
 # Generates the oracle for a given problem, storing its knowledge to disk at a
 # specified oracle directory
