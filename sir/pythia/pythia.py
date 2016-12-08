@@ -50,7 +50,7 @@ class TestCase(object):
         return self.__num
     def command(self):
         return self.__command
-    def execute(self, executable, workd):
+    def execute(self, executable, inputd, workd):
         cmd = self.command.replace("<<EXECUTABLE>>", executable)
         cmd = cmd.replace("<<WORKDIR>>", workd)
         cmd = "%s > '%s' 2> '%s'; echo $? > '%s'" % \
@@ -61,7 +61,11 @@ class TestCase(object):
         #   future, we should allow the creation of symbolic links (when
         #   specified by the user).
         for inpt in self.__inpts:
-            shutil.copy2(inpt.maps_from(), inpt.maps_to())
+            cp_from = os.path.join(inputd, inpt.maps_from())
+            cp_to = os.path.join(workd, inpt.maps_to())
+            shutil.copy2(cp_from, cp_to)
+
+        # execute the command in the work directory
 
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
@@ -75,7 +79,7 @@ class Oracle(object):
             os.makedirs(oracled)
             for case in manifest.contents():
                 cased = os.path.join(oracled, case.number())
-                case.execute(executable, cased)
+                case.execute(executable, inputd, cased)
 
         # in the event of an error, destroy the oracle directory; don't allow
         # partial oracles
