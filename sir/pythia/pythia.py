@@ -7,7 +7,9 @@ import json
 # a given test command should be written to.
 STDOUT_STORAGE_FN = "pythia.out"
 STDERR_STORAGE_FN = "pythia.err"
+EXIT_CODE_STORAGE_FN = "python.exit"
 
+# Provides a detailed description of a particular test suite
 class TestManifest(object):
     # loads a manifest from a given file
     def __init__(self, fn):
@@ -32,10 +34,19 @@ class TestCase(object):
     def execute(self, executable, workd):
         cmd = self.command.replace("<<EXECUTABLE>>", executable)
         cmd = cmd.replace("<<WORKDIR>>", workd)
-        cmd = "%s > %s 2> %s" % (cmd, STDOUT_STORAGE_FN, STDERR_STORAGE_FN)
+        cmd = "%s > '%s' 2> '%s'; echo $? > '%s'" % \
+            (cmd, STDOUT_STORAGE_FN, STDERR_STORAGE_FN, EXIT_CODE_STORAGE_FN)
 
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
+    @staticmethod
+    def generate(manifest, executable, inputd, oracled):
+        assert isinstance(manifest, TestManifest), "manifest should be provided as a TestManifest object"
+        assert not os.path.isdir(oracled), "oracle directory must not already exist"
+
+        #
+
+
     def __init__(self, directory):
         assert os.path.isdir(directory), "specified oracle directory must exist"
         self.__directory = directory
