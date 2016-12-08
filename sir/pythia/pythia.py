@@ -28,13 +28,24 @@ class TestManifest(object):
     def getByNum(self, num):
         return self.__cases[num - 1]
 
+class TestInput(object):
+    def __init__(self, maps_to, maps_from):
+        self.__maps_to = maps_to
+        self.__maps_from = maps_from
+    def maps_to(self):
+        return self.__maps_to
+    def maps_from(self):
+        return self.__maps_from
+
 class TestCase(object):
     @staticmethod
     def from_json(num, jsn):
-        return TestCase(jsn['command'])
-    def __init__(self, num, command):
+        inpts = [TestInput(t, f) for (t, f) in jsn.get('inputs', {}).items()]
+        return TestCase(num, jsn['command'], inpts)
+    def __init__(self, num, command, inpts):
         self.__num = num
         self.__command = command
+        self.__inpts = inpts
     def number(self):
         return self.__num
     def command(self):
@@ -44,6 +55,13 @@ class TestCase(object):
         cmd = cmd.replace("<<WORKDIR>>", workd)
         cmd = "%s > '%s' 2> '%s'; echo $? > '%s'" % \
             (cmd, STDOUT_STORAGE_FN, STDERR_STORAGE_FN, EXIT_CODE_STORAGE_FN)
+
+        # prepare the inputs
+        # TODO: for now the inputs are copied into the work directory; in the
+        #   future, we should allow the creation of symbolic links (when
+        #   specified by the user).
+        for inpt in self.__inpts:
+            shutil.copy2(inpt.maps_from(), inpt.maps_to())
 
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
