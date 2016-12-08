@@ -9,7 +9,6 @@ STDOUT_STORAGE_FN = "pythia.out"
 STDERR_STORAGE_FN = "pythia.err"
 
 class TestManifest(object):
-
     # loads a manifest from a given file
     def __init__(self, fn):
         assert os.path.isfile(manifest), "specified manifest file must exist"
@@ -20,10 +19,16 @@ class TestManifest(object):
             cases = [TestCase.from_json(c) for c in cases]
             self.__cases = cases
 
+    # returns a test case from the manifest by its one-indexed number
+    def getByNum(num):
+        return self.__cases[num - 1]
+
 class TestCase(object):
+    @staticmethod
+    def from_json(jsn):
+        return TestCase(jsn['command'])
     def __init__(self, command):
         self.command = command
-
     def execute(self, executable, workd):
         cmd = self.command.replace("<<EXECUTABLE>>", executable)
         cmd = cmd.replace("<<WORKDIR>>", workd)
