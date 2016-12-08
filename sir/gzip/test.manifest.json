@@ -12,49 +12,49 @@
     "command": "<<EXECUTABLE>> --license",
   },
   {
-    "command": "<<EXECUTABLE>> -V < <<INPUT>>",
+    "command": "<<EXECUTABLE>> -V < <<SANDBOX>>",
   },
   {
-    "command": "<<EXECUTABLE>> --version < <<INPUT>>",
+    "command": "<<EXECUTABLE>> --version < <<SANDBOX>>",
   },
   {
     "description": "compresses a file at a given location",
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -c",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -c",
     "input": {
       "f": "testdir/file26"
     }
   },
   {
     "description": "compresses a file passed by stdin",
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file27"
     }
   },
   {
     "description": "decompresses a zip archive passed by stdin",
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "testdir/file8.z"
     }
   },
   {
     "description": "decompresses a zip archive at a given location",
-    "command": "<<EXECUTABLE>> -d <<INPUT>>/f.z",
+    "command": "<<EXECUTABLE>> -d <<SANDBOX>>/f.z",
     "input": {
       "f.z": "testdir/file9.z"
     }
   },
   {
     "description": "decompresses a zip archive passed by stdin",
-    "command": "<<EXECUTABLE>> --decompress < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> --decompress < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "testdir/file5.z"
     }
   },
   {
     "description": "decompresses a zip archive passed by stdin",
-    "command": "<<EXECUTABLE>> --uncompress < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> --uncompress < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "testdir/file6.z"
     }
@@ -62,7 +62,7 @@
   {
     "TODO": "there may already be a file at f.z",
     "description": "compresses a file at a given location",
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -f",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -f",
     "input": {
       "f": "testdir/file3"
     }
@@ -70,1060 +70,1060 @@
   {
     "TODO": "there may already be a file at f.z",
     "description": "compresses a file at a given location",
-    "command": "<<EXECUTABLE>> --force < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> --force < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file4"
     }
   },
   {
     "description": "compresses a file at a given location",
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -q",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -q",
     "input": {
       "f": "testdir/file32"
     }
   },
   {
     "description": "compresses a file at a given location",
-    "command": "<<EXECUTABLE>> --quiet < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> --quiet < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file10"
     }
   },
   {
     "description": "recursively compresses a directory containing a single file",
-    "command": "<<EXECUTABLE>> -r '<<INPUT>>'",
+    "command": "<<EXECUTABLE>> -r '<<SANDBOX>>'",
     "input": {
       "f": "test/subdir1/file"
     }
   },
   {
     "description": "recursively compresses a directory containing a single file",
-    "command": "<<EXECUTABLE>> '<<INPUT>>' -r",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>' -r",
     "input": {
       "f": "test/subdir2/file"
     }
   },
   {
     "description": "recursively compresses a directory containing a single file",
-    "command": "<<EXECUTABLE>> --recurse '<<INPUT>>'",
+    "command": "<<EXECUTABLE>> --recurse '<<SANDBOX>>'",
     "input": {
       "f": "test/subdir3/file"
     }
   },
   {
     "description": "tests the integrity of a given archive, supplied by stdin",
-    "command": "<<EXECUTABLE>> -t < '<<INPUT>>'",
+    "command": "<<EXECUTABLE>> -t < '<<SANDBOX>>'",
     "input": {
       "f": "test/gzdir/file1.z"
     }
   },
   {
     "description": "tests the integrity of an archive at a given location",
-    "command": "<<EXECUTABLE>> '<<INPUT>>' -t",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>' -t",
     "input": {
       "f": "test/gzdir/file1.z"
     }
   },
   {
     "description": "tests the integrity of a given archive, supplied by stdin",
-    "command": "<<EXECUTABLE>> --test < '<<INPUT>>'",
+    "command": "<<EXECUTABLE>> --test < '<<SANDBOX>>'",
     "input": {
       "f": "test/gzdir/file1.z"
     }
   },
   {
     "description": "tests the integrity of a given archive, supplied by stdin",
-    "command": "<<EXECUTABLE>> --test < '<<INPUT>>'",
+    "command": "<<EXECUTABLE>> --test < '<<SANDBOX>>'",
     "input": {
       "f": "test/gzdir/file1.z"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -v",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -v",
     "input": {
       "f": "testdir/file11"
     }
   },
   {
-    "command": "<<EXECUTABLE>> --verbose < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> --verbose < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file12"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -1",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -1",
     "input": {
       "f": "testdir/file13"
     }
   },
   {
-    "command": "<<EXECUTABLE>> --fast < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> --fast < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file14"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -2",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -2",
     "input": {
       "f": "testdir/file15"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -3",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -3",
     "input": {
       "f": "testdir/file16"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -4",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -4",
     "input": {
       "f": "testdir/file17"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -5",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -5",
     "input": {
       "f": "testdir/file18"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -6",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -6",
     "input": {
       "f": "testdir/file19"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -7",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -7",
     "input": {
       "f": "testdir/file20"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -8",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -8",
     "input": {
       "f": "testdir/file21"
     }
   },
   {
-    "command": "<<EXECUTABLE>> '<<INPUT>>/f' -9",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -9",
     "input": {
       "f": "testdir/file22"
     }
   },
   {
-    "command": "<<EXECUTABLE>> --best < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> --best < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file23"
     }
   },
   {
-    "command": "<<EXECUTABLE>> < '<<INPUT>>'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>'",
     "input": {
       "f": "testdir/subdir/34file"
     }
   },
   {
     "description": "attempts to compress a zero-byte file, passed via the stdin",
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/zerobytefile"
     }
   },
   {
     "TODO": "this is not a file we want to copy!",
-    "description": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "description": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/2gbfile"
     }
   },
   {
     "description": "attempts to decompress a corrupt archive, passed via the stdin",
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "gzdir/corruptfile.z"
     }
   },
   {
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "gzdir/zfile.z"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.zip'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.zip'",
     "input": {
       "f.zip": "gzdir/zipfile.zip"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.Z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.Z'",
     "input": {
       "f.Z": "gzdir/compressfile.Z"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.Z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.Z'",
     "input": {
       "f.Z": "gzdir/pkzipfile.Z"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.Z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.Z'",
     "input": {
       "f.Z": "gzdir/packfile.Z"
     }
   },
   {
     "TODO": "need to set-up a symbolic file",
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/symbolicfile"
     }
   },
   {
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file4"
     }
   },
   {
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/binaryfile0"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "gzdir/file101.z"
     }
   },
   {
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/encryptfile"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "gzdir/encryptfile1.z"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.z'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.z'",
     "input": {
       "f.z": "gzdir/errorfile.z"
     }
   },
   {
     "TODO": "this is just weird?",
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/binaryfile1"
     }
   },
   {
-    "command": "<<EXECUTABLE>> < '<<INPUT>>/f.tar'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f.tar'",
     "input": {
       "f.tar": "testdir/tarfile.tar"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -d < '<<INPUT>>/f.tgz'",
+    "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.tgz'",
     "input": {
       "f.tar": "testdir/tarfile.tgz"
     }
   },
   {
     "TODO": "relies on testplans.alt/testscripts/longefilename.sh, then calls cplongname.sh",
-    "command": "<<EXECUTABLE>> '<<INPUT>>/abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde'",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde'",
     "input": {
-      "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde": "TODO-NEED-AN-INPUT-FILE"
+      "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde": "TODO-NEED-AN-SANDBOX-FILE"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqrv < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqrv < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqr < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqr < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fqv < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fqv < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fq < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fq < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -frv < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -frv < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fr < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fr < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -fv9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -fv9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -f < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -f < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qrv < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qrv < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr9 '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr9 '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qr < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qr < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -qv < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -qv < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -q < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -q < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv5  < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv5  < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -rv < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -rv < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -r < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -r < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -v < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -v < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -1 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -1 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -2 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -2 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -3 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -3 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -4 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -4 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -5 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -5 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -6 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -6 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -7 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -7 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -8 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -8 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
   },
   {
-    "command": "<<EXECUTABLE>> -9 < '<<INPUT>>/f'",
+    "command": "<<EXECUTABLE>> -9 < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/file2"
     }
