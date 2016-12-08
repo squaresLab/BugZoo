@@ -128,31 +128,34 @@ class Oracle(object):
         # compute the expected outcomes for each test
         outcomes = [case.execute(executable_fn, input_d)\
                     for case in manifest.contents()]
+        oracle = Oracle(outcomes)
 
         # write the outcomes to the specified file, ensuring the file is
         # destroyed in the event of an exception (preventing a corrupted
         # oracle).
         try:
             with open(oracle_fn, 'w') as f:
-                json.dump(outcomes, f)
+                json.dump(oracle.to_json(), f)
         except:
             if os.path.exists(oracle_fn):
                 os.remove(oracle_fn)
             raise
 
-        return Oracle(outcomes)
+        return oracle
 
     # Attempts to load an oracle from a given file
     @staticmethod
     def load(oracle_fn):
         assert os.path.isfile(oracle_fn), "oracle file must exist"
         assert oracle_fn[-5:] == '.json', "oracle file must end in '.json'"
-
         with open(oracle_fn, 'r') as f:
             return Oracle(json.load(f))
 
     def __init__(self, outcomes):
         self.__outcomes = outcomes
+
+    def to_json(self):
+        return [o.to_json() for o in self.__outcomes]
 
 # Generates the oracle for a given problem, storing its knowledge to disk at a
 # specified oracle directory
