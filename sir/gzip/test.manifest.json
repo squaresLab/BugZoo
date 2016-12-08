@@ -1,21 +1,21 @@
 [
   {
-    "command": "<<EXECUTABLE>> -h",
+    "command": "<<EXECUTABLE>> -h"
   },
   {
-    "command": "<<EXECUTABLE>> --help",
+    "command": "<<EXECUTABLE>> --help"
   },
   {
-    "command": "<<EXECUTABLE>> -l",
+    "command": "<<EXECUTABLE>> -l"
   },
   {
-    "command": "<<EXECUTABLE>> --license",
+    "command": "<<EXECUTABLE>> --license"
   },
   {
-    "command": "<<EXECUTABLE>> -V < <<SANDBOX>>",
+    "command": "<<EXECUTABLE>> -V < <<SANDBOX>>"
   },
   {
-    "command": "<<EXECUTABLE>> --version < <<SANDBOX>>",
+    "command": "<<EXECUTABLE>> --version < <<SANDBOX>>"
   },
   {
     "description": "compresses a file at a given location",
