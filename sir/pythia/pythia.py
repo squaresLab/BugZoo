@@ -31,8 +31,8 @@ def sandbox_state(d):
 class TestManifest(object):
     # loads a manifest from a given file
     def __init__(self, fn):
-        assert os.path.isfile(manifest), "specified manifest file must exist"
-        assert manifest[-4:] == '.json', "specified manifest file must end in .json"
+        assert os.path.isfile(fn), "specified manifest file must exist"
+        assert fn[-4:] == '.json', "specified manifest file must end in .json"
         with open(fn, 'r') as f:
             cases  = json.load(f)
             assert isinstance(cases, list), "manifest file must contain a JSON list"
