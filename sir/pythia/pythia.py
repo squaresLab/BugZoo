@@ -19,7 +19,7 @@ from subprocess import Popen, PIPE
 
 # Describes the state of the sandbox as a dictionary of file names and their
 # associated SHA1 hashes
-def describe_sandbox(d):
+def sandbox_state(d):
     cmd = ("find %d -type f -print0 | xargs -0 sha1sum" % d)
     state = subprocess.check_output(cmd, shell=True).splitlines(True)
     state = map(lambda l: l.split(' ', 1), state)
@@ -79,18 +79,23 @@ class TestCase(object):
             cp_to = os.path.join(sandboxd, inpt.maps_to())
             shutil.copy2(cp_from, cp_to)
 
-        # execute the command in the sandbox
+        # execute the command within the sandbox
         p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         retcode = p.returncode
+        state = sandbox_state(sandboxd)
 
-        # compute the SHA1 for each file within the sandbox
-        for fn in glob.iglob(('%s/**/*' % workd), recursive=True):
-             
+        # return the outcome of the execution
+        return TestOutcome(stdout, stderr, retcode, state)
 
-# Records the outcome of a test case execution
+# Describes the outcome of a test case execution in terms of the standard
+# output, standard error, return code, and state of the sandbox.
 def TestOutcome(object):
-            
+    def __init__(self, stdout, stderr, retcode, state):
+        self.__stdout = stdout
+        self.__stderr = stderr
+        self.__retcode = retcode
+        self.__state = state
 
 # Defines the intended behaviour for a program on a given test suite
 class Oracle(object):
