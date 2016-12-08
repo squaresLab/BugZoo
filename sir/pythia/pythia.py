@@ -105,7 +105,7 @@ class TestCase(object):
 
 # Describes the outcome of a test case execution in terms of the standard
 # output, standard error, return code, and state of the sandbox.
-def TestOutcome(object):
+class TestOutcome(object):
     def __init__(self, stdout, stderr, retcode, sandbox):
         self.__stdout = stdout
         self.__stderr = stderr
