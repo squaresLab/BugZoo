@@ -7,12 +7,15 @@ import subprocess
 
 from subprocess import Popen, PIPE
 
+# Notice: these files are no longer used, as the oracle is now written to a
+# single JSON file instead (rather than a structured set of files).
+#
 # Names of the files that the standard output and standard error from running
 # a given test command should be written to.
-STDOUT_ORACLE_FN = "pythia.out"
-STDERR_ORACLE_FN = "pythia.err"
-RETVAL_ORACLE_FN = "pythia.ret"
-ENV_ORACLE_FN = "pythia.env"
+#STDOUT_ORACLE_FN = "pythia.out"
+#STDERR_ORACLE_FN = "pythia.err"
+#RETVAL_ORACLE_FN = "pythia.ret"
+#ENV_ORACLE_FN = "pythia.env"
 
 # Describes the state of the sandbox as a dictionary of file names and their
 # associated SHA1 hashes
@@ -63,27 +66,25 @@ class TestCase(object):
         return self.__num
     def command(self):
         return self.__command
-    def execute(self, executable, inputd, workd):
+    def execute(self, executable, inputd, sandboxd):
         cmd = self.command.replace("<<EXECUTABLE>>", executable)
-        cmd = cmd.replace("<<WORKDIR>>", workd)
-        #cmd = "%s > '%s' 2> '%s'; echo $? > '%s'" % \
-        #    (cmd, STDOUT_STORAGE_FN, STDERR_STORAGE_FN, EXIT_CODE_STORAGE_FN)
+        cmd = cmd.replace("<<SANDBOX>>", sandboxd)
 
         # prepare the inputs
-        # TODO: for now the inputs are copied into the work directory; in the
+        # TODO: for now the inputs are copied into the sandbox; in the
         #   future, we should allow the creation of symbolic links (when
         #   specified by the user).
         for inpt in self.__inpts:
             cp_from = os.path.join(inputd, inpt.maps_from())
-            cp_to = os.path.join(workd, inpt.maps_to())
+            cp_to = os.path.join(sandboxd, inpt.maps_to())
             shutil.copy2(cp_from, cp_to)
 
-        # execute the command in the work directory
+        # execute the command in the sandbox
         p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         retcode = p.returncode
 
-        # compute the SHA1 for each file within the work directory
+        # compute the SHA1 for each file within the sandbox
         for fn in glob.iglob(('%s/**/*' % workd), recursive=True):
              
 
