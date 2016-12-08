@@ -36,7 +36,7 @@ class TestManifest(object):
         with open(fn, 'r') as f:
             cases  = json.load(f)
             assert isinstance(cases, list), "manifest file must contain a JSON list"
-            cases = [TestCase.from_json(i + 1, c) for (i, c) in cases.enumerate()]
+            cases = [TestCase.from_json(i + 1, c) for (i, c) in enumerate(cases)]
             self.__cases = cases
 
     def contents(self):
