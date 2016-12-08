@@ -231,7 +231,7 @@
   },
   {
     "TODO": "this is not a file we want to copy!",
-    "description": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
+    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
     "input": {
       "f": "testdir/2gbfile"
     }
