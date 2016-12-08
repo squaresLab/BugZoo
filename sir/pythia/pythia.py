@@ -5,6 +5,7 @@ import json
 import shutil
 import subprocess
 import sys
+import tempfile
 
 # Notice: these files are no longer used, as the oracle is now written to a
 # single JSON file instead (rather than a structured set of files).
@@ -21,8 +22,11 @@ import sys
 #
 # TODO: what happens when the sandbox is empty?
 def sandbox_state(d):
-    cmd = ("find %d -type f -print0 | xargs -0 sha1sum" % d)
-    state = subprocess.check_output(cmd, shell=True).splitlines(True)
+    #cmd = ("find '%s' -type f -print0 | xargs -0 sha1sum" % d)
+    cmd = "find '%s' - type f -exec sha1sum '{}' \;" % d
+    state = subprocess.check_output(cmd, shell=True)
+    state = state.decode(sys.stdout.encoding)
+    state = [] if state == "" else state.splitlines(True)
     state = map(lambda l: l.split(' ', 1), state)
     state = {f[2:]: h for (f, h) in state} # trim leading ./
     return state
@@ -68,13 +72,13 @@ class TestCase(object):
         return self.__num
     def command(self):
         return self.__command
-    def execute(self, executable, inputd):
+    def execute(self, executable_fn, inputd):
         # generate a sandbox directory for this test execution
         sandboxd = tempfile.mkdtemp()
 
         # execute the test case within the sandbox, then ensure it's destroyed
         try:
-            cmd = self.command.replace("<<EXECUTABLE>>", executable)
+            cmd = self.__command.replace("<<EXECUTABLE>>", executable_fn)
             cmd = cmd.replace("<<SANDBOX>>", sandboxd)
 
             # prepare the inputs
@@ -94,7 +98,7 @@ class TestCase(object):
 
         finally:
             if os.path.exists(sandboxd):
-                shutil.remove(sandboxd)
+                shutil.rmtree(sandboxd)
 
         # return the outcome of the execution
         return TestOutcome(stdout, stderr, retcode, state)
@@ -122,7 +126,7 @@ class Oracle(object):
         assert oracle_fn[-5:] == '.json', "oracle file must end in '.json'"
 
         # compute the expected outcomes for each test
-        outcomes = [case.execute(executable, input_d)\
+        outcomes = [case.execute(executable_fn, input_d)\
                     for case in manifest.contents()]
 
         # write the outcomes to the specified file, ensuring the file is
