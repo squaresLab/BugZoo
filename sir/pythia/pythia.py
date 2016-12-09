@@ -116,6 +116,8 @@ class TestOutcome(object):
             self.__stderr == other.stderr() and\
             self.__retcode == other.retcode() and\
             self.__sandbox == other.sandbox()
+    def pretty(self):
+        pprint(self.to_json())
     def to_json(self):
         return {'out': self.__stdout,\
                 'err': self.__stderr,\
@@ -189,9 +191,9 @@ def run(args):
     passed = outcome == expected
 
     print("Expected:")
-    pprint(expected)
+    expected.pretty()
     print("\nActual:")
-    pprint(outcome)
+    outcome.pretty()
     print("")
 
     if passed:
