@@ -16,10 +16,12 @@ PARSER.add_argument('--version', action='version', version='0.0.1')
 GENERATE_PARSER = SUBPARSERS.add_parser('generate')
 GENERATE_PARSER.add_argument('executable',\
                              help='location of program executable')
+GENERATE_PARSER.add_argument('--inputs',\
+                             help='location of test case inputs directory',\
+                             default='inputs')
 GENERATE_PARSER.add_argument('--tests',\
                              help='location of test suite manifest file',\
                              default='tests.pythia.json')
-
 
 RUN_PARSER = SUBPARSERS.add_parser('run')
 
