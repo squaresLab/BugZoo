@@ -23,7 +23,7 @@ import tempfile
 # TODO: what happens when the sandbox is empty?
 def sandbox_state(d):
     #cmd = ("find '%s' -type f -print0 | xargs -0 sha1sum" % d)
-    cmd = "find '%s' - type f -exec sha1sum '{}' \;" % d
+    cmd = "find '%s' -type f -exec sha1sum '{}' \;" % d
     state = subprocess.check_output(cmd, shell=True)
     state = state.decode(sys.stdout.encoding)
     state = [] if state == "" else state.splitlines(True)
