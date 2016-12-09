@@ -25,13 +25,12 @@ FAIL: retval, stderr, sandbox
 
 ## Command-Line Options
 
-* `--executable`: relative (or absolute) path to executable file (w.r.t.
+* `--executable`: relative (or absolute) path to executable file, w.r.t.
   current working directory
-* `--inputs`: relative (or absolute) path to input file directory (w.r.t
+* `--inputs`: relative (or absolute) path to input file directory, w.r.t
   current working directory); defaults to `inputs`
-* `--verbose`: enables verbose output
-* `--quiet`: enables quiet mode (no output to terminal)
-
+* `--verbose`: increases level of output to terminal
+* `--quiet`: disables output to terminal
 * `-i`: alias for `--inputs` flag
 * `-v`: alias for `--verbose` flag
 * `-q`: alias for `--quiet` flag
