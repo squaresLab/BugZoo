@@ -93,7 +93,8 @@ class TestCase(object):
             # execute the command within the sandbox
             p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
             stdout, stderr = p.communicate()
-            stdout = stdout.
+            stdout = str(stdout)
+            stderr = str(stderr)
             retcode = p.returncode
             state = sandbox_state(sandboxd)
 
