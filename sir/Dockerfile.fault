@@ -14,7 +14,7 @@ RUN cd source &&\
 RUN cd source && make build
 
 # Build the original test script for the problem
-RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
+#RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
 
 # Preprocess the source code file and remove all others
 RUN sed -i 's#\$(COMPILE_PARAMETERS)#-save-temps#' source/Makefile

@@ -15,7 +15,7 @@ RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source
 RUN cd source && make build
 
 # Generate oracle outputs and a list of test commands
-RUN generate-oracle "${EXECUTABLE}" ${PROGRAM_VERSION}
+#RUN generate-oracle "${EXECUTABLE}" ${PROGRAM_VERSION}
 
 # Copy faulty version of program to "source"
 RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source

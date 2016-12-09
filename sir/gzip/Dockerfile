@@ -26,3 +26,4 @@ RUN find inputs/testdir -type f\
                         ! -name "*.z"\
                         ! -name "*.gz"\
                         -exec sh -c 'gzip "$0" -c > "$0.z"' {} \;
+RUN mv inputs/testdir/tarfile.tar.z inputs/testdir/tarfile.tgz
