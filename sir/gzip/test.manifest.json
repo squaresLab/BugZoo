@@ -60,7 +60,6 @@
     }
   },
   {
-    "TODO": "there may already be a file at f.z",
     "description": "compresses a file at a given location",
     "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -f",
     "input": {
@@ -68,7 +67,6 @@
     }
   },
   {
-    "TODO": "there may already be a file at f.z",
     "description": "compresses a file at a given location",
     "command": "<<EXECUTABLE>> --force < '<<SANDBOX>>/f'",
     "input": {
@@ -230,13 +228,6 @@
     }
   },
   {
-    "TODO": "this is not a file we want to copy!",
-    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
-    "input": {
-      "f": "testdir/2gbfile"
-    }
-  },
-  {
     "description": "attempts to decompress a corrupt archive, passed via the stdin",
     "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.z'",
     "input": {
@@ -271,13 +262,6 @@
     "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.Z'",
     "input": {
       "f.Z": "gzdir/packfile.Z"
-    }
-  },
-  {
-    "TODO": "need to set-up a symbolic file",
-    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
-    "input": {
-      "f": "testdir/symbolicfile"
     }
   },
   {
@@ -317,13 +301,6 @@
     }
   },
   {
-    "TODO": "this is just weird?",
-    "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",
-    "input": {
-      "f": "testdir/binaryfile1"
-    }
-  },
-  {
     "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f.tar'",
     "input": {
       "f.tar": "testdir/tarfile.tar"
@@ -333,13 +310,6 @@
     "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.tgz'",
     "input": {
       "f.tar": "testdir/tarfile.tgz"
-    }
-  },
-  {
-    "TODO": "relies on testplans.alt/testscripts/longefilename.sh, then calls cplongname.sh",
-    "command": "<<EXECUTABLE>> '<<SANDBOX>>/abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde'",
-    "input": {
-      "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcde": "TODO-NEED-AN-SANDBOX-FILE"
     }
   },
   {
