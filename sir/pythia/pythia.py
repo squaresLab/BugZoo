@@ -28,14 +28,13 @@ class TestManifest(object):
         with open(fn, 'r') as f:
             cases  = json.load(f)
             assert isinstance(cases, list), "manifest file must contain a JSON list"
-            cases = [TestCase.from_json(i + 1, c) for (i, c) in enumerate(cases)]
+            cases = [TestCase.from_json(i, c) for (i, c) in enumerate(cases)]
             self.__cases = cases
 
     def contents(self):
         return self.__cases
-    # returns a test case from the manifest by its one-indexed number
-    def getByNum(self, num):
-        return self.__cases[num - 1]
+    def get(self, num):
+        return self.__cases[num]
 
 class TestInput(object):
     def __init__(self, maps_to, maps_from):
@@ -158,6 +157,12 @@ def generate(args):
     Oracle.generate(manifest, args.executable, args.inputs, args.output)
     print("Finished.\nSaved to disk at: %s" % args.output)
 
+def run(args):
+    manifest = TestManifest(args.tests)
+    oracle = Oracle.load(args.oracle)
+    test = manifest.get(args.number)
+    print(test.command())
+
 # CLI setup
 PARSER = argparse.ArgumentParser()
 SUBPARSERS = PARSER.add_subparsers()
@@ -179,7 +184,18 @@ GENERATE_PARSER.add_argument('-o', '--output',\
 GENERATE_PARSER.set_defaults(func=generate)
 
 # run action
-#RUN_PARSER = SUBPARSERS.add_parser('run')
+RUN_PARSER = SUBPARSERS.add_parser('run')
+RUN_PARSER.add_argument('executable',\
+                             help='location of program executable')
+RUN_PARSER.add_argument('num',\
+                             help='number of the test case that should be executed')
+RUN_PARSER.add_argument('--inputs',\
+                             help='location of test case inputs directory',\
+                             default='inputs')
+RUN_PARSER.add_argument('-t', '--tests',\
+                             help='location of test suite manifest file',\
+                             default='tests.pythia.json')
+RUN_PARSER.set_defaults(func=run)
 
 if __name__ == "__main__":
     args = PARSER.parse_args()
