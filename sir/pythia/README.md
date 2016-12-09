@@ -26,7 +26,9 @@ FAIL: retval, stderr, sandbox
 ## Command-Line Options
 
 * `-exe`: relative (or absolute) path to executable file (w.r.t. current
-  working directory
+  working directory.
+* `-v`: verbose mode
+* `-q`: quiet mode
 
 
 ## Examples
