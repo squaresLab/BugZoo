@@ -174,12 +174,12 @@ GENERATE_PARSER.add_argument('--tests',\
                              help='location of test suite manifest file',\
                              default='tests.pythia.json')
 GENERATE_PARSER.add_argument('--output',\
-                             help='file to save oracle to',\
+                             help='file to save oracle at',\
                              default='oracle.pythia.json')
 GENERATE_PARSER.set_defaults(func=generate)
 
 # run action
-RUN_PARSER = SUBPARSERS.add_parser('run')
+#RUN_PARSER = SUBPARSERS.add_parser('run')
 
 if __name__ == "__main__":
     args = PARSER.parse_args()
