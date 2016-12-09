@@ -186,18 +186,19 @@ GENERATE_PARSER.set_defaults(func=generate)
 # run action
 RUN_PARSER = SUBPARSERS.add_parser('run')
 RUN_PARSER.add_argument('executable',\
-                             help='location of program executable')
+                        help='location of program executable')
 RUN_PARSER.add_argument('num',\
-                             help='number of the test case that should be executed')
+                        type=int,
+                        help='number of the test case that should be executed')
 RUN_PARSER.add_argument('--inputs',\
-                             help='location of test case inputs directory',\
-                             default='inputs')
+                        help='location of test case inputs directory',\
+                        default='inputs')
 RUN_PARSER.add_argument('--oracle',\
-                             help='location of oracle file, used for validation',\
-                             default='oracle.pythia.json')
+                        help='location of oracle file, used for validation',\
+                        default='oracle.pythia.json')
 RUN_PARSER.add_argument('-t', '--tests',\
-                             help='location of test suite manifest file',\
-                             default='tests.pythia.json')
+                        help='location of test suite manifest file',\
+                        default='tests.pythia.json')
 RUN_PARSER.set_defaults(func=run)
 
 if __name__ == "__main__":
