@@ -11,7 +11,9 @@ Finished.
 Saved to disk at: oracle.json
 ```
 
-### Example Test Suite Manifest
+## Examples
+
+### Test Suite Manifest
 
 ### Example Oracle Definition
 
@@ -19,7 +21,7 @@ Saved to disk at: oracle.json
 [
   {
     "retval": 0,
-    "out": "7",
+    "out": "the sum is: 7",
     "err": "",
     "sandbox": {}
   },
