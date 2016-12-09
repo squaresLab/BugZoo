@@ -8,23 +8,6 @@ import subprocess
 import sys
 import tempfile
 
-# CLI setup
-PARSER = argparse.ArgumentParser()
-SUBPARSERS = PARSER.add_subparsers()
-PARSER.add_argument('--version', action='version', version='0.0.1')
-
-GENERATE_PARSER = SUBPARSERS.add_parser('generate')
-GENERATE_PARSER.add_argument('executable',\
-                             help='location of program executable')
-GENERATE_PARSER.add_argument('--inputs',\
-                             help='location of test case inputs directory',\
-                             default='inputs')
-GENERATE_PARSER.add_argument('--tests',\
-                             help='location of test suite manifest file',\
-                             default='tests.pythia.json')
-
-RUN_PARSER = SUBPARSERS.add_parser('run')
-
 # Describes the state of the sandbox as a dictionary of file names and their
 # associated SHA1 hashes.
 def sandbox_state(d):
@@ -166,21 +149,38 @@ class Oracle(object):
 
 # Generates the oracle for a given problem, storing its knowledge to disk at a
 # specified oracle directory
-def generate(manifest_fn, executable_fn, input_d, oracle_fn):
-    assert os.path.isfile(executable_fn), "specified executable must exist"
-    assert os.path.isdir(input_d), "specified input directory must exist"
+def generate(args):
+    assert os.path.isfile(args.executable), "specified executable must exist"
+    assert os.path.isdir(args.inputs), "specified input directory must exist"
 
-    manifest = TestManifest(manifest_fn)
+    manifest = TestManifest(args.tests)
     print("Generating oracle...")
-    Oracle.generate(manifest, executable_fn, input_d, oracle_fn)
-    print("Finished. Saved to disk at: %s" % oracle_fn)
+    Oracle.generate(manifest, args.executable, args.inputs, args.output)
+    print("Finished.\nSaved to disk at: %s" % args.output)
 
-#def test_by_num(num, manifest, executable, inputd, oracled):
-#    assert os.path.isfile(executable), "specified executable must exist"
-#    assert os.path.isdir(inputd), "specified input directory must exist"
-#
-#    manifest = TestManifest(manifest)
-#    case = manifest.getByNum(num)
+# CLI setup
+PARSER = argparse.ArgumentParser()
+SUBPARSERS = PARSER.add_subparsers()
+PARSER.add_argument('--version', action='version', version='0.0.1')
+
+# generate action
+GENERATE_PARSER = SUBPARSERS.add_parser('generate')
+GENERATE_PARSER.add_argument('executable',\
+                             help='location of program executable')
+GENERATE_PARSER.add_argument('--inputs',\
+                             help='location of test case inputs directory',\
+                             default='inputs')
+GENERATE_PARSER.add_argument('--tests',\
+                             help='location of test suite manifest file',\
+                             default='tests.pythia.json')
+GENERATE_PARSER.add_argument('--output',\
+                             help='file to save oracle to',\
+                             default='oracle.pythia.json')
+GENERATE_PARSER.set_defaults(func=generate)
+
+# run action
+RUN_PARSER = SUBPARSERS.add_parser('run')
 
 if __name__ == "__main__":
     args = PARSER.parse_args()
+    args.func(args)
