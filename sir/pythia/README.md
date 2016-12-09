@@ -6,10 +6,20 @@ Build from source with `easy_install`.
 
 ## Usage
 
+### Getting Help
+
+```
+$ pythia -h
+...
+
+$ pythia generate -h
+...
+```
+
 ### Generating an Oracle
 
 ```
-$ pythia generate -exe source/gzip.exe inputs
+$ pythia generate source/gzip.exe
 Generating oracle...
 Finished.
 Saved to disk at: oracle.pythia.json
@@ -26,19 +36,6 @@ FAIL: retval, stderr, sandbox
 ```
 
 ### Generating a Test Mapping
-
-## Command-Line Options
-
-* `--executable`: relative (or absolute) path to executable file, w.r.t.
-  current working directory
-* `--inputs`: relative (or absolute) path to input file directory, w.r.t
-  current working directory); defaults to `inputs`
-* `--verbose`: increases level of output to terminal
-* `--quiet`: disables output to terminal
-* `-i`: alias for `--inputs` flag
-* `-v`: alias for `--verbose` flag
-* `-q`: alias for `--quiet` flag
-
 
 ## Examples
 
