@@ -8,7 +8,7 @@
 $ pythia generate test.manifest.json -exe source/gzip.exe inputs
 Generating oracle...
 Finished.
-Saved to disk at: oracle.json
+Saved to disk at: oracle.pythia.json
 ```
 
 ### Running a test case and comparing to oracle
@@ -26,7 +26,10 @@ FAIL: retval, stderr, sandbox
 ## Command-Line Options
 
 * `-exe`: relative (or absolute) path to executable file (w.r.t. current
-  working directory.
+  working directory
+* `--inputs`: relative (or absolute) path to input file directory (w.r.t
+  current working directory). Defaults to `inputs`
+* `-i`: alias for `--inputs` flag
 * `-v`: verbose mode
 * `-q`: quiet mode
 
