@@ -5,7 +5,7 @@
 ### Generating an Oracle
 
 ```
-$ pythia generate test.manifest.json -exe source/gzip.exe inputs
+$ pythia generate -exe source/gzip.exe inputs
 Generating oracle...
 Finished.
 Saved to disk at: oracle.pythia.json
