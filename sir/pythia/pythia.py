@@ -96,7 +96,7 @@ class TestCase(object):
 class TestOutcome(object):
     @staticmethod
     def from_json(jsn):
-        return TestOutcome(jsn['stdout'], jsn['stderr'], jsn['retcode'], jsn['sandbox'])
+        return TestOutcome(jsn['out'], jsn['err'], jsn['retcode'], jsn['sandbox'])
     def __init__(self, stdout, stderr, retcode, sandbox):
         self.__stdout = stdout
         self.__stderr = stderr
