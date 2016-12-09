@@ -1,1 +1,3 @@
 Dockerfile
+test.sh
+tests.manifest.todo.json
