@@ -15,7 +15,7 @@ def sandbox_state(d):
     state = state.decode(sys.stdout.encoding)
     state = [] if state == "" else state.splitlines(True)
     state = map(lambda l: l.split(' ', 1), state)
-    state = {(f[len(d)+1:].strip()): h for (h, f) in state} # trim sandbox dir
+    state = {(f[len(d)+2:].strip()): h for (h, f) in state} # trim sandbox dir
     return state
 
 # Provides a detailed description of a particular test suite
