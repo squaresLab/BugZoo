@@ -23,6 +23,11 @@ FAIL: retval, stderr, sandbox
 
 ### Generating a Test Mapping
 
+## Command-Line Options
+
+* `-exe`: relative (or absolute) path to executable file (w.r.t. current
+  working directory
+
 
 ## Examples
 
