@@ -18,11 +18,7 @@ $ pythia run 17 -exe source/gzip.exe
 FAIL
 
 $ pythia run 17 -exe source/gzip.exe -v
-FAIL:
-  * stdout differ
-  * stderr differ
-  * retvals differ
-  * sandbox differ
+FAIL: retval, stderr, sandbox
 ```
 
 ### Generating a Test Mapping
