@@ -88,8 +88,6 @@ class TestCase(object):
         finally:
             if os.path.exists(sandboxd):
                 shutil.rmtree(sandboxd)
-
-        # return the outcome of the execution
         return TestOutcome(stdout, stderr, retcode, state)
 
 # Describes the outcome of a test case execution in terms of the standard
@@ -100,6 +98,20 @@ class TestOutcome(object):
         self.__stderr = stderr
         self.__retcode = retcode
         self.__sandbox = sandbox
+    def stdout(self):
+        return self.__stdout
+    def stderr(self):
+        return self.__stderr
+    def retcode(self):
+        return self.__retcode
+    def sandbox(self):
+        return self.__sandbox
+    def __cmp__(other):
+        not (other is None) and\
+            self.__stdout == other.stdout() and\
+            self.__stderr == other.stderr() and\
+            self.__retcode == other.retcode() and\
+            self.__sandbox == other.sandbox()
     def to_json(self):
         return {'out': self.__stdout,\
                 'err': self.__stderr,\
@@ -142,6 +154,11 @@ class Oracle(object):
 
     def __init__(self, outcomes):
         self.__outcomes = outcomes
+    
+    # returns the expected outcome for a given test case
+    # TODO: test case isn't in oracle
+    def expected(self, test):
+        return self.__outcomes[test.number()]
 
     def to_json(self):
         return [o.to_json() for o in self.__outcomes]
@@ -161,7 +178,18 @@ def run(args):
     manifest = TestManifest(args.tests)
     oracle = Oracle.load(args.oracle)
     test = manifest.get(args.num)
+
     print("Running test case #%d: %s" % (args.num, test.command()))
+    expected = oracle.expected(test)
+    outcome = test.execute(args.executable, args.inputs)
+    passed = outcome == expected
+
+    if passed:
+        print("Finished running test case %d: PASSED" % args.num)
+        exit(0)
+    else:
+        print("Finished running test case %d: FAILED" % args.num)
+        exit(1)
 
 # CLI setup
 PARSER = argparse.ArgumentParser()
