@@ -20,19 +20,17 @@ $ pythia generate -h
 
 ```
 $ pythia generate source/gzip.exe
-Generating oracle...
-Finished.
-Saved to disk at: oracle.pythia.json
+generating oracle...
+finished.
+saved to disk at: oracle.pythia.json
 ```
 
 ### Running a test case and comparing to oracle
 
 ```
-$ pythia run 17 -exe source/gzip.exe
-FAIL
-
-$ pythia run 17 -exe source/gzip.exe -v
-FAIL: retval, stderr, sandbox
+$ pythia run source/gzip.exe 17
+running test case #17: <<EXECUTABLE>> -fgrx < <<INPUT>>/f.z
+status: FAIL
 ```
 
 ### Generating a Test Mapping
