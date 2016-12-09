@@ -1,11 +1,27 @@
 #!/usr/bin/python3
 from subprocess import Popen, PIPE
+import argparse
 import os.path
 import json
 import shutil
 import subprocess
 import sys
 import tempfile
+
+# CLI setup
+PARSER = argparse.ArgumentParser()
+SUBPARSERS = PARSER.add_subparsers()
+PARSER.add_argument('--version', action='version', version='0.0.1')
+
+GENERATE_PARSER = SUBPARSERS.add_parser('generate')
+GENERATE_PARSER.add_argument('executable',\
+                             help='location of program executable')
+GENERATE_PARSER.add_argument('--tests',\
+                             help='location of test suite manifest file',\
+                             default='tests.pythia.json')
+
+
+RUN_PARSER = SUBPARSERS.add_parser('run')
 
 # Describes the state of the sandbox as a dictionary of file names and their
 # associated SHA1 hashes.
@@ -165,7 +181,4 @@ def generate(manifest_fn, executable_fn, input_d, oracle_fn):
 #    case = manifest.getByNum(num)
 
 if __name__ == "__main__":
-    args = sys.argv[1:]
-    if args[0] == 'generate-oracle':
-        args = args[1:]
-        generate(args[0], args[1], args[2], args[3])
+    args = PARSER.parse_args()
