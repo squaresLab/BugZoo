@@ -18,4 +18,11 @@ RUN tar -xf ${OBJECT_ARCHIVE} && mv gzip/* . && rmdir gzip && rm gzip.tar.gz
 RUN cd testplans.alt/testscripts &&\
     rm -f *.old &&\
     find .  -name '*.sh'\
+            -maxdepth 1\
             -exec sed -i 's#$experiment_root/gzip/#/experiment/#g' "{}" \;
+
+# Generate necessary zip archives
+RUN find inputs/testdir -type f\
+                        ! -name "*.z"\
+                        ! -name "*.gz"\
+                        -exec sh -c 'gzip "$0" -c > "$0.z"' {} \;
