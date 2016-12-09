@@ -93,49 +93,49 @@
     "description": "recursively compresses a directory containing a single file",
     "command": "<<EXECUTABLE>> -r '<<SANDBOX>>'",
     "input": {
-      "f": "test/subdir1/file"
+      "f": "testdir/subdir1/file"
     }
   },
   {
     "description": "recursively compresses a directory containing a single file",
     "command": "<<EXECUTABLE>> '<<SANDBOX>>' -r",
     "input": {
-      "f": "test/subdir2/file"
+      "f": "testdir/subdir2/file"
     }
   },
   {
     "description": "recursively compresses a directory containing a single file",
     "command": "<<EXECUTABLE>> --recurse '<<SANDBOX>>'",
     "input": {
-      "f": "test/subdir3/file"
+      "f": "testdir/subdir3/file"
     }
   },
   {
     "description": "tests the integrity of a given archive, supplied by stdin",
     "command": "<<EXECUTABLE>> -t < '<<SANDBOX>>'",
     "input": {
-      "f.z": "test/gzdir/file1.z"
+      "f.z": "gzdir/file1.z"
     }
   },
   {
     "description": "tests the integrity of an archive at a given location",
     "command": "<<EXECUTABLE>> '<<SANDBOX>>' -t",
     "input": {
-      "f.z": "test/gzdir/file1.z"
+      "f.z": "gzdir/file1.z"
     }
   },
   {
     "description": "tests the integrity of a given archive, supplied by stdin",
     "command": "<<EXECUTABLE>> --test < '<<SANDBOX>>'",
     "input": {
-      "f.z": "test/gzdir/file1.z"
+      "f.z": "gzdir/file1.z"
     }
   },
   {
     "description": "tests the integrity of a given archive, supplied by stdin",
     "command": "<<EXECUTABLE>> --test < '<<SANDBOX>>'",
     "input": {
-      "f.z": "test/gzdir/file1.z"
+      "f.z": "gzdir/file1.z"
     }
   },
   {
