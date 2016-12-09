@@ -154,7 +154,7 @@ class Oracle(object):
         assert os.path.isfile(oracle_fn), "oracle file must exist"
         assert oracle_fn[-5:] == '.json', "oracle file must end in '.json'"
         with open(oracle_fn, 'r') as f:
-            return Oracle([TestOutcome(o) for o in json.load(f)])
+            return Oracle([TestOutcome.from_json(o) for o in json.load(f)])
 
     def __init__(self, outcomes):
         self.__outcomes = outcomes
