@@ -192,6 +192,9 @@ RUN_PARSER.add_argument('num',\
 RUN_PARSER.add_argument('--inputs',\
                              help='location of test case inputs directory',\
                              default='inputs')
+RUN_PARSER.add_argument('--oracle',\
+                             help='location of oracle file, used for validation',\
+                             default='oracle.pythia.json')
 RUN_PARSER.add_argument('-t', '--tests',\
                              help='location of test suite manifest file',\
                              default='tests.pythia.json')
