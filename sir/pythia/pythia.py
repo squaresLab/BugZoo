@@ -7,28 +7,15 @@ import subprocess
 import sys
 import tempfile
 
-# Notice: these files are no longer used, as the oracle is now written to a
-# single JSON file instead (rather than a structured set of files).
-#
-# Names of the files that the standard output and standard error from running
-# a given test command should be written to.
-#STDOUT_ORACLE_FN = "pythia.out"
-#STDERR_ORACLE_FN = "pythia.err"
-#RETVAL_ORACLE_FN = "pythia.ret"
-#ENV_ORACLE_FN = "pythia.env"
-
 # Describes the state of the sandbox as a dictionary of file names and their
 # associated SHA1 hashes.
-#
-# TODO: what happens when the sandbox is empty?
 def sandbox_state(d):
-    #cmd = ("find '%s' -type f -print0 | xargs -0 sha1sum" % d)
     cmd = "find '%s' -type f -exec sha1sum '{}' \;" % d
     state = subprocess.check_output(cmd, shell=True)
     state = state.decode(sys.stdout.encoding)
     state = [] if state == "" else state.splitlines(True)
     state = map(lambda l: l.split(' ', 1), state)
-    state = {f[2:]: h for (f, h) in state} # trim leading ./
+    state = {(f[len(d)+1:].strip()): h for (h, f) in state} # trim sandbox dir
     return state
 
 # Provides a detailed description of a particular test suite
