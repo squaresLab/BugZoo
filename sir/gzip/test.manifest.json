@@ -261,7 +261,7 @@
   {
     "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.Z'",
     "input": {
-      "f.Z": "gzdir/packfile.Z"
+      "f.Z": "gzdir/packfile.z"
     }
   },
   {
