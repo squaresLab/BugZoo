@@ -1,5 +1,9 @@
 # Pythia
 
+## Installation
+
+Build from source with `easy_install`.
+
 ## Usage
 
 ### Generating an Oracle
