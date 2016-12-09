@@ -110,8 +110,8 @@ class TestOutcome(object):
         return self.__retcode
     def sandbox(self):
         return self.__sandbox
-    def __cmp__(other):
-        not (other is None) and\
+    def __eq__(self, other):
+        return not (other is None) and\
             self.__stdout == other.stdout() and\
             self.__stderr == other.stderr() and\
             self.__retcode == other.retcode() and\
