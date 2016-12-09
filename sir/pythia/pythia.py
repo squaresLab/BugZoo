@@ -160,8 +160,8 @@ def generate(args):
 def run(args):
     manifest = TestManifest(args.tests)
     oracle = Oracle.load(args.oracle)
-    test = manifest.get(args.number)
-    print(test.command())
+    test = manifest.get(args.num)
+    print("Running test case #%d: %s", % (args.num, test.command()))
 
 # CLI setup
 PARSER = argparse.ArgumentParser()
