@@ -170,10 +170,10 @@ GENERATE_PARSER.add_argument('executable',\
 GENERATE_PARSER.add_argument('--inputs',\
                              help='location of test case inputs directory',\
                              default='inputs')
-GENERATE_PARSER.add_argument('--tests',\
+GENERATE_PARSER.add_argument('-t', '--tests',\
                              help='location of test suite manifest file',\
                              default='tests.pythia.json')
-GENERATE_PARSER.add_argument('--output',\
+GENERATE_PARSER.add_argument('-o', '--output',\
                              help='file to save oracle at',\
                              default='oracle.pythia.json')
 GENERATE_PARSER.set_defaults(func=generate)
@@ -183,4 +183,5 @@ GENERATE_PARSER.set_defaults(func=generate)
 
 if __name__ == "__main__":
     args = PARSER.parse_args()
-    args.func(args)
+    if 'func' in vars(args):
+        args.func(args)
