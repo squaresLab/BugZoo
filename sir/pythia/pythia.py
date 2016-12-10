@@ -171,7 +171,7 @@ class Oracle(object):
 
 # Generates the oracle for a given problem, storing its knowledge to disk at a
 # specified oracle directory
-def generate(args):
+def action_generate(args):
     assert os.path.isfile(args.executable), "specified executable must exist"
     assert os.path.isdir(args.inputs), "specified input directory must exist"
 
@@ -180,7 +180,7 @@ def generate(args):
     Oracle.generate(manifest, args.executable, args.inputs, args.output)
     print("Finished.\nSaved to disk at: %s" % args.output)
 
-def run(args):
+def action_run(args):
     manifest = TestManifest(args.tests)
     oracle = Oracle.load(args.oracle)
     test = manifest.get(args.num)
@@ -203,7 +203,7 @@ def run(args):
         print("Finished running test case %d: FAILED" % args.num)
         exit(1)
 
-def map(args):
+def action_map(args):
     manifest = TestManifest(args.tests)
     oracle = Oracle.load(args.oracle)
 
@@ -212,7 +212,7 @@ def map(args):
     m = {}
     passed = 0
     failed = 0
-    for test in oracle.contents():
+    for test in manifest.contents():
         expected = oracle.expected(test)
         actual = test.execute(args.executable, args.inputs)
         outcome = actual == expected
@@ -247,7 +247,7 @@ GENERATE_PARSER.add_argument('-t', '--tests',\
 GENERATE_PARSER.add_argument('-o', '--output',\
                              help='file to save oracle at',\
                              default='oracle.pythia.json')
-GENERATE_PARSER.set_defaults(func=generate)
+GENERATE_PARSER.set_defaults(func=action_generate)
 
 # run action
 RUN_PARSER = SUBPARSERS.add_parser('run')
@@ -265,8 +265,22 @@ RUN_PARSER.add_argument('--oracle',\
 RUN_PARSER.add_argument('-t', '--tests',\
                         help='location of test suite manifest file',\
                         default='tests.pythia.json')
-RUN_PARSER.set_defaults(func=run)
+RUN_PARSER.set_defaults(func=action_run)
 
+# map action
+MAP_PARSER = SUBPARSERS.add_parser('map')
+MAP_PARSER.add_argument('executable',\
+                        help='location of program executable')
+MAP_PARSER.add_argument('--inputs',\
+                        help='location of test case inputs directory',\
+                        default='inputs')
+MAP_PARSER.add_argument('--oracle',\
+                        help='location of oracle file, used for validation',\
+                        default='oracle.pythia.json')
+MAP_PARSER.add_argument('-t', '--tests',\
+                        help='location of test suite manifest file',\
+                        default='tests.pythia.json')
+MAP_PARSER.set_defaults(func=action_map)
 
 if __name__ == "__main__":
     args = PARSER.parse_args()
