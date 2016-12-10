@@ -204,11 +204,11 @@ def action_run(args):
         exit(1)
 
 def action_map(args):
+    assert not os.path.exists("map.pythia.json"), "map.pythia.json must not exist within working directory"
     manifest = TestManifest(args.tests)
     oracle = Oracle.load(args.oracle)
 
-    print("Generating map file...")
-
+    print("Generating test case mapping...")
     m = {}
     failed = []
     num_passed = 0
@@ -226,10 +226,12 @@ def action_map(args):
             m["n%d" % num_failed] = test.number()
 
     # debugging
-    pprint(m)
-
+    print("Generated test case mapping")
     print("Found %d failing tests: %s" % (num_failed, ', '.join(failed)))
-    print("Generated map file.\nSaved map file to: map.pythia.json")
+    print("Saving map file to disk at: map.pythia.json")
+    with open('map.pythia.json', 'w') as f:
+        json.dump(m, f)
+    print("Saved map file to: map.pythia.json")
 
 # CLI setup
 PARSER = argparse.ArgumentParser()
