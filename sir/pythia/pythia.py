@@ -203,6 +203,32 @@ def run(args):
         print("Finished running test case %d: FAILED" % args.num)
         exit(1)
 
+def map(args):
+    manifest = TestManifest(args.tests)
+    oracle = Oracle.load(args.oracle)
+
+    print("Generating map file...")
+
+    m = {}
+    passed = 0
+    failed = 0
+    for test in oracle.contents():
+        expected = oracle.expected(test)
+        actual = test.execute(args.executable, args.inputs)
+        outcome = actual == expected
+        if outcome:
+            passed += 1
+            m["p%d" % passed] = test.number()
+        else:
+            failed += 1
+            m["n%d" % failed] = test.number()
+
+    # debugging
+    pprint(m)
+
+    print("Generated map file.\n Saved map file to: map.pythia.json")
+
+
 # CLI setup
 PARSER = argparse.ArgumentParser()
 SUBPARSERS = PARSER.add_subparsers()
@@ -240,6 +266,7 @@ RUN_PARSER.add_argument('-t', '--tests',\
                         help='location of test suite manifest file',\
                         default='tests.pythia.json')
 RUN_PARSER.set_defaults(func=run)
+
 
 if __name__ == "__main__":
     args = PARSER.parse_args()
