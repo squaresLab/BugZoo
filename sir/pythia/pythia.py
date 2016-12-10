@@ -210,24 +210,26 @@ def action_map(args):
     print("Generating map file...")
 
     m = {}
-    passed = 0
-    failed = 0
+    failed = []
+    num_passed = 0
+    num_failed = 0
     for test in manifest.contents():
         expected = oracle.expected(test)
         actual = test.execute(args.executable, args.inputs)
         outcome = actual == expected
         if outcome:
-            passed += 1
-            m["p%d" % passed] = test.number()
+            num_passed += 1
+            m["p%d" % num_passed] = test.number()
         else:
-            failed += 1
-            m["n%d" % failed] = test.number()
+            num_failed += 1
+            failed.append(str(test.number()))
+            m["n%d" % num_failed] = test.number()
 
     # debugging
     pprint(m)
 
-    print("Generated map file.\n Saved map file to: map.pythia.json")
-
+    print("Found %d failing tests: %s" % (num_failed, ', '.join(failed)))
+    print("Generated map file.\nSaved map file to: map.pythia.json")
 
 # CLI setup
 PARSER = argparse.ArgumentParser()
