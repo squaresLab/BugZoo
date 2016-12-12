@@ -210,6 +210,7 @@ def action_generate(args):
     Oracle.generate(manifest, args.executable, args.inputs, args.output)
     print("Finished.\nSaved to disk at: %s" % args.output)
 
+# Runs a test case with a given number against the oracle
 def action_run(args):
     manifest = TestManifest(args.tests)
     oracle = Oracle.load(args.oracle)
@@ -217,6 +218,8 @@ def action_run(args):
     print("Running test case %d: %s" % (args.num, test.command()))
     return run_test(manifest, oracle, args.executable, args.inputs, test) 
 
+# Runs a test case with a given ID, supplied by the mapping file, against the
+# oracle
 def action_run_by_id(args):
     manifest = TestManifest(args.tests)
     mapping = TestMapping(args.mapping)
@@ -226,6 +229,9 @@ def action_run_by_id(args):
     print("Running test case %s: %s" % (args.id, test.command()))
     return run_test(manifest, oracle, args.executable, args.inputs, test)
 
+# Determines the passing and failing tests for a variant of a program against
+# the oracle. These results are used to generate a mapping between GenProg
+# style test identifiers and their numbers in the test manifest.
 def action_map(args):
     assert not os.path.exists("map.pythia.json"), "map.pythia.json must not exist within working directory"
     manifest = TestManifest(args.tests)
