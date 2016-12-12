@@ -309,7 +309,7 @@
   {
     "command": "<<EXECUTABLE>> -d < '<<SANDBOX>>/f.tgz'",
     "input": {
-      "f.tar": "testdir/tarfile.tgz"
+      "f.tgz": "testdir/tarfile.tgz"
     }
   },
   {
