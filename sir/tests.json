@@ -1,6 +1,0 @@
-[
-  {
-    'prepare': 'cp #{INPUTS}/f26',
-    'command': '#{EXECUTABLE}'
-  }
-]
