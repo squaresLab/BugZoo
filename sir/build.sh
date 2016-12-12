@@ -106,6 +106,19 @@ build_fault gzip v3 KL_4
 build_fault gzip v3 KL_5
 
 # gzip-v4
+build_version gzip v4
+build_fault gzip v4 KL_1
+build_fault gzip v4 KL_2
+build_fault gzip v4 KL_4
+build_fault gzip v4 KL_6
+build_fault gzip v4 KL_7
+build_fault gzip v4 KL_8
+build_fault gzip v4 KL_10
+build_fault gzip v4 KP_1
+build_fault gzip v4 KP_2
+build_fault gzip v4 KP_3
+build_fault gzip v4 KP_4
+build_fault gzip v4 KP_5
 
 #build_version grep v1
 #build_version grep v2

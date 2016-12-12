@@ -11,6 +11,9 @@
 7.  v2-KL_1 (142 failures)
 8.  v2-KL_3 (6 failures)
 9.  v2-KL_8 (113 failures)
+10. v3-KL_1 (1 failure)
+11. v3-KL_8 (9 failures)
+12. v3-KP_3 (1 failure)
 
 **All failures?**
 
