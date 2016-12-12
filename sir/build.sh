@@ -63,7 +63,7 @@ docker build -t repairbox:sir .
 build_program grep
 build_program gzip
 
-# gzip
+# gzip-v1
 build_version gzip v1
 build_fault gzip v1 KL_1
 build_fault gzip v1 KL_2
@@ -81,6 +81,16 @@ build_fault gzip v1 KP_9
 build_fault gzip v1 KP_10
 build_fault gzip v1 KP_11
 build_fault gzip v1 TW_3
+
+# gzip-v2
+build_version gzip v2
+build_fault gzip v2 KL_1
+build_fault gzip v2 KL_2
+build_fault gzip v2 KL_3
+build_fault gzip v2 KL_5
+build_fault gzip v2 KL_6
+build_fault gzip v2 KL_8
+build_fault gzip v2 TW_1
 
 #build_version grep v1
 #build_version grep v2
