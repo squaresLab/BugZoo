@@ -27,3 +27,10 @@ RUN find inputs/testdir -type f\
                         ! -name "*.gz"\
                         -exec sh -c 'gzip "$0" -c > "$0.z"' {} \;
 RUN mv inputs/testdir/tarfile.tar.z inputs/testdir/tarfile.tgz
+
+# Add missing # to each FaultSeeds.h file
+RUN find .  -name 'FaultSeeds.h'\
+            -exec sed -i 's/ define/ #define/g' "{}" \;
+
+# Dispose of redundant files
+RUN rm -f build.properties
