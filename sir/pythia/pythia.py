@@ -37,6 +37,18 @@ class TestManifest(object):
     def get(self, num):
         return self.__cases[num]
 
+# Provides a particular test suite mapping
+class TestMapping(object):
+    def __init__(self, fn):
+        assert os.path.isfile(fn), "specified mapping file must exist"
+        assert fn[-5:] == '.json', "specified mapping file must end in .json"
+        with open(fn, 'r') as f:
+            self.__mapping = json.load(f)
+    def mapping(self):
+        return self.__mapping
+    def get(self, id):
+        return self.__mapping[id]
+
 class TestInput(object):
     def __init__(self, maps_to, maps_from):
         self.__maps_to = maps_to
@@ -169,6 +181,24 @@ class Oracle(object):
     def to_json(self):
         return [o.to_json() for o in self.__outcomes]
 
+def run_test(manifest, oracle, executable, inputs, test):
+    expected = oracle.expected(test)
+    outcome = test.execute(executable, inputs)
+    passed = outcome == expected
+
+    print("Expected:")
+    expected.pretty()
+    print("\nActual:")
+    outcome.pretty()
+    print("")
+
+    if passed:
+        print("Finished running test case: PASSED")
+        exit(0)
+    else:
+        print("Finished running test case: FAILED")
+        exit(1)
+
 # Generates the oracle for a given problem, storing its knowledge to disk at a
 # specified oracle directory
 def action_generate(args):
@@ -184,24 +214,17 @@ def action_run(args):
     manifest = TestManifest(args.tests)
     oracle = Oracle.load(args.oracle)
     test = manifest.get(args.num)
+    print("Running test case %d: %s" % (args.num, test.command()))
+    return run_test(manifest, oracle, args.executable, args.inputs, test) 
 
-    print("Running test case #%d: %s" % (args.num, test.command()))
-    expected = oracle.expected(test)
-    outcome = test.execute(args.executable, args.inputs)
-    passed = outcome == expected
-
-    print("Expected:")
-    expected.pretty()
-    print("\nActual:")
-    outcome.pretty()
-    print("")
-
-    if passed:
-        print("Finished running test case %d: PASSED" % args.num)
-        exit(0)
-    else:
-        print("Finished running test case %d: FAILED" % args.num)
-        exit(1)
+def action_run_by_id(args):
+    manifest = TestManifest(args.tests)
+    mapping = TestMapping(args.mapping)
+    oracle = Oracle.load(args.oracle)
+    test_num = mapping.get(args.id)
+    test = manifest.get(test_num)
+    print("Running test case %s: %s" % (args.id, test.command()))
+    return run_test(manifest, oracle, args.executable, args.inputs, test)
 
 def action_map(args):
     assert not os.path.exists("map.pythia.json"), "map.pythia.json must not exist within working directory"
@@ -258,7 +281,7 @@ RUN_PARSER = SUBPARSERS.add_parser('run')
 RUN_PARSER.add_argument('executable',\
                         help='location of program executable')
 RUN_PARSER.add_argument('num',\
-                        type=int,
+                        type=int,\
                         help='number of the test case that should be executed')
 RUN_PARSER.add_argument('--inputs',\
                         help='location of test case inputs directory',\
@@ -270,6 +293,26 @@ RUN_PARSER.add_argument('-t', '--tests',\
                         help='location of test suite manifest file',\
                         default='tests.pythia.json')
 RUN_PARSER.set_defaults(func=action_run)
+
+# run by id action
+RUN_ID_PARSER = SUBPARSERS.add_parser('run-by-id')
+RUN_ID_PARSER.add_argument('executable',\
+                        help='location of program executable')
+RUN_ID_PARSER.add_argument('id',\
+                        help='id of the test that should be run')
+RUN_ID_PARSER.add_argument('--inputs',\
+                        help='location of test case inputs directory',\
+                        default='inputs')
+RUN_ID_PARSER.add_argument('--oracle',\
+                        help='location of oracle file, used for validation',\
+                        default='oracle.pythia.json')
+RUN_ID_PARSER.add_argument('-t', '--tests',\
+                        help='location of test suite manifest file',\
+                        default='tests.pythia.json')
+RUN_ID_PARSER.add_argument('--mapping',\
+                        help='location of test mapping file',\
+                        default='map.pythia.json')
+RUN_ID_PARSER.set_defaults(func=action_run_by_id)
 
 # map action
 MAP_PARSER = SUBPARSERS.add_parser('map')
