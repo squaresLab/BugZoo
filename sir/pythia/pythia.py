@@ -229,6 +229,24 @@ def action_run_by_id(args):
     print("Running test case %s: %s" % (args.id, test.command()))
     return run_test(manifest, oracle, args.executable, args.inputs, test)
 
+# Constructs a test manifest for a given problem by converting its MTS output
+def action_build_mts(args):
+    # generate mts command list
+    subprocess.check_call(["mts",\
+                           args.object, args.executable, args.universe,\
+                           "R",\
+                           "commands.txt", "NULL", "NULL"])
+    print("Generated MTS output")
+    subprocess.check_call(("grep -e '^%s' commands.txt | sponge commands.txt" % args.executable),\
+                          shell=True)
+    subprocess.check_call(("sed -i 's;%s/inputs;<<SANDBOX>>;g' commands.txt" % args.object),\
+                          shell=True)
+    subprocess.check_call(("sed -i 's; > %s/outputs/.\+$;;g' commands.txt" % args.object),\
+                          shell=True)
+    subprocess.check_call(("sed -i 's;../%s;<<EXECUTABLE>>;g' commands.txt" % args.executable),\
+                          shell=True)
+    print("Sanitised MTS output into list of Pythia commands")
+
 # Determines the passing and failing tests for a variant of a program against
 # the oracle. These results are used to generate a mapping between GenProg
 # style test identifiers and their numbers in the test manifest.
@@ -281,6 +299,19 @@ GENERATE_PARSER.add_argument('-o', '--output',\
                              help='file to save oracle at',\
                              default='oracle.pythia.json')
 GENERATE_PARSER.set_defaults(func=action_generate)
+
+# convert-mts action
+BUILD_MTS_PARSER = SUBPARSERS.add_parser('build-manifest-from-mts')
+BUILD_MTS_PARSER.add_argument('object',\
+                              help='location of root, object directory')
+BUILD_MTS_PARSER.add_argument('universe',\
+                              help='location of TSL universe file')
+BUILD_MTS_PARSER.add_argument('executable',\
+                             help='location of program executable')
+BUILD_MTS_PARSER.add_argument('-o', '--output',\
+                             help='file to save the converted test manifest at',\
+                             default='tests.pythia.json')
+BUILD_MTS_PARSER.set_defaults(func=action_build_mts)
 
 # run action
 RUN_PARSER = SUBPARSERS.add_parser('run')
