@@ -15,6 +15,7 @@ RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source
 RUN cd source && make build
 
 # Generate oracle outputs and a list of test commands
+RUN pythia generate "${EXECUTABLE}"
 #RUN generate-oracle "${EXECUTABLE}" ${PROGRAM_VERSION}
 
 # Copy faulty version of program to "source"
