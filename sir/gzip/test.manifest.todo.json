@@ -1,4 +1,17 @@
 [
+  {
+    "description": "tests the integrity of an archive at a given location",
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>' -t",
+    "input": {
+      "f.z": "gzdir/file1.z"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -v",
+    "input": {
+      "f": "testdir/file11"
+    }
+  },
    {
     "TODO": "this is not a file we want to copy!",
     "command": "<<EXECUTABLE>> < '<<SANDBOX>>/f'",

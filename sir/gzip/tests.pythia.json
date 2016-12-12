@@ -116,23 +116,10 @@
     }
   },
   {
-    "description": "tests the integrity of an archive at a given location",
-    "command": "<<EXECUTABLE>> '<<SANDBOX>>' -t",
-    "input": {
-      "f.z": "gzdir/file1.z"
-    }
-  },
-  {
     "description": "tests the integrity of a given archive, supplied by stdin",
     "command": "<<EXECUTABLE>> --test < '<<SANDBOX>>'",
     "input": {
       "f.z": "gzdir/file1.z"
-    }
-  },
-  {
-    "command": "<<EXECUTABLE>> '<<SANDBOX>>/f' -v",
-    "input": {
-      "f": "testdir/file11"
     }
   },
   {
