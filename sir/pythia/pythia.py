@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from subprocess import Popen, PIPE
 from pprint import pprint
+import re
 import argparse
 import os.path
 import json
@@ -8,6 +9,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+
+INPUT_REGEX = r'(?<=\<\<SANDBOX>>\/)[\w|_|\.|-|\/]+\b'
 
 # Describes the state of the sandbox as a dictionary of file names and their
 # associated SHA1 hashes.
@@ -232,20 +235,41 @@ def action_run_by_id(args):
 # Constructs a test manifest for a given problem by converting its MTS output
 def action_build_mts(args):
     # generate mts command list
-    subprocess.check_call(["mts",\
-                           args.object, args.executable, args.universe,\
-                           "R",\
-                           "commands.txt", "NULL", "NULL"])
-    print("Generated MTS output")
-    subprocess.check_call(("grep -e '^%s' commands.txt | sponge commands.txt" % args.executable),\
-                          shell=True)
-    subprocess.check_call(("sed -i 's;%s/inputs;<<SANDBOX>>;g' commands.txt" % args.object),\
-                          shell=True)
-    subprocess.check_call(("sed -i 's; > %s/outputs/.\+$;;g' commands.txt" % args.object),\
-                          shell=True)
-    subprocess.check_call(("sed -i 's;../%s;<<EXECUTABLE>>;g' commands.txt" % args.executable),\
-                          shell=True)
-    print("Sanitised MTS output into list of Pythia commands")
+    try:
+        subprocess.check_call(["mts",\
+                               args.object, args.executable, args.universe,\
+                               "R",\
+                               "commands.txt", "NULL", "NULL"])
+        print("Generated MTS output")
+        subprocess.check_call(("grep -e '^%s' commands.txt | sponge commands.txt" % args.executable),\
+                              shell=True)
+        subprocess.check_call(("sed -i 's;%s/inputs;<<SANDBOX>>;g' commands.txt" % args.object),\
+                              shell=True)
+        subprocess.check_call(("sed -i 's; > %s/outputs/.\+$;;g' commands.txt" % args.object),\
+                              shell=True)
+        subprocess.check_call(("sed -i 's;../%s;<<EXECUTABLE>>;g' commands.txt" % args.executable),\
+                              shell=True)
+        print("Sanitised MTS output into list of Pythia commands")
+    
+    # destroy commands.txt in the event of an error
+    except:
+        if os.path.exists("commands.txt"):
+            os.remove("commands.txt")
+        raise
+
+    # convert the commands list into a JSON Pythia manifest
+    manifest = []
+    with open("commands.txt", "r") as f:
+        for cmd in f:
+            cmd = cmd.strip()
+            inpts = {}
+            for inpt in re.findall(INPUT_REGEX, cmd):
+                inpts[inpt] = inpt
+            manifest.append({'command': cmd, 'input': inpts})
+
+    # write the manifest to file
+    with open(args.output, "w") as f:
+        json.dump(manifest, f, indent=2)
 
 # Determines the passing and failing tests for a variant of a program against
 # the oracle. These results are used to generate a mapping between GenProg
