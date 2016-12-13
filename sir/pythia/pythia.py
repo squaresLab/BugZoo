@@ -247,7 +247,7 @@ def action_build_mts(args):
                               shell=True)
         subprocess.check_call(("sed -i 's; > %s/outputs/.\+$;;g' commands.txt" % args.object),\
                               shell=True)
-        subprocess.check_call(("sed -i 's;../%s;<<EXECUTABLE>>;g' commands.txt" % args.executable),\
+        subprocess.check_call(("sed -i 's;%s;<<EXECUTABLE>>;g' commands.txt" % args.executable),\
                               shell=True)
         print("Sanitised MTS output into list of Pythia commands")
     
