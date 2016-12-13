@@ -243,7 +243,11 @@ def action_build_mts(args):
         print("Generated MTS output")
         subprocess.check_call(("grep -e '^%s' commands.txt | sponge commands.txt" % args.executable),\
                               shell=True)
-        subprocess.check_call(("sed -i 's;%s/inputs;<<SANDBOX>>;g' commands.txt" % args.object),\
+        # WARN:
+        #   really, the matching portion of this should be: ${object}/inputs
+        #   however, MTS seems to produce "../inputs", regardless of where the
+        #   object directory may be
+        subprocess.check_call("sed -i 's;../inputs;<<SANDBOX>>;g' commands.txt",\
                               shell=True)
         subprocess.check_call(("sed -i 's; > %s/outputs/.\+$;;g' commands.txt" % args.object),\
                               shell=True)
@@ -269,7 +273,7 @@ def action_build_mts(args):
 
     # write the manifest to file
     with open(args.output, "w") as f:
-        json.dump(manifest, f, indent=2)
+        json.dump(manifest, f, indent=2, sort_keys=True)
 
 # Determines the passing and failing tests for a variant of a program against
 # the oracle. These results are used to generate a mapping between GenProg
