@@ -3,8 +3,8 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV OBJECT_ARCHIVE flex.tar.gz
 ENV EXECUTABLE source/flex
-ENV SOURCE_FILE source/allfile.c
-ENV PREPROCESSED_FILE source/allfile.i
+ENV SOURCE_FILE source/flex.c
+ENV PREPROCESSED_FILE source/flex.i
 
 # Mount bug files to /experiment
 ADD . /experiment
