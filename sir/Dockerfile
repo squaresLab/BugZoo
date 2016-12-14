@@ -39,7 +39,12 @@ RUN mv /tmp/dependencies/run-test-with-id /usr/local/bin
 RUN mv /tmp/dependencies/run-test-suite /usr/local/bin
 
 # install Pythia
-ADD pythia/pythia.py /usr/local/bin/pythia
+RUN apt-get install -y wget zip python3-setuptools
+RUN cd /tmp &&\
+    wget -q https://github.com/ChrisTimperley/Pythia/archive/master.zip &&\
+    unzip master.zip &&\
+    (cd Pythia-master && python3 setup.py install) &&\
+    rm -rf Pythia-master master.zip
 
 # clean image
 RUN apt-get clean && rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
