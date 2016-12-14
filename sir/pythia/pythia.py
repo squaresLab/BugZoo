@@ -91,7 +91,9 @@ class TestCase(object):
             for inpt in self.__inpts:
                 cp_from = os.path.join(inputd, inpt.maps_from())
                 cp_to = os.path.join(sandboxd, inpt.maps_to())
-                os.makedirs(os.path.dirname(cp_to))
+                cp_to_dir = os.path.dirname(cp_to)
+                if not os.path.exists(cp_to_dir):
+                    os.makedirs(cp_to_dir)
                 shutil.copy2(cp_from, cp_to)
 
             # execute the command within the sandbox
