@@ -18,8 +18,8 @@ RUN pythia map "${EXECUTABLE}"
 #RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
 
 # Preprocess the source code file and remove all others
-RUN sed -i 's#\$(COMPILE_PARAMETERS)#-save-temps#' source/Makefile
+RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/Makefile
 RUN cd source && make build
 RUN mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}"
 RUN rm -f source/*.exe source/*.h source/*.i source/*.o source/*.s
-RUN sed -i 's#-save-temps##' source/Makefile
+RUN sed -i 's# -save-temps##' source/Makefile
