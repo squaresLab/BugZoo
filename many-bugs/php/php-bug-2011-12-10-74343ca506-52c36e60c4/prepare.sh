@@ -1,6 +1,7 @@
 #!/bin/bash
 dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+pushd $dir
 if [ ! -d src ]; then
   tar -xf src.tar.gz
   cp libxml.patch src
