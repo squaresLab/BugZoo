@@ -1,6 +1,7 @@
 FROM repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
+ENV PROGRAM_NAME bash
 ENV OBJECT_ARCHIVE bash.tar.gz
 ENV EXECUTABLE source/bash
 #ENV SOURCE_FILE source/allfile.c

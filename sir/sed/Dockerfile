@@ -1,6 +1,7 @@
 FROM repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
+ENV PROGRAM_NAME sed
 ENV OBJECT_ARCHIVE sed.tar.gz
 ENV EXECUTABLE source/sed.exe
 #ENV SOURCE_FILE source/allfile.c

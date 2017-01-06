@@ -1,6 +1,7 @@
 FROM repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
+ENV PROGRAM_NAME flex
 ENV OBJECT_ARCHIVE flex.tar.gz
 ENV EXECUTABLE source/flex
 ENV SOURCE_FILE source/flex.c

@@ -3,8 +3,8 @@ FROM <BASE_FILE>
 # Dockerfile template for a particular fault instance
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-# Fault identifier
 ENV FAULT_ID <FAULT_ID>
+ENV SCENARIO_NAME "sir-${PROGRAM_NAME}-${PROGRAM_VERSION}-${FAULT_ID}"
 
 ## Activate selected fault
 RUN cd source &&\
