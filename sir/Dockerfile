@@ -50,3 +50,7 @@ RUN cd /tmp &&\
 RUN apt-get clean && rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
 
 ENV COMPILE_PARAMETERS --save-temps
+
+# Add the problem.json template file and the generic compilation script
+ADD problem.json.template /experiment/problem.json
+ADD compile.sh /experiment/compile.sh
