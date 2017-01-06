@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-# install Java 8 OpenJDK and ant
-RUN apt-get update && apt-get install -y openjdk-8-jdk
+# install Java 8 OpenJDK, ant and jq
+RUN apt-get update && apt-get install -y openjdk-8-jdk jq
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 RUN apt-get install -y ant
 

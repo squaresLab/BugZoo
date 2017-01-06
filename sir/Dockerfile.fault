@@ -24,6 +24,14 @@ RUN mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}"
 RUN rm -f source/*.exe source/*.h source/*.i source/*.o source/*.s
 RUN sed -i 's# -save-temps##' source/Makefile
 
-# Create the problem.json file
-RUN sed -i "s/<<PROGRAM_NAME>>/${PROGRAM_NAME}/g" problem.json && \
-    sed -i "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/g" problem.json
+# Determine the number of positive and negative tests before generating the
+# problem.json file
+RUN jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
+      grep -oP '(?<=n)\d+' | sort -g | tail -n 1 > /tmp/num_negative && \
+    jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
+      grep -oP '(?<=p)\d+' | sort -g | tail -n 1 > /tmp/num_positive && \
+    sed -i "s/<<PROGRAM_NAME>>/${PROGRAM_NAME}/g" problem.json && \
+    sed -i "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/g" problem.json && \
+    sed -i "s/<<POSITIVE_TESTS>>/$(cat /tmp/num_positive)/g" problem.json && \
+    sed -i "s/<<NEGATIVE_TESTS>>/$(cat /tmp/num_negative)/g" problem.json && \
+    rm /tmp/* -rf
