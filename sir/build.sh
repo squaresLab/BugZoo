@@ -139,18 +139,18 @@ build_fault gzip v5 KL_8
 build_fault gzip v5 KL_9
 
 # flex-v1
-build_version flex v1
-build_fault flex v1 HD_1
-build_fault flex v1 HD_2
-build_fault flex v1 HD_3
-build_fault flex v1 HD_4
-build_fault flex v1 HD_5
-build_fault flex v1 HD_6
-build_fault flex v1 HD_7
-build_fault flex v1 HD_8
-build_fault flex v1 AA_1
-build_fault flex v1 AA_2
-build_fault flex v1 AA_3
+#build_version flex v1
+#build_fault flex v1 HD_1
+#build_fault flex v1 HD_2
+#build_fault flex v1 HD_3
+#build_fault flex v1 HD_4
+#build_fault flex v1 HD_5
+#build_fault flex v1 HD_6
+#build_fault flex v1 HD_7
+#build_fault flex v1 HD_8
+#build_fault flex v1 AA_1
+#build_fault flex v1 AA_2
+#build_fault flex v1 AA_3
 
 #build_version grep v1
 #build_version grep v2

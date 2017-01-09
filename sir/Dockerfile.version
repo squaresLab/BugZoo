@@ -23,6 +23,9 @@ RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source
 # Fix the source code file such that the FaultSeeds header file is included
 RUN sed -i '1i#include "FaultSeeds.h"' ${SOURCE_FILE}
 
+# Generate the manifest file
+RUN echo "${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
+
 # Remove unnecessary files
 RUN rm -rf  testplans testplans.alt\
             traces traces.alt\

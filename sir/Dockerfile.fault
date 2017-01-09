@@ -31,7 +31,6 @@ RUN jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
     jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
       grep -oP '(?<=p)\d+' | sort -g | tail -n 1 > /tmp/num_positive && \
     sed -i "s/<<PROGRAM_NAME>>/${PROGRAM_NAME}/g" problem.json && \
-    sed -i "s;<<SOURCE_FILE>>;${SOURCE_FILE};g" problem.json && \
     sed -i "s;<<EXECUTABLE>>;${EXECUTABLE};g" problem.json && \
     sed -i "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/g" problem.json && \
     sed -i "s/<<POSITIVE_TESTS>>/$(cat /tmp/num_positive)/g" problem.json && \
