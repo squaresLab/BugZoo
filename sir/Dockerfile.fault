@@ -21,7 +21,7 @@ RUN pythia map "${EXECUTABLE}"
 RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/Makefile
 RUN cd source && make build
 RUN mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}"
-RUN rm -f source/*.exe source/*.h source/*.i source/*.o source/*.s
+RUN rm -f source/*.exe source/*.i source/*.o source/*.s
 RUN sed -i 's# -save-temps##' source/Makefile
 
 # Determine the number of positive and negative tests before generating the
