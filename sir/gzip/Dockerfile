@@ -8,6 +8,9 @@ ENV EXECUTABLE source/gzip.exe
 ENV SOURCE_FILE source/allfile.c
 ENV PREPROCESSED_FILE source/allfile.i
 
+# Maximum length of time taken to execute a test case
+ENV TIME_LIMIT 5
+
 # Mount bug files to /experiment
 ADD . /experiment
 WORKDIR /experiment

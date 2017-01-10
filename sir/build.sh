@@ -66,77 +66,77 @@ build_program flex
 
 # gzip-v1
 build_version gzip v1
-build_fault gzip v1 KL_1
+#build_fault gzip v1 KL_1
 build_fault gzip v1 KL_2
-build_fault gzip v1 KL_5
-build_fault gzip v1 KL_6
-build_fault gzip v1 KP_1
-build_fault gzip v1 KP_2
-build_fault gzip v1 KP_3
-build_fault gzip v1 KP_4
-build_fault gzip v1 KP_5
-build_fault gzip v1 KP_6
-build_fault gzip v1 KP_7
-build_fault gzip v1 KP_8
-build_fault gzip v1 KP_9
-build_fault gzip v1 KP_10
-build_fault gzip v1 KP_11
-build_fault gzip v1 TW_3
-
-# gzip-v2
-build_version gzip v2
-build_fault gzip v2 KL_1
-build_fault gzip v2 KL_2
-build_fault gzip v2 KL_3
-build_fault gzip v2 KL_5
-build_fault gzip v2 KL_6
-build_fault gzip v2 KL_8
-build_fault gzip v2 TW_1
-
-# gzip-v3
-build_version gzip v3
-build_fault gzip v3 TW_1
-build_fault gzip v3 KP_1
-build_fault gzip v3 KP_2
-build_fault gzip v3 KP_3
-build_fault gzip v3 KP_4
-build_fault gzip v3 KL_1
-build_fault gzip v3 KL_2
-build_fault gzip v3 KL_3
-build_fault gzip v3 KL_4
-build_fault gzip v3 KL_5
-
-# gzip-v4
-build_version gzip v4
-build_fault gzip v4 KL_1
-build_fault gzip v4 KL_2
-build_fault gzip v4 KL_4
-build_fault gzip v4 KL_6
-build_fault gzip v4 KL_7
-build_fault gzip v4 KL_8
-build_fault gzip v4 KL_10
-build_fault gzip v4 KP_1
-build_fault gzip v4 KP_2
-build_fault gzip v4 KP_3
-build_fault gzip v4 KP_4
-build_fault gzip v4 KP_5
-
-# gzip-v5
-build_version gzip v5
-build_fault gzip v5 TW_1
-build_fault gzip v5 TW_2
-build_fault gzip v5 TW_4
-build_fault gzip v5 TW_5
-build_fault gzip v5 TW_6
-build_fault gzip v5 KL_1
-build_fault gzip v5 KL_2
-build_fault gzip v5 KL_3
-build_fault gzip v5 KL_4
-build_fault gzip v5 KL_5
-build_fault gzip v5 KL_6
-build_fault gzip v5 KL_7
-build_fault gzip v5 KL_8
-build_fault gzip v5 KL_9
+#build_fault gzip v1 KL_5
+#build_fault gzip v1 KL_6
+#build_fault gzip v1 KP_1
+#build_fault gzip v1 KP_2
+#build_fault gzip v1 KP_3
+#build_fault gzip v1 KP_4
+#build_fault gzip v1 KP_5
+#build_fault gzip v1 KP_6
+#build_fault gzip v1 KP_7
+#build_fault gzip v1 KP_8
+#build_fault gzip v1 KP_9
+#build_fault gzip v1 KP_10
+#build_fault gzip v1 KP_11
+#build_fault gzip v1 TW_3
+#
+## gzip-v2
+#build_version gzip v2
+#build_fault gzip v2 KL_1
+#build_fault gzip v2 KL_2
+#build_fault gzip v2 KL_3
+#build_fault gzip v2 KL_5
+#build_fault gzip v2 KL_6
+#build_fault gzip v2 KL_8
+#build_fault gzip v2 TW_1
+#
+## gzip-v3
+#build_version gzip v3
+#build_fault gzip v3 TW_1
+#build_fault gzip v3 KP_1
+#build_fault gzip v3 KP_2
+#build_fault gzip v3 KP_3
+#build_fault gzip v3 KP_4
+#build_fault gzip v3 KL_1
+#build_fault gzip v3 KL_2
+#build_fault gzip v3 KL_3
+#build_fault gzip v3 KL_4
+#build_fault gzip v3 KL_5
+#
+## gzip-v4
+#build_version gzip v4
+#build_fault gzip v4 KL_1
+#build_fault gzip v4 KL_2
+#build_fault gzip v4 KL_4
+#build_fault gzip v4 KL_6
+#build_fault gzip v4 KL_7
+#build_fault gzip v4 KL_8
+#build_fault gzip v4 KL_10
+#build_fault gzip v4 KP_1
+#build_fault gzip v4 KP_2
+#build_fault gzip v4 KP_3
+#build_fault gzip v4 KP_4
+#build_fault gzip v4 KP_5
+#
+## gzip-v5
+#build_version gzip v5
+#build_fault gzip v5 TW_1
+#build_fault gzip v5 TW_2
+#build_fault gzip v5 TW_4
+#build_fault gzip v5 TW_5
+#build_fault gzip v5 TW_6
+#build_fault gzip v5 KL_1
+#build_fault gzip v5 KL_2
+#build_fault gzip v5 KL_3
+#build_fault gzip v5 KL_4
+#build_fault gzip v5 KL_5
+#build_fault gzip v5 KL_6
+#build_fault gzip v5 KL_7
+#build_fault gzip v5 KL_8
+#build_fault gzip v5 KL_9
 
 # flex-v1
 #build_version flex v1
