@@ -11,5 +11,5 @@
       "command": "./compile.sh __EXE_NAME__ &> /dev/null"
     }
   },
-  "test_command": "pythia run-by-id /experiment/<<EXECUTABLE>> __TEST_NAME__"
+  "test_command": "pythia run-by-id <<EXECUTABLE>> __TEST_NAME__"
 }
