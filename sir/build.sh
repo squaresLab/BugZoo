@@ -4,7 +4,7 @@ HERE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 # Constructs the Docker image for a particular SIR program.
 build_program(){
   program=$1
-  program_image="repairbox:sir-${program}"
+  program_image="christimperley/repairbox:sir-${program}"
   docker build -t ${program_image} "${HERE_DIR}/${program}"
 }
 
@@ -15,7 +15,7 @@ build_version(){
   version=$2
 
   # Compute the name of the image for this program version
-  program_image="repairbox:sir-${program}"
+  program_image="christimperley/repairbox:sir-${program}"
   version_image="${program_image}-${version}"
 
   # Construct the image for this program version
@@ -40,7 +40,7 @@ build_fault(){
   fault=$3
 
   # compute the name of the Docker image
-  version_image="repairbox:sir-${program}-${version}"
+  version_image="christimperley/repairbox:sir-${program}-${version}"
   fault_image="${version_image}-${fault}"
 
   # construct the Docker image
