@@ -15,7 +15,6 @@ RUN cd source && make build
 
 # Build the original test script for the problem
 RUN pythia map "${EXECUTABLE}"
-#RUN generate-test-runner "${EXECUTABLE}" ${PROGRAM_VER}
 
 # Preprocess the source code file and remove all others
 RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/Makefile
@@ -31,9 +30,7 @@ RUN jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
     jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
       grep -oP '(?<=p)\d+' | sort -g | tail -n 1 > /tmp/num_positive && \
     sed -i "s/<<PROGRAM_NAME>>/${PROGRAM_NAME}/g" problem.json && \
-    sed -i "s;<<EXECUTABLE>>;${EXECUTABLE};g" problem.json && \
     sed -i "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/g" problem.json && \
-    sed -i "s/<<TIME_LIMIT>>/${TIME_LIMIT}/g" problem.json && \
     sed -i "s/<<POSITIVE_TESTS>>/$(cat /tmp/num_positive)/g" problem.json && \
     sed -i "s/<<NEGATIVE_TESTS>>/$(cat /tmp/num_negative)/g" problem.json && \
     rm /tmp/* -rf

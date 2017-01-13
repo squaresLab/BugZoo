@@ -58,7 +58,7 @@ build_fault(){
 }
 
 # Build the base image for all SIR scenarios
-docker build -t repairbox:sir .
+docker build -t christimperley/repairbox:sir .
 
 build_program grep
 build_program gzip

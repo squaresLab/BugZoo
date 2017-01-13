@@ -1,4 +1,4 @@
-FROM repairbox:sir
+FROM christimperley/repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV PROGRAM_NAME gzip
@@ -7,9 +7,6 @@ ENV OBJECT_ARCHIVE gzip.tar.gz
 ENV EXECUTABLE source/gzip.exe
 ENV SOURCE_FILE source/allfile.c
 ENV PREPROCESSED_FILE source/allfile.i
-
-# Maximum length of time taken to execute a test case
-ENV TIME_LIMIT 5
 
 # Mount bug files to /experiment
 ADD . /experiment

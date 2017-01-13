@@ -11,5 +11,5 @@
       "command": "./compile.sh __EXE_NAME__ &> /dev/null"
     }
   },
-  "test_command": "pythia run-by-id --time <<TIME_LIMIT>> <<EXECUTABLE>> __TEST_NAME__ &> /dev/null"
+  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null"
 }

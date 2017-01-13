@@ -1,4 +1,4 @@
-FROM repairbox:sir
+FROM christimperley/repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV PROGRAM_NAME flex
