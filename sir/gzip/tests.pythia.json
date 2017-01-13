@@ -6,9 +6,6 @@
     "command": "<<EXECUTABLE>> --help"
   },
   {
-    "command": "<<EXECUTABLE>> -l"
-  },
-  {
     "command": "<<EXECUTABLE>> --license"
   },
   {

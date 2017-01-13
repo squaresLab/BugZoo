@@ -1,5 +1,8 @@
 [
   {
+    "command": "<<EXECUTABLE>> -l"
+  },
+  {
     "description": "tests the integrity of an archive at a given location",
     "command": "<<EXECUTABLE>> '<<SANDBOX>>' -t",
     "input": {
