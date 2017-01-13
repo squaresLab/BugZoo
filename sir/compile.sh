@@ -1,4 +1,5 @@
 #!/bin/bash
+TIMEOUT=10
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 src_dir="$here_dir/source"
 
@@ -15,7 +16,7 @@ if !(cp "$candidate_dir/." "$src_dir" -rf); then
   exit 1
 fi
 
-if !(make -C "$src_dir" clean && make -C "$src_dir" > /dev/null); then
+if !(make -C "$src_dir" clean && timeout $TIMEOUT make -C "$src_dir" > /dev/null); then
   echo "ERROR: failed to execute make within source directory"
   exit 1
 fi
