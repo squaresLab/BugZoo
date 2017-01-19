@@ -6,22 +6,17 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 ENV FAULT_ID <FAULT_ID>
 ENV SCENARIO_NAME "sir-${PROGRAM_NAME}-${PROGRAM_VERSION}-${FAULT_ID}"
 
-## Activate selected fault
-RUN cd source &&\
-  sed -i "s;/\* #define FAULTY_F_${FAULT_ID} \*/;#define FAULTY_F_${FAULT_ID};" FaultSeeds.h
-
-# Build faulty program
-RUN cd source && make build
-
-# Build the original test script for the problem
-RUN pythia map "${EXECUTABLE}"
+## Activate selected fault, build the faulty program and construct the test mapping
+RUN sed -i "s;/\* #define FAULTY_F_${FAULT_ID} \*/;#define FAULTY_F_${FAULT_ID};" source/FaultSeeds.h && \
+    (cd source && make build) && \
+    pythia map "${EXECUTABLE}"
 
 # Preprocess the source code file and remove all others
-RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/Makefile
-RUN cd source && make build
-RUN mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}"
-RUN rm -f source/*.exe source/*.i source/*.o source/*.s
-RUN sed -i 's# -save-temps##' source/Makefile
+RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/Makefile && \
+    (cd source && make build) && \
+    mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}" && \
+    rm -f source/*.exe source/*.i source/*.o source/*.s && \
+    sed -i 's# -save-temps##' source/Makefile
 
 # Determine the number of positive and negative tests before generating the
 # problem.json file
