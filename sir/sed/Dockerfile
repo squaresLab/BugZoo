@@ -4,18 +4,18 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 ENV PROGRAM_NAME sed
 ENV OBJECT_ARCHIVE sed.tar.gz
 ENV EXECUTABLE source/sed.exe
-#ENV SOURCE_FILE source/allfile.c
-#ENV PREPROCESSED_FILE source/allfile.i
+ENV SOURCE_FILE source/sed.c
+ENV PREPROCESSED_FILE source/sed.i
 
 # Mount bug files to /experiment
-ADD . /experiment
+ADD sed.tar.gz /experiment
+RUN sudo chown -R docker /experiment
 WORKDIR /experiment
 
-# Unextract archive contents into /experiment
-RUN tar -xf ${OBJECT_ARCHIVE} && mv sed/* . && rmdir sed && rm ${OBJECT_ARCHIVE}
-
-# Dispose of redundant file
-RUN rm -f build.properties
+# Move extracted archive contents into /experiment and dispose of unnecessary
+# files
+RUN mv sed/* . && rmdir sed && \
+    rm -rf build.properties info
 
 # Generate the Pythia script
 RUN pythia build-manifest-from-mts . testplans.alt/v1/v0_2.universe ${EXECUTABLE}
