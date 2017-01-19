@@ -10,3 +10,18 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 USER docker
+
+# reclaim ownership or /usr/local/bin
+RUN sudo chown -R docker /usr/local/bin
+
+# install Pythia
+ENV PYTHIA_VERSION 9b1256a
+RUN sudo apt-get update && \
+    sudo apt-get install -y wget zip python3-setuptools && \
+    cd /tmp &&\
+    wget -q https://github.com/ChrisTimperley/Pythia/archive/master.zip &&\
+    unzip master.zip &&\
+    (cd Pythia-master && sudo python3 setup.py install) &&\
+    cd / && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
