@@ -5,7 +5,7 @@ HERE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 build_program(){
   program=$1
   program_image="christimperley/repairbox:sir-${program}"
-  docker build -t ${program_image} "${HERE_DIR}/${program}"
+  docker build -t ${program_image} "${HERE_DIR}/${program}" > /dev/null
 }
 
 # Constructs the Docker image for a particular version of a program within
@@ -27,7 +27,7 @@ build_version(){
 
   # Build the docker image
   echo "Building: ${version_image}"
-  docker build -t ${version_image} ${docker_dir}
+  docker build -t ${version_image} ${docker_dir} > /dev/null
 
   # Destroy the temporary directory
   rm -rf ${docker_dir}
@@ -52,7 +52,7 @@ build_fault(){
 
   # Build the docker image
   echo "Building: ${fault_image}"
-  docker build -t ${fault_image} ${docker_dir}
+  docker build -t ${fault_image} ${docker_dir} > /dev/null
 
   rm -rf ${docker_dir}
 }
@@ -61,14 +61,13 @@ build_fault(){
 #docker build -t christimperley/repairbox:sir .
 
 #build_program grep
-#build_program gzip
 #build_program flex
 
 # grep
-build_version grep v1
-build_version grep v2
-build_version grep v3
-build_version grep v4
+#build_version grep v1
+#build_version grep v2
+#build_version grep v3
+#build_version grep v4
 
 # sed
 #build_version sed v1
@@ -85,22 +84,22 @@ build_version grep v4
 #build_fault sed v3 AG_20
 
 ## gzip-v1
-#build_version gzip v1
-##build_fault gzip v1 KL_1
-#build_fault gzip v1 KL_2
-##build_fault gzip v1 KL_5
+build_version gzip v1
+build_fault gzip v1 KL_1
+build_fault gzip v1 KL_2
+#build_fault gzip v1 KL_5
 #build_fault gzip v1 KL_6
 #build_fault gzip v1 KP_1
-##build_fault gzip v1 KP_2
-##build_fault gzip v1 KP_3
-##build_fault gzip v1 KP_4
-##build_fault gzip v1 KP_5
-##build_fault gzip v1 KP_6
-##build_fault gzip v1 KP_7
-##build_fault gzip v1 KP_8
+#build_fault gzip v1 KP_2
+#build_fault gzip v1 KP_3
+#build_fault gzip v1 KP_4
+#build_fault gzip v1 KP_5
+#build_fault gzip v1 KP_6
+#build_fault gzip v1 KP_7
+#build_fault gzip v1 KP_8
 #build_fault gzip v1 KP_9
 #build_fault gzip v1 KP_10
-##build_fault gzip v1 KP_11
+#build_fault gzip v1 KP_11
 #build_fault gzip v1 TW_3
 ##
 ### gzip-v2
@@ -180,11 +179,11 @@ build_version grep v4
 ##build_version grep v5
 #
 ## Confirmed to be working:
-build_fault grep v1 DG_4
-build_fault grep v1 DG_9
-build_fault grep v1 KP_2
-build_fault grep v1 KP_5
-build_fault grep v2 DG_1
-build_fault grep v3 DG_3
-build_fault grep v3 KP_7
-build_fault grep v4 KP_6
+#build_fault grep v1 DG_4
+#build_fault grep v1 DG_9
+#build_fault grep v1 KP_2
+#build_fault grep v1 KP_5
+#build_fault grep v2 DG_1
+#build_fault grep v3 DG_3
+#build_fault grep v3 KP_7
+#build_fault grep v4 KP_6
