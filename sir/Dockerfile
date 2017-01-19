@@ -37,10 +37,13 @@ RUN cd /tmp &&\
     (cd Pythia-master && sudo python3 setup.py install) &&\
     cd / && sudo rm -rf /tmp
 
+# reclaim ownership or /usr/local/bin
+RUN sudo chown -R docker /usr/local/bin
+
 ENV COMPILE_PARAMETERS --save-temps
 
 # Add the problem.json template file and the generic compilation script
 ADD problem.json.template /experiment/problem.json
 ADD compile.sh /experiment/compile.sh
 ADD test.sh /experiment/test.sh
-RUN chown -R docker /experiment
+RUN sudo chown -R docker /experiment
