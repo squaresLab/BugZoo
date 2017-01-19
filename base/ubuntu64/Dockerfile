@@ -15,7 +15,7 @@ USER docker
 RUN sudo chown -R docker /usr/local/bin
 
 # install Pythia
-ENV PYTHIA_VERSION 9b1256a
+ENV PYTHIA_VERSION 9429848
 RUN sudo apt-get update && \
     sudo apt-get install -y wget zip python3-setuptools && \
     cd /tmp &&\
