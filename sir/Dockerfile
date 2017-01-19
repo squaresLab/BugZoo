@@ -29,15 +29,7 @@ RUN cd /tmp/dependencies &&\
     sudo cp tsl /usr/local/bin/tsl &&\
     sudo rm -rf /tmp/dependencies/tsl
 
-# install Pythia
-ENV PYTHIA_VERSION 9b1256a
-RUN cd /tmp &&\
-    wget -q https://github.com/ChrisTimperley/Pythia/archive/master.zip &&\
-    unzip master.zip &&\
-    (cd Pythia-master && sudo python3 setup.py install) &&\
-    cd / && sudo rm -rf /tmp/*
-
-# reclaim ownership or /usr/local/bin
+# Reclaim ownership of /usr/local/bin
 RUN sudo chown -R docker /usr/local/bin
 
 ENV COMPILE_PARAMETERS --save-temps

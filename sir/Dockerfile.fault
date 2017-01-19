@@ -28,4 +28,4 @@ RUN jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
     sed -i "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/g" problem.json && \
     sed -i "s/<<POSITIVE_TESTS>>/$(cat /tmp/num_positive)/g" problem.json && \
     sed -i "s/<<NEGATIVE_TESTS>>/$(cat /tmp/num_negative)/g" problem.json && \
-    rm /tmp/* -rf
+    sudo rm /tmp/* -rf
