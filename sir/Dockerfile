@@ -35,7 +35,7 @@ RUN cd /tmp &&\
     wget -q https://github.com/ChrisTimperley/Pythia/archive/master.zip &&\
     unzip master.zip &&\
     (cd Pythia-master && sudo python3 setup.py install) &&\
-    cd / && sudo rm -rf /tmp
+    cd / && sudo rm -rf /tmp/*
 
 # reclaim ownership or /usr/local/bin
 RUN sudo chown -R docker /usr/local/bin

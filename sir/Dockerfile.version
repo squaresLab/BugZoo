@@ -8,23 +8,15 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 # Environmental variables for fault details?
 ENV PROGRAM_VERSION <PROGRAM_VERSION>
 
-# Copy source code for original, fixed version of the program into "source"
-RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source
+# Generate the oracle and list of test commands
+RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
+    (cd source && make build) && \
+    pythia generate "${EXECUTABLE}"
 
-# Build the original version of the program
-RUN cd source && make build
-
-# Generate oracle outputs and a list of test commands
-RUN pythia generate "${EXECUTABLE}"
-
-# Copy faulty version of program to "source"
-RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source
-
-# Fix the source code file such that the FaultSeeds header file is included
-RUN sed -i '1i#include "FaultSeeds.h"' ${SOURCE_FILE}
-
-# Generate the manifest file
-RUN echo "${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
+# Prepare faulty version of the program
+RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
+    sed -i '1i#include "FaultSeeds.h"' ${SOURCE_FILE} && \
+    echo "${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
 
 # Remove unnecessary files
 RUN rm -rf  testplans testplans.alt\
