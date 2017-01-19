@@ -3,17 +3,17 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV PROGRAM_NAME gzip
 ENV UNIVERSE_FILE /experiment/testplans.alt/v0.tsl.universe
-ENV OBJECT_ARCHIVE gzip.tar.gz
 ENV EXECUTABLE source/gzip.exe
 ENV SOURCE_FILE source/allfile.c
 ENV PREPROCESSED_FILE source/allfile.i
 
 # Mount bug files to /experiment
-ADD . /experiment
+ADD tests.pythia.json /experiment
+ADD gzip.tar.gz /experiment
 WORKDIR /experiment
+RUN sudo chown -R docker /experiment
 
-# Unextract archive contents into /experiment
-RUN tar -xf ${OBJECT_ARCHIVE} && mv gzip/* . && rmdir gzip && rm gzip.tar.gz
+RUN mv gzip/* . && rmdir gzip
 
 # Fix path problem in test scripts
 RUN cd testplans.alt/testscripts &&\
