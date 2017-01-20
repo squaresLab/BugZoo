@@ -1,0 +1,6 @@
+236a237,241
+>         if (timeout < 0) {
+>             PyErr_SetString(PyExc_ValueError,
+>                         "timeout must be non-negative");
+>             return NULL;
+>         }

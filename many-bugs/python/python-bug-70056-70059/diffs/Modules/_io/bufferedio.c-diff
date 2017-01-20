@@ -1,0 +1,4 @@
+1897c1897
+<         if (!VALID_WRITE_BUFFER(self)) {
+---
+>         if (!VALID_WRITE_BUFFER(self) || self->write_pos > self->pos) {
