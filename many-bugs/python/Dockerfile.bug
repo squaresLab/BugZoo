@@ -1,0 +1,19 @@
+FROM christimperley/repairbox:manybugs-python
+
+ADD bug-info /experiment/bug-info
+ADD diffs /experiment/diffs
+ADD fixed /experiment/fixed
+ADD preprocessed /experiment/preprocessed
+ADD src.tar.gz /experiment
+ADD test.sh /experiment
+ADD configuration-default /experiment
+ADD problem.json /experiment
+
+# each Python bug has its own (more efficient) compile script
+ADD compile.sh /experiment
+
+# reclaim ownership of /experiment
+RUN sudo chown -R docker /experiment
+
+# configure each bug
+RUN ./configure
