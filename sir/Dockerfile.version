@@ -1,7 +1,4 @@
 # Base Dockerfile for program versions
-#
-# TODO: Dispose of low quality test cases automatically?
-#
 FROM <BASE_FILE>
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
