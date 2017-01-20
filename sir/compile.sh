@@ -16,7 +16,10 @@ if !(cp "$candidate_dir/." "$src_dir" -rf); then
   exit 1
 fi
 
-if !(make -C "$src_dir" clean && make -C "$src_dir" > /dev/null); then
+# perform the equivalent of make clean
+rm -f source/*.o source/*.exe
+
+if !(make build -C "$src_dir" > /dev/null); then
   echo "ERROR: failed to execute make within source directory"
   exit 1
 fi
