@@ -1,8 +1,8 @@
-sir-grep-v1-DG_4
-sir-grep-v1-DG_9
-sir-grep-v1-KP_2
-sir-grep-v1-KP_5
-sir-grep-v2-DG_1
-sir-grep-v3-DG_3
-sir-grep-v3-KP_7
-sir-grep-v4-KP_6
+grep/v1/DG_4
+grep/v1/DG_9
+grep/v1/KP_2
+grep/v1/KP_5
+grep/v2/DG_1
+grep/v3/DG_3
+grep/v3/KP_7
+grep/v4/KP_6
