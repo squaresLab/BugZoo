@@ -8,17 +8,17 @@ ENV SOURCE_FILE source/flex.c
 ENV PREPROCESSED_FILE source/flex.i
 
 # Mount bug files to /experiment
-ADD . /experiment
+ADD flex.tar.gz /experiment
+RUN sudo chown -R docker /experiment
 WORKDIR /experiment
 
-# Unextract archive contents into /experiment
-RUN tar -xf ${OBJECT_ARCHIVE} && mv flex/* . && rmdir flex && rm flex.tar.gz
+# Move extracted archive contents into /experiment and dispose of unnecessary
+# files
+RUN mv flex/* . && rmdir flex && \
+    rm -rf build.properties info
 
 # Generate the Pythia script
 RUN pythia build-manifest-from-mts . testplans.alt/v1/v0.tsl.universe ${EXECUTABLE}
-
-# Dispose of redundant files
-RUN rm -f build.properties
 
 # Reconstruct libfl.a for this machine
 RUN cd versions.alt/versions.orig/v0 &&\
