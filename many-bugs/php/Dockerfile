@@ -1,5 +1,12 @@
-# This is the base Dockerfile used by all of the PHP ManyBugs scenarios; it
-# provides a minimal environment required to build PHP from source on a
-# 64-bit Fedora machine
-FROM repairbox:slim64
+FROM christimperley/repairbox:manybugs64
 MAINTAINER Chris Timperley "christimperley@gmail.com"
+
+ADD libxml.patch /experiment
+ADD php-helper.php /experiment
+RUN sudo chown -R docker /experiment
+
+# Install necessary packages
+RUN sudo apt-get update && \
+    sudo apt-get install -y libxml2-dev && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

@@ -1,0 +1,21 @@
+FROM christimperley/repairbox:manybugs-php
+
+ADD bug-info /experiment/bug-info
+ADD diffs /experiment/diffs
+ADD fixed /experiment/fixed
+ADD preprocessed /experiment/preprocessed
+ADD src.tar.gz /experiment
+ADD test.sh /experiment
+ADD test.pl /experiment
+ADD configuration-default /experiment
+ADD problem.json /experiment
+
+# Apply the libxml patch and configure
+# (disable PHAR to prevent seg. fault)
+RUN cd /experiment && \
+    mv libxml.patch src && \
+    cd src && \
+    cat libxml.patch | patch -p0 && \
+    rm libxml.patch && \
+    ./configure --disable-phar
+#./configure --host=i686-pc-linux-gnu "CFLAGS=-m32 -std=gnu99" "CXXFLAGS=-m32" "LDFLAGS=-m32"
