@@ -1,0 +1,11 @@
+338c338
+<     q = (struct huft *) malloc (2 * sizeof *q);
+---
+>     q = (struct huft *) malloc (3 * sizeof *q);
+341c341
+<     hufts += 2;
+---
+>     hufts += 3;
+344a345,346
+>     q[2].e = 99;    /* invalid code marker */
+>     q[2].b = 1;

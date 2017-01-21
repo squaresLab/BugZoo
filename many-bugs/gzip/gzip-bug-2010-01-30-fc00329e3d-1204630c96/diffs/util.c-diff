@@ -1,0 +1,28 @@
+47c47,48
+<  * IN assertion: insize bytes have already been read in inbuf.
+---
+>  * IN assertion: insize bytes have already been read in inbuf and inptr bytes
+>  * already processed or copied.
+51a53,54
+>     int got;
+> 
+53,59c56,64
+<     while (insize != 0 && (int)insize != -1) {
+<         write_buf(out, (char*)inbuf, insize);
+<         bytes_out += insize;
+<         insize = read_buffer (in, (char *) inbuf, INBUFSIZ);
+<     }
+<     if ((int)insize == -1) {
+<         read_error();
+---
+>     while (insize > inptr) {
+>         write_buf(out, (char*)inbuf + inptr, insize - inptr);
+>         bytes_out += insize - inptr;
+>         got = read_buffer (in, (char *) inbuf, INBUFSIZ);
+>         if (got == -1)
+>             read_error();
+>         bytes_in += got;
+>         insize = (unsigned)got;
+>         inptr = 0;
+61d65
+<     bytes_in = bytes_out;

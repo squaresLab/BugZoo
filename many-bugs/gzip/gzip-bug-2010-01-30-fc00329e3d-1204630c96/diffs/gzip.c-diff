@@ -1,0 +1,19 @@
+1241a1242
+>     int imagic0;   /* first magic byte or EOF */
+1249c1250,1251
+<         magic[0] = (char)try_byte();
+---
+>         imagic0 = try_byte();
+>         magic[0] = (char) imagic0;
+1254a1257
+>         imagic0 = 0;
+1398c1401,1402
+<         inptr = 0;
+---
+>         if (imagic1 != EOF)
+>             inptr--;
+1399a1404,1407
+>         if (imagic0 != EOF) {
+>             write_buf(fileno(stdout), magic, 1);
+>             bytes_out++;
+>         }
