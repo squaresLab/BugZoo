@@ -1,0 +1,21 @@
+975,978d974
+< 	/* Check for overflow. */
+< 	if (!dir->tdir_count || !w || (tsize_t)dir->tdir_count / w != cc)
+< 		goto bad;
+< 
+985,988c981
+< 		tsize_t offset = dir->tdir_offset + cc;
+< 		/* Check for overflow. */
+< 		if ((tsize_t)dir->tdir_offset != offset - cc
+< 		    || offset > (tsize_t)tif->tif_size)
+---
+> 		if (dir->tdir_offset + cc > tif->tif_size)
+1014,1017c1007,1009
+< 	TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
+< 		     "Error fetching data for field \"%s\"",
+< 		     _TIFFFieldWithTag(tif, dir->tdir_tag)->field_name);
+< 	return (tsize_t) 0;
+---
+> 	TIFFErrorExt(tif->tif_clientdata, tif->tif_name, "Error fetching data for field \"%s\"",
+> 	    _TIFFFieldWithTag(tif, dir->tdir_tag)->field_name);
+> 	return ((tsize_t) 0);
