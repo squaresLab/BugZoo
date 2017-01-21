@@ -1,0 +1,42 @@
+5c5
+<  * $Id: packet-dns.c 35418 2011-01-07 15:59:26Z morriss $
+---
+>  * $Id: packet-dns.c 35401 2011-01-06 17:15:50Z sfisher $
+984c984
+<     srv_rr_info = g_strsplit(name, ".", 3);
+---
+> 	  srv_rr_info = g_strsplit(name, ".", 3);
+986c986,989
+<     /* The + 1 on the strings is to skip the leading '_' */
+---
+> 	  /* The + 1 on the strings is to skip the leading '_' */
+> 	  
+> 	  proto_tree_add_string(rr_tree, hf_dns_srv_service, tvb, offset,
+> 				namelen, srv_rr_info[0]+1);
+988,989c991,992
+<     proto_tree_add_string(rr_tree, hf_dns_srv_service, tvb, offset,
+< 			  namelen, srv_rr_info[0]+1);
+---
+> 	  proto_tree_add_string(rr_tree, hf_dns_srv_proto, tvb, offset,
+> 				namelen, srv_rr_info[1]+1);
+991,993c994,995
+<     if (srv_rr_info[1]) {
+<       proto_tree_add_string(rr_tree, hf_dns_srv_proto, tvb, offset,
+< 			    namelen, srv_rr_info[1]+1);
+---
+> 	  proto_tree_add_string(rr_tree, hf_dns_srv_name, tvb, offset,
+> 				namelen, srv_rr_info[2]);
+995,1000c997
+<       if (srv_rr_info[2])
+< 	proto_tree_add_string(rr_tree, hf_dns_srv_name, tvb, offset,
+< 			      namelen, srv_rr_info[2]);
+<     }
+< 
+<     g_strfreev(srv_rr_info);
+---
+> 	  g_strfreev(srv_rr_info);
+1002c999,1000
+<     proto_tree_add_string(rr_tree, hf_dns_rr_name, tvb, offset, namelen, name);
+---
+> 	  proto_tree_add_string(rr_tree, hf_dns_rr_name, tvb, offset,
+> 				namelen, name);
