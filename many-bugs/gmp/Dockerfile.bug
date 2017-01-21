@@ -1,0 +1,24 @@
+FROM christimperley/repairbox:manybugs-gmp
+
+ADD bug-info /experiment/bug-info
+ADD diffs /experiment/diffs
+ADD fixed /experiment/fixed
+ADD preprocessed /experiment/preprocessed
+ADD src.tar.gz /experiment
+ADD test.sh /experiment
+ADD test.pl /experiment
+ADD configuration-default /experiment
+#ADD problem.json /experiment
+
+
+# Remove all references to tests/mpbsd/Makefile from configure
+# Credit to Eduardo Souza (github.com/eduardodx) for fix
+RUN cd src &&  \
+  grep -v '"tests/mpbsd/Makefile") ' configure | \
+  sed "s#tests/mpbsd/Makefile ##g" | \
+  sponge configure
+#RUN cd src && \
+#    ./configure --build=i386-linux-gnu \
+#                CFLAGS="-m32" \
+#                CXXFLAGS="-m32" \
+#                LDFLAGS="-m32"
