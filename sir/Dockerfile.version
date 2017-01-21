@@ -8,7 +8,7 @@ ENV PROGRAM_VERSION <PROGRAM_VERSION>
 # Generate the oracle and list of test commands
 RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
     (cd source && make build) && \
-    pythia generate "${EXECUTABLE}"
+    echo $EXECUTABLE && pythia generate "${EXECUTABLE}"
 
 # Prepare faulty version of the program
 RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \

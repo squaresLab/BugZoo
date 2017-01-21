@@ -1,13 +1,6 @@
 #!/bin/bash
 HERE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-# Constructs the Docker image for a particular SIR program.
-build_program(){
-  program=$1
-  program_image="christimperley/repairbox:sir-${program}"
-  docker build -t ${program_image} "${HERE_DIR}/${program}" > /dev/null
-}
-
 # Constructs the Docker image for a particular version of a program within
 # the SIR benchmarks.
 build_version(){
@@ -57,133 +50,12 @@ build_fault(){
   rm -rf ${docker_dir}
 }
 
-# Build the base image for all SIR scenarios
-#docker build -t christimperley/repairbox:sir .
-
-#build_program grep
-#build_program flex
-
-# grep
-#build_version grep v1
-#build_version grep v2
-#build_version grep v3
-#build_version grep v4
-
-# sed
-#build_version sed v1
-#build_version sed v2
-#build_version sed v3
-
-#build_fault sed v1 KRM_1
-#build_fault sed v1 KRM_2
-#build_fault sed v1 KRM_3
-#build_fault sed v2 AG_2
-#build_fault sed v2 AG_12
-#built_fault sed v3 AG_17
-#build_fault sed v3 AG_19
-#build_fault sed v3 AG_20
-
-## gzip-v1
-build_version gzip v1
-build_fault gzip v1 KL_1
-build_fault gzip v1 KL_2
-#build_fault gzip v1 KL_5
-#build_fault gzip v1 KL_6
-#build_fault gzip v1 KP_1
-#build_fault gzip v1 KP_2
-#build_fault gzip v1 KP_3
-#build_fault gzip v1 KP_4
-#build_fault gzip v1 KP_5
-#build_fault gzip v1 KP_6
-#build_fault gzip v1 KP_7
-#build_fault gzip v1 KP_8
-#build_fault gzip v1 KP_9
-#build_fault gzip v1 KP_10
-#build_fault gzip v1 KP_11
-#build_fault gzip v1 TW_3
-##
-### gzip-v2
-#build_version gzip v2
-#build_fault gzip v2 KL_1
-##build_fault gzip v2 KL_2
-#build_fault gzip v2 KL_3
-##build_fault gzip v2 KL_5
-##build_fault gzip v2 KL_6
-#build_fault gzip v2 KL_8
-##build_fault gzip v2 TW_1
-##
-### gzip-v3
-#build_version gzip v3
-##build_fault gzip v3 TW_1
-##build_fault gzip v3 KP_1
-##build_fault gzip v3 KP_2
-#build_fault gzip v3 KP_3
-##build_fault gzip v3 KP_4
-#build_fault gzip v3 KL_1
-##build_fault gzip v3 KL_2
-##build_fault gzip v3 KL_3
-##build_fault gzip v3 KL_4
-##build_fault gzip v3 KL_5
-#build_fault gzip v3 KL_8
-#
-### gzip-v4
-#build_version gzip v4
-#build_fault gzip v4 KL_1
-##build_fault gzip v4 KL_2
-##build_fault gzip v4 KL_4
-##build_fault gzip v4 KL_6
-##build_fault gzip v4 KL_7
-#build_fault gzip v4 KL_8
-##build_fault gzip v4 KL_10
-##build_fault gzip v4 KP_1
-##build_fault gzip v4 KP_2
-#build_fault gzip v4 KP_3
-##build_fault gzip v4 KP_4
-##build_fault gzip v4 KP_5
-##
-### gzip-v5
-#build_version gzip v5
-#build_fault gzip v5 TW_1
-##build_fault gzip v5 TW_2
-##build_fault gzip v5 TW_4
-##build_fault gzip v5 TW_5
-##build_fault gzip v5 TW_6
-#build_fault gzip v5 KL_1
-#build_fault gzip v5 KL_2
-##build_fault gzip v5 KL_3
-#build_fault gzip v5 KL_4
-##build_fault gzip v5 KL_5
-##build_fault gzip v5 KL_6
-##build_fault gzip v5 KL_7
-#build_fault gzip v5 KL_8
-##build_fault gzip v5 KL_9
-#
-## flex-v1
-##build_version flex v1
-##build_fault flex v1 HD_1
-##build_fault flex v1 HD_2
-##build_fault flex v1 HD_3
-##build_fault flex v1 HD_4
-##build_fault flex v1 HD_5
-##build_fault flex v1 HD_6
-##build_fault flex v1 HD_7
-##build_fault flex v1 HD_8
-##build_fault flex v1 AA_1
-##build_fault flex v1 AA_2
-##build_fault flex v1 AA_3
-#
-##build_version grep v1
-##build_version grep v2
-##build_version grep v3
-##build_version grep v4
-##build_version grep v5
-#
-## Confirmed to be working:
-#build_fault grep v1 DG_4
-#build_fault grep v1 DG_9
-#build_fault grep v1 KP_2
-#build_fault grep v1 KP_5
-#build_fault grep v2 DG_1
-#build_fault grep v3 DG_3
-#build_fault grep v3 KP_7
-#build_fault grep v4 KP_6
+# Argument extraction and checking
+mode=$1
+program=$2
+version=$3
+case $mode in
+  version) build_version $program $version ;;
+  fault) build_fault $program $version $4;;
+  *) echo "unknown mode option: $mode"; exit 1
+esac
