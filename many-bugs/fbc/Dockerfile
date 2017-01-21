@@ -10,7 +10,8 @@ RUN sudo apt-get update && \
     sudo apt-get install -y gcc-multilib \
                             g++-multilib \
                             libz-dev:i386 \
-                            libncurses-dev:i386
+                            libncurses-dev:i386 \
+                            libcunit1-dev:i386
 
 # Install necessary packages
 #RUN sudo apt-get update && \
