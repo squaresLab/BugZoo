@@ -565,7 +565,7 @@ sub make_test {
     #my @cleanup = `make --no-print-directory clean`;
     #my $res = system("echo $name > log-tests-$test_type.inc") >> 8;
     my $res = system("echo $name > log-tests-$test_type.inc") >> 8;
-    my @output = `make --no-print-directory log-tests FBC=../../fbc-root/bin/fbc FB_LANG=$test_type`;
+    my @output = `make --no-print-directory log-tests FBC=/experiment/local-root/bin/fbc FB_LANG=$test_type`;
     print @output;
     chomp @output;
     
@@ -593,7 +593,7 @@ sub make_test {
 if ($type =~ "cunit")
 {
     my $res1 = system("echo SRCLIST += $name > cunit-tests.inc") >> 8;
-    my @result = `make --no-print-directory cunit-tests FBC=../../fbc-root/bin/fbc`;
+    my @result = `make --no-print-directory cunit-tests FBC=/experiment/local-root/bin/fbc`;
     my $float_result = 0;
     foreach my $line (@result)
     {

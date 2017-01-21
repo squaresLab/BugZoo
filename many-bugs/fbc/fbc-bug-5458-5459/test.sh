@@ -1,13 +1,15 @@
 #!/bin/bash
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 run_abbrev=False
 bugrev=5458
 time_limit=12
+
 run_test()
 {
-    cd fbc/tests 
-    perl -e 'alarm shift @ARGV; exec @ARGV' $time_limit perl ../../fbc-run-tests.pl $1 $current
+    pushd src/tests 
+    perl -e 'alarm shift @ARGV; exec @ARGV' $time_limit perl "$here_dir/test.pl" $1 $current
     RESULT=$?
-    cd ../..
     return $RESULT
 }
 case $1 in
