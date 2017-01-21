@@ -2,12 +2,12 @@ FROM christimperley/repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV PROGRAM_NAME flex
-ENV OBJECT_ARCHIVE flex.tar.gz
-ENV EXECUTABLE source/flex
+ENV EXECUTABLE source/flex.exe
 ENV SOURCE_FILE source/flex.c
 ENV PREPROCESSED_FILE source/flex.i
 
 # Mount bug files to /experiment
+ADD tests.pythia.json /experiment
 ADD flex.tar.gz /experiment
 RUN sudo chown -R docker /experiment
 WORKDIR /experiment
@@ -18,7 +18,7 @@ RUN mv flex/* . && rmdir flex && \
     rm -rf build.properties info
 
 # Generate the Pythia script
-RUN pythia build-manifest-from-mts . testplans.alt/v1/v0.tsl.universe ${EXECUTABLE}
+#RUN pythia build-manifest-from-mts . testplans.alt/v1/v0.tsl.universe ${EXECUTABLE}
 
 # Reconstruct libfl.a for this machine
 RUN cd versions.alt/versions.orig/v0 &&\
