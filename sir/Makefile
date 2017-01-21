@@ -1,6 +1,6 @@
-PROGRAMS = gzip
-VERSIONS = gzip/v1
-SCENARIOS = gzip/v1/KL_2 gzip/v1/KL_8
+PROGRAMS = gzip flex grep sed
+VERSIONS = $(shell find . -name "versions.txt" -exec cat {} \;)
+SCENARIOS = $(shell find . -name "scenarios.txt" -exec cat {} \;)
 
 all: $(SCENARIOS)
 
