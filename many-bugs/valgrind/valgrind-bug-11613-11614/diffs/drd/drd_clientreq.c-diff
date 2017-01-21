@@ -1,0 +1,18 @@
+213,214c213,224
+<       DRD_(thread_set_joinable)(DRD_(PtThreadIdToDrdThreadId)(arg[1]),
+<                                 (Bool)arg[2]);
+---
+>    {
+>       const DrdThreadId drd_joinable = DRD_(PtThreadIdToDrdThreadId)(arg[1]);
+>       if (drd_joinable != DRD_INVALID_THREADID)
+>          DRD_(thread_set_joinable)(drd_joinable, (Bool)arg[2]);
+>       else {
+>          InvalidThreadIdInfo ITI = { DRD_(thread_get_running_tid)(), arg[1] };
+>          VG_(maybe_record_error)(vg_tid,
+>                                  InvalidThreadId,
+>                                  VG_(get_IP)(vg_tid),
+>                                  "pthread_detach(): invalid thread ID",
+>                                  &ITI);
+>       }
+215a226
+>    }
