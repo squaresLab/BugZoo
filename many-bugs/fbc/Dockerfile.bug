@@ -10,7 +10,9 @@ ADD test.sh /experiment
 ADD configuration-default /experiment
 #ADD problem.json /experiment
 
+RUN sudo chown -R docker /experiment
+
 # Apply the libxml patch and configure
 # (disable PHAR to prevent seg. fault)
-RUN cd src && ./configure
+#RUN cd src && ./configure
 #./configure --host=i686-pc-linux-gnu "CFLAGS=-m32 -std=gnu99" "CXXFLAGS=-m32" "LDFLAGS=-m32"

@@ -2,7 +2,7 @@
 LOCAL_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 LOCAL_ROOT="$LOCAL_ROOT/local-root"
 
-pushd fbc
+pushd src
 
 ./install.sh -u $LOCAL_ROOT
 
@@ -27,5 +27,3 @@ make install && \
 popd && \
 
 ./install.sh -i $LOCAL_ROOT
-
-popd
