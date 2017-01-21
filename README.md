@@ -1,5 +1,7 @@
 # RepairBox
 
+[![Join the chat at https://gitter.im/RepairBox/Lobby](https://badges.gitter.im/RepairBox/Lobby.svg)](https://gitter.im/RepairBox/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 RepairBox is an ongoing effort to provide a series of controlled environments
 for performing experiments on automated program repair of C programs. RepairBox
 provides a number of bug scenarios, adapted from existing publicly-available
