@@ -1,0 +1,14 @@
+53c53
+<   if (bsize == 0)    
+---
+>   if (bsize == 0)
+55,56c55,56
+<       /* g = |a|, s = sign(a), t = 0. */
+<       ssize = SIZ (a) >= 0 ? 1 : -1;
+---
+>       /* g = |a|, s = sgn(a), t = 0. */
+>       ssize = SIZ (a) >= 0 ? (asize != 0) : -1;
+80c80
+<   
+---
+> 
