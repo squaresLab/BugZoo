@@ -74,3 +74,7 @@ Discuss test cases (different for scenarios that utilise Pythia):
 * `test/`, a directory containing any additional files needed to run the test
   cases. Such files may specify the expected output of the program on a given
   test case.
+
+For historical reasons, where possible, certain repair boxes also supply a
+`configuration-default` file, used to supply the necessary settings required
+to perform automated repair of the bug using GenProg 2.
