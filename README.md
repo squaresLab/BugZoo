@@ -75,6 +75,11 @@ Discuss test cases (different for scenarios that utilise Pythia):
   cases. Such files may specify the expected output of the program on a given
   test case.
 
+Where a human repair for the bug was provided by the original dataset, those
+files can be found in the `fixed` directory. Additionally, a `diffs` directory
+is provided, giving a `diff` for each of the files changed by the human
+developer.
+
 For historical reasons, where possible, certain repair boxes also supply a
 `configuration-default` file, used to supply the necessary settings required
 to perform automated repair of the bug using GenProg 2.
