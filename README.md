@@ -18,11 +18,6 @@ RepairBox incurs fewer overheads (resulting in a much higher performance; crucia
 for rigorous experimental trials), makes dependencies easier to manage, and
 results in a smaller disk footprint.
 
-In the future, we plan to host the associated Docker images for each of bug
-scenario on DockerHub, allowing researchers to quickly download and use an
-image via a single terminal command, without needing to build the images
-themselves.
-
 ## Installation
 
 At present time, there are two ways in which you can install a particular repair
@@ -48,6 +43,8 @@ Producing a shallow clone takes far less time, and the git protocol both
 reduces that further and helps to prevent any hangs you might otherwise
 experience using the HTTPS protocol. Be warned, constructing all of the boxes
 within this repository can take over an hour and consumes tens of GBs.
+
+## Usage
 
 ## Anatomy of a Repair Box
 
