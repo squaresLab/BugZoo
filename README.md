@@ -23,15 +23,25 @@ scenario on DockerHub, allowing researchers to quickly download and use an
 image via a single terminal command, without needing to build the images
 themselves.
 
-## Cloning the Repo
+## Installation
 
-**Warning:** Please **do not** try to fully clone this repository. If you're
-only interested in using these benchmarks, then download a zipped release (or
-a zipped form of the latest repo state). If you wish to contribute (you're
-awesome), then please clone the repository using the following command:
+At present time, there are two ways in which you can install a particular repair
+box within this repository. The preferred method, is to download a pre-built
+repair box from DockerHub, using the command given below (using a PHP bug from
+the ManyBugs dataset as an example):
 
 ```
-git clone git://github.com/ChrisTimperley/AutomatedRepairBenchmarks.c --depth 1
+$ docker pull christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
+```
+
+Alternatively, you may build each of the repair boxes from source by cloning
+this repository and call `make` within its root directory. If you decide to go
+down this route, please clone the repository using the command given below:
+
+```
+$ git clone git://github.com/ChrisTimperley/RepairBox --depth 1
+$ cd RepairBox
+$ make
 ```
 
 Producing a shallow clone takes far less time, and the git protocol both
