@@ -35,8 +35,8 @@ $ docker pull christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e
 ```
 
 Alternatively, you may build each of the repair boxes from source by cloning
-this repository and call `make` within its root directory. If you decide to go
-down this route, please clone the repository using the command given below:
+this repository and call `make` within its root directory, using the commands
+given below:
 
 ```
 $ git clone git://github.com/ChrisTimperley/RepairBox --depth 1
