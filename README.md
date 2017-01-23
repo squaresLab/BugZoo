@@ -84,7 +84,7 @@ box for one of the PHP bug scenarios (as specified by the `FROM` command), insta
 `vim`.
 
 ```
-FROM christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
+FROM christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
 MAINTAINER Your Name "youremail@foo.bar"
 
 RUN sudo apt-get update
