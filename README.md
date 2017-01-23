@@ -64,16 +64,23 @@ directory, which contains the following files for each bug:
   be used for compilation and running tests, and whether the tests within the
   suite may be executed within parallel.
 * `source/`, a directory containing the original source code for the scenario.
-* `program.txt`, a file specifying the location of each of the source files,
-  relative to the directory of that particular benchmark.
+* `test.sh`, a bash script responsible for determining the success or failure
+  of a given test case for a provided executable. This script accepts three
+  arguments: the path to the executable within the repair candidate's
+  directory; the identifier for the test case, following the GenProg naming
+  convention (e.g. `p1`, `n7`); and a random port number to be used for
+  performing the test (which is optional for bugs that do not require port
+  access).
+* `compile.sh`, a bash script responsible for compiling a variant of the
+  associated program, using the files provided within the directory of the
+  single argument passed.
 
-Discuss test cases (different for scenarios that utilise Pythia):
-
-* `test.sh`, a bash script responsible for evaluating the success or failure of
-  a given test case for a provided executable.
-* `test/`, a directory containing any additional files needed to run the test
-  cases. Such files may specify the expected output of the program on a given
-  test case.
+For the ManyBugs benchmarks, `test.sh` invokes the original (or a slightly
+modified version) of the original test harness for the bug scenaro. For
+SIR and the TSE 2012 dataset, this file dispatches the test case execution
+request onto [Pythia](https://github.com/ChrisTimperley/Pythia), which helps
+to ensure candidates that pass all tests within the suite meet a minimal set
+of quality requirements.
 
 Where a human repair for the bug was provided by the original dataset, those
 files can be found in the `fixed` directory. Additionally, a `diffs` directory
@@ -81,5 +88,5 @@ is provided, giving a `diff` for each of the files changed by the human
 developer.
 
 For historical reasons, where possible, certain repair boxes also supply a
-`configuration-default` file, used to supply the necessary settings required
+`configuration-default` file, used to provide the necessary settings required
 to perform automated repair of the bug using GenProg 2.
