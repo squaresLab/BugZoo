@@ -18,6 +18,10 @@ RepairBox incurs fewer overheads (resulting in a much higher performance; crucia
 for rigorous experimental trials), makes dependencies easier to manage, and
 results in a smaller disk footprint.
 
+For more information on [Docker](https://www.docker.com/), the interested user is
+referred to
+[https://docs.docker.com/learn/](https://docs.docker.com/learn/).
+
 ## Installation
 
 At present time, there are two ways in which you can install a particular repair
@@ -45,6 +49,10 @@ experience using the HTTPS protocol. Be warned, constructing all of the boxes
 within this repository can take over an hour and consumes tens of GBs.
 
 ## Usage
+
+There are a number of ways of interacting with repair boxes. Below we give
+a few examples of the most common forms of interaction, and where those
+might be appropriate.
 
 ## Anatomy of a Repair Box
 
