@@ -49,9 +49,15 @@ reduces that further and helps to prevent any hangs you might otherwise
 experience using the HTTPS protocol. Be warned, constructing all of the boxes
 within this repository can take over an hour and consumes tens of GBs.
 
-## Benchmark Structure
-Each benchmark, contained within its own sub-directory of the
-`benchmarks` directory, contains the following:
+## Anatomy of a Repair Box
+
+A unique repair box, in the form of a Docker container, is supplied for each bug
+within this repository. Each repair box provides a minimal environment for
+replicating the bug, containing only the packages required to build and run
+the program, and no more.
+
+The program of interest for each box is located within its `/experiment`
+directory, which contains the following files for each bug:
 
 * `setup.json`, a JSON file specifying parameters specific to the benchmark,
   such as the number of positive and negative test cases. This file should
