@@ -87,3 +87,8 @@ developer.
 For historical reasons, where possible, certain repair boxes also supply a
 `configuration-default` file, used to provide the necessary settings required
 to perform automated repair of the bug using GenProg 2.
+
+## Future Additions
+
+* continuous integration, with automatic construction and pushing of
+  (modified) Docker images to DockerHub.
