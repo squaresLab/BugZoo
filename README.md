@@ -114,6 +114,22 @@ one of either of these approaches.
 
 #### Docker `cp` command
 
+If you're only interesting in copying files from a running container (repair box)
+to your host machine, the docker `cp` command can be used to copy a file at given
+location from a running, named container. In order to take advantage of this,
+you'll need to supply a name for your container when using the `docker run`
+command.
+
+In the example below, we copy the `problem.json` file for a bug scenario from
+a running container into the current working directory on the host machine.
+
+```
+$ docker run --rm --name rbox -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
+...
+
+$ docker cp rbox:/experiment/problem.json .
+```
+
 #### Volume Mounting
 
 ## Anatomy of a Repair Box
