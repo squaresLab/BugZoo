@@ -178,3 +178,4 @@ to perform automated repair of the bug using GenProg 2.
 
 * continuous integration, with automatic construction and pushing of
   (modified) Docker images to DockerHub.
+* automatic Docker image flattening
