@@ -54,6 +54,27 @@ There are a number of ways of interacting with repair boxes. Below we give
 a few examples of the most common forms of interaction, and where those
 might be appropriate.
 
+### Simplest Approach
+
+The simplest approach is to launch a `/bin/bash` instance within the repair box
+of interest and attach it to the terminal, using the command given below.
+
+```
+$ docker run --rm -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
+```
+
+Note, the `--rm` flag ensures that the container for this bug is ephemeral, and
+will be destroyed once the user exits the `/bin/bash` instance. The `it` flag is
+used to attach the Docker container to the user's `tty`, allowing them to
+interact with the container as if it were their own machine.
+
+Once inside, the user may install any necessary software (you will need to run
+`apt-get update` before this, as package lists are not present in the image in
+order to reduce their size) and interact with the program how they please. This
+is a great way to quickly get to grips with the structure of a repair box, and
+so users new to Docker are advised to try this before advancing onto more
+advanced ways of using repair boxes.
+
 ## Anatomy of a Repair Box
 
 A unique repair box, in the form of a Docker container, is supplied for each bug
