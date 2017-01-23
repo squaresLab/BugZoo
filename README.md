@@ -46,7 +46,8 @@ $ make
 
 Producing a shallow clone takes far less time, and the git protocol both
 reduces that further and helps to prevent any hangs you might otherwise
-experience using the HTTPS protocol.
+experience using the HTTPS protocol. Be warned, constructing all of the boxes
+within this repository can take over an hour and consumes tens of GBs.
 
 ## Benchmark Structure
 Each benchmark, contained within its own sub-directory of the
