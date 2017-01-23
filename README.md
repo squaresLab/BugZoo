@@ -52,26 +52,25 @@ within this repository can take over an hour and consumes tens of GBs.
 ## Anatomy of a Repair Box
 
 A unique repair box, in the form of a Docker container, is supplied for each bug
-within this repository. Each repair box provides a minimal environment for
-replicating the bug, containing only the packages required to build and run
+within this repository. Each of these repair boxes provide a minimal environment
+for replicating the bug, containing only the packages required to build and run
 the program, and no more.
 
-The program of interest for each box is located within its `/experiment`
+The associated program and files for each box are located within its `/experiment`
 directory, which contains the following files for each bug:
 
-* `setup.json`, a JSON file specifying parameters specific to the benchmark,
-  such as the number of positive and negative test cases. This file should
-  only contain parameters describing the details of the problem, and not
-  details of how it should be solved. Usable as a partial GenProg 3
-  configuration file.
-* `program/`, a directory containing the source code for the given problem.
+* `problem.json`, a JSON file describing parameters specific to this particular
+  bug scenario, including the size of its test suite, the commands that should
+  be used for compilation and running tests, and whether the tests within the
+  suite may be executed within parallel.
+* `source/`, a directory containing the original source code for the scenario.
 * `program.txt`, a file specifying the location of each of the source files,
   relative to the directory of that particular benchmark.
+
+Discuss test cases (different for scenarios that utilise Pythia):
+
 * `test.sh`, a bash script responsible for evaluating the success or failure of
   a given test case for a provided executable.
 * `test/`, a directory containing any additional files needed to run the test
   cases. Such files may specify the expected output of the program on a given
   test case.
-* `.gitignore`, a Git ignore file, set-up to ensure that no search artifacts,
-  such as coverage information or path files, are introduced into the
-  repository.
