@@ -107,7 +107,14 @@ $ docker run --rm -it name-for-your-image /bin/bash
 
 ### Getting Data from a Container
 
-docker cp vs. volume mounting
+Since containers are completely isolated from their host environment (by default), sharing
+files (whether supplying them or extracting them) with containers takes a bit of
+configuration. If you're using RepairBox to perform experiments, you'll want to use
+one of either of these approaches.
+
+#### Docker `cp` command
+
+#### Volume Mounting
 
 ## Anatomy of a Repair Box
 
