@@ -132,6 +132,23 @@ $ docker cp rbox:/experiment/problem.json .
 
 #### Volume Mounting
 
+If you want to maintain a shared directory (or multiple directories) between the
+repair box and the host, you may take advantage of Docker's volume mounting feature.
+When executing `docker run`, you may specify a mapping between local directories
+(that will be created if they don't exist) and the location at which they should be
+shared on the container.
+
+```
+$ docker run --rm -v /home/chris/foo:/experiment/foo -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
+```
+
+**Note**, you may encounter permissions problems using the following approach if
+the `uid` of the user on the host machine differs from the `uid` of the `docker`
+user on the RepairBox (1000). There are a number of solutions to this issue, but
+the simplest is to run `sudo chown -R docker /experiment/foo` within the container
+upon launch, and `sudo chown -R $(whoami) /home/chris/foo` on the host machine
+when the container has terminated.
+
 ## Anatomy of a Repair Box
 
 A unique repair box, in the form of a Docker container, is supplied for each bug
