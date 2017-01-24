@@ -10,12 +10,14 @@ ADD test.pl /experiment
 ADD configuration-default /experiment
 ADD problem.json /experiment
 
-# Apply the libxml patch and configure
-# (disable PHAR to prevent seg. fault)
+# Apply the libxml patch
 RUN cd /experiment && \
     mv libxml.patch src && \
     cd src && \
     cat libxml.patch | patch -p0 && \
-    rm libxml.patch && \
-    ./configure --disable-phar
+    rm libxml.patch
+# Configure (rebuilding the script, if possible)
+# (disable PHAR to prevent seg. fault)
+RUN cd /experiment/src && \
+    ./configure --disable-phar || (./buildconf && ./configure --disable-phar)
 #./configure --host=i686-pc-linux-gnu "CFLAGS=-m32 -std=gnu99" "CXXFLAGS=-m32" "LDFLAGS=-m32"
