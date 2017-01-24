@@ -53,10 +53,10 @@ RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.4 main" > /tmp
     sudo mv /tmp/llvm.list /etc/apt/sources.list.d/ && \
     wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add - && \
     sudo apt-get update && \
-    sudo apt-get install --no-install-recommends -y clang-3.4 \
-                                                    llvm-3.4 \
-                                                    llvm-3.4-dev \
-                                                    llvm-3.4-tools && \ 
+    sudo apt-get install -y clang-3.4 \
+                            llvm-3.4 \
+                            llvm-3.4-dev \
+                            llvm-3.4-tools && \ 
     sudo apt-get autoremove -y
 
 # install Z3 solver
@@ -65,7 +65,31 @@ RUN cd /tmp && \
     tar -xvf z3*.tar.gz && \
     cd z3-z3-4.5.0 && \
     python scripts/mk_make.py &&  \
-    cd build && make && sudo make install
+    cd build && make -j4 && sudo make install
+
+# add llvm-config to path (TODO: move to below LLVM installation)
+ENV PATH "${PATH}:/usr/lib/llvm-3.4/bin"
+
+# install dependencies (TODO: move to top)
+RUN sudo apt-get install --no-install-recommends -y build-essential \
+                                                    curl \
+                                                    libcap-dev \
+                                                    git \
+                                                    cmake \
+                                                    libncurses5-dev
+
+# install uclibc
+RUN cd / && \
+    sudo mkdir -p /opt/uclibc && sudo chown -R docker /opt/uclibc && \
+    cd /opt && git clone https://github.com/klee/klee-uclibc.git uclibc && \
+    cd uclibc && \
+    ./configure --make-llvm-lib && \
+    make -j4
+
+# install KLEE
+#RUN sudo mkdir -p /opt/klee && sudo chown -R docker /opt/klee && \
+#    cd /opt && git clone https://github.com/klee/klee.git && \
+#    mkdir build && \
 
 #RUN sudo apt-get install --no-install-recommends -y build-essential \
 #                                                    curl \
