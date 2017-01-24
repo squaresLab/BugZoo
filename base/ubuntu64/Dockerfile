@@ -112,5 +112,5 @@ RUN cd /tmp && \
     cd / && rm -rf /tmp/*
 
 # Create the experiment directory and set it as the work dir
-RUN mkdir -p /experiment && sudo chown -R docker /experiment
+RUN sudo mkdir -p /experiment && sudo chown -R docker /experiment
 WORKDIR /experiment
