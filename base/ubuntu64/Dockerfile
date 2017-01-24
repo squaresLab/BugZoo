@@ -59,6 +59,14 @@ RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.4 main" > /tmp
                                                     llvm-3.4-tools && \ 
     sudo apt-get autoremove -y
 
+# install Z3 solver
+RUN cd /tmp && \
+    wget -q https://github.com/Z3Prover/z3/archive/z3-4.5.0.tar.gz  && \
+    tar -xvf z3*.tar.gz && \
+    cd z3-z3-4.5.0 && \
+    python scripts/mk_make.py &&  \
+    cd build && make && sudo make install
+
 #RUN sudo apt-get install --no-install-recommends -y build-essential \
 #                                                    curl \
 #                                                    libcap-dev \
