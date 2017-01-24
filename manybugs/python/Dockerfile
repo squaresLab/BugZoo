@@ -15,14 +15,3 @@ RUN sudo apt-get install -y libncurses-dev \
                             tk-dev \
                             tcl-dev \
                             tix-dev
-#RUN sudo apt-get install -y libncurses-dev:i386 \
-#                            libsqlite-dev:i386\
-#                            libgdbm-dev:i386 \
-#                            libssl-dev:i386 \
-#                            libreadline-dev:i386 \
-#                            libbz2-dev:i386 \
-#                            gcc-multilib \
-#                            g++-multilib
-#                            tk-dev:i386 \
-#                            tcl-dev:i386 \
-#                            tix-dev:i386 \
