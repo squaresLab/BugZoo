@@ -87,15 +87,15 @@ RUN cd / && \
     make -j4
 
 # install KLEE
-#RUN sudo mkdir -p /opt/klee && sudo chown -R docker /opt/klee && \
-#    cd /opt && git clone https://github.com/klee/klee.git && \
-#    mkdir build && \
-
-#RUN sudo apt-get install --no-install-recommends -y build-essential \
-#                                                    curl \
-#                                                    libcap-dev \
-#                                                    git \
-#                                                    cmake \
-#                                                    libncurses5-dev \
-#                                                    python-minimal \
-#                                                    python-pip \unzip
+RUN sudo mkdir -p /opt/klee && sudo chown -R docker /opt/klee && \
+    cd /opt/klee && git clone https://github.com/klee/klee.git source && \
+    mkdir build && cd build && \
+    cmake \
+      -DENABLE_SOLVER_Z3=ON \
+      -DENABLE_POSIX_RUNTIME=ON \
+      -DENABLE_KLEE_UCLIBC=ON \
+      -DKLEE_UCLIBC_PATH=/opt/uclibc \
+      -DENABLE_UNIT_TESTS=OFF \
+      -DENABLE_SYSTEM_TESTS=OFF \
+      /opt/klee/source && \
+    make -j4
