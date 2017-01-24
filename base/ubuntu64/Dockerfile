@@ -98,4 +98,6 @@ RUN sudo mkdir -p /opt/klee && sudo chown -R docker /opt/klee && \
       -DENABLE_UNIT_TESTS=OFF \
       -DENABLE_SYSTEM_TESTS=OFF \
       /opt/klee/source && \
-    make -j4
+    make -j4 && sudo make install
+
+# install wllvm
