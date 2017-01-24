@@ -34,15 +34,26 @@ ENV GENPROG_VERSION 1600682
 RUN sudo add-apt-repository ppa:avsm/ppa && \
     sudo apt-get update && \
     sudo -u docker /bin/bash -c "sudo apt-get install -y opam build-essential jq m4" && \
-    echo "yes" >> /tmp/yes.txt
-#&& \
-RUN cd /home/docker && \
+    echo "yes" >> /tmp/yes.txt && \
+    cd /home/docker && \
     sudo -u docker /bin/bash -c "opam init -y < /tmp/yes.txt" && \
     sudo -u docker /bin/bash -c "eval \$(opam config env) && opam install -y cil yojson" && \
     git clone https://bitbucket.org/ChrisTimperley/GP3 /tmp/genprog && \
     cd /tmp/genprog/src && \
     sudo -u docker /bin/bash -c "eval \$(opam config env) && make && sudo make install" && \
     sudo apt-get purge -y opam ocaml m4 && \
+    sudo apt-get autoremove -y && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# install dependencies for KLEE
+RUN sudo apt-get update && \
+    sudo apt-get install --no-install-recommends -y build-essential \
+                                                    curl \
+                                                    libcap-dev \
+                                                    git \
+                                                    cmake \
+                                                    libncurses5-dev && \
     sudo apt-get autoremove -y && \
     sudo apt-get clean && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -57,7 +68,10 @@ RUN echo "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.4 main" > /tmp
                             llvm-3.4 \
                             llvm-3.4-dev \
                             llvm-3.4-tools && \ 
-    sudo apt-get autoremove -y
+    sudo apt-get autoremove -y && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV PATH "${PATH}:/usr/lib/llvm-3.4/bin"
 
 # install Z3 solver
 RUN cd /tmp && \
@@ -67,17 +81,6 @@ RUN cd /tmp && \
     python scripts/mk_make.py &&  \
     cd build && make -j4 && sudo make install
 
-# add llvm-config to path (TODO: move to below LLVM installation)
-ENV PATH "${PATH}:/usr/lib/llvm-3.4/bin"
-
-# install dependencies (TODO: move to top)
-RUN sudo apt-get install --no-install-recommends -y build-essential \
-                                                    curl \
-                                                    libcap-dev \
-                                                    git \
-                                                    cmake \
-                                                    libncurses5-dev
-
 # install uclibc
 RUN cd / && \
     sudo mkdir -p /opt/uclibc && sudo chown -R docker /opt/uclibc && \
@@ -86,7 +89,7 @@ RUN cd / && \
     ./configure --make-llvm-lib && \
     make -j4
 
-# install KLEE
+# install KLEE (for now we retain the source, but do we need to?)
 RUN sudo mkdir -p /opt/klee && sudo chown -R docker /opt/klee && \
     cd /opt/klee && git clone https://github.com/klee/klee.git source && \
     mkdir build && cd build && \
@@ -98,11 +101,16 @@ RUN sudo mkdir -p /opt/klee && sudo chown -R docker /opt/klee && \
       -DENABLE_UNIT_TESTS=OFF \
       -DENABLE_SYSTEM_TESTS=OFF \
       /opt/klee/source && \
-    make -j4 && sudo make install
+    make -j4 && sudo make install && \
+    cd / && rm -rf /tmp/*
 
 # install wllvm
 RUN cd /tmp && \
     wget https://bootstrap.pypa.io/get-pip.py && \
     sudo python get-pip.py && \
-    rm get-pip.py && \
-    sudo pip install wllvm
+    sudo pip install wllvm && \
+    cd / && rm -rf /tmp/*
+
+# Create the experiment directory and set it as the work dir
+RUN mkdir -p /experiment && sudo chown -R docker /experiment
+WORKDIR /experiment
