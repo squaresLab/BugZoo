@@ -9,6 +9,7 @@ RUN sudo apt-get install -y libncurses-dev \
                             libssl-dev \
                             libreadline-gplv2-dev \
                             libbz2-dev \
+                            libsqlite3-dev \
                             gcc-multilib \
                             g++-multilib \
                             tk-dev \
