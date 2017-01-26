@@ -99,7 +99,7 @@ RUN sudo mkdir -p /experiment && sudo chown -R docker /experiment
 WORKDIR /experiment
 
 # install GenProg
-ENV GENPROG_VERSION 187076f
+ENV GENPROG_VERSION 11d7ac3
 RUN sudo add-apt-repository ppa:avsm/ppa && \
     sudo apt-get update && \
     sudo -u docker /bin/bash -c "sudo apt-get install -y opam build-essential jq m4" && \
