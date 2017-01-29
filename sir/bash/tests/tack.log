@@ -1,0 +1,30 @@
+Start logging to file: tack.log<CR><LF>
+<CR><LF>
+Main Menu<CR><LF>
+ b) display basic information<CR><LF>
+ m) change modes<CR><LF>
+ t) tools<CR><LF>
+ n) begin testing<CR><LF>
+ l) stop logging<CR><LF>
+ q) quit<CR><LF>
+ ?) help<CR><LF>
+<CR><LF>
+tack [n] > <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? <CR><LF>
+? 

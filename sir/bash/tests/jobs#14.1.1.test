@@ -1,0 +1,6 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo bringing 14 to fg
+fg %14
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

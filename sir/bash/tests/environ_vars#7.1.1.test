@@ -1,0 +1,9 @@
+mytz=$TZ
+#setup.local ends here
+export TZ=US/Eastern
+echo $TZ
+# this was giving a problem,  so sent to devnull: PRAVEEN 09/02/2001
+# date | cut -d " " -f5,6
+date | cut -d " " -f5,6 > /dev/null
+#cleanup.local begins here
+export  TZ=$mytz

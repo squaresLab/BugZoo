@@ -1,0 +1,10 @@
+restore13=$@
+unset x y z
+######setup.local######
+read x < $SP_TESTDIR/IN
+echo 2: "x[$x]"
+######cleanup.local######
+if [ "$restore13" != "" ]; then
+set $restore13
+fi
+

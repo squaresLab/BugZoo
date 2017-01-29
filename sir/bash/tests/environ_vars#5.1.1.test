@@ -1,0 +1,9 @@
+myhostfile=$HOSTFILE
+touch $SK_TESTDIR/hosts
+cp /etc/hosts $SK_TESTDIR/hosts
+#setup.local ends here
+export HOSTFILE=$SK_TESTDIR/hosts
+echo $HOSTFILE
+#cleanup.local ends here
+export  HOSTFILE=$myhostfile
+rm -rf $SK_TESTDIR/hosts

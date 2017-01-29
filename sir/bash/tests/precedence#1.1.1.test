@@ -1,0 +1,49 @@
+echo "\`Say' echos its argument. Its return value is of no interest."
+echo "\`Truth' echos its argument and returns a TRUE result."
+echo "\`False' echos its argument and returns a FALSE result."
+echo ""
+
+for i in 1 2
+do
+   eval proto=\$cmd$i
+
+   for test1 in 'Truth 1' 'False 1'
+   do
+      for test2 in 'Truth 2' 'False 2'
+      do
+	 for precedence in sh C
+	 do
+	    eval set x \$grouping_$precedence
+	    shift
+	    open=${1-' '}
+	    close=${2-' '}
+	    eval cmd=\""$proto"\"
+	    Say "$cmd   output="
+	    output=`eval "$cmd"`
+	    Say "$output"
+	    read correct || { echo 'Input fubar.  Abort.' >&2; exit 1; }
+	    test "X$output" = "X$correct" || echo "   correct=$correct"
+	    echo ''
+	 done
+
+	 echo ''
+      done
+   done
+done << EOF
+12
+12
+123
+123
+13
+13
+13
+13
+13
+1
+13
+1
+123
+123
+12
+12
+EOF

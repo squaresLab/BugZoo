@@ -1,0 +1,15 @@
+######setup.local######
+restore44=$@
+set a b c d e
+a=
+#######################
+
+expect nothing
+recho ${!1-$z}
+
+######cleanup.local######
+unset a
+if [ ! -z $restore44 ]; then
+set $restore44
+fi;
+#########################

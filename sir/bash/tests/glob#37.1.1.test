@@ -1,0 +1,10 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+expect '<man/man1/bash.1>'
+recho $(echo */man*/bash.*)
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

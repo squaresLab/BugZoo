@@ -1,0 +1,12 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo Make sure character classes work properly
+
+expect '<kpabc> <kpabd> <kpabe> <kpbb> <kpcb>'
+recho kp[a-c]b*
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

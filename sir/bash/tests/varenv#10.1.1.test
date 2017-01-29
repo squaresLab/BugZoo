@@ -1,0 +1,6 @@
+# How do assignment statements affect subsequent assignments on the same
+# line?
+expect "/a/b/c /a/b/c"
+HOME=/a/b/c a=$HOME
+echo $HOME $a
+

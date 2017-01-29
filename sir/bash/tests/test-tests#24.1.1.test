@@ -1,0 +1,3 @@
+echo 't -s /dev/null'
+t -s /dev/null
+

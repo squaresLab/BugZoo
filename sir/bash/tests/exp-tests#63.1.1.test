@@ -1,0 +1,2 @@
+expect '<foo> <bar>'
+recho ${x7:-$(echo "foo bar")}

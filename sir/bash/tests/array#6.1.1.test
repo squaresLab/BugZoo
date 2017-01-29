@@ -1,0 +1,12 @@
+set +a
+######setup.local######
+
+declare -a e_array[10]=test
+declare -a e_array[10]='(test)'
+
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+unset e_array[*]
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+######cleanup.local######
+set -a

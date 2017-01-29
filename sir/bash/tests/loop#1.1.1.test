@@ -1,0 +1,5 @@
+echo a for loop
+for name in dodo sisi gugu
+do
+    echo $name says gaga
+done

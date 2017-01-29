@@ -1,0 +1,8 @@
+send "set -o vi\r"
+# The following line is for moving somw words back so as to move forward 
+send "echo delete till end of the word\033BB"
+#setup.local ends here
+# delete till end of the word         e 
+send "D\r"
+#cleanup.local begins here
+send "set -o emacs\r"

@@ -1,0 +1,15 @@
+######setup.local######
+restore127=$@
+set 1 2 3 4 5 6
+IFS_BAK=$IFS
+IFS=$' \t\n'
+#######################
+
+recho \""${z2:2:6}"\"
+
+#####cleanup.local######
+IFS=$IFS_BAK
+if [ ! -z $restore127 ]; then
+set $restore127
+fi;
+#########################

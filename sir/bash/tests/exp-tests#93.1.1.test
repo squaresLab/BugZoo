@@ -1,0 +1,13 @@
+##### setup.local ##########################
+restore93=$@
+set one two three four five
+############################################
+
+expect nothing
+recho $!
+
+##### cleanup.local ########################
+if [ "$restore93" != "" ]; then
+set $restore93
+fi
+############################################

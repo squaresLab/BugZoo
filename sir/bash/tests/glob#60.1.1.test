@@ -1,0 +1,3 @@
+case abc in
+a*****c*?**)    echo bad;;
+esac

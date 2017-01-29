@@ -1,0 +1,6 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo "these are the jobs' pids  "
+jobs -p > /dev/null
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

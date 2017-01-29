@@ -1,0 +1,12 @@
+#***********************************
+orig_args="$@"
+set ""
+#setup.local
+
+recho ${undef-"$zzz"}
+
+#cleanup.local
+if [ ! -z $orig_args ]; then
+    set $orig_args
+fi;
+#***********************************

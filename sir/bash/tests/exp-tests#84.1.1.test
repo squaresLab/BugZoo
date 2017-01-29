@@ -1,0 +1,18 @@
+##### setup.local ############################
+restore84=$@
+NLold="$NL"
+NL='
+'
+##############################################
+
+expect '<newline expected>'
+case "$x5" in
+*$NL*)  recho "newline expected" ;;
+esac
+
+##### cleanup.local ##########################
+NL="$NLold"
+if [ "$restore84" != "" ]; then
+set $restore84
+fi
+##############################################

@@ -1,0 +1,3 @@
+echo 't /tmp/abc -nt /tmp/def'
+t $SP_TESTDIR/abc -nt $SP_TESTDIR/def
+

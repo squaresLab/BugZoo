@@ -1,0 +1,3 @@
+declare -r sk_c
+sk_c=200
+echo $sk_c

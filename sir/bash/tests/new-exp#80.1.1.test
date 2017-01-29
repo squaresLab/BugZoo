@@ -1,0 +1,2 @@
+expect this is a test of proc subst
+cat <(echo this is a test of proc subst)

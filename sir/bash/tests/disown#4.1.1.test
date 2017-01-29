@@ -1,0 +1,27 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo -e '\n script for the disown feature\r\f'
+echo -e '\tJobs at the start1\b\\'
+echo -e '\c of run\b'
+echo -e '\v'
+jobs
+
+echo kill -9 %20
+kill -9 %20
+sleep 2
+echo "now jobs"
+jobs
+
+echo disown -r
+disown -r
+sleep 2
+
+echo "jobs after disown -r"
+jobs
+
+#cleanup.local
+
+echo suicide suicide
+#praveen: not running because shell exits
+#kill -9 $$
+. ${TESTS_SRC}/bgs.cleanup

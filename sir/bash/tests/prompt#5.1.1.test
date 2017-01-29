@@ -1,0 +1,16 @@
+orig_ps1=$PS1
+orig_ps2=$PS2
+orig_ps3=$PS3
+orig_ps4=$PS4
+PS1='\H:\W'
+cd $SP_TESTDIR/spk
+######setup.local######
+
+echo three > spk_5
+
+######cleanup.local######
+cd -
+PS1=${orig_ps1}
+PS2=${orig_ps2}
+PS3=${orig_ps3}
+PS4=${orig_ps4}

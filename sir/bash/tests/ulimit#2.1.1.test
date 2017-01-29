@@ -1,0 +1,3 @@
+ulimit -s 10000
+#setup.local
+ulimit -s

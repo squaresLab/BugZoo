@@ -1,0 +1,2 @@
+echo $((1 ? 20 : (sk_x+=2)))
+echo $sk_i,$sk_x

@@ -1,0 +1,3 @@
+echo 't -b /dev/jb1a'
+t -b /dev/jb1a
+

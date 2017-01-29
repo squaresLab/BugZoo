@@ -1,0 +1,2 @@
+# M-c
+send "echo Escape-c M-c\033b\033c\r"

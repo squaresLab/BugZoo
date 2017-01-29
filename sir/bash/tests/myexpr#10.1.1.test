@@ -1,0 +1,4 @@
+if [ $((a1_myexpr<a2_myexpr)) == 1 ]
+then echo $a1_myexpr " is less than " $a2_myexpr
+fi
+

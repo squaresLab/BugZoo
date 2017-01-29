@@ -1,0 +1,2 @@
+expect '<abc>'
+recho $'abc'

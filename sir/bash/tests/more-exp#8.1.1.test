@@ -1,0 +1,2 @@
+expect '<bar>'
+recho ${zzz:-"bar"}

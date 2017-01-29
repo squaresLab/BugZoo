@@ -1,0 +1,6 @@
+echo "are u new sk_dodo?"
+if [ $SK_TESTDIR/file_attrib/sk_dodo -nt $SK_TESTDIR/file_attrib/sk_sisi ]; then
+        echo "sk_dodo says yes"
+else
+        echo "sk_dodo says no"
+fi;

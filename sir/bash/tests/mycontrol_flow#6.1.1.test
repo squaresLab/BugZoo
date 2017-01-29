@@ -1,0 +1,6 @@
+echo 3 | select a in "echo one" "echo two" "echo sorry"
+do
+$a
+break;
+done
+

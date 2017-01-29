@@ -1,0 +1,2 @@
+expect '<hello, chet>'
+recho $"hello, $world"

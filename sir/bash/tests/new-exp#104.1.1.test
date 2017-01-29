@@ -1,0 +1,13 @@
+######setup.local######
+restore104=$@
+shift $#
+#######################
+
+expect nothing
+recho ${foo1:-$xxx"$@"}
+
+######cleanup.local######
+if [ ! -z $restore104 ]; then
+set $restore104
+fi;
+#########################

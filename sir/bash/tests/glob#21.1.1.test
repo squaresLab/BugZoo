@@ -1,0 +1,13 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo Make sure that filenames with embedded globbing characters are handled
+echo properly
+
+expect '<a*b/ooo>'
+recho a\*b/*
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

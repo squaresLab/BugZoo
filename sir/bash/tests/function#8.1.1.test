@@ -1,0 +1,14 @@
+sisi3=out
+
+dodo6 ()
+{ 
+	local sisi3=outside
+	echo "now when dodo6 is inside sisi3 is $sisi3"
+}
+
+#setup.local
+
+dodo6
+
+#cleanup.local
+unset sisi3 dodo6

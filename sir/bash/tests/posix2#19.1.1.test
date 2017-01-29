@@ -1,0 +1,3 @@
+newtest
+test "$OPTIND" = 1 || testfail "OPTIND initial value"
+

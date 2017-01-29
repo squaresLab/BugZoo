@@ -1,0 +1,6 @@
+myglobignore=$GLOBIGNORE
+#setup.local ends here
+export GLOBIGNORE=.*:[7-9]:[y-z]
+echo $GLOBIGNORE
+#cleanup.local begins here
+export GLOBIGNORE=$myglobignore

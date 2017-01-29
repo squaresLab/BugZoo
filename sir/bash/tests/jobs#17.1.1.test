@@ -1,0 +1,8 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo trap - CHLD
+trap - CHLD
+echo trap - ABC
+trap - ABC
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

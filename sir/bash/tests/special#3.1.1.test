@@ -1,0 +1,1 @@
+echo "name of the shell or script is $0"

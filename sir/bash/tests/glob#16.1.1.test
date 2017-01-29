@@ -1,0 +1,12 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo BEFORE
+echo before "[a-y]"
+expect '<kpabd> <kpabe> <kpbb> <kpbcd> <kpbdir> <kpca> <kpcb> <kpdd> <kpde>'
+recho kp[a-y]*[^c]
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

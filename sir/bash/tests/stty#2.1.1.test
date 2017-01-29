@@ -1,0 +1,11 @@
+orig_stty=`stty | grep speed | cut -d' ' -f2`
+echo ${orig_stty}
+#setup.local
+
+stty
+stty ospeed 4800
+stty
+
+# cleanup.local
+stty ospeed ${orig_stty}
+stty

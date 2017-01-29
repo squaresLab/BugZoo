@@ -1,0 +1,2 @@
+expect '<xxfgh>'
+recho ${av[1]/#?/xx}

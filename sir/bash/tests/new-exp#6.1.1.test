@@ -1,0 +1,3 @@
+expect $0: 'HOME: }: syntax error: operand expected (error token is "}")'
+# praveen: removing because it is causing tests to terminate
+# recho "${HOME:`echo }`}"        # should be a math error -- bad substring substitution

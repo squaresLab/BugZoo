@@ -1,0 +1,11 @@
+echo "ifs orig $OIFS, current $IFS"
+foo=$(echo a:b:c)
+echo $foo
+echo resetting IFS
+IFS="$OIFS"
+
+for i in $foo
+do
+	echo 1
+	echo $i
+done

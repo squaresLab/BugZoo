@@ -1,0 +1,15 @@
+#builtins1
+while [ $count -lt 1000 ]
+do
+	if [ $((${count}/100)) -eq ${continuer} ]; then
+		continuer=${continuer}+1
+		echo $count should not print
+		count=${count}+1
+		continue;
+	elif [ ${count} -eq 801 ]; then
+		echo stopping condition satisfied, breaking
+		break;
+	fi;
+	echo $count
+	count=${count}+1
+done

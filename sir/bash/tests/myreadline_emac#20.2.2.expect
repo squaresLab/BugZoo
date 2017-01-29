@@ -1,0 +1,4 @@
+
+#for arguments M-n C-d
+send "echo arguments M-n C-d \033b\0334\004\r"
+

@@ -1,0 +1,8 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+jobs -r 
+echo "kill -INT %14"
+kill -INT %14
+jobs -r
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

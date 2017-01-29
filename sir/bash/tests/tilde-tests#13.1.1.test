@@ -1,0 +1,8 @@
+now_pwd=`pwd`
+# setup.local
+cd /usr
+cd /tmp
+echo ~-
+echo ~+
+# cleanup.local
+cd ${now_pwd}

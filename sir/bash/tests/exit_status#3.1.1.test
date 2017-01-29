@@ -1,0 +1,3 @@
+cd1 dodo
+echo "cd dodo returned $?"
+

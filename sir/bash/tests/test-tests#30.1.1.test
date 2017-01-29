@@ -1,0 +1,3 @@
+echo 't -u /tmp/test.setuid'
+t -u $SP_TESTDIR/test.setuid
+

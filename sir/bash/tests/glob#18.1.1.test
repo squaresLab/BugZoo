@@ -1,0 +1,11 @@
+
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+expect '<kpabd> <kpabe>'
+recho kpa*[^c]
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

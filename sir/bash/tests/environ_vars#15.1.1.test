@@ -1,0 +1,5 @@
+export myhome=/export/home/$USER/myhome
+
+echo $myhome
+
+unset -v myhome

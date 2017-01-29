@@ -1,0 +1,4 @@
+
+# C-f
+send "echo Moving Character by  Character forward\002\002\002\006\006\r"
+

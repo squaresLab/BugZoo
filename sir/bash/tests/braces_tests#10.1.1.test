@@ -1,0 +1,1 @@
+echo XXXX\{`echo a b c | tr ' ' ','`\}

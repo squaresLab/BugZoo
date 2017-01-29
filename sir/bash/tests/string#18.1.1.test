@@ -1,0 +1,2 @@
+#this is giving true, it shud give false
+comp1 -n "is not null" $praveen 

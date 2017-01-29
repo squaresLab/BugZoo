@@ -1,0 +1,2 @@
+expect '<Hello World!>'
+recho "`echo \"Hello world!\"`"

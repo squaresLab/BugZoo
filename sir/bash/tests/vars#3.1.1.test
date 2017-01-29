@@ -1,0 +1,3 @@
+readonly sk_b
+sk_b=49
+echo $b

@@ -1,0 +1,7 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo "nohup"
+nohup sleep 5 & 
+rm nohup.out
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

@@ -1,0 +1,7 @@
+send "set -o vi\r"
+send "echo Delete from cursor to end of the word\033BBBB"
+#setup.local ends here
+# Delete from cursor to end of the word   dw
+send "dwdw\r"
+#cleanup.local begins here
+send "set -o emacs\r"

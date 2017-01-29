@@ -1,0 +1,2 @@
+# Using Key Board Macro C-x (, C-x )
+send "\030( echo Keyboard Macro\030)\r"

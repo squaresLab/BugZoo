@@ -1,0 +1,7 @@
+source $SP_TESTDIR/something.tmp
+######setup.local######
+
+echo $TMP_VAR
+
+######cleanup.local######
+unset $TMP_VAR

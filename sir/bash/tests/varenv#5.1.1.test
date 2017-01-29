@@ -1,0 +1,6 @@
+expect $HOME
+HOME=/a/b/c /bin/echo $HOME
+
+expect $HOME
+echo $HOME
+

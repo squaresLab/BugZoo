@@ -1,0 +1,13 @@
+OIFS="$IFS"
+IFS=,
+#setup.local
+
+export zkp=$arg
+eval zkp1=\"$arg\"
+
+#cleanup.local
+IFS="$OIFS"
+
+
+recho $zkp
+recho $zkp1

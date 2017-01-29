@@ -1,0 +1,3 @@
+echo 't -n "hello"'
+t -n "hello"
+

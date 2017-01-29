@@ -1,0 +1,6 @@
+#ls2
+cd ${TESTDIR}/basic8
+echo output of ls -l *tmp
+ls -l *tmp > /dev/null
+echo cd ${CURRDIR}
+cd ${CURRDIR}

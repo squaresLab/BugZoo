@@ -1,0 +1,7 @@
+set -k
+a_varenv=5 b_varenv=6 $CHMOD c_varenv=7 $MODE d_varenv=8 $FN e_varenv=9
+######setup.local######
+expect "5 6 7 8 9"
+echo $a_varenv $b_varenv $c_varenv $d_varenv $e_varenv
+######cleanup.local######
+set +k

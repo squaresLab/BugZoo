@@ -1,0 +1,6 @@
+val=`"$TESTSHELL" -c 'echo "${a%%_*}"' 2> /dev/null`
+######setup.local######
+newtest
+test "$val" = abc || testfail "parameter %% op"
+######cleanup.local######
+unset val

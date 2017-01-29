@@ -1,0 +1,9 @@
+restore6=$@
+set --
+######setup.local######
+newtest
+test $# = 0 || testfail "still $# args: \"set --\""
+######cleanup.local######
+if [ "$restore6" != "" ]; then
+set $restore6
+fi

@@ -1,0 +1,3 @@
+if [ -e  $SK_TESTDIR/file_attrib/sk_jojo ]; then rm -f $SK_TESTDIR/file_attrib/sk_jojo ;fi
+#setup.local ends here
+look -e $SK_TESTDIR/file_attrib/sk_jojo "are u there sk_jojo?"

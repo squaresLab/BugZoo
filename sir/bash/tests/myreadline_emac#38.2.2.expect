@@ -1,0 +1,3 @@
+# C-q 
+send "echo C-q 
+"

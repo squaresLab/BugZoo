@@ -1,0 +1,7 @@
+counter=0
+#setup.local
+while [ $counter -lt 10 ]
+do
+echo $counter
+let counter=counter+1
+done

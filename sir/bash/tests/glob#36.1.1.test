@@ -1,0 +1,11 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo "examples from the Posix.2 spec (d11.2, p. 243)"
+expect '<man/man1/bash.1>'
+recho */man*/bash.*
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

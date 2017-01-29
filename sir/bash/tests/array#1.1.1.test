@@ -1,0 +1,45 @@
+set +a
+######setup.local######
+
+echo ${a_array[0]} ${a_array[4]}
+echo ${a_array[@]}
+
+echo ${a_array[*]}
+
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+unset a_array[7]
+echo ${a_array[*]}
+
+unset a_array[4]
+echo ${a_array[*]}
+
+echo ${a_array}
+echo "${a_array}"
+echo $a_array
+
+unset a_array[0]
+echo ${a_array}
+
+
+echo ${a_array[@]}
+
+a_array[5]="hello world"
+echo ${a_array[5]}
+echo ${#a_array[5]}
+
+echo ${#a_array[@]}
+
+a_array[4+5/2]="test expression"
+echo ${a_array[@]}
+
+readonly a_array[5]
+readonly a_array
+
+a_array[3]="this is a test"
+
+readonly -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+declare -ar | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+######cleanup.local######
+set -a

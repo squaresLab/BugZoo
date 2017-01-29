@@ -1,0 +1,3 @@
+#this does not need a setup or cleanup
+# this should give an error
+${TESTDIR}/basicnine.test

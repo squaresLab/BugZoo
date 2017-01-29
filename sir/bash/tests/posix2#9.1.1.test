@@ -1,0 +1,6 @@
+val=$("$TESTSHELL" -c 'echo $1' csh good)
+######setup.local######
+newtest
+test "$val" = good || testfail "got \"$val\": sh -c"
+######cleanup.local######
+unset val

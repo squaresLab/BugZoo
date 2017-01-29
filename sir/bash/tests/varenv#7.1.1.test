@@ -1,0 +1,10 @@
+set -k
+######setup.local######
+
+expect "$HOME"
+HOME=/a/b/c /bin/echo $HOME c=9
+expect "$HOME 7"
+echo $HOME $c
+
+######cleanup.local######
+set +k

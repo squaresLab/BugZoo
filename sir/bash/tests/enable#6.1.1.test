@@ -1,0 +1,9 @@
+PATH=${TESTDIR}:$PATH
+enable type
+#setup.local
+
+type 3
+
+#cleanup.local
+enable -d type
+PATH=${orig_path}

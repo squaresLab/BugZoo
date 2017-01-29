@@ -1,0 +1,6 @@
+cat << 'EOF'
+hi\
+there$a2
+stuff
+EOF
+

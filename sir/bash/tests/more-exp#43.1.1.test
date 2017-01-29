@@ -1,0 +1,2 @@
+expect '<4> <2>'
+recho $RELEASE $REL_LEVEL $REL_SUBLEVEL

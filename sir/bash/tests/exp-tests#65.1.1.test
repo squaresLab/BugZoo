@@ -1,0 +1,13 @@
+##### setup.local #################
+restore65=$@
+set a b c
+###################################
+
+expect '<posix>'
+recho ${3:+posix}
+
+##### cleanup.local ###############
+if [ "$restore65" != "" ]; then
+set $restore65
+fi
+###################################

@@ -1,0 +1,5 @@
+# bash -D
+
+send "$env(BASH_SRC_DIR)/bash -D\n"
+send "pwd\n"
+send "\004"

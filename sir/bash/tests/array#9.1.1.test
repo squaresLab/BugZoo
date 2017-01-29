@@ -1,0 +1,17 @@
+set +a
+######setup.local######
+
+read -p "array test: " -a rv <<!
+this is a test of read using arrays
+!
+
+echo ${rv[0]} ${rv[4]}
+echo ${rv[@]}
+
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+export rv
+
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+######cleanup.local######
+set -a

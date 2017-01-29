@@ -1,0 +1,13 @@
+######setup.local######
+restore40=$@
+set 'ab cd' 'ef' 'gh ij' 'kl mn' 'op'
+#######################
+
+expect '<op>'
+recho ${!#}
+
+#####c#leanup.local######
+if [ ! -z $restore40 ]; then
+set $restore40
+fi;
+#########################

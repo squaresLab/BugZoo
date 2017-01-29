@@ -1,0 +1,72 @@
+# SETUP CREATED BY KARRE
+
+# The following alias declarations are for the myalias# tests
+alias quit="exit"
+alias e="exit"
+alias p="pine"
+alias rmi="rm -i"
+
+mkdir -p $HOME/tmp
+SK_TESTDIR=$HOME/tmp
+
+# This is to restore the declared aliases after an unalias in one of myalias# tests
+mkdir -p $SK_TESTDIR/myalias
+if [ -e $SK_TESTDIR/myalias/temp_alias ] ; then rm -f $SK_TESTDIR/myalias/temp_alias; fi
+alias -p > $SK_TESTDIR/myalias/temp_alias
+
+# This function is for the file_attrib# tests
+look ()
+{
+echo $3
+if [ $1 $2 ]; then
+        echo "dodo says yes"
+else
+        echo "dodo says no"
+fi;
+}
+
+#The following umask setting is for both file_attrib# tests and umask tests
+
+umask_orig=`umask`
+umask 022
+
+mkdir -p $SK_TESTDIR/file_attrib
+
+if [ -e $SK_TESTDIR/file_attrib/sk_dodo ] ; then rm -f $SK_TESTDIR/file_attrib/sk_dodo; fi
+echo "this is a test file" > $SK_TESTDIR/file_attrib/sk_dodo
+if [ -e $SK_TESTDIR/file_attrib/sk_sisi ] ; then rm -f $SK_TESTDIR/file_attrib/sk_sisi; fi
+echo "second file" > $SK_TESTDIR/file_attrib/sk_sisi
+
+#The ulimit settings are for ulimit# tests
+myfiles=`ulimit -n`
+mystack=`ulimit -s`
+
+
+# the following variables are used in vars# tests
+
+sk_a=23
+# sk_b is made readonly in one of the tests, so don't use it in other tests
+sk_b=56
+# sk_c is made readonly here itself so don't use sk_c in other tests
+sk_c=60
+
+#The following function is used in function# tests
+
+sk_funct () {
+local k="srikanth"
+echo hello , this is sk_funct
+echo before sri inside
+echo $k
+echo after sri inside
+}
+
+
+# The following declarations are for the arith# tests
+
+declare -i sk_iv sk_jv
+sk_iv=163
+sk_jv=2
+
+declare -i sk_i=1 sk_j=1 sk_x=2 sk_k=2
+
+#******************end of KARRE setup***********************

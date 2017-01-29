@@ -1,0 +1,1 @@
+if [ 3 -gt 2 -a 5 -lt 7 ] ; then echo true ; else echo false ; fi

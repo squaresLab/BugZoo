@@ -1,0 +1,2 @@
+#string 7 pattern matching
+echo ${dodo4%GotABlackEye}

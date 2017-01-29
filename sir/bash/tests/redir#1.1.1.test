@@ -1,0 +1,5 @@
+# redir1
+# this is mentioned as basic3 in setup1
+# io redirection
+cat < ${TESTDIR}/tmp_1.tmprani > ${TESTDIR}/tmp_2.tmprani
+cat ${TESTDIR}/tmp_*

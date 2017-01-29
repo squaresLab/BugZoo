@@ -1,0 +1,3 @@
+#praveen: not running because shell exits
+# check precedence of assignment vs. conditional operator
+#  echo $((0 ? x+=2 : 20))

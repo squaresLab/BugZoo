@@ -1,0 +1,7 @@
+send "grep kkkkk *\r"
+
+#setup.local Ends Here
+
+#History Feature Search C-G
+send "\022k\007\r"
+

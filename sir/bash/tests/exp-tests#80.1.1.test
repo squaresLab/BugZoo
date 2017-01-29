@@ -1,0 +1,13 @@
+##### setup.local #######################
+restore80=$@
+set "abc" "def ghi" "jkl"
+#########################################
+
+expect '<abcdef>'
+recho "$foo3""$bar"
+
+###### cleanup.local ####################
+if [ "$restore80" != "" ]; then
+set $restore80
+fi
+#########################################

@@ -1,0 +1,6 @@
+myignoreeof=$IGNOREEOF
+#setup.local ends here
+export IGNOREEOF=10
+echo $IGNOREEOF
+#cleanup.local begins here
+unset IGNOREEOF

@@ -1,0 +1,13 @@
+######setup.local######
+restore34=$@
+set 'ab cd' 'ef' 'gh ij' 'kl mn' 'op'
+#######################
+
+expect '<ab cd> <ef>'
+recho "${@:1:2}"
+
+######cleanup.local######
+if [ ! -z $restore34 ]; then
+set $restore34
+fi;
+#########################

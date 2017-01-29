@@ -1,0 +1,13 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+expect '<ok>'
+case "$nosuchvar" in
+"")     echo ok ;;
+*)  echo bad ;;
+esac
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

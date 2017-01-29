@@ -1,0 +1,2 @@
+# pipeline this was earlier basic4 
+cut -d' ' -f1 ${TESTDIR}/tmp_1.tmprani | grep first

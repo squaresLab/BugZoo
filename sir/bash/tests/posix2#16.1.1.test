@@ -1,0 +1,3 @@
+newtest
+a=5; test "$(( ($a+1)/2 ))" = 3 || testfail "arithmetic expansion"
+

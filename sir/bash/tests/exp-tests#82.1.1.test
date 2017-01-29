@@ -1,0 +1,2 @@
+expect '<$foo4>'
+recho $y1

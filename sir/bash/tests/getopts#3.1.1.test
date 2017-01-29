@@ -1,0 +1,4 @@
+dodosays -c
+
+# cleanup.local
+OPTIND=0

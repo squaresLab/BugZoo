@@ -1,0 +1,3 @@
+echo this is $0 
+. dottest.sub
+echo after . dot-test-1.sub

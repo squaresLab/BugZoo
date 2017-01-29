@@ -1,0 +1,8 @@
+
+orig_set=$HISTCONTROL
+#setup.local
+HISTCONTROL=ignorespace
+echo $HISTCONTROL
+#cleanup.local begins here
+HISTCONTROL=${orig_set}
+unset orig_set

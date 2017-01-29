@@ -1,0 +1,3 @@
+#praveen: not running because shell exits
+#echo $((3/0))
+

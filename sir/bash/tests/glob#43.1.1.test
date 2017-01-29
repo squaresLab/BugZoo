@@ -1,0 +1,11 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+case kpabc in
+*****??c)   echo ok 5;;
+esac
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

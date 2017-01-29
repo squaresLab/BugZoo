@@ -1,0 +1,10 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+expect '<kpd> <kpdd> <kpde>'
+recho kp[^a-c]*
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

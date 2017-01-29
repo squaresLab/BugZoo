@@ -1,0 +1,8 @@
+saved_ifs="$IFS"
+IFS=/
+######setup.local######
+set $names lose
+test "$2" = good || testfail "got \"$2\": IFS parsing"
+######cleanup.local######
+IFS="$saved_ifs"
+

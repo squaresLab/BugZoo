@@ -1,0 +1,10 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+expect '<a*b/ooo>'
+recho a\*?/*
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

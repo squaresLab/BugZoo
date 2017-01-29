@@ -1,0 +1,2 @@
+expect '<abcdlast>'
+recho ${v/%?/last}

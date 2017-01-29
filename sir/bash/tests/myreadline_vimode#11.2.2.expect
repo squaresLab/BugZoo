@@ -1,0 +1,6 @@
+send "set -o vi\r"
+#setup.local ends here
+# move forward by words                  E
+send "echo forward by words\033BBBEE\r"
+#cleanup.local begins here
+send "set -o emacs\r"

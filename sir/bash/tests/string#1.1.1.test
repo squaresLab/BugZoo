@@ -1,0 +1,8 @@
+# substituition operators
+
+echo ${dodo:-"dodo not defined"}
+dodo=defined
+echo ${dodo:-"dodo not defined"}
+
+# cleanup.local
+unset dodo

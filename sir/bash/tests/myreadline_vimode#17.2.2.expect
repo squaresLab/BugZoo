@@ -1,0 +1,6 @@
+send "set -o vi\r"
+#setup.local ends here
+#Kill from the cursor to the previous whitespace   dB
+send "echo Kill from the cursor to the previous whitespace\033dBdBdB\r"
+#cleanup.local begins here
+send "set -o emacs\r"

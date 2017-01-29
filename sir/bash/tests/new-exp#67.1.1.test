@@ -1,0 +1,2 @@
+expect '<yyy> <efgh> <ijkl> <mnop> <qrst> <uvwx>'
+recho ${av[@]/a*/yyy}

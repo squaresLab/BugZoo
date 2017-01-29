@@ -1,0 +1,2 @@
+expect "<^A>"
+recho `echo ^A`

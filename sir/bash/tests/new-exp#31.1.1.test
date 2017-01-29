@@ -1,0 +1,2 @@
+expect '<hijklmnop>'
+recho ${z:7:30}

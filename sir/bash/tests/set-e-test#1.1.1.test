@@ -1,0 +1,24 @@
+N=95
+######setup.local######
+
+if : ; then
+	set -e
+	while :; do
+		# expr returns 1 if expression is null or 0
+		set +e
+		N_MOD_100=`expr $N % 100`
+		set -e
+		echo $N_MOD_100
+		N=`expr $N + 1`
+		if [ $N -eq 110 ]; then
+			break
+		fi
+	done
+	set +e
+fi
+# command subst should not inherit -e
+set -e
+echo $(false; echo ok)
+######cleanup.local######
+set +e
+unset N

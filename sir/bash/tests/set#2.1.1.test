@@ -1,0 +1,4 @@
+set -x
+echo "set x"
+#cleanup.local
+set +x

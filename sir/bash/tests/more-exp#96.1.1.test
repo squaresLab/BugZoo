@@ -1,0 +1,8 @@
+abckp=hi
+#setup.local
+
+echoa "should echo hi K }"
+recho ${abc:-G { I } K }
+
+#setup.cleanup
+unset abckp

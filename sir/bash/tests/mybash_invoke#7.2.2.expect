@@ -1,0 +1,2 @@
+send "$env(BASH_SRC_DIR)/bash --noprofile \n"
+send "exit\n"

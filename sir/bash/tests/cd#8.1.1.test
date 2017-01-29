@@ -1,0 +1,13 @@
+#pushd and popd
+cd ${TESTDIR}/dodokp
+#setup.local
+
+echo using pushd and popd
+pushd thirddir 
+dirs
+popd 
+dirs +1
+pwd
+
+#cleanup.local
+cd ${CURRDIR}

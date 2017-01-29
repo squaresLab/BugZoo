@@ -1,0 +1,2 @@
+expect '<efg> <nop>'
+recho ${z:4:3} ${z:${#z}-3:3}

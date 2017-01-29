@@ -1,0 +1,2 @@
+# M-#
+send "echo Sri\033#"

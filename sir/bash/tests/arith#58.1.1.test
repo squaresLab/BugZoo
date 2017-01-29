@@ -1,0 +1,4 @@
+# associativity of assignment-operator operator
+ sk_j=2 
+  echo $((sk_i += sk_j += sk_k))
+  echo $sk_i,$sk_j,$sk_k

@@ -1,0 +1,14 @@
+set +a
+######setup.local######
+
+d_array[9]="ninth element"
+
+d_array[7]=(abdedfegeee)
+
+d_array=([]=abcde [1]="test test" [*]=last [-65]=negative )
+
+unset d_array[12]
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+######cleanup.local######
+set -a

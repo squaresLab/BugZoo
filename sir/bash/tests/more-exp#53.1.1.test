@@ -1,0 +1,13 @@
+#***********************************
+orig_args="$@"
+set ''
+#setup.local
+
+expect '<xy>'
+recho "$*xy"
+
+#cleanup.local
+if [ ! -z $orig_args ]; then
+    set $orig_args
+fi;
+#***********************************

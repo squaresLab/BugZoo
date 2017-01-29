@@ -1,0 +1,7 @@
+checkhash_orig=`shopt | grep checkhash | cut -d " " -f2`
+#setup.local ends here
+shopt -s checkhash
+shopt | grep checkhash
+#cleanup.local begins here
+if [ $checkhash_orig=="off" ]; then shopt -u checkhash; fi
+unset checkhash_orig

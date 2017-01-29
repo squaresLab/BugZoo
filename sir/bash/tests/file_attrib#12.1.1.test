@@ -1,0 +1,5 @@
+mkdir -p $SK_TESTDIR/file_attrib/sk_dodo_dir
+#setup.local ends here
+look -d $SK_TESTDIR/file_attrib/sk_dodo_dir "r u a dir sk_dodo_dir?"
+#cleanup.local
+rm -r $SK_TESTDIR/file_attrib/sk_dodo_dir

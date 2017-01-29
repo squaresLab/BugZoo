@@ -1,0 +1,6 @@
+[praveen@regression:bash-2.05.0: testplans.fine]$ . setup1
+rm: Unable to remove directory /home/praveen/tmp/commandtests: No such file or directory
+regression:testplans.fine. arith#39.1.1.test
+0
+regression:testplans.fine. cleanup1
+rm: Unable to remove directory /home/praveen/tmp/glob-test: File exists

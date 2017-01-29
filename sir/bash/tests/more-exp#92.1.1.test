@@ -1,0 +1,9 @@
+orig_jkpa=$jkpa
+jkpa=foo
+#setup.local
+
+recho $(zecho `zecho \jkpa`)
+recho $(zecho `zecho \\jkpa`)
+
+#cleanup.local
+jkpa=$orig_jkpa

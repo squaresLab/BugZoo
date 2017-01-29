@@ -1,0 +1,2 @@
+expect '<xyz>'
+recho "${var:+xyz}"

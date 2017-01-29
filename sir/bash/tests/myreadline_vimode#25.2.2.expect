@@ -1,0 +1,7 @@
+send "set -o vi\r"
+send "\033/echo\r/echo\r/echo\r"
+#setup.local ends here
+# Non-Incremental Search Forward
+send "?echo\r\r"
+#cleanup.local begins here
+send "set -o emacs\r"

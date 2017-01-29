@@ -1,0 +1,2 @@
+expect "<$HOME>"
+recho "${HOME:-`echo "}"`}"

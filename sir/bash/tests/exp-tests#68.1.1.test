@@ -1,0 +1,2 @@
+expect '<posix>'
+recho ${x1%%/*}

@@ -1,0 +1,8 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo "kill -9 19"
+jobs -r
+kill -9 %19
+jobs -r
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

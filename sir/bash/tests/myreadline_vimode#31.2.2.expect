@@ -1,0 +1,8 @@
+send "set -o vi\r"
+# The following line moves the cursor two back to change their case
+send "echo changing case\033BB"
+#setup.local ends here
+# Change case
+send "~~~~~~~~\r"
+#cleanup.local begins here
+send "set -o emacs\r"

@@ -1,0 +1,3 @@
+send "$\011\011"
+# The following line clears everything from the command prompt
+send "\025"

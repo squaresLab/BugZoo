@@ -1,0 +1,4 @@
+sk_a_orig=$sk_a
+sk_a=11
+echo $sk_a
+sk_a=$sk_a_orig

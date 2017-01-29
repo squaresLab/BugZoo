@@ -1,0 +1,2 @@
+echo " a  b\ " | ( read -r x y ; echo -"$x"-"$y"- )
+

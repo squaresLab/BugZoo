@@ -1,0 +1,17 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo these are the current jobs
+jobs -r
+echo "stopping %16"
+kill -STOP %16
+sleep 2 
+echo " now again the current jobs"
+jobs -r
+
+echo "now continuing 16"
+kill -CONT %16
+sleep 2
+echo "finally the jobs"
+jobs -r
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

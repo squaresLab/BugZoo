@@ -1,0 +1,6 @@
+send "set -o vi\r"
+#setup.local ends here
+# CTRL-V
+send "echo "
+#cleanup.local begins here
+send "set -o emacs\r"

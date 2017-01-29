@@ -1,0 +1,11 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo see if the code that expands directories only works
+expect '<bdir/>'
+recho b*/
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

@@ -1,0 +1,13 @@
+######setup.local######
+restore96=$@
+shift $#
+#######################
+
+expect '<abcdef>'
+recho "${foo1:-$y}"
+
+######cleanup.local######
+if [ ! -z $restore96 ]; then
+set $restore96
+fi;
+#########################

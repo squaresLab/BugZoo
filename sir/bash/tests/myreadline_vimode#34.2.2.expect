@@ -1,0 +1,8 @@
+send "set -o vi\r"
+#setup.local ends here
+# M-*
+send "s\033*"
+#cleanup.local begins here
+# The following line cleans up all the commands that appeared on the prompt due to M-*
+send "\025\r"
+send "set -o emacs\r"

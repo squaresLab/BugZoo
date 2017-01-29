@@ -1,0 +1,16 @@
+echo trying to unset function sisi2 who is not there
+unset sisi2
+sisi2 ()
+{
+    echo "$@"
+    echo "$1 said this"
+    echo "but this is $0" 
+    echo "so $1 said this from inside $0" 
+}
+
+#setup.local
+
+sisi2 sisi2 now says hi to dodo and bobo
+
+#cleanup.local
+unset sisi2

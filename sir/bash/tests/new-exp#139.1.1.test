@@ -1,0 +1,4 @@
+#praveen: not running because shell exits
+#expect $0: 'ABXD: parameter unset'
+#recho ${ABXD:?"parameter unset"}
+

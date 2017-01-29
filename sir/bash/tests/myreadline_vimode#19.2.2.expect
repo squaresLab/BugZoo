@@ -1,0 +1,8 @@
+send "set -o vi\r"
+# The following line is to delete some words to fill the buffer with something to yank
+send "echo Kill from the cursor to the previous whitespace\033dBdBdB\r" 
+#setup.local ends here
+# Yank the most recently killed text back into buffer at cursor  and P
+send "echo Yank the most recently killed text back into buffer at cursor\033P\r"
+#cleanup.local begins here
+send "set -o emacs\r"

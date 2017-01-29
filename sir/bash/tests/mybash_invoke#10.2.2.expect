@@ -1,0 +1,1 @@
+send "$env(BASH_SRC_DIR)/bash --help \n"

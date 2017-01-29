@@ -1,0 +1,11 @@
+para="$@"
+set 'a b' c d e f
+#setup.local
+
+expect '<a b> <c> <d> <e> <f>'
+recho ${1+"$@"}
+
+#cleanup.local
+if [ ! -z ${para} ]; then
+	set ${para}
+fi;

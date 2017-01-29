@@ -1,0 +1,6 @@
+# yes tilde expansion
+export PPATH=$XPATH:~/bin
+######setup.local######
+
+echo "$PPATH"
+

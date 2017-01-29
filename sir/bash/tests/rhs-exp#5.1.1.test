@@ -1,0 +1,2 @@
+recho "TDEFAULTS = ${selvecs:+-DSELECT_VECS=\\$selvecs\\}"
+

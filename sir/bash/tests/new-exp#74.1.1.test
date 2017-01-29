@@ -1,0 +1,13 @@
+######setup.local######
+restore74=$@
+set abcd efgh ijkl mnop qrst uvwx
+#######################
+
+expect '<zaza> <zaza> <zaza> <zaza> <zaza> <zaza>'
+recho ${@//??/za}
+
+######cleanup.local######
+if [ ! -z $restore74 ]; then
+set $restore74
+fi;
+#########################

@@ -1,0 +1,6 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo suppressing this output
+jobs -l  | cut -d' ' -f1,4,5
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

@@ -1,0 +1,17 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo "examples from the Posix.2 spec (d11.2, p. 243)"
+echo  " This is very odd, but sh and ksh seem to agree"
+expect '<ok>'
+case kpabc in
+kpa["\b"]c) echo ok
+    ;;
+*)  echo bad
+    ;;
+esac
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

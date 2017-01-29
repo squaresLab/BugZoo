@@ -1,0 +1,6 @@
+a_varenv=3 b_varenv=4 $CHMOD $MODE $FN
+
+# This should echo "3 4" according to Posix.2
+expect "3 4"
+echo $a_varenv $b_varenv
+

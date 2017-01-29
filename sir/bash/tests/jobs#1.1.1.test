@@ -1,0 +1,6 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo "these are the current jobs"
+jobs 
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

@@ -1,0 +1,4 @@
+
+# C-e
+send "echo Last Character\001\005\r"
+

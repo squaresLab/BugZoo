@@ -1,0 +1,4 @@
+set -p
+echo "set p"
+#cleanup.local
+set +p

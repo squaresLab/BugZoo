@@ -1,0 +1,27 @@
+case $# in
+  0) :
+  ;;
+  1) MM=$1; NN=$1
+  ;;
+  2) MM=$1; NN=$2
+  ;;
+  *) echo 1>&2 "Usage: $0 [m [n]]"
+  ;;
+esac
+
+echo -n 'o = { '
+######setup.local######
+
+let "m=1"
+while let "m <= MM"; do
+  let "n=1"
+  while let "n <= NN"; do
+    echo -n "1,"
+    let "n=n+1"
+  done
+  let "m=m+1"
+done
+echo " }"
+
+echo 'x = LinearSolve[a,o]  '
+

@@ -1,0 +1,11 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo Test quoted and unquoted globbing characters
+expect '<kpa*>'
+recho 'kpa*'
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

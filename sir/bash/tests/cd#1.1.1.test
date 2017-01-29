@@ -1,0 +1,12 @@
+# cd1 test
+echo cd ${TESTDIR}/basic1
+cd ${TESTDIR}/basic1
+# end of setup.local
+
+# test cd .. 
+echo cd ..
+cd ..
+echo cd ${CURRDIR}
+
+# cleanup.local
+cd ${CURRDIR}

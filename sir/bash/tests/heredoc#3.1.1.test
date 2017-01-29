@@ -1,0 +1,8 @@
+cat << 'EOF'
+hi\
+there
+EO\
+F
+EOF
+true
+

@@ -1,0 +1,17 @@
+######setup.local######
+restore39=$@
+set 'ab cd' 'ef' 'gh ij' 'kl mn' 'op'
+ef=4
+#######################
+
+ef=4
+expect '<4>'
+recho ${!2}
+
+######cleanup.local######
+unset ef
+if [ ! -z $restore39 ]; then
+set $restore39
+fi;
+#########################
+

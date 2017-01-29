@@ -1,0 +1,16 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo "examples from the Posix.2 spec (d11.2, p. 243)"
+expect '<match>'
+case kpabc in
+kpa*c)    echo match
+    ;;
+*)  echo BAD
+    ;;
+esac
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

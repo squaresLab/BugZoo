@@ -1,0 +1,14 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+expect '<not there>'
+file='r.*'
+case $file in
+*.\*) echo not there ;;
+*) echo there ;;
+esac
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

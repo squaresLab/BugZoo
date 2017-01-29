@@ -1,0 +1,9 @@
+restore5=$@
+set -- -Z
+######setup.local######
+newtest
+test "x$1" = x-Z || testfail '\"set -- arg\"'
+######cleanup.local######
+if [ "$restore5" != "" ]; then
+set $restore5
+fi

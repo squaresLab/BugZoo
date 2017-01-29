@@ -1,0 +1,11 @@
+. ${TESTS_SRC}/bgs.setup
+trap 'echo TRAPPING THIS WITH SIGCHLD' SIGCHLD
+
+#setup.conf
+
+echo jobs -r
+jobs -r
+
+# cleanup.conf
+trap - SIGCHLD
+. ${TESTS_SRC}/bgs.cleanup

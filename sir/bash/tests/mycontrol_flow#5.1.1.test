@@ -1,0 +1,6 @@
+echo 2 | select a in "echo one" "echo two" "echo sorry"
+do
+if [ $REPLY -eq 1 ]; then  echo one ;break ; fi
+if [ $REPLY -eq 2 ]; then  echo two ;break; fi
+if [ $REPLY -eq 3 ]; then  echo sorry;break ; fi
+done

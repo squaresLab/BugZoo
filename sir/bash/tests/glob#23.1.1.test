@@ -1,0 +1,14 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+expect '<no match>'
+cmd='echo !7'
+case "$cmd" in
+*\\!*) echo match ;;
+*) echo no match ;;
+esac
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

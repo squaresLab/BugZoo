@@ -1,0 +1,4 @@
+
+# ESC b
+send "echo Escape b \033b\033b\r"
+

@@ -1,0 +1,3 @@
+f_myexpr=$((3>4 && 5>7 ))
+echo f_myexpr=$f_myexpr
+

@@ -1,0 +1,4 @@
+#praveen: not running because shell exits
+#expect $0: '$6: cannot assign in this way'
+#recho ${6="arg6"}
+

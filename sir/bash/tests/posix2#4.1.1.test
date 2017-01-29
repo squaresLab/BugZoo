@@ -1,0 +1,5 @@
+newtest
+unset empty
+test "${empty-ok}" = ok || testfail "unset"
+######cleanup.local######
+empty=""

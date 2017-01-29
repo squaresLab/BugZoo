@@ -1,0 +1,6 @@
+send "set -o vi\r"
+#setup.local ends here
+# clearing the screen with C-l
+send "\033\014\r"
+#cleanup.local begins here
+send "set -o emacs\r"

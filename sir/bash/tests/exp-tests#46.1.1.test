@@ -1,0 +1,2 @@
+expect '<^A> <^B>'
+recho $FOO1

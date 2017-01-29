@@ -1,0 +1,2 @@
+# C-x Rubout
+send "echo CTRL-X RUBOUT\030\177\r"

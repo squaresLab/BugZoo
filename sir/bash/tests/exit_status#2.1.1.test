@@ -1,0 +1,4 @@
+mkdir $SP_TESTDIR/dude
+echo the last cmd returned $?
+rmdir $SP_TESTDIR/dude
+echo the last cmd returned $?

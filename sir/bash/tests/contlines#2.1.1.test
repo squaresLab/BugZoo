@@ -1,0 +1,6 @@
+#this needs no setup
+#continuing lines
+#contlines2
+echo ' this is the first
+this is the second
+this is the third'

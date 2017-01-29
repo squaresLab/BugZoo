@@ -1,0 +1,11 @@
+# ************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo see if regular globbing works right
+expect '<kpa> <kpabc> <kpabd> <kpabe> <kpX*>'
+recho kpa* kpX*
+
+#cleanup.local
+cd ${CURRDIR}
+# ************************

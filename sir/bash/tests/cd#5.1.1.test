@@ -1,0 +1,10 @@
+cd ${TESTDIR}/dodokp/firstdir
+cd ${TESTDIR}/dodokp/seconddir
+cd -
+cd -
+cd ..
+
+echo after cd still in `pwd`
+
+#cleanup.local
+cd ${CURRDIR}

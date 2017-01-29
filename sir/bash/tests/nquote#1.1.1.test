@@ -1,0 +1,2 @@
+expect '<^J^J^J>'
+recho $'\n\n\n'

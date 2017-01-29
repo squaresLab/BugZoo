@@ -1,0 +1,13 @@
+######setup.local######
+restore77=$@
+set abcd efgh ijkl mnop qrst uvwx
+#######################
+
+expect '<yyy> <efgh> <ijkl> <mnop> <qrst> <uvwx>'
+recho ${@//a*/yyy}
+
+######cleanup.local######
+if [ ! -z $restore77 ]; then
+set $restore77
+fi;
+#########################

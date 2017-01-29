@@ -1,0 +1,6 @@
+#bash -r
+
+send "$env(BASH_SRC_DIR)/bash -r\n"
+send "cd ..\n"
+send "cd -\n"
+send "exit\n"

@@ -1,0 +1,2 @@
+if [ -e $SK_TESTDIR/file_attrib/sk_dodo_tmp ]; then rm -r $SK_TESTDIR/file_attrib/sk_dodo_tmp; fi
+look -d $SK_TESTDIR/file_attrib/sk_dodo_tmp "r u a dir sk_dodo_tmp?"

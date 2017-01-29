@@ -1,0 +1,12 @@
+# following is the setup required for bg tests, jobs tests, and 
+# disown tests. these are background jobs being invoked and they
+# will be running just before tests that call this script. 
+sleep 21 &
+sleep 22 | time sleep 12 &
+sleep 23 &
+sleep 24 &
+sleep 25 &
+sleep 26 &
+sleep 27 &
+sleep 28 &
+

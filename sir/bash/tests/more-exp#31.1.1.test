@@ -1,0 +1,4 @@
+expect "<'bar'>"
+recho "${fook+'$fook'}"
+
+#this test is certainly not giving that 'bar' only

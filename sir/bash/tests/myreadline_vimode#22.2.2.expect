@@ -1,0 +1,8 @@
+send "set -o vi\r"
+# This is to go to two commands back in history in order to move one command forward
+send "\033---"
+#setup.local ends here
+#Move `forward' through the history list, fetching the next command.
+send "+\r"
+#cleanup.local begins here
+send "set -o emacs\r"

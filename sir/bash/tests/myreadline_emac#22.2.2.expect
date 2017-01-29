@@ -1,0 +1,7 @@
+send "grep sssss *\r"
+
+#setup.local Ends Here
+
+#History Feature Search C-J
+send "\022g\012\r"
+

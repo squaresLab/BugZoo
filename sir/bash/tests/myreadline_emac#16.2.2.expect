@@ -1,0 +1,8 @@
+
+send "echo CTRL-w\027\r"
+
+# setup.local Ends Here
+
+# C-y
+send "\031"
+

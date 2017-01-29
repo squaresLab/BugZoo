@@ -1,0 +1,2 @@
+echo should give an error
+abc\=def

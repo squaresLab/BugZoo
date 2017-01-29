@@ -1,0 +1,7 @@
+cd ${TESTDIR}/commandtests
+# setup.local
+
+cat < third.tmp
+
+#cleanup.local
+cd ${CURRDIR}

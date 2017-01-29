@@ -1,0 +1,2 @@
+expect '<bar foo>'
+echo -n $foo' ' ; echo foo

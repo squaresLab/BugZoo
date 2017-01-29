@@ -1,0 +1,18 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo bringing 13 to fg
+fg %13
+jobs -r 
+sleep 2
+echo sending 13 to bg
+
+# this will not work
+bg %13
+
+jobs -r
+
+#cleanup.local
+if [ $((`jobs | grep "sleep 29" | wc -l`)) -gt 0 ] 2>/dev/null ; then
+kill %'sleep 29' 2>/dev/null ; fi 
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

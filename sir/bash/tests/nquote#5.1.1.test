@@ -1,0 +1,2 @@
+expect '<^M^[^Gabc>'
+recho $'\r\e\aabc'

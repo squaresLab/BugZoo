@@ -1,0 +1,13 @@
+######setup.local######
+restore110=$@
+shift $#
+#######################
+
+expect '<>'
+recho $xxx""
+
+######cleanup.local######
+if [ ! -z $restore110 ]; then
+set $restore110
+fi;
+#########################

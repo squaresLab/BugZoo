@@ -1,0 +1,7 @@
+send "set -o vi\r"
+# The following line causes M-_ to execute a part of this command only.
+send "echo just for set up\r"
+#setup.local ends here
+send "\033_\r"
+#cleanup.local begins here
+send "set -o emacs\r"

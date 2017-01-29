@@ -1,0 +1,19 @@
+echo cleaning up background jobs
+if [ $((`jobs | grep "sleep 12" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 12; kill -9 %'sleep 12' 2>/dev/null ; fi
+if [ $((`jobs | grep "sleep 21" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 21; kill -9 %'sleep 21' 2>/dev/null ; fi
+if [ $((`jobs | grep "sleep 22" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 22; kill -9 %'sleep 22' 2>/dev/null ; fi 
+if [ $((`jobs | grep "sleep 23" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 23; kill -9 %'sleep 23' 2>/dev/null ; fi 
+if [ $((`jobs | grep "sleep 24" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 24; kill -9 %'sleep 24' 2>/dev/null ; fi 
+if [ $((`jobs | grep "sleep 25" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 25; kill -9 %'sleep 25' 2>/dev/null ; fi 
+if [ $((`jobs | grep "sleep 26" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 26; kill -9 %'sleep 26' 2>/dev/null ; fi 
+if [ $((`jobs | grep "sleep 27" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 27; kill -9 %'sleep 27' 2>/dev/null ; fi 
+if [ $((`jobs | grep "sleep 28" | wc -l`)) -gt $((0)) ] 2>/dev/null ; then
+echo killing 28; kill -9 %'sleep 28' 2>/dev/null ; fi 

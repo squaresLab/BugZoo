@@ -1,0 +1,5 @@
+if ! [ -x $SK_TESTDIR/file_attrib/sk_dodo ] ; then chmod +x $SK_TESTDIR/file_attrib/sk_dodo; fi
+#setup.local ends here
+look -x $SK_TESTDIR/file_attrib/sk_dodo "can u run sk_dodo?"
+#cleanup.local begins here
+chmod -x $SK_TESTDIR/file_attrib/sk_dodo

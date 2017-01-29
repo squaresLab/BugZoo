@@ -1,0 +1,8 @@
+orig_set=$HISTIGNORE
+#setup.local
+HISTIGNORE='ls -l'
+ls -l > /dev/null
+ls -l > /dev/null
+#cleanup.local
+HISTIGNORE=${orig_set}
+unset orig_set

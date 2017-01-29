@@ -1,0 +1,14 @@
+######setup.local######
+restore100=$@
+set ab cd ef gh
+#######################
+
+expect '<ab> <cd> <ef> <gh>'
+recho ${foo1:-"$@"}
+
+######cleanup.local######
+if [ ! -z $restore100 ]; then
+set $restore100
+fi;
+#########################
+

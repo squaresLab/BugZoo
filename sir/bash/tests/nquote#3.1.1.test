@@ -1,0 +1,2 @@
+expect '<^J^I >'
+recho "$ZIFS"

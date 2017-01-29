@@ -1,0 +1,6 @@
+mylc_all=$LC_ALL
+#setup.local ends here
+export LC_ALL=C
+echo $LC_ALL
+#cleanup.local begins here
+export  LC_ALL=$mylc_all

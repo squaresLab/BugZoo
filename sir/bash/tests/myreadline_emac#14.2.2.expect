@@ -1,0 +1,4 @@
+
+# M-DEL
+send "echo Escape Delete\033\177\r"
+

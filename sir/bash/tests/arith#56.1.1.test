@@ -1,0 +1,4 @@
+# check precedence of assignment vs. conditional operator
+# should be an error
+#praveen: not running because shell exits
+# y=$((1 ? 20 : x+=2))

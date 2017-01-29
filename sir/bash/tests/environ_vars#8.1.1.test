@@ -1,0 +1,7 @@
+original_mailpath=$MAILPATH
+#setup.local 
+export MAILPATH="/var/mail/$USER : $HOME/Previous_Stuff/mail : $HOME/logtime"
+echo $MAILPATH
+#cleanup.local
+export MAILPATH=$original_mailpath
+unset original_mailpath

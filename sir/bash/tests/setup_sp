@@ -1,0 +1,243 @@
+# SETUP PREPARED BY SATYA
+
+expect()
+{
+        echo expect "$@"
+}
+
+SP_TESTDIR=$HOME/tmp
+
+#setup for new-exp.tests
+
+export HOME_BAK=$HOME
+HOME=/usr/homes/chet    # to make the check against new-exp.right work
+_ENV=oops
+P=*@*
+foo2='abcd   '
+foo=bar
+z=abcdefghijklmnop
+v=abcde
+av=(abcd efgh ijkl mnop qrst uvwx)
+mkdir -p $SP_TESTDIR
+echo this is test 2 > $SP_TESTDIR/x
+unset foo1
+y=abcdef
+z1='abc def'
+AB='abcdefghijklmnopqrstuvwxyz'
+z2=123456
+xx=one/two/two
+yy=oneonetwo
+
+#setup for nquote.tests
+
+z3=$''
+ZIFS=$'\n'$'\t'$' '
+D=$"hello"," "$"world"
+world=chet
+
+#setup for perf-script.tests
+
+typeset -i m2 m1 M n2 n1 N m n
+typeset -i MM=5 NN=5
+EMPTYLINE=:  # echo
+
+#setup for precedence.tests
+
+case `echo -n` in
+  '') Say () { echo -n "$*" ; } ;;
+   *) Say () { echo "$*\c" ; } ;;
+esac
+
+Truth () {
+  Say $1;
+  return 0;
+}
+
+False () {
+  Say $1;
+  return 1;
+}
+cmd1='$open $test1 && $test2 $close || $test3'
+cmd2='$test1 || $open $test2 && $test3 $close'
+
+grouping_sh=
+grouping_C='( )'
+
+test3='Say 3'
+
+#setup for posix2.tests
+
+TESTSHELL=${THIS_SH:-$BASH_SRC_DIR/bash}
+: ${TMPDIR:=$SP_TESTDIR}
+exitval=0
+numtests=0
+
+newtest()
+{
+    numtests=$(($numtests + 1))
+}
+
+testfail()
+{
+    echo "$1 test failed"
+    exitval=$(($exitval + 1))
+}
+
+empty=""
+names=one/good/three
+a=abc_def_ghi
+export a
+
+touch $TMPDIR/conftest
+cat > $TMPDIR/conftest1 << EOF
+$TMPDIR/conftest2 "\$@"
+EOF
+cat > $TMPDIR/conftest2 << "EOF"
+#! /bin/sh
+echo $#
+EOF
+chmod +x $TMPDIR/conftest1 $TMPDIR/conftest2
+
+
+#setup for read.tests
+
+echo "A B " > $SP_TESTDIR/IN
+
+#setup for rhs-exp.tests
+
+selvecs='&m68kcoff_vec'
+
+#setup for prompt.tests
+
+orig_ps1=$PS1
+orig_ps2=$PS2
+orig_ps3=$PS3
+orig_ps4=$PS4
+export PS1='\H:\W'
+\rm -rf $SP_TESTDIR/spk
+mkdir -p $SP_TESTDIR/spk
+
+#setup for tilde-tests
+
+SHELL1=~/bash
+path=/usr/ucb:/bin:~/bin:~/tmp/bin:/usr/bin
+XPATH=/bin:/usr/bin:.
+
+#setup for type.tests
+
+dodo ()
+{
+        echo "This hello is coming from dodo."
+}
+
+alias dodo='echo "Hello there, hope you are having a nice time with this test."'
+echo "echo \"now dodo is becoming naughty\"" > dodo
+chmod +x dodo
+
+#setup for heredoc.tests
+
+a2=foo
+
+#setup for env.tests
+
+echo "export TMP_VAR=bash" > $SP_TESTDIR/something.tmp
+export dodo1="I am a good boy"
+
+#setup for exit_status.test
+
+cd1 ()
+{
+        builtin cd "$@" 2>/dev/null
+        es=$?
+        return $es
+}
+
+#setup for myexpr.tests
+
+let a1_myexpr=100;
+let a2_myexpr=200;
+
+#setup for test-tests
+
+t()
+{
+        test "$@"
+        echo $?
+}
+
+touch $SP_TESTDIR/test.setgid
+chmod ug+x $SP_TESTDIR/test.setgid
+chmod g+s $SP_TESTDIR/test.setgid
+
+touch $SP_TESTDIR/test.noread
+chmod a-r $SP_TESTDIR/test.noread
+
+touch $SP_TESTDIR/test.setuid
+chmod u+x $SP_TESTDIR/test.setuid      # some systems require this to turn on setuid bit
+chmod u+s $SP_TESTDIR/test.setuid
+
+touch $SP_TESTDIR/test.nowrite
+chmod a-w $SP_TESTDIR/test.nowrite
+echo 't -w $SP_TESTDIR/test.nowrite'
+
+touch $SP_TESTDIR/test.exec
+chmod u+x $SP_TESTDIR/test.exec
+
+touch $SP_TESTDIR/test.noexec
+chmod u-x $SP_TESTDIR/test.noexec
+
+touch $SP_TESTDIR/test.owner
+
+touch $SP_TESTDIR/abc
+touch $SP_TESTDIR/def
+ln $SP_TESTDIR/abc $SP_TESTDIR/ghi
+
+#####setup for exp-tests
+
+xxx=abc
+yyy=def
+FOO=`echo 'a b' | tr ' ' '\012'`
+FOO1=`echo '^A ^B' | tr ' ' '\012'`
+unset X
+POSIX=/usr/posix
+x=file.c
+x1=posix/src/std
+x2=$HOME/src/cmd
+x3=/one/two/three
+foo3=abc
+bar=def
+foo4=10
+x4=foo4
+y1='$'$x4
+eval y2='$'$x4
+x5='ab
+cd'
+a1="a b c d e"
+declare b1=$a1
+
+#setup for varenv.sh
+
+a_varenv=1
+b_varenv=2
+c_varenv=3
+d_varenv=4
+e_varenv=5
+f_varenv=6 g_varenv=7 h_varenv=8
+
+#setup for array.tests
+
+unset a_array
+a_array=abcde
+a_array[2]=bdef
+declare -a b_array[256]
+unset c_array[2]
+unset c_array[*]
+a_array[1]=
+_ENV=/bin/true
+x_array=${_ENV[(_$-=0)+(_=1)-_${-%%*i*}]}
+declare -a d_array='([1]="" [2]="bdef" [5]="hello world" "test")'
+declare -r c_array[100]
+pass_array=/etc/passwd
+ps1_array='hello'
+
+#**************end of SATYA setup********************

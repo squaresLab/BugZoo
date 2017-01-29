@@ -1,0 +1,10 @@
+#cd 3
+echo cd ${TESTDIR}
+cd ${TESTDIR}
+#setup.local
+
+echo cd ./basic1
+cd ./basic1
+
+echo cd ${CURRDIR}
+cd ${CURRDIR}

@@ -1,0 +1,5 @@
+send "set -o vi\r"
+#setup.local ends here
+send "echo Sri	kanth\r"
+#cleanup.local begins here
+send "set -o emacs\r"

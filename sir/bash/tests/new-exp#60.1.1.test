@@ -1,0 +1,2 @@
+expect '<zagh>'
+recho ${av[1]/??/za}

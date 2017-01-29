@@ -1,0 +1,6 @@
+#ls3
+cd ${TESTDIR}/basic8
+echo ls -l *t??? > /dev/null
+ls -l *t??? > /dev/null
+echo cd ${CURRDIR}
+cd ${CURRDIR}

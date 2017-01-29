@@ -1,0 +1,4 @@
+
+# M-d
+send "echo kill word\033b\033d\r"
+

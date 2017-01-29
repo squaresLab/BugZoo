@@ -1,0 +1,6 @@
+newtest
+getopts a: store -a aoptval
+if [ "$OPTIND" != 3 ] || [ "$store" != a ] || [ "$OPTARG" != aoptval ]; then
+    testfail "getopts"
+fi
+

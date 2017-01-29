@@ -1,0 +1,9 @@
+let sk_a=1
+case $sk_a in
+
+1       ) echo one ;;
+
+2       ) echo two ;;
+
+*       ) echo sorry;;
+esac

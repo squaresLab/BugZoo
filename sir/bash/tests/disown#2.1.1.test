@@ -1,0 +1,16 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo -e '\n script for the disown feature\r\f'
+echo -e '\tJobs at the start1\b\\'
+echo -e '\c of run\b'
+echo -e '\v'
+jobs
+
+echo disown %13
+disown %13
+sleep 2
+
+echo "jobs after disowning 13"
+jobs
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

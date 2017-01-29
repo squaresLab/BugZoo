@@ -1,0 +1,3 @@
+trap "echo 'You Hit CTRL-C'" SIGINT
+######cleanup.local######
+trap - SIGINT

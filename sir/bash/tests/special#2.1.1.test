@@ -1,0 +1,11 @@
+sleep 2 &
+# setup.local
+
+#since this test will give a different process id everytime it runs
+#i am sending the output to /dev/null
+spec2=$!
+if [ -z ${spec2} ]; then
+	echo "could not catch the pid"
+else
+	echo "caught the pid"
+fi;

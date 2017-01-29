@@ -1,0 +1,2 @@
+expect '<efgh>'
+recho ${av[1]/%ab/xx}

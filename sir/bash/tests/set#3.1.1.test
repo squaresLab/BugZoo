@@ -1,0 +1,4 @@
+set -v
+echo "set v"
+#cleanup.local
+set +v

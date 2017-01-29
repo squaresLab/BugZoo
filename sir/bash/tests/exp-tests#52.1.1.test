@@ -1,0 +1,2 @@
+expect '<^A^A^B>'
+recho '^A^A^B'

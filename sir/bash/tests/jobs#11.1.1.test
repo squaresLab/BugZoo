@@ -1,0 +1,16 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+trap 'echo THIS IS GOOD' SIGCHLD
+trap 'echo kp' INT
+
+# setup.local
+
+trap 
+
+# cleanup.local
+trap - SIGCHLD INT
+
+echo after unsetting traps
+echo trap
+trap
+. ${TESTS_SRC}/bgs.cleanup

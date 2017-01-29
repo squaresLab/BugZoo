@@ -1,0 +1,2 @@
+# C-u
+send "echo CTRL-U\025\r"

@@ -1,0 +1,7 @@
+mailwarn_orig=`shopt | grep mailwarn | cut -d " " -f2`
+#setup.local ends here
+shopt -s mailwarn
+shopt | grep mailwarn
+#cleanup.local begins here
+if [ $mailwarn_orig=="off" ]; then shopt -u mailwarn; fi
+unset mailwarn_orig

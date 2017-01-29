@@ -1,0 +1,13 @@
+######setup.local######
+restore89=$@
+shift $#
+#######################
+
+expect '<>'
+recho "${foo1:-$@}"
+
+######cleanup.local######
+if [ ! -z $restore89 ]; then
+set $restore89
+fi;
+#########################

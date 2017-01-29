@@ -1,0 +1,12 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo " tests with multiple *s"
+case kpabc in
+*****??)    echo ok 4;;
+esac
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

@@ -1,0 +1,2 @@
+# M-l
+send "echo Escape-l M-l\033b\033l\r"

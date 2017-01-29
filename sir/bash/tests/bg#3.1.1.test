@@ -1,0 +1,18 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo "these are the current jobs"
+jobs | grep " Running "
+echo "now stopping sleep 23"
+kill -STOP %?'sleep 23'
+echo "wait while i display sleep 23"
+sleep 3
+jobs  | grep "sleep 23"
+echo "now continuing"
+kill -CONT %'sleep 23'
+echo "after continue... (wait a moment)" 
+sleep 3
+jobs | grep "sleep 23"
+
+echo "test finished"
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

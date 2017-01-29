@@ -1,0 +1,3554 @@
+[
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#28.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#29.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#30.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#31.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#32.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#33.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#34.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#35.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#36.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#37.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#38.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#39.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#40.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#41.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#42.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#43.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#44.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#45.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#46.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#47.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#48.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#49.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#50.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#51.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#52.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#53.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#54.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#55.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#56.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#57.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#58.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#59.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#60.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#61.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#62.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#63.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#64.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#65.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#66.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#67.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#68.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#69.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#70.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#71.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#72.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#73.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#74.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#75.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#76.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#77.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#78.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#79.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#80.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#81.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#82.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#83.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/arith#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/array#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bg#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bg#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bg#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bg#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bg#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bg#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bgs.cleanup"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/bgs.setup"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/braces_tests#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/builtins#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/cd#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/chld-trap#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/command#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/command#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/command#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/command#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/command#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/commandline#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/commandline#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/contlines#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/contlines#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/core"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/declare"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/declare#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/disown#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/disown#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/disown#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/disown#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/dollar-at.sh"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/dollar-star.sh"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/dottest#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/dottest.sub"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/enable#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/enable#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/enable#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/enable#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/enable#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/enable#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/env#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/env#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/env#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/env#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/env#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/env#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/env#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/environ_vars#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exit_status#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exit_status#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exit_status#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#28.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#29.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#30.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#31.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#32.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#33.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#34.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#35.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#36.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#37.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#38.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#39.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#40.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#41.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#42.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#43.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#44.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#45.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#46.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#47.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#48.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#49.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#50.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#51.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#52.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#53.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#54.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#55.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#56.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#57.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#58.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#59.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#60.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#61.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#62.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#63.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#64.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#65.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#66.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#67.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#68.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#69.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#70.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#71.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#72.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#73.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#74.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#75.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#76.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#77.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#78.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#79.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#80.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#81.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#82.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#83.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#84.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#85.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#86.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#87.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#88.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#89.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#90.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#91.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#92.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#93.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/exp-tests#94.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/fc#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/fc#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/fc#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/file_attrib#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/first.tmp"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/function#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/getopts#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/getopts#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/getopts#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/getopts#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/getopts#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/getopts#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/getopts#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#28.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#29.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#30.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#31.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#32.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#33.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#34.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#35.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#36.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#37.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#38.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#39.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#40.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#41.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#42.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#43.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#44.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#45.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#46.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#47.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#48.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#49.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#50.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#51.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#52.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#53.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#54.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#55.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#56.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#57.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#58.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#59.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#60.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#61.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/glob#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/hash#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/hash#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/hash#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/hash#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/hash#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/hash#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/hash#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/help#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/help#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/help#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/heredoc#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/heredoc#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/heredoc#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/heredoc#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/heredoc#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/heredoc#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/histvars#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ifs#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ifs#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ifs#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/jobs#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/loop#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ls#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ls#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ls#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ls#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ls#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ls#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ls#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/minus-e#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#28.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#29.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#30.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#31.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#32.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#33.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#34.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#35.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#36.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#37.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#38.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#39.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#40.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#41.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#42.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#43.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#44.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#45.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#46.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#47.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#48.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#49.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#50.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#51.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#52.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#53.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#54.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#55.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#56.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#57.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#58.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#59.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#60.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#61.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#62.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#63.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#64.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#65.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#66.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#67.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#68.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#69.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#70.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#71.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#72.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#73.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#74.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#75.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#76.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#77.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#78.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#79.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#80.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#81.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#82.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#83.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#84.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#85.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#86.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#87.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#88.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#89.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#90.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#91.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#92.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#93.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#94.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#95.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#96.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/more-exp#97.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myalias#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myalias#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myalias#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myalias#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myalias#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myalias#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myalias#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#1.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#10.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#11.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#12.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#13.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#14.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#2.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#3.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#4.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#5.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#6.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#7.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#8.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mybash_invoke#9.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mycontrol_flow#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myescapes#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myexpr#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myread#1.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myread_p"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#1.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#10.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#11.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#12.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#13.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#14.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#15.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#16.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#17.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#18.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#19.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#2.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#20.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#21.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#22.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#23.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#24.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#25.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#26.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#27.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#28.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#29.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#3.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#30.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#31.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#32.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#33.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#34.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#35.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#36.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#37.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#38.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#39.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#4.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#40.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#41.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#42.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#43.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#44.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#45.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#46.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#47.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#48.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#49.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#5.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#50.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#51.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#52.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#53.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#54.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#6.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#7.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#8.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_emac#9.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#1.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#10.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#11.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#12.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#13.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#14.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#15.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#16.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#17.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#18.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#19.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#2.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#20.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#21.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#22.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#23.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#24.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#25.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#26.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#27.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#28.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#29.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#3.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#31.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#32.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#33.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#34.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#35.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#4.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#5.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#6.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#7.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#8.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline_vimode#9.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytab#1.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytab#2.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytab#3.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytab#4.2.2.expect"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytest#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytest#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytest#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytest#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytest#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/mytrap#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#100.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#101.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#102.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#103.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#104.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#105.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#106.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#107.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#108.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#109.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#110.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#111.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#112.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#113.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#114.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#115.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#116.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#117.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#118.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#119.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#120.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#121.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#122.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#123.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#124.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#125.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#126.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#127.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#128.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#129.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#130.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#131.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#132.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#133.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#134.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#135.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#136.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#137.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#138.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#139.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#28.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#29.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#30.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#31.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#32.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#33.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#34.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#35.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#36.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#37.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#38.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#39.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#40.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#41.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#42.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#43.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#44.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#45.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#46.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#47.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#48.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#49.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#50.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#51.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#52.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#53.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#54.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#55.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#56.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#57.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#58.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#59.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#60.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#61.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#62.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#63.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#64.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#65.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#66.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#67.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#68.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#69.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#70.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#71.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#72.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#73.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#74.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#75.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#76.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#77.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#78.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#79.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#80.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#81.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#82.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#83.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#84.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#85.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#86.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#87.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#88.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#89.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#90.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#91.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#92.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#93.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#94.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#95.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#96.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#97.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#98.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/new-exp#99.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/nquote#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/perf-script#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/perf-script#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/pipe#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/posix2#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/precedence#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/printf#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/prompt#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/prompt#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/prompt#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/prompt#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/prompt#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/prompt#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/quote#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/read#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/redir#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#28.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#29.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#30.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#31.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#32.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#33.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#34.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/rhs-exp#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/run#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/second.tmp"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/set#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/set#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/set#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/set-e-test#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/shopt#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/shopt#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/shopt#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/shopt#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/shopt#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/shopt#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/space#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/space#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/special#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/special#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/special#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/special#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/string#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/strip#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/stty#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/stty#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tack.log"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#18.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#19.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#20.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#21.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#22.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#23.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#24.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#25.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#26.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#27.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#28.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#29.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#30.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#31.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#32.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#33.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#34.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#35.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#36.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#37.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#38.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#39.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#40.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#41.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#42.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#43.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#44.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#45.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#46.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#47.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#48.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#49.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#50.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#51.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#52.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#53.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#54.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#55.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#56.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#57.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#58.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#59.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#60.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#61.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#62.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#63.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#64.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#65.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#66.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#67.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#68.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#69.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#70.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#71.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#72.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#73.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#74.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#75.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#76.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#77.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#78.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#79.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#80.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#81.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#82.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#83.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#84.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#85.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#86.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#87.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#88.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#89.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#90.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#91.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#92.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#93.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#94.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#95.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#96.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test-tests#97.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/test.out"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/testfile"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/testlist"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tests.pythia.json"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/third.tmp"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#15.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#16.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#17.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/tilde-tests#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/time#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/time#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/time#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/type#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/type#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/type#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ulimit#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ulimit#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ulimit#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ulimit#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/ulimit#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/umask#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/umask#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/umask#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/uname#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#10.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#11.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#12.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#13.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#14.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#7.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#8.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/varenv#9.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/vars#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/vars#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/vars#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/vars#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/wildcard#1.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/wildcard#2.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/wildcard#3.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/wildcard#4.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/wildcard#5.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/wildcard#6.1.1.test"
+    },
+    {
+        "command": "<<EXECUTABLE>> <<SANDBOX>>/wildcard#7.1.1.test"
+    }
+]

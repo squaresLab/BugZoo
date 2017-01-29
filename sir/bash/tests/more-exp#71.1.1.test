@@ -1,0 +1,12 @@
+#***********************************
+orig_args="$@"
+set "" "abd" ""
+#setup.local
+
+recho "$@"$xxx
+
+#cleanup.local
+if [ ! -z $orig_args ]; then
+    set $orig_args
+fi;
+#***********************************

@@ -1,0 +1,13 @@
+##### setup.local ####################
+restore58=$@
+set "a b" cd ef gh
+######################################
+
+expect '<a b> <cd> <ef> <gh>'
+recho "${@}"
+
+##### cleanup.local ##################
+if [ "$restore58" != "" ]; then
+set $restore58
+fi
+######################################

@@ -1,0 +1,4 @@
+send "re\011\011"
+#cleanup.local
+# The following line clears everything from the command prompt
+send "\025"

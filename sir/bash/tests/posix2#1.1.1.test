@@ -1,0 +1,4 @@
+newtest
+empty=""
+test "${empty:-ok}" = ok || testfail "empty var colon"
+

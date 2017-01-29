@@ -1,0 +1,12 @@
+######setup.local######
+restore131=$@
+set $'\1' $'\2' $'\177'
+#######################
+
+recho ${@}
+
+#####cleanup.local######
+if [ ! -z $restore131 ]; then
+set $restore131
+fi;
+#########################

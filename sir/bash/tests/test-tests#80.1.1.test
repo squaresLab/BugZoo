@@ -1,0 +1,3 @@
+echo 't -n abcd -a -z aaa'
+t -n abcd -a -z aaa
+

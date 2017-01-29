@@ -1,0 +1,13 @@
+######setup.local######
+restore106=$@
+shift $#
+#######################
+
+expect '<>'
+recho "${foo1:-$xxx"$@"}"
+
+######cleanup.local######
+if [ ! -z $restore106 ]; then
+set $restore106
+fi;
+#########################

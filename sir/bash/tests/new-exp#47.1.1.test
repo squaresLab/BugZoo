@@ -1,0 +1,2 @@
+expect '<xxcde>'
+recho ${v/a[a-z]/xx}

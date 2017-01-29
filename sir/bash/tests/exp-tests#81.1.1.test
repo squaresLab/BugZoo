@@ -1,0 +1,14 @@
+##### setup.local ##########################
+restore81=$@
+unset foo3
+set $foo3 bar '' xyz "$foo3" abc
+#############################################
+
+expect '<bar> <> <xyz> <> <abc>'
+recho "$@"
+
+###### cleanup.local ########################
+if [ "$restore81" != "" ]; then
+restore $restore81
+fi
+#############################################

@@ -1,0 +1,7 @@
+myhistsize=$HISTSIZE
+#setup.local ends here
+export HISTSIZE=600
+echo $HISTSIZE
+#cleanup.local begins here
+export  HISTSIZE=$myhistsize
+unset myhistsize

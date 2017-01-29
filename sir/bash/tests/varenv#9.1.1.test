@@ -1,0 +1,9 @@
+set -k
+######setup.local######
+
+expect "/a/b/c 9 /a/b/c"
+HOME=/a/b/c a=$HOME c=9
+echo $HOME $c $a
+
+######cleanup.local######
+set +k

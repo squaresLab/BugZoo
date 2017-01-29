@@ -1,0 +1,13 @@
+######setup.local######
+restore76=$@
+set abcd efgh ijkl mnop qrst uvwx
+#######################
+
+expect '<yyy> <yyy> <yyy> <yyy> <yyy> <yyy>'
+recho ${@//*/yyy}
+
+######cleanup.local######
+if [ ! -z $restore76 ]; then
+set $restore76
+fi;
+#########################

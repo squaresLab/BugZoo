@@ -1,0 +1,11 @@
+echo $RANDOM > /dev/null
+
+let myrandom=$RANDOM
+
+export RANDOM=1234
+
+echo $RANDOM > /dev/null
+
+export RANDOM=$myrandom
+
+unset myrandom

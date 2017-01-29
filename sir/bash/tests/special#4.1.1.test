@@ -1,0 +1,1 @@
+echo "at shell startup, set ot teh absolute file name of the shell of the shell script: $_"

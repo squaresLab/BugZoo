@@ -1,0 +1,8 @@
+
+send "grep ppppp *\r"
+
+#setup.local Ends Here
+
+#History Feature Search RETURN
+send "\022p\r"
+

@@ -1,0 +1,6 @@
+
+send "echo set up for M-y\027\002\002\002\031\r"
+#setup.local Ends Here
+
+#send "\033y" 
+

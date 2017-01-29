@@ -1,0 +1,2 @@
+newtest
+test "${empty-bad}" = "" || testfail "got \"${empty-bad}\": empty var nocolon"

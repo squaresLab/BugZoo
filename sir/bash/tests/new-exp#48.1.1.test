@@ -1,0 +1,2 @@
+expect '<axxde>'
+recho ${v/a??/axx}

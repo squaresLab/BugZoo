@@ -1,0 +1,2 @@
+# praveen: not running because shell exits after the error
+# echo $(( 7 = 43 ))

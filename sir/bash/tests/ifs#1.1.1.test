@@ -1,0 +1,7 @@
+echo "ifs orig $OIFS, current $IFS"
+eval foo="a:b:c"
+echo $foo
+echo resetting IFS
+IFS="$OIFS"
+eval foo="a:b:c"
+echo $foo

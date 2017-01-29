@@ -1,0 +1,3 @@
+echo 't -x /tmp/test.noexec'
+t -x $SP_TESTDIR/test.noexec
+

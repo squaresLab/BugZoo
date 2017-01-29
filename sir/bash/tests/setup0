@@ -1,0 +1,6 @@
+#!/usr/local/bin/expect --
+set timeout 60
+spawn -noecho $env(BASH_SRC_DIR)/bash
+expect "$"
+
+#**************END OF GENERAL SETUP***************

@@ -1,0 +1,8 @@
+newtest
+numargs=$($TESTSHELL $TMPDIR/conftest1)
+if [ "$?" != 0 ]; then
+    testfail 'running $@'
+else
+    test "$numargs" = 0 || testfail '"$@" got '"$numargs args: expansion w 0 arg
+s"
+fi

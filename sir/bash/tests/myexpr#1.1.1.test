@@ -1,0 +1,7 @@
+let x_myexpr=5+6*3
+echo x_myexpr=$x_myexpr
+y_myexpr=$(((2+9)*(3+5)))
+echo y_myexpr=$y_myexpr
+z_myexpr=$(($x_myexpr>$y_myexpr?$x_myexpr-$y_myexpr:$x_myexpr+$y_myexpr))
+echo z_myexpr=$z_myexpr
+

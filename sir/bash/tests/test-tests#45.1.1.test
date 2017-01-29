@@ -1,0 +1,3 @@
+echo 't "hello" == "goodbye"'
+t "hello" == "goodbye"
+

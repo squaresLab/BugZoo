@@ -1,0 +1,6 @@
+#ls7
+cd ${TESTDIR}/basic8
+echo ls -GG > /dev/null
+ls -GG > /dev/null
+echo cd ${CURRDIR}
+cd ${CURRDIR}

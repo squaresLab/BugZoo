@@ -1,0 +1,2 @@
+expect '<abcde>'
+recho ${v/#d/ab}

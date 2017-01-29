@@ -1,0 +1,8 @@
+CDPATH=${TESTDIR}
+# setup.local
+
+cd dodokp
+pwd
+
+#cleanup.local
+cd ${CURRDIR}

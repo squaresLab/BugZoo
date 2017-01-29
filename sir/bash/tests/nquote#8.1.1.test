@@ -1,0 +1,5 @@
+D=$""
+######setup.local######
+
+expect '<>'
+recho "$D"

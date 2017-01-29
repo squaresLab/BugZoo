@@ -1,0 +1,18 @@
+set +a
+######setup.local######
+
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+readonly -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+declare -ar | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+x_array[4]=bbb
+x_array=abde
+echo $x_array
+echo ${x_array[0]}
+echo ${x_array[4]}
+echo efgh | ( read x_array[1] ; echo ${x_array[1]} )
+echo wxyz | ( declare -a x_array ; read x_array ; echo $x_array ; echo ${x_array[0]} )
+
+######cleanup.local######
+set -a

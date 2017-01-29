@@ -1,0 +1,5 @@
+trap 'echo DEBUG trap set' DEBUG
+######setup.local######
+trap - INT
+######cleanup.local######
+trap - DEBUG

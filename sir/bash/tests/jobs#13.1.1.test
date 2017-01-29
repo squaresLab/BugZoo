@@ -1,0 +1,5 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+jobs %+
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

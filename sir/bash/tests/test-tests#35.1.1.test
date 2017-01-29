@@ -1,0 +1,3 @@
+echo 't -x /tmp/test.exec'
+t -x $SP_TESTDIR/test.exec
+

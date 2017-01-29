@@ -1,0 +1,18 @@
+#***************EXPECT TESTS SETUP***************
+#This setup is for expect scripts
+#SETUP CREATED BY KARRE FOR EXPECT
+
+send "export HISTSIZE=5\r"
+send "history -c\r"
+
+set -o emacs
+
+# The following commands are just for building the history
+
+send "echo First Command\r" 
+send "echo Second Command\r" 
+send "echo Third Command\r" 
+send "echo Fourth Command\r" 
+send "echo Fifth Command\r" 
+
+#******************END OF EXPECT TESTS SETUP***************

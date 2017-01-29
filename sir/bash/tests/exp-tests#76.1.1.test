@@ -1,0 +1,16 @@
+##### setup.local ######################
+restore76=$@
+set "abc" "def ghi" "jkl"
+OIFS="$IFS"
+IFS=":$IFS"
+########################################
+
+expect '<abc:def ghi:jkl>'
+recho "$*"
+
+##### cleanup.local ####################
+IFS="$OIFS"
+if [ "$restore76" != "" ]; then
+set $restore76
+fi
+########################################

@@ -1,0 +1,7 @@
+myhistcontrol=$HISTCONTROL
+#setup.local ends here
+export HISTCONTROL='ignoredups'
+echo $HISTCONTROL
+#cleanup.local begins here
+export  HISTCONTROL=$myhistcontrol
+unset myhistcontrol

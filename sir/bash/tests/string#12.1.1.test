@@ -1,0 +1,2 @@
+#string 12 command subs
+echo The word is now `echo ${dodo4//Dodo/Jojo}`

@@ -1,0 +1,6 @@
+send "echo this is setup\r"
+send "echo for the CTRL-l\r"
+#setup.local Ends here
+# CTRL-l
+send "echo CTRL-l \014\r"
+

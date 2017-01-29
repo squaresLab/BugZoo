@@ -1,0 +1,13 @@
+######setup.local######
+restore69=$@
+set abcd efgh ijkl mnop qrst uvwx
+#######################
+
+expect '<xxcd>'
+recho ${1/??/xx}
+
+######cleanup.local######
+if [ ! -z $restore69 ]; then
+set $restore69
+fi;
+#########################

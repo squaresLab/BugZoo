@@ -1,0 +1,6 @@
+# no tilde expansion
+PPATH="$XPATH:~/bin"
+######setup.local######
+
+echo "$PPATH"
+

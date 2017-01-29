@@ -1,0 +1,2 @@
+echo 't -O /tmp/test.owner'
+t -O $SP_TESTDIR/test.owner

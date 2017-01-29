@@ -1,0 +1,16 @@
+#praveen: not running because shell exits
+set +a
+#######setup.local######
+#
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+readonly -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+declare -ar | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+b_array=([0]=this [1]=is [2]=a [3]=test [4]="$PS1" [5]=$pass_array)
+echo ${b_array[@]:2:3}
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+b_array[]=bcde
+#b_array[*]=aaa
+#echo ${b_array[   ]}
+#
+#######cleanup.local######
+set -a

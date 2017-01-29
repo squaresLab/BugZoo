@@ -1,0 +1,6 @@
+mypath=$PATH
+#setup.local ends here
+export PATH=/srik_files/Previous_Stuff:/Path/For/Testing
+echo $PATH
+#cleanup.local begins here
+export PATH=$mypath

@@ -1,0 +1,9 @@
+echo a while loop
+while [ $loopvar -lt 4 ]
+do
+    echo loopvar is $loopvar
+    loopvar=$loopvar+1
+done
+
+#cleanup.local
+loopvar=0;

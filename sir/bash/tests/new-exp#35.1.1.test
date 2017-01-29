@@ -1,0 +1,13 @@
+######setup.local######
+restore35=$@
+set 'ab cd' 'ef' 'gh ij' 'kl mn' 'op'
+#######################
+
+expect '<gh ij> <kl mn>'
+recho "${@:3:2}"
+
+######cleanup.local######
+if [ ! -z $restore35 ]; then
+set $restore35
+fi;
+#########################

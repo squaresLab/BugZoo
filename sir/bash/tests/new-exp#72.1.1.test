@@ -1,0 +1,13 @@
+######setup.local######
+restore72=$@
+set abcd efgh ijkl mnop qrst uvwx
+#######################
+
+expect '<zaza>'
+recho ${3//??/za}
+
+######cleanup.local######
+if [ ! -z $restore72 ]; then
+set $restore72
+fi;
+#########################

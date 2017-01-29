@@ -1,0 +1,4 @@
+if [ "abc" = "def" ] ; then echo strings equal
+else echo not
+fi
+

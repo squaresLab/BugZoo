@@ -1,0 +1,13 @@
+##### setup.local #################
+restore55=$@
+set abc def ghi jkl
+###################################
+
+expect '<--abc> <def> <ghi> <jkl-->'
+recho "--$@--"
+
+##### cleanup.local ###############
+if [ "$restore55" != "" ]; then
+set $restore55
+fi
+###################################

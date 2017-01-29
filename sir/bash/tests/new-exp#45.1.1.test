@@ -1,0 +1,13 @@
+# #praveen: not running because shell exits
+
+######setup.local######
+# set -u
+#######################
+
+# expect $0: ABX: unbound variable
+# recho ${ABX}
+
+######cleanup.local######
+# set +u
+#########################
+

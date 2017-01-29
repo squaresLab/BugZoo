@@ -1,0 +1,4 @@
+if [ -z  ] ; then echo zero
+else echo not
+fi
+

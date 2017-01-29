@@ -1,0 +1,8 @@
+send "set -o vi\r"
+# The following line is to move a word back
+send "echo arguments\033B"
+#setup.local ends here
+# using arguments to delting etc.
+send "3x\r"
+#cleanup.local begins here
+send "set -o emacs\r"

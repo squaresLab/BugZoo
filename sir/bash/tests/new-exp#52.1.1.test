@@ -1,0 +1,2 @@
+expect '<abcabe>'
+recho ${v/d/ab}

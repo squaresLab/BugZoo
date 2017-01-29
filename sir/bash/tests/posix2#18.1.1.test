@@ -1,0 +1,2 @@
+chmod +x $TMPDIR/conftest
+test -x $TMPDIR/conftest || testfail "positive test -x"

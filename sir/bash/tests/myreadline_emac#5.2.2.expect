@@ -1,0 +1,4 @@
+
+# DEL
+send "echo Deleting Character by  Character backward\002\177\177\177\r"
+

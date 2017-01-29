@@ -1,0 +1,2 @@
+expect '<yyy> <yyy> <yyy> <yyy> <yyy> <yyy>'
+recho ${av[@]/#*/yyy}

@@ -1,0 +1,16 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo see if null glob expansion works
+shopt -s nullglob
+
+expect '<kpa> <kpabc> <kpabd> <kpabe>'
+recho kpa* kpX*
+
+
+shopt -u nullglob
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

@@ -1,0 +1,2 @@
+expect '<barfoo>'
+echo -e "$foo\c " ; echo foo

@@ -1,0 +1,4 @@
+
+# C-_
+send "echo CTRL-_ \037 \r"
+

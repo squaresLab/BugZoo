@@ -1,0 +1,2 @@
+expect '<foo>'
+recho "${und="foo"}"            # should be foo

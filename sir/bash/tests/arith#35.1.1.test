@@ -1,0 +1,3 @@
+let 'sk_iv *= sk_jv'
+echo $sk_iv
+echo $sk_jv

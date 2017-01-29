@@ -1,0 +1,7 @@
+echo $LINENO > /dev/null
+
+let mylineno=$LINENO
+
+export LINENO=10
+
+export LINENO=$mylineno

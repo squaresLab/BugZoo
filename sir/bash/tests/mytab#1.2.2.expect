@@ -1,0 +1,3 @@
+send "@\011\011"
+#cleanup.local
+send "\025"

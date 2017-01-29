@@ -1,0 +1,4 @@
+
+# CTRL-x CTRL-u
+send "echo CTRL-x CTRL-u\030\025\r"
+

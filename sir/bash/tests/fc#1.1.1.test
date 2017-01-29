@@ -1,0 +1,7 @@
+# this test will given an error if run 
+# on its own in a sub-shell
+# the command executes the last command given
+# in the history non-interactively. if there are 
+# no other commands in history it returns an error
+
+fc -s

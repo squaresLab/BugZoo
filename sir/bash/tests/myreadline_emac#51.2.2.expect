@@ -1,0 +1,5 @@
+# Using Key Board Macro C-x (, C-x )
+send "\030( echo Keyboard Macro\030)\r"
+#setup.local ends here
+# C-x e
+send "\030e\r"

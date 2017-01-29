@@ -1,0 +1,11 @@
+echo $SECONDS > /dev/null
+
+let myseconds=$SECONDS
+
+export SECONDS=811
+
+echo $SECONDS
+
+export SECONDS=$myseconds+$SECONDS
+
+unset myseconds

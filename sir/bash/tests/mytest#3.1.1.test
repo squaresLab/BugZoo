@@ -1,0 +1,4 @@
+if [ a -lt  ] ; then echo Less than
+else echo not
+fi
+

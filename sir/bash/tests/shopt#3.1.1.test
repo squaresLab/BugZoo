@@ -1,0 +1,7 @@
+checkwinsize_orig=`shopt | grep checkwinsize | cut -d " " -f2`
+#setup.local ends here
+shopt -s checkwinsize
+shopt | grep checkwinsize
+#cleanup.local begins here
+if [ $checkwinsize_orig=="off" ]; then shopt -u checkwinsize; fi
+unset checkwinsize_orig

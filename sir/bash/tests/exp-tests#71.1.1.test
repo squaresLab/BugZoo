@@ -1,0 +1,2 @@
+expect '<\$x3>'
+recho '\$x3'

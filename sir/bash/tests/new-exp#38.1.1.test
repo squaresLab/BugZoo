@@ -1,0 +1,13 @@
+######setup.local######
+restore38=$@
+set 'ab cd' 'ef' 'gh ij' 'kl mn' 'op'
+#######################
+
+expect '<abcdefghijklmnop>'
+recho ${!9:-$z}
+
+######cleanup.local######
+if [ ! -z $restore38 ]; then
+set $restore38
+fi;
+#########################

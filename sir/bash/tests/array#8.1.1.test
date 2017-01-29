@@ -1,0 +1,12 @@
+set +a
+######setup.local######
+
+unset ps1_array[2]
+unset ${ps1_array[2]}
+
+declare +a ps1_array
+
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+######cleanup.local######
+set -a

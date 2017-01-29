@@ -1,0 +1,17 @@
+let a_myexpr=8
+echo a_myexpr=$a_myexpr
+let b_myexpr=16
+echo b_myexpr=$b_myexpr
+echo bor=$(($a_myexpr|$b_myexpr))
+echo band=$(($a_myexpr&$b_myexpr))
+
+let c_myexpr=-2
+let d_myexpr=-1
+echo 'bnot_c' bnot_a=$((~c_myexpr))
+echo 'bnot_d' bnot_a=$((~d_myexpr))
+let xbor=$a_myexpr^$b_myexpr
+echo xbor=$xbor
+echo "$a_myexpr>>1" $(($a_myexpr>>1))
+echo "$b_myexpr<<2" $(($b_myexpr<<2))
+
+

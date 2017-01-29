@@ -1,0 +1,12 @@
+######setup.local######
+restore128=$@
+set $'\1' $'\2' $'\177'
+#######################
+
+recho $*
+
+#####cleanup.local######
+if [ ! -z $restore128 ]; then
+set $restore128
+fi;
+#########################

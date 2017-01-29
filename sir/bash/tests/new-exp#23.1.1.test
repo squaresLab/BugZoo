@@ -1,0 +1,17 @@
+######setup.local######
+IFS=""
+restore=$@
+set a b c d e
+#######################
+
+expect '<a b c d e>'
+recho "$@"
+
+
+######cleanup.local######
+IFS='
+'
+if [ ! -z $restore ]; then
+set $restore
+fi;
+#########################

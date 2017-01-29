@@ -1,0 +1,11 @@
+#***********************************
+cd ${TESTDIR}/glob-test
+#setup.local
+
+echo "Pattern from Larry Walls Configure that caused bash to blow up"
+expect '</^root:/{s/^[^:]*:[^:]*:\([^:]*\).*$/\1/>'
+recho "/^root:/{s/^[^:]*:[^:]*:\([^:]*\).*"'$'"/\1/"
+
+#cleanup.local
+cd ${CURRDIR}
+#***********************************

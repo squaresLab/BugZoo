@@ -1,0 +1,13 @@
+set +a
+######setup.local######
+
+declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+
+readonly -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+declare -ar | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
+c_array[-2]=4
+echo ${c_array[-4]}
+
+declare +a c_array
+######cleanup.local######
+set -a

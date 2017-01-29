@@ -1,0 +1,10 @@
+. ${TESTS_SRC}/bgs.setup
+#setup.local
+echo "these are the current jobs"
+jobs | grep "Running"
+echo "now killing the 17th jobs"
+kill %17
+echo "after killing the 17th job these are the current jobs"
+jobs | grep " Running "
+#cleanup.local
+. ${TESTS_SRC}/bgs.cleanup

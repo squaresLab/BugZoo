@@ -1,0 +1,7 @@
+clear
+clear
+clear
+clear
+hash -r
+hash /bin/clear
+hash -p /bin/clear

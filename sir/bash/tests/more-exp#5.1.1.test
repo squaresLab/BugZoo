@@ -1,0 +1,2 @@
+expect '<baz:bar>'
+recho $fook

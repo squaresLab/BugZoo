@@ -1,0 +1,13 @@
+######setup.local######
+restore71=$@
+set abcd efgh ijkl mnop qrst uvwx
+#######################
+
+expect '<xxcd> <xxgh> <xxkl> <xxop> <xxst> <xxwx>'
+recho ${@/%??/xx}
+
+######cleanup.local######
+if [ ! -z $restore71 ]; then
+set $restore71
+fi;
+#########################

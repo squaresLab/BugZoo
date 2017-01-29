@@ -1,0 +1,8 @@
+timeformat_orig=$TIMEFORMAT
+export TIMEFORMAT=%plS
+#setup.local
+sleep 1 | time sleep 1
+times > /dev/null
+#cleanup.local
+export TIMEFORMAT=$timeformat_orig
+unset timeformat_orig

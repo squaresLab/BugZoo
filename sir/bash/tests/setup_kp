@@ -1,0 +1,279 @@
+# SETUP CREATED BY PRAVEEN
+
+# general setup
+# create an env variable which will be used by all
+# tests as a temporary directory 
+TESTDIR=${HOME}/tmp
+mkdir -p ${TESTDIR}
+CURRDIR=`pwd`
+CURRPS1=${PS1}
+export PS1='$'
+
+#before going to tmp remove any tran files
+rm -f `find $TESTDIR -name tran* 2> /dev/null` 2>/dev/null
+# waiting for any kind of background jobs to finish
+wait
+
+# setup for basic#1.1.1.test
+# now=`pwd` -- this is no longer needed because we have the currdir
+# variable 
+rm -rf $TESTDIR/basic1 > /dev/null
+mkdir -p $TESTDIR/basic1
+
+#setup for basic 2, 3, 4
+rm -f ${TESTDIR}/*tmprani> /dev/null
+echo "first file" > ${TESTDIR}/tmp_1.tmprani
+echo "second file" > ${TESTDIR}/tmp_2.tmprani
+
+#setup for basic7 or space 1,2
+fred="many spaces between these                  words"
+
+#setup for basic#8.1.1.test
+rm -rf ${TESTDIR}/basic8 2> /dev/null
+mkdir -p ${TESTDIR}/basic8/somemorething
+echo "first" > ${TESTDIR}/basic8/first.tmp
+echo "second" > ${TESTDIR}/basic8/second.tmp
+ln -s ${TESTDIR}/basic8/first.tmp ${TESTDIR}/basic8/tmp
+
+#setup for basic#9.1.1.test
+echo "echo this is praveen" > ${TESTDIR}/basicnine.test
+
+#builtin#1.1.1.test
+declare -i count;
+declare -i continuer;
+count=1; continuer=1;
+
+#setup for enable tests
+orig_path=$PATH
+echo "echo haha foolod u, here is what u gave: \$@" > ${TESTDIR}/type
+chmod +x ${TESTDIR}/type
+
+#setup for getopts
+dodosays ()
+{
+    echo processing getopts
+    while getopts ":ab:c" opt; do
+        case $opt in
+            a ) echo dodo would process option -a with arg $OPTARG ;;
+            b ) echo dodo would process option -b with arg $OPTARG ;;
+            c ) echo dodo would process option -c with arg $OPTATG ;;
+            * ) echo "usage: dodosays [-a] [-b barg] -c args...";;
+        esac
+    done
+    echo "there were $OPTIND options given"
+}
+
+#setup for cd 4 onwards
+rm -rf ${TESTDIR}/dodo/firstdir ${TESTDIR}/dodo/seconddir ${TESTDIR}/dodo/thirddir> /dev/null
+mkdir -p ${TESTDIR}/dodo/firstdir
+mkdir -p ${TESTDIR}/dodo/seconddir
+mkdir -p ${TESTDIR}/dodo/thirddir
+
+
+#setup for special 2
+declare -i spec2
+
+#setup for string 3
+dodo1=thisisaverybigword
+
+#setup for string 2
+echo "echo \${@:2:3}" > ${TESTDIR}/dodo2
+chmod +x ${TESTDIR}/dodo2
+
+#setup for string 4-12
+dodo4=WheneverDodoWentToSchoolDodoFoughtWithTheBullyGotABlackEye
+
+#setup for string 13
+comp ()
+{
+    if [ first $1 second ]; then
+        echo first $2 second is true
+    else
+        echo first $2 second is false
+    fi;
+}
+comp1 ()
+{
+    if [ $1 $3 ]; then
+        echo "'$3' $2 is true"
+    else
+        echo "'$3' $2 is false"
+    fi
+}
+
+#setup for bg, jobs, and disown. these tests have a series of background
+# jobs invoked as part of their setup. because this was becoming a 
+# real pain while executing other tests, i am calling the setup from 
+# the individual files themselves. here i am just checking whether
+# the setup files exist and whether they have execute permissions.
+
+checkx ()
+{
+	target=$1;
+	if [ -e ${target} ]; then
+		if [ ! -x ${target} ]; then
+			chmod +x ${target};
+		fi;
+	else
+		echo "setup1: error: cannot find ${target} required by job tests"
+		exit 1;
+	fi;
+}
+
+checkx bgs.setup
+checkx bgs.cleanup
+
+# glob tests
+expect ()
+{
+	echo expect "$@"
+}
+rm -rf ${TESTDIR}/glob-test
+mkdir -p ${TESTDIR}/glob-test
+# check whether we can do there
+builtin cd ${TESTDIR}/glob-test || { echo $0: cannot cd to ${TESTDIR}/glob-test >&2 ; exit 1; }
+touch kpa kpb kpc kpd kpabc kpabd kpabe kpbb kpbcd kpca kpcb kpdd kpde kpa-b kpaXb .kpx .kpy
+mkdir bdir
+mkdir a\*b
+> a\*b/ooo
+mkdir man
+mkdir man/man1
+touch man/man1/bash.1
+cd ${CURRDIR}
+
+#setup for command tests (also used by redir-2 onwards)
+rm -rf ${TESTDIR}/commandtests
+mkdir -p ${TESTDIR}/commandtests
+cd ${TESTDIR}/commandtests
+echo "first" > first.tmp
+echo "second" > second.tmp
+echo "third" > third.tmp
+echo "fourth" >> third.tmp
+cd ${CURRDIR}
+
+# setup for ifs tests
+OIFS="$IFS"
+IFS=":$IFS"
+
+# setup for commandline tests
+# simply check whether these two files can be executed
+checkx dollar-at.sh
+checkx dollar-star.sh
+
+# setup for function tests
+function dodo5
+{
+    echo "dodo5 says hello again"
+}
+
+bobo ()
+{
+    echo "now bobo is saying hello"
+}
+
+sisi ()
+{
+    echo "$@"
+}
+
+# setup for loop tests
+declare -i loopvar=0;
+fool ()
+{
+case $@ in
+    sisi )  echo sisi;;
+    gaga | gigi )   echo gaga or gigi;;
+    dodo )  echo dodo;;
+    * )     echo none of these;;
+esac
+}
+
+koo ()
+{
+case $@ in
+    sisi )  echo sisi;;
+    gaga | gigi )   echo gaga or gigi;;
+    dodo )  echo dodo;;
+    dodo )  echo dodo again;;
+    * )     echo none of these;;
+esac
+}
+
+#setup for more-exp tests
+
+# the expect function used by these tests is already defined 
+# above in the setup
+
+tool_var() {
+        eval $1=\"\${$1:-$2}\"
+        export $1
+}
+
+KPA="aaa bbb ccc"
+unset KPB
+
+tool_var        KPB       ${KPB:-"$KPA"}
+
+more-exp-error ()
+{
+	echo "something went wrong with more-exp setup, exiting this test"
+	exit 1;
+}
+
+if [ -z "$KPB" ]; then
+	more-exp-error
+fi;
+
+eto_prepend() {
+        eval $1=\'$2\''${'$1':+":"${'$1'}}'; export $1
+}
+
+fook=bar; export fook
+eto_prepend fook baz
+kpaa='aaa bbb ccc'
+var=abcde
+somevar=
+
+if [ -z ${HOME} ]; then
+	RESETNULLHOME=1;
+	HOME=/usr/home/praveen
+fi;
+
+PP='*@*';
+s1=abcdefghijkl
+s2=efgh
+first=${s1/$s2*/}
+last=${s1##$first}
+
+shift $#
+UNAME_RELEASE=${1:-4.2MP}
+RELEASE=`expr "$UNAME_RELEASE" : '[^0-9]*\([0-9]*\)'` # 4
+case "$RELEASE" in
+"")     RELEASE=0 ;;
+*)      RELEASE=`expr "$RELEASE" + 0` ;;
+esac
+REL_LEVEL=`expr "$UNAME_RELEASE" : '[^0-9]*[0-9]*.\([0-9]*\)'`    # 1
+REL_SUBLEVEL=`expr "$UNAME_RELEASE" : '[^0-9]*[0-9]*.[0-9]*.\([0-9]*\)'` # 2
+b1()
+{
+    b2 ${1+"$@"}
+}
+
+b2()
+{  
+    recho $*
+    recho $#
+}
+
+NL="\\
+"
+NNL="+$NL+"
+unset undef
+yyy=""
+
+arg=a,b,c,d,e,f
+export z=$arg
+eval z1=\"$arg\"
+zz="a b c d e"
+declare jkpa=$zz
+#********************end of KP setup*****************

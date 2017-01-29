@@ -1,0 +1,15 @@
+######setup.local######
+restore42=$@
+set a b c d e
+a=
+#######################
+
+expect '<abcdefghijklmnop>'
+recho ${!1:-$z}
+
+######cleanup.local######
+unset a
+if [ ! -z $restore42 ]; then
+set $restore42
+fi;
+#########################

@@ -1,0 +1,10 @@
+restore12=$@
+unset x y z
+######setup.local######
+read x y z < $SP_TESTDIR/IN
+echo 1: "x[$x] y[$y] z[$z]"
+echo 1a: ${z-z not set}
+######cleanup.local######
+if [ "$restore12" != "" ]; then
+set $restore12
+fi

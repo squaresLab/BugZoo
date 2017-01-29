@@ -1,0 +1,6 @@
+trap 'echo DEBUG trap set' DEBUG
+######setup.local######
+trap " " SIGCONT
+######cleanup.local######
+trap - SIGCONT
+trap - DEBUG

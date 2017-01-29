@@ -1,0 +1,1 @@
+recho $(echo "foo$(echo ")")")

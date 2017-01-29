@@ -1,0 +1,13 @@
+######setup.local######
+restore109=$@
+shift $#
+#######################
+
+expect nothing
+recho "$@"$xxx
+
+######cleanup.local######
+if [ ! -z $restore109 ]; then
+set $restore109
+fi;
+#########################

@@ -1,0 +1,7 @@
+until [ $loopvar -eq 3 ]; do
+    echo loopvar is $loopvar
+    loopvar=$loopvar+1
+done
+
+#cleanup.local
+loopvar=0

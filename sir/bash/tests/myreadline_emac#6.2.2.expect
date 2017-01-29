@@ -1,0 +1,4 @@
+
+# BackSpace
+send "echo Using Back Space\002\010\010\r"
+

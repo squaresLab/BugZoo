@@ -1,0 +1,4 @@
+send "\r"
+send "s\033* > /dev/null"
+#local.cleanup         #This one is to clean all the stuff that appears on the command line as a result of s\033*
+send "\025\r" 

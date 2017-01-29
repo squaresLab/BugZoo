@@ -1,0 +1,2 @@
+echo -e '\n\nulimit -Sa'
+ulimit -Sa 

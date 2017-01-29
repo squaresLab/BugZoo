@@ -1,0 +1,2 @@
+expect '<abxx>'
+recho ${av/%??/xx}

@@ -1,0 +1,21 @@
+restore10=$@
+set -- a 'b c' d 'e f g' h
+######setup.local######
+
+ARGV=( [0]=$0 "$@" )
+
+for z in "${ARGV[@]}"
+do
+        echo "$z"
+done
+
+echo "$0"
+for z in "$@"
+do
+        echo "$z"
+done
+
+######cleanup.local######
+if [ "$restore10" != "" ]; then
+set $restore10
+fi

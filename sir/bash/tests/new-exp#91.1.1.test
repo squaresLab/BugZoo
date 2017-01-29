@@ -1,0 +1,13 @@
+######setup.local######
+restore91=$@
+shift $#
+#######################
+
+expect nothing
+recho ${foo:-$zbcd}
+
+######cleanup.local######
+if [ ! -z $restore91 ]; then
+set $restore91
+fi;
+#########################

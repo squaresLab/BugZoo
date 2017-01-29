@@ -1,0 +1,10 @@
+send "rm -f mybashrc\r"
+send "echo 'echo Hello from sri ' > mybashrc\r"
+send "echo alias c='echo Aha I will not clear the screen' >> mybashrc\r"
+# setup.local ends here
+
+send "$env(BASH_SRC_DIR)/bash --verbose --rcfile mybashrc\r"
+send "c\r"
+#cleanup.local 
+send "rm -f mybashrc\r"
+send "exit\r"

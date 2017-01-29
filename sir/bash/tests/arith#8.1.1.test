@@ -1,0 +1,2 @@
+echo $((sk_iv -= sk_jv))
+echo $sk_iv

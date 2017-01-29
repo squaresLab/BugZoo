@@ -1,0 +1,2 @@
+# C-t
+send "echo Srikanth Karre\033b\006\024\024\024\024\r"

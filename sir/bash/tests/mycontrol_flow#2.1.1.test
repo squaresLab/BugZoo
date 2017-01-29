@@ -1,0 +1,2 @@
+if [ 1 -ge 2 -o 5 -eq 7 ] ; then echo true
+elif [ 6 -ne 8 -o 5 -le 7 ] ; then echo true ; else echo false ; fi

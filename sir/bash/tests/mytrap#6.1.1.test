@@ -1,0 +1,8 @@
+trap 'echo DEBUG trap set' DEBUG
+######setup.local######
+sleep 3 &
+trap 'echo CHILD MARA' SIGCHLD
+trap -p CHLD
+######cleanup.local######
+trap - SIGCHLD
+trap - DEBUG

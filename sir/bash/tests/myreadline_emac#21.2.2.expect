@@ -1,0 +1,4 @@
+
+#for arguments M- C-k
+send "echo Arguments to C-k\033b\033 \013\r"
+
