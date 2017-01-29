@@ -1,0 +1,143 @@
+# ***********************start of cleanup*********************
+# CLEANUP PREPARED BY SATYA
+
+#cleanup for new-exp.tests
+
+export HOME=$HOME_BAK
+unset HOME_BAK
+unset _ENV
+unset P
+unset foo2
+unset a b c d e
+unset foo
+unset z
+unset v
+unset av
+\rm -f $SP_TESTDIR/x
+unset y
+unset z1
+unset AB
+unset z2
+unset xx
+unset yy
+unset expect
+
+#cleanup for nquote.tests
+
+unset z3
+unset ZIFS
+unset D
+unset world
+
+#cleanup for perf-script.tests
+
+unset m2 m1 M n2 n1 N m n
+unset MM NN
+unset EMPTYLINE
+
+#cleanup for precedence.tests
+
+unset Say
+unset Truth
+unset False
+unset cmd1
+unset cmd2
+unset grouping_sh
+unset grouping_C
+unset test3
+
+#cleanup for posix2.tests
+
+unset TESTSHELL
+unset TMPDIR
+unset exitval
+unset numtests
+unset newtest
+unset testfail
+unset empty
+unset names
+unset a
+\rm -f $SP_TESTDIR/conftest $SP_TESTDIR/conftest1 $SP_TESTDIR/conftest2
+
+#cleanup for read.tests
+
+\rm -f $SP_TESTDIR/IN
+
+#setup for rhs-exp.tests
+
+unset selvecs
+
+#cleanup for prompt.tests
+
+export PS1="`echo ${orig_ps1}`"
+export PS2="`echo ${orig_ps2}`"
+export PS3="`echo ${orig_ps3}`"
+export PS4="`echo ${orig_ps4}`"
+\rm -fr $SP_TESTDIR/spk
+
+#cleanup for tilde-tests
+
+unset SHELL1
+unset path
+unset XPATH
+
+#cleanup for type.tests
+
+unset dodo
+\rm -f dodo
+
+#cleanup for heredoc.tests
+unset a1
+
+#cleanup for env.tests
+
+\rm -f $SP_TESTDIR/something.tmp
+unset dodo1
+
+#cleanup for exit_status.test
+
+unset cd1
+
+#cleanup for myexpr.tests
+
+unset a1_myexpr a2_myexpr
+
+#cleanup for test-tests
+
+unset t
+\rm -f $SP_TESTDIR/test.setgid
+\rm -f $SP_TESTDIR/test.noread
+\rm -f $SP_TESTDIR/test.setuid
+\rm -f $SP_TESTDIR/test.nowrite
+\rm -f $SP_TESTDIR/test.exec
+\rm -f $SP_TESTDIR/test.noexec
+\rm -f $SP_TESTDIR/test.owner
+\rm -f $SP_TESTDIR/abc
+\rm -f $SP_TESTDIR/def
+\rm -f $SP_TESTDIR/ghi
+
+#cleanup for exp-tests
+
+unset xxx
+unset yyy
+unset FOO
+unset FOO1
+unset POSIX
+unset x
+unset x1
+unset x2
+unset x3
+unset foo3
+unset bar
+unset x4
+unset y1
+unset y2
+unset x5
+unset a1
+unset b1
+
+#cleanup for varenv.sh
+unset a_varenv b_varenv c_varenv d_varenv e_varenv f_varenv g_varenv h_varenv
+
+#cleanup for array.tests
+unset a_array b_array d_array e_array f_array x_array z ARGV rv ps1_array

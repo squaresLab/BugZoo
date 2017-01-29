@@ -1,0 +1,9 @@
+#**************EXPECT TESTS CLEANUP****************
+# cleanup prepared by KARRE
+
+# This clean up is for Expect Scripts
+
+send "\r"
+send "export HISTSIZE=500\r"
+
+#**************END OF EXPECT TESTS CLEANUP****************

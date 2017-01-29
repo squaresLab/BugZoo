@@ -1,0 +1,4 @@
+#*******************START OF GENERAL CLEANUP***************
+send "exit\r"
+set timeout 10
+interact

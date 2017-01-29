@@ -1,0 +1,21 @@
+#**************start of cleanup****************
+# cleanup prepared by SKARRE for bash scripts
+
+echo "USING CLEAN-UP FILE 0"
+unalias quit e p rmi
+
+unset look
+
+umask $umask_orig
+unset umask_orig
+
+rm -r $SK_TESTDIR/file_attrib $SK_TESTDIR/myalias
+
+ulimit -n $myfiles
+ulimit -s $mystack
+
+unset myfiles mystack
+
+unset sk_a sk_b sk_c
+
+unset myfunct

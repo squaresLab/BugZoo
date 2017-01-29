@@ -1779,9 +1779,6 @@
         "command": "<<EXECUTABLE>> <<SANDBOX>>/myread#1.2.2.expect"
     },
     {
-        "command": "<<EXECUTABLE>> <<SANDBOX>>/myread_p"
-    },
-    {
         "command": "<<EXECUTABLE>> <<SANDBOX>>/myreadline#1.1.1.test"
     },
     {

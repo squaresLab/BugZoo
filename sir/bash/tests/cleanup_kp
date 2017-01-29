@@ -1,0 +1,87 @@
+#****************start of cleanup******************
+# cleanup prepared by PRAVEEN
+
+#general cleanup
+
+# first come back to the original directory set in setup1
+# cd ${CURRDIR}
+# get back this line after all tests are verified 
+
+# restoring ps1
+export PS1=${CURRPS1}
+
+# unset functions defined for the purpose of setup
+unset checkx
+
+# move all tran files in testdir to currdir
+for file in `find ${TESTDIR} -name "tran_*"`
+do
+    mv $file . 2>/dev/null
+done
+
+#cleanup for basic1
+rm -rf $TESTDIR/basic1 2> /dev/null
+
+#cleanup for basic 2,3,4
+rm -f ${TESTDIR}/*tmprani >/dev/null
+
+#cleanup for basic 8
+#the original cleanup included a moving all tranfiles from the testdir
+#to the current dir. this is no longer needed since we have that being
+#done in the general cleanup
+rm -rf ${TESTDIR}/basic8 >/dev/null
+
+#cleanup for basic 9
+rm -f ${TESTDIR}/basicnine.test >/dev/null
+
+#cleanup for builtin1
+unset count; unset continuer;
+
+#cleanup for enable tests
+rm -rf ${TESTDIR}/type >/dev/null
+
+#cleanup for getopts
+unset dodosays;
+
+# cleanup for cd 4 onwards
+rm -rf ${TESTDIR}/dodo >/dev/null
+
+#cleanup for special 2
+unset spec2
+
+#cleanup for string tests
+unset dodo1
+rm -rf ${TESTDIR}/dodo2 >/dev/null
+unset dodo4
+unset comp comp1
+
+# cleanup for glob-tests
+unset expect
+rm -rf ${TESTDIR}/glob-test
+
+# cleanup for command tests
+rm -rf ${TESTDIR}/commandtests
+
+# cleanup for ifs tests
+IFS="$OIFS"
+
+# cleanup for function tests
+unset dodo5
+unset bobo
+unset sisi
+
+# cleanup for loop tests
+unset loopvar;
+unset loop;
+unset -f fool;
+unset -f koo;
+
+#cleanup for more-exp tests
+unset tool_var KPA KPB eto_prepend fook kpaa var somevar 
+if [ ! -z ${RESETNULLHOME} ]; then
+	HOME=
+fi;
+
+unset PP s1 s2 first last UNAME_RELEASE RELEASE REL_LEVEL REL_SUBLEVEL
+unset b1 b2 yyy arg z z1 zz jkpa
+
