@@ -1,2 +1,0 @@
-#wildcard1
-ls ${TESTDIR}/tmp_?.tmprani > /dev/null

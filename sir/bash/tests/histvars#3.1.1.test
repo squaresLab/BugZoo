@@ -1,7 +1,0 @@
-myhistignore=$HISTIGNORE
-#setup.local ends here
-export HISTIGNORE=zzz*
-echo $HISTIGNORE
-#cleanup.local begins here
-export  HISTIGNORE=$myhistignore
-unset myhistignore

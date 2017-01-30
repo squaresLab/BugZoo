@@ -1,2 +1,0 @@
-echo -e '\n\nulimit -Ha'
-ulimit -Ha

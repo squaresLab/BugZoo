@@ -1,2 +1,0 @@
-#for readg things from the user
-read -p "Enter Some Number>" 

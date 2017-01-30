@@ -1,3 +1,0 @@
-cd dude 2> /dev/null
-echo the last cmd returned $?
-

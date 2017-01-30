@@ -1,6 +1,0 @@
-#ls6
-cd ${TESTDIR}/basic8
-echo ls -F > /dev/null
-ls -F > /dev/null
-echo cd ${CURRDIR}
-cd ${CURRDIR}

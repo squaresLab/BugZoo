@@ -1,8 +1,0 @@
-cd ${TESTDIR}/commandtests
-# setup.local
-
-cat < third.tmp > fourth.tmp
-cat fourth.tmp third.tmp
-
-#cleanup.local
-cd ${CURRDIR}

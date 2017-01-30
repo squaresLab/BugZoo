@@ -1,2 +1,0 @@
-expect '<efza>'
-recho ${av[1]//%??/za}

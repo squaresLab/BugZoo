@@ -1,3 +1,0 @@
-echo 't -c run-all'
-t -c run-all
-

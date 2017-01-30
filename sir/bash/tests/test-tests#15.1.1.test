@@ -1,3 +1,0 @@
-echo 't -g /tmp/test.setgid'
-t -g $SP_TESTDIR/test.setgid
-

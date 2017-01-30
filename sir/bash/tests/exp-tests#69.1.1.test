@@ -1,2 +1,0 @@
-expect '</src/cmd>'
-recho ${x2#$HOME}

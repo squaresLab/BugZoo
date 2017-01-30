@@ -1,3 +1,0 @@
-# M-r
-send "echo undo\r"
-send "echo Sri\033r\r"

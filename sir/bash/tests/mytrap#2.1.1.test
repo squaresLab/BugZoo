@@ -1,3 +1,0 @@
-trap " " SIGHUP
-######cleanup.local######
-trap - SIGHUP

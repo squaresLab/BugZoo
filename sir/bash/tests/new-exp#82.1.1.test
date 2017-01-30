@@ -1,3 +1,0 @@
-#praveen: not running because shell exits
-# expect $0: '${#:-foo}: bad substitution'
-# echo ${#:-foo}

@@ -1,2 +1,0 @@
-# M-t
-send "echo Escape-t M-t\033b\033t\r"

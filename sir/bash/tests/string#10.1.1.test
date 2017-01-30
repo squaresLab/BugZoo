@@ -1,2 +1,0 @@
-#string 10 pattern matching
-echo ${dodo4//Dodo/Sisi}

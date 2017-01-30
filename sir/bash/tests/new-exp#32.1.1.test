@@ -1,2 +1,0 @@
-expect '<abcdefghijklmnop>'
-recho ${z:0:100}

@@ -1,3 +1,0 @@
-v1=`echo -ne "abababa\nbababab  "`
-echo "'$v1'"
-

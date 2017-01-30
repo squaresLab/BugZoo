@@ -1,3 +1,0 @@
-echo 't /tmp/abc -ef /tmp/def'
-t $SP_TESTDIR/abc -ef $SP_TESTDIR/def
-

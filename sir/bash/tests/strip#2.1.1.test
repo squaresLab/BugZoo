@@ -1,3 +1,0 @@
-v1=`echo -n " ab "`
-echo "'$v1'"
-

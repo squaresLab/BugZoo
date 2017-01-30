@@ -1,5 +1,0 @@
-unalias -a
-#setup.local ends here
-alias
-#cleanup.local
-source $SK_TESTDIR/myalias/temp_alias

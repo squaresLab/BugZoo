@@ -1,4 +1,0 @@
-echo " tests with multiple *s"
-case kpabc in
-?***?****)  echo ok 9;;
-esac

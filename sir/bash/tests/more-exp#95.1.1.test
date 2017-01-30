@@ -1,3 +1,0 @@
-echo " should echo G { I K }"
-recho ${abc:-G { I } K }
-

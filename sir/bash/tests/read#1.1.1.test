@@ -1,2 +1,0 @@
-echo " a " | (read x; echo "$x.")
-

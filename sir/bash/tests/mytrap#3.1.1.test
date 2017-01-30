@@ -1,3 +1,0 @@
-trap 'echo DEBUG trap set' DEBUG
-######cleanup.local######
-trap - DEBUG

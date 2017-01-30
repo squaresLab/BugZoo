@@ -1,5 +1,0 @@
-export a_varenv
-a_varenv=bcde
-export a_varenv
-/bin/true 2>/dev/null
-

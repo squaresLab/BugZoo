@@ -1,3 +1,0 @@
-chmod -x $TMPDIR/conftest
-test -x $TMPDIR/conftest && testfail "negative test -x"
-

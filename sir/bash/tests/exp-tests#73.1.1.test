@@ -1,2 +1,0 @@
-expect '<\$x3>'
-recho $(echo '\$x3')

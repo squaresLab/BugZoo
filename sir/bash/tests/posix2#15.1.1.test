@@ -1,3 +1,0 @@
-newtest
-"$TESTSHELL" -c 'export a=value' 2> /dev/null || testfail "export with value"
-

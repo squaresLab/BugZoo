@@ -1,3 +1,0 @@
-expect /a/b/c
-HOME=/a/b/c printenv HOME
-

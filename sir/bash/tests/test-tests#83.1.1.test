@@ -1,9 +1,0 @@
-set +o allexport
-######setup.local######
-
-echo 't xx -a yy'
-t xx -a yy
-
-######cleanup.local######
-set -o allexport
-

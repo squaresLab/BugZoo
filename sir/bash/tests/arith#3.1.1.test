@@ -1,2 +1,0 @@
-let "sk_jv *= 2"
-echo $sk_jv

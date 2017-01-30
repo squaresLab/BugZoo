@@ -1,8 +1,0 @@
-set +a
-######setup.local######
-
-declare -a f_array='("${d[@]}")'
-declare -a | egrep -v '(BASH_VERSINFO|PIPESTATUS)'
-
-######cleanup.local######
-set -a

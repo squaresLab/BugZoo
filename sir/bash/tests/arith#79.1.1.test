@@ -1,2 +1,0 @@
-#praveen: not running because shell exits
-#echo $(( 44 / 0 ))

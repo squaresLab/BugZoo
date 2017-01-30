@@ -1,2 +1,0 @@
- echo $((0 ? (sk_y+=2) : 30))
- echo $sk_i,$sk_y

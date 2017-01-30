@@ -1,3 +1,0 @@
-echo 't -r /dev/fd/0'
-t -r /dev/fd/0
-

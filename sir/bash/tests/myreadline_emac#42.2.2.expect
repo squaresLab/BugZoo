@@ -1,2 +1,0 @@
-# M-u
-send "echo Escape-u M-u \033b\033u\r"

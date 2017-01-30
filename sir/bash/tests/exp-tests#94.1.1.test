@@ -1,2 +1,0 @@
-expect '<a> <b> <c> <d> <e>'
-recho $b1

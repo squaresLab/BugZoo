@@ -1,3 +1,0 @@
-send "\${TESTS_SRC}/myread_p\r"
-expect "Number>"
-send "34\r"

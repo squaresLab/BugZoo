@@ -1,5 +1,0 @@
-expect '<abc>'
-recho ${X:=abc}
-
-expect '<abc>'
-recho $X

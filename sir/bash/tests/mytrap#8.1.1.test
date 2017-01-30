@@ -1,5 +1,0 @@
-trap 'echo DEBUG trap set' DEBUG
-######setup.local######
-trap - SIGCHLD
-######cleanup.local######
-trap - DEBUG

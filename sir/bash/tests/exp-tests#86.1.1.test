@@ -1,4 +1,0 @@
-expect '<got it>'
-case \? in
-*\?*) recho "got it" ;;
-esac

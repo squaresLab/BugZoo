@@ -1,4 +1,0 @@
-
-# C-w
-send "echo CTRL-w\027\r"
-

@@ -1,5 +1,0 @@
-trap 'echo DEBUG trap set' DEBUG
-######setup.local#####
-kill -l 12345
-######cleanup.local######
-trap - DEBUG

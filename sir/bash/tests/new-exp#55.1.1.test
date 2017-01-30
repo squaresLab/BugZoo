@@ -1,2 +1,0 @@
-expect '<xxcd>'
-recho ${av/??/xx}

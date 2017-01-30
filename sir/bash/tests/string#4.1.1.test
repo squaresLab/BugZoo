@@ -1,2 +1,0 @@
-#pattern matching
-echo The word has ${#dodo4} letters

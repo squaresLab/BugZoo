@@ -1,2 +1,0 @@
-expect '<aaa bbb ccc>'
-recho "$KPB"

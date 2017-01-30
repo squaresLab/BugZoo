@@ -1,5 +1,0 @@
-lang_orig=$LANG
-export LANG=C
-echo $LANG
-export LANG=$lang_orig
-unset lang_orig 

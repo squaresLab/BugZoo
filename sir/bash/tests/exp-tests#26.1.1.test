@@ -1,2 +1,0 @@
-expect '<abcdef>'
-recho $xxx""$yyy

@@ -1,2 +1,0 @@
-expect '<three>'
-recho ${x3##*/}

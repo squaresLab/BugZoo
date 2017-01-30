@@ -1,3 +1,0 @@
-ulimit -n 500
-#setup.local
-ulimit -n

@@ -1,3 +1,0 @@
-echo "SHELL1=~/bash"
-echo $SHELL1
-

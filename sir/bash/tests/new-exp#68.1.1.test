@@ -1,2 +1,0 @@
-expect '<abxx> <efxx> <ijxx> <mnxx> <qrxx> <uvxx>'
-recho ${av[@]/%??/xx}

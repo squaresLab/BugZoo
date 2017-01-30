@@ -1,3 +1,0 @@
-
-send "echo First Character\001\r"
-

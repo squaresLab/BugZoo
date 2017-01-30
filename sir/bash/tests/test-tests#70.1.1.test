@@ -1,3 +1,0 @@
-echo 't /tmp/abc -ef /tmp/ghi'
-t $SP_TESTDIR/abc -ef $SP_TESTDIR/ghi
-

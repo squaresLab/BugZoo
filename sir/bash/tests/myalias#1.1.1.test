@@ -1,4 +1,0 @@
-alias sri="echo You are testing alias"
-sri 
-#cleanup.local
-unalias sri

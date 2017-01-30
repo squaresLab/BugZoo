@@ -1,3 +1,0 @@
-newtest
-test "${unsetvar-ok}" = ok || testfail "unset var"
-

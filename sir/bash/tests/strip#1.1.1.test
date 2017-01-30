@@ -1,3 +1,0 @@
-v1=`echo "" ; echo "" ; echo ""`
-echo "'$v1'"
-

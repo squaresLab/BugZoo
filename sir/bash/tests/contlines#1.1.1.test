@@ -1,6 +1,0 @@
-#contlines1
-#this needs no setup
-#continuing lines
-echo "This is the first \
-	  this is the second \
-	  this is the third "

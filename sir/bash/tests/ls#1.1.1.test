@@ -1,6 +1,0 @@
-# ls1 which was earlier basic8
-cd ${TESTDIR}/basic8
-echo output of ls -l
-ls -l > /dev/null
-echo cd ${CURRDIR}
-cd ${CURRDIR}

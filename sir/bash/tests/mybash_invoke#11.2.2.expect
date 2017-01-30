@@ -1,4 +1,0 @@
-send "$env(BASH_SRC_DIR)/bash --restricted\n"
-send "cd ..\n"
-send "cd -\n"
-send "exit\n"

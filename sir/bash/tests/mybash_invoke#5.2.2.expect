@@ -1,2 +1,0 @@
-send "$env(BASH_SRC_DIR)/bash --login\n"
-send "logout\n"

@@ -1,3 +1,0 @@
-echo 't -u noexist'
-t -u noexist
-

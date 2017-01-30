@@ -1,6 +1,0 @@
-myMAILCHECK=$MAILCHECK
-#setup.local ends here
-export MAILCHECK=45
-echo $MAILCHECK
-#cleanup.local begins here
-export MAILCHECK=$myMAILCHECK

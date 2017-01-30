@@ -1,5 +1,0 @@
-unset d c
-######setup.local######
-expect unset
-echo ${d-unset}
-

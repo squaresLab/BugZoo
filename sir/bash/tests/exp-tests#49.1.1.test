@@ -1,2 +1,0 @@
-expect '<^A^B^A^B>'
-recho '^A^B^A^B'

@@ -1,3 +1,0 @@
-k=global
-echo $k
-sk_funct

@@ -1,3 +1,0 @@
-echo 't -r /tmp/test.noread'
-t -r $SP_TESTDIR/test.noread
-

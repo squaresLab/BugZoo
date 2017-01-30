@@ -1,3 +1,0 @@
-echo 't -d /etc'
-t -d /etc
-

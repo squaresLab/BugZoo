@@ -1,2 +1,0 @@
-shopt -q checkhash
-echo $?

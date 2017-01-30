@@ -1,3 +1,0 @@
-echo 't -c /dev/tty'
-t -c /dev/tty
-

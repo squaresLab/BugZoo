@@ -1,2 +1,0 @@
-expect '<foo bar>'
-recho "${undef-"foo bar"}"      # should be foo bar

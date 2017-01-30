@@ -1,3 +1,0 @@
-echo 't -w /dev/fd/2'
-t -w /dev/fd/2
-

@@ -1,2 +1,0 @@
-expect '<file.o>'
-recho ${x%.c}.o

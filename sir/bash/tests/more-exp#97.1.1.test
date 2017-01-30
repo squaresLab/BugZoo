@@ -1,8 +1,0 @@
-unset hhhhhh
-#setup.local
-
-echo "should echo a*"
-recho "${hhhhhh:-"a"}*"
-
-#setup.cleanup
-unset abckp

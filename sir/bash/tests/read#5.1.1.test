@@ -1,2 +1,0 @@
-echo " a  b\ " | ( read x ; echo -"$x"- )
-

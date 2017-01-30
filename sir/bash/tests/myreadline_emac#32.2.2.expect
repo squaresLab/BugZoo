@@ -1,2 +1,0 @@
-# M- Rubout (Backspace)
-send "echo Backspace\0334\010\r"

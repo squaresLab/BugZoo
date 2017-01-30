@@ -1,3 +1,0 @@
-echo 't -z "foo"'
-t -z "foo"
-

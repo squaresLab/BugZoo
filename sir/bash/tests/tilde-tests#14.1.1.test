@@ -1,4 +1,0 @@
-PPATH=$XPATH:~/bin
-######setup.local######
-echo "$PPATH"
-

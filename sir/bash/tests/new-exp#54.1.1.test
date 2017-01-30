@@ -1,2 +1,0 @@
-expect '<abcde>'
-recho ${v/%x/last}

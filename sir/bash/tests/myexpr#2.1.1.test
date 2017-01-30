@@ -1,2 +1,0 @@
-t_myexpr=$(((3>4) || (5<7) ))
-echo t_myexpr=$t_myexpr

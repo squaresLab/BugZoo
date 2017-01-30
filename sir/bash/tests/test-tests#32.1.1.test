@@ -1,3 +1,0 @@
-echo 't -w /tmp/test.nowrite'
-t -w $SP_TESTDIR/test.nowrite
-

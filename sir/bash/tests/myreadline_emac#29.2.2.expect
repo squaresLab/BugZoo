@@ -1,2 +1,0 @@
-# M->
-send "echo Last Command\020\020\033>\r"
