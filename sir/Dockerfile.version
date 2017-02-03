@@ -14,7 +14,7 @@ RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
 # TODO: assume manifest has already been provided?
 RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
     sed -i '1i#include "FaultSeeds.h"' source/${SOURCE_FILE} && \
-    echo "preprocessed/${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
+    echo "${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
 
 # Generate the source code for the oracle
 # Preprocess the source code file and remove all others
