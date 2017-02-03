@@ -23,7 +23,11 @@ RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/
 # Copy the preprocessed source code to the preprocessed directory
 RUN mkdir preprocessed && \
     cp source/*.c preprocessed && \
-    cp source/Makefile preprocessed
+    cp source/manifest.txt manifest.txt
+
+# Generate the diff
+RUN mkdir diff && \
+    diff preprocessed/${SOURCE_FILE} fixed/${SOURCE_FILE} > diff/${SOURCE_FILE}.diff || exit 0
 
 # Determine the number of positive and negative tests before generating the
 # problem.json file
