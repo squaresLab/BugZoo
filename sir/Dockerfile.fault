@@ -16,9 +16,14 @@ RUN sed -i "s;/\* #define FAULTY_F_${FAULT_ID} \*/;#define FAULTY_F_${FAULT_ID};
 # Preprocess the source code file and remove all others
 RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/Makefile && \
     (cd source && make build) && \
-    mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}" && \
+    mv "source/${PREPROCESSED_FILE}" "source/${SOURCE_FILE}" && \
     rm -f source/*.exe source/*.i source/*.o source/*.s && \
     sed -i 's# -save-temps##' source/Makefile
+
+# Copy the preprocessed source code to the preprocessed directory
+RUN mkdir preprocessed && \
+    cp source/*.c preprocessed && \
+    cp source/Makefile preprocessed
 
 # Determine the number of positive and negative tests before generating the
 # problem.json file

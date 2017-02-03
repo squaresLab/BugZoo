@@ -20,7 +20,7 @@ build_version(){
 
   # Build the docker image
   echo "Building: ${version_image}"
-  docker build -t ${version_image} ${docker_dir} > /dev/null
+  docker build -t ${version_image} ${docker_dir} #> /dev/null
 
   # Destroy the temporary directory
   rm -rf ${docker_dir}

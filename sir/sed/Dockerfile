@@ -4,8 +4,8 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 ENV PROGRAM_NAME sed
 ENV OBJECT_ARCHIVE sed.tar.gz
 ENV EXECUTABLE source/sed.exe
-ENV SOURCE_FILE source/sed.c
-ENV PREPROCESSED_FILE source/sed.i
+ENV SOURCE_FILE sed.c
+ENV PREPROCESSED_FILE sed.i
 
 # Mount bug files to /experiment
 ADD sed.tar.gz /experiment

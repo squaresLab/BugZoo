@@ -4,8 +4,8 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 ENV PROGRAM_NAME gzip
 ENV UNIVERSE_FILE /experiment/testplans.alt/v0.tsl.universe
 ENV EXECUTABLE source/gzip.exe
-ENV SOURCE_FILE source/allfile.c
-ENV PREPROCESSED_FILE source/allfile.i
+ENV SOURCE_FILE allfile.c
+ENV PREPROCESSED_FILE allfile.i
 
 # Mount bug files to /experiment
 ADD tests.pythia.json /experiment

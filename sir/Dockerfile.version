@@ -8,12 +8,24 @@ ENV PROGRAM_VERSION <PROGRAM_VERSION>
 # Generate the oracle and list of test commands
 RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
     (cd source && make build) && \
-    echo $EXECUTABLE && pythia generate "${EXECUTABLE}"
+    pythia generate "${EXECUTABLE}"
 
 # Prepare faulty version of the program
+# TODO: assume manifest has already been provided?
 RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
-    sed -i '1i#include "FaultSeeds.h"' ${SOURCE_FILE} && \
-    echo "${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
+    sed -i '1i#include "FaultSeeds.h"' source/${SOURCE_FILE} && \
+    echo "preprocessed/${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
+
+# Generate the source code for the oracle
+# Preprocess the source code file and remove all others
+RUN mkdir fixed && \
+    cp -r source/* fixed && \
+    cd fixed && \
+    rm -f *.exe *.i *.o *.s && \
+    sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' Makefile && \
+    make build && \
+    mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}" && \
+    find . -type f ! -name "${SOURCE_FILE}" -exec rm -f {} \;
 
 # Remove unnecessary files
 RUN rm -rf  testplans testplans.alt\

@@ -3,8 +3,8 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV PROGRAM_NAME flex
 ENV EXECUTABLE source/flex.exe
-ENV SOURCE_FILE source/flex.c
-ENV PREPROCESSED_FILE source/flex.i
+ENV SOURCE_FILE flex.c
+ENV PREPROCESSED_FILE flex.i
 
 # Mount bug files to /experiment
 ADD tests.pythia.json /experiment
