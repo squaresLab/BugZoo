@@ -1,4 +1,4 @@
-all: base php python
+all: base php python gzip libtiff
 
 base:
 	${MAKE} -C base
@@ -9,8 +9,10 @@ php: base
 python: base
 	${MAKE} -C python
 
-push:
-	${MAKE} push -C php
-	${MAKE} push -C python
+libtiff: base
+	${MAKE} -C libtiff
 
-.PHONY: python php base
+gzip: base
+	${MAKE} -C gzip
+
+.PHONY: python php base libtiff gzip
