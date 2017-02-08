@@ -5,11 +5,10 @@ BENCHMARK_NAME=$(basename "$HERE_DIR")
 
 pushd "$HERE_DIR"
 if [ ! -d src ]; then
-  # Unextract and compile source
   tar -xf src.tar.gz
   pushd src
   make clean
-  ./configure --build=i686-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+  ./configure "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
   patch lib/stdio.in.h < ../stdio.in.h.patch && make
   popd
 
