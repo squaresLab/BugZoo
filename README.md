@@ -34,8 +34,7 @@ $ docker pull christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e
 ```
 
 Alternatively, you may build each of the repair boxes from source by cloning
-this repository and call `make` within its root directory, using the commands
-given below:
+this repository and calling `make`:
 
 ```
 $ git clone git://github.com/ChrisTimperley/RepairBox --depth 1
@@ -196,3 +195,11 @@ to perform automated repair of the bug using GenProg 2.
 * continuous integration, with automatic construction and pushing of
   (modified) Docker images to DockerHub.
 * automatic Docker image flattening
+
+## Running a Repair Tool within a Repair Box
+
+Rather than extending a particular repair box with the files necessary to use it
+with a particular repair tool, we can exploit Docker's volume sharing ability to
+use the binaries provided by another container. Below we give an example of how
+to run GenProg (provided by its own, isolated container) on one of the repair
+boxes, without the need to extend or modify them.
