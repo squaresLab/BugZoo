@@ -97,20 +97,3 @@ RUN cd /tmp && \
 # Create the experiment directory and set it as the work dir
 RUN sudo mkdir -p /experiment && sudo chown -R docker /experiment
 WORKDIR /experiment
-
-# install GenProg
-ENV GENPROG_VERSION c7543dd
-RUN sudo add-apt-repository ppa:avsm/ppa && \
-    sudo apt-get update && \
-    sudo -u docker /bin/bash -c "sudo apt-get install -y opam build-essential jq m4" && \
-    echo "yes" >> /tmp/yes.txt && \
-    cd /home/docker && \
-    sudo -u docker /bin/bash -c "opam init -y < /tmp/yes.txt" && \
-    sudo -u docker /bin/bash -c "eval \$(opam config env) && opam install -y cil yojson" && \
-    git clone https://bitbucket.org/ChrisTimperley/GP3 /tmp/genprog && \
-    cd /tmp/genprog/src && \
-    sudo -u docker /bin/bash -c "eval \$(opam config env) && make && sudo make install" && \
-    sudo apt-get purge -y opam ocaml m4 && \
-    sudo apt-get autoremove -y && \
-    sudo apt-get clean && \
-    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
