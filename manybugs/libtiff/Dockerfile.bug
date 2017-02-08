@@ -1,0 +1,22 @@
+FROM christimperley/repairbox:manybugs-libtiff
+
+ARG scenario
+ENV SCENARIO_NAME ${scenario}
+
+# Download the ManyBugs source code!
+RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
+          -O scenario.tar.gz && \
+    tar -xf scenario.tar.gz && \
+    rm -f scenario.tar.gz
+RUN mv libtiff-* scenario && \
+    cd scenario && \
+    rm -rf fixed-program.txt *.cache coverage.* coverage limit* sanity *debug* compile.pl local-root && \
+    rm configuration-oracle && \
+    mv fix-failures bug-info && \
+    mv bug-failures bug-info && \
+    mv fix.lines bug-info && \
+    mv fault.lines bug-info && \
+    rm -rf libtiff/.git && \
+    mv bugged-program.txt preprocessed/manifest.txt && \
+    mv libtiff source && \
+    (cd source && make clean && ./configure)
