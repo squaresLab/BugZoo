@@ -13,4 +13,4 @@ push:
 	${MAKE} push -C php
 	${MAKE} push -C python
 
-.PHONY: python php
+.PHONY: python php base
