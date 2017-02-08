@@ -1,1 +1,0 @@
-fixed/tools/tiffcp.c

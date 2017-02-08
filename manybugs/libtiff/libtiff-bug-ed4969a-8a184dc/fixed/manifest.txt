@@ -1,2 +1,0 @@
-libtiff/tif_dirwrite.c
-tools/thumbnail.c

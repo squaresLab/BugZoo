@@ -1,6 +1,0 @@
-commit 207c78a4177ba85f062683da386af590b62fa7e8
-Author: dron <dron>
-Date:   Thu Feb 23 16:07:45 2006 +0000
-
-    Properly write TIFFTAG_DOTRANGE tag as per bug
-    http://bugzilla.remotesensing.org/show_bug.cgi?id=1088.

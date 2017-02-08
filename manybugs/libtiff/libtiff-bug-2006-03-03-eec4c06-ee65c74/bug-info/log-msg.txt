@@ -1,6 +1,0 @@
-commit eec4c0645ef1c6d0fccbf98bb6c6eee8ad696163
-Author: dron <dron>
-Date:   Fri Mar 3 13:06:00 2006 +0000
-
-    Fixed integer overflow condition in TIFFFetchData() function. As per bug
-    http://bugzilla.remotesensing.org/show_bug.cgi?id=1102

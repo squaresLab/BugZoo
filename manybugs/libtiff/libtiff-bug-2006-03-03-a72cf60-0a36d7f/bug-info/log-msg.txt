@@ -1,5 +1,0 @@
-commit 0a36d7fa659fbd8179357200a5c8fb9b940c9b53
-Author: dron <dron>
-Date:   Sat Mar 4 16:00:45 2006 +0000
-
-    Fixed stupid mistake introduced in previous edition.

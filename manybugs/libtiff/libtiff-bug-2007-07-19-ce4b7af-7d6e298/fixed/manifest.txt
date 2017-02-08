@@ -1,1 +1,0 @@
-fixed/libtiff/tif_dirinfo.c
