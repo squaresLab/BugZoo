@@ -24,10 +24,9 @@ referred to
 
 ## Installation
 
-At present time, there are two ways in which you can install a particular repair
-box within this repository. The preferred method, is to download a pre-built
-repair box from DockerHub, using the command given below (using a PHP bug from
-the ManyBugs dataset as an example):
+There are two ways to install a particular repair box provided by this repository.
+The preferred method, is to download a pre-built repair box from DockerHub, using
+the command given below (using a PHP bug from the ManyBugs dataset as an example):
 
 ```
 $ docker pull christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
