@@ -1,9 +1,9 @@
 FROM christimperley/repairbox:manybugs64
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-RUN sudo dpkg --add-architecture i386
-RUN sudo apt-get update
-RUN sudo apt-get install -y libncurses-dev \
+#RUN sudo dpkg --add-architecture i386
+RUN sudo apt-get update && \
+    sudo apt-get install -y libncurses-dev \
                             libsqlite-dev \
                             libgdbm-dev \
                             libssl-dev \
@@ -14,4 +14,7 @@ RUN sudo apt-get install -y libncurses-dev \
                             g++-multilib \
                             tk-dev \
                             tcl-dev \
-                            tix-dev
+                            tix-dev && \
+    sudo apt-get clean && \
+    sudo apt-get autoremove -y && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
