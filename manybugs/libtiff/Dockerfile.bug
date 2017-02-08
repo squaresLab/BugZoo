@@ -1,16 +1,22 @@
 FROM christimperley/repairbox:manybugs-libtiff
 
+# accepts the name of a Libtiff ManyBugs scenario
 ARG scenario
 ENV SCENARIO_NAME ${scenario}
+ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
 
-# Download the ManyBugs source code!
+# - downloads scenario archive
+# - throws away useless files
+# - modifies naming of files to match RepairBox standards
+# - runs configure
+# - fixes test harness to work on Docker container
 RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
           -O scenario.tar.gz && \
     tar -xf scenario.tar.gz && \
-    rm -f scenario.tar.gz
-RUN mv libtiff-* scenario && \
+    rm -f scenario.tar.gz && \
+    mv libtiff-* scenario && \
     cd scenario && \
-    rm -rf fixed-program.txt *.cache coverage.* coverage limit* sanity *debug* compile.pl local-root && \
+    rm -rf fixed-program.txt *.cache coverage.* coverage limit* sanity *debug* compile.pl local-root test && \
     rm configuration-oracle && \
     mv fix-failures bug-info && \
     mv bug-failures bug-info && \
@@ -18,5 +24,11 @@ RUN mv libtiff-* scenario && \
     mv fault.lines bug-info && \
     rm -rf libtiff/.git && \
     mv bugged-program.txt preprocessed/manifest.txt && \
-    mv libtiff source && \
-    (cd source && make clean && ./configure)
+    mv libtiff src && \
+    (cd src && make clean && ./configure) && \
+    cd /experiment && \
+    mv scenario/* . && rm -rf scenario && \
+    sed -i "s#/usr/bin/perl#perl#" test.sh && \
+    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
+    sed -i "s#/experiment/limit#timeout 5#g" test.sh && \
+    sed -i "s#cd libtiff#cd src#g" test.sh
