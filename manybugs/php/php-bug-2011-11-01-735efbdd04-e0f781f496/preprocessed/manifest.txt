@@ -1,3 +1,0 @@
-Zend/zend_closures.c
-Zend/zend_gc.c
-Zend/zend_object_handlers.c

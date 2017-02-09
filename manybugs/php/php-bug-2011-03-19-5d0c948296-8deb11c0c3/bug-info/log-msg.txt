@@ -1,6 +1,0 @@
-commit 8deb11c0c33cbecf7807ac996ed02cebea1ee068
-Author: Gustavo André dos Santos Lopes <cataphract@php.net>
-Date:   Sat Mar 19 23:15:04 2011 +0000
-
-    - Fixed bug #54291 (Crash iterating DirectoryIterator for dir name starting
-      with \0).

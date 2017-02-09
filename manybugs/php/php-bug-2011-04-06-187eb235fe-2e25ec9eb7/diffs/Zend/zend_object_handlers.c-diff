@@ -1,8 +1,0 @@
-449c449,453
-< 			zval_ptr_dtor(&object);
----
-> 			if (EXPECTED(*retval != object)) {
-> 				zval_ptr_dtor(&object);
-> 			} else {
-> 				Z_DELREF_P(object);
-> 			}

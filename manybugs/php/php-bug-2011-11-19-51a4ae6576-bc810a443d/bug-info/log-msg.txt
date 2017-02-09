@@ -1,5 +1,0 @@
-commit bc810a443d64937de9fb6c65f5b6a79e7c7e7c11
-Author: Felipe Pena <felipe@php.net>
-Date:   Sat Nov 19 13:36:03 2011 +0000
-
-    - Fixed bug #43200 (Interface implementation / inheritence not possible in abstract classes)

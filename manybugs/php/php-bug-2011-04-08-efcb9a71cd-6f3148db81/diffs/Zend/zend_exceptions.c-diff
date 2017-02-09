@@ -1,4 +1,0 @@
-161c161
-< 	zend_fetch_debug_backtrace(trace, skip_top_traces, 0 TSRMLS_CC);
----
-> 	zend_fetch_debug_backtrace(trace, skip_top_traces, 0, 0 TSRMLS_CC);

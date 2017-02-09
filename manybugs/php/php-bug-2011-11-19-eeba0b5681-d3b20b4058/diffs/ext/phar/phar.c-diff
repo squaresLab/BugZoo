@@ -1,6 +1,0 @@
-1573,1574c1573,1574
-< 	const int window_size = 1024 + sizeof(token);
-< 	char buffer[1024 + sizeof(token)]; /* a 1024 byte window + the size of the halt_compiler token (moving window) */
----
-> 	const int window_size = 1024;
-> 	char buffer[window_size + sizeof(token)]; /* a 1024 byte window + the size of the halt_compiler token (moving window) */

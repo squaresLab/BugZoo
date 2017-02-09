@@ -1,6 +1,0 @@
-commit 1f4990299927a9fdf24676ebbd1c7f6729aa3838
-Author: Gustavo André dos Santos Lopes <cataphract@php.net>
-Date:   Tue Feb 1 22:55:17 2011 +0000
-
-    - Fixed bug #53903 (userspace stream stat callback does not separate the
-      elements of the returned array before converting them).

@@ -1,5 +1,0 @@
-commit 2e25ec9eb7625d48af19c7ca061b90f9e6337ae8
-Author: Dmitry Stogov <dmitry@php.net>
-Date:   Thu Apr 7 13:35:27 2011 +0000
-
-    Fixed bug #54372 (Crash accessing global object itself returned from its __get() handle)

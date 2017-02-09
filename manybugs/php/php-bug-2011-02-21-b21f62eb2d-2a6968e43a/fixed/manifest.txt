@@ -1,2 +1,0 @@
-fixed/main/snprintf.c
-fixed/main/spprintf.c

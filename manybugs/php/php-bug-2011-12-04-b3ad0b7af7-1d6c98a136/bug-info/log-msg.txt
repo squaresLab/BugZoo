@@ -1,5 +1,0 @@
-commit 1d6c98a136d9217e3fd8ae1349f9ecdf541d6ea7
-Author: Dmitry Stogov <dmitry@php.net>
-Date:   Mon Dec 5 09:20:12 2011 +0000
-
-    Fixed bug #60444 (Segmentation fault with include & class extending)

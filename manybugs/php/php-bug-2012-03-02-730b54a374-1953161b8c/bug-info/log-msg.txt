@@ -1,5 +1,0 @@
-commit 1953161b8ce3d20bebb59f35a5da7f9db95e4986
-Author: Pierrick Charron <pierrick@php.net>
-Date:   Fri Mar 2 02:36:31 2012 +0000
-
-    Fixed bug #61225 (Lexing 0b0*+<NUM> incorectly)

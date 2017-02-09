@@ -1,7 +1,0 @@
-1233c1233,1236
-< 	if (!IS_ABSOLUTE_PATH(intern->file_name, intern->file_name_len)) {
----
-> 	if (intern->file_name == NULL) {
-> 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Empty filename");
-> 		RETURN_FALSE;
-> 	} else if (!IS_ABSOLUTE_PATH(intern->file_name, intern->file_name_len)) {

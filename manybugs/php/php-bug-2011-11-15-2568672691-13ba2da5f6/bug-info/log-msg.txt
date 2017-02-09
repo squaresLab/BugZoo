@@ -1,7 +1,0 @@
-commit 13ba2da5f602cada0da29f369e95ef0ee47457e0
-Author: David Soria Parra <dsp@php.net>
-Date:   Tue Nov 15 13:22:52 2011 +0000
-
-    Fixed bug #55371 (get_magic_quotes_gpc() throws deprecation warning.)
-    
-    Patch by David Zuelke <david dot zuelke at bitextender dot com>

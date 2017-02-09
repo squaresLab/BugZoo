@@ -1,7 +1,0 @@
-992,994c992,993
-< 		/* read operation have less data than request; assume the stream is
-< 		 * temporarily or permanently out of data */
-< 		if (just_read < toread) {
----
-> 		/* Assume the stream is temporarily or permanently out of data */
-> 		if (just_read == 0) {

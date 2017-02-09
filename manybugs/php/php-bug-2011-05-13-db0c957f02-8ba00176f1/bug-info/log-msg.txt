@@ -1,8 +1,0 @@
-commit 8ba00176f11fe255221c8fbedd264870bdbfedde
-Author: Stefan Marr <gron@php.net>
-Date:   Fri May 13 20:28:34 2011 +0000
-
-    Fixed a inconsitent condition for aliasing traits.
-    
-    - missed a failing Traits test, but is now fixed, and the bug covered by a dedicated test
-    # Should always comment conditions that go over more than two lines :-/

@@ -1,5 +1,0 @@
-commit 6672171672044c6967492a2c2c094b648f8690e1
-Author: Xinchen Hui <laruence@php.net>
-Date:   Wed Feb 8 14:07:27 2012 +0000
-
-    Fixed bug #61000 (Exceeding max nesting level doesn't delete numerical vars).

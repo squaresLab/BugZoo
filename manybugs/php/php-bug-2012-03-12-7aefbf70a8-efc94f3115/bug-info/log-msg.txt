@@ -1,6 +1,0 @@
-commit efc94f311593d33093b8ad7f1f036deaa23df052
-Author: Gustavo André dos Santos Lopes <cataphract@php.net>
-Date:   Tue Mar 13 18:08:30 2012 +0000
-
-    - Fixed bug #61374: html_entity_decode tries to decode code points that don't
-      exist in ISO-8859-1.

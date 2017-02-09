@@ -1,4 +1,0 @@
-1268c1268
-< 				spprintf(error, 0, "Cannot create phar '%s', file extension (or combination) not recognised", fname);
----
-> 				spprintf(error, 0, "Cannot create phar '%s', file extension (or combination) not recognised or the directory does not exist", fname);

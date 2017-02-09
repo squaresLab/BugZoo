@@ -1,5 +1,0 @@
-commit 5a8c917c377281819cd14a5fbf9132d2ac11cbef
-Author: Pierrick Charron <pierrick@php.net>
-Date:   Sun Apr 3 07:18:27 2011 +0000
-
-    Fixed bug #54454 (substr_compare incorrectly reports equality in some cases)

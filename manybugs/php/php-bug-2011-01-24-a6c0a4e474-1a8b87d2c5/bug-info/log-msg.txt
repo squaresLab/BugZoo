@@ -1,5 +1,0 @@
-commit 1a8b87d2c5c642cc1ba08e0fc75fd4bcc4393292
-Author: Stanislav Malyshev <stas@php.net>
-Date:   Mon Jan 24 02:31:48 2011 +0000
-
-    Fixed bug #5273 (Can't use new properties in class extended from DateInterval)

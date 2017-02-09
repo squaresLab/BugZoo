@@ -1,6 +1,0 @@
-commit c2ede9a00aa5047cb0e3a86f1a66916c4e2bbbd1
-Author: Derick Rethans <derick@php.net>
-Date:   Fri Nov 25 15:51:37 2011 +0000
-
-    - Fixed bug #54596 (incorrect years for DateTime objects created with 4-digit
-      years).

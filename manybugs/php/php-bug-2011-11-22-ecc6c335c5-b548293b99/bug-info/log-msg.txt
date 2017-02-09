@@ -1,5 +1,0 @@
-commit b548293b99b80654e73b85f7dc5f9da0f9eb44d7
-Author: Xinchen Hui <laruence@php.net>
-Date:   Tue Nov 22 10:11:06 2011 +0000
-
-    Fixed bug #60357 (__toString() method triggers E_NOTICE "Array to string conversion")

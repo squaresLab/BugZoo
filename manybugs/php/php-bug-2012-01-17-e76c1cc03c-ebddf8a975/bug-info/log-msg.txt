@@ -1,5 +1,0 @@
-commit ebddf8a975d3be289c7f562a67df1e761ab516b2
-Author: Sebastian Bergmann <sebastian@php.net>
-Date:   Tue Jan 17 13:46:31 2012 +0000
-
-    Revert r322390.

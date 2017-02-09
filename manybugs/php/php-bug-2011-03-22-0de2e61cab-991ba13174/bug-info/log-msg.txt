@@ -1,5 +1,0 @@
-commit 991ba13174bb95a6a0c4849bdcd4883e335bf493
-Author: Adam Harvey <aharvey@php.net>
-Date:   Tue Mar 22 08:33:22 2011 +0000
-
-    Fix bug #54340 (DateTime::add() method bug).

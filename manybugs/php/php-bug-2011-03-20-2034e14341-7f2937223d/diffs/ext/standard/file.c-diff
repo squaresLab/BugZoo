@@ -1,4 +1,0 @@
-923c923
-< 		zend_list_delete(stream->rsrc_id);
----
-> 		php_stream_close(stream);

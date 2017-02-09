@@ -6,8 +6,8 @@ php:
 	docker build -t christimperley/repairbox:manybugs-php .
 
 $(scenarios): php
-	cp Dockerfile.bug php-bug-$(@F)/Dockerfile
-	docker build -t christimperley/repairbox:manybugs-$<-bug-$(@F) php-bug-$(@F)
-	rm -f php-bug-$(@F)/Dockerfile
+	docker build	--build-arg scenario=php-bug-$(@F) \
+								-f Dockerfile.bug \
+								-t christimperley/repairbox:manybugs-$<-bug-$(@F) .
 
 .PHONY: php $(scenarios)

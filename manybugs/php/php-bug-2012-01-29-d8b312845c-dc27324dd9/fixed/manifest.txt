@@ -1,1 +1,0 @@
-fixed/ext/pdo_sqlite/sqlite_driver.c

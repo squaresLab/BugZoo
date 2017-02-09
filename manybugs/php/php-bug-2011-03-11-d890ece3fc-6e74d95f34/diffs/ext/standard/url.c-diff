@@ -1,5 +1,0 @@
-318a319,322
-> 			if (pp - s) {
-> 				ret->path = estrndup(s, (pp-s));
-> 				php_replace_controlchars_ex(ret->path, (pp - s));
-> 			}

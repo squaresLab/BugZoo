@@ -1,4 +1,0 @@
-fixed/ext/standard/basic_functions.c
-fixed/ext/standard/streamsfuncs.c
-fixed/main/streams/plain_wrapper.c
-fixed/main/streams/xp_socket.c

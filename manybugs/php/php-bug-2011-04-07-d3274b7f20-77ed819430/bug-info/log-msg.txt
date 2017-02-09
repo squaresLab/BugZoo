@@ -1,5 +1,0 @@
-commit 77ed819430ed74c5b0bb5e13294c74d39f17b774
-Author: Dmitry Stogov <dmitry@php.net>
-Date:   Thu Apr 7 14:52:30 2011 +0000
-
-    Fixed bug #54323 (Accessing unset()'ed ArrayObject's property causes crash)

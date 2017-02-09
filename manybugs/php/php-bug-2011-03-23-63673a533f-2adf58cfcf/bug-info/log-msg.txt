@@ -1,5 +1,0 @@
-commit 2adf58cfcf9a2e4b55a775fcbd3ccc5dd16ec979
-Author: Felipe Pena <felipe@php.net>
-Date:   Wed Mar 23 01:22:18 2011 +0000
-
-    - Fixed bug #54283 (new DatePeriod(NULL) causes crash)

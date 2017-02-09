@@ -1,5 +1,0 @@
-commit dc6ecd21ee433c28b0131dec45d39b7688b08115
-Author: Derick Rethans <derick@php.net>
-Date:   Sat Nov 26 16:44:21 2011 +0000
-
-    - Fixed bug #54851 (DateTime::createFromFormat() doesn't interpret "D").

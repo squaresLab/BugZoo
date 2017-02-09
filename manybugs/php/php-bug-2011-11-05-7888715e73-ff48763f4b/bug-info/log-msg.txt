@@ -1,5 +1,0 @@
-commit ff48763f4b0fee906293815b42fe3e2a167702c8
-Author: Felipe Pena <felipe@php.net>
-Date:   Sun Nov 6 13:25:45 2011 +0000
-
-    - Added class member access on instantiation (e.g. (new foo)->bar()) support

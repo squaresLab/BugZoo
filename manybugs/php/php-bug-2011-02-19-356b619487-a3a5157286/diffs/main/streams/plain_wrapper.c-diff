@@ -1,6 +1,0 @@
-591d590
-< 					stream->flags |= PHP_STREAM_FLAG_NO_BUFFER;
-595d593
-< 					stream->flags ^= PHP_STREAM_FLAG_NO_BUFFER;
-599d596
-< 					stream->flags ^= PHP_STREAM_FLAG_NO_BUFFER;

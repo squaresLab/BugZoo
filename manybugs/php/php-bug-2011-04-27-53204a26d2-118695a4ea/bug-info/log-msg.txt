@@ -1,7 +1,0 @@
-commit 118695a4ea44615b5d1927d2903e88b7b15fd33b
-Author: Ilia Alshanetsky <iliaa@php.net>
-Date:   Thu Apr 28 12:32:47 2011 +0000
-
-    #doc
-    Added 3rd parameter to filter_var_array() and filter_input_array()
-    functions that allows disabling addition of empty elements

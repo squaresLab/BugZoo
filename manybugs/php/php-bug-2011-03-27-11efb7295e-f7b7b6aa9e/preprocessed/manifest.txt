@@ -1,2 +1,0 @@
-ext/spl/php_spl.c
-ext/spl/spl_directory.c

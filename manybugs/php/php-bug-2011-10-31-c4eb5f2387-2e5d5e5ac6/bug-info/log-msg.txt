@@ -1,5 +1,0 @@
-commit 2e5d5e5ac64daab299cd04382df92c3fd4fa17f6
-Author: Stefan Marr <gron@php.net>
-Date:   Mon Oct 31 22:59:00 2011 +0000
-
-    Fixed Bug #60173 (Wrong error message on reflective trait instantiation)

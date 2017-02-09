@@ -1,5 +1,0 @@
-commit e0f781f4967a937c787ab682907b6d6c48dcba6f
-Author: Dmitry Stogov <dmitry@php.net>
-Date:   Wed Nov 2 06:31:33 2011 +0000
-
-    Fixed bug #60139 (Anonymous functions create cycles not detected by the GC)

@@ -1,5 +1,0 @@
-commit 5063a77128b44abe61742935de4ac86dc7351b68
-Author: Stanislav Malyshev <stas@php.net>
-Date:   Tue Nov 8 04:59:17 2011 +0000
-
-    Fixed bug #54084 (token_get_all with regards to __halt_compiler is not binary safe)

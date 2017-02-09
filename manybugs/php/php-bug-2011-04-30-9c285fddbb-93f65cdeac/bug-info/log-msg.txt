@@ -1,6 +1,0 @@
-commit 93f65cdeac1e20e5ad789609894c116261e7f273
-Author: Gustavo André dos Santos Lopes <cataphract@php.net>
-Date:   Sun May 1 03:57:01 2011 +0000
-
-    - Fixed bug #54623 (Segfault when when writing to a persistent socket after
-      closing a copy of the socket).

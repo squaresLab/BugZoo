@@ -1,7 +1,0 @@
-5025a5026,5031
->   if ((CG(active_class_entry)->ce_flags & ZEND_ACC_INTERFACE)) {
->     zend_error(E_COMPILE_ERROR,
->                "Cannot use traits inside of interfaces. %s is used in %s",
->                Z_STRVAL(trait_name->u.constant), CG(active_class_entry)->name);
->   }
-> 

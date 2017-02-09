@@ -1,5 +1,0 @@
-commit 5bb0a44e06a51737c6be17acd172168fbd9fc80d
-Author: Stanislav Malyshev <stas@php.net>
-Date:   Sun Jan 30 08:54:53 2011 +0000
-
-    Fix bug #52808 (Segfault when specifying interval as two dates)

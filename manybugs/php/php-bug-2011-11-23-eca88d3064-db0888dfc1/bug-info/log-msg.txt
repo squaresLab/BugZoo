@@ -1,5 +1,0 @@
-commit db0888dfc1e4d48c8b3359c54753218d695b7cd9
-Author: Stefan Marr <gron@php.net>
-Date:   Wed Nov 23 21:24:34 2011 +0000
-
-    Fixed Bug #60369	Crash with static property in trait

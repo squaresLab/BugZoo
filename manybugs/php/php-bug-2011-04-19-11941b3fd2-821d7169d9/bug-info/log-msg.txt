@@ -1,5 +1,0 @@
-commit 821d7169d9d575ceef71e69570b98519826ccb01
-Author: Dmitry Stogov <dmitry@php.net>
-Date:   Wed Apr 20 12:59:18 2011 +0000
-
-    Fixed bug #54367 (Use of closure causes problem in ArrayAccess).

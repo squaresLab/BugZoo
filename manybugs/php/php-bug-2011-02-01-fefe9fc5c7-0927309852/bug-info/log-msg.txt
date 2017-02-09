@@ -1,5 +1,0 @@
-commit 09273098521913a204db5320f763abd7227ebd2e
-Author: Ilia Alshanetsky <iliaa@php.net>
-Date:   Tue Feb 1 14:01:00 2011 +0000
-
-    Fixed bug #53898 (PHAR reports invalid error message, when the directory does not exist).

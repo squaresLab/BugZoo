@@ -1,5 +1,0 @@
-commit 6f3148db81d15cd024933ce235a56e72b9233acb
-Author: Sebastian Bergmann <sebastian@php.net>
-Date:   Sat Apr 9 09:52:24 2011 +0000
-
-    Add optional argument to debug_backtrace() and debug_print_backtrace() to limit the amount of stack frames returned.

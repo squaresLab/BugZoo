@@ -1,0 +1,48 @@
+FROM christimperley/repairbox:manybugs-php
+MAINTAINER Chris Timperley "christimperley@gmail.com"
+
+ARG scenario
+ENV SCENARIO_NAME ${scenario}
+ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
+RUN cd /experiment && \
+    wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
+          -O scenario.tar.gz && \
+    tar -xf scenario.tar.gz && \
+    mv ${SCENARIO_NAME} scenario && \
+    rm scenario.tar.gz && \
+    cd scenario && \
+    rm -rf  php \
+            coverage* \
+            configuration-oracle \
+            local-root \
+            limit* \
+            php-tests-* \
+            *.cache \
+            *.debug.* \
+            sanity \
+            compile.pl \
+            fixed-program.txt && \
+    mv bug-failures bug-info && \
+    mv bugged-program.txt manifest.txt && \
+    mv *.lines bug-info && \
+    mv fix-failures bug-info && \
+    rm php-run-tests && \
+    cd ../ && \
+    mv scenario/* /experiment && \
+    rm -rf scenario && \
+    sudo chown -R docker /experiment
+
+# Fix the test harness
+RUN gcc -o php-run-tests php-run-tests.c && \
+    sed -i "s/cd php/cd src/" test.sh && \
+    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
+    sed -i "s#/experiment/limit#timeout 60#" test.sh
+
+# Go back to the appropriate commit, apply the libxml patch, then
+# configure
+RUN cd src && \
+    git checkout $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
+    cat ../libxml.patch | patch -p0 && \
+    rm ../libxml.patch && \
+    ./buildconf && \
+    ./configure

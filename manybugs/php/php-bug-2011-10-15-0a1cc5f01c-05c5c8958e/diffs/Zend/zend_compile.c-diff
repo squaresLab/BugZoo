@@ -1,4 +1,0 @@
-2490c2490
-< 			if (param->op_type & (IS_VAR|IS_CV)) {
----
-> 			if (param->op_type & (IS_VAR|IS_CV) && original_op != ZEND_SEND_VAL) {

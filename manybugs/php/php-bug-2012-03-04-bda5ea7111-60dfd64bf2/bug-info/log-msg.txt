@@ -1,7 +1,0 @@
-commit 60dfd64bf264ad2be1dc82f1a9d4b0fa11295a54
-Author: Stefan Marr <gron@php.net>
-Date:   Sun Mar 4 18:26:11 2012 +0000
-
-    Fixed Bug #60717 (Order of traits in use statement can cause a fatal error)
-    # Compatibility is now correctly checked in both directions.
-    # Introduced helper method for the test.

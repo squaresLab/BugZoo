@@ -1,5 +1,0 @@
-commit 1056c57fa989c959a26c309584575043fa24d19f
-Author: Michael Wallner <mike@php.net>
-Date:   Tue May 24 05:06:53 2011 +0000
-
-    MFH: Fix Bug #54727, a re-incarnation of #26862

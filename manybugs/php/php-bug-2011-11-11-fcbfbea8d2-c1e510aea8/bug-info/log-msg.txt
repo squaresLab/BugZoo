@@ -1,5 +1,0 @@
-commit c1e510aea8f4cebb6863a65b9219201951912819
-Author: Felipe Pena <felipe@php.net>
-Date:   Fri Nov 11 21:39:11 2011 +0000
-
-    - Fixed bug #60261 (phar dos null pointer)

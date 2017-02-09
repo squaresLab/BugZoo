@@ -1,6 +1,0 @@
-1110c1110,1112
-< 		char *what = class_type->ce_flags & ZEND_ACC_INTERFACE ? "interface" : "abstract class";
----
-> 		char *what =   (class_type->ce_flags & ZEND_ACC_INTERFACE)                ? "interface"
-> 					 :((class_type->ce_flags & ZEND_ACC_TRAIT) == ZEND_ACC_TRAIT) ? "trait"
-> 					 :                                                              "abstract class";
