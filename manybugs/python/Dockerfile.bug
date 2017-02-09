@@ -1,26 +1,57 @@
 FROM christimperley/repairbox:manybugs-python
 
-ADD bug-info /experiment/bug-info
-ADD diffs /experiment/diffs
-ADD fixed /experiment/fixed
-ADD preprocessed /experiment/preprocessed
-ADD src.tar.gz /experiment
-ADD test.sh /experiment
-ADD configuration-default /experiment
-ADD problem.json /experiment
+ARG scenario
+ENV SCENARIO_NAME ${scenario}
+ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
+RUN cd /experiment && \
+    wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
+          -O scenario.tar.gz && \
+    tar -xf scenario.tar.gz && \
+    mv ${SCENARIO_NAME} scenario && \
+    rm scenario.tar.gz && \
+    cd scenario && \
+    rm -rf  python \
+            coverage* \
+            configuration-oracle \
+            local-root \
+            limit* \
+            *.cache \
+            *.debug.* \
+            sanity \
+            compile.pl \
+            *~ \
+            test \
+            fixed-program.txt && \
+    mv bug-failures bug-info && \
+    mv bugged-program.txt manifest.txt && \
+    mv *.lines bug-info && \
+    mv fix-failures bug-info && \
+    cd ../ && \
+    mv scenario/* /experiment && \
+    rm -rf scenario && \
+    sudo chown -R docker /experiment
+
+# fix the test harness
+RUN sed -i "s/cd python/cd src/" test.sh && \
+    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
+    sed -i "s#/experiment/limit#timeout 300#" test.sh && \
+    sed -i "s#..//python-run-tests.pl#../python-run-tests.pl#" test.sh && \
+    sed -i "s#/usr/bin/perl#perl#" test.sh
+
+# revert to bug commit
+RUN cd src && \
+    hg update -r $(grep "fix revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
+    mv Lib/test ../test && \
+    hg update -r $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
+    rm -rf Lib/test && \
+    mv ../test Lib/test
 
 # each Python bug has its own (more efficient) compile script
-ADD compile.sh /experiment
-
-# reclaim ownership of /experiment
-RUN sudo chown -R docker /experiment
+# TODO: re-integrate
+#ADD compile.sh /experiment
 
 # configure
 RUN cd src && \
-      ./configure
-#    ./configure --host i386-pc-linux-gnu --with-dbmliborder=gdbm CFLAGS="-m32 -std=gnu99 -fgnu89-inline" CXXFLAGS="-m32" LDFLAGS="-m32"
-#    ./configure --with-dbmliborder=gdbm --with-threads
-# \
-#                "CFLAGS=-m32 -std=gnu99 -fgnu89-inline" \
-#                "CXXFLAGS=-m32" \
-#                "LDFLAGS=-m32"
+    ./configure CFLAGS="-fprofile-arcs -ftest-coverage -g" \
+                CXXFLAGS="-fprofile-arcs -ftest-coverage -g" \
+                LDFLAGS="-lgcov --coverage"
