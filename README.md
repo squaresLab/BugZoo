@@ -202,3 +202,5 @@ with a particular repair tool, we can exploit Docker's volume sharing ability to
 use the binaries provided by another container. Below we give an example of how
 to run GenProg (provided by its own, isolated container) on one of the repair
 boxes, without the need to extend or modify them.
+
+https://blog.replicated.com/engineering/refactoring-a-dockerfile-for-image-size/
