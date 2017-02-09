@@ -1,0 +1,78 @@
+FROM christimperley/repairbox:manybugs64
+MAINTAINER Chris Timperley "christimperley@gmail.com"
+
+ADD libxml.patch /experiment
+ADD php-helper.php /experiment
+RUN sudo chown -R docker /experiment
+
+# Install necessary packages
+RUN sudo apt-get update && \
+    sudo apt-get install -y libxml2-dev autoconf && \
+    sudo apt-get clean && \
+    sudo apt-get autoremove && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install bison 2.5 from source
+RUN cd /tmp && \
+    wget http://alpha.gnu.org/gnu/bison/bison-2.5_rc1.tar.gz && \
+    tar -xvf bison-2.5_rc1.tar.gz && \
+    cd bison-2.5_rc1 && \
+    ./configure && \
+    (make || exit 0) && \
+    sed -i "s#_GL_WARN_ON_USE (gets#//_GL_WARN_ON_USE (gets#g" lib/stdio.h && \
+    make && sudo make install && \
+    cd / && rm -rf /tmp/*
+
+# Download the Git repo for PHP
+RUN git clone https://github.com/php/php-src.git src
+
+# Download the PHP scenario archive from the ManyBugs website
+ARG scenario
+ENV SCENARIO_NAME ${scenario}
+RUN cd /experiment && \
+    wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
+          -O scenario.tar.gz && \
+    tar -xf scenario.tar.gz && \
+    mv ${SCENARIO_NAME} scenario && \
+    rm scenario.tar.gz
+RUN cd scenario && \
+    rm -rf  php \
+            coverage* \
+            configuration-oracle \
+            local-root \
+            limit* \
+            php-tests-* \
+            *.cache \
+            *.debug.* \
+            sanity \
+            compile.pl \
+            fixed-program.txt
+RUN cd scenario && \
+    mv bug-failures bug-info && \
+    mv bugged-program.txt manifest.txt && \
+    mv *.lines bug-info && \
+    mv fix-failures bug-info && \
+    rm php-run-tests && \
+    cd ../ && \
+    mv scenario/* /experiment && \
+    rm -rf scenario && \
+    sudo chown -R docker /experiment
+
+# Go back to the appropriate commit
+RUN cd src && \
+    git checkout $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3)
+
+# configure
+RUN cd src && ./buildconf
+
+## Apply the libxml patch
+#RUN cd /experiment && \
+#    mv libxml.patch src && \
+#    cd src && \
+#    cat libxml.patch | patch -p0 && \
+#    rm libxml.patch
+## Configure (rebuilding the script, if possible)
+## (disable PHAR to prevent seg. fault)
+#RUN cd /experiment/src && \
+#    ./configure --disable-phar || (./buildconf && ./configure --disable-phar)
+##./configure --host=i686-pc-linux-gnu "CFLAGS=-m32 -std=gnu99" "CXXFLAGS=-m32" "LDFLAGS=-m32"
