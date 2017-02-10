@@ -40,11 +40,8 @@ RUN sed -i "s/cd python/cd src/" test.sh && \
 
 # revert to bug commit
 RUN cd src && \
-    hg update --clean -r $(grep "fix revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
-    mv Lib/test ../test && \
-    hg update --clean -r $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
-    rm -rf Lib/test && \
-    mv ../test Lib/test
+    hg update -r $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
+    hg revert -r $(grep "fix revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) Lib/test
 
 # each Python bug has its own (more efficient) compile script
 # TODO: re-integrate
