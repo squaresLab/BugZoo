@@ -36,7 +36,8 @@ RUN sed -i "s/cd python/cd src/" test.sh && \
     sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
     sed -i "s#/experiment/limit#timeout 300#" test.sh && \
     sed -i "s#..//python-run-tests.pl#../python-run-tests.pl#" test.sh && \
-    sed -i "s#/usr/bin/perl#perl#" test.sh
+    sed -i "s#/usr/bin/perl#perl#" test.sh && \
+    sed -i "s#&> /dev/null##" python-run-tests.pl
 
 # revert to bug commit
 RUN cd src && \
