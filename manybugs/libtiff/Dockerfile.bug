@@ -8,7 +8,6 @@ ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
 # - downloads scenario archive
 # - throws away useless files
 # - modifies naming of files to match RepairBox standards
-# - runs configure
 # - fixes test harness to work on Docker container
 RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
           -O scenario.tar.gz && \
@@ -16,19 +15,36 @@ RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO
     rm -f scenario.tar.gz && \
     mv libtiff-* scenario && \
     cd scenario && \
-    rm -rf fixed-program.txt *.cache coverage.* coverage limit* sanity *debug* compile.pl local-root test && \
-    rm configuration-oracle && \
+    rm -rf fixed-program.txt *.cache coverage.* coverage limit* sanity *debug* compile.pl local-root && \
+    rm -rf libtiff configuration-oracle && \
     mv fix-failures bug-info && \
     mv bug-failures bug-info && \
     mv fix.lines bug-info && \
     mv fault.lines bug-info && \
     rm -rf libtiff/.git && \
     mv bugged-program.txt preprocessed/manifest.txt && \
-    mv libtiff src && \
-    (cd src && make clean && ./configure) && \
     cd /experiment && \
     mv scenario/* . && rm -rf scenario && \
     sed -i "s#/usr/bin/perl#perl#" test.sh && \
     sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
     sed -i "s#/experiment/limit#timeout 5#g" test.sh && \
-    sed -i "s#cd libtiff#cd src#g" test.sh
+    sed -i "s#cd libtiff#cd src#g" test.sh && \
+
+# fix the test harness paths
+RUN cd test && \
+    find . -type f -exec sed -i "s#${OLD_LOCATION}/libtiff#/experiment/src#" {} \; && \
+    find . -type f -exec sed -i "s#${OLD_LOCATION}/local-root#/experiment/local-root#" {} \;
+
+# modify source code to match bug revision, configure, then replace the
+# tests
+RUN cd src && \
+    git checkout $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
+    mkdir -p contrib/acorn && \
+    echo "all:\n" > contrib/acorn/Makefile.in && \
+    mkdir -p contrib/mac-cw && \
+    echo "all:\n" > contrib/mac-cw/Makefile.in && \
+    mkdir -p contrib/mac-mpw && \
+    echo "all:\n" > contrib/mac-mpw/Makefile.in && \
+    ./configure && \
+    rm -rf test && \
+    mv ../test .
