@@ -1,7 +1,0 @@
-changeset:   70101:088e5d705171
-parent:      70098:ec35f86efb0d
-parent:      70100:49c998a88777
-user:        Nadeem Vawda <nadeem.vawda@gmail.com>
-date:        Sat May 14 14:19:56 2011 +0200
-summary:     Merge: #12050: zlib.decompressobj().decompress() now clears the unconsumed_tail
-

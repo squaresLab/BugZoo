@@ -3,11 +3,12 @@ scenarios = $(shell cat scenarios.txt)
 all: python $(scenarios)
 
 python:
-	docker build -t christimperley/repairbox:manybugs-python	.
+	docker build -t christimperley/repairbox:manybugs-python	. > /dev/null
 
 $(scenarios): python
-	cp Dockerfile.bug python-bug-$(@F)/Dockerfile
-	docker build -t christimperley/repairbox:manybugs-$<-bug-$(@F) python-bug-$(@F)
-	rm -f python-bug-$(@F)/Dockerfile
+	@ echo "building python-bug-$(@F)"
+	@ docker build	--build-arg scenario=python-bug-$(@F) \
+									-f Dockerfile.bug \
+									-t christimperley/repairbox:manybugs-$<-bug-$(@F) . #> /dev/null
 
 .PHONY: python $(scenarios)

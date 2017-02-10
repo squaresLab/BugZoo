@@ -1,7 +1,0 @@
-changeset:   69372:9801e1f78264
-parent:      69368:febe57ec7053
-parent:      69371:503578ddf286
-user:        Ezio Melotti <ezio.melotti@gmail.com>
-date:        Fri Apr 15 16:52:35 2011 +0300
-summary:     #5057: Merge with 3.2.
-

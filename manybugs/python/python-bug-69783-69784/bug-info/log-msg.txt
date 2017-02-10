@@ -1,6 +1,0 @@
-changeset:   69784:e6f6ac8c2502
-parent:      69779:f587197864b0
-user:        Alexander Belopolsky <alexander.belopolsky@gmail.com>
-date:        Mon May 02 12:20:52 2011 -0400
-summary:     Issue #11930: Remove deprecated time.accept2dyear.
-

@@ -1,7 +1,0 @@
-changeset:   70023:821d7885c7ec
-parent:      70019:6ad356525381
-parent:      70022:3847b279d665
-user:        Ezio Melotti <ezio.melotti@gmail.com>
-date:        Wed May 11 01:23:41 2011 +0300
-summary:     #12051: merge with 3.2.
-

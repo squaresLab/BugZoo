@@ -1,7 +1,0 @@
-changeset:   70059:05e0227e3879
-parent:      70056:87196154dec8
-parent:      70058:47ca1244a929
-user:        Antoine Pitrou <solipsis@pitrou.net>
-date:        Fri May 13 00:25:53 2011 +0200
-summary:     Issue #12062: Fix a flushing bug when doing a certain type of I/O sequence
-
