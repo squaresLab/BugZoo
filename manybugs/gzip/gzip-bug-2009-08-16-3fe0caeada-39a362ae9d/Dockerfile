@@ -14,7 +14,7 @@ RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO
     mv gzip-* scenario && \
     cd scenario && \
     rm -rf fixed-program.txt *.cache coverage.* coverage limit* sanity *debug* compile.pl local-root && \
-    rm -rf gzip configuration-oracle *~ && \
+    rm -rf gzip configuration-oracle && \
     mv fix-failures bug-info && \
     mv bug-failures bug-info && \
     mv fix.lines bug-info && \
@@ -22,14 +22,14 @@ RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO
     mv bugged-program.txt preprocessed/manifest.txt && \
     cd /experiment && \
     mv scenario/* . && rm -rf scenario && \
+    sed -i "s#/usr/bin/perl#perl#" test.sh && \
+    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
+    sed -i "s#/experiment/limit#timeout 5#g" test.sh && \
     sed -i "s#cd gzip#cd src#g" test.sh
-#    sed -i "s#/usr/bin/perl#perl#" test.sh && \
-#    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
-#    sed -i "s#/experiment/limit#timeout 5#g" test.sh && \
 
 RUN cd src && \
     git checkout $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
-    ./bootstrap && \
+    ./buildconf && \
     ./configure
 
 #RUN sudo chown -R docker /experiment && \
