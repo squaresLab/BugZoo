@@ -16,7 +16,7 @@ USER docker
 # reclaim ownership or /usr/local/bin
 RUN sudo chown -R docker /usr/local/bin
 
-# install Pythia and 
+# install Pythia
 ENV PYTHIA_VERSION 9429848
 RUN sudo apt-get update && \
     sudo apt-get install -y wget zip python3-setuptools software-properties-common && \
