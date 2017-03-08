@@ -6,26 +6,17 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 ENV PROGRAM_VERSION <PROGRAM_VERSION>
 
 # Generate the oracle and list of test commands
-RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
+RUN mkdir fixed && \
+    cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
+    cp source/${SOURCE_FILE} fixed && \
     (cd source && make build) && \
     pythia generate "${EXECUTABLE}"
 
 # Prepare faulty version of the program
 # TODO: assume manifest has already been provided?
-RUN cp -r versions.alt/versions.seeded/${PROGRAM_VERSION}/* source && \
+RUN mkdir preprocessed && \
     sed -i '1i#include "FaultSeeds.h"' source/${SOURCE_FILE} && \
-    echo "${SOURCE_FILE##*/}" > /experiment/source/manifest.txt
-
-# Generate the source code for the oracle
-# Preprocess the source code file and remove all others
-RUN mkdir fixed && \
-    cp -r source/* fixed && \
-    cd fixed && \
-    rm -f *.exe *.i *.o *.s && \
-    sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' Makefile && \
-    make build && \
-    mv "${PREPROCESSED_FILE}" "${SOURCE_FILE}" && \
-    find . -type f ! -name "${SOURCE_FILE}" -exec rm -f {} \;
+    echo "${SOURCE_FILE##*/}" > /experiment/preprocessed/manifest.txt
 
 # Remove unnecessary files
 RUN rm -rf  testplans testplans.alt\

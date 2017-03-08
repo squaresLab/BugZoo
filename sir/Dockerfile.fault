@@ -21,13 +21,11 @@ RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/
     sed -i 's# -save-temps##' source/Makefile
 
 # Copy the preprocessed source code to the preprocessed directory
-RUN mkdir preprocessed && \
-    cp source/*.c preprocessed && \
-    cp source/manifest.txt manifest.txt
+RUN cp source/*.c preprocessed
 
-# Generate the diff
-RUN mkdir diff && \
-    diff preprocessed/${SOURCE_FILE} fixed/${SOURCE_FILE} > diff/${SOURCE_FILE}.diff || exit 0
+# Generate the diff (we don't need this, we just need the line number of the fault def)
+#RUN mkdir diff && \preprocessed
+#    diff original/${SOURCE_FILE} fixed/${SOURCE_FILE} > diff/${SOURCE_FILE}.diff || exit 0
 
 # Determine the number of positive and negative tests before generating the
 # problem.json file
