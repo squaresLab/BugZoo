@@ -11,4 +11,6 @@ $(scenarios): php
 								-f Dockerfile.bug \
 								-t christimperley/repairbox:manybugs-$<-bug-$(@F) . > /dev/null
 
+#push: $(scenarios)
+
 .PHONY: php $(scenarios)
