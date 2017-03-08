@@ -94,6 +94,13 @@ RUN cd /tmp && \
     sudo pip install wllvm && \
     cd / && rm -rf /tmp/*
 
+# install vim
+RUN sudo apt-get update && \
+    sudo apt-get install -y vim && \
+    sudo apt-get autoremove -y && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Create the experiment directory and set it as the work dir
 RUN sudo mkdir -p /experiment && sudo chown -R docker /experiment
 WORKDIR /experiment
