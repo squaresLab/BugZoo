@@ -1,6 +1,6 @@
 all: gcd
 
 gcd:
-	docker build -t repairbox:tse-gcd gcd
+	docker build -t christimperley/repairbox:tse-gcd gcd
 
 .PHONY: gcd
