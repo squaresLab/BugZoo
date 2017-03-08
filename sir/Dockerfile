@@ -3,7 +3,7 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # install essential packages, including Java
 RUN sudo apt-get update && \
-    sudo apt-get install -y openjdk-7-jdk jq ant build-essential gcc moreutils wget zip python3-setuptools && \
+    sudo apt-get install -y openjdk-7-jdk ant build-essential gcc moreutils wget zip python3-setuptools && \
     sudo apt-get clean && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
