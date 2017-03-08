@@ -104,3 +104,14 @@ RUN sudo apt-get update && \
 # Create the experiment directory and set it as the work dir
 RUN sudo mkdir -p /experiment && sudo chown -R docker /experiment
 WORKDIR /experiment
+
+# Add placeholder EXTRA_PATH env. variable
+ENV EXTRA_PATH ""
+ADD entrypoint.sh /entrypoint.sh
+ARG /bin/bash
+
+# Install jq
+RUN sudo apt-get update && \
+    sudo apt-get install -y jq && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
