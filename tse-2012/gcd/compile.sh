@@ -5,5 +5,5 @@ exe=$1
 exe_dir=$(dirname "$exe")
 
 pushd $exe_dir
-timeout $TIME_LIMIT gcc gcd.c -o gcd -m32
+timeout $TIME_LIMIT gcc gcd.c -o gcd
 exit $?
