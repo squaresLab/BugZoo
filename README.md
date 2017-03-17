@@ -73,6 +73,31 @@ is a great way to quickly get to grips with the structure of a repair box, and
 so users new to Docker are advised to try this before advancing onto more
 advanced ways of using repair boxes.
 
+### Performing Automated Repair
+
+The preferred way to apply a particular automated repair or program analysis
+technique to a given repair box is to carefully create a separate, portable
+container for that program. This container should install all of its binaries
+and run-time dependencies to a named directory within `/opt` (e.g.
+`/opt/genprog`). To allow the binaries within this container to be shared with
+the repair box, this directory (e.g. `/opt/genprog`) should be declared as a
+volume within the associated `Dockerfile` for the repair technique.
+
+An except from the GenProg Dockerfile is given below, showing how binaries
+are installed to a mountable volume.
+
+```
+# compile GenProg binary to a shareable directory
+RUN mkdir /opt/genprog && \
+    make && \
+    mv genprog /opt/genprog
+# mark the directory as a volume, allowing it to be mounted by other containers
+VOLUME /opt/genprog
+```
+
+More general details on the approach can be found at:
+https://blog.replicated.com/engineering/refactoring-a-dockerfile-for-image-size/
+
 ### Getting Data from a Container
 
 Since containers are completely isolated from their host environment (by default), sharing
@@ -164,13 +189,3 @@ to perform automated repair of the bug using GenProg 2.
 * continuous integration, with automatic construction and pushing of
   (modified) Docker images to DockerHub.
 * automatic Docker image flattening
-
-## Running a Repair Tool within a Repair Box
-
-Rather than extending a particular repair box with the files necessary to use it
-with a particular repair tool, we can exploit Docker's volume sharing ability to
-use the binaries provided by another container. Below we give an example of how
-to run GenProg (provided by its own, isolated container) on one of the repair
-boxes, without the need to extend or modify them.
-
-https://blog.replicated.com/engineering/refactoring-a-dockerfile-for-image-size/
