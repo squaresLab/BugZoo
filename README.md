@@ -52,18 +52,18 @@ There are a number of ways of interacting with repair boxes. Below we give
 a few examples of the most common forms of interaction, and where those
 might be appropriate.
 
-### Simplest Approach -- Replicating the Bug
+### Replicating the Bug
 
-The simplest approach is to launch a `/bin/bash` instance within the repair box
-of interest and attach it to the terminal, using the command given below.
+To simply inspect a particular repair box and to replicate the bug it contains,
+the user may create a container for that bug using the command below:
 
 ```
-$ docker run --rm -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
+$ docker run --rm -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
 ```
 
 Note, the `--rm` flag ensures that the container for this bug is ephemeral, and
 will be destroyed once the user exits the `/bin/bash` instance. The `it` flag is
-used to attach the Docker container to the user's `tty`, allowing them to
+used to attach the Docker container to the user's `tty`, allowing him or her to
 interact with the container as if it were their own machine.
 
 Once inside, the user may install any necessary software (you will need to run
