@@ -52,7 +52,7 @@ There are a number of ways of interacting with repair boxes. Below we give
 a few examples of the most common forms of interaction, and where those
 might be appropriate.
 
-### Simplest Approach
+### Simplest Approach -- Replicating the Bug
 
 The simplest approach is to launch a `/bin/bash` instance within the repair box
 of interest and attach it to the terminal, using the command given below.
@@ -72,36 +72,6 @@ order to reduce their size) and interact with the program how they please. This
 is a great way to quickly get to grips with the structure of a repair box, and
 so users new to Docker are advised to try this before advancing onto more
 advanced ways of using repair boxes.
-
-### Writing your own Dockerfile
-
-Rather than re-installing all of the packages you need each time you use a repair box,
-you can use a particular repair box as your base layer when writing your own
-Dockerfile. As a simple example, the Dockerfile below builds on top of the repair
-box for one of the PHP bug scenarios (as specified by the `FROM` command), installing
-`vim`.
-
-```
-FROM christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
-MAINTAINER Your Name "youremail@foo.bar"
-
-RUN sudo apt-get update
-RUN sudo apt-get install -y vim
-```
-
-After writing your own Dockerfile, you can create a named image for it using the
-following command:
-
-```
-$ cd directory-with-your-dockerfile
-$ docker build -t name-for-your-image .
-```
-
-You can then access a container based on that image using the command below:
-
-```
-$ docker run --rm -it name-for-your-image /bin/bash
-```
 
 ### Getting Data from a Container
 
