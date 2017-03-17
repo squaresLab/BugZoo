@@ -95,6 +95,41 @@ RUN mkdir /opt/genprog && \
 VOLUME /opt/genprog
 ```
 
+Prior to launching the repair box of interest, the user should create a named
+container for the repair tool being studied from its associated image. An
+example of this is given below.
+
+```
+docker create --log-driver none --name genprog christimperley/genprog
+```
+
+Note, that the `--log-driver none` argument is added to instruct Docker not to
+maintain logs for a particular container, allowing memory to be saved.
+
+Once the named container for the repair tool is up and running, a container
+for the bug scenario should be launched using the command below, where
+`--volumes-from genprog` should be modified according to the name of the
+container for your repair technique.
+
+```
+docker run --rm -it \
+  --log-driver none \
+  --volumes-from genprog
+  --name rbox \
+  christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
+```
+
+Note, once inside the container, you will need to modify the `PATH` variable
+to include the mounted volume.
+
+Finally, when you're finished with your experiment, you will need to manually
+destroy the container for your repair technique. In our running example, this
+is achieved by the following:
+
+```
+docker rm genprog
+```
+
 More general details on the approach can be found at:
 https://blog.replicated.com/engineering/refactoring-a-dockerfile-for-image-size/
 
