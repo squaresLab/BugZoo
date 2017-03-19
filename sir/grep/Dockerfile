@@ -8,6 +8,7 @@ ENV SOURCE_FILE grep.c
 ENV PREPROCESSED_FILE grep.i
 
 # Mount bug files to /experiment
+ADD tests.pythia.json /experiment
 ADD grep.tar.gz /experiment
 RUN sudo chown -R docker /experiment
 WORKDIR /experiment
@@ -16,9 +17,3 @@ WORKDIR /experiment
 # files
 RUN mv grep/* . && rmdir grep && \
     rm -rf build.properties info
-
-# Generate the Pythia script
-RUN pythia build-manifest-from-mts . ${UNIVERSE_FILE} ${EXECUTABLE}
-
-# TODO: Fix bug in each of the universe files
-#RUN sed -i "76 s#QUOTE}#QUOTE}\"#" testplans.alt/$PROGRAM_VER/v0.cov.universe.esc

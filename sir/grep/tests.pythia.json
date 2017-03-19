@@ -1,0 +1,3702 @@
+[
+  {
+    "command": "<<EXECUTABLE>> -n I <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -n 1 <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\?' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\?' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '?' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -F '?' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -F '/*#include' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[1-5]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E -c '[^a-z]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[X^YZ]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[1-]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\w' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[[:alpha:]]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"[[:cntrl:]]\" <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"[[:digit:]]\" <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"[[:graph:]]\" <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"[[:lower:]]\" <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"[[:print:]]\" <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[[:punct:]]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[[:space:]]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[[:upper:]]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[[:xdigit:]]' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E . <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'b$' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'b\\>' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'b\\B' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'b*' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'a{2,}' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'a{,3}' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'a{1,5}' <<SANDBOX>>/grep1.dat",
+    "input": {
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'dfaanalyze|ab''[lo]' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[ab]|include' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[ab]''le' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[12]' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'include|\\W''reg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[^[:alnum:]]|include' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[^[:alnum:]]''include' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '[^[:alnum:]]' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'In.lude|\\?''?%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'in.lude|\\??''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'In.lude|\\?(?''%)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'In.lude|\\??' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\?''?.:' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*(?''p.)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*?p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n''?.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'main|n?''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n(?''.lud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n?.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n''?.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n(?''.lud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n?.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'In.lude|\\?''+%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'in.lude|\\?+''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'In.lude|\\?(+''%)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'In.lude|\\?+' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\?''+.:' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*(+''p.)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*+p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n''+.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n+''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n(+''.lud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n+.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n''+.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n(+''.lud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n+.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'In.lude|\\?''{1}%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'in.lude|\\?''{1}%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'In.lude|\\?({1}''%)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'In.lude|\\?{1}' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\?''{1}.:' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*({1}''p.)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*{1}p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n''{1}.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n{1}''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n({1}''.lud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n{1}.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n''{1}.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n({1}''.lud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n{1}.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'In.lude|\\?''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'In.lude|\\?' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*\\*''p.' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|\\?''?%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'include|\\?''?%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|\\?(?''%)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'Include|\\??' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\?''? :' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*(?''p)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*?preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n''?clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'main|in?''clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n(?''clud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'main|n?clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n''?clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n(?''clud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n?clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|\\?''+%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'include|\\?''+%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|\\?(+''%)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'Include|\\?+' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\?''+ 0' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*(+''pattern)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*+preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'main|n''+clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n+''clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n(+''clud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n+clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n''+clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n(+''clud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n+clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|\\?''{1}%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'include|\\?{1}''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|\\?({1}''%)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'Include|\\?{1}' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\?''{1} 0' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*({1}''pr)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*{1}preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n''{1}clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'main|n{1}''clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n({1}''clud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|n{1}clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n''{1}clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n({1}''clud)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'n{1}clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'Include|\\?''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec 'Include|\\?' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E 'static'' int' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E '\\*preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"[]X]|end\"\" -\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"[]X]|end\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"[]X]\"\" -\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"[]X]\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(?g|if \\(\"\"?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(?g|^if \\(?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(?g|^if \\((?\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(?g|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(\"\"?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\((?\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a?g|if a\"\"?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a?g|^if a?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a?g|^if a(?\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a?g|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a\"\"?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a(?\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(+g|if \\(\"\"+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(+g|^if \\(+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(+g|^if \\((+\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(+g|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(\"\"+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\((+\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a+g|if a\"\"+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a+g|^if a+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a+g|^if a(+\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a+g|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a\"\"+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a(+\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\({1}g|if \\(\"\"{1}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\({1}g|^if \\({1}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\({1}g|^if \\(({1}\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\({1}g|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(\"\"{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\(({1}\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if \\({1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a{1}g|if a\"\"{1}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a{1}g|^if a{1}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a{1}g|^if a({1}\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a{1}g|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a\"\"{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a({1}\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"^if a{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(?g|if \\(\"\"?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(?g|\\<if \\(?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(?g|\\<if \\((?\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(?g|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(\"\"?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\((?\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a?g|if a\"\"?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a?g|\\<if a?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a?g|\\<if a(?\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a?g|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a\"\"?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a(?\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(+g|if \\(\"\"+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(+g|\\<if \\(+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(+g|\\<if \\((+\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(+g|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(\"\"+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\((+\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a+g|if a\"\"+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a+g|\\<if a+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a+g|\\<if a(+\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a+g|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a\"\"+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a(+\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\({1}g|if \\(\"\"{1}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\({1}g|\\<if \\({1}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\({1}g|\\<if \\(({1}\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\({1}g|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(\"\"{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\(({1}\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if \\({1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a{1}g|if a\"\"{1}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a{1}g|\\<if a{1}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a{1}g|\\<if a({1}\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a{1}g|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a\"\"{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a({1}\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\<if a{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(?g|if \\(\"\"?out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(?g|\\bif \\(?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(?g\\b|\\bif \\((?\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(?g\\b|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(\"\"?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\((?\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(?gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a?g|if a\"\"?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a?g|\\bif a?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a?g|\\bif a(?\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a?g|\\bif out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a\"\"?gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a(?\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(+g\\b|if \\(\"\"+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(+g|\\bif \\(+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(+g|\\bif \\((+\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(+g|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(\"\"+gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\((+\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a+g\\b|if a\"\"+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"if a+g\\b|\\bif a+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a+g|\\bif a(+\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a+g|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"if a\"\"+gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a(+\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"if a+gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\({1}g|if \\(\"\"{1}out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\({1}g|\\bif \\({1}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"if \\({1}g\\b|\\bif \\(({1}\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\({1}g|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(\"\"{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\(({1}\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif \\({1}gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a{1}g|if a\"\"{1}out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a{1}g|\\bif a{1}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a{1}g|\\bif a({1}\"\"out)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"if a{1}g\\b|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a\"\"{1}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"\\bif a({1}\"\"gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -E \"if a{1}gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Ec static <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -F 'if (out)' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -F \"if (gout)\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -F agout <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'dfaanalyze\\|ab''[lo]' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(dfaanalyze\\|ab\\)''[lo]' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[ab]\\|include' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '[ab]''le' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[12]' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'include\\|\\W''reg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(include\\|\\W\\)''reg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '[^[:alnum:]]\\|include' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[^[:alnum:]]''include' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '[^[:alnum:]]' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'In.lude\\|?''\\?%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'in.lude\\|?\\?''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(in.lude\\|?\\?\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc 'In.lude\\|?\\?' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '?''\\?.:' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\*\\?p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n''\\?.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'main\\|n\\?''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(main\\|n\\?\\)''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'Include\\|n\\?.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n''\\?.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n\\?.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'In.lude\\|?''\\+%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'in.lude\\|?\\+''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(in.lude\\|?\\+\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc 'In.lude\\|?\\+' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '?''\\+.:' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '\\*\\+p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n''\\+.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n\\+''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(Include\\|n\\+\\)''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n\\+.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'n''\\+.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'n\\+.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'In.lude\\|?''\\{1\\}%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'in.lude\\|?\\{1\\}''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(in.lude\\|?\\{1\\}\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -c 'In.lude\\|?\\{1\\}' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '?''\\{1\\}.:' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\*\\{1\\}p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n''\\{1\\}.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'Include\\|n\\{1\\}''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '\\(Include\\|n\\{1\\}\\)''.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n\\{1\\}.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'n''\\{1\\}.lude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n\\{1\\}.lud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'In.lude\\|?''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '\\(In.lude\\|?\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc 'In.lude\\|?' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '\\*\\*''p.' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\*p.eg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|?''\\?%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'include\\|?\\?''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(include\\|?\\?\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc 'Include\\|?\\?' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '?''\\? :' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\*\\?preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n''\\?clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'main\\|in\\?''clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '\\(main\\|in\\?\\)''clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'main\\|n\\?clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n''\\?clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n\\?clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|?''\\+%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'include\\|?\\+''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(include\\|?\\+\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc 'Include\\|?\\+' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '?''\\+ 0' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\*\\+preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'main\\|n''\\+clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n\\+''clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(Include\\|n\\+\\)''clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n\\+clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n''\\+clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n\\+clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|?''\\{1\\}%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'include\\|?\\{1\\}''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(include\\|?\\{1\\}\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc 'Include\\|?\\{1\\}' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '?''\\{1\\} 0' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '\\*\\{1\\}preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'Include\\|n''\\{1\\}clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'main\\|n\\{1\\}''clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(main\\|n\\{1\\}\\)''clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|n\\{1\\}clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'n''\\{1\\}clude' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> 'n\\{1\\}clud' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'Include\\|?''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G '\\(Include\\|?\\)''%' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc 'Include\\|?' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G 'static'' int' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> '\\*preg' <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"[]X]\\|end\"\" -\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\([]X]\\|end\\)\"\" -\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"[]X]\\|end\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"[]X]\"\" -\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"[]X]\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\?g\\|if (\"\"\\?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\?g\\|^if (\\?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(^if (\\?g\\|^if (\\?\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\?g\\|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\"\"\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"^if (\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\?g\\|if a\"\"\\?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\?g\\|^if a\\?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(^if a\\?g\\|^if a\\?\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\?g\\|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\"\"\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\+g\\|if (\"\"\\+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\+g\\|^if (\\+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(^if (\\+g\\|^if (\\+\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\+g\\|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\"\"\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\+g\\|if a\"\"\\+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\+g\\|^if a\\+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(^if a\\+g\\|^if a\\+\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"^if a\\+g\\|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\"\"\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\{1\\}g\\|if (\"\"\\{1\\}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\{1\\}g\\|^if (\\{1\\}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(^if (\\{1\\}g\\|^if (\\{1\\}\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\{1\\}g\\|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\"\"\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if (\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\{1\\}g\\|if a\"\"\\{1\\}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"^if a\\{1\\}g\\|^if a\\{1\\}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\(^if a\\{1\\}g\\|^if a\\{1\\}\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"^if a\\{1\\}g\\|^if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"^if a\"\"\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"^if a\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\?g\\|if (\"\"\\?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\?g\\|\\<if (\\?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\<if (\\?g\\|\\<if (\\?\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\?g\\|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\"\"\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\<if a\\?g\\|if a\"\"\\?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\?g\\|\\<if a\\?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\<if a\\?g\\|\\<if a\\?\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\?g\\|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\<if a\"\"\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\+g\\|if (\"\"\\+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\+g\\|\\<if (\\+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\<if (\\+g\\|\\<if (\\+\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\+g\\|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\"\"\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\+g\\|if a\"\"\\+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\+g\\|\\<if a\\+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\<if a\\+g\\|\\<if a\\+\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\+g\\|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\<if a\"\"\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\{1\\}g\\|if (\"\"\\{1\\}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\{1\\}g\\|\\<if (\\{1\\}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\<if (\\{1\\}g\\|\\<if (\\{1\\}\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\{1\\}g\\|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\<if (\"\"\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if (\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\{1\\}g\\|if a\"\"\\{1\\}out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\{1\\}g\\|\\<if a\\{1\\}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\<if a\\{1\\}g\\|\\<if a\\{1\\}\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\{1\\}g\\|\\<if out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\"\"\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\<if a\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\bif (\\?g\\|if (\"\"\\?out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\?g\\|\\bif (\\?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\bif (\\?g\\|\\bif (\\?\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\bif (\\?g\\b\\|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\"\"\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\?gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\\?g\\|if a\"\"\\?out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\bif a\\?g\\|\\bif a\\?\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\(\\bif a\\?g\\|\\bif a\\?\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\\?g\\|\\bif out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\"\"\\?gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\\?gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\+g\\b\\|if (\"\"\\+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\bif (\\+g\\|\\bif (\\+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\(\\bif (\\+g\\|\\bif (\\+\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\+g\\|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\"\"\\+gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\+gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\\+g\\b\\|if a\"\"\\+out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"if a\\+g\\b\\|\\bif a\\+\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(if a\\+g\\b\\|\\bif a\\+\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\\+g\\|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"if a\"\"\\+gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"if a\\+gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\{1\\}g\\|if (\"\"\\{1\\}out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\{1\\}g\\|\\bif (\\{1\\}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\bif (\\{1\\}g\\|\\bif (\\{1\\}\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif (\\{1\\}g\\|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\bif (\"\"\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> \"\\bif (\\{1\\}gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\\{1\\}g\\|if a\"\"\\{1\\}out\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\\{1\\}g\\|\\bif a\\{1\\}\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\(\\bif a\\{1\\}g\\|\\bif a\\{1\\}\\)\"\"out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"if a\\{1\\}g\\b\\|\\bif out\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"\\bif a\"\"\\{1\\}gout\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -G \"if a\\{1\\}gout\\b\" <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  },
+  {
+    "command": "<<EXECUTABLE>> -Gc static <<SANDBOX>>/grep*.dat",
+    "input": {
+      "grepNull.dat": "grepNull.dat",
+      "grep0.dat": "grep0.dat",
+      "grep1.dat": "grep1.dat"
+    }
+  }
+]
