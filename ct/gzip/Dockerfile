@@ -5,6 +5,7 @@ ARG FAULT_ID
 ENV FAULT_ID ${FAULT_ID}
 ENV SCENARIO_NAME "ct-${PROGRAM_NAME}-${FAULT_ID}"
 
+ADD lines.txt /experiment/lines.txt
 ADD ${SOURCE_FILE} /experiment/source/${SOURCE_FILE}
 RUN sudo chown -R docker source && \
     cd source && \
