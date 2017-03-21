@@ -1,0 +1,7 @@
+It turns out my initially seeded bug couldn't be fixed, since the case labels
+are attached to the first statement for each case.
+
+* it's possible to get around this by adding NOOPs as the first statement after
+  a case label
+* still... there are over 12,000 edits within the window of this statement. The
+  odds of hitting it on any run are very slim.
