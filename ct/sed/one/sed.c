@@ -731,7 +731,6 @@ compile_program (vector, open_line)
 	  break;
 	case 'b':
 	case 't':
-    // BUG: missing statement
 	  cur_cmd->cmd = ch;
 	  jumps = setup_jump (jumps, cur_cmd, vector);
 	  break;
