@@ -5,7 +5,7 @@ FROM christimperley/repairbox:ubuntu64
 
 # install PHP oracle and build deps
 RUN sudo apt-get update && \
-    sudo apt-get install -y php5 automake autoconf bison libxml2-dev && \
+    sudo apt-get install -y php5 automake autoconf bison libxml2-dev moreutils && \
     sudo apt-get clean && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -39,6 +39,7 @@ RUN cd source && \
 RUN cp -r mutated/* source && \
     cd source && \
     make clean && make EXTRA_CFLAGS="${EXTRA_CFLAGS} -save-temps" -j$(nproc) && \
+    php ./run-tests.php -p sapi/cli/php -g PASS > /experiment/passes.txt && \
     cd /experiment && \
     mkdir -p "preprocessed/$(dirname $(cat manifest.txt))" && \
     cp  "source/$(basename --suffix .c $(cat manifest.txt)).i" \
@@ -46,3 +47,10 @@ RUN cp -r mutated/* source && \
     cd source && make clean && \
     find . -name '*.i' -delete && \
     find . -name '*.s' -delete
+
+# figure out the number of failing tests
+RUN grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" passes.txt | sponge passes.txt && \
+    grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" tests.txt | sponge tests.txt && \
+    diff  --new-line-format="" \
+          --unchanged-line-format="" \
+          tests.txt passes.txt > fails.txt
