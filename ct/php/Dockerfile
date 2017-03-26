@@ -1,7 +1,8 @@
 FROM christimperley/repairbox:ubuntu64
 
-#ADD test.sh /workspace/test.sh
-#ADD compile.sh /workspace/compile.sh
+ENV MAKE_TIMEOUT 600
+ADD test.sh /workspace/test.sh
+ADD compile.sh /workspace/compile.sh
 
 # install PHP oracle and build deps
 RUN sudo apt-get update && \
@@ -11,12 +12,17 @@ RUN sudo apt-get update && \
 
 # clone the PHP repo
 RUN git clone https://github.com/php/php-src source
-ARG PHP_REVISION
-ENV PHP_REVISION ${PHP_REVISION}
+ARG REVISION
+ENV REVISION ${REVISION}
 RUN cd source && \
-    git reset --hard ${PHP_REVISION}
+    git reset --hard ${REVISION}
 
-# add the mutated files
+# scenario details
+ARG PROGRAM_NAME
+ARG SCENARIO_NAME
+ENV PROGRAM_NAME ${PROGRAM_NAME}
+ENV SCENARIO_NAME ${SCENARIO_NAME} 
+ADD lines.txt /experiment/lines.txt
 ADD manifest.txt /experiment/manifest.txt
 ADD mutated /experiment/mutated
 
@@ -54,3 +60,10 @@ RUN grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" passes.txt | sponge pass
     diff  --new-line-format="" \
           --unchanged-line-format="" \
           tests.txt passes.txt > fails.txt
+
+# create the problem.json file
+RUN mv manifest.txt preprocessed/manifest.txt && \
+    sed "s/__POSITIVE_TESTS__/$(wc -l passes.txt | cut -d' ' -f1)/" problem.template.json && \
+    sed "s/__NEGATIVE_TESTS__/$(wc -l fails.txt | cut -d' ' -f1)/" problem.template.json && \
+    sed "s/__SCENARIO_NAME__/${SCENARIO_NAME}/" problem.template.json > problem.json && \
+    rm problem.template.json

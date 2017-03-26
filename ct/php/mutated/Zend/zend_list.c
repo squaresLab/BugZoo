@@ -48,10 +48,10 @@ ZEND_API int zend_list_delete(zend_resource *res)
 {
 	if (--GC_REFCOUNT(res) <= 0) {
     // bug
-    return zend_hash_index_del(&EG(regular_list), res->handle);
+    return SUCCESS;
 	} else {
     // bug
-    return SUCCESS;
+    return zend_hash_index_del(&EG(regular_list), res->handle);
 	}
 }
 
