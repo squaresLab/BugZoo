@@ -14,6 +14,14 @@ case ${test_id} in
     test_name=$(tail -n+${offset} fails.txt | head -n1);;
 esac
 
-pushd "${here_dir}/source"
+pushd "${here_dir}/source" > /dev/null
 timeout ${TEST_TIMEOUT} php run-tests.php -q -p sapi/cli/php "${test_name}" \
-  |& grep -q "FAIL " && exit 1 || exit 0
+  |& grep -q "FAIL "
+failed=$?
+if [ $failed -eq 0 ]; then
+  echo "FAILED (${test_id}): ${test_name}"
+  exit 1
+else
+  echo "PASSED (${test_id}): ${test_name}"
+  exit 0
+fi
