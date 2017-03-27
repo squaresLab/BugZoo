@@ -1,6 +1,7 @@
 FROM christimperley/repairbox:ubuntu64
 
 ENV MAKE_TIMEOUT 600
+ENV TEST_TIMEOUT 300
 ADD test.sh /workspace/test.sh
 ADD compile.sh /workspace/compile.sh
 
@@ -59,11 +60,13 @@ RUN grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" passes.txt | sponge pass
     grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" tests.txt | sponge tests.txt && \
     diff  --new-line-format="" \
           --unchanged-line-format="" \
-          tests.txt passes.txt > fails.txt
+          tests.txt passes.txt > fails.txt || exit 0
 
 # create the problem.json file
+ADD problem.template.json /experiment/problem.template.json
 RUN mv manifest.txt preprocessed/manifest.txt && \
-    sed "s/__POSITIVE_TESTS__/$(wc -l passes.txt | cut -d' ' -f1)/" problem.template.json && \
-    sed "s/__NEGATIVE_TESTS__/$(wc -l fails.txt | cut -d' ' -f1)/" problem.template.json && \
-    sed "s/__SCENARIO_NAME__/${SCENARIO_NAME}/" problem.template.json > problem.json && \
+    sed "s/<<POSITIVE_TESTS>>/$(wc -l passes.txt | cut -d' ' -f1)/" problem.template.json \
+    | sed "s/<<NEGATIVE_TESTS>>/$(wc -l fails.txt | cut -d' ' -f1)/" \
+    | sed "s/<<PROGRAM_NAME>>/$(wc -l fails.txt | cut -d' ' -f1)/" \
+    | sed "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/" > problem.json && \
     rm problem.template.json
