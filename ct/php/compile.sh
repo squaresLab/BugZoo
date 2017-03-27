@@ -6,8 +6,8 @@
 #
 # Uses the following environmental variables:
 # - MAKE_TIMEOUT
-ulimit -m 500000
-ulimit -v 500000
+ulimit -m 1000000
+ulimit -v 2000000
 ulimit -H -v
 
 mjobs=$(nproc)
@@ -27,9 +27,9 @@ if !(cp "$candidate_dir/." "$src_dir" -rf); then
   exit 1
 fi
 
+pushd source
 make clean
-
-if !(timeout ${MAKE_TIMEOUT} make -j${mjobs} -C "$src_dir" > /dev/null); then
+if !(timeout ${MAKE_TIMEOUT} make -j${mjobs} > /dev/null); then
   echo "ERROR: failed to execute make within source directory"
   exit 1
 fi

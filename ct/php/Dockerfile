@@ -2,8 +2,8 @@ FROM christimperley/repairbox:ubuntu64
 
 ENV MAKE_TIMEOUT 600
 ENV TEST_TIMEOUT 300
-ADD test.sh /workspace/test.sh
-ADD compile.sh /workspace/compile.sh
+ADD test.sh /experiment/test.sh
+ADD compile.sh /experiment/compile.sh
 
 # install PHP oracle and build deps
 RUN sudo apt-get update && \
