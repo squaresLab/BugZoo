@@ -10,7 +10,6 @@ ulimit -m 1000000
 ulimit -v 2000000
 ulimit -H -v
 
-mjobs=$(nproc)
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 src_dir="$here_dir/source"
 
@@ -27,9 +26,8 @@ if !(cp "$candidate_dir/." "$src_dir" -rf); then
   exit 1
 fi
 
-pushd source
-make clean
-if !(timeout ${MAKE_TIMEOUT} make -j${mjobs} > /dev/null); then
+pushd "${src_dir}"
+if !(timeout ${MAKE_TIMEOUT} make -j > /dev/null); then
   echo "ERROR: failed to execute make within source directory"
   exit 1
 fi

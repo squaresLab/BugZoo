@@ -67,6 +67,6 @@ ADD problem.template.json /experiment/problem.template.json
 RUN mv manifest.txt preprocessed/manifest.txt && \
     sed "s/<<POSITIVE_TESTS>>/$(wc -l passes.txt | cut -d' ' -f1)/" problem.template.json \
     | sed "s/<<NEGATIVE_TESTS>>/$(wc -l fails.txt | cut -d' ' -f1)/" \
-    | sed "s/<<PROGRAM_NAME>>/$(wc -l fails.txt | cut -d' ' -f1)/" \
+    | sed "s/<<PROGRAM_NAME>>/${PROGRAM_NAME}/" \
     | sed "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/" > problem.json && \
     rm problem.template.json
