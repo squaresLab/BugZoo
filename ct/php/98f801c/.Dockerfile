@@ -72,6 +72,9 @@ RUN grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" passes.txt | sponge pass
           --unchanged-line-format="" \
           tests.txt passes.txt > fails.txt || exit 0
 
+# remove all tests that occur in the blacklist
+RUN ./blacklist.sh
+
 # create the problem.json file
 RUN mv manifest.txt preprocessed/manifest.txt && \
     sed "s/<<POSITIVE_TESTS>>/$(wc -l passes.txt | cut -d' ' -f1)/" problem.template.json \

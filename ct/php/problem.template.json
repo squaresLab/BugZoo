@@ -12,5 +12,5 @@
     }
   },
   "coverage": {"unique": true},
-  "test_command": "./test.sh __EXE_NAME__ __TEST_NAME__ &> /dev/null"
+  "test_command": "./test.sh __TEST_NAME__ &> /dev/null"
 }

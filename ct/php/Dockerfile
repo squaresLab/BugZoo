@@ -3,6 +3,8 @@ FROM christimperley/repairbox:ubuntu64
 ENV MAKE_TIMEOUT 600
 ENV TEST_TIMEOUT 300
 ENV PROGRAM_NAME php
+ADD blacklist.txt /experiment/blacklist.txt
+ADD blacklist.sh /experiment/blacklist.sh
 ADD test.sh /experiment/test.sh
 ADD compile.sh /experiment/compile.sh
 ADD problem.template.json /experiment/problem.template.json
