@@ -1,0 +1,18 @@
+FROM christimperley/repairbox:ct-python-base
+
+# go to the specified revision
+ARG REVISION
+ENV REVISION ${REVISION}
+RUN cd source && \
+    git reset --hard ${REVISION}
+
+# scenario details
+ARG SCENARIO_NAME
+ENV SCENARIO_NAME ${SCENARIO_NAME} 
+ADD lines.txt /experiment/lines.txt
+ADD manifest.txt /experiment/manifest.txt
+ADD mutated /experiment/mutated
+
+RUN cd source && \
+    ./configure && \
+    make 
