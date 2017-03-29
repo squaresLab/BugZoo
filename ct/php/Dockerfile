@@ -7,10 +7,11 @@ ADD test.sh /experiment/test.sh
 ADD compile.sh /experiment/compile.sh
 ADD problem.template.json /experiment/problem.template.json
 
-# install PHP oracle and build deps
+# Install necessary packages
 RUN sudo apt-get update && \
-    sudo apt-get install -y php5 automake autoconf bison libxml2-dev moreutils && \
+    sudo apt-get install -y libxml2-dev psmisc moreutils php5 automake && \
     sudo apt-get clean && \
+    sudo apt-get autoremove && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # clone the PHP repo
