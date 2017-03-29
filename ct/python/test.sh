@@ -15,7 +15,7 @@ case ${test_id} in
 esac
 
 pushd "${here_dir}/source" > /dev/null
-timeout ${TEST_TIMEOUT} python -m test "${test_name}" \
+timeout ${TEST_TIMEOUT} python -m test --timeout ${TEST_TIMEOUT} "${test_name}" \
   |& grep -q "PASS "
 passed=$?
 if [ $passed -eq 0 ]; then
