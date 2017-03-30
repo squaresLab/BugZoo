@@ -22,9 +22,9 @@ unsigned char *MD5(const unsigned char *d, size_t n, unsigned char *md)
     static unsigned char m[MD5_DIGEST_LENGTH];
 
     if (md == NULL)
-        md = m;
-    if (!MD5_Init(&c))
         return NULL;
+    if (!MD5_Init(&c))
+        md = m;
 #ifndef CHARSET_EBCDIC
     MD5_Update(&c, d, n);
 #else
