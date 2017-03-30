@@ -23,11 +23,9 @@ RUN cd source && \
     cd ../ && \
     ./extract-preprocessed.sh fixed && \
     find . -name '*.i' -delete && \
-    find . -name '*.s' -delete
-
-# generate list of tests
-RUN (cd source && ./python -m test --list-tests > ../tests.txt) && \
-    ./filter.sh tests.txt > tests.txt && \
+    find . -name '*.s' -delete && \
+    (cd source && ./python -m test --list-tests > ../tests.txt) && \
+    ./filter.sh tests.txt | sponge tests.txt && \
     (cd source && make clean)
 
 # inject the buggy code and find the failing test cases
