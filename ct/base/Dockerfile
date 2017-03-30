@@ -8,3 +8,5 @@ RUN sudo apt-get update && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD problem.template.json /experiment/problem.template.json
+ADD extract-preprocessed.sh /experiment/extract-preprocessed.sh
+ADD filter.sh /experiment/filter.sh
