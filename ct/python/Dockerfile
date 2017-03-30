@@ -1,12 +1,11 @@
-FROM christimperley/repairbox:ubuntu64
+FROM christimperley/repairbox:ct-base
 
 ENV MAKE_TIMEOUT 600
 ENV TEST_TIMEOUT 300
 ENV PROGRAM_NAME python
 
-#ADD test.sh /experiment/test.sh
+ADD test-by-name.sh /experiment/test-by-name.sh
 #ADD compile.sh /experiment/compile.sh
-ADD problem.template.json /experiment/problem.template.json
 
 # Install necessary packages
 RUN sudo apt-get update && \
@@ -16,7 +15,6 @@ RUN sudo apt-get update && \
                             libssl-dev \
                             libreadline-gplv2-dev \
                             libbz2-dev \
-                            psmisc \
                             libsqlite3-dev \
                             gcc-multilib \
                             g++-multilib \
@@ -24,8 +22,7 @@ RUN sudo apt-get update && \
                             mercurial \
                             tcl-dev \
                             tix-dev \
-                            liblzma-dev \
-                            moreutils && \
+                            liblzma-dev && \
     sudo apt-get clean && \
     sudo apt-get autoremove && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
