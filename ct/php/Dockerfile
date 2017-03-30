@@ -6,7 +6,6 @@ ENV PROGRAM_NAME php
 
 ADD blacklist.txt /experiment/blacklist.txt
 ADD run-test-name.sh /experiment/run-test-name.sh
-ADD compile.sh /experiment/compile.sh
 
 # Install necessary packages
 RUN sudo apt-get update && \
