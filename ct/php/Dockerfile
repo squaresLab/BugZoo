@@ -1,17 +1,16 @@
-FROM christimperley/repairbox:ubuntu64
+FROM christimperley/repairbox:ct-base
 
 ENV MAKE_TIMEOUT 600
 ENV TEST_TIMEOUT 300
 ENV PROGRAM_NAME php
+
 ADD blacklist.txt /experiment/blacklist.txt
-ADD blacklist.sh /experiment/blacklist.sh
-ADD test.sh /experiment/test.sh
+ADD run-test-name.sh /experiment/run-test-name.sh
 ADD compile.sh /experiment/compile.sh
-ADD problem.template.json /experiment/problem.template.json
 
 # Install necessary packages
 RUN sudo apt-get update && \
-    sudo apt-get install -y libxml2-dev psmisc moreutils php5 automake && \
+    sudo apt-get install -y libxml2-dev php5 automake && \
     sudo apt-get clean && \
     sudo apt-get autoremove && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
