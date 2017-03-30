@@ -12,3 +12,4 @@ ADD extract-preprocessed.sh /experiment/extract-preprocessed.sh
 ADD filter.sh /experiment/filter.sh
 ADD test.sh /experiment/test.sh
 ADD blacklist.sh /experiment/blacklist.sh
+ADD compile.sh /experiment/compile.sh
