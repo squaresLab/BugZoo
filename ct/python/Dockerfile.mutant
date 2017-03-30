@@ -27,7 +27,7 @@ RUN cd source && \
 
 # generate list of tests
 RUN (cd source && ./python -m test --list-tests > ../tests.txt) && \
-    ./filter.sh tests.txt > filtered.txt && \
+    ./filter.sh tests.txt > tests.txt && \
     (cd source && make clean)
 
 # inject the buggy code and find the failing test cases
