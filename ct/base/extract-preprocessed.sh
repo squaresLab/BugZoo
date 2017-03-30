@@ -1,7 +1,7 @@
 #!/bin/bash
-pushd /experiment
+pushd /experiment &> /dev/null
 while read to; do
   from=$(echo "$to" | sed -e 's#.c$#.i##')
-  mkdir -p "$(dirname "$from")"
+  mkdir -p "preprocessed/$(dirname "$from")"
   cp "source/${from}" "preprocessed/${to}"
 done < preprocessed/manifest.txt
