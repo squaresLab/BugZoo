@@ -1,17 +1,17 @@
-all: base 98f801c
+all: base one two
 
 base:
 	docker build -t christimperley/repairbox:ct-php-base .
 
-98f801c: base
-	cp Dockerfile.mutant 98f801c/.Dockerfile && \
-	cd 98f801c && \
+$(BUGS): base
+	cp Dockerfile.mutant $@/.Dockerfile && \
+	cd $@ && \
 	docker build \
 		-f .Dockerfile \
 		--build-arg BISON_VERSION=2.7.1 \
 		--build-arg AUTOCONF_VERSION=2.69 \
-		--build-arg SCENARIO_NAME=test_scenario \
+		--build-arg SCENARIO_NAME=ct-php-$@ \
 		--build-arg REVISION=98f801c \
-		-t christimperley/repairbox:ct-php-98f801c .
+		-t christimperley/repairbox:ct-php-$@ .
 
-.PHONY: base 98f801c
+.PHONY: base $(BUGS)

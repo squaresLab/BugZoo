@@ -42,19 +42,20 @@ RUN mkdir preprocessed && \
 
 # build oracle and generate preprocessed code [GENERIC]
 RUN cd source && \
-    ./buildconf && ./configure && make EXTRA_CFLAGS="${EXTRA_CFLAGS} -save-temps=obj" && \
+    ./buildconf && ./configure && make -j EXTRA_CFLAGS="${EXTRA_CFLAGS} -save-temps=obj" && \
     cd ../ && \
     ./extract-preprocessed.sh fixed && \
     find . -name '*.i' -delete && \
     find . -name '*.s' -delete && \
     (cd source && php ./run-tests.php -p sapi/cli/php -g PASS) > tests.txt && \
-    ./filter.sh tests.txt | sponge tests.txt && \
+    grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" tests.txt | sponge tests.txt  && \
     (cd source && make clean)
 
 # inject the buggy code and find the failing test cases
 RUN cp -r mutated/* source && \
-    (cd source && make clean && make EXTRA_CFLAGS="${EXTRA_CFLAGS} -save-temps=obj") && \
-    ./filter.sh tests.txt > passes.txt && \
+    (cd source && make clean && make -j EXTRA_CFLAGS="${EXTRA_CFLAGS} -save-temps=obj") && \
+    (cd source && php ./run-tests.php -p sapi/cli/php -g PASS) > passes.txt && \
+    grep -oPe "(?<=\[)[\w|\.|\-|\/|\d]+\.phpt(?=\] \$)" passes.txt | sponge passes.txt  && \
     ./extract-preprocessed.sh preprocessed && \
     (cd source && make clean) && \
     find . -name '*.i' -delete && \

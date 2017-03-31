@@ -7,4 +7,4 @@ docker create --log-driver none \
 docker run  --log-driver none \
             --volumes-from genprog \
             --rm \
-            -it christimperley/repairbox:ct-php-98f801c
+            -it christimperley/repairbox:ct-php-one

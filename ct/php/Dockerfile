@@ -5,7 +5,7 @@ ENV TEST_TIMEOUT 300
 ENV PROGRAM_NAME php
 
 ADD blacklist.txt /experiment/blacklist.txt
-ADD run-test-name.sh /experiment/run-test-name.sh
+ADD test-by-name.sh /experiment/test-by-name.sh
 
 # Install necessary packages
 RUN sudo apt-get update && \
