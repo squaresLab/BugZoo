@@ -12,14 +12,24 @@ a90e64b: base
 		--build-arg REVISION=a90e64b \
 		-t christimperley/repairbox:ct-python-a90e64b .
 
-binascii-one: base
-	cp Dockerfile.mutant binascii-one/.Dockerfile && \
-	cd binascii-one && \
+tree-one: base
+	cp Dockerfile.mutant tree-one/.Dockerfile && \
+	cd tree-one && \
 	docker build \
 		-f .Dockerfile \
-		--build-arg SCENARIO_NAME=ct-python-binascii-one \
+		--build-arg SCENARIO_NAME=ct-python-tree-one \
 		--build-arg REVISION=a90e64b \
-		-t christimperley/repairbox:ct-python-binascii-one .
+		-t christimperley/repairbox:ct-python-tree-one .
+
+time-one: base
+	cp Dockerfile.mutant time-one/.Dockerfile && \
+	cd time-one && \
+	docker build \
+		-f .Dockerfile \
+		--build-arg SCENARIO_NAME=ct-python-time-one \
+		--build-arg REVISION=a90e64b \
+		-t christimperley/repairbox:ct-python-time-one .
+
 
 
 .PHONY: base a90e64b binascii-one
