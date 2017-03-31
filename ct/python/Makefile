@@ -1,4 +1,4 @@
-all: base a90e64b
+all: base a90e64b binascii-one
 
 base:
 	docker build -t christimperley/repairbox:ct-python-base .
@@ -12,5 +12,14 @@ a90e64b: base
 		--build-arg REVISION=a90e64b \
 		-t christimperley/repairbox:ct-python-a90e64b .
 
+binascii-one: base
+	cp Dockerfile.mutant binascii-one/.Dockerfile && \
+	cd binascii-one && \
+	docker build \
+		-f .Dockerfile \
+		--build-arg SCENARIO_NAME=ct-python-binascii-one \
+		--build-arg REVISION=a90e64b \
+		-t christimperley/repairbox:ct-python-binascii-one .
 
-.PHONY: base a90e64b
+
+.PHONY: base a90e64b binascii-one
