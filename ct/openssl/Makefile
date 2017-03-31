@@ -1,4 +1,4 @@
-BUGS = one
+BUGS = one three
 
 all: base $(BUGS)
 
