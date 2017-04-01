@@ -1,3 +1,4 @@
+*.swo
 *.swp
 debug.txt
 configuration.full
