@@ -1,4 +1,7 @@
-all: base one two
+# BUGS = one two three
+BUGS = 11bdb85
+
+all: base $(BUGS)
 
 base:
 	docker build -t christimperley/repairbox:ct-php-base .

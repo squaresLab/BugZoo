@@ -6,5 +6,6 @@ docker create --log-driver none \
               christimperley/genprog
 docker run  --log-driver none \
             --volumes-from genprog \
+            --name rboxphp \
             --rm \
-            -it christimperley/repairbox:ct-php-one
+            -it christimperley/repairbox:ct-php-$1

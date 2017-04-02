@@ -25,10 +25,9 @@ RUN cd /tmp && \
     cd / && rm -rf /tmp/*
 
 # go to the specified revision
-ARG REVISION
-ENV REVISION ${REVISION}
+ADD revision.txt /experiment/.revision.txt
 RUN cd source && \
-    git reset --hard ${REVISION}
+    git reset --hard $(cat /experiment/.revision.txt)
 
 # scenario details
 ARG SCENARIO_NAME

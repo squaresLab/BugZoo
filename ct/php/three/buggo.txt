@@ -1,0 +1,4 @@
+Possibly:
+zend_list.c:288 (nah -- no failure)
+zend_interfaces.c:428 (19 bugs)
+zend_interfaces.c:460 (? bugs)
