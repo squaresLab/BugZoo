@@ -1,9 +1,10 @@
 FROM christimperley/repairbox:ct-php-base
 
 # Install specified version of autoconf from source
-ARG AUTOCONF_VERSION
-ENV AUTOCONF_VERSION ${AUTOCONF_VERSION}
+ADD autoconf.txt /experiment/.autoconf
 RUN cd /tmp && \
+    test -f /experiment/.autoconf && \
+    AUTOCONF_VERSION=$(cat /experiment/.autoconf) && \
     wget -nv http://ftp.gnu.org/gnu/autoconf/autoconf-${AUTOCONF_VERSION}.tar.gz && \
     tar -xf autoconf-${AUTOCONF_VERSION}.tar.gz && \
     cd autoconf-${AUTOCONF_VERSION} && \
@@ -12,9 +13,10 @@ RUN cd /tmp && \
     cd / && rm -rf /tmp/*
 
 # Install specified version of bison from source
-ARG BISON_VERSION
-ENV BISON_VERSION ${BISON_VERSION}
+ADD bison.txt /experiment/.bison
 RUN cd /tmp && \
+    test -f /experiment/.bison && \
+    BISON_VERSION=$(cat /experiment/.bison) && \
     wget http://ftp.gnu.org/gnu/bison/bison-${BISON_VERSION}.tar.gz && \
     tar -xvf bison-${BISON_VERSION}.tar.gz && \
     cd bison-${BISON_VERSION} && \
