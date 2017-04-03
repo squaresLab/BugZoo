@@ -1,35 +1,18 @@
-all: base a90e64b binascii-one
+SEEDED = one two three
+BROKEN = 1bea762
+BUGS = 6c3d527 b7c9150 c393ee8 9f8ad3f d7e6433
+
+all: base $(BUGS)
 
 base:
 	docker build -t christimperley/repairbox:ct-python-base .
 
-a90e64b: base
-	cp Dockerfile.mutant a90e64b/.Dockerfile && \
-	cd a90e64b && \
+$(BUGS): base
+	cp Dockerfile.mutant $@/.Dockerfile && \
+	cd $@ && \
 	docker build \
 		-f .Dockerfile \
-		--build-arg SCENARIO_NAME=test_scenario \
-		--build-arg REVISION=a90e64b \
-		-t christimperley/repairbox:ct-python-a90e64b .
+		--build-arg SCENARIO_NAME=ct-python-$@ \
+		-t christimperley/repairbox:ct-python-$@ .
 
-tree-one: base
-	cp Dockerfile.mutant tree-one/.Dockerfile && \
-	cd tree-one && \
-	docker build \
-		-f .Dockerfile \
-		--build-arg SCENARIO_NAME=ct-python-tree-one \
-		--build-arg REVISION=a90e64b \
-		-t christimperley/repairbox:ct-python-tree-one .
-
-time-one: base
-	cp Dockerfile.mutant time-one/.Dockerfile && \
-	cd time-one && \
-	docker build \
-		-f .Dockerfile \
-		--build-arg SCENARIO_NAME=ct-python-time-one \
-		--build-arg REVISION=a90e64b \
-		-t christimperley/repairbox:ct-python-time-one .
-
-
-
-.PHONY: base a90e64b binascii-one
+.PHONY: base $(BUGS)

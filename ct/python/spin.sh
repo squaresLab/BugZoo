@@ -6,5 +6,6 @@ docker create --log-driver none \
               christimperley/genprog
 docker run  --log-driver none \
             --volumes-from genprog \
+            --name rbox \
             --rm \
-            -it christimperley/repairbox:ct-python-time-one
+            -it christimperley/repairbox:ct-python-$1

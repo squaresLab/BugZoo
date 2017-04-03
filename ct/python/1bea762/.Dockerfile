@@ -1,10 +1,10 @@
 FROM christimperley/repairbox:ct-python-base
 
 # go to the specified revision
-ARG REVISION
-ENV REVISION ${REVISION}
-RUN cd source && \
-    git reset --hard ${REVISION}
+ADD revision.txt /experiment/.revision.txt
+RUN test -f .revision.txt && \
+    cd source && \
+    git reset --hard $(cat /experiment/.revision.txt)
 
 # scenario details
 ARG SCENARIO_NAME
