@@ -1,24 +1,15 @@
 #!/bin/bash
-here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-test_id=$1
-num_pos=$(wc -l passes.txt | cut -d' ' -f1)
-num_neg=$(wc -l fails.txt | cut -d' ' -f1)
-num_all=$((${num_pos} + ${num_neg}))
+#
+# This script simply forwards a test execution command onto Pythia, along
+# with the --coverage flag where appropriate
+candidate_dir=$1
+test_id=$2
 
-case ${test_id} in
-  p*)
-    offset=$(echo "${test_id}" | cut -d'p' -f2)
-    test_name=$(tail -n+${offset} passes.txt | head -n1);;
-  n*)
-    offset=$(echo "${test_id}" | cut -d'n' -f2)
-    test_name=$(tail -n+${offset} fails.txt | head -n1);;
-esac
-
-./test-by-name.sh "${test_name}" &> /dev/null
-if [ $? -eq 0 ]; then
-  echo "PASSED (${test_id}): ${test_name}"
-  exit 0
+if [[ $(dirname "$candidate_dir") = "coverage" ]]; then
+  cov_flag="--coverage" 
 else
-  echo "FAILED (${test_id}): ${test_name}"
-  exit 1
+  cov_flag="" 
 fi
+
+pythia run-by-id $cov_flag "${EXECUTABLE}" "${test_id}"
+exit $? # is this implicit?

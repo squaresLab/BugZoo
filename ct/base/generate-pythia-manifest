@@ -1,0 +1,19 @@
+#!/usr/bin/python
+import json
+
+def generate():
+    tests = []
+
+    with open("tests.txt", "r") as f_tests:
+        for test_name in f_tests:
+            tests.append(test_name.strip())
+
+    tests = map(lambda t: {"command": "/experiment/test-by-name.sh '{}'".format(t)}, tests)
+    
+    with open("tests.pythia.json", "w") as f_manifest:
+        json.dump(tests, f_manifest)
+
+    print("Generated Pythia manifest file")
+
+if __name__ == "__main__":
+    generate()
