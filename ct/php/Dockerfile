@@ -3,6 +3,7 @@ FROM christimperley/repairbox:ct-base
 ENV MAKE_TIMEOUT 600
 ENV TEST_TIMEOUT 300
 ENV PROGRAM_NAME php
+ENV EXECUTABLE /experiment/source/sapi/cli/php
 
 ADD blacklist.txt /experiment/blacklist.txt
 ADD test-by-name.sh /experiment/test-by-name.sh
