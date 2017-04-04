@@ -6,5 +6,6 @@ docker create --log-driver none \
               christimperley/genprog
 docker run  --log-driver none \
             --volumes-from genprog \
+            --name rbox \
             --rm \
-            -it christimperley/repairbox:ct-openssl-one
+            -it christimperley/repairbox:ct-openssl-$1

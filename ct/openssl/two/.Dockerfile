@@ -1,10 +1,10 @@
 FROM christimperley/repairbox:ct-openssl-base
 
-# go to the specified revision
-ADD revision.txt /experiment/.revision.txt
-RUN test -f .revision.txt && \
-    cd source && \
-    git reset --hard $(cat /experiment/.revision.txt)
+# go to the specified revision [GENERIC]
+ARG REVISION
+ENV REVISION ${REVISION}
+RUN cd source && \
+    git reset --hard ${REVISION}
 
 # scenario details
 ARG SCENARIO_NAME
