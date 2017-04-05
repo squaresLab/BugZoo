@@ -3,6 +3,7 @@ FROM christimperley/repairbox:ct-base
 ENV MAKE_TIMEOUT 600
 ENV TEST_TIMEOUT 300
 ENV PROGRAM_NAME python
+ENV EXECUTABLE /experiment/source/python
 
 ADD test-by-name.sh /experiment/test-by-name.sh
 #ADD compile.sh /experiment/compile.sh
