@@ -10,11 +10,13 @@ base:
 	docker build -t christimperley/repairbox:ct-openssl-base .
 
 $(BUGS): base
+	cp blacklist.txt $@/blacklist.txt && \
 	cp Dockerfile.mutant $@/.Dockerfile && \
 	cd $@ && \
 	docker build \
 		-f .Dockerfile \
 		--build-arg SCENARIO_NAME=ct-openssl-$@ \
-		-t christimperley/repairbox:ct-openssl-$@ .
+		-t christimperley/repairbox:ct-openssl-$@ . && \
+	docker push christimperley/repairbox:ct-openssl-$@
 
 .PHONY: base $(BUGS)
