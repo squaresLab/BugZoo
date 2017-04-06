@@ -1,0 +1,3 @@
+Python/future.c:28 (continue -> return 0)
+Python/future.c:66 (return 1 -> return 0)
+Python/future.c:114 (return 1 -> return 0)
