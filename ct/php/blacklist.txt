@@ -1,1 +1,2 @@
 tests/security/bug53226.phpt
+tests/classes/static_this.phpt
