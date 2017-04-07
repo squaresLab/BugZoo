@@ -2,3 +2,6 @@ test_multiprocessing_fork
 test_multiprocessing_forkserver
 test_multiprocessing_main_handling
 test_multiprocessing_spawn
+test_posix
+test_site
+test__all__

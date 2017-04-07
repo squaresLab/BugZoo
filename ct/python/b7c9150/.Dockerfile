@@ -17,7 +17,6 @@ RUN mkdir preprocessed && \
     find . -type f | sed -e 's#^./##' > ../preprocessed/manifest.txt
 
 # build oracle and generate preprocessed code [GENERIC]
-ADD blacklist.txt /experiment/blacklist.txt
 RUN cd source && \
     ./configure && \
     make -j CC="gcc -save-temps=obj" && \

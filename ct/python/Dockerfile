@@ -6,7 +6,6 @@ ENV PROGRAM_NAME python
 ENV EXECUTABLE /experiment/source/python
 
 ADD test-by-name.sh /experiment/test-by-name.sh
-#ADD compile.sh /experiment/compile.sh
 
 # Install necessary packages
 RUN sudo apt-get update && \
@@ -30,3 +29,5 @@ RUN sudo apt-get update && \
 
 # clone the repo
 RUN git clone https://github.com/python/cpython source
+
+ADD blacklist.txt /experiment/blacklist.txt
