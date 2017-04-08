@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+import os
+import pythia
+import json
+
+# Generates the manifest file for the scenario
+def generate_manifest():
+    print("Generating manifest file...")
+
+    # Load blacklist
+    blacklist = []
+    with open("blacklist.txt", "r") as f:
+        for test_name in f:
+            blacklist.append(test_name.strip())
+
+    # Load list of tests
+    tests = []
+    with open("tests.txt", "r") as f_tests:
+        for test_name in f_tests:
+            tests.append(test_name.strip())
+    tests = [t for t in tests if not t in blacklist]
+    tests = [{"name": t, "command": "/experiment/test-by-name.sh '{}'".format(t)} for t in tests]
+   
+    # Write manifest to file
+    with open("tests.pythia.json", "w") as f:
+        json.dump(tests, f)
+
+    print("Generated manifest file")
+
+
+# Removes failing test cases from the oracle and manifest
+def tidy_manifest():
+    print("Filtering manifest file...")
+    manifest = []
+    oracle = []
+
+    # read oracle and manifest from file
+    with open("tests.pythia.json", "r") as f:
+        manifest = json.load(f)
+    with open("oracle.pythia.json", "r") as f:
+        oracle = json.load(f)
+
+    manifest_prime = []
+    oracle_prime = []
+    for (i, outcome) in enumerate(oracle):
+        if outcome['retcode'] == 0:
+            manifest_prime.append(manifest[i])
+            oracle_prime.append(outcome)
+
+    # write updated oracle and manifest to file
+    with open("tests.pythia.json", "w") as f:
+        json.dump(manifest_prime, f)
+    with open("oracle.pythia.json", "w") as f:
+        json.dump(oracle_prime, f)
+
+    print("Filtered manifest file")
+
+if __name__ == "__main__":
+    generate_manifest()
+    print("Generating oracle...")
+    pythia.generate(os.environ['EXECUTABLE'])
+    print("Generated oracle")
+    tidy_manifest()

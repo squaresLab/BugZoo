@@ -8,10 +8,8 @@ RUN sudo apt-get update && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD problem.template.json /experiment/problem.template.json
-ADD extract-preprocessed.sh /experiment/extract-preprocessed.sh
-ADD filter.sh /experiment/filter.sh
+ADD extract-preprocessed /usr/bin/extract-preprocessed
 ADD test.sh /experiment/test.sh
-ADD blacklist.sh /experiment/blacklist.sh
 ADD compile.sh /experiment/compile.sh
-ADD generate-pythia-manifest /experiment/generate-pythia-manifest
-ADD generate-description /experiment/generate-description
+ADD generate-oracle /usr/bin/generate-oracle
+ADD generate-description /usr/bin/generate-description
