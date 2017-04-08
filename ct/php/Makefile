@@ -16,6 +16,7 @@ $(BUGS): base
 	docker build \
 		-f .Dockerfile \
 		--build-arg SCENARIO_NAME=ct-php-$@ \
-		-t christimperley/repairbox:ct-php-$@ .
+		-t christimperley/repairbox:ct-php-$@ . && \
+	docker push christimperley/repairbox:ct-php-$@
 
 .PHONY: base $(BUGS)
