@@ -17,3 +17,4 @@ RUN sudo apt-get update && \
 
 # clone the PHP repo
 RUN git clone https://github.com/php/php-src source
+ADD list-tests /usr/bin/list-tests

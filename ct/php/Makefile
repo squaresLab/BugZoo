@@ -1,8 +1,8 @@
 # BUGS = one two three
 # https://github.com/php/php-src/commit/8ee126f0bbd3bad8be21294bfb508df124995713
-BUGS = 11bdb85 9fb92ee d7f5f60 4d41242 1d6b3f1 01c028a
+BUGS = 11bdb85 9fb92ee 4d41242 1d6b3f1 01c028a
 SILENT = 8ee126f ef214aa c459805
-BROKEN = 5cea7a9
+BROKEN = 5cea7a9 d7f5f60 
 
 
 all: base $(BUGS)

@@ -1,3 +1,8 @@
 tests/security/bug53226.phpt
 tests/classes/static_this.phpt
 Zend/tests/bug55509.phpt
+ext/standard/tests/array/array_walk_recursive_object1.phpt
+ext/standard/tests/file/file_get_contents_error001.phpt
+ext/fileinfo/tests/bug61964.phpt
+ext/fileinfo/tests/finfo_set_flags_basic.phpt
+ext/fileinfo/tests/bug61173.phpt

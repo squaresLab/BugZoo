@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# find all PHP tests
+find source -name '*.phpt' > tests.txt
+sed -i 's#source/##' tests.txt
