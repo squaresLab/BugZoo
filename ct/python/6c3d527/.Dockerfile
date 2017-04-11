@@ -1,6 +1,7 @@
+# TODO: template parameter
 FROM christimperley/repairbox:ct-python-base
 
-# go to the specified revision
+# go to the specified revision [GENERIC]
 ADD revision.txt /experiment/.revision.txt
 RUN test -f .revision.txt && \
     cd source && \
@@ -21,26 +22,22 @@ RUN cd source && \
     ./configure && \
     make -j CC="gcc -save-temps=obj" && \
     cd ../ && \
-    ./extract-preprocessed.sh fixed && \
+    extract-preprocessed fixed && \
     find . -name '*.i' -delete && \
     find . -name '*.s' -delete && \
-    (cd source && ./python -m test --list-tests > ../tests.txt) && \
-    ./filter.sh tests.txt | sponge tests.txt && \
-    ./blacklist.sh && \
-    ./generate-pythia-manifest && rm generate-pythia-manifest && \
-    pythia generate "${EXECUTABLE}" && \
+    list-tests && \
+    generate-oracle && \
     (cd source && make clean)
 
 # inject the buggy code and find the failing test cases
 RUN cp -r mutated/* source && \
     (cd source && make clean && make -j CC="gcc -save-temps=obj") && \
     ./filter.sh tests.txt > passes.txt && \
-    ./extract-preprocessed.sh preprocessed && \
+    extract-preprocessed preprocessed && \
     pythia map "${EXECUTABLE}" && \
     (cd source && make clean) && \
     find . -name '*.i' -delete && \
     find . -name '*.s' -delete
 
 # create the problem.json file [GENERIC]
-RUN ./generate-description && \
-    rm generate-description
+RUN generate-description

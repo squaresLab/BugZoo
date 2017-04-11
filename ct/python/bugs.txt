@@ -2,5 +2,31 @@ NOT:
 _math.c:105
 dtoa.c:1314
 
-ISSUES:
-6c3d527 fails sanity checks? Even on negative tests?!
+BUGS:
+* 04316c4cc8f89e8e87efd055b9626eb9049340c6
+* a0d9c685d0c3f817c5a7143098ce1a89380ee514
+* 016a9acb2603f07866c060cb14b655b9d9b822fa
+* 78d84d83263dd806fc2a9b9b6eb27ec38742e854
+* 0595ed21badc29b5c76602e32db9f5f1b8f0ba06
+* 1faf9025b5d599d66acac0f33d1500a2ff386368
+* f06f82d66bc81111c3ccf9a561047a20fa2ed5d5
+* a4f882306394488c06f0412369d52b25e516a0c6
+* 12a98e8cbbc2a1ccdfa34beffb0369528093bd37
+* 42bcbf76f7a03610e610e48866e6fe85f403f0b9
+* 19aef9c24e7903899f91bb62857f0f65617bd9fa
+* 
+
+
+Bad files
+=========
+
+Modules/_datetime.c
+Modules/_math.c
+Modules/_bisectmodule.c
+
+Good files
+==========
+
+Objects/stringobject.c
+Modules/_functoolsmodules.c
+Objects/bytesobject.c

@@ -489,10 +489,11 @@ PyObject *PyBytes_DecodeEscape(const char *s,
                              errors);
                 goto failed;
             }
+            // BUG: missing statement
             /* skip \x */
-            if (s < end && Py_ISXDIGIT(s[0]))
-                s++; /* and a hexdigit */
-            break;
+            // if (s < end && Py_ISXDIGIT(s[0]))
+            //    s++; /* and a hexdigit */
+            // break;
         default:
             *p++ = '\\';
             s--;

@@ -1,11 +1,12 @@
 FROM christimperley/repairbox:ct-base
 
-ENV MAKE_TIMEOUT 600
-ENV TEST_TIMEOUT 300
+ENV MAKE_TIMEOUT 300
+ENV TEST_TIMEOUT 120
 ENV PROGRAM_NAME python
 ENV EXECUTABLE /experiment/source/python
 
 ADD test-by-name.sh /experiment/test-by-name.sh
+ADD filter.sh /experiment/filter.sh
 
 # Install necessary packages
 RUN sudo apt-get update && \
@@ -31,3 +32,4 @@ RUN sudo apt-get update && \
 RUN git clone https://github.com/python/cpython source
 
 ADD blacklist.txt /experiment/blacklist.txt
+ADD list-tests /usr/bin/list-tests

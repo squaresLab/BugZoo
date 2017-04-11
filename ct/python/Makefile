@@ -1,6 +1,6 @@
 SEEDED = one two three
-BROKEN = 1bea762 314d6fc b7c9150 c393ee8 9f8ad3f d7e6433
-BUGS = 6c3d527
+BROKEN = 1bea762 314d6fc b7c9150 c393ee8 9f8ad3f d7e6433 1dcf4f9 97d3555
+BUGS = 6c3d527 01b3a08 f584aba b2f3c23 a93342b
 
 all: base $(BUGS) $(SEEDED)
 
