@@ -19,3 +19,4 @@ test_tools
 test_asyncore
 test_poll
 test_threaded_import
+test_distutils

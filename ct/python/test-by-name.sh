@@ -1,7 +1,5 @@
 #!/bin/bash
 ulimit -m 1000000
-ulimit -v 2000000
-ulimit -H -v
 
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 name=$1
