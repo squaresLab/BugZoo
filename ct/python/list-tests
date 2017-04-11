@@ -1,0 +1,5 @@
+#!/bin/bash
+pushd source
+find source/Lib/test -d 1 -name 'test_*' \
+  | sed "s#source/Lib/test/##" \
+  | sed "s#\..*##" > tests.txt
