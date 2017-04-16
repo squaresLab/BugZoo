@@ -26,4 +26,5 @@ RUN mkdir -p fixed && \
 
 # Generate manifest and oracle (GENERIC)
 RUN generate-pythia-manifest && \
-    pythia generate ${EXECUTABLE}
+    pythia generate ${EXECUTABLE} && \
+    rm ${EXECUTABLE}

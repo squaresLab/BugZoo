@@ -1,9 +1,9 @@
-FROM christimperley/repairbox:ctf-printtokens-base
+FROM christimperley/repairbox:siemens-<<PROGRAM>>-base
 
-ENV SCENARIO_NAME ct-printtokens-one
+ENV SCENARIO_NAME siemens-<<PROGRAM>>-<<FAULT>>
 
 # Add the mutant file
-ADD print_tokens.c /experiment/source/print_tokens.c
+ADD <<SOURCE_FILE>> /experiment/source/<<SOURCE_FILE>>
 RUN sudo chown -R docker /experiment
 
 # Preprocess
@@ -14,7 +14,8 @@ RUN cd source && \
     rm -rf source 
 
 # Generate map
-RUN ./compile.sh ./${EXECUTABLE} && \
+RUN rm -f ${EXECUTABLE} && \
+    ./compile.sh ./${EXECUTABLE} && \
     pythia map ${EXECUTABLE} && \
     rm ${EXECUTABLE}
 

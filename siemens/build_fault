@@ -1,0 +1,21 @@
+#!/bin/bash
+here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+program_name=$1
+fault_name=$2
+program_dir="${here_dir}/${program_name}"
+fault_dir="${program_dir}/${fault_name}"
+source_file=$(cd "${program_dir}/base/source" && find . -name "*.c")
+source_file=$(echo "${source_file}" | sed "s#./##")
+
+pushd ${here_dir} > /dev/null
+
+echo "Building siemens fault: ${program_name}/${fault_name}"
+
+cp "${here_dir}/Dockerfile.fault" "${fault_dir}/.Dockerfile"
+sed -i "s#<<PROGRAM>>#${program_name}#g" "${fault_dir}/.Dockerfile"
+sed -i "s#<<FAULT>>#${fault}#g" "${fault_dir}/.Dockerfile"
+sed -i "s#<<SOURCE_FILE>>#${source_file}#g" "${fault_dir}/.Dockerfile"
+
+docker build  -f "${fault_dir}/.Dockerfile" \
+              -t christimperley/repairbox:siemens-${program_name}-${fault_name} \
+              ${fault_dir}

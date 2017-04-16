@@ -29,17 +29,9 @@ char *argv[];
       token token_ptr;
       token_stream stream_ptr;
 
-      if(argc>2)
-      {
-          fprintf(stdout, "The format is print_tokens filename(optional)\n");
-          exit(1);
-      }
       stream_ptr=open_token_stream(argv[1]);
 
-      while(!is_eof_token((token_ptr=get_token(stream_ptr))))
-                print_token(token_ptr);
-      print_token(token_ptr);
-  exit(0);
+  exit(1);
 }
 
 
@@ -113,9 +105,9 @@ BOOLEAN is_end_of_character_stream(stream_ptr)
 character_stream stream_ptr;
 {
       if(stream_ptr->stream[stream_ptr->stream_ind-1] == EOF)
-            return(TRUE);
+            return (TRUE);
       else
-            return(FALSE);
+            return (FALSE);
 }
 
 /* *********************************************************************
