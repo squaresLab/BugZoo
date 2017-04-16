@@ -8,7 +8,7 @@ PROGRAMS = \
 all: base $(PROGRAMS)
 
 base:
-	@ docker build -t christimperley/repairbox:siemens-base base
+	@ docker build -t christimperley/repairbox:siemens-base base > /dev/null
 
 $(PROGRAMS): base
 	@ ./build_program $@
