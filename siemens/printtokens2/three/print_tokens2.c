@@ -64,7 +64,7 @@ char *fname;
   else if ((fp=fopen(fname,"r"))== NULL)
   {
        fprintf(stdout, "The file %s doesn't exists\n",fname);
-       exit(1);
+       exit(0);
   }
   return(fp);
 }
@@ -264,20 +264,27 @@ token tok;
  if(type==keyword)
    {fprintf(stdout, "keyword,\"%s\".\n",tok);
    }
- if(type==spec_symbol)print_spec_symbol(tok);
- if(type==identifier)
-   {fprintf(stdout, "identifier,\"%s\".\n",tok);
-   }
+  if(type==spec_symbol) {
+    print_spec_symbol(tok);
+  }
+  if(type==identifier) {
+    // BUG:
+    // fprintf(stdout, "identifier,\"%s\".\n",tok);
+    fprintf(stdout, "string,%s.\n",tok);
+  }
  if(type==num_constant)
-   {fprintf(stdout, "numeric,%s.\n",tok);
+   {
+     fprintf(stdout, "numeric,%s.\n",tok);
    }
- if(type==str_constant)
-   {fprintf(stdout, "string,%s.\n",tok);
-   }
- if(type==char_constant)
-   {tok=tok+1;
+  if(type==str_constant) {
+    // BUG:
+    // fprintf(stdout, "string,%s.\n",tok);
+    fprintf(stdout, "identifier,\"%s\".\n",tok);
+  }
+  if(type==char_constant) {
+    tok=tok+1;
     fprintf(stdout, "character,\"%s\".\n",tok);
-   }
+  }
  if(type==end) 
    fprintf(stdout, "eof.\n");
    }
@@ -307,9 +314,10 @@ static int is_comment(ident)
 token ident;
 {
   if( (*ident) ==59 )   /* the char is 59   */
-     return(TRUE);
+    // BUG: return TRUE;
+     return FALSE;
   else
-     return(FALSE);
+     return FALSE;
 }
 
 /*************************************/

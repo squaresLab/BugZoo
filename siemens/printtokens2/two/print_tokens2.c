@@ -64,7 +64,7 @@ char *fname;
   else if ((fp=fopen(fname,"r"))== NULL)
   {
        fprintf(stdout, "The file %s doesn't exists\n",fname);
-       exit(1);
+       exit(0);
   }
   return(fp);
 }
@@ -240,8 +240,12 @@ token tok;
  if(is_keyword(tok))return(keyword);
  if(is_spec_symbol(tok))return(spec_symbol);
  if(is_identifier(tok))return(identifier);
- if(is_num_constant(tok))return(num_constant);
- if(is_str_constant(tok))return(str_constant);
+ // BUG
+ if(is_num_constant(tok))
+    return(str_constant);
+ // BUG:
+ if(is_str_constant(tok))
+   return(num_constant);
  if(is_char_constant(tok))return(char_constant);
  if(is_comment(tok))return(comment);
  if(is_eof_token(tok))return(end);
@@ -307,9 +311,9 @@ static int is_comment(ident)
 token ident;
 {
   if( (*ident) ==59 )   /* the char is 59   */
-     return(TRUE);
+    return TRUE;
   else
-     return(FALSE);
+    return FALSE;
 }
 
 /*************************************/
