@@ -60,7 +60,17 @@ int ALIM ()
 
 int Inhibit_Biased_Climb ()
 {
-    return (Climb_Inhibit ? Up_Separation + NOZCROSS : Up_Separation);
+  int ret;
+  if (Climb_Inhibit) {
+    // BUG:
+    ret = Up_Separation + NOZCROSS;
+    // ret = Up_Separation;
+  } else {
+    // BUG:
+    ret = Up_Separation;
+    // ret = Up_Separation + NOZCROSS;
+  }
+  return ret;
 }
 
 bool Non_Crossing_Biased_Climb()
@@ -106,7 +116,11 @@ bool Own_Below_Threat()
 
 bool Own_Above_Threat()
 {
-    return (Other_Tracked_Alt < Own_Tracked_Alt);
+    bool res;
+    // BUG:
+    res = Other_Tracked_Alt < Own_Tracked_Alt;
+    res = Other_Tracked_Alt >= Own_Tracked_Alt;
+    return res;
 }
 
 int alt_sep_test()
@@ -129,16 +143,17 @@ int alt_sep_test()
         /* unreachable: requires Own_Below_Threat and Own_Above_Threat
            to both be true - that requires Own_Tracked_Alt < Other_Tracked_Alt
            and Other_Tracked_Alt < Own_Tracked_Alt, which isn't possible */
-	    alt_sep = UNRESOLVED;
+      alt_sep = UNRESOLVED;
 	else if (need_upward_RA)
-	    alt_sep = UPWARD_RA;
+      // BUG:
+      alt_sep = UPWARD_RA;
+	    // alt_sep = DOWNWARD_RA;
 	else if (need_downward_RA)
-	    alt_sep = DOWNWARD_RA;
-	else {
-    // BUG: 
-	  // alt_sep = UNRESOLVED;
-    alt_sep = DOWNWARD_RA;
-  }
+    // BUG:
+	  alt_sep = DOWNWARD_RA;
+    // alt_sep = UNRESOLVED;
+	else
+	    alt_sep = UNRESOLVED;
     }
     
     return alt_sep;

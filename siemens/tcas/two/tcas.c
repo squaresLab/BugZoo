@@ -134,11 +134,8 @@ int alt_sep_test()
 	    alt_sep = UPWARD_RA;
 	else if (need_downward_RA)
 	    alt_sep = DOWNWARD_RA;
-	else {
-    // BUG: 
-	  // alt_sep = UNRESOLVED;
-    alt_sep = DOWNWARD_RA;
-  }
+	else
+	    alt_sep = UNRESOLVED;
     }
     
     return alt_sep;
@@ -148,15 +145,18 @@ main(argc, argv)
 int argc;
 char *argv[];
 {
-    if(argc < 13)
-    {
-	fprintf(stdout, "Error: Command line arguments are\n");
-	fprintf(stdout, "Cur_Vertical_Sep, High_Confidence, Two_of_Three_Reports_Valid\n");
-	fprintf(stdout, "Own_Tracked_Alt, Own_Tracked_Alt_Rate, Other_Tracked_Alt\n");
-	fprintf(stdout, "Alt_Layer_Value, Up_Separation, Down_Separation\n");
-	fprintf(stdout, "Other_RAC, Other_Capability, Climb_Inhibit\n");
-	exit(1);
-    }
+  if(argc < 13) {
+    fprintf(stdout, "Error: Command line arguments are\n");
+    fprintf(stdout, "Cur_Vertical_Sep, High_Confidence, Two_of_Three_Reports_Valid\n");
+    fprintf(stdout, "Own_Tracked_Alt, Own_Tracked_Alt_Rate, Other_Tracked_Alt\n");
+    // BUG:
+    // fprintf(stdout, "Alt_Layer_Value, Up_Separation, Down_Separation\n");
+    fprintf(stdout, "Other_RAC, Other_Capability, Climb_Inhibit\n");
+    // BUG:
+    // fprintf(stdout, "Other_RAC, Other_Capability, Climb_Inhibit\n");
+    fprintf(stdout, "Alt_Layer_Value, Up_Separation, Down_Separation\n");
+    exit(1);
+  }
     initialize();
     Cur_Vertical_Sep = atoi(argv[1]);
     High_Confidence = atoi(argv[2]);
