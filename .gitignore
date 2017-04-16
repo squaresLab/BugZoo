@@ -6,3 +6,4 @@ sanity
 coverage
 *.cache
 .vagrant
+.Dockerfile
