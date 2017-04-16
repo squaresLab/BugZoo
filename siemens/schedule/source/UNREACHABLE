@@ -1,0 +1,17 @@
+
+
+Four edges are unreachable.
+
+  In del_ele, edges 3 and 5 correspond to a check for
+  the case where the function is called with a null list
+  or null element.  This can't happen in the current program,
+  where the function is only called after checks for
+  nonempty list/element.  The code is there as good
+  programming practice, to catch cases where programmer
+  has a call to this where a null list/element could come in.
+
+  The same goes for find_nth, in which edges 4 and 6 are unreachable.
+
+Note, however, that in modified versions, the edges may
+become reachable, if code that catches the cases checked
+for is removed or modified.
