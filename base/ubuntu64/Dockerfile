@@ -16,19 +16,6 @@ USER docker
 # reclaim ownership or /usr/local/bin
 RUN sudo chown -R docker /usr/local/bin
 
-# install Pythia
-ENV PYTHIA_VERSION 4b5bfc9
-RUN sudo apt-get update && \
-    sudo apt-get install -y wget zip python3-setuptools software-properties-common && \
-    cd /tmp &&\
-    wget -q https://github.com/ChrisTimperley/Pythia/archive/master.zip &&\
-    unzip master.zip &&\
-    (cd Pythia-master && sudo python3 setup.py install) &&\
-    cd / && \
-    sudo apt-get clean && \
-    sudo apt-get autoremove -y && \
-    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 # install basic packages
 RUN sudo apt-get update && \
     sudo apt-get install --no-install-recommends -y build-essential \
@@ -38,9 +25,23 @@ RUN sudo apt-get update && \
                                                     cmake \
                                                     vim \
                                                     jq \
+                                                    wget \
+                                                    zip \
+                                                    unzip \
+                                                    python3-setuptools \
+                                                    software-properties-common \
                                                     libncurses5-dev && \
     sudo apt-get autoremove -y && \
     sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# install Pythia
+ENV PYTHIA_VERSION d5a4d54
+RUN cd /tmp &&\
+    wget -q https://github.com/ChrisTimperley/Pythia/archive/master.zip &&\
+    unzip master.zip &&\
+    (cd Pythia-master && sudo python3 setup.py install) &&\
+    cd / && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # install dependencies for KLEE
