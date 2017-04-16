@@ -1,6 +1,6 @@
 all: base
 
 base:
-	@ docker build -t dbg .
+	@ docker build -t christimperley/repairbox:ctf-totinfo base
 
 .PHONY: base
