@@ -1,0 +1,16 @@
+
+
+in makesub: 17 and 19 aren't reached.  Can't tell if unreachable,
+            but Siemens didn't reach them.
+
+in omatch: 9,11,12 are unreachable in base;
+           19,56 are unreachable case default edges
+
+in patsize: 4,6,7,27 are unreachable in base;
+            9,10,12 are multi-case edges, reached and registered
+            on edges 11 (for 9 and 10) and 13 (for 12)
+            15,24 are unreachable case default edges
+
+in Caseerror: the edges aren't reachable in base - handles the
+            unreached case default edges from above; probably
+            placed here to trap errors in the modified versions
