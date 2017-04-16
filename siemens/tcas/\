@@ -1,0 +1,21 @@
+FROM christimperley/repairbox:ubuntu64
+MAINTAINER Chris Timperley "christimperley@gmail.com"
+
+ENV PROGRAM_NAME tcas
+ENV EXECUTABLE source/tcas
+ENV SOURCE_FILE allfile.c
+ENV PREPROCESSED_FILE allfile.i
+
+# Mount bug files to /experiment
+ADD tcas/tests.txt /experiment/tests.txt
+ADD tcas/tcas.c /experiment/tcas.c
+ADD tcas/compile.sh /experiment/compile.sh
+WORKDIR /experiment
+RUN sudo chown -R docker /experiment
+
+# Generate the manifest
+ADD tcas/generate-pythia-manifest /usr/bin/generate-pythia-manifest
+RUN generate-pythia-manifest
+
+# Generate the program
+RUN mkdir -p /experiment/source
