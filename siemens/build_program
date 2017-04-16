@@ -16,11 +16,7 @@ sed -i "s#<<EXECUTABLE>>#${program_name}#" "${program_df}"
 sed -i "s#<<SOURCE_FILE>>#${source_file}#" "${program_df}"
 sed -i "s#<<GCC_LIBS>>#${gcc_libs}#" "${program_df}"
 
-cat ${program_df}
-
 docker build \
   -f "${program_dir}/.Dockerfile" \
   -t christimperley/repairbox:siemens-${program_name}-base \
-  "${program_dir}"
-
-echo "Built siemens program: ${program_name}"
+  "${program_dir}" > /dev/null
