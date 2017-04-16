@@ -1,6 +1,9 @@
-all: base
+all: base one
 
 base:
-	@ docker build -t christimperley/repairbox:ctf-totinfo base
+	@ docker build -t christimperley/repairbox:ctf-totinfo-base base
 
-.PHONY: base
+one: base
+	@ docker build -t christimperley/repairbox:ctf-totinfo-one one
+
+.PHONY: base one
