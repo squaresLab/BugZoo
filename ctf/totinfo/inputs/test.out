@@ -1,0 +1,60 @@
+Test: tot_info against /home/duster2/tactic2/seed/tot_info/versions/bug138/../../tot_info in /home/duster2/tactic2/seed/tot_info/versions/bug138
+with /home/duster2/tactic2/seed/tot_info/versions/bug138/test_cases/universe
+Output file error. 1 out of 13
+Arguments:< universe/tst55
+Output file error. 2 out of 28
+Arguments:< universe/tst91
+Output file error. 3 out of 34
+Arguments:< universe/tst28
+Output file error. 4 out of 48
+Arguments:< universe/tst39
+Output file error. 5 out of 59
+Arguments:< universe/tst45
+Output file error. 6 out of 72
+Arguments:< universe/tst95
+Output file error. 7 out of 79
+Arguments:< universe/tst38
+Output file error. 8 out of 82
+Arguments:< universe/tst95
+Output file error. 9 out of 91
+Arguments:< universe/tst94
+Output file error. 10 out of 101
+Arguments:< universe/tst104
+Output file error. 11 out of 107
+Arguments:< universe/tst26
+Output file error. 12 out of 120
+Arguments:< universe/tst80
+Output file error. 13 out of 139
+Arguments:< universe/test15
+Output file error. 14 out of 145
+Arguments:< universe/test35
+Output file error. 15 out of 152
+Arguments:< universe/jk2AAZ.mat
+Output file error. 16 out of 161
+Arguments:< universe/jk2AAy.mat
+Output file error. 17 out of 178
+Arguments:< universe/test77
+Output file error. 18 out of 189
+Arguments:< universe/test73
+Output file error. 19 out of 195
+Arguments:< universe/test78
+Output file error. 20 out of 231
+Arguments:< universe/test65
+Output file error. 21 out of 300
+Arguments:<  universe/test58.inc
+Output file error. 22 out of 310
+Arguments:<  universe/test68.inc
+# Eo7P+FIAYPNgGXtrSXu6 
+2info = 97847.61	df = 528	q =  0.0000
+# Eo7P+FIAYPNgGXtrSXu6 
+2info = 97847.61	df = 528	q =  0.0000
+2info =  0.54	df =  2	q =  0.7649
+2info = 6813.98	df =  8	q =  0.0000
+2info =  1.40	df =  2	q =  0.4977
+2info =  0.14	df =  1	q =  0.7098
+2info =  0.54	df =  2	q =  0.7649
+2info = 6813.98	df =  8	q =  0.0000
+2info =  1.40	df =  2	q =  0.4977
+2info =  0.14	df =  1	q =  0.7098
+Number of failures = 22
+Number of tests = 898
