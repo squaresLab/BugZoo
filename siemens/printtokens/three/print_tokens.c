@@ -70,8 +70,7 @@ string FILENAME;
       else if((stream_ptr->fp=fopen(FILENAME,"r"))==NULL)
            {
                fprintf(stdout, "The file %s doesn't exists\n",FILENAME);
-               // BUG: should be exit(0)
-               exit(1);
+               exit(0);
            }
       return(stream_ptr);
 }
@@ -506,18 +505,29 @@ token token_ptr;
 {
      switch(token_ptr->token_id)
      {    /* Print the respective tokens. */
-          case ERROR : fprintf(stdout, "error,\t\"");fprintf(stdout, "%s",token_ptr->token_string);
-                       fprintf(stdout, "\".\n");return(TRUE);
+          case ERROR : fprintf(stdout, "error,\t\"");
+                       fprintf(stdout, "%s", token_ptr->token_string);
+                       // BUG: missing
+                       // fprintf(stdout, "\".\n");
+                       return(TRUE);
           case EOTSTREAM : fprintf(stdout, "eof.\n");return(TRUE);
           case 6 : fprintf(stdout, "keyword,\t\"lambda\".\n");return(TRUE);
           case 9 : fprintf(stdout, "keyword,\t\"and\".\n");return(TRUE);
           case 11: fprintf(stdout, "keyword,\t\"or\".\n");return(TRUE);
           case 13: fprintf(stdout, "keyword,\t\"if\".\n");return(TRUE);
           case 16: fprintf(stdout, "keyword,\t\"xor\".\n");return(TRUE);
-          case 17: fprintf(stdout, "identifier,\t\"");fprintf(stdout, "%s",token_ptr->token_string);
-                   fprintf(stdout, "\".\n");return(TRUE);
-          case 18: fprintf(stdout, "numeric,\t");fprintf(stdout, "%s",token_ptr->token_string);
-                   fprintf(stdout, ".\n");return(TRUE);
+          case 17: fprintf(stdout, "identifier,\t\"");
+                   fprintf(stdout, "%s",token_ptr->token_string);
+                   // BUG: incorrect
+                   // fprintf(stdout, "\".\n");
+                   fprintf(stdout, ".\n");
+                   return(TRUE);
+          case 18: fprintf(stdout, "numeric,\t");
+                   fprintf(stdout, "%s",token_ptr->token_string);
+                   // BUG: incorrect
+                   // fprintf(stdout, ".\n");
+                   fprintf(stdout, "\".\n");
+                   return(TRUE);
           case 19: fprintf(stdout, "lparen.\n");return(TRUE);
           case 20: fprintf(stdout, "rparen.\n");return(TRUE);
           case 21: fprintf(stdout, "lsquare.\n");return(TRUE);
