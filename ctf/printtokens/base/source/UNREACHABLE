@@ -1,0 +1,45 @@
+
+   unget_char: edges 3 and 4 are unreachable in base program;
+   they depend on stream_ptr->stream_ind == 0; it starts at START (5)
+   and only grows until reset again to START (5).
+
+   numeric_case: edges 10 and 12 depend on token_ind>= 80; but
+   numeric_case is called only in one place, after a check that
+   ensures that if numeric_case is called, token_ind < 80; thus
+   these edges are unreachable in the base program, but may be
+   reached in erronious versions
+
+   keyword: edges 7, and 13-16 all go with a default case label;
+   it can't be taken in the base program because keyword is only
+   called with non-defaults
+
+   special: edges 10, and 19-22 all go with a default case label;
+   it can't be taken in the base program because special is only
+   called with non-defaults
+
+   constant: edges 4,8,9 all go with a default case label;
+   it can't be taken in the base program because constant is only
+   called with non-defaults
+
+   print_token: edges 21, and 70-72 go with default case label;
+   it looks pretty certain as though they can't be taken, because
+   get_token only returns non-default labels (that's where I'm just
+   pretty sure) and print_token is only called with what get_token returns.
+
+   get_token: edge 8 is unreachble; it is a false edge from the 
+   while !token_found loop, but token_found is always 0.  The
+   loop is always exited by a "return" from inside.
+
+   get_token: edges 37,38,39,40,42,43,44,45,46,47,48,50 are NOT
+   unreachable, but they don't get traced, because they are all
+   in groups of edges that go to a string of "case" statements
+   that all collect onto the same code.  Edges 37-40 don't get
+   traced, but all flow to them ends up executing code reached
+   by edge 41; 42-48 get tracked at 49, 50 at 51.  This doesn't
+   affect dejavu selection because changes in the code they all
+   go to will be selected for along the one instrumented edge;
+   it affects CC calculations a bit.  This has to be fixed in
+   the code instrumenter --- or we can think of the graph as
+   having a single edge for each group of cases, labelled with
+   the set of case labels; CC is exact for that scenario.
+   

@@ -1,0 +1,37 @@
+#!/usr/bin/python3
+import os
+import json
+
+def build_manifest():
+    tests = []
+    with open("tests.txt", "r") as f:
+        for command in f:
+            command = command.strip()
+
+            inpts = []
+            if command.startswith('<'):
+                op = "<"
+                inpts = [command[2:]]
+            else:
+                op = ""
+                inpts = command.split(' ')
+            
+            command = " ".join(["<<SANDBOX>>/{}".format(i) for i in inpts])
+            command = "<<EXECUTABLE>> {} {}".format(op, command)
+            inpts = {i: i for i in inpts}
+            test = {
+                'command': command,
+                'input': inpts
+            }
+            tests.append(test)
+
+    # write to file
+    with open("tests.pythia.json", "w") as f:
+        json.dump(tests, f, indent=2, sort_keys=True)
+
+    # destroy list of tests
+    os.remove("tests.txt")
+    
+
+if __name__ == "__main__":
+    build_manifest()
