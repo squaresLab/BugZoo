@@ -19,4 +19,4 @@ sed -i "s#<<GCC_LIBS>>#${gcc_libs}#" "${program_df}"
 docker build \
   -f "${program_dir}/.Dockerfile" \
   -t christimperley/repairbox:siemens-${program_name}-base \
-  "${program_dir}" > /dev/null
+  "${program_dir}"

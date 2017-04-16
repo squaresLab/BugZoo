@@ -3,6 +3,8 @@ PROGRAMS = \
 	printtokens2 \
 	tcas \
 	schedule \
+	schedule2 \
+	replace \
 	totinfo
 
 all: base $(PROGRAMS)
