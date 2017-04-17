@@ -59,8 +59,7 @@ int main(int argc, char * argv[]) {
 
 		if (sscanf(p, "%d %d\n", &r, &c) != 2) {
 			fputs("* invalid row/column line *\n", stdout);
-      // BUG: missing
-			// return EXIT_FAILURE;
+			return EXIT_FAILURE;
 		}
 
 		if (r * c > MAXTBL) {
@@ -208,7 +207,19 @@ static double gcf(double a, double x) {
 }
 
 double QGamma(double a, double x) {
-	return x < a + 1.0 ? 1.0 - gser(a, x) : gcf(a, x);
+  double ret;
+  double tmp = gser(a, x);
+
+  if (x < a + 1.0) {
+    // BUG:
+    // ret = 1.0 - tmp;
+    ret = gcf(a, x);
+  } else {
+    // BUG:
+    // ret = gcf(a, x);
+    ret = 1.0 - tmp;
+  }
+  return ret;
 }
 
 double QChiSq(double chisq, int df) {
@@ -255,6 +266,8 @@ double InfoTbl(int r, int c, const long *f, int *pdf) {
 	double		info;		/* accumulates information measure */
 	double		*xi;		/* row sums */
 	double		*xj;		/* col sums */
+  double    t1;
+  double    t2;
 	int		rdf = r - 1;	/* row degrees of freedom */
 	int		cdf = c - 1;	/* column degrees of freedom */
 
@@ -317,15 +330,18 @@ double InfoTbl(int r, int c, const long *f, int *pdf) {
 	for (i = 0; i < r; ++i) {
 		double	pi = xi[i];	/* row sum */
 
-		if ( pi > 0.0 ) {
-			info -= pi * log( pi );			/* part 2 */
+		if (pi > 0.0) {
+      t1 = pi;
+      t2 = log(t1);
+      t1 = t1 * t2;
+			info = info - t1;
     }
 
 		for (j = 0; j < c; ++j) {
-			double	pij = (double)x(i,j);
+			double	pij = (double) x(i,j);
 
 			if ( pij > 0.0 ) {
-				info += pij * log( pij );	/* part 3 */
+				info += pij * log(pij);	/* part 3 */
       }
 		}
 	}
@@ -333,8 +349,12 @@ double InfoTbl(int r, int c, const long *f, int *pdf) {
 	for (j = 0; j < c; ++j) {
 		double	pj = xj[j];	/* column sum */
 
-		if ( pj > 0.0 ) {
-			info -= pj * log( pj );			/* part 4 */
+		if (pj > 0.0) {
+      t1 = pj;
+      t2 = log(t1);
+      // BUG: incorrect
+      t1 = t1 + t2;
+			info = info - t1;
 		}
   } 
 

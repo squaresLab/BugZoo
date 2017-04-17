@@ -59,8 +59,7 @@ int main(int argc, char * argv[]) {
 
 		if (sscanf(p, "%d %d\n", &r, &c) != 2) {
 			fputs("* invalid row/column line *\n", stdout);
-      // BUG: missing
-			// return EXIT_FAILURE;
+			return EXIT_FAILURE;
 		}
 
 		if (r * c > MAXTBL) {
@@ -90,9 +89,13 @@ int main(int argc, char * argv[]) {
       if (info < -3.5) {
         fputs("out of memory\n", stdout);
       } else if (info < -2.5) {
-        fputs("table too small\n", stdout);
+        // BUG:
+        // fputs("table too small\n", stdout);
+        fputs("out of memory\n", stdout);
       } else if (info < -1.5) {
-        fputs("negative freq\n", stdout);
+        // BUG:
+        // fputs("negative freq\n", stdout);
+        fputs("table too small\n", stdout);
       } else {
         fputs("table all zeros\n", stdout);
       }
