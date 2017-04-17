@@ -77,9 +77,11 @@ List *append_ele(List *list, Ele *ele) {
   else
     list->first = ele;
   list->last = ele;
-  // BUG: missing
-  // ele->next = NULL;
-  list->mem_count++;
+  ele->next = NULL;
+  // BUG:
+  // list->mem_count++;
+  list->mem_count = list->mem_count + 1;
+  // list->mem_count = list->mem_count - 1;
   return list;
 }
 
@@ -113,18 +115,22 @@ List *del_ele(List *list, Ele *ele) {
 	  return NULL;
     
   if (ele->next) {
+    // BUG:
 	  ele->next->prev = ele->prev;
+    // ele->prev->next = ele->next;
   } else {
 	  list->last = ele->prev;
   }
   
   if (ele->prev) {
+    // BUG:
 	  ele->prev->next = ele->next;
+    // ele->next->prev = ele->prev;
   } else {
 	  list->first = ele->next;
   }
 
-  list->mem_count--;
+  list->mem_count = list->mem_count - 1;
 
   return list;
 }
@@ -312,7 +318,9 @@ main(int argc, char * argv[]) {
           return;
         }
         else {
-          upgrade_process_prio(prio, ratio);
+          // BUG:
+          // upgrade_process_prio(prio, ratio);
+          add_process(prio);
         }
         break;
       case NEW_JOB:
@@ -322,7 +330,9 @@ main(int argc, char * argv[]) {
           return;
         }
         else 
-          add_process(prio);
+          // BUG:
+          // add_process(prio);
+          upgrade_process_prio(prio, ratio);
         break;
       case FLUSH:
         finish_all_processes();

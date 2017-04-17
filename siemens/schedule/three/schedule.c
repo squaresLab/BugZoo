@@ -73,13 +73,17 @@ List *append_ele(List *list, Ele *ele) {
       list = new_list();
   ele->prev = list->last;
   if (list->last)
+    // BUG:
     list->last->next = ele;
+    // list->first = ele;
   else
+    // BUG:
     list->first = ele;
+    // list->last->next = ele;
   list->last = ele;
-  // BUG: missing
-  // ele->next = NULL;
-  list->mem_count++;
+  //
+  ele->next = NULL;
+  list->mem_count = list->mem_count + 1;
   return list;
 }
 
@@ -114,14 +118,20 @@ List *del_ele(List *list, Ele *ele) {
     
   if (ele->next) {
 	  ele->next->prev = ele->prev;
+    // BUG: delete
+    return list;
   } else {
-	  list->last = ele->prev;
+    // BUG:
+	  // list->last = ele->prev;
+    list->first = ele->next;
   }
   
   if (ele->prev) {
 	  ele->prev->next = ele->next;
   } else {
-	  list->first = ele->next;
+	  // BUG:
+    // list->first = ele->next;
+    list->last = ele->prev;
   }
 
   list->mem_count--;
