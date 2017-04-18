@@ -6,7 +6,7 @@ def build_manifest():
     tests = []
     with open("tests.txt", "r") as f:
         for command in f:
-            (args, _, inpt) = command.rpartition('< ')
+            (args, _, inpt) = command.rpartition('<')
             (args, inpt) = (args.strip(), inpt.strip())
             command = "<<EXECUTABLE>> {} < <<SANDBOX>>/{}".format(args, inpt)
             test = {
