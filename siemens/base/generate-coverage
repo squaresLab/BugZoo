@@ -16,6 +16,7 @@ Generates a coverage vector for a given test case
 def generate_case_coverage(test):
     # generate the command
     cmd = test.command()
+    # print("Generating coverage for: {}".format(cmd))
     exe = os.path.join('.', os.environ['EXECUTABLE'])
     cmd = cmd.replace("<<EXECUTABLE>>", exe)
     cmd = cmd.replace("<<SANDBOX>>", "/experiment/inputs")
@@ -26,7 +27,7 @@ def generate_case_coverage(test):
 
     # run gcov
     cmd = "gcov {}".format(os.environ['SOURCE_FILE'])
-    with subprocess.Popen(cmd, stdout=DNULL, stdin=DNULL, stderr=DNULL, shell=True, cwd='/experiment/source') as p:
+    with subprocess.Popen(cmd, stdout=DNULL, stderr=DNULL, stdin=DNULL, shell=True, cwd='/experiment/source') as p:
         p.communicate()
         assert p.returncode == 0, "unexpected return code"
 
@@ -55,11 +56,11 @@ def parse_case_coverage(fn):
         for line in lines[5:]:
             (count, _, _) = line.partition(':')
             if count == '-':
-                flag = '1'
+                flag = 'X'
             elif count == '#####':
                 flag = '0'
             else:
-                flag = 'X'
+                flag = '1'
             coverage.append(flag)
     return coverage
 
