@@ -18,9 +18,9 @@ RUN sudo chown -R docker /experiment
 
 # Preprocess original version of the code (GENERIC)
 RUN mkdir -p fixed && \
+    cp source/* fixed && \
     cd source && \
     gcc -o ${EXECUTABLE} ${SOURCE_FILE} ${GCC_LIBS} -save-temps && \
-    mv ${SOURCE_FILE%.c}.i ../fixed/${SOURCE_FILE} && \
     rm *.s *.o && \
     mv ${EXECUTABLE} ../${EXECUTABLE}
 
@@ -28,3 +28,6 @@ RUN mkdir -p fixed && \
 RUN generate-pythia-manifest && \
     pythia generate ${EXECUTABLE} && \
     rm ${EXECUTABLE}
+
+# Compute coverage
+RUN generate-coverage
