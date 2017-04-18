@@ -29,5 +29,6 @@ RUN generate-pythia-manifest && \
     pythia generate ${EXECUTABLE} && \
     rm ${EXECUTABLE}
 
-# Compute coverage
-RUN generate-coverage
+# Compute coverage and reduce test suite
+RUN generate-coverage && \
+    reduce-test-suite

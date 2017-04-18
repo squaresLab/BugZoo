@@ -1,0 +1,60 @@
+#!/usr/bin/python3
+import random
+
+def load_coverage(fn):
+    with open(fn, "r") as f:
+        lines = [l.strip() for l in f.readlines()] 
+        lines = {i: c for (i, c) in enumerate(lines)}
+        return lines
+
+
+def reduce_tests(test_coverage):
+    selection = set()
+    line_coverage = {i: 0 for (i, v) in enumerate(cov[0]) if v != 'X'}
+
+    for line_no in line_coverage:
+        # if this line isn't covered, add the test that covers the most untouched
+        # lines
+        if line_coverage[line_no] > 0: 
+            continue
+        
+        # find the sub-set of remaining tests that cover this line
+        candidates = set(t for (t, tcov) in test_coverage.items() if tcov[line_no] == '1')
+        if candidates == set():
+            print("WARNING: failed to cover line {}".format(line_no))
+            continue
+
+        # find the (set of) tests that cover the most uncovered lines
+        best_candidates = set()
+        max_coverage = 0
+        for t in candidates:
+            t_coverage = test_coverage[t][line_no:].count('1')
+            if t_coverage > max_coverage:
+                max_coverage = t_coverage
+                best_candidates = set([t])
+            elif t_coverage == max_coverage:
+                best_candidates.add(t)
+
+        # randomly pick a test from the best candidates
+        test = random.choice(tuple(best_candidates))
+        tcov = test_coverage[test]
+
+        # update the line coverage
+        for i in line_coverage:
+            if tcov[i] == '1':
+                line_coverage[i] += 1
+
+        # remove this test from the pool
+        selection.add(test)
+        del test_coverage[test]
+
+    return selection
+
+
+if __name__ == "__main__":
+    random.seed(0)
+    cov = load_coverage("coverage.txt")
+    tests = reduce_tests(cov)
+
+    with open("tests.reduced.txt", "w") as f:
+        f.write('\n'.join([str(t) for t in tests]))

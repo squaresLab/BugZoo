@@ -76,7 +76,7 @@ def instrument():
     cmd = cmd.format(exe, source_file, gcc_libs)
 
     # compile!
-    with subprocess.Popen(cmd, shell=True, cwd='/experiment/source') as p:
+    with subprocess.Popen(cmd, shell=True, stdout=DNULL, stdin=DNULL, stderr=DNULL, cwd='/experiment/source') as p:
         p.communicate()
         assert p.returncode == 0, "unexpected return code"
 
