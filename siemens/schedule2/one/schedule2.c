@@ -19,56 +19,50 @@
 static struct process * current_job;
 static int next_pid = 0;
 
-int enqueue(prio, new_process)
+int
+enqueue(prio, new_process)
      int prio;
      struct process *new_process;
 {
-  int status;
-  if (status = put_end(prio, new_process)) {
-    return status;
-  }
-  return reschedule(prio);
+    int status;
+    if(status = put_end(prio, new_process)) return(status); /* Error */
+    return(reschedule(prio));
 }
 
 struct queue
 {
-  int length;
-  struct process *head;
+    int length;
+    struct process *head;
 };
 
 static struct queue prio_queue[MAXPRIO + 1]; /* blocked queue is [0] */
 
-main(int argc, char *argv[]) {
-  int command, prio;
-  float ratio;
-  int nprocs, status, pid;
-  struct process *process;
 
-  if(argc != MAXPRIO + 1) {
-    exit_here(BADNOARGS);
-  }
 
-  for(prio = MAXPRIO; prio > 0; prio--) {
-    if((nprocs = atoi(argv[MAXPRIO + 1 - prio])) < 0) {
-      exit_here(BADARG);
+main(argc, argv) /* n3, n2, n1 : # of processes at prio3 ... */
+int argc;
+char *argv[];
+{
+    int command, prio;
+    float ratio;
+    int nprocs, status, pid;
+    struct process *process;
+    if(argc != MAXPRIO + 1) exit_here(BADNOARGS);
+    for(prio = MAXPRIO; prio > 0; prio--)
+    {
+	if((nprocs = atoi(argv[MAXPRIO + 1 - prio])) < 0) exit_here(BADARG);
+	for(; nprocs > 0; nprocs--)
+	{
+	    if(status = new_job(prio)) exit_here(status);
+	}
     }
-
-    for(; nprocs > 0; nprocs--) {
-      if (status = new_job(prio)) {
-        exit_here(status);
-      }
+    /* while there are commands, schedule it */
+    while((status = get_command(&command, &prio, &ratio)) > 0)
+    {
+	schedule(command, prio, ratio);
     }
-  }
-
-  while((status = get_command(&command, &prio, &ratio)) > 0) {
-    schedule(command, prio, ratio);
-  }
-
-  if(status < 0) {
-    exit_here(status);
-  }
-
-  exit_here(OK);
+    if(status < 0) exit_here(status); /* Real bad error */
+    exit_here(OK);
 }
 
 int 
