@@ -1,5 +1,10 @@
 #!/usr/bin/python3
+import pythia
 import random
+import json
+import os
+
+from subprocess import DEVNULL, check_call
 
 def load_coverage(fn):
     with open(fn, "r") as f:
@@ -7,15 +12,16 @@ def load_coverage(fn):
         lines = {i: c for (i, c) in enumerate(lines)}
         return lines
 
-
-def reduce_tests(test_coverage):
+"""
+Reduces a given test suite, based on provided coverage, such that each line,
+where possible, is covered by +k+ tests.
+"""
+def reduce_tests(test_coverage, k=1):
     selection = set()
     line_coverage = {i: 0 for (i, v) in enumerate(cov[0]) if v != 'X'}
 
     for line_no in line_coverage:
-        # if this line isn't covered, add the test that covers the most untouched
-        # lines
-        if line_coverage[line_no] > 0: 
+        if line_coverage[line_no] >= k: 
             continue
         
         # find the sub-set of remaining tests that cover this line
@@ -51,10 +57,36 @@ def reduce_tests(test_coverage):
     return selection
 
 
+"""
+Rebuilds the test manifest and oracle for this problem, using a subset of the
+original test suite.
+"""
+def rebuild_manifest_and_oracle(tests):
+
+    # find the tests in the original manifest
+    manifest = pythia.TestManifest("tests.pythia.json")
+    original_tests = manifest.contents()
+    tests = [original_tests[t] for t in tests]
+    tests = [t.to_json() for t in tests]
+    
+    # save the original files to the oracle directory
+    os.mkdir("oracle")
+    os.rename("tests.pythia.json", "oracle/tests.pythia.json")
+    os.rename("oracle.pythia.json", "oracle/oracle.pythia.json")
+
+    # write the new test manifest to file
+    with open("tests.pythia.json", "w") as f:
+        json.dump(tests, f)
+
+    # re-generate the oracle
+    exe = os.environ['EXECUTABLE']
+    check_call("./compile.sh source/{}.".format(exe), stdout=DEVNULL, stderr=DEVNULL, shell=True)
+    os.rename("source/{}".format(exe), exe)
+    pythia.generate(exe)
+
+
 if __name__ == "__main__":
     random.seed(0)
     cov = load_coverage("coverage.txt")
     tests = reduce_tests(cov)
-
-    with open("tests.reduced.txt", "w") as f:
-        f.write('\n'.join([str(t) for t in tests]))
+    rebuild_manifest_and_oracle(tests)
