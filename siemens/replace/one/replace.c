@@ -277,7 +277,9 @@ int makesub(arg, from, delim, sub)
   } else {
     junk = addstr(ENDSTR, &(*sub), &j, MAXPAT);
     if (!junk) {
-      result = 0;
+      // BUG
+      // result = 0;
+      result = 1;
     } else {
       result = i;
     }

@@ -264,7 +264,7 @@ int makesub(arg, from, delim, sub)
   j = 0;
   i = from;
   while ((arg[i] != delim) && (arg[i] != ENDSTR)) {
-    if ((arg[i] == (unsigned)('&'))) {
+    if (arg[i] == (unsigned)('&')) {
       junk = addstr(DITTO, sub, &j, MAXPAT);
     } else {
       escjunk = esc(arg, &i);
@@ -277,9 +277,13 @@ int makesub(arg, from, delim, sub)
   } else {
     junk = addstr(ENDSTR, &(*sub), &j, MAXPAT);
     if (!junk) {
+      // BUG
       result = 0;
+      // result = i;
     } else {
+      // BUG
       result = i;
+      // result = 0;
     }
   }	
   return result;
@@ -305,12 +309,16 @@ bool locate(c, pat, offset)
   int	i;
   bool flag;
 
-  flag = false;
+  // BUG:
+  // flag = false;
+  flag = true;
   i = offset + pat[offset];
 
-  while ((i > offset)) {
+  while (i > offset) {
     if (c == pat[i]) {
-      flag = true;
+      // BUG:
+      // flag = true;
+      flag = false;
       i = offset;
     } else {
       i = i - 1;
@@ -364,7 +372,7 @@ bool omatch(lin, i, pat, j)
           break;
         case NCCL:
           if ((lin[*i] != NEWLINE) && (!locate(lin[*i], pat, j+1))) {
-           advance = 1;
+           advance = 0;
           }
           break;
         default:

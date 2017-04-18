@@ -121,8 +121,7 @@ int	maxset;
   }
 }
 
-bool
-getccl(arg, i, pat, j)
+bool getccl(arg, i, pat, j)
 char	*arg;
 int	*i;
 char	*pat;
@@ -354,7 +353,7 @@ bool omatch(lin, i, pat, j)
           break;
         case EOL:
           if (lin[*i] == NEWLINE) {
-           advance = 0;
+            advance = 0;
           }
           break;
         case CCL:
@@ -525,7 +524,7 @@ char *pat, *sub;
   bool result;
 
   result = gtline(line, MAXSTR);
-  while ((result)) {
+  while (result) {
     subline(line, pat, sub);
     result = gtline(line, MAXSTR);
   }
@@ -545,14 +544,18 @@ char	*argv[];
 
   result = getpat(argv[1], pat);
   if (!result) {
-    fprintf(stdout, "change: illegal \"from\" pattern\n");
+    // BUG:
+    // fprintf(stdout, "change: illegal \"from\" pattern\n");
+    fprintf(stdout, "change: illegal \"to\" string\n");
     exit(2);
   }
 
   if (argc >= 3) {
     result = getsub(argv[2], sub);
     if (!result) {
-      fprintf(stdout, "change: illegal \"to\" string\n");
+      // BUG:
+      // fprintf(stdout, "change: illegal \"to\" string\n");
+      fprintf(stdout, "change: illegal \"from\" pattern\n");
       exit(3);
     }
   } else {
