@@ -1,9 +1,9 @@
 #!/bin/bash
 here_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 program_name=$1
-fault_name=$2
+fault=$2
 program_dir="${here_dir}/${program_name}"
-fault_dir="${program_dir}/${fault_name}"
+fault_dir="${program_dir}/${fault}"
 source_file=$(cd "${program_dir}/base/source" && find . -name "*.c")
 source_file=$(echo "${source_file}" | sed "s#./##")
 
@@ -17,5 +17,5 @@ sed -i "s#<<FAULT>>#${fault}#g" "${fault_dir}/.Dockerfile"
 sed -i "s#<<SOURCE_FILE>>#${source_file}#g" "${fault_dir}/.Dockerfile"
 
 docker build  -f "${fault_dir}/.Dockerfile" \
-              -t christimperley/repairbox:siemens-${program_name}-${fault_name} \
+              -t christimperley/repairbox:siemens-${program_name}-${fault} \
               ${fault_dir}
