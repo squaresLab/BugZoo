@@ -7,7 +7,9 @@ PROGRAMS = \
 	replace \
 	totinfo
 
-all: base $(PROGRAMS)
+BUGS = $(shell cat bugs.txt)
+
+all: base $(PROGRAMS) $(BUGS)
 
 base:
 	@ docker build -t christimperley/repairbox:siemens-base base > /dev/null
@@ -15,4 +17,7 @@ base:
 $(PROGRAMS): base
 	@ ./build_program $@
 
-.PHONY: base $(PROGRAMS)
+$(BUGS): $(PROGRAMS)
+	@ ./build_fault $@
+
+.PHONY: base $(PROGRAMS) $(BUGS)
