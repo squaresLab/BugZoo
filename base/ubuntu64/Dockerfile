@@ -36,7 +36,7 @@ RUN sudo apt-get update && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # install Pythia
-ENV PYTHIA_VERSION d5a4d54
+ENV PYTHIA_VERSION 2daa6ee
 RUN cd /tmp &&\
     wget -q https://github.com/ChrisTimperley/Pythia/archive/master.zip &&\
     unzip master.zip &&\
