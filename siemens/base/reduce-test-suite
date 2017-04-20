@@ -12,11 +12,58 @@ def load_coverage(fn):
         lines = {i: c for (i, c) in enumerate(lines)}
         return lines
 
+
+def reduce_tests(test_coverage, k=3):
+    selection = set()
+    line_coverage = {i: 0 for (i, v) in enumerate(cov[0]) if v != 'X'}
+
+    for line in line_coverage:
+        if line_coverage[line] >= k:
+            continue
+
+        # select a sub-set of tests that cover this line at random, such that
+        # at least k tests cover this line
+        candidates = set(t for (t, tcov) in test_coverage.items() if tcov[line] == '1')
+        if candidates == set():
+            print("WARNING: failed to cover line {}".format(line))
+            continue
+        sample_size = min(len(candidates), k - line_coverage[line])
+        sample = random.sample(candidates, sample_size)
+
+        # remove these tests from further consideration, then add to selection
+        for t in sample:
+            del test_coverage[t]
+            selection.add(t)
+
+        # update line coverage
+        line_coverage[line] += sample_size
+
+    return selection
+
+
+def reduce_tests_by_patterns(test_coverage, k=1):
+    # group tests by coverage patterns
+    trace_cov = {}
+    for (test, tcov) in test_coverage.items():
+        if not tcov in trace_cov:
+            trace_cov[tcov] = set()
+        trace_cov[tcov].add(test)
+        
+    # for each coverage pattern, select k tests
+    selection = []
+    for tests in trace_cov.values():
+        tests = random.sample(tests, min(len(tests), k))
+        selection += tests
+    selection = set(selection)
+
+    return selection
+
+
 """
 Reduces a given test suite, based on provided coverage, such that each line,
 where possible, is covered by +k+ tests.
 """
-def reduce_tests(test_coverage, k=1):
+def basic_reduce_tests(test_coverage, k=1):
     selection = set()
     line_coverage = {i: 0 for (i, v) in enumerate(cov[0]) if v != 'X'}
 
