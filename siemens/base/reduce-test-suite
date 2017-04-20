@@ -13,7 +13,7 @@ def load_coverage(fn):
         return lines
 
 
-def reduce_tests(test_coverage, k=3):
+def reduce_tests(test_coverage, k=2):
     selection = set()
     line_coverage = {i: 0 for (i, v) in enumerate(cov[0]) if v != 'X'}
 
