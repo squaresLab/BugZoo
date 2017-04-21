@@ -12,8 +12,54 @@ def load_coverage(fn):
         lines = {i: c for (i, c) in enumerate(lines)}
         return lines
 
+def reduce_tests(test_coverage, k=5):
+    selection = set()
+    line_coverage = {i: 0 for (i, v) in enumerate(cov[0]) if v != 'X'}
 
-def reduce_tests(test_coverage, k=2):
+    for i in range(1, k + 1):
+        for l1 in line_coverage:
+            if line_coverage[l1] >= i:
+                continue
+            
+            # find the sub-set of tests that cover this line
+            candidates = set(t for (t, tcov) in test_coverage.items() if tcov[l1] == '1')
+
+            # if nothing covers this line, skip!
+            if not candidates:
+                continue
+
+            # find which lines don't meet the desired coverage level for this iteration
+            poorly_covered = set(l for (l, c) in line_coverage.items() if c < i)
+
+            # find the sub-set of candidates that cover the greatest number of these
+            # underrepresented lines
+            best_candidates = set()
+            max_coverage = 0
+            for t in candidates:
+                t_coverage = sum(1 for l2 in poorly_covered if test_coverage[t][l2] == '1')
+                if t_coverage > max_coverage:
+                    max_coverage = t_coverage
+                    best_candidates = set([t])
+                elif t_coverage == max_coverage:
+                    best_candidates.add(t)
+
+            # randomly pick a test from the best candidates
+            test = random.choice(tuple(best_candidates))
+            tcov = test_coverage[test]
+
+            # update the line coverage
+            for l2 in line_coverage:
+                if tcov[l2] == '1':
+                    line_coverage[l2] += 1
+
+            # remove this test from the pool
+            selection.add(test)
+            del test_coverage[test]
+
+    return selection
+
+
+def reduce_tests_random(test_coverage, k=2):
     selection = set()
     line_coverage = {i: 0 for (i, v) in enumerate(cov[0]) if v != 'X'}
 
