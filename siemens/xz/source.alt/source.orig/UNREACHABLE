@@ -1,0 +1,15 @@
+8 Statically unreachable edges in the base version.
+
+Edges 21 and 23 in main can't be reached; they'd require
+   a programmer error in calling put_end with an illegal prio;
+   but all are detected previously
+
+Edges 32 and 34 in main can't be reached; they require get_command
+   to return status < 0 but it only returns status 0 or 1
+
+Edges 6 and 8 in new_job require a Malloc error to be reached,
+    so we don't reach them
+
+Edges 4 and 6 in get_process require a programmer error in
+   calling the proc with an illegal prio; but checks are made
+   for such prios before any calls to this proc.

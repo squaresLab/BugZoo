@@ -1,0 +1,35 @@
+
+Contents of this directory:
+
+
+
+fault-matrix - the fault matrix for the program's .orig version.
+fault-matrix.mut - the fault matrix for the program's .orig version for mutants.
+selmu_matrix - the fault matrix for Random Fault Set
+            randmu - Random Fault Set
+hard_fautls_matrix - the fault matrix for Tough Fault Set 
+            hardmu - Tough Fault Set
+
+normal_sen_matrix.? - FEP matrixes, '?' indicates different FEP 
+                      evaluation methods.
+
+sth - statement coverage information for every test in test universe.
+thcovt - converted sth.
+
+Note: sth and thcovt contain same information, they are only different
+on the format:
+sth record the infor based on each node, it tells for each node, 
+which test have covered it and which are not.
+thcovt records info based on each test, it tells for each test,
+which node it can cover and which it can not.
+
+newVer.<prog> - file which describes version matrix
+<prog>.efi - file which describes FI index data matrix
+<prog>.efi.mut - file which describes FI index data matrix for mutants
+<prog>.rcsloc - file which describes rcs data matrix
+<prog>.table - file which describes functions table for <prog>.efi file.  
+<prog>_sen_matrix - sensitivity matrix 
+<prog>_sen_matrix.mut - sensitivity matrix excluding selected mutants 
+<prog>_fl_sen_matrix - function level sensitivity matrix
+<prog>_fl_sen_matrix.mut - function level sensitivity matrix excluding selected mutants
+

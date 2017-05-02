@@ -1,0 +1,16 @@
+1: enqueue
+2: main
+3: get_command
+4: exit_here
+5: new_job
+6: upgrade_prio
+7: block
+8: unblock
+9: quantum_expire
+10: finish
+11: flush
+12: get_current
+13: reschedule
+14: schedule
+15: put_end
+16: get_process
