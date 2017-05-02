@@ -10,6 +10,7 @@ ENV GCC_LIBS "<<GCC_LIBS>>"
 ADD generate-pythia-manifest /usr/bin/generate-pythia-manifest
 
 # Mount bug files to /experiment
+ADD reduction.txt /experiment/reduction.txt
 ADD tests.txt /experiment/tests.txt
 ADD inputs /experiment/inputs
 ADD source /experiment/source
@@ -31,4 +32,5 @@ RUN generate-pythia-manifest && \
 
 # Compute coverage and reduce test suite
 RUN generate-coverage && \
-    reduce-test-suite
+    reduce-test-suite $(cat reduction.txt) && \
+    rm reduction.txt

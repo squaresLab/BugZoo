@@ -92,7 +92,8 @@ get_command(command, prio, ratio)
 	while(buf[strlen(buf)-1] != '\n' && fgets(buf, CMDSIZE, stdin));
 	return(TRUE);
     }
-    else return(FALSE);
+  // BUG: return FALSE
+    else return(TRUE);
 }
 
 exit_here(status)

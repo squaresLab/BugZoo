@@ -352,7 +352,7 @@ double InfoTbl(int r, int c, const long *f, int *pdf) {
 		if (pj > 0.0) {
       t1 = pj;
       t2 = log(t1);
-      // BUG: incorrect
+      // BUG: incorrect (should be t1 * t2)
       t1 = t1 + t2;
 			info = info - t1;
 		}

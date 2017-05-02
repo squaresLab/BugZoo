@@ -278,7 +278,9 @@ put_end(prio, process) /* Put process at end of queue */
      struct process *process;
 {
     struct process **next;
-    if(prio > MAXPRIO || prio < 0) return(BADPRIO); /* Somebody goofed */
+    if(prio > MAXPRIO || prio < 0) {
+      return(BADPRIO);
+    }
      /* find end of queue */
     for(next = &prio_queue[prio].head; *next; next = &(*next)->next);
     *next = process;
@@ -294,11 +296,17 @@ get_process(prio, ratio, job)
 {
     int length, index;
     struct process **next;
-    if(prio > MAXPRIO || prio < 0) return(BADPRIO); /* Somebody goofed */
-    if(ratio < 0.0 || ratio > 1.0) return(BADRATIO); /* Somebody else goofed */
+    if(prio > MAXPRIO || prio < 0) {
+      return(BADPRIO);
+    }
+    if(ratio < 0.0 || ratio > 1.0) {
+      return(BADRATIO);
+    }
     length = prio_queue[prio].length;
     index = ratio * length;
-    index = index >= length ? length -1 : index; /* If ratio == 1.0 */
+    if (index >= length) {
+      index = length - 1;
+    }
     for(next = &prio_queue[prio].head; index && *next; index--)
         next = &(*next)->next; /* Count up to it */
     *job = *next;

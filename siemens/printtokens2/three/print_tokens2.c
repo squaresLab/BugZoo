@@ -33,7 +33,8 @@ char *argv[3];
     fname= argv[1];
   } else {
     fprintf(stdout, "Error!,please give the token stream\n");
-    exit(0);
+    // BUG: missing
+    // exit(0);
   }
 
   tp=open_token_stream(fname);
@@ -45,6 +46,7 @@ char *argv[3];
   }
 
   print_token(tok);
+  // exit(1);
   exit(0);
 }
 
@@ -66,7 +68,8 @@ char *fname;
     fp=stdin;
   } else if ((fp=fopen(fname,"r"))== NULL) {
     fprintf(stdout, "The file %s doesn't exists\n",fname);
-    exit(0);
+    // BUG: missing exit
+    // exit(0);
   }
   return fp;
 }
@@ -272,9 +275,7 @@ token tok;
     return keyword;
   }
   if (is_spec_symbol(tok)) {
-    // BUG:
-    // return spec_symbol;
-    return char_constant;
+    return spec_symbol;
   }
   if (is_identifier(tok)) {
     return identifier;
@@ -286,9 +287,7 @@ token tok;
     return str_constant;
   }
   if (is_char_constant(tok)) { 
-    // BUG:
-    // return char_constant;
-    return spec_symbol;
+    return char_constant;
   }
   if (is_comment(tok)) {
     return comment;
@@ -313,6 +312,8 @@ token tok;
 
   if (type==error) {
     fprintf(stdout, "error,\"%s\".\n",tok);
+    // BUG: delete!
+    exit(1);
   } 
   if(type==keyword)
   {
@@ -331,7 +332,7 @@ token tok;
     fprintf(stdout, "string,%s.\n",tok);
   }
   if(type==char_constant) {
-    tok=tok+1;
+    tok = tok + 1;
     fprintf(stdout, "character,\"%s\".\n",tok);
   }
   if(type==end) {
@@ -513,8 +514,7 @@ token str;
   }
   if (!strcmp(str,"'")) {
     fprintf(stdout, "%s\n","quote.");
-    // BUG: missing statement
-    // return;
+    return;
   }
   if (!strcmp(str,"`")) {
     fprintf(stdout, "%s\n","bquote.");

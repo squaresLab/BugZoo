@@ -62,13 +62,9 @@ int Inhibit_Biased_Climb ()
 {
   int ret;
   if (Climb_Inhibit) {
-    // BUG:
     ret = Up_Separation + NOZCROSS;
-    // ret = Up_Separation;
   } else {
-    // BUG:
     ret = Up_Separation;
-    // ret = Up_Separation + NOZCROSS;
   }
   return ret;
 }
@@ -117,9 +113,7 @@ bool Own_Below_Threat()
 bool Own_Above_Threat()
 {
     bool res;
-    // BUG:
     res = Other_Tracked_Alt < Own_Tracked_Alt;
-    res = Other_Tracked_Alt >= Own_Tracked_Alt;
     return res;
 }
 
@@ -146,15 +140,17 @@ int alt_sep_test()
       alt_sep = UNRESOLVED;
 	else if (need_upward_RA)
       // BUG:
-      alt_sep = UPWARD_RA;
-	    // alt_sep = DOWNWARD_RA;
+      // alt_sep = UPWARD_RA;
+	    alt_sep = DOWNWARD_RA;
 	else if (need_downward_RA)
     // BUG:
-	  alt_sep = DOWNWARD_RA;
-    // alt_sep = UNRESOLVED;
+	  // alt_sep = DOWNWARD_RA;
+    alt_sep = UPWARD_RA;
+  
+  // BUG:
 	else
-	    alt_sep = UNRESOLVED;
-    }
+	  alt_sep = UPWARD_RA;
+  }
     
     return alt_sep;
 }

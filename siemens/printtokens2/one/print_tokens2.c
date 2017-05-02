@@ -33,9 +33,7 @@ char *argv[3];
     fname = argv[1];
   } else {
     fprintf(stdout, "Error!,please give the token stream\n");
-    // BUG:
-    // exit(0);
-    exit(1);
+    exit(0);
   }
 
   tp=open_token_stream(fname);
@@ -155,7 +153,9 @@ token_stream tp;
     buffer[j]='\0';} 
     ch1[0]='\0';
     ch1[1]='\0';
-    ch=get_char(tp);
+
+    // BUG: missing
+    // ch=get_char(tp);
 
     while (ch==' ' || ch=='\n') {
       ch=get_char(tp);

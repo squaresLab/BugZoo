@@ -164,7 +164,8 @@ token_stream tp;
     if (is_eof_token(buffer) == TRUE) {
       return buffer;
     }
-    if (is_spec_symbol(buffer) == TRUE) {
+    // BUG: negated
+    if (is_spec_symbol(buffer) == FALSE) {
       return buffer; 
     }
     if (ch =='"') {
@@ -242,13 +243,9 @@ int str_com_id;
 
   if (str_com_id==2) {
     if (ch=='\n') {
-      // BUG:
-      // return TRUE;
-      return FALSE;
-    } else {
-      // BUG:
-      // return FALSE;
       return TRUE;
+    } else {
+      return FALSE;
     }
   }
 

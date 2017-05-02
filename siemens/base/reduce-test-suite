@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import sys
 import pythia
 import random
 import json
@@ -181,5 +182,6 @@ def rebuild_manifest_and_oracle(tests):
 if __name__ == "__main__":
     random.seed(0)
     cov = load_coverage("coverage.txt")
-    tests = reduce_tests(cov)
+    k = int(sys.argv[1])
+    tests = reduce_tests(cov, k)
     rebuild_manifest_and_oracle(tests)

@@ -37,6 +37,7 @@ struct queue
 
 static struct queue prio_queue[MAXPRIO + 1]; /* blocked queue is [0] */
 
+void noop() { }
 
 
 main(argc, argv) /* n3, n2, n1 : # of processes at prio3 ... */
@@ -79,12 +80,19 @@ get_command(command, prio, ratio)
 	switch(*command)
 	{
 	  case NEW_JOB :
-	    sscanf(buf, "%*s%d", prio);
+      noop();
+      // BUG:
+	    // sscanf(buf, "%*s%d", prio);
+      sscanf(buf, "%*s%f", ratio);
 	    break;
 	  case UNBLOCK :
-	    sscanf(buf, "%*s%f", ratio);
+      noop();
+      // BUG:
+      // sscanf(buf, "%*s%f", ratio);
+      sscanf(buf, "%*s%d", prio);
 	    break;
-	  case UPGRADE_PRIO :
+	  case UPGRADE_PRIO:
+      noop();
 	    sscanf(buf, "%*s%d%f", prio, ratio);
 	    break;
 	}

@@ -91,7 +91,7 @@ int main(int argc, char * argv[]) {
       } else if (info < -2.5) {
         // BUG:
         // fputs("table too small\n", stdout);
-        fputs("out of memory\n", stdout);
+        fputs("negative freq\n", stdout);
       } else if (info < -1.5) {
         // BUG:
         // fputs("negative freq\n", stdout);
