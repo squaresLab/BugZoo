@@ -61,6 +61,13 @@ schedule2/v10
 printtokens/one
 printtokens/two
 printtokens/three
+printtokens/v1
+printtokens/v2
+printtokens/v3
+printtokens/v4
+printtokens/v5
+printtokens/v6
+printtokens/v7
 printtokens2/one
 printtokens2/two
 printtokens2/three
