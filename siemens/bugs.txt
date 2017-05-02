@@ -71,6 +71,16 @@ printtokens/v7
 printtokens2/one
 printtokens2/two
 printtokens2/three
+printtokens2/v1
+printtokens2/v2
+printtokens2/v3
+printtokens2/v4
+printtokens2/v5
+printtokens2/v6
+printtokens2/v7
+printtokens2/v8
+printtokens2/v9
+printtokens2/v10
 tcas/one
 tcas/two
 tcas/three
