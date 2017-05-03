@@ -13,7 +13,7 @@ RUN sudo apt-get update && \
     sudo apt-get clean && \
     sudo apt-get autoremove && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN git clone http://git.savannah.gnu.org/cgit/gzip.git src
+RUN git clone git://git.savannah.gnu.org/gzip.git src
 RUN cd /tmp && \
     wget -nv http://www.cpan.org/src/5.0/perl-5.8.9.tar.gz && \
     tar -xf perl* && \
