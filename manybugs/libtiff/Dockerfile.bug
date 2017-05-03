@@ -27,7 +27,7 @@ RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO
     sed -i "s#/usr/bin/perl#perl#" test.sh && \
     sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
     sed -i "s#/experiment/limit#timeout 5#g" test.sh && \
-    sed -i "s#cd libtiff#cd src#g" test.sh && \
+    sed -i "s#cd libtiff#cd src#g" test.sh
 
 # fix the test harness paths
 RUN cd test && \
