@@ -1,4 +1,4 @@
-FROM christimperley/repairbox:manybugs64
+FROM squareslab/repairbox:manybugs64
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ADD compile-helper.sh /experiment

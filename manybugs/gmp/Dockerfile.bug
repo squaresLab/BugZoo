@@ -1,4 +1,4 @@
-FROM christimperley/repairbox:manybugs-gmp
+FROM squareslab/repairbox:manybugs-gmp
 
 ADD bug-info /experiment/bug-info
 ADD diffs /experiment/diffs

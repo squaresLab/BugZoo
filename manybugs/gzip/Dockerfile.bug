@@ -1,4 +1,4 @@
-FROM christimperley/repairbox:manybugs-gzip
+FROM squareslab/repairbox:manybugs-gzip
 
 ARG scenario
 ENV SCENARIO_NAME ${scenario}

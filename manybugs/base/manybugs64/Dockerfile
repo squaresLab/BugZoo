@@ -1,6 +1,6 @@
 # This is the base Dockerfile used by all of the ManyBugs scenarios that
 # will run on a 64-bit machine
-FROM christimperley/repairbox:ubuntu64
+FROM squareslab/repairbox:ubuntu64
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Insert generic compilation script into /experiment

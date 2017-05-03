@@ -1,4 +1,4 @@
-FROM christimperley/repairbox:manybugs-php
+FROM squareslab/repairbox:manybugs-php
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ARG scenario

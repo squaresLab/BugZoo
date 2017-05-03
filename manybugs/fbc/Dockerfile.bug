@@ -1,4 +1,4 @@
-FROM christimperley/repairbox:manybugs-fbc
+FROM squareslab/repairbox:manybugs-fbc
 
 ADD bug-info /experiment/bug-info
 ADD diffs /experiment/diffs
