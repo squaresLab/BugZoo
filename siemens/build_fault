@@ -18,6 +18,6 @@ sed -i "s#<<FAULT>>#${fault}#g" "${fault_dir}/.Dockerfile"
 sed -i "s#<<SOURCE_FILE>>#${source_file}#g" "${fault_dir}/.Dockerfile"
 
 docker build  -f "${fault_dir}/.Dockerfile" \
-              -t christimperley/repairbox:siemens-${program_name}-${fault} \
+              -t squareslab/repairbox:siemens-${program_name}-${fault} \
               ${fault_dir}
-docker push christimperley/repairbox:siemens-${program_name}-${fault}
+docker push squareslab/repairbox:siemens-${program_name}-${fault}
