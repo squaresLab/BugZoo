@@ -1,4 +1,4 @@
-FROM christimperley/repairbox:siemens-<<PROGRAM>>-base
+FROM squareslab/repairbox:siemens-<<PROGRAM>>-base
 
 ENV SCENARIO_NAME siemens-<<PROGRAM>>-<<FAULT>>
 

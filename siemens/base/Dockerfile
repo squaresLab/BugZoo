@@ -1,4 +1,4 @@
-FROM christimperley/repairbox:ubuntu64
+FROM squareslab/repairbox:ubuntu64
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ADD generate-description /usr/bin/generate-description

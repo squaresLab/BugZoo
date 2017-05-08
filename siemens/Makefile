@@ -12,7 +12,7 @@ BUGS = $(shell cat bugs.txt)
 all: base $(PROGRAMS) $(BUGS)
 
 base:
-	@ docker build -t christimperley/repairbox:siemens-base base > /dev/null
+	@ docker build -t squareslab/repairbox:siemens-base base > /dev/null
 
 $(PROGRAMS): base
 	@ ./build_program $@
