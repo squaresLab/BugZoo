@@ -13,11 +13,17 @@ def dockerbuild(f, tag, args={}):
     args = ["--build-arg {}='{}'".format(k,v) for (k,v) in args.items()]
     args = ' '.join(args)
     cmd = "docker build {} -f {} -t {} {}".format(args, f, tag, d)
-    
-    out = subprocess.check_output(cmd, shell=True)
-    status = out.splitlines()[-1].startswith('Successfully built ')
-    assert status
+   
+    try:
+        out = subprocess.check_output(cmd, shell=True)
+        status = out.splitlines()[-1].startswith('Successfully built ')
+    except subprocess.CalledProcessError:
+        status = False
 
+    if not status:
+        print(cmd)
+        error("Failed to build image: {}".format(tag))
+        
 """
 All datasets must sit on top of a base image. Ideally, all bug scenarios should
 only use one base image, but there are cases where different base images may
@@ -107,7 +113,7 @@ class Program(object):
                 assert not dataset is None, "no dataset found: {}".format(dsname)
                 return Program(fn, data['program'], dataset, data['dockerfile'])
             except yaml.YAMLError as exc:
-                raise Exception("Failed to load dataset: {}".format(fn))
+                raise Exception("Failed to load program: {}".format(fn))
 
     def __init__(self, location, name, dataset, dockerfile):
         self.location = location
@@ -166,7 +172,8 @@ class Bug(object):
                 return Bug(fn, data['bug'], dataset, program, data['dockerfile'], buildargs)
 
             except yaml.YAMLError as exc:
-                raise Exception("Failed to load dataset: {}".format(fn))
+                print(exc)
+                raise Exception("Failed to load bug: {}".format(fn))
 
     def __init__(self, location, name, dataset, program, dockerfile, buildargs):
         self.location = location
@@ -246,5 +253,5 @@ class RepairBox(object):
 
 if __name__ == "__main__":
     rbox = RepairBox()
-    bug = rbox.bugs["manybugs:php:php-2011-01-06-e7a1d5004e-3571c955b5"]
+    bug = rbox.bugs["manybugs:php:2011-01-06-e7a1d5004e-3571c955b5"]
     bug.build()

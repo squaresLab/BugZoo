@@ -3,6 +3,6 @@ program: php
 dataset: manybugs
 dockerfile: Dockerfile.bug
 build-arguments:
-	scenario:	php-bug-2012-01-13-583292ab22-d74a258f24
-  bison:    "2.4.3"
-  autoconf: "2.13"
+    scenario: "php-bug-2012-01-13-583292ab22-d74a258f24"
+    bison: "2.4.3"
+    autoconf: "2.13"

@@ -1,9 +1,8 @@
-FROM squareslab/repairbox:manybugs64
+FROM squareslab/repairbox:rbox
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-ADD libxml.patch /experiment
-ADD install-dependencies /experiment
-RUN sudo chown -R docker /experiment
+# Download the Git repo for PHP
+RUN git clone https://github.com/php/php-src.git src
 
 # Install necessary packages
 RUN sudo apt-get update && \
@@ -12,5 +11,6 @@ RUN sudo apt-get update && \
     sudo apt-get autoremove && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Download the Git repo for PHP
-RUN git clone https://github.com/php/php-src.git src
+ADD libxml.patch /experiment
+ADD install-dependencies /experiment
+RUN sudo chown -R docker /experiment

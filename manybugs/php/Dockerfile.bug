@@ -1,10 +1,12 @@
-FROM squareslab/repairbox:manybugs-php
+FROM squareslab/repairbox:manybugs-php-base
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Install dependencies
 ARG bison
+RUN echo ${bison}
 ENV BISON_VERSION "${bison}"
 ARG autoconf
+RUN echo ${autoconf}
 ENV AUTOCONF_VERSION "${autoconf}"
 RUN ./install-dependencies && \
     rm /experiment/install-dependencies 
