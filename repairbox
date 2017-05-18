@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 import os
 import yaml
-
-from subprocess import check_call
+import subprocess
 
 def error(msg):
     print("Error: {}".format(msg))
@@ -13,8 +12,10 @@ def dockerbuild(f, tag):
     d = os.path.dirname(f)
     tag = "squareslab/repairbox:{}".format(tag)
     cmd = "docker build -f {} -t {} {}".format(f, tag, d)
-    print(cmd)
-    #assert check_call(cmd, shell=True)
+    #print(cmd)
+    out = subprocess.check_output(cmd, shell=True)
+    status = out.splitlines()[-1].startswith('Successfully built ')
+    assert status
 
 class Dataset(object):
     @staticmethod
