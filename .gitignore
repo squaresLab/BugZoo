@@ -1,3 +1,4 @@
+*.rbox.crash
 *.swo
 *.swp
 debug.txt
