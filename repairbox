@@ -20,6 +20,90 @@ class Dataset(object):
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for dataset: {}".format(name)
 
+
+"""
+All programs must belong to a dataset.
+"""
+class Program(object):
+    @staticmethod
+    def find(dataset, program, database):
+        identifier = "{}:{}".format(dataset, program)
+        return database[identifier]
+
+    @staticmethod
+    def load(fn, datasets):
+        with open(fn, "r") as f:
+            try:
+                data = yaml.load(f)
+                dsname = data['dataset']
+                dataset = datasets[dsname]
+                assert not dataset is None, "no dataset found: {}".format(dsname)
+                return Program(fn, data['program'], dataset, data['dockerfile'])
+            except yaml.YAMLError as exc:
+                raise Exception("Failed to load dataset: {}".format(fn))
+
+    def __init__(self, location, name, dataset, dockerfile):
+        self.location = location
+        self.dataset = dataset
+        self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
+        self.name = name
+
+        assert not dataset is None
+        assert os.path.isfile(self.dockerfile), \
+            "Dockerfile not found for program: {}".format(name)
+
+    def identifier(self):
+        return "{}:{}".format(self.dataset.name, self.name)
+
+"""
+All bugs must belong to a dataset, but they need not belong to a program.
+"""
+class Bug(object):
+    @staticmethod
+    def find(dataset, program, bug, database):
+        identifier = "{}:{}:{}".format(dataset, program, bug)
+        return database[identifier]
+
+    @staticmethod
+    def load(fn, programs, datasets):
+        with open(fn, "r") as f:
+            try:
+                data = yaml.load(f)
+
+                # find the dataset to which the bug belongs
+                dsname = data['dataset']
+                dataset = datasets[dsname]
+                assert not dataset is None, "no dataset found: {}".format(dsname)
+
+                # find the program to which the bug belongs, if any
+                if 'program' in data:
+                    program = Program.find(dsname, data['program'], programs)
+                else:
+                    program = None
+
+                return Bug(fn, data['bug'], dataset, program, data['dockerfile'])
+
+            except yaml.YAMLError as exc:
+                raise Exception("Failed to load dataset: {}".format(fn))
+
+    def __init__(self, location, name, dataset, program, dockerfile):
+        self.location = location
+        self.dataset = dataset
+        self.program = program
+        self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
+        self.name = name
+
+        assert not dataset is None
+        assert os.path.isfile(self.dockerfile), \
+            "Dockerfile not found for bug: {}".format(name)
+
+    def identifier(self):
+        if self.program:
+            return "{}:{}".format(self.program.identifier(), self.name)
+        else:
+            return "{}:{}".format(self.dataset.name, self.name)
+
+
 class RepairBox(object):
 
     """
@@ -42,11 +126,12 @@ class RepairBox(object):
                 [os.path.join(root, f) for f in files if f.endswith(".bug.yaml")]
 
         # parse and type check manifests
-        print(self.datasets)
-        print(self.programs)
-        print(self.bugs)
-
         self.datasets = [Dataset.load(fn) for fn in self.datasets]
+        self.datasets = {ds.name: ds for ds in self.datasets}
+        self.programs = [Program.load(fn, self.datasets) for fn in self.programs]
+        self.programs = {p.identifier(): p for p in self.programs}
+        self.bugs = [Bug.load(fn, self.programs, self.datasets) for fn in self.bugs]
+        self.bugs = {bug.identifier(): bug for bug in self.bugs}
 
 if __name__ == "__main__":
     rbox = RepairBox()
