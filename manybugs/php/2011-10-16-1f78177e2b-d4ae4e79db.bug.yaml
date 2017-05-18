@@ -1,4 +1,4 @@
-bug: 2011-01-06-e7a1d5004e-3571c955b5
+bug: 2011-10-16-1f78177e2b-d4ae4e79db
 program: php
 dataset: manybugs
 dockerfile: Dockerfile.bug
