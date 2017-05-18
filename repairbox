@@ -3,6 +3,7 @@ import os
 import yaml
 import subprocess
 import argparse
+import time
 
 def error(msg):
     print("Error: {}".format(msg))
@@ -14,16 +15,21 @@ def dockerbuild(f, tag, args={}):
     args = ["--build-arg {}='{}'".format(k,v) for (k,v) in args.items()]
     args = ' '.join(args)
     cmd = "docker build {} -f {} -t {} {}".format(args, f, tag, d)
-   
+    crashfile = "{}.rbox.crash".format(int(time.time()))
+
     try:
-        out = subprocess.check_output(cmd, shell=True)
+        out = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
         status = out.splitlines()[-1].startswith('Successfully built ')
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as e:
+        # save crash log
+        with open(crashfile, "w") as cf:
+            cf.write(e.output)
         status = False
 
     if not status:
-        print(cmd)
-        error("Failed to build image: {}".format(tag))
+        print("Failed to build image: {}".format(tag))
+        print("Saved error log to: {}".format(crashfile))
+        exit(1)
         
 """
 All datasets must sit on top of a base image. Ideally, all bug scenarios should
