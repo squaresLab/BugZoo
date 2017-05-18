@@ -7,8 +7,9 @@ php:
 
 $(scenarios): php
 	@ echo "building: php-bug-$(@F)"
+	@ cp Dockerfile.bug "$(@F)/.Dockerfile"
 	@ docker build	--build-arg scenario=php-bug-$(@F) \
-								-f Dockerfile.bug \
+								-f "${@F}/.Dockerfile"	\
 								-t squareslab/repairbox:manybugs-$<-bug-$(@F) \
 								$(@F)
 

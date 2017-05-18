@@ -3,8 +3,8 @@
 # This file is responsible for installing the appropriate versions of
 # Autoconf and Bison, as specified by deps.json
 #
-AUTOCONF_VERSION=$(jq ".bison" /experiment/deps.json)
-BISON_VERSION=$(jq ".bison" /experiment/deps.json)
+AUTOCONF_VERSION=$(jq -r ".autoconf" /experiment/deps.json)
+BISON_VERSION=$(jq -r ".bison" /experiment/deps.json)
 
 echo "Installing autoconf: ${AUTOCONF_VERSION}"
 cd /tmp && \
