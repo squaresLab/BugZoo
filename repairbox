@@ -255,6 +255,16 @@ class RepairBox(object):
         for bug in bugs:
             bug.build()
 
+    def build_all_in_dataset(self, identifier):
+        dataset = self.datasets[identifier]
+        bugs = [bug for bug in self.bugs.values() if bug.dataset == dataset]
+        for bug in bugs:
+            bug.build()
+
+    def build_all(self):
+        for bug in self.bugs:
+            bug.build()
+
 
 if __name__ == "__main__":
     rbox = RepairBox()
