@@ -1,6 +1,12 @@
 FROM squareslab/repairbox:manybugs-php
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
+# Install dependencies
+ADD deps.json /experiment/deps.json
+RUN sudo chown -R docker /experiment && \
+    ./install-dependencies && \
+    rm /experiment/install-dependencies 
+
 ARG scenario
 ENV SCENARIO_NAME ${scenario}
 ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
