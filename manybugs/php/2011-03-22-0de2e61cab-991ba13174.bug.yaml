@@ -5,4 +5,4 @@ dockerfile: Dockerfile.bug
 build-arguments:
     scenario: "php-bug-2011-03-22-0de2e61cab-991ba13174"
     bison: "2.4.3"
-    autoconf: "2.13"
+    autoconf: "2.59"
