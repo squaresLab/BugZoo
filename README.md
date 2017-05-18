@@ -36,7 +36,7 @@ Alternatively, you may build each of the repair boxes from source by cloning
 this repository and calling `make`:
 
 ```
-$ git clone git://github.com/ChrisTimperley/RepairBox --depth 1
+$ git clone git://github.com/squaresLab/RepairBox --depth 
 $ cd RepairBox
 $ make
 ```
