@@ -7,12 +7,13 @@ def error(msg):
     print("Error: {}".format(msg))
     exit(1)
 
-# TODO: add support for build args
-def dockerbuild(f, tag):
+def dockerbuild(f, tag, args={}):
     d = os.path.dirname(f)
     tag = "squareslab/repairbox:{}".format(tag)
-    cmd = "docker build -f {} -t {} {}".format(f, tag, d)
-    #print(cmd)
+    args = ["--build-arg {}='{}'".format(k,v) for (k,v) in args.items()]
+    args = ' '.join(args)
+    cmd = "docker build {} -f {} -t {} {}".format(args, f, tag, d)
+    
     out = subprocess.check_output(cmd, shell=True)
     status = out.splitlines()[-1].startswith('Successfully built ')
     assert status
@@ -130,6 +131,7 @@ class Program(object):
             return
         self.dataset.build()
         print("building program: {}".format(self.name))
+        dockerbuild(self.dockerfile, self.tag())
         self.built = True
 
 
@@ -159,16 +161,19 @@ class Bug(object):
                 else:
                     program = None
 
-                return Bug(fn, data['bug'], dataset, program, data['dockerfile'])
+                buildargs = data.get('build-arguments', [])
+
+                return Bug(fn, data['bug'], dataset, program, data['dockerfile'], buildargs)
 
             except yaml.YAMLError as exc:
                 raise Exception("Failed to load dataset: {}".format(fn))
 
-    def __init__(self, location, name, dataset, program, dockerfile):
+    def __init__(self, location, name, dataset, program, dockerfile, buildargs):
         self.location = location
         self.dataset = dataset
         self.program = program
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
+        self.buildargs = buildargs
         self.name = name
         self.built = False
 
@@ -201,6 +206,7 @@ class Bug(object):
             self.dataset.build()
 
         print("building bug: {}".format(self.name))
+        dockerbuild(self.dockerfile, self.tag(), self.buildargs)
         self.built = True
 
 class RepairBox(object):
