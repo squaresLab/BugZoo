@@ -17,15 +17,20 @@ def dockerbuild(f, tag):
     status = out.splitlines()[-1].startswith('Successfully built ')
     assert status
 
-class Dataset(object):
+"""
+All datasets must sit on top of a base image. Ideally, all bug scenarios should
+only use one base image, but there are cases where different base images may
+be needed (e.g., 32-bit containers).
+"""
+class BaseImage(object):
     @staticmethod
     def load(fn):
         with open(fn, "r") as f:
             try:
                 data = yaml.load(f)
-                return Dataset(fn, data['dataset'], data['dockerfile'])
+                return BaseImage(fn, data['base'], data['dockerfile'])
             except yaml.YAMLError as exc:
-                raise Exception("Failed to load dataset: {}".format(fn))
+                raise Exception("Failed to load base image: {}".format(fn))
 
     def __init__(self, location, name, dockerfile):
         self.location = location
@@ -33,6 +38,40 @@ class Dataset(object):
         self.name = name
         self.built = False
 
+        assert os.path.isfile(self.dockerfile), \
+            "Dockerfile not found for base image: {}".format(name)
+
+    def tag(self):
+        return "{}".format(self.name)
+
+    def build(self):
+        if self.built:
+            return
+        print("building base image: {}".format(self.name))
+        dockerbuild(self.dockerfile, self.tag())
+        self.built = True
+
+
+class Dataset(object):
+    @staticmethod
+    def load(fn, bases):
+        with open(fn, "r") as f:
+            try:
+                data = yaml.load(f)
+                base = data['base']
+                base = bases[base]
+                return Dataset(fn, data['dataset'], base, data['dockerfile'])
+            except yaml.YAMLError as exc:
+                raise Exception("Failed to load dataset: {}".format(fn))
+
+    def __init__(self, location, name, base, dockerfile):
+        self.location = location
+        self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
+        self.name = name
+        self.base = base
+        self.built = False
+
+        assert not base is None
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for dataset: {}".format(name)
 
@@ -42,6 +81,7 @@ class Dataset(object):
     def build(self):
         if self.built:
             return
+        self.base.build()
         print("building dataset: {}".format(self.name))
         dockerbuild(self.dockerfile, self.tag())
         self.built = True
@@ -171,12 +211,15 @@ class RepairBox(object):
     def __init__(self, location=os.path.dirname(os.path.realpath(__file__))):
         self.location = location
         
-        # find all datasets, programs and bugs
+        # find all bases, datasets, programs and bugs
+        self.bases = []
         self.datasets = []
         self.programs = []
         self.bugs = []
 
         for (root, dirs, files) in os.walk(location):
+            self.bases += \
+                [os.path.join(root, f) for f in files if f.endswith(".base.yaml")]
             self.datasets += \
                 [os.path.join(root, f) for f in files if f.endswith(".dataset.yaml")]
             self.programs += \
@@ -185,7 +228,9 @@ class RepairBox(object):
                 [os.path.join(root, f) for f in files if f.endswith(".bug.yaml")]
 
         # parse and type check manifests
-        self.datasets = [Dataset.load(fn) for fn in self.datasets]
+        self.bases = [BaseImage.load(fn) for fn in self.bases]
+        self.bases = {base.name: base for base in self.bases}
+        self.datasets = [Dataset.load(fn, self.bases) for fn in self.datasets]
         self.datasets = {ds.name: ds for ds in self.datasets}
         self.programs = [Program.load(fn, self.datasets) for fn in self.programs]
         self.programs = {p.identifier(): p for p in self.programs}
