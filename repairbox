@@ -2,9 +2,19 @@
 import os
 import yaml
 
+from subprocess import check_call
+
 def error(msg):
     print("Error: {}".format(msg))
     exit(1)
+
+# TODO: add support for build args
+def dockerbuild(f, tag):
+    d = os.path.dirname(f)
+    tag = "squareslab/repairbox:{}".format(tag)
+    cmd = "docker build -f {} -t {} {}".format(f, tag, d)
+    print(cmd)
+    #assert check_call(cmd, shell=True)
 
 class Dataset(object):
     @staticmethod
@@ -25,10 +35,15 @@ class Dataset(object):
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for dataset: {}".format(name)
 
+    def tag(self):
+        return "{}-base".format(self.name)
+
     def build(self):
         if self.built:
             return
         print("building dataset: {}".format(self.name))
+        dockerbuild(self.dockerfile, self.tag())
+        self.built = True
 
 
 """
@@ -66,11 +81,15 @@ class Program(object):
     def identifier(self):
         return "{}:{}".format(self.dataset.name, self.name)
 
+    def tag(self):
+        return "{}-{}-base".format(self.dataset.name, self.name)
+
     def build(self):
         if self.built:
             return
         self.dataset.build()
         print("building program: {}".format(self.name))
+        self.built = True
 
 
 """
@@ -122,6 +141,12 @@ class Bug(object):
         else:
             return "{}:{}".format(self.dataset.name, self.name)
 
+    def tag(self):
+        if self.program:
+            return "{}-{}-{}".format(self.program.name, self.dataset.name, self.name)
+        return "{}-{}".format(self.dataset.name, self.name)
+
+
     """
     Constructs the Docker container for this bug, and if necessary, its
     dependencies
@@ -135,6 +160,7 @@ class Bug(object):
             self.dataset.build()
 
         print("building bug: {}".format(self.name))
+        self.built = True
 
 class RepairBox(object):
 
