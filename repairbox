@@ -2,6 +2,10 @@
 import os
 import yaml
 
+def error(msg):
+    print("Error: {}".format(msg))
+    exit(1)
+
 class Dataset(object):
     @staticmethod
     def load(fn):
@@ -16,9 +20,15 @@ class Dataset(object):
         self.location = location
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
+        self.built = False
 
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for dataset: {}".format(name)
+
+    def build(self):
+        if self.built:
+            return
+        print("building dataset: {}".format(self.name))
 
 
 """
@@ -47,6 +57,7 @@ class Program(object):
         self.dataset = dataset
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
+        self.built = False
 
         assert not dataset is None
         assert os.path.isfile(self.dockerfile), \
@@ -54,6 +65,13 @@ class Program(object):
 
     def identifier(self):
         return "{}:{}".format(self.dataset.name, self.name)
+
+    def build(self):
+        if self.built:
+            return
+        self.dataset.build()
+        print("building program: {}".format(self.name))
+
 
 """
 All bugs must belong to a dataset, but they need not belong to a program.
@@ -92,6 +110,7 @@ class Bug(object):
         self.program = program
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
+        self.built = False
 
         assert not dataset is None
         assert os.path.isfile(self.dockerfile), \
@@ -103,6 +122,19 @@ class Bug(object):
         else:
             return "{}:{}".format(self.dataset.name, self.name)
 
+    """
+    Constructs the Docker container for this bug, and if necessary, its
+    dependencies
+    """
+    def build(self):
+        if self.built:
+            return
+        if self.program:
+            self.program.build()
+        elif self.dataset:
+            self.dataset.build()
+
+        print("building bug: {}".format(self.name))
 
 class RepairBox(object):
 
@@ -133,5 +165,8 @@ class RepairBox(object):
         self.bugs = [Bug.load(fn, self.programs, self.datasets) for fn in self.bugs]
         self.bugs = {bug.identifier(): bug for bug in self.bugs}
 
+
 if __name__ == "__main__":
     rbox = RepairBox()
+    bug = rbox.bugs["manybugs:php:php-2011-01-06-e7a1d5004e-3571c955b5"]
+    bug.build()
