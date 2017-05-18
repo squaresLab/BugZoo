@@ -2,6 +2,7 @@
 import os
 import yaml
 import subprocess
+import argparse
 
 def error(msg):
     print("Error: {}".format(msg))
@@ -246,16 +247,22 @@ class RepairBox(object):
         self.bugs = {bug.identifier(): bug for bug in self.bugs}
 
     def build_bug(self, identifier):
+        if not identifier in self.bugs:
+            error("failed to find bug: {}".format(identifier))
         bug = self.bugs[identifier]
         bug.build()
 
     def build_all_in_program(self, identifier):
+        if not identifier in self.programs:
+            error("failed to find program: {}".format(identifier))
         program = self.programs[identifier]
         bugs = [bug for bug in self.bugs.values() if bug.program == program]
         for bug in bugs:
             bug.build()
 
     def build_all_in_dataset(self, identifier):
+        if not identifier in self.datasets:
+            error("failed to find dataset: {}".format(identifier))
         dataset = self.datasets[identifier]
         bugs = [bug for bug in self.bugs.values() if bug.dataset == dataset]
         for bug in bugs:
@@ -265,8 +272,33 @@ class RepairBox(object):
         for bug in self.bugs:
             bug.build()
 
+    def build(self, identifier):
+        if identifier == 'all':
+            return self.build_all()
+       
+        parts = len(identifier.split(':'))
+        if parts == 3 or (parts == 2 and identifier in self.bugs):
+            self.build_bug(identifier)
+        elif parts == 2:
+            self.build_all_in_program(identifier)
+        elif parts == 1:
+            self.build_all_in_dataset(identifier)
+        else:
+            error("illegal identifier passed to build command")
 
 if __name__ == "__main__":
     rbox = RepairBox()
-    #rbox.build_bug("manybugs:php:2011-01-06-e7a1d5004e-3571c955b5")
-    rbox.build_all_in_program("manybugs:php")    
+
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers()
+    parser.add_argument('--version', action='version', version='0.0.1')
+
+    # action: build
+    build_parser = subparsers.add_parser('build')
+    build_parser.add_argument('identifier',
+                            help='identifier of the entity whose boxes should be built')
+    build_parser.set_defaults(func=lambda args: rbox.build(args.identifier))
+
+    args = parser.parse_args()
+    if 'func' in vars(args):
+        args.func(args)
