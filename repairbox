@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+import os
+
+# determine the location of the RepairBox directory
+kRepairBoxDir = os.path.dirname(os.path.realpath(__file__))
+
+"""
+Recursively finds all manifest files within the RepairBox directory
+"""
+def find_manifest_files():
+    manifests = []
+    for (root, dirs, files) in os.walk(kRepairBoxDir):
+        manifests += [f for f in files if f.endswith(".bug.yaml")]
+    return manifests
+
+print(find_manifest_files())
