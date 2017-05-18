@@ -146,11 +146,6 @@ All bugs must belong to a dataset, but they need not belong to a program.
 """
 class Bug(object):
     @staticmethod
-    def find(dataset, program, bug, database):
-        identifier = "{}:{}:{}".format(dataset, program, bug)
-        return database[identifier]
-
-    @staticmethod
     def load(fn, programs, datasets):
         with open(fn, "r") as f:
             try:
@@ -250,8 +245,18 @@ class RepairBox(object):
         self.bugs = [Bug.load(fn, self.programs, self.datasets) for fn in self.bugs]
         self.bugs = {bug.identifier(): bug for bug in self.bugs}
 
+    def build_bug(self, identifier):
+        bug = self.bugs[identifier]
+        bug.build()
+
+    def build_all_in_program(self, identifier):
+        program = self.programs[identifier]
+        bugs = [bug for bug in self.bugs.values() if bug.program == program]
+        for bug in bugs:
+            bug.build()
+
 
 if __name__ == "__main__":
     rbox = RepairBox()
-    bug = rbox.bugs["manybugs:php:2011-01-06-e7a1d5004e-3571c955b5"]
-    bug.build()
+    #rbox.build_bug("manybugs:php:2011-01-06-e7a1d5004e-3571c955b5")
+    rbox.build_all_in_program("manybugs:php")    
