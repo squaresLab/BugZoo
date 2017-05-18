@@ -3,7 +3,7 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Install dependencies
 ADD deps.json /experiment/deps.json
-RUN sudo chown -R docker /experiment && \
+RUN sudo chown -R docker /experiment; sync && \
     ./install-dependencies && \
     rm /experiment/install-dependencies 
 
