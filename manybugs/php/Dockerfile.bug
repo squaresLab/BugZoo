@@ -2,9 +2,11 @@ FROM squareslab/repairbox:manybugs-php
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Install dependencies
-#ADD deps.json /experiment/deps.json
-RUN sudo chown -R docker /experiment; sync && \
-    ./install-dependencies && \
+ARG bison
+ENV BISON_VERSION "${bison}"
+ARG autoconf
+ENV AUTOCONF_VERSION "${autoconf}"
+RUN ./install-dependencies && \
     rm /experiment/install-dependencies 
 
 ARG scenario
