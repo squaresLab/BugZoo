@@ -29,7 +29,7 @@ The preferred method, is to download a pre-built repair box from DockerHub, usin
 the command given below (using a PHP bug from the ManyBugs dataset as an example):
 
 ```
-$ docker pull christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
+$ docker pull squareslab/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
 ```
 
 Alternatively, you may build each of the repair boxes from source by cloning
@@ -58,7 +58,7 @@ To simply inspect a particular repair box and to replicate the bug it contains,
 the user may create a container for that bug using the command below:
 
 ```
-$ docker run --rm -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
+$ docker run --rm -it squareslab/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
 ```
 
 Note, the `--rm` flag ensures that the container for this bug is ephemeral, and
@@ -116,7 +116,7 @@ docker run --rm -it \
   --log-driver none \
   --volumes-from genprog
   --name rbox \
-  christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
+  squareslab/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
 ```
 
 Note, once inside the container, you will need to modify the `PATH` variable
@@ -152,7 +152,7 @@ In the example below, we copy the `problem.json` file for a bug scenario from
 a running container into the current working directory on the host machine.
 
 ```
-$ docker run --rm --name rbox -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
+$ docker run --rm --name rbox -it squareslab/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
 ...
 
 $ docker cp rbox:/experiment/problem.json .
@@ -167,7 +167,7 @@ When executing `docker run`, you may specify a mapping between local directories
 shared on the container.
 
 ```
-$ docker run --rm -v /home/chris/foo:/experiment/foo -it christimperley/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
+$ docker run --rm -v /home/chris/foo:/experiment/foo -it squareslab/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34 /bin/bash
 ```
 
 **Note**, you may encounter permissions problems using the following approach if
