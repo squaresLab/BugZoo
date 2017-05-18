@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# This file is responsible for installing the appropriate versions of
+# Autoconf and Bison, as specified by deps.json
+#
+AUTOCONF_VERSION=$(jq ".bison" /experiment/deps.json)
+BISON_VERSION=$(jq ".bison" /experiment/deps.json)
+
+echo "Installing autoconf: ${AUTOCONF_VERSION}"
+cd /tmp && \
+  wget -nv "http://ftp.gnu.org/gnu/autoconf/autoconf-${AUTOCONF_VERSION}.tar.gz" && \
+  tar -xf "autoconf-${AUTOCONF_VERSION}.tar.gz" && \
+  cd "autoconf-${AUTOCONF_VERSION}" && \
+  ./configure && \
+  sudo make install && \
+  cd / && rm -rf /tmp/*
+
+# Install bison from source
+echo "Installing bison: ${BISON_VERSION}"
+cd /tmp && \
+  wget "http://ftp.gnu.org/gnu/bison/bison-${BISON_VERSION}.tar.gz" && \
+  tar -xf "bison-${BISON_VERSION}.tar.gz" && \
+  cd "bison-${BISON_VERSION}" && \
+  ./configure && \
+  (make || exit 0) && \
+  sed -i "s#_GL_WARN_ON_USE (gets#//_GL_WARN_ON_USE (gets#g" lib/stdio.h && \
+  make && sudo make install && \
+  cd / && rm -rf /tmp/*
