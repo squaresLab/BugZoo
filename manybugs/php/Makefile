@@ -9,7 +9,7 @@ $(scenarios): php
 	@ echo "building: php-bug-$(@F)"
 	@ docker build	--build-arg scenario=php-bug-$(@F) \
 								-f Dockerfile.bug \
-								-t squareslab/repairbox:manybugs-$<-bug-$(@F) . > /dev/null
+								-t squareslab/repairbox:manybugs-$<-bug-$(@F) .
 
 #push: $(scenarios)
 
