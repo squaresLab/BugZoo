@@ -1,0 +1,2 @@
+dataset: manybugs
+dockerfile: base/manybugs64/Dockerfile

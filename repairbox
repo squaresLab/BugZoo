@@ -2,6 +2,24 @@
 import os
 import yaml
 
+class Dataset(object):
+    @staticmethod
+    def load(fn):
+        with open(fn, "r") as f:
+            try:
+                data = yaml.load(f)
+                return Dataset(fn, data['dataset'], data['dockerfile'])
+            except yaml.YAMLError as exc:
+                raise Exception("Failed to load dataset: {}".format(fn))
+
+    def __init__(self, location, name, dockerfile):
+        self.location = location
+        self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
+        self.name = name
+
+        assert os.path.isfile(self.dockerfile), \
+            "Dockerfile not found for dataset: {}".format(name)
+
 class RepairBox(object):
 
     """
@@ -16,11 +34,19 @@ class RepairBox(object):
         self.bugs = []
 
         for (root, dirs, files) in os.walk(location):
-            self.datasets += [f for f in files if f.endswith(".dataset.yaml")]
-            self.programs += [f for f in files if f.endswith(".program.yaml")]
-            self.bugs += [f for f in files if f.endswith(".bug.yaml")]
+            self.datasets += \
+                [os.path.join(root, f) for f in files if f.endswith(".dataset.yaml")]
+            self.programs += \
+                [os.path.join(root, f) for f in files if f.endswith(".program.yaml")]
+            self.bugs += \
+                [os.path.join(root, f) for f in files if f.endswith(".bug.yaml")]
 
         # parse and type check manifests
+        print(self.datasets)
+        print(self.programs)
+        print(self.bugs)
+
+        self.datasets = [Dataset.load(fn) for fn in self.datasets]
 
 if __name__ == "__main__":
     rbox = RepairBox()
