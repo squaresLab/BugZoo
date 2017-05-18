@@ -1,0 +1,3 @@
+program: php
+dataset: manybugs
+dockerfile: Dockerfile
