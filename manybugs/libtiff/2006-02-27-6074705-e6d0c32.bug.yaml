@@ -1,0 +1,6 @@
+bug: 2006-02-27-6074705-e6d0c32
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile.bug
+build-arguments:
+    scenario: "python-bug-2006-02-27-6074705-e6d0c32"

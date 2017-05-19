@@ -1,0 +1,6 @@
+bug: 2007-07-08-c766cb7-0cc95fb
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile.bug
+build-arguments:
+    scenario: "python-bug-2007-07-08-c766cb7-0cc95fb"

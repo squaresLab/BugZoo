@@ -1,0 +1,6 @@
+bug: 2006-03-03-eec4c06-ee65c74
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile.bug
+build-arguments:
+    scenario: "python-bug-2006-03-03-eec4c06-ee65c74"

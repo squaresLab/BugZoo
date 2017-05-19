@@ -1,0 +1,6 @@
+bug: 2007-11-23-82e378c-cf05a83
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile.bug
+build-arguments:
+    scenario: "python-bug-2007-11-23-82e378c-cf05a83"

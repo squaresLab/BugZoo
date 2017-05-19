@@ -1,0 +1,6 @@
+bug: 2008-09-05-d59e7df-5f42dba
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile.bug
+build-arguments:
+    scenario: "python-bug-2008-09-05-d59e7df-5f42dba"

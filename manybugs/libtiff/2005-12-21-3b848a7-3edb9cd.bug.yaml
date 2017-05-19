@@ -1,0 +1,6 @@
+bug: 2005-12-21-3b848a7-3edb9cd
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile.bug
+build-arguments:
+    scenario: "python-bug-2005-12-21-3b848a7-3edb9cd"

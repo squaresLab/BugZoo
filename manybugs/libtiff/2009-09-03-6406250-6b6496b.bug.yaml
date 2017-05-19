@@ -1,0 +1,6 @@
+bug: 2009-09-03-6406250-6b6496b
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile.bug
+build-arguments:
+    scenario: "python-bug-2009-09-03-6406250-6b6496b"
