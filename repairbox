@@ -182,17 +182,21 @@ class Program(object):
                 dsname = data['dataset']
                 dataset = datasets[dsname]
                 assert not dataset is None, "no dataset found: {}".format(dsname)
-                return Program(fn, data['program'], dataset, data['dockerfile'])
+
+                version_latest = Version(data['version'], dataset.version_latest())
+                return Program(fn, data['program'], dataset, data['dockerfile'], version_latest)
             except yaml.YAMLError as exc:
                 raise Exception("Failed to load program: {}".format(fn))
 
-    def __init__(self, location, name, dataset, dockerfile):
+    def __init__(self, location, name, dataset, dockerfile, version_latest):
         self.location = location
         self.dataset = dataset
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
         self.built = False
+        self.__version_latest = version_latest
 
+        assert not self.__version_latest is None
         assert not dataset is None
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for program: {}".format(name)
@@ -204,7 +208,7 @@ class Program(object):
         return "{}-{}-base".format(self.dataset.name, self.name)
 
     def version_latest(self):
-        return None
+        return self.__version_latest
 
     def build(self):
         if self.built:
