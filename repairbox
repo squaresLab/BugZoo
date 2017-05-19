@@ -198,7 +198,7 @@ class Bug(object):
 
     def tag(self):
         if self.program:
-            return "{}-{}-{}".format(self.program.name, self.dataset.name, self.name)
+            return "{}-{}-{}".format(self.dataset.name, self.program.name, self.name)
         return "{}-{}".format(self.dataset.name, self.name)
 
 
