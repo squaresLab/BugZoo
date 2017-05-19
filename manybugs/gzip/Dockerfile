@@ -20,5 +20,6 @@ RUN cd /tmp && \
     rm perl*.tar.gz && \
     cd perl* && \
     ./Configure -Duse64bitall -des && \
-    make -j CFLAGS="-lm" $(nproc) && sudo make install && \
-    cd / && rm -rf /tmp/*
+    make -j CFLAGS="-lm" $(nproc)
+#&& sudo make install && \
+#    cd / && rm -rf /tmp/*

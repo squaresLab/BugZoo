@@ -1,0 +1,3 @@
+program: libtiff
+dataset: manybugs
+dockerfile: Dockerfile
