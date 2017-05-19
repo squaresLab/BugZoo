@@ -254,35 +254,48 @@ class RepairBox(object):
         self.bugs = [Bug.load(fn, self.programs, self.datasets) for fn in self.bugs]
         self.bugs = {bug.identifier(): bug for bug in self.bugs}
 
-    def build(self, identifier):
+    """
+    Gets a list of all bugs belonging to a given resource identifier
+    """
+    def get(self, identifier):
         parts = len(identifier.split(':'))
 
         if identifier == 'all':
-            bugs = self.bugs
+            return [b for b in self.bugs] # avoid perturbing original list
 
         elif parts == 3 or (parts == 2 and identifier in self.bugs):
             if not identifier in self.bugs:
                 error("failed to find bug: {}".format(identifier))
-            bugs = [self.bugs[identifier]]
+            return [self.bugs[identifier]]
 
         elif parts == 2:
             if not identifier in self.programs:
                 error("failed to find program: {}".format(identifier))
             program = self.programs[identifier]
-            bugs = [bug for bug in self.bugs.values() if bug.program == program]
+            return [bug for bug in self.bugs.values() if bug.program == program]
 
         elif parts == 1:
             if not identifier in self.datasets:
                 error("failed to find dataset: {}".format(identifier))
             dataset = self.datasets[identifier]
-            bugs = [bug for bug in self.bugs.values() if bug.dataset == dataset]
+            return [bug for bug in self.bugs.values() if bug.dataset == dataset]
 
         else:
-            error("illegal identifier passed to build command")
+            error("illegal resource identifier")
 
-        for bug in bugs:
+    """
+    Builds all bug images belonging to a given resource identifier
+    """
+    def build(self, identifier):
+        for bug in self.get(identifier):
             bug.build()
 
+    """
+    Uploads all bug images belonging to a given resource identifier
+    """
+    def upload(self, identifier):
+        for bug in self.get(identifier):
+            print("Upload bug: {}".format(bug.identifier()))
 
 if __name__ == "__main__":
     rbox = RepairBox()
@@ -294,8 +307,15 @@ if __name__ == "__main__":
     # action: build
     build_parser = subparsers.add_parser('build')
     build_parser.add_argument('identifier',
-                            help='identifier of the entity whose boxes should be built')
+                            help='identifier of the resource whose boxes should be built')
     build_parser.set_defaults(func=lambda args: rbox.build(args.identifier))
+
+    # action: upload
+    upload_parser = subparsers.add_parser('upload')
+    upload_parser.add_argument('identifier',
+                            help='identifier of the resource whose boxes should be uploaded')
+    upload_parser.set_defaults(func=lambda args: rbox.upload(args.identifier))
+
 
     args = parser.parse_args()
     if 'func' in vars(args):
