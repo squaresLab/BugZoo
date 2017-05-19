@@ -1,2 +1,2 @@
 base: rbox
-dockerfile: ubuntu64/Dockerfile
+dockerfile: rbox/Dockerfile

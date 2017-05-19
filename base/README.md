@@ -3,5 +3,5 @@ within RepairBox.
 
 At present time, two base images are provided:
 
-* **repairbox/ubuntu32:** 32-bit, Ubuntu 14.04, Trusty Tahr
-* **repairbox/fedora64:** 64-bit, Fedora 24 (preferred)
+* **repairbox/rbox32:** 32-bit, Ubuntu 14.04, Trusty Tahr
+* **repairbox/rbox:** 64-bit, Ubuntu 14.04, Trusty Tahr
