@@ -1,4 +1,4 @@
-FROM squareslab/repairbox:manybugs64
+FROM squareslab/repairbox:rbox
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ADD TESTS /experiment
@@ -19,7 +19,6 @@ RUN cd /tmp && \
     tar -xf perl* && \
     rm perl*.tar.gz && \
     cd perl* && \
-    ./Configure -Duse64bitall -des
-#&& \
-#    make -j CFLAGS="-lm" $(nproc) && sudo make install && \
-#    cd / && rm -rf /tmp/*
+    ./Configure -Duse64bitall -des && \
+    make -j CFLAGS="-lm" $(nproc) && sudo make install && \
+    cd / && rm -rf /tmp/*

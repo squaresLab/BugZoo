@@ -1,9 +1,0 @@
-546,548c546,547
-<     if ((z_len == 0 && !decompress) || z_len > MAX_SUFFIX) {
-<         fprintf(stderr, "%s: incorrect suffix '%s'\n",
-<                 program_name, z_suffix);
----
->     if (z_len == 0 || z_len > MAX_SUFFIX) {
->         fprintf(stderr, "%s: invalid suffix '%s'\n", program_name, z_suffix);
-550a550
-> 
