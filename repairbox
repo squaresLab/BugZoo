@@ -254,45 +254,35 @@ class RepairBox(object):
         self.bugs = [Bug.load(fn, self.programs, self.datasets) for fn in self.bugs]
         self.bugs = {bug.identifier(): bug for bug in self.bugs}
 
-    def build_bug(self, identifier):
-        if not identifier in self.bugs:
-            error("failed to find bug: {}".format(identifier))
-        bug = self.bugs[identifier]
-        bug.build()
-
-    def build_all_in_program(self, identifier):
-        if not identifier in self.programs:
-            error("failed to find program: {}".format(identifier))
-        program = self.programs[identifier]
-        bugs = [bug for bug in self.bugs.values() if bug.program == program]
-        for bug in bugs:
-            bug.build()
-
-    def build_all_in_dataset(self, identifier):
-        if not identifier in self.datasets:
-            error("failed to find dataset: {}".format(identifier))
-        dataset = self.datasets[identifier]
-        bugs = [bug for bug in self.bugs.values() if bug.dataset == dataset]
-        for bug in bugs:
-            bug.build()
-
-    def build_all(self):
-        for bug in self.bugs:
-            bug.build()
-
     def build(self, identifier):
-        if identifier == 'all':
-            return self.build_all()
-       
         parts = len(identifier.split(':'))
-        if parts == 3 or (parts == 2 and identifier in self.bugs):
-            self.build_bug(identifier)
+
+        if identifier == 'all':
+            bugs = self.bugs
+
+        elif parts == 3 or (parts == 2 and identifier in self.bugs):
+            if not identifier in self.bugs:
+                error("failed to find bug: {}".format(identifier))
+            bugs = [self.bugs[identifier]]
+
         elif parts == 2:
-            self.build_all_in_program(identifier)
+            if not identifier in self.programs:
+                error("failed to find program: {}".format(identifier))
+            program = self.programs[identifier]
+            bugs = [bug for bug in self.bugs.values() if bug.program == program]
+
         elif parts == 1:
-            self.build_all_in_dataset(identifier)
+            if not identifier in self.datasets:
+                error("failed to find dataset: {}".format(identifier))
+            dataset = self.datasets[identifier]
+            bugs = [bug for bug in self.bugs.values() if bug.dataset == dataset]
+
         else:
             error("illegal identifier passed to build command")
+
+        for bug in bugs:
+            bug.build()
+
 
 if __name__ == "__main__":
     rbox = RepairBox()
