@@ -321,6 +321,16 @@ class RepairBox(object):
             bug.build()
             bug.upload()
 
+    """
+    Launches a named repair box
+    """
+    def launch(self, name):
+        if not name in self.bugs:
+            error("failed to locate bug with identifier: {}".format(name))
+        bug = self.bugs[name]
+        bug.build()
+        print("launching bug: {}".format(name))
+
 
 if __name__ == "__main__":
     rbox = RepairBox()
@@ -341,6 +351,11 @@ if __name__ == "__main__":
                             help='identifier of the resource whose boxes should be uploaded')
     upload_parser.set_defaults(func=lambda args: rbox.upload(args.identifier))
 
+    # action: launch
+    launch_parser = subparsers.add_parser('launch')
+    launch_parser.add_argument('bug',
+                            help='identifier for the bug whose container should be launched')
+    launch_parser.set_defaults(func=lambda args: rbox.launch(args.bug))
 
     args = parser.parse_args()
     if 'func' in vars(args):
