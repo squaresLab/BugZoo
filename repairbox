@@ -12,6 +12,13 @@ def error(msg):
     exit(1)
 
 """
+Determines which version of a given resource is installed (via its tag)
+"""
+def get_image_version(tag):
+    tag = "squareslab/repairbox:{}".format(tag)
+    
+
+"""
 Returns a dictionary of properties for a given Docker container image
 """
 def dockerinspect(image):
@@ -44,12 +51,22 @@ def dockerrun(tag):
     p.communicate()
 
 
-def dockerbuild(f, tag, args={}):
+"""
+Builds a docker container image using a given Dockerfile, tag, and set of
+build-time arguments
+"""
+def dockerbuild(fn, tag, args={}):
+
+    # we actually create a clone of the original Dockerfile, with a few
+    # automated changes (to inject LABEL and FROM commands)
     d = os.path.dirname(f)
+    with open(fn, "r") as f:
+        pass
+
     tag = "squareslab/repairbox:{}".format(tag)
     args = ["--build-arg {}='{}'".format(k,v) for (k,v) in args.items()]
     args = ' '.join(args)
-    cmd = "docker build {} -f {} -t {} {}".format(args, f, tag, d)
+    cmd = "docker build {} -f .Dockerfile -t {} {}".format(args, tag, d)
     crashfile = "{}.rbox.crash".format(int(time.time()))
 
     try:
@@ -196,6 +213,9 @@ class Program(object):
         self.built = False
         self.__version_latest = version_latest
 
+        # what version is installed, if any?
+        self.__version_installed = get_image_version(self.tag())
+
         assert not self.__version_latest is None
         assert not dataset is None
         assert os.path.isfile(self.dockerfile), \
@@ -209,6 +229,9 @@ class Program(object):
 
     def version_latest(self):
         return self.__version_latest
+
+    def version_installed(self):
+        return self.__version_installed
 
     def build(self):
         if self.built:
