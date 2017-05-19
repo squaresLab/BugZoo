@@ -22,6 +22,16 @@ def dockerpush(tag):
         exit("failed to push container image: {}".format(tag))
 
 
+"""
+Attempts to launch an ephemeral container using a given RepairBox image
+"""
+def dockerrun(tag):
+    tag = "squareslab/repairbox:{}".format(tag)
+    cmd = "docker run --rm --log-driver none -it {}".format(tag)
+    p = subprocess.Popen(cmd, shell=True)
+    p.communicate()
+
+
 def dockerbuild(f, tag, args={}):
     d = os.path.dirname(f)
     tag = "squareslab/repairbox:{}".format(tag)
@@ -242,6 +252,14 @@ class Bug(object):
         print("uploading bug: {}".format(self.name))
         dockerpush(self.tag())
 
+    """
+    Launches the associated container for this bug
+    """
+    def launch(self):
+        assert(self.built)
+        print("launching bug: {}".format(self.name))
+        dockerrun(self.tag())
+
 
 class RepairBox(object):
 
@@ -329,7 +347,7 @@ class RepairBox(object):
             error("failed to locate bug with identifier: {}".format(name))
         bug = self.bugs[name]
         bug.build()
-        print("launching bug: {}".format(name))
+        bug.launch()
 
 
 if __name__ == "__main__":
