@@ -1,4 +1,4 @@
-FROM squareslab/repairbox:manybugs64
+FROM squareslab/repairbox:rbox
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 #RUN sudo dpkg --add-architecture i386
