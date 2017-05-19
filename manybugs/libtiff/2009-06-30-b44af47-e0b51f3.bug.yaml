@@ -1,6 +1,7 @@
 bug: 2009-06-30-b44af47-e0b51f3
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2009-06-30-b44af47-e0b51f3
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2009-06-30-b44af47-e0b51f3"
+program: libtiff
+version: 0

@@ -1,6 +1,7 @@
 bug: 2008-12-30-362dee5-565eaa2
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2008-12-30-362dee5-565eaa2
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2008-12-30-362dee5-565eaa2"
+program: libtiff
+version: 0

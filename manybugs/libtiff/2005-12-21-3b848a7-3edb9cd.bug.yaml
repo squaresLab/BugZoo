@@ -1,6 +1,7 @@
 bug: 2005-12-21-3b848a7-3edb9cd
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2005-12-21-3b848a7-3edb9cd
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2005-12-21-3b848a7-3edb9cd"
+program: libtiff
+version: 0

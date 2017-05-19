@@ -1,6 +1,7 @@
 bug: 70120-70124
-program: python
+build-arguments:
+  scenario: python-bug-70120-70124
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "python-bug-70120-70124"
+program: python
+version: 0

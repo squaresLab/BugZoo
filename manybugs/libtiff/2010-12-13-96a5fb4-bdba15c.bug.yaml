@@ -1,6 +1,7 @@
 bug: 2010-12-13-96a5fb4-bdba15c
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2010-12-13-96a5fb4-bdba15c
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2010-12-13-96a5fb4-bdba15c"
+program: libtiff
+version: 0

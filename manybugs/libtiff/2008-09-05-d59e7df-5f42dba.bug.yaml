@@ -1,6 +1,7 @@
 bug: 2008-09-05-d59e7df-5f42dba
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2008-09-05-d59e7df-5f42dba
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2008-09-05-d59e7df-5f42dba"
+program: libtiff
+version: 0

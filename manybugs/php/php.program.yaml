@@ -1,3 +1,4 @@
-program: php
 dataset: manybugs
 dockerfile: Dockerfile
+program: php
+version: 0

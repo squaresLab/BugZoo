@@ -1,6 +1,7 @@
 bug: 2007-07-08-bd2f947-ccc10c7
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2007-07-08-bd2f947-ccc10c7
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2007-07-08-bd2f947-ccc10c7"
+program: libtiff
+version: 0

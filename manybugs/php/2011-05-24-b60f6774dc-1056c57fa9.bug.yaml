@@ -1,8 +1,9 @@
 bug: 2011-05-24-b60f6774dc-1056c57fa9
-program: php
+build-arguments:
+  autoconf: '2.60'
+  bison: 2.4.3
+  scenario: php-bug-2011-05-24-b60f6774dc-1056c57fa9
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "php-bug-2011-05-24-b60f6774dc-1056c57fa9"
-    bison: "2.4.3"
-    autoconf: "2.60"
+program: php
+version: 0

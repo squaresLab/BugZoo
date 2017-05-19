@@ -1,8 +1,9 @@
 bug: 2011-10-16-1f78177e2b-d4ae4e79db
-program: php
+build-arguments:
+  autoconf: '2.59'
+  bison: 2.4.3
+  scenario: php-bug-2011-10-16-1f78177e2b-d4ae4e79db
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "php-bug-2011-10-16-1f78177e2b-d4ae4e79db"
-    bison: "2.4.3"
-    autoconf: "2.59"
+program: php
+version: 0

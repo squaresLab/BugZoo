@@ -1,6 +1,7 @@
 bug: 2006-02-27-6074705-e6d0c32
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2006-02-27-6074705-e6d0c32
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2006-02-27-6074705-e6d0c32"
+program: libtiff
+version: 0

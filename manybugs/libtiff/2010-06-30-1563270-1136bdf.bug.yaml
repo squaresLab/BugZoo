@@ -1,6 +1,7 @@
 bug: 2010-06-30-1563270-1136bdf
-program: libtiff
+build-arguments:
+  scenario: libtiff-bug-2010-06-30-1563270-1136bdf
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "libtiff-bug-2010-06-30-1563270-1136bdf"
+program: libtiff
+version: 0

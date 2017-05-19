@@ -1,8 +1,9 @@
 bug: 2011-03-20-2034e14341-7f2937223d
-program: php
+build-arguments:
+  autoconf: '2.59'
+  bison: 2.4.3
+  scenario: php-bug-2011-03-20-2034e14341-7f2937223d
 dataset: manybugs
 dockerfile: Dockerfile.bug
-build-arguments:
-    scenario: "php-bug-2011-03-20-2034e14341-7f2937223d"
-    bison: "2.4.3"
-    autoconf: "2.59"
+program: php
+version: 0
