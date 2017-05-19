@@ -325,6 +325,13 @@ class RepairBox(object):
             error("illegal resource identifier")
 
     """
+    Prints a list of all the bug scenarios within RepairBox, sorted alphabetically
+    """
+    def list(self):
+        for bug in sorted(self.bugs.keys()):
+            print(bug)
+
+    """
     Builds all bug images belonging to a given resource identifier
     """
     def build(self, identifier):
@@ -368,6 +375,10 @@ if __name__ == "__main__":
     upload_parser.add_argument('identifier',
                             help='identifier of the resource whose boxes should be uploaded')
     upload_parser.set_defaults(func=lambda args: rbox.upload(args.identifier))
+
+    # action: list
+    list_parser = subparsers.add_parser('list')
+    list_parser.set_defaults(func=lambda args: rbox.list())
 
     # action: launch
     launch_parser = subparsers.add_parser('launch')
