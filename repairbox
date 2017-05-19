@@ -114,7 +114,7 @@ class BaseImage(object):
     def tag(self):
         return "{}".format(self.name)
 
-    def latest_version(self):
+    def version_latest(self):
         return self.__version_latest
 
     def build(self):
@@ -133,16 +133,18 @@ class Dataset(object):
                 data = yaml.load(f)
                 base = data['base']
                 base = bases[base]
-                return Dataset(fn, data['dataset'], base, data['dockerfile'])
+                version_latest = Version(data['version'], base.version_latest())
+                return Dataset(fn, data['dataset'], base, data['dockerfile'], version_latest)
             except yaml.YAMLError as exc:
                 raise Exception("Failed to load dataset: {}".format(fn))
 
-    def __init__(self, location, name, base, dockerfile):
+    def __init__(self, location, name, base, dockerfile, version_latest):
         self.location = location
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
         self.base = base
         self.built = False
+        self.__version_latest = version_latest
 
         assert not base is None
         assert os.path.isfile(self.dockerfile), \
@@ -152,7 +154,7 @@ class Dataset(object):
         return "{}-base".format(self.name)
 
     def version_latest(self):
-        return None
+        return self.__version_latest
 
     def build(self):
         if self.built:
