@@ -69,6 +69,18 @@ def dockerbuild(f, tag, args={}):
  
 
 """
+Represents a version of a particular resource
+"""
+class Version(object):
+    def __init__(self, num, parent=None):
+        self.__num = num
+        self.__parent = parent
+    
+    def __str__(self):
+        prefix = "{}.".format(str(self.__parent)) if self.__parent else ""
+
+
+"""
 All datasets must sit on top of a base image. Ideally, all bug scenarios should
 only use one base image, but there are cases where different base images may
 be needed (e.g., 32-bit containers).
