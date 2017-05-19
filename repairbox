@@ -23,6 +23,8 @@ def dockerbuild(f, tag, args={}):
     except subprocess.CalledProcessError as e:
         # save crash log
         with open(crashfile, "w") as cf:
+            cf.write("Attempting to build image: {}\n".format(tag))
+            cf.write("Command: {}\n".format(cmd))
             cf.write(e.output)
         status = False
 

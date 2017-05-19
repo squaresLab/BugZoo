@@ -3,4 +3,4 @@ program: libtiff
 dataset: manybugs
 dockerfile: Dockerfile.bug
 build-arguments:
-    scenario: "python-bug-2009-06-30-b44af47-e0b51f3"
+    scenario: "libtiff-bug-2009-06-30-b44af47-e0b51f3"
