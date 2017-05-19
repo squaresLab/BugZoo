@@ -253,6 +253,13 @@ class Bug(object):
         dockerpush(self.tag())
 
     """
+    Attempts to download the container image for this bug to DockerHub
+    """
+    def download(self):
+        print("downloading bug: {}".format(self.name))
+        self.built = True
+
+    """
     Launches the associated container for this bug
     """
     def launch(self):
@@ -347,6 +354,13 @@ class RepairBox(object):
             bug.upload()
 
     """
+    Downloads all bug images belonging to a given resource identifier
+    """
+    def download(self, identifier):
+        for bug in self.get(identifier):
+            bug.download()
+
+    """
     Launches a named repair box
     """
     def launch(self, name):
@@ -375,6 +389,12 @@ if __name__ == "__main__":
     upload_parser.add_argument('identifier',
                             help='identifier of the resource whose boxes should be uploaded')
     upload_parser.set_defaults(func=lambda args: rbox.upload(args.identifier))
+
+    # action: download
+    download_parser = subparsers.add_parser('download')
+    download_parser.add_argument('identifier',
+                            help='identifier of the resource whose boxes should be downloaded')
+    download_parser.set_defaults(func=lambda args: rbox.download(args.identifier))
 
     # action: list
     list_parser = subparsers.add_parser('list')
