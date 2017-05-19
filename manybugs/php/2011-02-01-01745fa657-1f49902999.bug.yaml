@@ -1,8 +1,8 @@
-bug: 2012-03-22-3efc9f2f78-2e19cccad7
+bug: 2011-02-01-01745fa657-1f49902999
 program: php
 dataset: manybugs
 dockerfile: Dockerfile.bug
 build-arguments:
-    scenario: "php-bug-2012-03-22-3efc9f2f78-2e19cccad7"
+    scenario: "php-bug-2011-02-01-01745fa657-1f49902999"
     bison: "2.4.3"
     autoconf: "2.59"
