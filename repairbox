@@ -74,6 +74,8 @@ Represents a version of a particular resource
 """
 class Version(object):
     def __init__(self, num, parent=None):
+        assert(type(num) is int)
+        assert(num >= 0)
         self.__num = num
         self.__parent = parent
     
@@ -94,14 +96,16 @@ class BaseImage(object):
         with open(fn, "r") as f:
             try:
                 data = yaml.load(f)
-                return BaseImage(fn, data['base'], data['dockerfile'])
+                version_latest = Version(data['version'])
+                return BaseImage(fn, data['base'], data['dockerfile'], version_latest)
             except yaml.YAMLError as exc:
                 raise Exception("Failed to load base image: {}".format(fn))
 
-    def __init__(self, location, name, dockerfile):
+    def __init__(self, location, name, dockerfile, version_latest):
         self.location = location
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
+        self.__version_latest = version_latest
         self.built = False
 
         assert os.path.isfile(self.dockerfile), \
@@ -109,6 +113,9 @@ class BaseImage(object):
 
     def tag(self):
         return "{}".format(self.name)
+
+    def latest_version(self):
+        return self.__version_latest
 
     def build(self):
         if self.built:
