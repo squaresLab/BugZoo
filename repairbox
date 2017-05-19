@@ -4,11 +4,22 @@ import yaml
 import subprocess
 import argparse
 import time
+import json
 
 def error(msg):
     print("Error: {}".format(msg))
     exit(1)
 
+"""
+Returns a dictionary of properties for a given Docker container image
+"""
+def dockerinspect(image):
+    cmd = "docker inspect {}".format(image)
+    try:
+        out = subprocess.check_output(cmd, shell=True)
+    except subprocess.CalledProcessError as e:
+        error("failed to inspect docker image: {}".format(image))
+    return json.loads(out)
 
 """
 Attempts to push a container image with a given tag (suffix) to DockerHub
