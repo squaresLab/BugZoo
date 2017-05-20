@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+#
+# Compute version_installed lazily and cache!
+#
 import os
 import yaml
 import subprocess
@@ -54,19 +57,40 @@ def dockerrun(tag):
 """
 Builds a docker container image using a given Dockerfile, tag, and set of
 build-time arguments
+
+@param  fn      The Dockerfile for this container image
+@param  tag     The tag for container image
+@param  version The version of this container image
+@param  parent  The tag for the parent container image, if any
+@param  args    An optional dict of build-time arguments
 """
-def dockerbuild(fn, tag, args={}):
+def dockerbuild(fn, tag, version, parent=None, args={}):
 
     # we actually create a clone of the original Dockerfile, with a few
-    # automated changes (to inject LABEL and FROM commands)
-    d = os.path.dirname(f)
+    # nifty changes
+    d = os.path.dirname(fn)
+    contents = []
     with open(fn, "r") as f:
-        pass
+        contents = [line.rstrip('\n') for line in f]
+
+        # inject a FROM command, if relevant
+        if not parent is None:
+            contents = [l for l in contents if not l.startswith('FROM ')]
+            contents.insert(0, "FROM squareslab/repairbox:{}".format(parent))
+
+        # inject a LABEL command
+        contents.append("LABEL RBOX_IMAGE_VERSION={}".format(str(version)))
+
+    # we then write the modified Dockerfile to the directory of the original
+    # Dockerfile
+    tmp_fn = os.path.join(d, ".Dockerfile")
+    with open(tmp_fn, "w") as f:
+        f.write("\n".join(contents)) 
 
     tag = "squareslab/repairbox:{}".format(tag)
     args = ["--build-arg {}='{}'".format(k,v) for (k,v) in args.items()]
     args = ' '.join(args)
-    cmd = "docker build {} -f .Dockerfile -t {} {}".format(args, tag, d)
+    cmd = "docker build -f {} {} -t {} {}".format(tmp_fn, args, tag, d)
     crashfile = "{}.rbox.crash".format(int(time.time()))
 
     try:
@@ -79,6 +103,8 @@ def dockerbuild(fn, tag, args={}):
             cf.write("Command: {}\n".format(cmd))
             cf.write(e.output)
         status = False
+    finally:
+        os.remove(tmp_fn)
 
     if not status:
         print("Failed to build image: {}".format(tag))
@@ -92,7 +118,7 @@ Represents a version of a particular resource
 class Version(object):
     @staticmethod
     def from_string(s):
-        parts = [int(k) for k in s.split(':')]
+        parts = [int(k) for k in s.split('.')]
         parent = None
         version = None
         for part in parts:
@@ -104,11 +130,21 @@ class Version(object):
         assert(num >= 0)
         self.__num = num
         self.__parent = parent
+
+    def suffix(self):
+        return self.__num
+    def prefix(self):
+        return self.__parent
     
     def __str__(self):
         s = "{}.".format(str(self.__parent)) if self.__parent else ""
         s += str(self.__num)
         return s
+
+    def __eq__(self, other):
+        return (not other is None) \
+            and self.__num == other.suffix() \
+            and self.__parent == other.prefix()
 
 
 """
@@ -147,7 +183,7 @@ class BaseImage(object):
         if self.built:
             return
         print("building base image: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag())
+        dockerbuild(self.dockerfile, self.tag(), self.version_latest())
         self.built = True
 
 
@@ -169,8 +205,8 @@ class Dataset(object):
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
         self.base = base
-        self.built = False
         self.__version_latest = version_latest
+        self.__version_installed = get_image_version(self.tag())
 
         assert not base is None
         assert os.path.isfile(self.dockerfile), \
@@ -182,13 +218,16 @@ class Dataset(object):
     def version_latest(self):
         return self.__version_latest
 
+    def is_built(self):
+        return self.__version_latest == self.__version_installed
+
     def build(self):
-        if self.built:
+        if self.is_built():
             return
         self.base.build()
         print("building dataset: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag())
-        self.built = True
+        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.base.tag())
+        self.__version_installed = self.__version_latest
 
 
 """
@@ -219,10 +258,7 @@ class Program(object):
         self.dataset = dataset
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
-        self.built = False
         self.__version_latest = version_latest
-
-        # what version is installed, if any?
         self.__version_installed = get_image_version(self.tag())
 
         assert not self.__version_latest is None
@@ -242,13 +278,16 @@ class Program(object):
     def version_installed(self):
         return self.__version_installed
 
+    def is_built(self):
+        return self.__version_latest == self.__version_installed
+
     def build(self):
-        if self.built:
+        if self.is_built():
             return
         self.dataset.build()
         print("building program: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag())
-        self.built = True
+        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.dataset.tag())
+        self.__version_installed = self.__version_latest
 
 
 """
@@ -269,28 +308,28 @@ class Bug(object):
                 # find the program to which the bug belongs, if any
                 if 'program' in data:
                     program = Program.find(dsname, data['program'], programs)
-                    latest_version = Version(data['version'], program.version_latest())
                 else:
                     program = None
-                    latest_version = Version(data['version'], dataset.version_latest())
 
                 buildargs = data.get('build-arguments', [])
 
-                return Bug(fn, data['bug'], dataset, program, data['dockerfile'], buildargs, latest_version)
+                return Bug(fn, data['bug'], dataset, program, data['dockerfile'], buildargs, data['version'])
 
             except yaml.YAMLError as exc:
                 print(exc)
                 raise Exception("Failed to load bug: {}".format(fn))
 
-    def __init__(self, location, name, dataset, program, dockerfile, buildargs, latest_version):
+    def __init__(self, location, name, dataset, program, dockerfile, buildargs, version_suffix):
         self.location = location
         self.dataset = dataset
         self.program = program
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.buildargs = buildargs
         self.name = name
-        self.built = False
-        self.__latest_version = latest_version
+
+        parent = program if program else dataset
+        self.__version_latest = Version(version_suffix, parent.version_latest())
+        self.__version_installed = get_image_version(self.tag())
 
         assert not dataset is None
         assert os.path.isfile(self.dockerfile), \
@@ -308,24 +347,31 @@ class Bug(object):
         return "{}-{}".format(self.dataset.name, self.name)
 
     def version_latest(self):
-        return self.__latest_version
+        return self.__version_latest
+    def version_installed(self):
+        return self.__version_installed
 
+    def is_built(self):
+        return self.__version_latest == self.__version_installed
 
     """
     Constructs the Docker container for this bug, and if necessary, its
     dependencies
     """
     def build(self):
-        if self.built:
+        if self.is_built():
             return
+
         if self.program:
+            parent = self.program
             self.program.build()
         elif self.dataset:
+            parent = self.dataset
             self.dataset.build()
 
         print("building bug: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag(), self.buildargs)
-        self.built = True
+        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, parent.tag(), self.buildargs)
+        self.__version_installed = self.__version_latest
 
     """
     Attempts to upload the container image for this bug to DockerHub
@@ -423,7 +469,8 @@ class RepairBox(object):
         for bug in sorted(self.bugs.keys()):
             bug = self.bugs[bug]
             vlatest = bug.version_latest()
-            tbl.append([bug.identifier(), str(vlatest), "???", "???"])
+            vinstalled = bug.version_installed()
+            tbl.append([bug.identifier(), str(vlatest), str(vinstalled), "???"])
         print(tabulate(tbl, hdrs))
 
     """
