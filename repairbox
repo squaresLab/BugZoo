@@ -7,6 +7,8 @@ import time
 import json
 from tabulate import tabulate
 
+DEVNULL = open(os.devnull, 'w')
+
 def error(msg):
     print("Error: {}".format(msg))
     exit(1)
@@ -16,18 +18,16 @@ Determines which version of a given resource is installed (via its tag)
 """
 def get_image_version(tag):
     tag = "squareslab/repairbox:{}".format(tag)
-    
-
-"""
-Returns a dictionary of properties for a given Docker container image
-"""
-def dockerinspect(image):
-    cmd = "docker inspect {}".format(image)
     try:
-        out = subprocess.check_output(cmd, shell=True)
+        cmd = "docker inspect {}".format(tag)
+        data = json.loads(subprocess.check_output(cmd, stderr=DEVNULL, shell=True))
+        version = data[0]['Config']["Labels"]["RBOX_IMAGE_VERSION"]
+        return Version.from_string(version)
+    except KeyError:
+        error("failed to find `RBOX_IMAGE_VERSION` label for image: {}".format(tag))
     except subprocess.CalledProcessError as e:
-        error("failed to inspect docker image: {}".format(image))
-    return json.loads(out)
+        return None
+
 
 """
 Attempts to push a container image with a given tag (suffix) to DockerHub
@@ -90,6 +90,15 @@ def dockerbuild(fn, tag, args={}):
 Represents a version of a particular resource
 """
 class Version(object):
+    @staticmethod
+    def from_string(s):
+        parts = [int(k) for k in s.split(':')]
+        parent = None
+        version = None
+        for part in parts:
+            parent = version = Version(part, parent)
+        return version
+
     def __init__(self, num, parent=None):
         assert(type(num) is int)
         assert(num >= 0)
