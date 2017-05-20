@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Compute version_installed lazily and cache!
+# TODO: Implement a Resource class
 #
 import os
 import yaml
@@ -168,7 +168,6 @@ class BaseImage(object):
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
         self.__version_latest = version_latest
-        self.built = False
 
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for base image: {}".format(name)
@@ -179,13 +178,22 @@ class BaseImage(object):
     def version_latest(self):
         return self.__version_latest
 
+    def version_installed(self):
+        try:
+            return self.__version_installed
+        except AttributeError:
+            self.__version_installed = get_image_version(self.tag())
+            return self.__version_installed
+
+    def is_built(self):
+        return self.version_latest() == self.version_installed()
+
     def build(self):
-        if self.built:
+        if self.is_built():
             return
         print("building base image: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag(), self.version_latest())
-        self.built = True
-
+        dockerbuild(self.dockerfile, self.tag(), self.__version_latest)
+        self.__version_installed = self.__version_latest
 
 class Dataset(object):
     @staticmethod
@@ -206,7 +214,6 @@ class Dataset(object):
         self.name = name
         self.base = base
         self.__version_latest = version_latest
-        self.__version_installed = get_image_version(self.tag())
 
         assert not base is None
         assert os.path.isfile(self.dockerfile), \
@@ -218,8 +225,15 @@ class Dataset(object):
     def version_latest(self):
         return self.__version_latest
 
+    def version_installed(self):
+        try:
+            return self.__version_installed
+        except AttributeError:
+            self.__version_installed = get_image_version(self.tag())
+            return self.__version_installed
+
     def is_built(self):
-        return self.__version_latest == self.__version_installed
+        return self.version_latest() == self.version_installed()
 
     def build(self):
         if self.is_built():
@@ -259,7 +273,6 @@ class Program(object):
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
         self.__version_latest = version_latest
-        self.__version_installed = get_image_version(self.tag())
 
         assert not self.__version_latest is None
         assert not dataset is None
@@ -276,10 +289,14 @@ class Program(object):
         return self.__version_latest
 
     def version_installed(self):
-        return self.__version_installed
+        try:
+            return self.__version_installed
+        except AttributeError:
+            self.__version_installed = get_image_version(self.tag())
+            return self.__version_installed
 
     def is_built(self):
-        return self.__version_latest == self.__version_installed
+        return self.version_latest() == self.version_installed()
 
     def build(self):
         if self.is_built():
@@ -329,7 +346,6 @@ class Bug(object):
 
         parent = program if program else dataset
         self.__version_latest = Version(version_suffix, parent.version_latest())
-        self.__version_installed = get_image_version(self.tag())
 
         assert not dataset is None
         assert os.path.isfile(self.dockerfile), \
@@ -348,11 +364,16 @@ class Bug(object):
 
     def version_latest(self):
         return self.__version_latest
+
     def version_installed(self):
-        return self.__version_installed
+        try:
+            return self.__version_installed
+        except AttributeError:
+            self.__version_installed = get_image_version(self.tag())
+            return self.__version_installed
 
     def is_built(self):
-        return self.__version_latest == self.__version_installed
+        return self.version_latest() == self.version_installed()
 
     """
     Constructs the Docker container for this bug, and if necessary, its
