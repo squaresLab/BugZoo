@@ -31,7 +31,8 @@ def get_remote_version(tag):
         remote_tag_versions = r.json()['Versions']
         remote_tag_versions = [str(v["Tags"][0]["tag"]) for v in remote_tag_versions] 
         print(remote_tag_versions)
-        exit(0)
+
+    return None
 
 """
 Determines which version of a given resource is installed (via its tag)
@@ -483,7 +484,7 @@ class RepairBox(object):
         parts = len(identifier.split(':'))
 
         if identifier == 'all':
-            return [b for b in self.bugs] # avoid perturbing original list
+            return sorted(self.bugs)
 
         elif parts == 3 or (parts == 2 and identifier in self.bugs):
             if not identifier in self.bugs:
@@ -494,13 +495,13 @@ class RepairBox(object):
             if not identifier in self.programs:
                 error("failed to find program: {}".format(identifier))
             program = self.programs[identifier]
-            return [bug for bug in self.bugs.values() if bug.program == program]
+            return sorted([bug for bug in self.bugs.values() if bug.program == program])
 
         elif parts == 1:
             if not identifier in self.datasets:
                 error("failed to find dataset: {}".format(identifier))
             dataset = self.datasets[identifier]
-            return [bug for bug in self.bugs.values() if bug.dataset == dataset]
+            return sorted([bug for bug in self.bugs.values() if bug.dataset == dataset])
 
         else:
             error("illegal resource identifier")
