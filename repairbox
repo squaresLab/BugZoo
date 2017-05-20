@@ -445,7 +445,17 @@ class Bug(object):
     Attempts to download the container image for this bug to DockerHub
     """
     def download(self):
+        if self.version_remote() is None:
+            print("skipping download: {} (no remote)".format(self.name))
+            return
+
         print("downloading bug: {}".format(self.name))
+        cmd = "docker push squareslab/repairbox:{}".format(self.tag())
+        try:
+            subprocess.check_call(cmd, stderr=DEVNULL, shell=True)
+        except subprocess.CalledProcessError as e:
+            exit("failed to download resource: {}".format(self.identifier()))
+        
         self.__version_installed = self.version_remote()
 
     """
