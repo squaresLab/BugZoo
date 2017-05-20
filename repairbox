@@ -423,22 +423,23 @@ class Bug(object):
     Attempts to upload the container image for this bug to DockerHub
     """
     def upload(self):
-        assert(self.built)
+        assert(self.is_built())
         print("uploading bug: {}".format(self.name))
         dockerpush(self.tag())
+        self.__version_remote = self.version_installed()
 
     """
     Attempts to download the container image for this bug to DockerHub
     """
     def download(self):
         print("downloading bug: {}".format(self.name))
-        self.built = True
+        self.__version_installed = self.version_remote()
 
     """
     Launches the associated container for this bug
     """
     def launch(self):
-        assert(self.built)
+        assert(self.is_built())
         print("launching bug: {}".format(self.name))
         dockerrun(self.tag())
 
@@ -556,7 +557,10 @@ class RepairBox(object):
 if __name__ == "__main__":
     rbox = RepairBox()
 
-    parser = argparse.ArgumentParser()
+    with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
+        desc = f.read()
+    parser = argparse.ArgumentParser(description=desc,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
     subparsers = parser.add_subparsers()
     parser.add_argument('--version', action='version', version='0.0.1')
 
