@@ -450,7 +450,7 @@ class Bug(object):
             return
 
         print("downloading bug: {}".format(self.name))
-        cmd = "docker push squareslab/repairbox:{}".format(self.tag())
+        cmd = "docker pull squareslab/repairbox:{}".format(self.tag())
         try:
             subprocess.check_call(cmd, stderr=DEVNULL, shell=True)
         except subprocess.CalledProcessError as e:
@@ -508,7 +508,7 @@ class RepairBox(object):
         parts = len(identifier.split(':'))
 
         if identifier == 'all':
-            return sorted(self.bugs)
+            return [self.bugs[name] for name in sorted(self.bugs.keys())]
 
         elif parts == 3 or (parts == 2 and identifier in self.bugs):
             if not identifier in self.bugs:
