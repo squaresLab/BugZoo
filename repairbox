@@ -433,10 +433,26 @@ class Bug(object):
         self.__version_installed = self.__version_latest
 
     """
+    Uninstalls this resource, by removing its Docker container image
+    """
+    def uninstall(self):
+        if not self.is_built():
+            return
+
+        print("uninstalling resource: {}".format(self.identifier()))
+        cmd = "docker rmi squareslab/repairbox:{}".format(self.tag())
+        try:
+            subprocess.check_call(cmd, shell=True)
+        except subprocess.CalledProcessError as e:
+            exit("failed to uninstall resource: {}".format(self.identifier()))
+        
+    """
     Attempts to upload the container image for this bug to DockerHub
     """
     def upload(self):
         assert(self.is_built())
+        if self.version_remote() == self.version_installed():
+            return
         print("uploading bug: {}".format(self.name))
         dockerpush(self.tag())
         self.__version_remote = self.version_installed()
@@ -569,6 +585,13 @@ class RepairBox(object):
             bug.download()
 
     """
+    Uninstalls all bug images belonging to a given resource identifier
+    """
+    def uninstall(self, identifier):
+        for bug in self.get(identifier):
+            bug.uninstall()
+
+    """
     Launches a named repair box
     """
     def launch(self, name):
@@ -606,6 +629,12 @@ if __name__ == "__main__":
     download_parser.add_argument('identifier',
                             help='identifier of the resource whose boxes should be downloaded')
     download_parser.set_defaults(func=lambda args: rbox.download(args.identifier))
+
+    # action: download
+    uninstall_parser = subparsers.add_parser('uninstall')
+    uninstall_parser.add_argument('identifier',
+                            help='identifier of the resource whose boxes should be uninstalled')
+    uninstall_parser.set_defaults(func=lambda args: rbox.uninstall(args.identifier))
 
     # action: list
     list_parser = subparsers.add_parser('list')
