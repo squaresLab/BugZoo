@@ -519,13 +519,15 @@ class RepairBox(object):
             if not identifier in self.programs:
                 error("failed to find program: {}".format(identifier))
             program = self.programs[identifier]
-            return sorted([bug for bug in self.bugs.values() if bug.program == program])
+            bugs = [bug for (name, bug) in sorted(self.bugs.items()) if bug.program == program]
+            return bugs
 
         elif parts == 1:
             if not identifier in self.datasets:
                 error("failed to find dataset: {}".format(identifier))
             dataset = self.datasets[identifier]
-            return sorted([bug for bug in self.bugs.values() if bug.dataset == dataset])
+            bugs = [bug for (name, bug) in sorted(self.bugs.items()) if bug.dataset == dataset]
+            return bugs
 
         else:
             error("illegal resource identifier")
