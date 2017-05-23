@@ -24,8 +24,8 @@ referred to
 
 ## Installation
 
-The RepairBox platform can be installed by cloning this repository. We advise
-that users produce a shadow clone using the command below:
+To install the RepairBox platform, we advise that
+users produce a shadow clone of this repository using the command below:
 
 ```
 $ git clone git://github.com/squaresLab/RepairBox --depth 0
