@@ -433,6 +433,19 @@ class Bug(object):
         self.__version_installed = self.__version_latest
 
     """
+    Installs this resource. Tries to download the remote image, if it is
+    up-to-date. If the remote image is not up-to-date, the image will be built
+    locally, instead.
+    """
+    def install(self):
+        if self.is_built():
+            return
+        if self.version_remote() == self.version_latest():
+            self.download()
+        else:
+            self.build()
+
+    """
     Uninstalls this resource, by removing its Docker container image
     """
     def uninstall(self):
@@ -473,14 +486,6 @@ class Bug(object):
             exit("failed to download resource: {}".format(self.identifier()))
         
         self.__version_installed = self.version_remote()
-
-    """
-    Launches the associated container for this bug
-    """
-    def launch(self):
-        assert(self.is_built())
-        print("launching bug: {}".format(self.name))
-        dockerrun(self.tag())
 
 
 class RepairBox(object):
@@ -585,6 +590,13 @@ class RepairBox(object):
             bug.download()
 
     """
+    Installs all bug images belonging to a given resource identifier
+    """
+    def install(self, identifier):
+        for bug in self.get(identifier):
+            bug.install()
+
+    """
     Uninstalls all bug images belonging to a given resource identifier
     """
     def uninstall(self, identifier):
@@ -594,12 +606,20 @@ class RepairBox(object):
     """
     Launches a named repair box
     """
-    def launch(self, name):
+    def launch(self, name, tools=[]):
         if not name in self.bugs:
             error("failed to locate bug with identifier: {}".format(name))
         bug = self.bugs[name]
         bug.build()
-        bug.launch()
+
+        # launch the tools containers
+
+
+        #tag = bug.tag()
+        #tag = "squareslab/repairbox:{}".format()
+        #cmd = "docker run --rm --log-driver none -it {}".format(tag)
+        #p = subprocess.Popen(cmd, shell=True)
+        #p.communicate()
 
 
 if __name__ == "__main__":
@@ -631,6 +651,12 @@ if __name__ == "__main__":
     download_parser.set_defaults(func=lambda args: rbox.download(args.identifier))
 
     # action: download
+    install_parser = subparsers.add_parser('install')
+    install_parser.add_argument('identifier',
+                            help='identifier of the resource whose boxes should be installed')
+    install_parser.set_defaults(func=lambda args: rbox.install(args.identifier))
+
+    # action: download
     uninstall_parser = subparsers.add_parser('uninstall')
     uninstall_parser.add_argument('identifier',
                             help='identifier of the resource whose boxes should be uninstalled')
@@ -644,7 +670,12 @@ if __name__ == "__main__":
     launch_parser = subparsers.add_parser('launch')
     launch_parser.add_argument('bug',
                             help='identifier for the bug whose container should be launched')
-    launch_parser.set_defaults(func=lambda args: rbox.launch(args.bug))
+    launch_parser.add_argument('--with',
+                            help='names of the tools that should be available within the container',
+                            dest='tools',
+							nargs='*')
+
+    launch_parser.set_defaults(func=lambda args: rbox.launch(args.bug, args.tools))
 
     args = parser.parse_args()
     if 'func' in vars(args):

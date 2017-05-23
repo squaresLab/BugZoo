@@ -1,0 +1,3 @@
+version: 0
+tool: genprog
+image: ChrisTimperley/genprog:latest
