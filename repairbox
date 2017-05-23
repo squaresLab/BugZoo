@@ -167,14 +167,14 @@ class Version(object):
 
 
 class Resource(object):
-    def __init__(self, location, name, dockerfile, version_suffix, parent=None, buildargs=[]):
+    def __init__(self, location, name, dockerfile, version_suffix, parent=None, buildargs={}):
         self.location = location
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
         self.__buildargs = buildargs
-        self.__parent = parent
+        self.parent = parent
 
-        if self.__parent:
+        if self.parent:
             self.__version_latest = Version(version_suffix, parent.version_latest())
         else:
             self.__version_latest = Version(version_suffix)
@@ -187,8 +187,8 @@ class Resource(object):
         return self.identifier('-')
 
     def identifier(self, delimiter=':'):
-        if self.__parent and not isinstance(self.__parent, BaseImage):
-            return self.__parent.tag() + delimiter + self.name
+        if self.parent and not isinstance(self.parent, BaseImage):
+            return self.parent.tag() + delimiter + self.name
         return self.name
 
     def version_latest(self):
@@ -224,24 +224,18 @@ class Resource(object):
     def build(self):
         if self.is_latest():
             return
-        if self.__parent:
-            self.__parent.build()
+        if self.parent:
+            self.parent.build()
 
         print("building base image: {}".format(self.name))
 
-        # ds
-        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), self.base.tag())
-
-        # base
-        dockerbuild(self.dockerfile, self.tag(), self.version_latest())
-
-        # program
-        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), self.dataset.tag())
-
-        # bug
-        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), parent.tag(), self.buildargs)
-
-
+        ptag = self.parent.tag() if self.parent else None
+        dockerbuild(self.dockerfile,
+                    self.tag(),
+                    self.version_latest(),
+                    self.identifier(),
+                    ptag,
+                    self.__buildargs)
         self.__version_installed = self.__version_latest
 
 
@@ -338,6 +332,16 @@ class Bug(Resource):
             (isinstance(parent, Dataset) or isinstance(parent, Program))
         super(Bug, self).__init__(location, name, dockerfile, version_suffix, parent, buildargs)
 
+    def program(self):
+        if isinstance(self.parent, Program):
+            return self.parent
+        return None
+
+    def dataset(self):
+        if isinstance(self.parent, Program):
+            return self.parent.parent
+        return self.parent
+
     def version_remote(self):
         try:
             return self.__version_remote
@@ -351,7 +355,7 @@ class Bug(Resource):
     locally, instead.
     """
     def install(self):
-        if self.is_built():
+        if self.is_installed():
             return
         if self.version_remote() == self.version_latest():
             self.download()
@@ -439,14 +443,14 @@ class RepairBox(object):
             if not identifier in self.programs:
                 error("failed to find program: {}".format(identifier))
             program = self.programs[identifier]
-            bugs = [bug for (name, bug) in sorted(self.bugs.items()) if bug.program == program]
+            bugs = [bug for (name, bug) in sorted(self.bugs.items()) if bug.program() == program]
             return bugs
 
         elif parts == 1:
             if not identifier in self.datasets:
                 error("failed to find dataset: {}".format(identifier))
             dataset = self.datasets[identifier]
-            bugs = [bug for (name, bug) in sorted(self.bugs.items()) if bug.dataset == dataset]
+            bugs = [bug for (name, bug) in sorted(self.bugs.items()) if bug.dataset() == dataset]
             return bugs
 
         else:
@@ -478,7 +482,6 @@ class RepairBox(object):
     """
     def upload(self, identifier):
         for bug in self.get(identifier):
-            bug.build()
             bug.upload()
 
     """
