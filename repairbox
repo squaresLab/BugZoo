@@ -71,17 +71,6 @@ def dockerpush(tag):
     except subprocess.CalledProcessError as e:
         exit("failed to push container image: {}".format(tag))
 
-
-"""
-Attempts to launch an ephemeral container using a given RepairBox image
-"""
-def dockerrun(tag):
-    tag = "squareslab/repairbox:{}".format(tag)
-    cmd = "docker run --rm --log-driver none -it {}".format(tag)
-    p = subprocess.Popen(cmd, shell=True)
-    p.communicate()
-
-
 """
 Builds a docker container image using a given Dockerfile, tag, and set of
 build-time arguments
@@ -175,33 +164,28 @@ class Version(object):
             and self.__parent == other.prefix()
 
 
-"""
-All datasets must sit on top of a base image. Ideally, all bug scenarios should
-only use one base image, but there are cases where different base images may
-be needed (e.g., 32-bit containers).
-"""
-class BaseImage(object):
-    @staticmethod
-    def load(fn):
-        with open(fn, "r") as f:
-            try:
-                data = yaml.load(f)
-                version_latest = Version(data['version'])
-                return BaseImage(fn, data['base'], data['dockerfile'], version_latest)
-            except yaml.YAMLError as exc:
-                raise Exception("Failed to load base image: {}".format(fn))
+class Resource(object):
 
-    def __init__(self, location, name, dockerfile, version_latest):
+    # TODO: accept version suffix
+    def __init__(self, location, name, dockerfile, version_latest, parent):
         self.location = location
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
         self.__version_latest = version_latest
+        self.__parent = parent
 
+        assert isinstance(version_latest, Version)
+        assert isinstance(parent, Resource)
         assert os.path.isfile(self.dockerfile), \
-            "Dockerfile not found for base image: {}".format(name)
+            "Dockerfile not found for resource: {}".format(self.identifier())
 
     def tag(self):
-        return "{}".format(self.name)
+        return self.identifier('-')
+
+    def identifier(self, delimiter=':'):
+        if self.__parent and not isinstance(self.__parent, BaseImage):
+            return self.__parent.tag() + delimiter + self.name
+        return self.name
 
     def version_latest(self):
         return self.__version_latest
@@ -213,17 +197,70 @@ class BaseImage(object):
             self.__version_installed = get_image_version(self.tag())
             return self.__version_installed
 
-    def is_built(self):
+    def is_installed(self):
+        return not (self.version_installed() is None)
+
+    def is_latest(self):
         return self.version_latest() == self.version_installed()
 
-    def build(self):
-        if self.is_built():
+    """
+    Uninstalls this resource, by removing its Docker container image
+    """
+    def uninstall(self):
+        if not self.is_built():
             return
+
+        print("uninstalling resource: {}".format(self.identifier()))
+        cmd = "docker rmi squareslab/repairbox:{}".format(self.tag())
+        try:
+            subprocess.check_call(cmd, shell=True)
+        except subprocess.CalledProcessError as e:
+            exit("failed to uninstall resource: {}".format(self.identifier()))
+
+    def build(self):
+        if self.is_latest():
+            return
+        if self.__parent:
+            self.__parent.build()
+
         print("building base image: {}".format(self.name))
+
+        # ds
+        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), self.base.tag())
+
+        # base
         dockerbuild(self.dockerfile, self.tag(), self.version_latest())
+
+        # program
+        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), self.dataset.tag())
+
+        # bug
+        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), parent.tag(), self.buildargs)
+
+
         self.__version_installed = self.__version_latest
 
-class Dataset(object):
+
+"""
+All datasets must sit on top of a base image. Ideally, all bug scenarios should
+only use one base image, but there are cases where different base images may
+be needed (e.g., 32-bit containers).
+"""
+class BaseImage(Resource):
+    @staticmethod
+    def load(fn):
+        with open(fn, "r") as f:
+            try:
+                data = yaml.load(f)
+                version_latest = Version(data['version'])
+                return BaseImage(fn, data['base'], data['dockerfile'], version_latest)
+            except yaml.YAMLError as exc:
+                raise Exception("Failed to load base image: {}".format(fn))
+
+    def __init__(self, location, name, dockerfile, version_latest):
+        super().__init__(self, location, name, dockerfile, version_latest, None)
+
+class Dataset(Resource):
     @staticmethod
     def load(fn, bases):
         with open(fn, "r") as f:
@@ -237,48 +274,13 @@ class Dataset(object):
                 raise Exception("Failed to load dataset: {}".format(fn))
 
     def __init__(self, location, name, base, dockerfile, version_latest):
-        self.location = location
-        self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
-        self.name = name
-        self.base = base
-        self.__version_latest = version_latest
-
-        assert not base is None
-        assert os.path.isfile(self.dockerfile), \
-            "Dockerfile not found for dataset: {}".format(name)
-
-    def identifier(self):
-        return "{}".format(self.name)
-
-    def tag(self):
-        return "{}-base".format(self.name)
-
-    def version_latest(self):
-        return self.__version_latest
-
-    def version_installed(self):
-        try:
-            return self.__version_installed
-        except AttributeError:
-            self.__version_installed = get_image_version(self.tag())
-            return self.__version_installed
-
-    def is_built(self):
-        return self.version_latest() == self.version_installed()
-
-    def build(self):
-        if self.is_built():
-            return
-        self.base.build()
-        print("building dataset: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), self.base.tag())
-        self.__version_installed = self.__version_latest
-
+        assert not base is None and isinstance(base, BaseImage)
+        super().__init__(location, name, dockerfile, version_latest, base)
 
 """
 All programs must belong to a dataset.
 """
-class Program(object):
+class Program(Resource):
     @staticmethod
     def find(dataset, program, database):
         identifier = "{}:{}".format(dataset, program)
@@ -299,49 +301,13 @@ class Program(object):
                 raise Exception("Failed to load program: {}".format(fn))
 
     def __init__(self, location, name, dataset, dockerfile, version_latest):
-        self.location = location
-        self.dataset = dataset
-        self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
-        self.name = name
-        self.__version_latest = version_latest
-
-        assert not self.__version_latest is None
-        assert not dataset is None
-        assert os.path.isfile(self.dockerfile), \
-            "Dockerfile not found for program: {}".format(name)
-
-    def identifier(self):
-        return "{}:{}".format(self.dataset.name, self.name)
-
-    def tag(self):
-        return "{}-{}-base".format(self.dataset.name, self.name)
-
-    def version_latest(self):
-        return self.__version_latest
-
-    def version_installed(self):
-        try:
-            return self.__version_installed
-        except AttributeError:
-            self.__version_installed = get_image_version(self.tag())
-            return self.__version_installed
-
-    def is_built(self):
-        return self.version_latest() == self.version_installed()
-
-    def build(self):
-        if self.is_built():
-            return
-        self.dataset.build()
-        print("building program: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), self.dataset.tag())
-        self.__version_installed = self.__version_latest
-
+        assert not dataset is None and isinstance(dataset, Dataset)
+        super().__init__(location, name, dockerfile, version_latest, dataset)
 
 """
 All bugs must belong to a dataset, but they need not belong to a program.
 """
-class Bug(object):
+class Bug(Resource):
     @staticmethod
     def load(fn, programs, datasets):
         with open(fn, "r") as f:
@@ -355,46 +321,22 @@ class Bug(object):
 
                 # find the program to which the bug belongs, if any
                 if 'program' in data:
-                    program = Program.find(dsname, data['program'], programs)
+                    parent = Program.find(dsname, data['program'], programs)
                 else:
-                    program = None
+                    parent = dataset
 
                 buildargs = data.get('build-arguments', [])
 
-                return Bug(fn, data['bug'], dataset, program, data['dockerfile'], buildargs, data['version'])
+                return Bug(fn, data['bug'], data['dockerfile'], buildargs, data['version'], parent)
 
             except yaml.YAMLError as exc:
                 print(exc)
                 raise Exception("Failed to load bug: {}".format(fn))
 
-    def __init__(self, location, name, dataset, program, dockerfile, buildargs, version_suffix):
-        self.location = location
-        self.dataset = dataset
-        self.program = program
-        self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
-        self.buildargs = buildargs
-        self.name = name
-
-        parent = program if program else dataset
-        self.__version_latest = Version(version_suffix, parent.version_latest())
-
-        assert not dataset is None
-        assert os.path.isfile(self.dockerfile), \
-            "Dockerfile not found for bug: {}".format(name)
-
-    def identifier(self):
-        if self.program:
-            return "{}:{}".format(self.program.identifier(), self.name)
-        else:
-            return "{}:{}".format(self.dataset.name, self.name)
-
-    def tag(self):
-        if self.program:
-            return "{}-{}-{}".format(self.dataset.name, self.program.name, self.name)
-        return "{}-{}".format(self.dataset.name, self.name)
-
-    def version_latest(self):
-        return self.__version_latest
+    def __init__(self, location, name, dockerfile, buildargs, version_suffix, parent):
+        assert not parent is None and \
+            (isinstance(parent, Dataset) or isinstance(parent, Program))
+        super().__init__(location, name, dockerfile, version_suffix, buildargs, parent)
 
     def version_remote(self):
         try:
@@ -402,35 +344,6 @@ class Bug(object):
         except AttributeError:
             self.__version_remote = get_remote_version(self.identifier())
             return self.__version_remote
-
-    def version_installed(self):
-        try:
-            return self.__version_installed
-        except AttributeError:
-            self.__version_installed = get_image_version(self.tag())
-            return self.__version_installed
-
-    def is_built(self):
-        return self.version_latest() == self.version_installed()
-
-    """
-    Constructs the Docker container for this bug, and if necessary, its
-    dependencies
-    """
-    def build(self):
-        if self.is_built():
-            return
-
-        if self.program:
-            parent = self.program
-            self.program.build()
-        elif self.dataset:
-            parent = self.dataset
-            self.dataset.build()
-
-        print("building bug: {}".format(self.name))
-        dockerbuild(self.dockerfile, self.tag(), self.__version_latest, self.identifier(), parent.tag(), self.buildargs)
-        self.__version_installed = self.__version_latest
 
     """
     Installs this resource. Tries to download the remote image, if it is
@@ -444,26 +357,12 @@ class Bug(object):
             self.download()
         else:
             self.build()
-
-    """
-    Uninstalls this resource, by removing its Docker container image
-    """
-    def uninstall(self):
-        if not self.is_built():
-            return
-
-        print("uninstalling resource: {}".format(self.identifier()))
-        cmd = "docker rmi squareslab/repairbox:{}".format(self.tag())
-        try:
-            subprocess.check_call(cmd, shell=True)
-        except subprocess.CalledProcessError as e:
-            exit("failed to uninstall resource: {}".format(self.identifier()))
         
     """
     Attempts to upload the container image for this bug to DockerHub
     """
     def upload(self):
-        assert(self.is_built())
+        self.build()
         if self.version_remote() == self.version_installed():
             return
         print("uploading bug: {}".format(self.name))
