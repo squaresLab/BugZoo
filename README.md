@@ -14,7 +14,7 @@ As well as providing the files necessary to study each bug,
 RepairBox also provides a minimal, isolated environment for execution, in the
 form of an accompanying Docker container. By providing a container for
 each bug, rather than a single, monolithic virtual machine for a group of bugs,
-RepairBox incurs fewer overheads (resulting in a much higher performance; crucial
+RepairBox incurs fewer overheads (resulting in a much higher performance, crucial
 for rigorous experimental trials), makes dependencies easier to manage, and
 results in a smaller disk footprint.
 
@@ -24,27 +24,16 @@ referred to
 
 ## Installation
 
-There are two ways to install a particular repair box provided by this repository.
-The preferred method, is to download a pre-built repair box from DockerHub, using
-the command given below (using a PHP bug from the ManyBugs dataset as an example):
+The RepairBox platform can be installed by cloning this repository. We advise
+that users produce a shadow clone using the command below:
 
 ```
-$ docker pull squareslab/repairbox:manybugs-php-bug-2011-03-11-d890ece3fc-6e74d95f34
-```
-
-Alternatively, you may build each of the repair boxes from source by cloning
-this repository and calling `make`:
-
-```
-$ git clone git://github.com/squaresLab/RepairBox --depth 
-$ cd RepairBox
-$ make
+$ git clone git://github.com/squaresLab/RepairBox --depth 0
 ```
 
 Producing a shallow clone takes far less time, and the git protocol both
 reduces that further and helps to prevent any hangs you might otherwise
-experience using the HTTPS protocol. Be warned, constructing all of the boxes
-within this repository can take over an hour and consumes tens of GBs.
+experience using the HTTPS protocol.
 
 ## Usage
 
