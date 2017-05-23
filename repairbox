@@ -188,7 +188,7 @@ class Resource(object):
 
     def identifier(self, delimiter=':'):
         if self.parent and not isinstance(self.parent, BaseImage):
-            return self.parent.tag() + delimiter + self.name
+            return self.parent.identifier(delimiter) + delimiter + self.name
         return self.name
 
     def version_latest(self):
