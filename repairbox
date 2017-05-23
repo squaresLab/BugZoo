@@ -514,27 +514,30 @@ class RepairBox(object):
         bug = self.bugs[name]
         bug.build()
 
-        # launch the tools containers
-        tool_containers = {}
+        tool_containers = []
         try:
+
+            # launch the tools containers
             for tool in tools:
                 cmd = "docker create --log-driver none christimperley/genprog"
                 p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
                 (out, _) = p.communicate()
-                tool_containers[tool] = str(out)
+                tool_containers.append(str(out)[:12])
 
+            # launch the bug container
+            tag = bug.tag()
+            vol_arg = " ".join(["--volumes-from {}".format(c) for c in tool_containers])
+            tag = "squareslab/repairbox:{}".format(tag)
+            cmd = "docker run --rm -it --log-driver none {} {}".format(vol_arg, tag)
+            p = subprocess.Popen(cmd, shell=True)
+            p.communicate()
+
+        # ensure all containers are destroyed
         finally:
-            for cnt in tool_containers.values():
-                cmd = "docker rm {}".format(cnt)
+            for c in tool_containers:
+                cmd = "docker rm {}".format(c)
                 p = subprocess.Popen(cmd, stdout=DEVNULL, stderr=DEVNULL, shell=True)
                 p.communicate()
-
-        # launch the bug container
-#        tag = bug.tag()
-#        tag = "squareslab/repairbox:{}".format(tag)
-#        cmd = "docker run --rm --log-driver none -it {}".format(tag)
-#        p = subprocess.Popen(cmd, shell=True)
-#        p.communicate()
 
 
 if __name__ == "__main__":
