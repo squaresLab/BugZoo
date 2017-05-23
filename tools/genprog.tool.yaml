@@ -1,5 +1,5 @@
 version: 0
 tool: genprog
-image: ChrisTimperley/genprog:latest
+image: christimperley/genprog:latest
 path-extensions:
   - /opt/genprog3
