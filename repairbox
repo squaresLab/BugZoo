@@ -167,10 +167,11 @@ class Version(object):
 
 
 class Resource(object):
-    def __init__(self, location, name, dockerfile, version_suffix, parent):
+    def __init__(self, location, name, dockerfile, version_suffix, parent=None, buildargs=[]):
         self.location = location
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = name
+        self.__buildargs = buildargs
         self.__parent = parent
 
         if self.__parent:
@@ -178,8 +179,7 @@ class Resource(object):
         else:
             self.__version_latest = Version(version_suffix)
 
-        assert isinstance(version_latest, Version)
-        assert isinstance(parent, Resource)
+        assert parent is None or isinstance(parent, Resource)
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for resource: {}".format(self.identifier())
 
@@ -211,7 +211,7 @@ class Resource(object):
     Uninstalls this resource, by removing its Docker container image
     """
     def uninstall(self):
-        if not self.is_built():
+        if not self.is_installed():
             return
 
         print("uninstalling resource: {}".format(self.identifier()))
@@ -261,7 +261,7 @@ class BaseImage(Resource):
                 raise Exception("Failed to load base image: {}".format(fn))
 
     def __init__(self, location, name, dockerfile, version_suffix):
-        super().__init__(self, location, name, dockerfile, version_suffix, None)
+        super(BaseImage, self).__init__(location, name, dockerfile, version_suffix, None)
 
 
 class Dataset(Resource):
@@ -276,7 +276,7 @@ class Dataset(Resource):
 
     def __init__(self, location, name, base, dockerfile, version_latest):
         assert not base is None and isinstance(base, BaseImage)
-        super().__init__(location, name, dockerfile, version_latest, base)
+        super(Dataset, self).__init__(location, name, dockerfile, version_latest, base)
 
 
 """
@@ -301,7 +301,7 @@ class Program(Resource):
 
     def __init__(self, location, name, dataset, dockerfile, version_suffix):
         assert not dataset is None and isinstance(dataset, Dataset)
-        super().__init__(location, name, dockerfile, version_suffix, dataset)
+        super(Program, self).__init__(location, name, dockerfile, version_suffix, dataset)
 
 
 """
@@ -315,7 +315,8 @@ class Bug(Resource):
                 data = yaml.load(f)
 
                 # find the dataset to which the bug belongs
-                dataset = datasets[data['dataset']]
+                dsname = data['dataset']
+                dataset = datasets[dsname]
                 assert not dataset is None, "no dataset found: {}".format(dsname)
 
                 # find the program to which the bug belongs, if any
@@ -335,7 +336,7 @@ class Bug(Resource):
     def __init__(self, location, name, dockerfile, buildargs, version_suffix, parent):
         assert not parent is None and \
             (isinstance(parent, Dataset) or isinstance(parent, Program))
-        super().__init__(location, name, dockerfile, version_suffix, buildargs, parent)
+        super(Bug, self).__init__(location, name, dockerfile, version_suffix, parent, buildargs)
 
     def version_remote(self):
         try:
