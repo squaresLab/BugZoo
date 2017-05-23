@@ -1,3 +1,5 @@
 version: 0
 tool: genprog
 image: ChrisTimperley/genprog:latest
+path-extensions:
+  - /opt/sos/sos
