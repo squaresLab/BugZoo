@@ -141,6 +141,20 @@ $ repairbox uninstall manybugs
 
 ### `repairbox download`
 
+Downloads a given repair box onto the local machine, provided that the
+currently installed version is out of date or not installed. As with
+the `install` and `uninstall` commands, `download` may accept the name of a
+single bug, a program, or a dataset:
+
+```
+$ repairbox download manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+...
+$ repairbox download manybugs:python
+...
+$ repairbox download manybugs
+...
+```
+
 ### `repairbox build`
 
 ### `repairbox launch`
