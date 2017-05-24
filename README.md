@@ -157,6 +157,19 @@ $ repairbox download manybugs
 
 ### `repairbox build`
 
+Builds a repair box from scratch, provided that repair box isn't already
+installed on the local machine. Once again, this command may accept the name
+of a bug, program, or dataset.
+
+```
+$ repairbox build manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+...
+$ repairbox build manybugs:python
+...
+$ repairbox build manybugs
+
+```
+
 ### `repairbox launch`
 
 ## Anatomy of a Repair Box
