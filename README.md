@@ -191,7 +191,7 @@ $ repairbox build manybugs
 
 ### `repairbox launch`
 
-To interact with a RepairBox, the following command can be used:
+To interact with a minimal repair box, the following command can be used:
 
 ```
 host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d
@@ -207,6 +207,24 @@ command) can be imported via the `--with` commmand:
 host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d --with genprog daikon
 docker> genprog problem.json
 ```
+
+## Integration
+
+### Adding a tool to RepairBox
+
+Discuss how one goes about adding a new tool.
+
+```yaml
+version: 0
+tool: genprog
+image: christimperley/genprog:latest
+path-extensions:
+  - /opt/genprog3
+```
+
+### Adding a bug scenario to RepairBox
+
+Discuss how one might go about adding a bug scenario.
 
 ## Anatomy of a Repair Box
 
