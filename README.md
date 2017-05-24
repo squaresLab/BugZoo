@@ -41,6 +41,35 @@ RepairBox provides a simple, self-documenting command line interface, via the
 `repairbox` executable. Below, we briefly explain and illustrate each of the
 commands provided by this interface.
 
+### `repairbox -h`
+
+```
+$ repairbox -h
+
+usage: repairbox [-h] [--version]
+                 {build,upload,download,install,uninstall,list,launch} ...
+
+______                 _     ______           
+| ___ \               (_)    | ___ \          
+| |_/ /___ _ __   __ _ _ _ __| |_/ / _____  __
+|    // _ \ '_ \ / _` | | '__| ___ \/ _ \ \/ /
+| |\ \  __/ |_) | (_| | | |  | |_/ / (_) >  < 
+\_| \_\___| .__/ \__,_|_|_|  \____/ \___/_/\_\
+          | |                                 
+          |_|                                 
+
+A platform for reproducible empirical studies of program repair
+
+Download at: https://github.com/squaresLab/RepairBox
+
+positional arguments:
+  {build,upload,download,install,uninstall,list,launch}
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+```
+
 ### `repairbox list`
 
 ### `repairbox install`
