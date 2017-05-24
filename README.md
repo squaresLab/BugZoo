@@ -191,7 +191,7 @@ $ repairbox build manybugs
 
 ### `repairbox launch`
 
-Basic launch command.
+To interact with a RepairBox, the following command can be used:
 
 ```
 host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d
@@ -199,7 +199,9 @@ docker> echo $PWD
 /experiment
 ```
 
-Discuss the use of the `--with` argument.
+By itself, this ability isn't particularly interesting. Let's import some
+tools into the repair box! Supported tools (found via the `list tools`
+command) can be imported via the `--with` commmand:
 
 ```
 host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d --with genprog daikon
