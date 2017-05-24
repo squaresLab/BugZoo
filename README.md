@@ -249,7 +249,7 @@ directory, which contains the following files for each bug:
   of a given test case for a provided executable. This script accepts three
   arguments: the path to the executable within the repair candidate's
   directory; the identifier for the test case, following the GenProg naming
-  convention (e.g. `p1`, `n7`); and a random port number to be used for
+  convention (e.g., `p1`, `n7`); and a random port number to be used for
   performing the test (which is optional for bugs that do not require port
   access).
 * `compile.sh`, a bash script responsible for compiling a variant of the
