@@ -78,7 +78,7 @@ TODO: add description!
 
 ### `repairbox list`
 
-Produces a list of all available repair boxes.
+Produces a list of all available repair boxes:
 
 ```
 $ repairbox list
@@ -100,7 +100,7 @@ manybugs:libtiff:2007-07-08-c766cb7-0cc95fb    0.0.0.0   0.0.0.0      0.0.0.0
 ### `repairbox install`
 
 Installs a given repair box by first attempting to download it, if the remote
-version is up-to-date, before resorting to building the repair box locally.
+version is up-to-date, before resorting to building the repair box locally:
 
 ```
 $ repairbox install manybugs:libtiff:2005-12-14-6746b87-0d3d51d
@@ -110,9 +110,23 @@ downloading bug: manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 downloaded bug: manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 ```
 
-Install all bugs in a dataset.
+This command may also be used to install all bugs belonging to a given dataset:
 
-Install all bugs belonging to a particular program in a dataset.
+```
+$ repairbox install manybugs
+
+downloading bug: manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+...
+```
+
+Or it may be used to install bugs belonging to a given program in a dataset:
+
+```
+$ repairbox install manybugs:python
+
+downloading bug: manybugs:python:69223-69224
+...
+```
 
 ### `repairbox uninstall`
 
