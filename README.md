@@ -130,6 +130,15 @@ downloading bug: manybugs:python:69223-69224
 
 ### `repairbox uninstall`
 
+Uninstalls a given repair box, or a group of repair boxes belonging to a
+dataset or program, from the local machine:
+
+```
+$ repairbox uninstall manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+$ repairbox uninstall manybugs:python
+$ repairbox uninstall manybugs
+```
+
 ### `repairbox download`
 
 ### `repairbox build`
