@@ -172,6 +172,21 @@ $ repairbox build manybugs
 
 ### `repairbox launch`
 
+Basic launch command.
+
+```
+host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+docker> echo $PWD
+/experiment
+```
+
+Discuss the use of the `--with` argument.
+
+```
+host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d --with genprog daikon
+docker> genprog problem.json
+```
+
 ## Anatomy of a Repair Box
 
 A unique repair box, in the form of a Docker container, is supplied for each bug
