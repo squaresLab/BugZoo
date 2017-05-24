@@ -37,11 +37,22 @@ experience using the HTTPS protocol.
 
 ## Requirements
 
-Discuss which packages need to be installed.
+To use RepairBox, the following packages must be installed:
 
 * Python 2.7+
-* Docker (version?)
-* tabulate, requests
+* Docker
+
+Additionally, RepairBox requires the following Python packages:
+
+* tabulate
+* requests
+* yaml
+
+These may be installed via the following `pip` command:
+
+```
+$ pip install tabulate requests yaml
+```
 
 ## Usage
 
