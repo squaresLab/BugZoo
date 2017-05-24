@@ -222,6 +222,10 @@ path-extensions:
   - /opt/genprog3
 ```
 
+Discuss how one constructs a compatible Docker container.
+
+Add a link to a page in the Wiki explaining how all of this works under the hood.
+
 ### Adding a bug scenario to RepairBox
 
 Discuss how one might go about adding a bug scenario.
