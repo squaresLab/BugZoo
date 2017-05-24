@@ -43,6 +43,8 @@ commands provided by this interface.
 
 ### `repairbox -h`
 
+Provides a detailed list of available commands.
+
 ```
 $ repairbox -h
 
@@ -68,6 +70,10 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
+
+$ repairbox -h build
+
+TODO: add description!
 ```
 
 ### `repairbox list`
