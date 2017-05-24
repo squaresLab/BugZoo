@@ -35,6 +35,14 @@ Producing a shallow clone takes far less time, and the git protocol both
 reduces that further and helps to prevent any hangs you might otherwise
 experience using the HTTPS protocol.
 
+## Requirements
+
+Discuss which packages need to be installed.
+
+* Python 2.7+
+* Docker (version?)
+* tabulate, requests
+
 ## Usage
 
 RepairBox provides a simple, self-documenting command line interface, via the
