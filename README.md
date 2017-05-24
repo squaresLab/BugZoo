@@ -78,6 +78,25 @@ TODO: add description!
 
 ### `repairbox list`
 
+Produces a list of all the available repair boxes.
+
+```
+$ repairbox list
+
+Bug                                            Latest    Installed    Remote
+---------------------------------------------  --------  -----------  --------
+manybugs:libtiff:2005-12-14-6746b87-0d3d51d    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2005-12-21-3b848a7-3edb9cd    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2005-12-27-6f76e76-5dac30f    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2006-02-23-b2ce5d8-207c78a    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2006-02-27-6074705-e6d0c32    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2006-03-03-a72cf60-0a36d7f    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2006-03-03-eec4c06-ee65c74    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2007-07-08-bd2f947-ccc10c7    0.0.0.0   0.0.0.0      0.0.0.0
+manybugs:libtiff:2007-07-08-c766cb7-0cc95fb    0.0.0.0   0.0.0.0      0.0.0.0
+...
+```
+
 ### `repairbox install`
 
 ### `repairbox uninstall`
