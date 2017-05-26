@@ -669,7 +669,6 @@ if __name__ == "__main__":
                                 action='store_true',
                                 help='print only the list of artefacts')
     list_parser.add_argument(   'kind',
-                                default='bugs',
                                 choices=['bugs', 'programs', 'datasets', 'tools'],
                                 help='the kind of artefacts that should be listed')
 
