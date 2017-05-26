@@ -292,6 +292,9 @@ class Program(Resource):
         assert not dataset is None and isinstance(dataset, Dataset)
         super(Program, self).__init__(location, name, dockerfile, version_suffix, dataset)
 
+    def dataset(self):
+        return self.parent
+
 
 """
 All bugs must belong to a dataset, but they need not belong to a program.
@@ -506,12 +509,25 @@ class RepairBox(object):
 
 
     """
+    Prints a list of all the datasets within RepairBox, sorted alphabetically
+    """
+    def list_datasets(self):
+        hdrs = ["Dataset", "Programs", "Bugs"]
+        tbl = []
+        for (name, dataset) in self.datasets.items():
+            num_programs = sum(1 for p in self.programs.values() if p.dataset() == dataset)
+            num_bugs = sum(1 for b in self.bugs.values() if b.dataset() == dataset)
+            tbl.append([dataset.identifier(), num_programs, num_bugs])
+        print(tabulate(tbl, hdrs))
+
+
+    """
     Prints a list of all artefacts of a given kind within RepairBox, sorted alphabetically
     """
     def list(self, kind='bugs'):
         lister = ({ 'bugs': lambda: self.list_bugs(),
                     'programs': lambda: self.list_programs(),
-                    'datasets': lambda: self.list_dataset(),
+                    'datasets': lambda: self.list_datasets(),
                     'tools': lambda: self.list_tools()})
         lister[kind]()
 
