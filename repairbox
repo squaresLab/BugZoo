@@ -27,7 +27,6 @@ any.
 """
 def get_remote_version(identifier):
     global remote_tag_versions
-    print(identifier)
     try:
         if remote_tag_versions is None:
             r = requests.get('https://api.microbadger.com/v1/images/squareslab/repairbox')
@@ -45,6 +44,7 @@ def get_remote_version(identifier):
         remote_tag_versions = {}
     except ValueError:
         print("WARNING: MicroBadger appears to be offline. Artefacts cannot be downloaded.")
+        remote_tag_versions = {}
         return None
 
     return remote_tag_versions.get(identifier, None)
