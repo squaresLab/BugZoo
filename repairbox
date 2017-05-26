@@ -607,11 +607,20 @@ class RepairBox(object):
             bug.download()
 
     """
-    Installs all bug images belonging to a given resource identifier
+    Installs either: all bug images belonging to a given resource identifier.
     """
-    def install(self, identifier):
-        for bug in self.get(identifier):
-            bug.install()
+    def install(self, identifier, kind):
+        if kind == 'bug':
+            for bug in self.get(identifier):
+                bug.install()
+        elif kind == 'tool':
+            if not identifier in self.tools:
+                error("Failed to find tool: {}".format(identifier))
+            tool = self.tools[identifier]
+            if tool.is_installed:
+                print("Tool already installed: {}".format(identifier))
+            else:
+                tool.install()
 
     """
     Uninstalls all bug images belonging to a given resource identifier
@@ -685,9 +694,12 @@ if __name__ == "__main__":
 
     # action: download
     install_parser = subparsers.add_parser('install')
+    install_parser.add_argument('kind',
+                                choices=['bug','tool'],
+                                help='used to specify whether a set of bugs, or a tool should be installed')
     install_parser.add_argument('identifier',
-                            help='identifier of the resource whose boxes should be installed')
-    install_parser.set_defaults(func=lambda args: rbox.install(args.identifier))
+                            help='identifier of the artefact that should be installed')
+    install_parser.set_defaults(func=lambda args: rbox.install(args.identifier, args.kind))
 
     # action: download
     uninstall_parser = subparsers.add_parser('uninstall')
