@@ -43,7 +43,7 @@ def get_remote_version(identifier):
     except KeyError:
         remote_tag_versions = {}
     except ValueError:
-        print("WARNING: MicroBadger appears to be offline. Artefacts cannot be downloaded.")
+        print("WARNING: MicroBadger appears to be offline. Artefacts cannot be downloaded.\n")
         remote_tag_versions = {}
         return None
 
