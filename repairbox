@@ -421,6 +421,9 @@ class Tool(object):
     def identifier(self):
         return self.name
 
+    def is_installed(self):
+        return False
+
 
 class RepairBox(object):
 
@@ -491,6 +494,21 @@ class RepairBox(object):
 
         else:
             error("illegal resource identifier")
+
+
+    """
+    Returns a list of all tools registered with RepairBox, sorted alphabetically
+    """
+    def list_tools(self, quiet=False):
+        if quiet:
+            return '\n'.join(sorted(self.tools.keys()))
+
+        hdrs = ["Tool", "Image", "Installed"]
+        tbl = []
+        for name in sorted(self.tools.keys()):
+            tool = self.tools[name]
+            tbl.append([name, tool.image, tool.is_installed()])
+        return tabulate(tbl, hdrs)
 
 
     """
