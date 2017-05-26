@@ -388,9 +388,9 @@ class Bug(Resource):
             return
 
         print("downloading bug: {}".format(self.name))
-        cmd = "docker pull squareslab/repairbox:{}".format(self.tag())
+        cmd = ["docker", "pull", "squareslab/repairbox:{}".format(self.tag())]
         try:
-            subprocess.check_call(cmd, stderr=DEVNULL, shell=True)
+            subprocess.check_call(cmd, stderr=DEVNULL)
         except subprocess.CalledProcessError as e:
             exit("failed to download resource: {}".format(self.identifier()))
         
