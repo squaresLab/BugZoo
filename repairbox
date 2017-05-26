@@ -494,7 +494,7 @@ class RepairBox(object):
 
 
     """
-    Prints a list of all the bugs within RepairBox, sorted alphabetically
+    Returns a list of all the bugs within RepairBox, sorted alphabetically
     """
     def list_bugs(self):
         hdrs = ["Bug", "Latest", "Installed", "Remote"]
@@ -505,11 +505,11 @@ class RepairBox(object):
             vinstalled = bug.version_installed()
             vremote = bug.version_remote()
             tbl.append([bug.identifier(), str(vlatest), str(vinstalled), str(vremote)])
-        print(tabulate(tbl, hdrs))
+        return tabulate(tbl, hdrs)
 
 
     """
-    Prints a list of all the datasets within RepairBox, sorted alphabetically
+    Returns a list of all the datasets within RepairBox, sorted alphabetically
     """
     def list_datasets(self):
         hdrs = ["Dataset", "Programs", "Bugs"]
@@ -518,19 +518,22 @@ class RepairBox(object):
             num_programs = sum(1 for p in self.programs.values() if p.dataset() == dataset)
             num_bugs = sum(1 for b in self.bugs.values() if b.dataset() == dataset)
             tbl.append([dataset.identifier(), num_programs, num_bugs])
-        print(tabulate(tbl, hdrs))
+        return tabulate(tbl, hdrs)
 
 
     """
-    Prints a list of all the programs within RepairBox, sorted alphabetically
+    Returns a list of all the programs within RepairBox, sorted alphabetically
     """
-    def list_programs(self):
+    def list_programs(self, quiet=False):
+        if quiet:
+            return '\n'.join(self.programs.keys())
+
         hdrs = ["Program", "Bugs"]
         tbl = []
         for (name, program) in self.programs.items():
             num_bugs = sum(1 for b in self.bugs.values() if b.program() == program)
             tbl.append([program.identifier(), num_bugs])
-        print(tabulate(tbl, hdrs))
+        return tabulate(tbl, hdrs)
 
 
     """
@@ -541,7 +544,7 @@ class RepairBox(object):
                     'programs': lambda: self.list_programs(),
                     'datasets': lambda: self.list_datasets(),
                     'tools': lambda: self.list_tools()})
-        lister[kind]()
+        print(lister[kind]())
 
 
     """
