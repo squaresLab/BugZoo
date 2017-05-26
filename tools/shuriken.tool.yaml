@@ -1,0 +1,5 @@
+version: 0
+tool: shuriken
+image: shuriken:latest
+environment:
+  PATH: "/opt/shuriken/bin:${PATH}"
