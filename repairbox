@@ -30,7 +30,6 @@ def get_remote_version(identifier):
     try:
         if remote_tag_versions is None:
             r = requests.get('https://api.microbadger.com/v1/images/squareslab/repairbox')
-            print(r.json())
             remote_tag_versions = r.json()['Versions']
             remote_tag_versions = [v["Labels"] for v in remote_tag_versions if "Labels" in v]
             remote_tag_versions = \
@@ -632,35 +631,48 @@ class RepairBox(object):
     """
     Launches a named repair box
     """
-    def launch(self, name, tools=[]):
-        if not name in self.bugs:
-            error("failed to locate bug with identifier: {}".format(name))
-        bug = self.bugs[name]
+    def launch(self, bug, tools=[]):
+        if not bug in self.bugs:
+            error("failed to locate bug with identifier: {}".format(bug))
+
+        for tool in tools:
+            if not tool in self.tools:
+                error("failed to locate tool: {}".format(tool))
+
+        bug = self.bugs[bug]
         bug.build()
 
         tool_containers = []
+        volume_arguments = []
+        env_arguments = []
+
         try:
 
             # launch the tools containers
             for tool in tools:
-                cmd = "docker create --log-driver none christimperley/genprog"
-                p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                tool = self.tools[tool]
+                cmd = ["docker", "create", "--log-driver", "none", tool.image]
+                p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 (out, _) = p.communicate()
-                tool_containers.append(str(out)[:12])
+                container = str(out)[:12]
+                tool_containers.append(container)
+
+                # prepare the arguments for this tool
+                volume_arguments += ["--volumes-from", container]
 
             # launch the bug container
-            tag = bug.tag()
-            vol_arg = " ".join(["--volumes-from {}".format(c) for c in tool_containers])
-            tag = "squareslab/repairbox:{}".format(tag)
-            cmd = "docker run --rm -it --log-driver none {} {}".format(vol_arg, tag)
-            p = subprocess.Popen(cmd, shell=True)
+            cmd = ["docker", "run", "--rm", "-it", "--log-driver", "none"]
+            cmd += volume_arguments
+            cmd += ["squareslab/repairbox:{}".format(bug.tag())]
+
+            p = subprocess.Popen(cmd)
             p.communicate()
 
         # ensure all containers are destroyed
         finally:
             for c in tool_containers:
-                cmd = "docker rm {}".format(c)
-                p = subprocess.Popen(cmd, stdout=DEVNULL, stderr=DEVNULL, shell=True)
+                cmd = ["docker", "rm", c]
+                p = subprocess.Popen(cmd, stdout=DEVNULL, stderr=DEVNULL)
                 p.communicate()
 
 
@@ -725,6 +737,7 @@ if __name__ == "__main__":
     launch_parser.add_argument('--with',
                             help='names of the tools that should be available within the container',
                             dest='tools',
+                            default=[],
 							nargs='*')
 
     launch_parser.set_defaults(func=lambda args: rbox.launch(args.bug, args.tools))
