@@ -27,9 +27,11 @@ any.
 """
 def get_remote_version(identifier):
     global remote_tag_versions
+    print(identifier)
     try:
         if remote_tag_versions is None:
             r = requests.get('https://api.microbadger.com/v1/images/squareslab/repairbox')
+            print(r.json())
             remote_tag_versions = r.json()['Versions']
             remote_tag_versions = [v["Labels"] for v in remote_tag_versions if "Labels" in v]
             remote_tag_versions = \
@@ -41,6 +43,9 @@ def get_remote_version(identifier):
 
     except KeyError:
         remote_tag_versions = {}
+    except ValueError:
+        print("WARNING: MicroBadger appears to be offline. Artefacts cannot be downloaded.")
+        return None
 
     return remote_tag_versions.get(identifier, None)
 
@@ -396,7 +401,6 @@ class Tool(object):
             try:
                 data = yaml.load(f)
                 env = data.get('environment', {})
-
                 return Tool(fn, data['tool'], data['image'], env)
 
             except yaml.YAMLError as exc:
@@ -485,19 +489,34 @@ class RepairBox(object):
         else:
             error("illegal resource identifier")
 
+
     """
-    Prints a list of all the bug scenarios within RepairBox, sorted alphabetically
+    Prints a list of all the bugs within RepairBox, sorted alphabetically
     """
-    def list(self):
+    def list_bugs(self):
         hdrs = ["Bug", "Latest", "Installed", "Remote"]
         tbl = []
         for bug in sorted(self.bugs.keys()):
             bug = self.bugs[bug]
+            print(bug.identifier())
             vlatest = bug.version_latest()
             vinstalled = bug.version_installed()
             vremote = bug.version_remote()
             tbl.append([bug.identifier(), str(vlatest), str(vinstalled), str(vremote)])
         print(tabulate(tbl, hdrs))
+
+
+    """
+    Prints a list of all artefacts of a given kind within RepairBox, sorted alphabetically
+    """
+    def list(self, kind='bugs'):
+        print("hello")
+        lister = ({ 'bugs': lambda: self.list_bugs(),
+                    'programs': lambda: self.list_programs(),
+                    'datasets': lambda: self.list_dataset(),
+                    'tools': lambda: self.list_tools()})
+        lister[kind]()
+
 
     """
     Builds all bug images belonging to a given resource identifier
@@ -611,7 +630,12 @@ if __name__ == "__main__":
 
     # action: list
     list_parser = subparsers.add_parser('list')
-    list_parser.set_defaults(func=lambda args: rbox.list())
+    list_parser.add_argument(   'kind',
+                                default='bugs',
+                                choices=['bugs', 'programs', 'datasets', 'tools'],
+                                help='the kind of artefacts that should be listed')
+
+    list_parser.set_defaults(func=lambda args: rbox.list(args.kind))
 
     # action: launch
     launch_parser = subparsers.add_parser('launch')
