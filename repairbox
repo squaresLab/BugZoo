@@ -395,14 +395,24 @@ class Tool(object):
         with open(fn, "r") as f:
             try:
                 data = yaml.load(f)
-                return Tool(fn)
+                env = data.get('environment', {})
+
+                return Tool(fn, data['tool'], data['image'], env)
 
             except yaml.YAMLError as exc:
                 print(exc)
                 raise Exception("Failed to load tool: {}".format(fn))
 
-    def __init__(self, location):
+    def __init__(self, location, name, image, environment):
         self.location = location
+        self.name = name
+        self.image = image
+        self.environment = environment
+
+        assert isinstance(environment, dict)
+
+    def identifier(self):
+        return self.name
 
 
 class RepairBox(object):
@@ -413,11 +423,12 @@ class RepairBox(object):
     def __init__(self, location=os.path.dirname(os.path.realpath(__file__))):
         self.location = location
         
-        # find all bases, datasets, programs and bugs
+        # find all bases, datasets, programs, bugs and tools
         self.bases = []
         self.datasets = []
         self.programs = []
         self.bugs = []
+        self.tools = []
 
         for (root, dirs, files) in os.walk(location):
             self.bases += \
@@ -428,6 +439,8 @@ class RepairBox(object):
                 [os.path.join(root, f) for f in files if f.endswith(".program.yaml")]
             self.bugs += \
                 [os.path.join(root, f) for f in files if f.endswith(".bug.yaml")]
+            self.tools += \
+                [os.path.join(root, f) for f in files if f.endswith(".tool.yaml")]
 
         # parse and type check manifests
         self.bases = [BaseImage.load(fn) for fn in self.bases]
@@ -438,6 +451,8 @@ class RepairBox(object):
         self.programs = {p.identifier(): p for p in self.programs}
         self.bugs = [Bug.load(fn, self.programs, self.datasets) for fn in self.bugs]
         self.bugs = {bug.identifier(): bug for bug in self.bugs}
+        self.tools = [Tool.load(fn) for fn in self.tools]
+        self.tools = {t.identifier(): t for t in self.tools}
 
     """
     Gets a list of all bugs belonging to a given resource identifier
