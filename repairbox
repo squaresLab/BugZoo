@@ -421,6 +421,19 @@ class Tool(object):
     def identifier(self):
         return self.name
 
+    def install(self):
+        if self.is_installed():
+            return
+        
+        print("Installing tool: {}".format(self.name))
+        cmd = ["docker", "pull", self.image]
+        try:
+            subprocess.check_call(cmd, stderr=DEVNULL)
+        except subprocess.CalledProcessError as e:
+            exit("Failed to install tool: {}".format(self.name))
+ 
+        print("Installed tool: {}".format(self.name))
+
     def is_installed(self):
         cmd = ["docker", "inspect", self.image]
         return subprocess.call(cmd, stdout=DEVNULL, stderr=DEVNULL) == 0
