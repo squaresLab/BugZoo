@@ -498,7 +498,6 @@ class RepairBox(object):
         tbl = []
         for bug in sorted(self.bugs.keys()):
             bug = self.bugs[bug]
-            print(bug.identifier())
             vlatest = bug.version_latest()
             vinstalled = bug.version_installed()
             vremote = bug.version_remote()
@@ -510,7 +509,6 @@ class RepairBox(object):
     Prints a list of all artefacts of a given kind within RepairBox, sorted alphabetically
     """
     def list(self, kind='bugs'):
-        print("hello")
         lister = ({ 'bugs': lambda: self.list_bugs(),
                     'programs': lambda: self.list_programs(),
                     'datasets': lambda: self.list_dataset(),
