@@ -496,7 +496,10 @@ class RepairBox(object):
     """
     Returns a list of all the bugs within RepairBox, sorted alphabetically
     """
-    def list_bugs(self):
+    def list_bugs(self, quiet=False):
+        if quiet:
+            return '\n'.join(sorted(self.bugs.keys()))
+
         hdrs = ["Bug", "Latest", "Installed", "Remote"]
         tbl = []
         for bug in sorted(self.bugs.keys()):
@@ -511,7 +514,10 @@ class RepairBox(object):
     """
     Returns a list of all the datasets within RepairBox, sorted alphabetically
     """
-    def list_datasets(self):
+    def list_datasets(self, quiet=False):
+        if quiet:
+            return '\n'.join(sorted(self.datasets.keys()))
+
         hdrs = ["Dataset", "Programs", "Bugs"]
         tbl = []
         for (name, dataset) in self.datasets.items():
@@ -526,7 +532,7 @@ class RepairBox(object):
     """
     def list_programs(self, quiet=False):
         if quiet:
-            return '\n'.join(self.programs.keys())
+            return '\n'.join(sorted(self.programs.keys()))
 
         hdrs = ["Program", "Bugs"]
         tbl = []
@@ -539,11 +545,11 @@ class RepairBox(object):
     """
     Prints a list of all artefacts of a given kind within RepairBox, sorted alphabetically
     """
-    def list(self, kind='bugs'):
-        lister = ({ 'bugs': lambda: self.list_bugs(),
-                    'programs': lambda: self.list_programs(),
-                    'datasets': lambda: self.list_datasets(),
-                    'tools': lambda: self.list_tools()})
+    def list(self, kind, quiet):
+        lister = ({ 'bugs': lambda: self.list_bugs(quiet),
+                    'programs': lambda: self.list_programs(quiet),
+                    'datasets': lambda: self.list_datasets(quiet),
+                    'tools': lambda: self.list_tools(quiet)})
         print(lister[kind]())
 
 
@@ -659,12 +665,15 @@ if __name__ == "__main__":
 
     # action: list
     list_parser = subparsers.add_parser('list')
+    list_parser.add_argument(   '--quiet', '-q',
+                                action='store_true',
+                                help='print only the list of artefacts')
     list_parser.add_argument(   'kind',
                                 default='bugs',
                                 choices=['bugs', 'programs', 'datasets', 'tools'],
                                 help='the kind of artefacts that should be listed')
 
-    list_parser.set_defaults(func=lambda args: rbox.list(args.kind))
+    list_parser.set_defaults(func=lambda args: rbox.list(args.kind, args.quiet))
 
     # action: launch
     launch_parser = subparsers.add_parser('launch')
