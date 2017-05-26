@@ -422,7 +422,8 @@ class Tool(object):
         return self.name
 
     def is_installed(self):
-        return False
+        cmd = ["docker", "inspect", self.image]
+        return subprocess.call(cmd, stdout=DEVNULL, stderr=DEVNULL) == 0
 
 
 class RepairBox(object):
