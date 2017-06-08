@@ -670,7 +670,7 @@ class RepairBox(object):
             cmd += ["squareslab/repairbox:{}".format(bug.tag())]
             cmd += [command]
 
-            print(" ".join(cmd))
+            #print(" ".join(cmd))
 
             p = subprocess.Popen(cmd)
             p.communicate()
