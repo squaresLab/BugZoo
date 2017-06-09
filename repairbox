@@ -628,27 +628,31 @@ class RepairBox(object):
         for bug in self.get(identifier):
             bug.uninstall()
 
-    def execute(self, bug, script, tools=[]):
-        vol_cmd = "{}:/experiment/{}".format(os.path.abspath(script), os.path.basename(script))
-        run_cmd = "./{}".format(os.path.basename(script))
-        return self.launch(bug, tools, run_cmd, ["-v", vol_cmd])
+    def execute(self, bug, tools, command):
+        #commands = command.replace('"', '\\"')
+        commands = ["/bin/bash", "-c", "\"{}\"".format(command)]
+        return self.launch(bug, tools, commands, True)
 
     """
     Launches a named repair box
     """
-    def launch(self, bug, tools=[], command='/bin/bash', volume_arguments=[]):
+    def launch(self, bug, tools=[], commands=['/bin/bash'], headless=False):
+        # ensure the bug exists and is installed
         if not bug in self.bugs:
             error("failed to locate bug with identifier: {}".format(bug))
+        bug = self.bugs[bug]
+        bug.install()
 
+        # ensure the tools exist and are installed
         for tool in tools:
             if not tool in self.tools:
                 error("failed to locate tool: {}".format(tool))
+            self.tools[tool].install()
 
-        bug = self.bugs[bug]
-        bug.build()
-
+        volume_arguments = []
         tool_containers = []
         env_arguments = []
+        run_mode = "-i" if headless else "-it"
 
         try:
 
@@ -665,14 +669,16 @@ class RepairBox(object):
                 volume_arguments += ["--volumes-from", container]
 
             # launch the bug container
-            cmd = ["docker", "run", "--rm", "-it", "--log-driver", "none"]
+            cmd = ["docker", "run", run_mode, "--rm", "--log-driver", "none"]
             cmd += volume_arguments
             cmd += ["squareslab/repairbox:{}".format(bug.tag())]
-            cmd += [command]
+            cmd += commands
 
-            #print(" ".join(cmd))
+            # I really don't like this, but sadly it's needed to stop Python weirdly quoting args
+            # TODO: find a nicer solution
+            cmd = " ".join(cmd)
 
-            p = subprocess.Popen(cmd)
+            p = subprocess.Popen(cmd, shell=True)
             p.communicate()
 
         # ensure all containers are destroyed
@@ -740,24 +746,25 @@ if __name__ == "__main__":
     # action: execute
     execute_parser = subparsers.add_parser('execute')
     execute_parser.add_argument('bug',
-                            help='identifier for the bug whose container should be launched')
-    execute_parser.add_argument('script')
+                            help='identifier for a bug')
     execute_parser.add_argument('--with',
-                            help='names of the tools that should be available within the container',
+                            help='name of a tool',
                             dest='tools',
-                            default=[],
-							nargs='*')
-    execute_parser.set_defaults(func=lambda args: rbox.execute(args.bug, args.script, args.tools))
+                            action='append',
+                            default=[])
+    execute_parser.add_argument('command',
+                            help='the command that should be executed inside the repair box')
+    execute_parser.set_defaults(func=lambda args: rbox.execute(args.bug, args.tools, args.command))
 
     # action: launch
     launch_parser = subparsers.add_parser('launch')
     launch_parser.add_argument('bug',
-                            help='identifier for the bug whose container should be launched')
+                            help='identifier for a bug')
     launch_parser.add_argument('--with',
-                            help='names of the tools that should be available within the container',
+                            help='name of a tool',
                             dest='tools',
-                            default=[],
-							nargs='*')
+                            action='append',
+                            default=[])
     launch_parser.set_defaults(func=lambda args: rbox.launch(args.bug, args.tools))
 
     args = parser.parse_args()
