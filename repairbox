@@ -628,15 +628,14 @@ class RepairBox(object):
         for bug in self.get(identifier):
             bug.uninstall()
 
-    def execute(self, bug, tools, command):
-        #commands = command.replace('"', '\\"')
+    def execute(self, bug, volumes, tools, command):
         commands = ["/bin/bash", "-c", "\"{}\"".format(command)]
-        return self.launch(bug, tools, commands, True)
+        return self.launch(bug, volumes, tools, commands, True)
 
     """
     Launches a named repair box
     """
-    def launch(self, bug, tools=[], commands=['/bin/bash'], headless=False):
+    def launch(self, bug, volumes=[], tools=[], commands=['/bin/bash'], headless=False):
         # ensure the bug exists and is installed
         if not bug in self.bugs:
             error("failed to locate bug with identifier: {}".format(bug))
@@ -649,9 +648,17 @@ class RepairBox(object):
                 error("failed to locate tool: {}".format(tool))
             self.tools[tool].install()
 
+        # TODO: sanity check the volume commands
         volume_arguments = []
+        for volume in volumes:
+            volume_arguments += ["-v", volume]
+
         tool_containers = []
+
+        # TODO: exploit Docker's envfile argument
         env_arguments = []
+
+        # should we run headless or interactive?
         run_mode = "-i" if headless else "-it"
 
         try:
@@ -747,6 +754,11 @@ if __name__ == "__main__":
     execute_parser = subparsers.add_parser('execute')
     execute_parser.add_argument('bug',
                             help='identifier for a bug')
+    execute_parser.add_argument('-v',
+                            help='volume mounting command',
+                            dest='volumes',
+                            action='append',
+                            default=[])
     execute_parser.add_argument('--with',
                             help='name of a tool',
                             dest='tools',
@@ -754,18 +766,23 @@ if __name__ == "__main__":
                             default=[])
     execute_parser.add_argument('command',
                             help='the command that should be executed inside the repair box')
-    execute_parser.set_defaults(func=lambda args: rbox.execute(args.bug, args.tools, args.command))
+    execute_parser.set_defaults(func=lambda args: rbox.execute(args.bug, args.volumes, args.tools, args.command))
 
     # action: launch
     launch_parser = subparsers.add_parser('launch')
     launch_parser.add_argument('bug',
                             help='identifier for a bug')
+    launch_parser.add_argument('-v',
+                            help='volume mounting command',
+                            dest='volumes',
+                            action='append',
+                            default=[])
     launch_parser.add_argument('--with',
                             help='name of a tool',
                             dest='tools',
                             action='append',
                             default=[])
-    launch_parser.set_defaults(func=lambda args: rbox.launch(args.bug, args.tools))
+    launch_parser.set_defaults(func=lambda args: rbox.launch(args.bug, args.volumes, args.tools))
 
     args = parser.parse_args()
     if 'func' in vars(args):
