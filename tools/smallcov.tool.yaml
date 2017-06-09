@@ -1,5 +1,5 @@
 version: 0
 tool: smallcov
-image: clg/smallcov:latest
+image: squareslab/smallcov:latest
 environment:
   PATH: "/opt/smallcov/:${PATH}"
