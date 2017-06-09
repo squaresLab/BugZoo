@@ -1,0 +1,5 @@
+version: 0
+tool: smallcov
+image: squareslab/smallcov:latest
+environment:
+  PATH: "/opt/smallcov/:${PATH}"
