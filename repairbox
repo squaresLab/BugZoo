@@ -1,7 +1,4 @@
 #!/usr/bin/env python
-#
-# TODO: Implement a Resource class
-#
 import os
 import yaml
 import subprocess
@@ -10,6 +7,7 @@ import time
 import json
 import requests
 from tabulate import tabulate
+from tempfile import NamedTemporaryFile
 
 from pprint import pprint as pp
 
@@ -629,13 +627,12 @@ class RepairBox(object):
             bug.uninstall()
 
     def execute(self, bug, volumes, tools, command):
-        commands = ["/bin/bash", "-c", "\"{}\"".format(command)]
-        return self.launch(bug, volumes, tools, commands, True)
+        return self.launch(bug, volumes, tools, command, True)
 
     """
     Launches a named repair box
     """
-    def launch(self, bug, volumes=[], tools=[], commands=['/bin/bash'], headless=False):
+    def launch(self, bug, volumes=[], tools=[], command='/bin/bash', headless=False):
         # ensure the bug exists and is installed
         if not bug in self.bugs:
             error("failed to locate bug with identifier: {}".format(bug))
@@ -643,10 +640,12 @@ class RepairBox(object):
         bug.install()
 
         # ensure the tools exist and are installed
+        env = {}
         for tool in tools:
             if not tool in self.tools:
                 error("failed to locate tool: {}".format(tool))
             self.tools[tool].install()
+            env.update(self.tools[tool].environment)
 
         # TODO: sanity check the volume commands
         volume_arguments = []
@@ -655,10 +654,15 @@ class RepairBox(object):
 
         tool_containers = []
 
-        # TODO: exploit Docker's envfile argument
-        env_arguments = []
+        # generate a file containing the environmental variables for this execution
+        # we use volume mounting to load these variables, rather than "--env";
+        # this allows us to load nested env. vars
+        env = "\n".join(["{}={}".format(k, v) for (k, v) in env.items()])
+        env_file = NamedTemporaryFile()
+        env_file.write(env)
+        env_file.flush()
 
-        # should we run headless or interactive?
+        # Determine if should we run headless or interactive
         run_mode = "-i" if headless else "-it"
 
         try:
@@ -677,9 +681,13 @@ class RepairBox(object):
 
             # launch the bug container
             cmd = ["docker", "run", run_mode, "--rm", "--log-driver", "none"]
+            cmd += ["-v", "{}:{}:ro".format(env_file.name, "/experiment/.env")]
             cmd += volume_arguments
             cmd += ["squareslab/repairbox:{}".format(bug.tag())]
-            cmd += commands
+
+            # compute the command
+            command = "source /experiment/.env && {}".format(command)
+            cmd += ["/bin/bash", "-c \"{}\"".format(command)]
 
             # I really don't like this, but sadly it's needed to stop Python weirdly quoting args
             # TODO: find a nicer solution
@@ -690,6 +698,7 @@ class RepairBox(object):
 
         # ensure all containers are destroyed
         finally:
+            env_file.close()
             for c in tool_containers:
                 cmd = ["docker", "rm", c]
                 p = subprocess.Popen(cmd, stdout=DEVNULL, stderr=DEVNULL)
