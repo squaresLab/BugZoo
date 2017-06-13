@@ -1,0 +1,4 @@
+version: 0
+dataset: robots
+dockerfile: Dockerfile
+program: ardupilot
