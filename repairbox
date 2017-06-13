@@ -219,7 +219,7 @@ class Resource(object):
         if self.parent:
             self.parent.build()
 
-        print("building base image: {}".format(self.name))
+        print("building image: {}".format(self.name))
 
         ptag = self.parent.tag() if self.parent else None
         dockerbuild(self.dockerfile,
@@ -314,7 +314,7 @@ class Bug(Resource):
                 else:
                     parent = dataset
 
-                buildargs = data.get('build-arguments', [])
+                buildargs = data.get('build-arguments', {})
 
                 return Bug(fn, data['bug'], data['dockerfile'], buildargs, data['version'], parent)
 
