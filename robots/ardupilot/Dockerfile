@@ -1,3 +1,4 @@
+# TODO: optimise!
 RUN git clone https://github.com/ArduPilot/ardupilot source && \
     cd source && \
     git submodule update --init --recursive
@@ -27,9 +28,9 @@ RUN sudo apt-get install -y python-matplotlib \
                             gawk \
                             python-pip \
                             python-pexpect && \
-    sudo pip install future pymavlink MAVProxy
+    sudo pip install future pymavlink MAVProxy && \
+    sudo pip install --upgrade pexpect
 
-ENV HOME "/home/robot"
 ENV PATH "${PATH}:/experiment/jsbsim/src"
 ENV PATH "${PATH}:/experiment/source/Tools/autotest"
 ENV PATH "${PATH}:/usr/lib/ccache:${PATH}"
@@ -37,3 +38,10 @@ ENV PATH "${PATH}:/usr/lib/ccache:${PATH}"
 # 3D visualisation
 RUN sudo apt-get install -y flightgear
 ENV PATH "/usr/games:${PATH}"
+
+ADD bug.json /experiment/bug.json
+
+RUN sudo apt-get install -y pkg-config
+
+ADD prepare.sh /experiment/prepare.sh
+ADD test.sh /experiment/test.sh

@@ -1,1 +1,3 @@
 #
+RUN /experiment/prepare.sh && \
+    rm -f /experiment/prepare.sh
