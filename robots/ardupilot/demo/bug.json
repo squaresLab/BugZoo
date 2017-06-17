@@ -1,13 +1,13 @@
 {
   "source": {
     "root": "source",
-    "modifiable": ["ArduPlane/sensors.cpp"]
+    "modifiable": ["ArduCopter/GCS_Mavlink.cpp"]
   },
   "tests": {
     "passing": 1,
     "failing": 0
   },
   "compiler": {
-    "command": "make -j"
+    "command": "./waf build -j$(nproc)"
   }
 }

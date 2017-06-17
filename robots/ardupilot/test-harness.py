@@ -968,10 +968,7 @@ def fly():
     global homeloc
 
     binary = '/experiment/source/build/sitl/bin/arducopter'
-    valgrind = False
     use_map = False
-    gdb = False
-    params_file = None
     frame = '+'
 
     home = "%f,%f,%u,%u" % (HOME.lat, HOME.lng, HOME.alt, HOME.heading)
@@ -980,12 +977,12 @@ def fly():
     mavproxy.expect('Received [0-9]+ parameters')
 
     # setup test parameters
-    if params_file is None:
-        params = vinfo.options["ArduCopter"]["frames"][frame]["default_params_filename"]
-        if not isinstance(params, list):
-            params = [params]
-        for x in params:
-            mavproxy.send("param load %s\n" % os.path.join(testdir, x))
+    params = vinfo.options["ArduCopter"]["frames"][frame]["default_params_filename"]
+    if not isinstance(params, list):
+        params = [params]
+    for x in params:
+        mavproxy.send("param load %s\n" % os.path.join(testdir, x))
+
     mavproxy.expect('Loaded [0-9]+ parameters')
     mavproxy.send("param set LOG_REPLAY 1\n")
     mavproxy.send("param set LOG_DISARMED 1\n")
@@ -995,7 +992,7 @@ def fly():
     util.pexpect_close(mavproxy)
     util.pexpect_close(sitl)
 
-    sitl = util.start_SITL(binary, model=frame, home=home, speedup=speedup_default, valgrind=valgrind, gdb=gdb)
+    sitl = util.start_SITL(binary, model=frame, home=home, speedup=speedup_default, valgrind=False, gdb=False)
     options = '--sitl=127.0.0.1:5501 --out=127.0.0.1:19550 --quadcopter --streamrate=5'
     mavproxy = util.start_MAVProxy_SITL('ArduCopter', options=options)
     mavproxy.expect('Telemetry log: (\S+)')
@@ -1276,11 +1273,6 @@ def fly():
         # wait for disarm
         mav.motors_disarmed_wait()
 
-        if not log_download(mavproxy, mav, util.reltopdir("../buildlogs/ArduCopter-log.bin")):
-            failed_test_msg = "log_download failed"
-            print(failed_test_msg)
-            failed = True
-
     except pexpect.TIMEOUT as failed_test_msg:
         failed_test_msg = "Timeout"
         failed = True
@@ -1288,16 +1280,6 @@ def fly():
     mav.close()
     util.pexpect_close(mavproxy)
     util.pexpect_close(sitl)
-
-    valgrind_log = util.valgrind_log_filepath(binary=binary, model='+')
-    if os.path.exists(valgrind_log):
-        os.chmod(valgrind_log, 0o644)
-        shutil.copy(valgrind_log, util.reltopdir("../buildlogs/ArduCopter-valgrind.log"))
-
-    # [2014/05/07] FC Because I'm doing a cross machine build (source is on host, build is on guest VM) I cannot hard link
-    # This flag tells me that I need to copy the data out
-    if copy_tlog:
-        shutil.copy(logfile, buildlog)
 
     if failed:
         print("FAILED: %s" % failed_test_msg)

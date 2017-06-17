@@ -39,9 +39,10 @@ ENV PATH "${PATH}:/usr/lib/ccache:${PATH}"
 RUN sudo apt-get install -y flightgear
 ENV PATH "/usr/games:${PATH}"
 
-ADD bug.json /experiment/bug.json
-
 RUN sudo apt-get install -y pkg-config
 
-ADD prepare.sh /experiment/prepare.sh
 ADD test.sh /experiment/test.sh
+ADD prepare.sh /experiment/prepare.sh
+ADD missions /experiment/missions
+ADD test-harness.py /experiment/test-harness.py
+RUN sudo chown -R $(whoami):$(whoami) /experiment

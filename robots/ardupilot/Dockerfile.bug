@@ -1,3 +1,7 @@
-#
-RUN /experiment/prepare.sh && \
+RUN cd source && \
+    git checkout 3534d0a0ebd448e12d85ce4b1ea041a6882c7b66
+ADD demo/bug.json /experiment/bug.json
+ADD demo/GCS_Mavlink.cpp /experiment/source/ArduCopter/GCS_Mavlink.cpp
+RUN sudo chown -R $(whoami):$(whoami) /experiment && \
+    /experiment/prepare.sh && \
     rm -f /experiment/prepare.sh
