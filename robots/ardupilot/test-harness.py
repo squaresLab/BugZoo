@@ -963,16 +963,16 @@ def setup_rc(mavproxy):
     mavproxy.send('rc 3 1000\n')
 
 
-def fly_ArduCopter(binary, viewerip=None, use_map=False, valgrind=False, gdb=False, frame=None, params_file=None):
-    """Fly ArduCopter in SITL.
-
-    you can pass viewerip as an IP address to optionally send fg and
-    mavproxy packets too for local viewing of the flight in real time
-    """
+def fly():
+    """Executes all tests within the test suite"""
     global homeloc
 
-    if frame is None:
-        frame = '+'
+    binary = '/experiment/source/build/sitl/bin/arduplane'
+    valgrind = False
+    use_map = False
+    gdb = False
+    params_file = None
+    frame = '+'
 
     home = "%f,%f,%u,%u" % (HOME.lat, HOME.lng, HOME.alt, HOME.heading)
     sitl = util.start_SITL(binary, wipe=True, model=frame, home=home, speedup=speedup_default)
@@ -997,10 +997,6 @@ def fly_ArduCopter(binary, viewerip=None, use_map=False, valgrind=False, gdb=Fal
 
     sitl = util.start_SITL(binary, model=frame, home=home, speedup=speedup_default, valgrind=valgrind, gdb=gdb)
     options = '--sitl=127.0.0.1:5501 --out=127.0.0.1:19550 --quadcopter --streamrate=5'
-    if viewerip:
-        options += ' --out=%s:14550' % viewerip
-    if use_map:
-        options += ' --map'
     mavproxy = util.start_MAVProxy_SITL('ArduCopter', options=options)
     mavproxy.expect('Telemetry log: (\S+)')
     logfile = mavproxy.match.group(1)
@@ -1318,3 +1314,5 @@ def fly_ArduCopter(binary, viewerip=None, use_map=False, valgrind=False, gdb=Fal
         print("FAILED: %s" % failed_test_msg)
         return False
     return True
+
+fly()
