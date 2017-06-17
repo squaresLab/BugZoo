@@ -967,7 +967,7 @@ def fly():
     """Executes all tests within the test suite"""
     global homeloc
 
-    binary = '/experiment/source/build/sitl/bin/arduplane'
+    binary = '/experiment/source/build/sitl/bin/arducopter'
     valgrind = False
     use_map = False
     gdb = False
@@ -1001,17 +1001,6 @@ def fly():
     mavproxy.expect('Telemetry log: (\S+)')
     logfile = mavproxy.match.group(1)
     print("LOGFILE %s" % logfile)
-
-    buildlog = util.reltopdir("../buildlogs/ArduCopter-test.tlog")
-    print("buildlog=%s" % buildlog)
-    copy_tlog = False
-    if os.path.exists(buildlog):
-        os.unlink(buildlog)
-    try:
-        os.link(logfile, buildlog)
-    except Exception:
-        print("WARN: Failed to create symlink: " + logfile + " => " + buildlog + ", Will copy tlog manually to target location")
-        copy_tlog = True
 
     # the received parameters can come before or after the ready to fly message
     mavproxy.expect(['Received [0-9]+ parameters', 'Ready to FLY'])
