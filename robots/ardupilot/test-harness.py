@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#
 # fly ArduCopter in SITL
 # Flight mode switch positions are set-up in arducopter.param to be
 #   switch 1 = Circle
@@ -6,8 +8,8 @@
 #   switch 4 = Auto
 #   switch 5 = Loiter
 #   switch 6 = Stabilize
-
-#!/usr/bin/env python
+#
+#  from __future__ import print_function
 import sys
 import os
 import pexpect
@@ -15,7 +17,6 @@ import time
 import shutil
 
 from pymavlink import mavutil, mavwp
-from __future__ import print_function
 
 # import autotest modules
 testdir = os.path.abspath("source/Tools/autotest")
@@ -1312,127 +1313,6 @@ def fly_ArduCopter(binary, viewerip=None, use_map=False, valgrind=False, gdb=Fal
     # This flag tells me that I need to copy the data out
     if copy_tlog:
         shutil.copy(logfile, buildlog)
-
-    if failed:
-        print("FAILED: %s" % failed_test_msg)
-        return False
-    return True
-
-
-def fly_CopterAVC(binary, viewerip=None, use_map=False, valgrind=False, gdb=False):
-    """Fly ArduCopter in SITL for AVC2013 mission."""
-    global homeloc
-
-    home = "%f,%f,%u,%u" % (AVCHOME.lat, AVCHOME.lng, AVCHOME.alt, AVCHOME.heading)
-    sitl = util.start_SITL(binary, wipe=True, model='heli', home=home, speedup=speedup_default)
-    mavproxy = util.start_MAVProxy_SITL('ArduCopter', options='--sitl=127.0.0.1:5501 --out=127.0.0.1:19550')
-    mavproxy.expect('Received [0-9]+ parameters')
-
-    # setup test parameters
-    mavproxy.send("param load %s/default_params/copter-heli.parm\n" % testdir)
-    mavproxy.expect('Loaded [0-9]+ parameters')
-    mavproxy.send("param set LOG_REPLAY 1\n")
-    mavproxy.send("param set LOG_DISARMED 1\n")
-    time.sleep(3)
-
-    # reboot with new parameters
-    util.pexpect_close(mavproxy)
-    util.pexpect_close(sitl)
-
-    sitl = util.start_SITL(binary, model='heli', home=home, speedup=speedup_default, valgrind=valgrind, gdb=gdb)
-    options = '--sitl=127.0.0.1:5501 --out=127.0.0.1:19550 --streamrate=5'
-    if viewerip:
-        options += ' --out=%s:14550' % viewerip
-    if use_map:
-        options += ' --map'
-    mavproxy = util.start_MAVProxy_SITL('ArduCopter', options=options)
-    mavproxy.expect('Telemetry log: (\S+)')
-    logfile = mavproxy.match.group(1)
-    print("LOGFILE %s" % logfile)
-
-    buildlog = util.reltopdir("../buildlogs/CopterAVC-test.tlog")
-    print("buildlog=%s" % buildlog)
-    if os.path.exists(buildlog):
-        os.unlink(buildlog)
-    try:
-        os.link(logfile, buildlog)
-    except Exception:
-        pass
-
-    # the received parameters can come before or after the ready to fly message
-    mavproxy.expect(['Received [0-9]+ parameters', 'Ready to FLY'])
-    mavproxy.expect(['Received [0-9]+ parameters', 'Ready to FLY'])
-
-    util.expect_setup_callback(mavproxy, expect_callback)
-
-    expect_list_clear()
-    expect_list_extend([sitl, mavproxy])
-
-    if use_map:
-        mavproxy.send('map icon 40.072467969730496 -105.2314389590174\n')
-        mavproxy.send('map icon 40.072600990533829 -105.23146100342274\n')
-
-    # get a mavlink connection going
-    try:
-        mav = mavutil.mavlink_connection('127.0.0.1:19550', robust_parsing=True)
-    except Exception as msg:
-        print("Failed to start mavlink connection on 127.0.0.1:19550" % msg)
-        raise
-    mav.message_hooks.append(message_hook)
-    mav.idle_hooks.append(idle_hook)
-
-    failed = False
-    failed_test_msg = "None"
-
-    try:
-        mav.wait_heartbeat()
-        setup_rc(mavproxy)
-        homeloc = mav.location()
-
-        print("Lowering rotor speed")
-        mavproxy.send('rc 8 1000\n')
-
-        wait_ready_to_arm(mavproxy)
-
-        # Arm
-        print("# Arm motors")
-        if not arm_motors(mavproxy, mav):
-            failed_test_msg = "arm_motors failed"
-            print(failed_test_msg)
-            failed = True
-
-        print("Raising rotor speed")
-        mavproxy.send('rc 8 2000\n')
-
-        print("# Fly AVC mission")
-        if not fly_avc_test(mavproxy, mav):
-            failed_test_msg = "fly_avc_test failed"
-            print(failed_test_msg)
-            failed = True
-        else:
-            print("Flew AVC mission OK")
-
-        print("Lowering rotor speed")
-        mavproxy.send('rc 8 1000\n')
-
-        # mission includes disarm at end so should be ok to download logs now
-        if not log_download(mavproxy, mav, util.reltopdir("../buildlogs/CopterAVC-log.bin")):
-            failed_test_msg = "log_download failed"
-            print(failed_test_msg)
-            failed = True
-
-    except pexpect.TIMEOUT as failed_test_msg:
-        failed_test_msg = "Timeout"
-        failed = True
-
-    mav.close()
-    util.pexpect_close(mavproxy)
-    util.pexpect_close(sitl)
-
-    valgrind_log = util.valgrind_log_filepath(binary=binary, model='heli')
-    if os.path.exists(valgrind_log):
-        os.chmod(valgrind_log, 0o644)
-        shutil.copy(valgrind_log, util.reltopdir("../buildlogs/Helicopter-valgrind.log"))
 
     if failed:
         print("FAILED: %s" % failed_test_msg)
