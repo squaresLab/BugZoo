@@ -1,15 +1,4 @@
 #!/usr/bin/env python
-#
-# fly ArduCopter in SITL
-# Flight mode switch positions are set-up in arducopter.param to be
-#   switch 1 = Circle
-#   switch 2 = Land
-#   switch 3 = RTL
-#   switch 4 = Auto
-#   switch 5 = Loiter
-#   switch 6 = Stabilize
-#
-#  from __future__ import print_function
 import sys
 import os
 import pexpect
@@ -963,6 +952,106 @@ def setup_rc(mavproxy):
     mavproxy.send('rc 3 1000\n')
 
 
+def test_throttle_failsafe(mavproxy, mav):
+    return  takeoff(mavproxy, mav, 10) and \
+            fly_throttle_failsafe(mavproxy, mav)
+
+
+def test_battery_failsafe(mavproxy, mav):
+    return  takeoff(mavproxy, mav, 10) and \
+            fly_battery_failsafe(mavproxy, mav)
+
+
+def test_horizontal_fence(mavproxy, mav):
+    return  takeoff(mavproxy, mav, 10) and \
+            fly_fence_test(mavproxy, mav, 180)
+
+
+def execute_test(mission):
+    """Prepares a test for execution"""
+    missions = {
+        'throttle_failsafe': test_throttle_failsafe,
+        'battery_failsafe': test_battery_failsafe
+    }
+    mission = lambda (mavproxy, mav): test_throttle_failsafe(mavproxy, mav)
+
+    global homeloc
+
+    binary = '/experiment/source/build/sitl/bin/arducopter'
+    use_map = False
+    frame = '+'
+
+    home = "%f,%f,%u,%u" % (HOME.lat, HOME.lng, HOME.alt, HOME.heading)
+    sitl = util.start_SITL(binary, wipe=True, model=frame, home=home, speedup=speedup_default)
+    mavproxy = util.start_MAVProxy_SITL('ArduCopter', options='--sitl=127.0.0.1:5501 --out=127.0.0.1:19550 --quadcopter')
+    mavproxy.expect('Received [0-9]+ parameters')
+
+    # setup test parameters
+    params = vinfo.options["ArduCopter"]["frames"][frame]["default_params_filename"]
+    if not isinstance(params, list):
+        params = [params]
+    for x in params:
+        mavproxy.send("param load %s\n" % os.path.join(testdir, x))
+
+    mavproxy.expect('Loaded [0-9]+ parameters')
+    mavproxy.send("param set LOG_REPLAY 1\n")
+    mavproxy.send("param set LOG_DISARMED 1\n")
+    time.sleep(3)
+
+    # reboot with new parameters
+    util.pexpect_close(mavproxy)
+    util.pexpect_close(sitl)
+
+    sitl = util.start_SITL(binary, model=frame, home=home, speedup=speedup_default, valgrind=False, gdb=False)
+    options = '--sitl=127.0.0.1:5501 --out=127.0.0.1:19550 --quadcopter --streamrate=5'
+    mavproxy = util.start_MAVProxy_SITL('ArduCopter', options=options)
+    mavproxy.expect('Telemetry log: (\S+)')
+    logfile = mavproxy.match.group(1)
+    print("LOGFILE %s" % logfile)
+
+    # the received parameters can come before or after the ready to fly message
+    mavproxy.expect(['Received [0-9]+ parameters', 'Ready to FLY'])
+    mavproxy.expect(['Received [0-9]+ parameters', 'Ready to FLY'])
+
+    util.expect_setup_callback(mavproxy, expect_callback)
+
+    expect_list_clear()
+    expect_list_extend([sitl, mavproxy])
+
+    # get a mavlink connection going
+    try:
+        mav = mavutil.mavlink_connection('127.0.0.1:19550', robust_parsing=True)
+    except Exception as msg:
+        print("Failed to start mavlink connection on 127.0.0.1:19550" % msg)
+        raise
+    mav.message_hooks.append(message_hook)
+    mav.idle_hooks.append(idle_hook)
+
+    try:
+        mav.wait_heartbeat()
+        setup_rc(mavproxy)
+        homeloc = mav.location()
+
+        # Arm the motors
+        wait_ready_to_arm(mavproxy)
+        if not arm_motors(mavproxy, mav):
+            print("Failed to arm motors")
+            return False
+
+        # Perform mission
+        return mission()
+
+    # enforce a time limit
+    except pexpect.TIMEOUT:
+        print("Failed: time out")
+        return False
+
+    finally:
+        mav.close()
+        util.pexpect_close(mavproxy)
+        util.pexpect_close(sitl)
+
+
 def fly():
     """Executes all tests within the test suite"""
     global homeloc
@@ -1286,4 +1375,4 @@ def fly():
         return False
     return True
 
-fly()
+execute_test("hello")
