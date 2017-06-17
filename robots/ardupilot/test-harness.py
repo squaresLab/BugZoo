@@ -854,42 +854,6 @@ def fly_auto_test(mavproxy, mav):
 
     return ret
 
-
-# fly_avc_test - fly AVC mission
-def fly_avc_test(mavproxy, mav):
-
-    # upload mission from file
-    print("# Load copter_AVC2013_mission")
-    if not load_mission_from_file(mavproxy, mav, os.path.join(testdir, "copter_AVC2013_mission.txt")):
-        print("load copter_AVC2013_mission failed")
-        return False
-
-    # load the waypoint count
-    global homeloc
-    global num_wp
-    print("Fly AVC mission from 1 to %u" % num_wp)
-    mavproxy.send('wp set 1\n')
-
-    # switch into AUTO mode and raise throttle
-    mavproxy.send('switch 4\n')  # auto mode
-    wait_mode(mav, 'AUTO')
-    mavproxy.send('rc 3 1500\n')
-
-    # fly the mission
-    ret = wait_waypoint(mav, 0, num_wp-1, timeout=500)
-
-    # set throttle to minimum
-    mavproxy.send('rc 3 1000\n')
-
-    # wait for disarm
-    mav.motors_disarmed_wait()
-    print("MOTORS DISARMED OK")
-
-    print("AVC mission completed: passed=%s" % ret)
-
-    return ret
-
-
 def land(mavproxy, mav, timeout=60):
     """Land the quad."""
     print("STARTING LANDING")
@@ -911,7 +875,7 @@ def fly_mission(mavproxy, mav, height_accuracy=-1.0, target_altitude=None):
     wait_mode(mav, 'AUTO')
     ret = wait_waypoint(mav, 0, num_wp-1, timeout=500)
     expect_msg = "Reached command #%u" % (num_wp-1)
-    if (ret):
+        if (ret):
         mavproxy.expect(expect_msg)
     print("test: MISSION COMPLETE: passed=%s" % ret)
     # wait here until ready
