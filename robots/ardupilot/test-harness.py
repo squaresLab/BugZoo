@@ -875,10 +875,11 @@ def fly_mission(mavproxy, mav, height_accuracy=-1.0, target_altitude=None):
     wait_mode(mav, 'AUTO')
     ret = wait_waypoint(mav, 0, num_wp-1, timeout=500)
     expect_msg = "Reached command #%u" % (num_wp-1)
-        if (ret):
+    if (ret):
         mavproxy.expect(expect_msg)
     print("test: MISSION COMPLETE: passed=%s" % ret)
     # wait here until ready
+    # why?
     mavproxy.send('switch 5\n')  # loiter mode
     wait_mode(mav, 'LOITER')
     return ret
@@ -934,10 +935,14 @@ def test_horizontal_fence(mavproxy, mav):
 def execute_test(mission):
     """Prepares a test for execution"""
     missions = {
-        'throttle_failsafe': test_throttle_failsafe,
-        'battery_failsafe': test_battery_failsafe
+        'throttle_failsafe':
+            lambda mavproxy, mav: test_throttle_failsafe(mavproxy, mav),
+        'battery_failsafe':
+            lambda mavproxy, mav: test_battery_failsafe(mavproxy, mav),
+        'horizontal_fence':
+            lambda mavproxy, mav: test_horizontal_fence(mavproxy, mav)
     }
-    mission = lambda mavproxy, mav: test_throttle_failsafe(mavproxy, mav)
+    mission = missions[mission]
 
     global homeloc
 
