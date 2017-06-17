@@ -973,7 +973,7 @@ def execute_test(mission):
         'throttle_failsafe': test_throttle_failsafe,
         'battery_failsafe': test_battery_failsafe
     }
-    mission = lambda (mavproxy, mav): test_throttle_failsafe(mavproxy, mav)
+    mission = lambda mavproxy, mav: test_throttle_failsafe(mavproxy, mav)
 
     global homeloc
 
@@ -996,7 +996,7 @@ def execute_test(mission):
     mavproxy.expect('Loaded [0-9]+ parameters')
     mavproxy.send("param set LOG_REPLAY 1\n")
     mavproxy.send("param set LOG_DISARMED 1\n")
-    time.sleep(3)
+    time.sleep(2)
 
     # reboot with new parameters
     util.pexpect_close(mavproxy)
@@ -1039,7 +1039,7 @@ def execute_test(mission):
             return False
 
         # Perform mission
-        return mission()
+        return mission(mavproxy, mav)
 
     # enforce a time limit
     except pexpect.TIMEOUT:
@@ -1375,4 +1375,4 @@ def fly():
         return False
     return True
 
-execute_test("hello")
+execute_test(sys.argv[1])
