@@ -204,10 +204,10 @@ dataset or program, or a registered tool from the local machine:
 $ repairbox uninstall bug manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 $ repairbox uninstall bug manybugs:python
 $ repairbox uninstall bug manybugs
-$ repairbox uninstall bug genprog
+$ repairbox uninstall tool genprog
 ```
 
-### `repairbox download`
+### `repairbox download bug`
 
 Downloads a given repair box onto the local machine, provided that the
 currently installed version is out of date or not installed. As with
@@ -215,18 +215,28 @@ the `install` and `uninstall` commands, `download` may accept the name of a
 single bug, a program, or a dataset:
 
 ```
-$ repairbox download manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+$ repairbox download bug manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 ...
-$ repairbox download manybugs:python
+$ repairbox download bug manybugs:python
 ...
-$ repairbox download manybugs
+$ repairbox download bug manybugs
+...
+```
+
+### `repairbox download tool`
+
+Downloads a registered tool onto the local machine, provided the tool isn't
+already installed.
+
+```
+$ repairbox download tool genprog
 ...
 ```
 
 ### `repairbox build`
 
 Builds a repair box from scratch, provided that repair box isn't already
-installed on the local machine. Once again, this command may accept the name
+installed on the local machine. Once again, this command accepts the name
 of a bug, program, or dataset.
 
 ```
