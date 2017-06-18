@@ -97,7 +97,7 @@ TODO: add description!
 
 ### `repairbox list`
 
-Produces a list of all repair boxes, programs, datasets, and tools within
+Produces a list of all repair boxes, programs, datasets and tools within
 RepairBox.
 
 ```
@@ -154,7 +154,7 @@ smallcov      squareslab/smallcov:latest      True
 ...
 ```
 
-### `repairbox install`
+### `repairbox install bug`
 
 Installs a given repair box by first attempting to download it, if the remote
 version is up-to-date, before resorting to building the repair box locally:
@@ -185,15 +185,26 @@ downloading bug: manybugs:python:69223-69224
 ...
 ```
 
-### `repairbox uninstall`
+### `repairbox install tool`
 
-Uninstalls a given repair box, or a group of repair boxes belonging to a
-dataset or program, from the local machine:
+Installs a registered tool by attempting to download its associated image
+from DockerHub.
 
 ```
-$ repairbox uninstall manybugs:libtiff:2005-12-14-6746b87-0d3d51d
-$ repairbox uninstall manybugs:python
-$ repairbox uninstall manybugs
+$ repairbox install tool genprog
+...
+```
+
+### `repairbox uninstall`
+
+Uninstalls a given repair box, a group of repair boxes belonging to a
+dataset or program, or a registered tool from the local machine:
+
+```
+$ repairbox uninstall bug manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+$ repairbox uninstall bug manybugs:python
+$ repairbox uninstall bug manybugs
+$ repairbox uninstall bug genprog
 ```
 
 ### `repairbox download`
