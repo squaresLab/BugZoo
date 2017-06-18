@@ -14,17 +14,13 @@ sys.path.append(testdir)
 from common import *
 from pysim import util, vehicleinfo
 
-HOME = mavutil.location(-35.362938, 149.165085, 584, 270)
-AVCHOME = mavutil.location(40.072842, -105.230575, 1586, 0)
-
+HOME = mavutil.location(40.071374969556928, -105.22978898137808, 1583.702759, 246)
 homeloc = None
-num_wp = 0
-speedup_default = 10
-
 
 def wait_ready_to_arm(mavproxy):
     # wait for EKF and GPS checks to pass
     mavproxy.expect('IMU0 is using GPS')
+
 
 def arm_rover(mavproxy, mav):
     wait_ready_to_arm(mavproxy);
@@ -111,7 +107,7 @@ def test():
     mavproxy.expect('Loaded [0-9]+ parameters')
     mavproxy.send("param set LOG_REPLAY 1\n")
     mavproxy.send("param set LOG_DISARMED 1\n")
-    time.sleep(3)
+    time.sleep(2)
 
     # restart with new parms
     util.pexpect_close(mavproxy)
@@ -146,21 +142,25 @@ def test():
     try:
         print("Waiting for a heartbeat with mavlink protocol %s" % mav.WIRE_PROTOCOL_VERSION)
         mav.wait_heartbeat()
+
         print("Setting up RC parameters")
         setup_rc(mavproxy)
+
         print("Waiting for GPS fix")
         mav.wait_gps_fix()
         homeloc = mav.location()
         print("Home location: %s" % homeloc)
+
+
         if not arm_rover(mavproxy, mav):
             print("Failed to ARM")
             failed = True
         if not drive_mission(mavproxy, mav, os.path.join(testdir, "rover1.txt")):
             print("Failed mission")
             failed = True
-        if not log_download(mavproxy, mav, util.reltopdir("../buildlogs/APMrover2-log.bin")):
-            print("Failed log download")
-            failed = True
+        #if not log_download(mavproxy, mav, util.reltopdir("../buildlogs/APMrover2-log.bin")):
+        #    print("Failed log download")
+        #    failed = True
 #        if not drive_left_circuit(mavproxy, mav):
 #            print("Failed left circuit")
 #            failed = True
