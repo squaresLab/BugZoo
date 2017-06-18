@@ -97,10 +97,11 @@ TODO: add description!
 
 ### `repairbox list`
 
-Produces a list of all available repair boxes:
+Produces a list of all repair boxes, programs, datasets, and tools within
+RepairBox.
 
 ```
-$ repairbox list
+$ repairbox list bugs
 
 Bug                                            Latest    Installed    Remote
 ---------------------------------------------  --------  -----------  --------
@@ -113,6 +114,43 @@ manybugs:libtiff:2006-03-03-a72cf60-0a36d7f    0.0.0.0   0.0.0.0      0.0.0.0
 manybugs:libtiff:2006-03-03-eec4c06-ee65c74    0.0.0.0   0.0.0.0      0.0.0.0
 manybugs:libtiff:2007-07-08-bd2f947-ccc10c7    0.0.0.0   0.0.0.0      0.0.0.0
 manybugs:libtiff:2007-07-08-c766cb7-0cc95fb    0.0.0.0   0.0.0.0      0.0.0.0
+...
+```
+
+```
+$ repairbox list programs
+
+Program              Bugs
+-----------------  ------
+manybugs:php          103
+robots:arducopter       1
+manybugs:libtiff       24
+manybugs:python        15
+...
+```
+
+```
+$ repairbox list datasets
+
+
+Dataset      Programs    Bugs
+---------  ----------  ------
+manybugs            3     142
+robots              1       1
+tse-2012            0       1
+...
+```
+
+```
+$ repairbox list tools
+
+
+Tool          Image                           Installed
+------------  ------------------------------  -----------
+genprog       christimperley/genprog:latest   True
+searchrepair  searchrepair:latest             True
+shuriken      christimperley/shuriken:latest  True
+smallcov      squareslab/smallcov:latest      True
 ...
 ```
 
