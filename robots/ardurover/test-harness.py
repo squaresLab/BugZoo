@@ -90,8 +90,33 @@ def drive_mission(mavproxy, mav, filename):
     return True
 
 
+def test_arm(mavproxy, mav):
+    return arm_rover(mavproxy, mav)
+
+
+def test_mission_rover1(mavproxy, mav):
+    return  arm_rover(mavproxy, mav) and \
+            drive_mission(mavproxy, mav, os.path.join(testdir, "rover1.txt"))
+
+
+def test_left_circuit(mavproxy, mav):
+     return arm_rover(mavproxy, mav) and \
+            drive_left_circuit(mavproxy, mav) and \
+            drive_RTL(mavproxy, mav)
+
+
 def test(mission):
     global homeloc
+
+    missions = {
+        'arm':
+            lambda mavproxy, mav: test_arm(mavproxy, mav),
+        'mission_rover1':
+            lambda mavproxy, mav: test_mission_rover1(mavproxy, mav),
+        'left_circuit':
+            lambda mavproxy, mav: test_left_circuit(mavproxy, mav)
+    }
+    mission = missions[mission]
 
     binary = '/experiment/source/build/sitl/bin/ardurover'
     options = '--sitl=127.0.0.1:5501 --out=127.0.0.1:19550 --streamrate=10'
@@ -126,8 +151,6 @@ def test(mission):
     expect_list_clear()
     expect_list_extend([sitl, mavproxy])
 
-    print("Started simulator")
-
     # get a mavlink connection going
     try:
         mav = mavutil.mavlink_connection('127.0.0.1:19550', robust_parsing=True)
@@ -137,8 +160,6 @@ def test(mission):
     mav.message_hooks.append(message_hook)
     mav.idle_hooks.append(idle_hook)
 
-    failed = False
-    e = 'None'
     try:
         print("Waiting for a heartbeat with mavlink protocol %s" % mav.WIRE_PROTOCOL_VERSION)
         mav.wait_heartbeat()
@@ -151,34 +172,19 @@ def test(mission):
         homeloc = mav.location()
         print("Home location: %s" % homeloc)
 
+        # Perform mission
+        return mission(mavproxy, mav)
 
-        if not arm_rover(mavproxy, mav):
-            print("Failed to ARM")
-            failed = True
-        if not drive_mission(mavproxy, mav, os.path.join(testdir, "rover1.txt")):
-            print("Failed mission")
-            failed = True
-        #if not log_download(mavproxy, mav, util.reltopdir("../buildlogs/APMrover2-log.bin")):
-        #    print("Failed log download")
-        #    failed = True
-#        if not drive_left_circuit(mavproxy, mav):
-#            print("Failed left circuit")
-#            failed = True
-#        if not drive_RTL(mavproxy, mav):
-#            print("Failed RTL")
-#            failed = True
-    except pexpect.TIMEOUT as e:
-        print("Failed with timeout")
-        failed = True
-
-    mav.close()
-    util.pexpect_close(mavproxy)
-    util.pexpect_close(sitl)
-
-    if failed:
-        print("FAILED: %s" % e)
+    # enforce a time limit
+    except pexpect.TIMEOUT:
+        print("Failed: time out")
         return False
-    return True
+
+    finally:
+        mav.close()
+        util.pexpect_close(mavproxy)
+        util.pexpect_close(sitl)
+
 
 if __name__ == "__main__":
     test(sys.argv[1])
