@@ -310,8 +310,8 @@ Discuss how one goes about adding a new tool.
 version: 0
 tool: genprog
 image: christimperley/genprog:latest
-path-extensions:
-  - /opt/genprog3
+environment:
+  PATH: "/opt/genprog3:${PATH}"
 ```
 
 Discuss how one constructs a compatible Docker container.
