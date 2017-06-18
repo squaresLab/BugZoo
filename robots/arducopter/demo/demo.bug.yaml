@@ -1,5 +1,5 @@
-version: 1
+version: 2
 bug: demo
 program: arducopter
 dataset: robots
-dockerfile: Dockerfile.bug
+dockerfile: Dockerfile
