@@ -285,8 +285,20 @@ each.
 
 Whereas the `launch` command is designed for debugging tools and inspecting
 bug scenarios, the `execute` command is designed for conducting controlled,
-repetable experiments.
+repetable experiments. The `execute` command runs headlessly, rather than
+interactively, making it suitable for long-running experiments on remote
+servers.
 
+Most of the functionality of the `execute` command is the same as the `launch`
+command, except that users are required to specify a shell instruction at the
+end of the command.
+
+```
+$ repairbox execute -v /home/foo/bar:/experiment/bar \
+                    --with genprog \
+                    manybugs:python:69223-69224 \
+                    genprog problem.json
+```
 
 ## Integration
 
