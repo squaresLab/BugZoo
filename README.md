@@ -268,10 +268,10 @@ docker> genprog problem.json
 ```
 
 Files can also be shared between the repair box and the host machine (in both
-directions) via volume sharing. The volume sharing flag '-v' is used to mount
+directions) via volume sharing. The volume sharing flag `-v` is used to mount
 a given directory on the host machine (which will be created if it doesn't
 already exist) at a given path in the repair box; both of these paths should be
-absolute. An example usage of the '-v' flag is given below.
+absolute. An example usage of the `-v` flag is given below.
 
 ```
 host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d -v /home/foo/bar:/experiment/bar
@@ -309,45 +309,3 @@ Add a link to a page in the Wiki explaining how all of this works under the hood
 ### Adding a bug scenario to RepairBox
 
 Discuss how one might go about adding a bug scenario.
-
-## Anatomy of a Repair Box
-
-A unique repair box, in the form of a Docker container, is supplied for each bug
-within this repository. Each of these repair boxes provide a minimal environment
-for replicating the bug, containing only the packages required to build and run
-the program, and no more.
-
-The associated program and files for each box are located within its `/experiment`
-directory, which contains the following files for each bug:
-
-* `problem.json`, a JSON file describing parameters specific to this particular
-  bug scenario, including the size of its test suite, the commands that should
-  be used for compilation and running tests, and whether the tests within the
-  suite may be executed within parallel.
-* `source/`, a directory containing the original source code for the scenario.
-* `test.sh`, a bash script responsible for determining the success or failure
-  of a given test case for a provided executable. This script accepts three
-  arguments: the path to the executable within the repair candidate's
-  directory; the identifier for the test case, following the GenProg naming
-  convention (e.g., `p1`, `n7`); and a random port number to be used for
-  performing the test (which is optional for bugs that do not require port
-  access).
-* `compile.sh`, a bash script responsible for compiling a variant of the
-  associated program, using the files provided within the directory of the
-  single argument passed.
-
-For the ManyBugs benchmarks, `test.sh` invokes the original (or a slightly
-modified version) of the original test harness for the bug scenaro. For
-SIR and the TSE 2012 dataset, this file dispatches the test case execution
-request onto [Pythia](https://github.com/ChrisTimperley/Pythia), which helps
-to ensure candidates that pass all tests within the suite meet a minimal set
-of quality requirements.
-
-Where a human repair for the bug was provided by the original dataset, those
-files can be found in the `fixed` directory. Additionally, a `diffs` directory
-is provided, giving a `diff` for each of the files changed by the human
-developer.
-
-For historical reasons, where possible, certain repair boxes also supply a
-`configuration-default` file, used to provide the necessary settings required
-to perform automated repair of the bug using GenProg 2.
