@@ -260,12 +260,33 @@ docker> echo $PWD
 
 By itself, this ability isn't particularly interesting. Let's import some
 tools into the repair box! Supported tools (found via the `list tools`
-command) can be imported via the `--with` commmand:
+command) can be imported via the `--with` flag:
 
 ```
-host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d --with genprog daikon
+host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d --with genprog --with smallcov
 docker> genprog problem.json
 ```
+
+Files can also be shared between the repair box and the host machine (in both
+directions) via volume sharing. The volume sharing flag '-v' is used to mount
+a given directory on the host machine (which will be created if it doesn't
+already exist) at a given path in the repair box; both of these paths should be
+absolute. An example usage of the '-v' flag is given below.
+
+```
+host> repairbox launch manybugs:libtiff:2005-12-14-6746b87-0d3d51d -v /home/foo/bar:/experiment/bar
+docker> genprog problem.json
+```
+
+Note, multiple volumes may be mounted by specifying a separate '-v' flag for
+each.
+
+### `repairbox execute`
+
+Whereas the `launch` command is designed for debugging tools and inspecting
+bug scenarios, the `execute` command is designed for conducting controlled,
+repetable experiments.
+
 
 ## Integration
 
