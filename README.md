@@ -122,7 +122,7 @@ Installs a given repair box by first attempting to download it, if the remote
 version is up-to-date, before resorting to building the repair box locally:
 
 ```
-$ repairbox install manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+$ repairbox install bug manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 
 downloading bug: manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 ...
@@ -132,7 +132,7 @@ downloaded bug: manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 This command may also be used to install all bugs belonging to a given dataset:
 
 ```
-$ repairbox install manybugs
+$ repairbox install bug manybugs
 
 downloading bug: manybugs:libtiff:2005-12-14-6746b87-0d3d51d
 ...

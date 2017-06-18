@@ -1,0 +1,13 @@
+{
+  "source": {
+    "root": ".",
+    "modifiable": ["gcd.c"]
+  },
+  "tests": {
+    "passing": 10,
+    "failing": 1
+  },
+  "compiler": {
+    "command": "./compile.sh &> /dev/null"
+  }
+}

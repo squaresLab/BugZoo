@@ -1,0 +1,4 @@
+version: 2
+bug: gcd 
+dataset: tse-2012 
+dockerfile: Dockerfile

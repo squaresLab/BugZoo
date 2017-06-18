@@ -41,7 +41,6 @@ ENV PATH "/usr/games:${PATH}"
 
 RUN sudo apt-get install -y pkg-config
 
-ADD test.sh /experiment/test.sh
 ADD prepare.sh /experiment/prepare.sh
 ADD test-harness.py /experiment/test-harness.py
 RUN sudo chown -R $(whoami):$(whoami) /experiment

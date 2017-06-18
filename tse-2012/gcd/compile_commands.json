@@ -1,0 +1,7 @@
+[
+  {
+    "directory": "/experiment",
+    "command": "gcc gcd.c -o gcd",
+    "file": "/experiment/gcd.c"
+  }
+]

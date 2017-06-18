@@ -1,5 +1,3 @@
-FROM christimperley/repairbox:ubuntu64
-
 ENV PROGRAM_NAME gcd
 ENV SOURCE_FILE gcd.c
 

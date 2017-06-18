@@ -1,5 +1,5 @@
-version: 5
+version: 0
 bug: demo
-program: ardupilot
+program: arducopter
 dataset: robots
 dockerfile: Dockerfile.bug
