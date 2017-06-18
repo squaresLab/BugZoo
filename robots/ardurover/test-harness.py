@@ -90,7 +90,7 @@ def drive_mission(mavproxy, mav, filename):
     return True
 
 
-def test():
+def test(mission):
     global homeloc
 
     binary = '/experiment/source/build/sitl/bin/ardurover'
@@ -179,3 +179,6 @@ def test():
         print("FAILED: %s" % e)
         return False
     return True
+
+if __name__ == "__main__":
+    test(sys.argv[1])
