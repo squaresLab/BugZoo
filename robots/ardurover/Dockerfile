@@ -44,3 +44,12 @@ RUN sudo apt-get install -y pkg-config
 ADD prepare.sh /experiment/prepare.sh
 ADD original-test-harness.py /experiment/original-test-harness.py
 RUN sudo chown -R $(whoami):$(whoami) /experiment
+
+# TODO: tidy
+RUN sudo apt-get install -y doxygen
+RUN sudo apt-get install -y graphviz
+
+# build documentation
+RUN cd source/docs && \
+    ./build-libs.sh && \
+    ./build-apmrover2.sh
