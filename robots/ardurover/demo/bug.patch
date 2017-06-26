@@ -1,0 +1,11 @@
+--- APMrover2/commands_logic.cpp
++++ APMrover2/commands_logic.cpp
+@@ -114,6 +114,8 @@ bool Rover::start_command(const AP_Mission::Mission_Command& cmd)
+         break;
+ 
+     default:
++        // BUG OOPS HOW DID THIS GET HERE
++        do_set_home(cmd);
+         // return false for unhandled commands
+         return false;
+     }

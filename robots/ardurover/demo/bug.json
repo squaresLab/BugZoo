@@ -1,11 +1,11 @@
 {
   "source": {
     "root": "source",
-    "modifiable": ["ArduCopter/GCS_Mavlink.cpp"]
+    "modifiable": ["APMrover2/commands_logic.cpp"]
   },
   "tests": {
-    "passing": 11,
-    "failing": 1
+    "passing": 3,
+    "failing": 2
   },
   "compiler": {
     "command": "./waf build -j$(nproc)"

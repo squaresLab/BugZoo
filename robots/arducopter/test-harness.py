@@ -990,7 +990,6 @@ def test_copter_mission(mavproxy, mav):
         
 
 def execute_test(mission):
-    """Prepares a test for execution"""
     missions = {
         'throttle_failsafe':
             lambda mavproxy, mav: test_throttle_failsafe(mavproxy, mav),
