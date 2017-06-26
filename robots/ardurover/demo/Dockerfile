@@ -1,7 +1,6 @@
 RUN cd source && \
     git checkout 3534d0a0ebd448e12d85ce4b1ea041a6882c7b66
-RUN mkdir /experiment/fixed && \
-    mkdir /experiment/faulty
+ADD patches /experiment/patches
 ADD missions /experiment/missions
 ADD test-harness.py /experiment/test-harness.py
 ADD test.sh /experiment/test.sh
