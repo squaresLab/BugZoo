@@ -53,3 +53,6 @@ RUN sudo apt-get install -y graphviz
 RUN cd source/docs && \
     ./build-libs.sh && \
     ./build-apmrover2.sh
+
+ADD validate.sh /experiment/validate.sh
+RUN sudo chown -R $(whoami):$(whoami) .

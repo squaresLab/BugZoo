@@ -1,0 +1,16 @@
+REPLACE:  do_set_home(cmd) -> break
+REPLACE:  do_set_home(cmd) -> return false;       [correct]
+DELETE:   do_set_home(cmd)                        [correct]
+REPLACE:  do_set_reverse(cmd)                     [wrong!]
+REPLACE:  do_digicam_configure(cmd)               [wrong!]
+REPLACE:  do_change_speed(cmd)                    [wrong!]
+REPLACE:  camera_mount.set_roi_target(...)        [wrong!]
+REPLACE:  do_yaw(cmd)                             [wrong!]
+REPLACE:  do_within_distance(cmd)                 [wrong!] 
+REPLACE:  do_wait_delay(cmd)                      [wrong!]
+REPLACE:  do_loiter_time(cmd)                     [wrong!]
+
+REPLACE:  do_RTL()                                [detected]
+REPLACE:  camera_mount.set_mode_to_default()      [detected]
+REPLACE:  camera_mount.set_trigger_distance(...)  [detected]
+REPLACE:  do_digicam_control(cmd)                 [detected]

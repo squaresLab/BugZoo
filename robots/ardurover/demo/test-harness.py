@@ -17,6 +17,25 @@ from pysim import util, vehicleinfo
 HOME = mavutil.location(37.9941253662109375, -78.39752197265625, 7299957275390625, 180)
 homeloc = None
 
+
+NUM_WAYPOINTS = {
+    'good1': 5,
+    'good2': 5,
+    'good3': 6,
+    'bad1': 5,
+    'bad2': 5
+}
+
+
+END_LOCATION = {
+    'good1': mavutil.location(37.9941253662109375, -78.39752197265625, 7299957275390625, 180),
+    'good2': mavutil.location(37.9942436218261719, -78.3973541259765625, 7299957275390625, 180),
+    'good3': mavutil.location(37.99408531188965, -78.39767837524414, 7299957275390625, 180),
+    'bad1': mavutil.location(37.9941253662109375, -78.39752197265625, 7299957275390625, 180),
+    'bad2': mavutil.location(37.9941253662109375, -78.39752197265625, 7299957275390625, 180)
+}
+
+
 def wait_ready_to_arm(mavproxy):
     # wait for EKF and GPS checks to pass
     mavproxy.expect('IMU0 is using GPS')
@@ -39,22 +58,27 @@ def setup_rc(mavproxy):
     mavproxy.send('rc 8 1800\n')
 
 
-def drive_mission(mavproxy, mav, filename):
+def drive_mission(mavproxy, mav, mission):
     """Drive a mission from a file."""
     global homeloc
+
+    filename = "missions/{}.txt".format(mission)
     print("Driving mission %s" % filename)
+
     mavproxy.send('wp load %s\n' % filename)
     mavproxy.expect('Flight plan received')
     mavproxy.send('wp list\n')
     mavproxy.expect('Requesting [0-9]+ waypoints')
     mavproxy.send('switch 4\n')  # auto mode
     mavproxy.send('rc 3 1500\n')
-    wait_mode(mav, 'AUTO')
-    if not wait_waypoint(mav, 1, 4, max_dist=5):
-        return False
-    wait_mode(mav, 'HOLD')
-    print("Mission OK")
-    return True
+    wait_mode(mav, 'AUTO', timeout=1)
+
+    if  wait_waypoint(mav, 0, NUM_WAYPOINTS[mission], max_dist=2) and \
+        wait_location(mav, END_LOCATION[mission], accuracy=5, timeout=30) and \
+        wait_mode(mav, 'HOLD', timeout=1):
+        print("Mission OK")
+        return True
+    return False
 
 
 def test(mission):
@@ -117,7 +141,7 @@ def test(mission):
 
         # Perform mission
         return  arm_rover(mavproxy, mav) and \
-                drive_mission(mavproxy, mav, "missions/{}.txt".format(mission))
+                drive_mission(mavproxy, mav, mission)
 
     # enforce a time limit
     except pexpect.TIMEOUT:
@@ -131,4 +155,7 @@ def test(mission):
 
 
 if __name__ == "__main__":
-    test(sys.argv[1])
+    if test(sys.argv[1]):
+        sys.exit(0)
+    else:
+        sys.exit(1)
