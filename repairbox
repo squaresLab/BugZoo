@@ -681,12 +681,12 @@ class RepairBox(object):
 
             # launch the bug container
             cmd = ["docker", "run", run_mode, "--rm", "--log-driver", "none"]
-            cmd += ["-v", "{}:{}:ro".format(env_file.name, "/experiment/.env")]
+            cmd += ["-v", "{}:{}".format(env_file.name, "/experiment/.env")]
             cmd += volume_arguments
             cmd += ["squareslab/repairbox:{}".format(bug.tag())]
 
             # compute the command
-            command = "source /experiment/.env && {}".format(command)
+            command = "sudo chown \$(whoami) /experiment/.env && source /experiment/.env && {}".format(command)
             cmd += ["/bin/bash", "-c \"{}\"".format(command)]
 
             # I really don't like this, but sadly it's needed to stop Python weirdly quoting args
