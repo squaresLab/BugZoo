@@ -614,7 +614,7 @@ class RepairBox(object):
             if not identifier in self.tools:
                 error("Failed to find tool: {}".format(identifier))
             tool = self.tools[identifier]
-            if tool.is_installed:
+            if tool.is_installed():
                 print("Tool already installed: {}".format(identifier))
             else:
                 tool.install()
