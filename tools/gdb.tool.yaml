@@ -1,0 +1,5 @@
+version: 0
+tool: gdb
+image: christimperley/gdb:latest
+environment:
+  PATH: "/opt/gdb:${PATH}"
