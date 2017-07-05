@@ -1,4 +1,5 @@
 {
+  "threads": 1,
   "source": {
     "root": "source",
     "modifiable": ["APMrover2/commands_logic.cpp"]
