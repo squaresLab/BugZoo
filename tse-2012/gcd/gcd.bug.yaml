@@ -1,4 +1,4 @@
-version: 3
+version: 6
 bug: gcd 
 dataset: tse-2012 
 dockerfile: Dockerfile

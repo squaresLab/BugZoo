@@ -1,4 +1,5 @@
 {
+  "threads": 8,
   "source": {
     "root": ".",
     "modifiable": ["gcd.c"]
@@ -8,6 +9,6 @@
     "failing": 1
   },
   "compiler": {
-    "command": "./compile.sh &> /dev/null"
+    "command": "./compile.sh"
   }
 }
