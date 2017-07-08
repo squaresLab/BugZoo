@@ -2,6 +2,7 @@
 import fnmatch
 import os
 import sys
+import subprocess
 
 from subprocess import Popen, PIPE
 
@@ -21,9 +22,9 @@ def build():
         lines = [l.strip() for l in f]
 
     cut_from = \
-        (i for (i,l) in enumerate(lines) if l.startswith("failing tests:")).next()
+        next((i for (i,l) in enumerate(lines) if l.startswith("failing tests:")))
     cut_to = \
-        (i for (i,l) in enumerate(lines) if l.startswith("minutes between bug rev and fix rev:")).next()
+        next((i for (i,l) in enumerate(lines) if l.startswith("minutes between bug rev and fix rev:")))
     failing = set(lines[cut_from+1:cut_to-1])
 
     # Deduce the set of passing tests
@@ -31,11 +32,13 @@ def build():
 
     # write failing tests to disk
     with open("/experiment/failing.tests.txt", "w") as f:
-        f.writelines(failing)
+        for t in failing:
+            f.write("{}\n".format(t))
 
     # write passing tests to disk
     with open("/experiment/passing.tests.txt", "w") as f:
-        f.writelines(passing)
+        for t in passing:
+            f.write("{}\n".format(t))
 
 def preexec():
     os.setsid()
@@ -62,15 +65,20 @@ def run(identifier, exe=None):
 
     with Popen(cmd, stdout=PIPE, stderr=DEVNULL, preexec_fn=preexec, cwd="/experiment/src") as p:
         try:
-            stdout, stderr = p.communicate(timeout=tlim)
-            stdout = str(stdout)[2:-1]
-            retcode = p.returncode
-
-            print(stdout)
+            stdout = p.communicate(timeout=tlim)[0].decode("ascii")
+            outcome = stdout.split("\n")[14]
+            _, _, outcome = outcome.partition('\r')
+            outcome, _, _ = outcome.partition(' ')
+            return outcome in ["PASS", "SKIP"]
 
         except subprocess.TimeoutExpired:
             os.killpg(p.pid, signal.SIGKILL)
             return False
+        
+        except:
+            return False
+
+    return False
 
 
 if __name__ == "__main__":
@@ -78,4 +86,9 @@ if __name__ == "__main__":
     if cmd == "build":
         build()
     elif cmd == "run":
-        run(*sys.argv[2:])
+        if run(*sys.argv[2:]):
+            print("PASS")
+            sys.exit(0)
+        else:
+            print("FAIL")
+            sys.exit(1)
