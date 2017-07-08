@@ -1,7 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import fnmatch
 import os
 import sys
+
+from subprocess import Popen, PIPE
+
+DEVNULL = open(os.devnull, 'w')
 
 # Build a list of all the test cases for the program
 def build():
@@ -27,14 +31,14 @@ def build():
 
     # write failing tests to disk
     with open("/experiment/failing.tests.txt", "w") as f:
-        for t in failing:
-            f.write("{}\n".format(t))
+        f.writelines(failing)
 
     # write passing tests to disk
     with open("/experiment/passing.tests.txt", "w") as f:
-        for t in passing:
-            f.write("{}\n".format(t))
+        f.writelines(passing)
 
+def preexec():
+    os.setsid()
 
 def run(identifier, exe=None):
     offset = int(identifier[1:]) - 1
@@ -44,8 +48,30 @@ def run(identifier, exe=None):
     elif identifier[0] == "n":
         with open("/experiment/failing.tests.txt") as f:
             test = f.readlines()[offset]
+    test = test.strip()
+
+    # determine a time limit (measured in seconds)
+    tlim = 60
 
     print("Running test ({}): {}".format(identifier, test))
+
+    # TODO: Should we stay true to the original ManyBugs and use the compiled executable,
+    #       or should we use another (reducing the likelihood of accepting a
+    #       plausible but incorrect patch).
+    cmd = ["sapi/cli/php", "run-tests.php", "-p", "sapi/cli/php", test]
+
+    with Popen(cmd, stdout=PIPE, stderr=DEVNULL, preexec_fn=preexec, cwd="/experiment/src") as p:
+        try:
+            stdout, stderr = p.communicate(timeout=tlim)
+            stdout = str(stdout)[2:-1]
+            retcode = p.returncode
+
+            print(stdout)
+
+        except subprocess.TimeoutExpired:
+            os.killpg(p.pid, signal.SIGKILL)
+            return False
+
 
 if __name__ == "__main__":
     cmd = sys.argv[1]
