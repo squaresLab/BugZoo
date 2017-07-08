@@ -1,0 +1,15 @@
+#!/bin/bash
+fix_revision=$1
+bug_revision=$2
+
+pushd /experiment/src || exit 1
+
+# rollback to fixed version of the source code
+git checkout "${fix_revision}"
+
+while read -r f; do
+  git reset --hard "${bug_revision}" "${f}"
+done < /experiment/manifest.txt
+
+# self-destruct
+rm -f /experiment/inject.sh

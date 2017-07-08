@@ -13,4 +13,5 @@ RUN sudo apt-get update && \
 
 ADD libxml.patch /experiment
 ADD install-dependencies /experiment
+ADD inject /experiment
 RUN sudo chown -R docker /experiment

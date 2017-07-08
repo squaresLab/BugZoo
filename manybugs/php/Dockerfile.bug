@@ -3,14 +3,13 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # Install dependencies
 ARG bison
-RUN echo ${bison}
 ENV BISON_VERSION "${bison}"
 ARG autoconf
-RUN echo ${autoconf}
 ENV AUTOCONF_VERSION "${autoconf}"
 RUN ./install-dependencies && \
     rm /experiment/install-dependencies 
 
+# Download the original archive for this scenario
 ARG scenario
 ENV SCENARIO_NAME ${scenario}
 ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
@@ -50,12 +49,11 @@ RUN gcc -o php-run-tests php-run-tests.c && \
     sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
     sed -i "s#/experiment/limit#timeout 60#" test.sh
 
-# TODO: retain the tests from the fixed version of the code
-
-# Go back to the appropriate commit, apply the libxml patch, then
-# configure
-RUN cd src && \
-    git checkout $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
+# Rollback to the fixed version of the repository
+ARG fix_revision
+ARG bug_revision
+RUN ./inject "${fix_revision}" "${bug_revision}" && \
+    cd src && \
     cat ../libxml.patch | patch -p0 && \
     rm ../libxml.patch && \
     ./buildconf && \
