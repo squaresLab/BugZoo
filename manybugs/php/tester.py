@@ -10,12 +10,15 @@ DEVNULL = open(os.devnull, 'w')
 
 # Build a list of all the test cases for the program
 def build():
-    tests = set()
-    for (root, dirs, files) in os.walk('/experiment/src'):
-        root = os.path.relpath(root, '/experiment/src')
-        for f in fnmatch.filter(files, '*.phpt'):
-            test = os.path.join(root, f)
-            tests.add(test)
+    # Find the list of tests used by all ManyBugs PHP scenarios
+    with open("/experiment/tests.all.txt", "r") as f:
+        all_tests = [t.strip() for t in f]
+
+    # Find the sub-set of tests used by this scenario
+    with open("/experiment/tests.indices.txt", "r") as f:
+        indices = [int(i.strip()) for i in f]
+
+    tests = set(all_tests[i - 1] for i in indices)
 
     # Find a list of the failing tests
     with open("/experiment/bug-info/scenario-data.txt", "r") as f:

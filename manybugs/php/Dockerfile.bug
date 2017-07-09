@@ -22,6 +22,7 @@ RUN cd /experiment && \
     cd scenario && \
     rm -rf  php \
             coverage* \
+            php-helper.php \
             configuration-oracle \
             local-root \
             limit* \
@@ -37,17 +38,18 @@ RUN cd /experiment && \
     mv bugged-program.txt manifest.txt && \
     mv *.lines bug-info && \
     mv fix-failures bug-info && \
-    rm php-run-tests && \
     cd ../ && \
     mv scenario/* /experiment && \
     rm -rf scenario && \
-    sudo chown -R docker /experiment
+    sudo chown -R docker /experiment && \
+    grep -o -P '(?<=")[^"]+.phpt(?=")' php-run-tests.c > tests.all.txt && \
+    grep -o -P '\d+(?= &&)' test.sh > tests.indices.txt && \
+    rm -f test.sh && \
+    rm -f php-run-tests*
 
-# Fix the test harness
-RUN gcc -o php-run-tests php-run-tests.c && \
-    sed -i "s/cd php/cd src/" test.sh && \
-    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
-    sed -i "s#/experiment/limit#timeout 60#" test.sh
+# Generate a better test harness
+RUN ./tester.py build && \
+    rm tests.all.txt tests.indices.txt
 
 # Rollback to the fixed version of the repository
 ARG fix_revision

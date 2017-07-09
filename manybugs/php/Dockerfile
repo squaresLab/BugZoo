@@ -14,4 +14,5 @@ RUN sudo apt-get update && \
 ADD libxml.patch /experiment
 ADD install-dependencies /experiment
 ADD inject /experiment
+ADD tester.py /experiment
 RUN sudo chown -R docker /experiment
