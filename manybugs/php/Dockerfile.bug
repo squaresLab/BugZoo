@@ -20,8 +20,7 @@ RUN cd /experiment && \
     mv ${SCENARIO_NAME} scenario && \
     rm scenario.tar.gz && \
     cd scenario && \
-    rm -rf  php \
-            coverage* \
+    rm -rf  coverage* \
             php-helper.php \
             configuration-oracle \
             local-root \
@@ -45,18 +44,25 @@ RUN cd /experiment && \
     grep -o -P '(?<=")[^"]+.phpt(?=")' php-run-tests.c > tests.all.txt && \
     grep -o -P '\d+(?= &&)' test.sh > tests.indices.txt && \
     rm -f test.sh && \
-    rm -f php-run-tests*
+    rm -f php-run-tests* && \
+    mv php src && \
+    cd src && \
+    make distclean && \
+    rm -rf  configure config.nice autom4te.cache aclocal.m4 php5.spec missing mkinstalldirs && \
+    find . -type f -name tests.tar.gz -delete
+
+ARG bug_revision
+ENV BUG_REVISION "${bug_revision}"
+ARG fix_revision
+ENV FIX_REVISION "${fix_revision}"
+
+# Patch and configure
+RUN cd src && \
+    cat ../libxml.patch | patch -p0 && \
+    rm ../libxml.patch && \
+    ./buildconf && \
+    ./configure 
 
 # Generate a better test harness
 RUN ./tester.py build && \
     rm tests.all.txt tests.indices.txt
-
-# Rollback to the fixed version of the repository
-ARG fix_revision
-ARG bug_revision
-RUN ./inject "${fix_revision}" "${bug_revision}" && \
-    cd src && \
-    cat ../libxml.patch | patch -p0 && \
-    rm ../libxml.patch && \
-    ./buildconf && \
-    ./configure
