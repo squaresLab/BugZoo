@@ -1,0 +1,15 @@
+version: 0
+bug: 3349e24
+build-arguments:
+  fix_revision: 3349e24
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - ArduCopter/control_autotune.cpp
+extra:
+  system: arducopter
+bug-kind: units conversion
+url: https://github.com/ArduPilot/ardupilot/commit/3349e244928ed21d207a61a55586fafc96c53234
+description: |
+  Copter: fix autotune unit conversions for step sizes

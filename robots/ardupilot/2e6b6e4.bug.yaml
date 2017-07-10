@@ -1,0 +1,17 @@
+version: 0
+bug: 2e6b6e4
+build-arguments:
+  fix_revision: 2e6b6e4
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - ArduCopter/navigation.cpp
+extra:
+  system: arducopter
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/2e6b6e473a1315283902dbcb7bfc38434de39fd9
+description: |
+  Copter: fix home_distance calculation
+
+  Distance was calculated vs EKF origin instead of AHRS home

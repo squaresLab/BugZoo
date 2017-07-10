@@ -1,0 +1,21 @@
+version: 0
+bug: 224d450
+build-arguments:
+  fix_revision: 224d450
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - APMrover2/APMrover2.cpp
+extra:
+  system: APMrover2
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/224d45000bfea6558702b0db32fa51426eb33608
+description: |
+  Rover: fixed a bug going into guided and rover still moving.
+
+  When the rover goes into guided mode it sets the current location as
+  the guided point to goto.  If the rover is stationary when this
+  happens no problem.  If however the rover is still rolling (say going
+  from AUTO to GUIDED) then the rover would go past its guided position
+  and get confused and begin to circle it.  This change resolves that issue.

@@ -1,0 +1,17 @@
+version: 0
+bug: f79ac46
+build-arguments:
+  fix_revision: f79ac46
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - ArduCopter/control_althold.cpp
+extra:
+  system: arducopter
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/f79ac46d60f651b3c21bbcbef4ca81b9b8c06c1e
+description: |
+  Copter: fix althold take-off state.
+
+  Also abort takeoff when switching into AltHold

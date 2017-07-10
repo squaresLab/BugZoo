@@ -1,0 +1,17 @@
+version: 0
+bug: 8f0e7e0
+build-arguments:
+  fix_revision: 8f0e7e0
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - ArduPlane/altitude.cpp
+extra:
+  system: arduplane
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/8f0e7e0693405d30d05d1ab67d7ae855f1a561ec
+description: |
+  Plane: fixed above_location_current() for non-terrain alt
+
+  thanks to Lekston for finding the bug (PR#2610)
