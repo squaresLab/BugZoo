@@ -1,0 +1,15 @@
+version: 0
+bug: 742cdf6 
+build-arguments:
+  fix_revision: 742cdf6
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - ArduCopter/motors.cpp
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/issues/5546
+description: |
+  Copter: fix arming while armed bug
+
+  If a mavlink command was sent to arm the vehicle while it was already armed, the in_arm_motors boolean was left as true meaning the vehicle could never be armed again using a mavlink message.  This resolves issue #5546.
