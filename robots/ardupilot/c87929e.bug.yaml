@@ -1,0 +1,17 @@
+bug: c87929e
+build-arguments:
+  fix_revision: c87929e
+dataset: robots
+program: ardupilot
+version: 0
+dockerfile: Dockerfile.bug
+meta:
+  robot: plane
+  bug-type: division by zero
+  description: |
+    Plane: Fix landing to stop divide by zero if params are 0.
+    If someone mistakenly puts all 0's in their LAND command then
+    total_distance will be calculated as 0 and cause a divide by 0 error
+    below thus crashing ArduPilot. 
+files:
+  - ArduPlane/landing.cpp

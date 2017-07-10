@@ -1,0 +1,12 @@
+bug: ed4e8b6
+build-arguments:
+  fix_revision: ed4e8b6
+dataset: robots
+program: ardupilot
+version: 0
+dockerfile: Dockerfile.bug
+meta:
+  bug-type: file descriptor leak
+  description: fd leak in SITL
+files:
+  - libraries/SITL/SIM_JSBSim.cpp
