@@ -1,0 +1,15 @@
+version: 0
+bug: 3699932
+build-arguments:
+  fix_revision: 3699932
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - libraries/AP_Compass/AP_Compass_HIL.cpp
+extra:
+  system: all
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/3699932417a4eaa88d8c240cefe61901c25fd943
+description: |
+  AP_Compass: fixed SITL compass 

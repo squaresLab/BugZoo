@@ -1,0 +1,24 @@
+version: 0
+bug: 9352f05
+build-arguments:
+  fix_revision: 9352f05
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - libraries/GCS_MAVLink/GCS_Common.cpp
+extra:
+  system: all
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/9352f051337c67bb3cbf1e9e4f0822420961e117#diff-4f15a04337259328467a92d8e35bab2f
+description: |
+  GCS_MAVLink: fixed bug setting parameters to default values
+
+  in copter if you try to set RATE_RLL_D to 0 when you haven't
+  prevviously changed it then it would set it, but would revert on the
+  next reboot. This is because of the special case handling of a set to
+  the "default" value. That default value is unaware of the PID
+  constructors
+
+  this fixes that behaviour by forcing a save if the parameter changes
+  value

@@ -1,0 +1,15 @@
+version: 0
+bug: 929ddb5
+build-arguments:
+  fix_revision: 929ddb5
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - libraries/AP_Compass/CompassCalibrator.cpp
+extra:
+  system: all
+bug-kind: arithmetic
+url: https://github.com/ArduPilot/ardupilot/commit/929ddb56857f473db4f051d3b83fe5d4d88a4898
+description: |
+  AP_Compass: fix a math error in the compass calibrator
