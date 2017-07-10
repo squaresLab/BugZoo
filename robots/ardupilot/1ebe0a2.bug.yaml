@@ -1,0 +1,7 @@
+bug: 1ebe0a2
+build-arguments:
+  fix_revision: 1ebe0a2 
+dataset: robots
+program: ardupilot
+version: 0
+dockerfile: Dockerfile.bug
