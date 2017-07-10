@@ -11,7 +11,6 @@ bug-kind: logical
 url: https://github.com/ArduPilot/ardupilot/commit/cefb32566f043e9b7b94c58b07ed50afe897f380
 description: |
   GCS_MAVLink: fixed corner case in MAVLink routing
-
   when a GCS sends a command to a system ID that isn't our system ID,
   the GCS may use a non-advertised component ID such as
   MAV_COMP_ID_SYSTEM_CONTROL. Those packets should be fowarded to the
