@@ -1,0 +1,15 @@
+version: 0
+bug: 3dd47ad
+build-arguments:
+  fix_revision: 3dd47ad
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - ArduPlane/ArduPlane.cpp
+extra:
+  system: arduplane
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/3dd47adafef0cc6146055903a2e98496754e945e
+description: |
+  Plane: fixed a condition where takeoff switches to land

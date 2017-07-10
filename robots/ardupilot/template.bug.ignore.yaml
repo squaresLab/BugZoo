@@ -7,6 +7,8 @@ program: ardupilot
 dockerfile: Dockerfile.bug
 files:
   - TODO
+extra:
+  system: TODO
 bug-kind: TODO
 url: TODO
 description: |
