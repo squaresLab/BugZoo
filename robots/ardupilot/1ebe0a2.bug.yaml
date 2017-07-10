@@ -5,3 +5,9 @@ dataset: robots
 program: ardupilot
 version: 0
 dockerfile: Dockerfile.bug
+meta:
+  robot: plane
+  bug-type: division by zero
+  description: division by zero in takeoff code
+files:
+  - ArduPlane/takeoff.cpp

@@ -36,11 +36,20 @@ RUN wget -nv -O scenario.tar.gz \
     make distclean && \
     cat /experiment/doc.patch | patch -p1 && \
     rm /experiment/doc.patch
-# && \
-#    cd .. && \
-#    find . -type f -print0 | xargs -0 sed -i '' && \
-#    mv * /experiment && \
-#    cd /experiment/src && \
-#    svn upgrade && \
-#    ./autogen.sh && \
-#    ./configure --disable-warnings-as-errors
+RUN cd /experiment/scenario && \
+    find . -type f -print0 | xargs -0 sed -i '' && \
+    cd src && \
+    svn upgrade && \
+    ./autogen.sh && \
+    ./configure --disable-warnings-as-errors
+RUN mv scenario/bug-info . && \
+    mv scenario/bugged-program.txt manifest.txt && \
+    mv scenario/configuration-* . && \
+    mv scenario/diffs . && \
+    mv scenario/fixed . && \
+    mv scenario/preprocessed . && \
+    mv scenario/src . && \
+    mv scenario/test . && \
+    mv scenario/test.sh . && \
+    mv scenario/wireshark-run-tests.sh . && \
+    rm -rf scenario
