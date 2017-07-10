@@ -13,6 +13,8 @@ files:
   - libraries/AP_NavEKF2/AP_NavEKF2_Control.cpp
 bug-kind: logical
 url: https://github.com/ArduPilot/ardupilot/commit/9b82b2200cc0a9280aa29e424f0f27986bfb4d63
+extra:
+  system: arduplane
 description: |
    AP_NavEKF2: Fix plane in-flight yaw reset
 
