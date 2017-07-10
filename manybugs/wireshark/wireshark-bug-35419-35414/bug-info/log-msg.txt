@@ -1,6 +1,0 @@
-------------------------------------------------------------------------
-r35414 | guy | 2011-01-06 19:26:57 -0500 (Thu, 06 Jan 2011) | 4 lines
-
-If we get an unknown reply status, don't print a g_warning message -
-just put the reply body, if any, into the protocol tree as a blob.  The
-protocol tree will note that it's an unknown status.

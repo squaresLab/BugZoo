@@ -1,8 +1,0 @@
-6c6
-<  * $Id: packet-nas_eps.c 35417 2011-01-07 15:21:23Z etxrab $
----
->  * $Id: packet-nas_eps.c 35270 2010-12-27 08:23:55Z etxrab $
-1504c1504
-< guint16
----
-> static guint16
