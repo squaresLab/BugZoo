@@ -1,4 +1,4 @@
 dataset: manybugs
 dockerfile: Dockerfile
 program: gzip
-version: 12
+version: 16

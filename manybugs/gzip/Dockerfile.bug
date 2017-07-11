@@ -1,7 +1,12 @@
-FROM squareslab/repairbox:manybugs-gzip
+ARG perl
+RUN perlbrew install "perl-${perl}" && \
+    perlbrew use "perl-${perl}"
+ENV PERLBREW_PERL "perl-${perl}"
+ENV PATH "${PERLBREW_ROOT}/perls/perl-${perl}/bin:${PATH}"
 
 ARG scenario
 ENV SCENARIO_NAME ${scenario}
+ENV OLD_LOCATION "/root/mountpoint-genprog/genprog-many-bugs/${scenario}"
 
 # - downloads scenario archive
 # - throws away useless files
@@ -22,17 +27,17 @@ RUN wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO
     mv bugged-program.txt preprocessed/manifest.txt && \
     cd /experiment && \
     mv scenario/* . && rm -rf scenario && \
-    sed -i "s#cd gzip#cd src#g" test.sh
-#    sed -i "s#/usr/bin/perl#perl#" test.sh && \
-#    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
-#    sed -i "s#/experiment/limit#timeout 5#g" test.sh && \
+    sed -i "s#cd gzip#cd src#g" test.sh && \
+    sed -i "s#/usr/bin/perl#perl#" test.sh && \
+    sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
+    sed -i "s#/experiment/limit#timeout 5#g" test.sh
 
 RUN cd src && \
     git checkout $(grep "bug revision:" ../bug-info/scenario-data.txt | cut -d " " -f3) && \
     ./bootstrap && \
-    ./configure
+    ./configure && \
+    sed -i "s#_GL_WARN_ON_USE (gets,#//#g" lib/stdio.in.h && \
+    sudo chown -R docker /experiment
 
-#RUN sudo chown -R docker /experiment && \
-#    cd /experiment/src && \
+#RUN 
 #  ./configure "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
-#RUN sed -i "s/ _GL_WARN_ON_USE (gets,/#/g" src/lib/stdio.in.h

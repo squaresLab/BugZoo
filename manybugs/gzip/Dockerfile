@@ -1,17 +1,17 @@
 FROM squareslab/repairbox:rbox
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-ADD TESTS /experiment
 RUN sudo apt-get update && \
     sudo apt-get install -y \
+      wget \
       rsync \
       autoconf \
       gettext \
       autopoint \
       texinfo \
+      psmisc \
       gcc-multilib && \
     sudo apt-get clean && \
-    sudo apt-get autoremove && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN git clone git://git.savannah.gnu.org/gzip.git src
 ENV PERLBREW_ROOT "/home/docker/perl5/perlbrew"
