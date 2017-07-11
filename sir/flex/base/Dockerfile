@@ -15,11 +15,9 @@ WORKDIR /experiment
 # Move extracted archive contents into /experiment and dispose of unnecessary
 # files
 RUN mkdir /experiment/source && \
-    mv flex/versions.alt /experiment/versions.alt && \
+    mv flex/versions.alt /experiment && \
+    mv flex/inputs /experiment && \
     rm -rf flex
-
-# Generate the Pythia script
-#RUN pythia build-manifest-from-mts . testplans.alt/v1/v0.tsl.universe ${EXECUTABLE}
 
 # Reconstruct libfl.a for this machine
 RUN cd versions.alt/versions.orig/v0 &&\

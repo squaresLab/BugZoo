@@ -11,4 +11,5 @@ ADD grep.tar.gz /experiment
 RUN sudo chown -R docker /experiment
 WORKDIR /experiment
 RUN mv grep/versions.alt /experiment && \
+    mv grep/inputs /experiment && \
     rm -rf grep
