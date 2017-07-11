@@ -1,4 +1,3 @@
-FROM christimperley/repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV PROGRAM_NAME grep
@@ -15,5 +14,6 @@ WORKDIR /experiment
 
 # Move extracted archive contents into /experiment and dispose of unnecessary
 # files
-RUN mv grep/* . && rmdir grep && \
-    rm -rf build.properties info
+RUN mv grep/versions.alt /experiment && \
+    mv grep/testplans.alt /experiment && \
+    rm -rf grep
