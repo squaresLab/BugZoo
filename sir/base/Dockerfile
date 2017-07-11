@@ -1,4 +1,3 @@
-FROM christimperley/repairbox:ubuntu64
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 # install essential packages, including Java
