@@ -106,8 +106,8 @@ def dockerbuild(fn, tag, version, identifier=None, parent=None, args={}):
     crashfile = "{}.rbox.crash".format(int(time.time()))
 
     try:
-        out = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
-        status = out.splitlines()[-1].startswith('Successfully built ')
+        out = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        status = out.splitlines()[-1].startswith('Successfully ')
     except subprocess.CalledProcessError as e:
         # save crash log
         with open(crashfile, "w") as cf:
