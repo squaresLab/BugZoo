@@ -1,0 +1,9 @@
+bug: v5-KL_2
+build-arguments:
+  fault: KL_2
+  version: v5
+build-context: .
+dataset: sir
+dockerfile: ../Dockerfile.bug
+program: gzip
+version: 0

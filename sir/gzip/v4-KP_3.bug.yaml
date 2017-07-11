@@ -1,0 +1,9 @@
+bug: v4-KP_3
+build-arguments:
+  fault: KP_3
+  version: v4
+build-context: .
+dataset: sir
+dockerfile: ../Dockerfile.bug
+program: gzip
+version: 0

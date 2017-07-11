@@ -1,0 +1,4 @@
+dataset: sir
+dockerfile: base/Dockerfile
+program: gzip
+version: 0
