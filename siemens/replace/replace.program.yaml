@@ -1,4 +1,10 @@
 dataset: siemens
-dockerfile: base/Dockerfile
+dockerfile: ../Dockerfile.program
 program: replace
 version: 0
+build-context: base
+build-args:
+  program: replace
+  executable: replace
+  source_file: replace.c
+  gcc_libs: ""

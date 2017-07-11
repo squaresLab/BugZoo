@@ -1,10 +1,11 @@
 ARG fault
-ENV SCENARIO_NAME "siemens-${program}-${fault}"
+ENV FAULT "${fault}"
+ENV SCENARIO_NAME "siemens-${PROGRAM}-${FAULT}"
 
 # Add the mutant file
 ADD . /experiment/source.staging
 RUN sudo chown -R docker /experiment && \
-    mv "/experiment/source.staging/${file}" "/experiment/source/${file}" && \
+    mv "/experiment/source.staging/${file}" "/experiment/source/${FILE}" && \
     rm -rf /experiment/source.staging
 
 # Preprocess
