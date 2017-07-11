@@ -14,12 +14,9 @@ RUN sudo apt-get update && \
     sudo apt-get autoremove && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN git clone git://git.savannah.gnu.org/gzip.git src
-RUN cd /tmp && \
-    wget -nv http://www.cpan.org/src/5.0/perl-5.8.9.tar.gz && \
-    tar -xf perl* && \
-    rm perl*.tar.gz && \
-    cd perl* && \
-    ./Configure -Duse64bitall -des && \
-    make -j CFLAGS="-lm" $(nproc)
-#&& sudo make install && \
-#    cd / && rm -rf /tmp/*
+ENV PERLBREW_ROOT "/home/docker/perl5/perlbrew"
+ENV PERLBREW_HOME "/home/docker/.perlbrew"
+ENV PERLBREW_PATH "${PERLBREW_ROOT}/bin"
+ENV PATH "${PERLBREW_PATH}:${PATH}"
+RUN wget -O - https://install.perlbrew.pl | bash && \
+    perlbrew init

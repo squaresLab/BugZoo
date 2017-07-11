@@ -1,0 +1,8 @@
+bug: 2010-01-30-fc00329e3d-1204630c96
+build-arguments:
+  perl: '5.8.9'
+  scenario: gzip-bug-2010-01-30-fc00329e3d-1204630c96
+dataset: manybugs
+dockerfile: Dockerfile.bug
+program: gzip
+version: 0
