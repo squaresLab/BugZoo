@@ -2,7 +2,7 @@
   "problem": {
     "name": "<<SCENARIO_NAME>>",
     "multi_file": false,
-    "program": "<<SOURCE_FILE>>",
+    "program": "<<FILE>>",
     "executable_name": "<<PROGRAM_NAME>>",
     "positive_tests": <<POSITIVE_TESTS>>,
     "negative_tests": <<NEGATIVE_TESTS>>,

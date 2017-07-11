@@ -6,5 +6,5 @@ build-context: base
 build-args:
   program: replace
   executable: replace
-  source_file: replace.c
+  file: replace.c
   gcc_libs: ""

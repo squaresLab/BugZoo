@@ -2,11 +2,11 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ARG program
 ARG executable
-ARG source_file
+ARG file
 ARG gcc_libs
 ENV PROGRAM_NAME "${program}"
 ENV EXECUTABLE "${executable}"
-ENV SOURCE_FILE "${source_file}"
+ENV FILE "${file}"
 ENV GCC_LIBS "${gcc_libs}"
 
 # utilities

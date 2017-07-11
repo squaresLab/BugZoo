@@ -20,7 +20,7 @@ def generate():
         bfr = f_tpl.read()
         bfr = bfr.replace("<<NEGATIVE_TESTS>>", str(negative))
         bfr = bfr.replace("<<POSITIVE_TESTS>>", str(positive))
-        bfr = bfr.replace("<<SOURCE_FILE>>", os.environ['SOURCE_FILE'])
+        bfr = bfr.replace("<<FILE>>", os.environ['FILE'])
         bfr = bfr.replace("<<PROGRAM_NAME>>", os.environ['PROGRAM_NAME'])
         bfr = bfr.replace("<<SCENARIO_NAME>>", os.environ['SCENARIO_NAME'])
 
