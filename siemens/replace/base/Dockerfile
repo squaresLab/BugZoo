@@ -1,13 +1,9 @@
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-ARG program
-ARG executable
-ARG source_file
-ARG gcc_libs
-ENV PROGRAM_NAME "${program}"
-ENV EXECUTABLE "${executable}"
-ENV SOURCE_FILE "${source_file}"
-ENV GCC_LIBS "${gcc_libs}"
+ENV PROGRAM_NAME "replace"
+ENV EXECUTABLE "replace"
+ENV SOURCE_FILE "replace.c"
+ENV GCC_LIBS ""
 
 # utilities
 ADD generate-pythia-manifest /usr/bin/generate-pythia-manifest
@@ -16,7 +12,6 @@ ADD generate-pythia-manifest /usr/bin/generate-pythia-manifest
 ADD tests.txt /experiment/tests.txt
 ADD inputs /experiment/inputs
 ADD source /experiment/source
-WORKDIR /experiment
 RUN sudo chown -R docker /experiment
 
 # Preprocess original version of the code (GENERIC)
