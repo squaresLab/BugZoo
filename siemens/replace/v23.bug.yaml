@@ -1,0 +1,8 @@
+bug: v23
+build-args:
+  fault: v23
+build-context: v23
+dataset: siemens
+dockerfile: ../Dockerfile.bug
+program: replace
+version: 0
