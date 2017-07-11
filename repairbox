@@ -159,11 +159,12 @@ class Version(object):
 Used to model all resources except for tools.
 """
 class Resource(object):
-    def __init__(self, location, name, dockerfile, version_suffix, parent=None, buildargs={}):
+    def __init__(self, location, name, dockerfile, version_suffix, build_ctx, parent=None, buildargs={}):
         self.location = location
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
-        self.name = name
+        self.name = str(name)
         self.__buildargs = buildargs
+        self.__buildctx = build_ctx
         self.parent = parent
 
         if self.parent:
@@ -171,6 +172,7 @@ class Resource(object):
         else:
             self.__version_latest = Version(version_suffix)
 
+        assert build_ctx is None or isinstance(build_ctx, str)
         assert parent is None or isinstance(parent, Resource)
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for resource: {}".format(self.identifier())
@@ -242,12 +244,16 @@ class BaseImage(Resource):
         with open(fn, "r") as f:
             try:
                 data = yaml.load(f)
-                return BaseImage(fn, data['base'], data['dockerfile'], data['version'])
+                return BaseImage(fn,
+                                 data['base'],
+                                 data['dockerfile'],
+                                 data['version'],
+                                 data.get('build-context', None))
             except yaml.YAMLError as exc:
                 raise Exception("Failed to load base image: {}".format(fn))
 
-    def __init__(self, location, name, dockerfile, version_suffix):
-        super(BaseImage, self).__init__(location, name, dockerfile, version_suffix, None)
+    def __init__(self, location, name, dockerfile, version_suffix, build_ctx):
+        super(BaseImage, self).__init__(location, name, dockerfile, version_suffix, build_ctx, None)
 
 
 class Dataset(Resource):
@@ -256,13 +262,18 @@ class Dataset(Resource):
         with open(fn, "r") as f:
             try:
                 data = yaml.load(f)
-                return Dataset(fn, data['dataset'], bases[data['base']], data['dockerfile'], data['version'])
+                return Dataset( fn,
+                                data['dataset'],
+                                bases[data['base']],
+                                data['dockerfile'],
+                                data['version'],
+                                data.get('build-context', None))
             except yaml.YAMLError as exc:
                 raise Exception("Failed to load dataset: {}".format(fn))
 
-    def __init__(self, location, name, base, dockerfile, version_latest):
+    def __init__(self, location, name, base, dockerfile, version_latest, build_ctx):
         assert not base is None and isinstance(base, BaseImage)
-        super(Dataset, self).__init__(location, name, dockerfile, version_latest, base)
+        super(Dataset, self).__init__(location, name, dockerfile, version_latest, build_ctx, base)
 
 
 """
@@ -281,13 +292,18 @@ class Program(Resource):
                 data = yaml.load(f)
                 dataset = datasets[data['dataset']]
                 assert not dataset is None, "no dataset found: {}".format(dsname)
-                return Program(fn, data['program'], dataset, data['dockerfile'], data['version'])
+                return Program(fn,
+                               data['program'],
+                               dataset,
+                               data['dockerfile'],
+                               data['version'],
+                               data.get('build-context', None))
             except yaml.YAMLError as exc:
                 raise Exception("Failed to load program: {}".format(fn))
 
-    def __init__(self, location, name, dataset, dockerfile, version_suffix):
+    def __init__(self, location, name, dataset, dockerfile, version_suffix, build_ctx):
         assert not dataset is None and isinstance(dataset, Dataset)
-        super(Program, self).__init__(location, name, dockerfile, version_suffix, dataset)
+        super(Program, self).__init__(location, name, dockerfile, version_suffix, build_ctx, dataset)
 
     def dataset(self):
         return self.parent
@@ -314,18 +330,22 @@ class Bug(Resource):
                 else:
                     parent = dataset
 
-                buildargs = data.get('build-arguments', {})
-
-                return Bug(fn, data['bug'], data['dockerfile'], buildargs, data['version'], parent)
+                return Bug(fn,
+                           data['bug'],
+                           data['dockerfile'],
+                           data.get('build-arguments', {}),
+                           data['version'],
+                           data.get('build-context', None),
+                           parent)
 
             except yaml.YAMLError as exc:
                 print(exc)
                 raise Exception("Failed to load bug: {}".format(fn))
 
-    def __init__(self, location, name, dockerfile, buildargs, version_suffix, parent):
+    def __init__(self, location, name, dockerfile, buildargs, version_suffix, build_ctx, parent):
         assert not parent is None and \
             (isinstance(parent, Dataset) or isinstance(parent, Program))
-        super(Bug, self).__init__(location, name, dockerfile, version_suffix, parent, buildargs)
+        super(Bug, self).__init__(location, name, dockerfile, version_suffix, build_ctx, parent, buildargs)
 
     def program(self):
         if isinstance(self.parent, Program):
