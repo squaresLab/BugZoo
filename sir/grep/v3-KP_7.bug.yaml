@@ -1,0 +1,9 @@
+bug: v3-KP_7
+build-arguments:
+  fault: KP_7
+  version: v3
+build-context: .
+dataset: sir
+dockerfile: ../Dockerfile.bug
+program: grep
+version: 0
