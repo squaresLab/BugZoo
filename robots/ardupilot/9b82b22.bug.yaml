@@ -16,8 +16,7 @@ url: https://github.com/ArduPilot/ardupilot/commit/9b82b2200cc0a9280aa29e424f0f2
 extra:
   system: arduplane
 description: |
-   AP_NavEKF2: Fix plane in-flight yaw reset
-
+   AP_NavEKF2: Fix plane in-flight yaw reset.
    The copter method was being used for plane and the plane method was not being run due to the change in flight status not being detected.
    The plane reset method did not trigger if the EKF had already dragged the velocity states along with the GPS or could align to an incorrect heading.
    The method has been reworked so that it resets to the GPS course, but only if there are inconsistent angles and large innovations.

@@ -14,5 +14,4 @@ bug-kind: logical
 url: https://github.com/ArduPilot/ardupilot/commit/6ba8cd05ff2fa139331697f97610c29e58edeee8
 description: |
   AP_NavEKF: Fix bug preventing GPS vertical velocity being used.
-
   This fixes a bug that prevents GPS velocity being used permanently if there is a temporary unavailability

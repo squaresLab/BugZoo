@@ -10,6 +10,7 @@ RUN sudo apt-get update && \
                             autoconf \
                             gcc \
                             g++ \
+                            libtool \
                             libexpat1-dev \
                             python-matplotlib \
                             python-serial \
@@ -21,15 +22,22 @@ RUN sudo apt-get update && \
                             ccache \
                             gawk \
                             python-pip \
+                            flightgear \
                             python-pexpect && \
-                            flightgear && \
     sudo pip install future pymavlink MAVProxy && \
-    sudo pip install --upgrade pexpect
+    sudo pip install --upgrade pexpect && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN git clone git://github.com/tridge/jsbsim && \
     cd jsbsim && \
     ./autogen.sh --enable-libraries && \
     make -j
+
+RUN sudo apt-get update && \
+    sudo apt-get install -y flightgear && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV PATH "${PATH}:/experiment/jsbsim/src"
 ENV PATH "${PATH}:/experiment/source/Tools/autotest"

@@ -12,6 +12,5 @@ extra:
 bug-kind: division by zero
 url: https://github.com/ArduPilot/ardupilot/commit/90378b21dabd4cfc7893e5ae67a1c6ca7e81e246
 description: |
-  AP_BattMonitor: Fix battery monitor Floating Point Exception in SITL
-
+  AP_BattMonitor: Fix battery monitor Floating Point Exception in SITL.
   Adds a sanity check to avoid division by zero when BATT_CAPACITY is set to 0.

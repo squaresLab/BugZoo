@@ -12,6 +12,5 @@ extra:
 bug-kind: logical
 url: https://github.com/ArduPilot/ardupilot/commit/2e6b6e473a1315283902dbcb7bfc38434de39fd9
 description: |
-  Copter: fix home_distance calculation
-
+  Copter: fix home_distance calculation.
   Distance was calculated vs EKF origin instead of AHRS home

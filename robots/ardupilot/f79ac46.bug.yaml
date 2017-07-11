@@ -13,5 +13,4 @@ bug-kind: logical
 url: https://github.com/ArduPilot/ardupilot/commit/f79ac46d60f651b3c21bbcbef4ca81b9b8c06c1e
 description: |
   Copter: fix althold take-off state.
-
   Also abort takeoff when switching into AltHold

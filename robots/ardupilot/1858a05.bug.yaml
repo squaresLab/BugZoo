@@ -13,5 +13,4 @@ bug-kind: logical
 url: https://github.com/ArduPilot/ardupilot/commit/1858a0544fdd2ed42f2c2c7b8
 description: |
   Copter: guided takeoff checks auto-armed status
-
   This resolves an edge case in which the vehicle could takeoff with auto-armed false

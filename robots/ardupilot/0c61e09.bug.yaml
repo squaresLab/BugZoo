@@ -13,5 +13,4 @@ bug-kind: uninitialised value
 url: https://github.com/ArduPilot/ardupilot/commit/0c61e09b707a5a71fd91fd19f17588d6f835d166
 description: |
   AP_NavEKF2: Critical big fix - states not initialised
-
   The failure to initialise the magnetometer bias states to zero can result in a large jump in yaw gyro bias and heading when a heading reset is performed

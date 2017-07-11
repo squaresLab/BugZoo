@@ -11,6 +11,5 @@ bug-kind: integer underflow
 url: https://github.com/ArduPilot/ardupilot/commit/4eee3b1317b954c7c1df16ba2d264e2af695b77d
 description: |
   Copter: fix underflow in scheduler.
-
   If fast_loop method executed time is over MAIN_LOOP_MICROS,
   scheduler.run method set value is  0.
