@@ -1,0 +1,8 @@
+bug: v7
+build-args:
+  fault: v7
+build-context: v7
+dataset: siemens
+dockerfile: ../Dockerfile.bug
+program: schedule
+version: 0
