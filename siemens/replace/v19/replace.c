@@ -35,7 +35,7 @@ typedef char	bool;
 typedef char	character;
 typedef char string[MAXSTR];
 
-void getline(s, maxsize, result)
+void gtline(s, maxsize, result)
 char	*s;
 int	maxsize;
 bool *result;
@@ -511,10 +511,10 @@ char *pat, *sub;
     string  line;
     bool result;
     
-    getline(line, MAXSTR, &result);
+    gtline(line, MAXSTR, &result);
     while ((result)) {
 	subline(line, pat, sub);
-	getline(line, MAXSTR, &result);
+	gtline(line, MAXSTR, &result);
     }
 }
 
