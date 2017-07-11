@@ -1,0 +1,10 @@
+dataset: siemens
+dockerfile: ../Dockerfile.program
+program: totinfo
+version: 0
+build-context: base
+build-arguments:
+  program: totinfo
+  executable: tot_info
+  file: tot_info.c
+  gcc_libs: "-lm"
