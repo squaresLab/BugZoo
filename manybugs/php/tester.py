@@ -68,7 +68,11 @@ def run(identifier, exe=None):
 
     with Popen(cmd, stdout=PIPE, stderr=DEVNULL, preexec_fn=preexec, cwd="/experiment/src") as p:
         try:
-            stdout = p.communicate(timeout=tlim)[0].decode("ascii")
+            stdout = p.communicate(timeout=tlim)[0]
+            try:
+                stdout = stdout.decode("ascii")
+            except UnicodeDecodeError:
+                stdout = stdout.decode("utf-8")
             outcome = stdout.split("\n")[14]
             _, _, outcome = outcome.partition('\r')
             outcome, _, _ = outcome.partition(' ')
