@@ -5,13 +5,13 @@ ENV SCENARIO_NAME "siemens-${PROGRAM}-${FAULT}"
 # Add the mutant file
 ADD . /experiment/source.staging
 RUN sudo chown -R docker /experiment && \
-    mv "/experiment/source.staging/${file}" "/experiment/source/${FILE}" && \
+    mv "/experiment/source.staging/${FILE}" "/experiment/source/${FILE}" && \
     rm -rf /experiment/source.staging
 
 # Preprocess
 RUN cd source && \
-    gcc -o "${EXECUTABLE}" "${SOURCE_FILE}" ${GCC_LIBS} -save-temps && \
-    mv "${SOURCE_FILE%.c}.i" "../${SOURCE_FILE}" && \
+    gcc -o "${EXECUTABLE}" "${FILE}" ${GCC_LIBS} -save-temps && \
+    mv "${FILE%.c}.i" "../${FILE}" && \
     cd .. && \
     rm -rf source 
 

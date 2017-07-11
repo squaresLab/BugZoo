@@ -24,7 +24,7 @@ RUN sudo chown -R docker /experiment
 RUN mkdir -p fixed && \
     cp source/* fixed && \
     cd source && \
-    gcc -o "${EXECUTABLE}" "${SOURCE_FILE}" ${GCC_LIBS} -save-temps && \
+    gcc -o "${EXECUTABLE}" "${FILE}" ${GCC_LIBS} -save-temps && \
     rm *.s *.o && \
     mv "${EXECUTABLE}" "../${EXECUTABLE}"
 
