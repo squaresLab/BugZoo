@@ -1,10 +1,10 @@
-FROM christimperley/repairbox:sir
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
 ENV PROGRAM_NAME flex
 ENV EXECUTABLE source/flex.exe
 ENV SOURCE_FILE flex.c
 ENV PREPROCESSED_FILE flex.i
+ENV COMPILE_PARAMETERS "${COMPILE_PARAMETERS} -DHAVE_ALLOCA_H"
 
 # Mount bug files to /experiment
 ADD tests.pythia.json /experiment
@@ -38,6 +38,3 @@ RUN find versions.alt -name libfl.a\
 RUN find versions.alt -name lib_src\
                       -type d |\
       xargs rm -rf
-
-# Fix the COMPILE_PARAMETERS to avoid linking errors
-ENV COMPILE_PARAMETERS "${COMPILE_PARAMETERS} -DHAVE_ALLOCA_H"

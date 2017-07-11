@@ -1,9 +1,31 @@
-FROM <BASE_FILE>
-
 # Dockerfile template for a particular fault instance
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-ENV FAULT_ID <FAULT_ID>
+ARG version
+ENV PROGRAM_VERSION "${version}"
+
+# Generate the oracle and list of test commands
+RUN mkdir fixed && \
+    cp -r "versions.alt/versions.seeded/${PROGRAM_VERSION}/*" source && \
+    cp "source/${SOURCE_FILE}" fixed && \
+    (cd source && make build) && \
+    pythia generate "${EXECUTABLE}"
+
+# Prepare faulty version of the program
+RUN mkdir preprocessed && \
+    sed -i '1i#include "FaultSeeds.h"' source/${SOURCE_FILE} && \
+    echo "${SOURCE_FILE##*/}" > /experiment/preprocessed/manifest.txt
+
+# Remove unnecessary files
+RUN rm -rf  testplans testplans.alt\
+            traces traces.alt\
+            versions versions.alt\
+            outputs outputs.alt\
+            originals info docs\
+            scripts
+
+ARG fault
+ENV FAULT_ID "${fault}"
 ENV SCENARIO_NAME "sir-${PROGRAM_NAME}-${PROGRAM_VERSION}-${FAULT_ID}"
 
 ## Activate selected fault, build the faulty program and construct the test mapping
@@ -22,10 +44,6 @@ RUN sed -i 's#\$(COMPILE_PARAMETERS)#$(COMPILE_PARAMETERS) -save-temps#' source/
 
 # Copy the preprocessed source code to the preprocessed directory
 RUN cp source/*.c preprocessed
-
-# Generate the diff (we don't need this, we just need the line number of the fault def)
-#RUN mkdir diff && \preprocessed
-#    diff original/${SOURCE_FILE} fixed/${SOURCE_FILE} > diff/${SOURCE_FILE}.diff || exit 0
 
 # Determine the number of positive and negative tests before generating the
 # problem.json file
