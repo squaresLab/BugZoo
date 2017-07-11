@@ -10,6 +10,7 @@ RUN sudo chown -R docker /experiment && \
 
 # Preprocess
 RUN cd source && \
+    cat "${FILE}" && \
     gcc -o "${EXECUTABLE}" "${FILE}" ${GCC_LIBS} -save-temps && \
     mv "${FILE%.c}.i" "../${FILE}" && \
     cd .. && \
