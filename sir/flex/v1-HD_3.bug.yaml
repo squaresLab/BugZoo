@@ -1,6 +1,6 @@
-bug: v1-HD_1
+bug: v1-HD_3
 build-arguments:
-  fault: HD_1
+  fault: HD_3
   version: v1
 build-context: .
 dataset: sir
