@@ -1,0 +1,8 @@
+version: 0
+bug: v1
+dataset: siemens
+program: replace
+build_context: v1
+dockerfile: ../Dockerfile.bug
+build-args:
+  fault: v1

@@ -1,23 +1,24 @@
-FROM squareslab/repairbox:siemens-<<PROGRAM>>-base
-
-ENV SCENARIO_NAME siemens-<<PROGRAM>>-<<FAULT>>
+ARG fault
+ENV SCENARIO_NAME "siemens-${program}-${fault}"
 
 # Add the mutant file
-ADD <<SOURCE_FILE>> /experiment/source/<<SOURCE_FILE>>
-RUN sudo chown -R docker /experiment
+ADD . /experiment/source.staging
+RUN sudo chown -R docker /experiment && \
+    mv "/experiment/source.staging/${file}" "/experiment/source/${file}" && \
+    rm -rf /experiment/source.staging
 
 # Preprocess
 RUN cd source && \
-    gcc -o ${EXECUTABLE} ${SOURCE_FILE} ${GCC_LIBS} -save-temps && \
-    mv ${SOURCE_FILE%.c}.i ../${SOURCE_FILE} && \
+    gcc -o "${EXECUTABLE}" "${SOURCE_FILE}" ${GCC_LIBS} -save-temps && \
+    mv "${SOURCE_FILE%.c}.i" "../${SOURCE_FILE}" && \
     cd .. && \
     rm -rf source 
 
 # Generate map
-RUN rm -f ${EXECUTABLE} && \
-    ./compile.sh ./${EXECUTABLE} && \
-    pythia map ${EXECUTABLE} && \
-    rm ${EXECUTABLE}
+RUN rm -f "${EXECUTABLE}" && \
+    ./compile.sh "./${EXECUTABLE}" && \
+    pythia map "${EXECUTABLE}" && \
+    rm "${EXECUTABLE}"
 
 # Generate problem description
 RUN generate-description
