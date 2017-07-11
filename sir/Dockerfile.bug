@@ -6,7 +6,7 @@ ENV PROGRAM_VERSION "${version}"
 
 # Generate the oracle and list of test commands
 RUN mkdir fixed && \
-    cp -r "versions.alt/versions.seeded/${PROGRAM_VERSION}/*" source && \
+    cp -a "versions.alt/versions.seeded/${PROGRAM_VERSION}/." /experiment/source/ && \
     cp "source/${SOURCE_FILE}" fixed && \
     (cd source && make build) && \
     pythia generate "${EXECUTABLE}"
@@ -48,9 +48,9 @@ RUN cp source/*.c preprocessed
 # Determine the number of positive and negative tests before generating the
 # problem.json file
 RUN jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
-      grep -oP '(?<=n)\d+' | sort -g | tail -n 1 > /tmp/num_negative && \
+      grep -oP '(?<=n)\d+' | wc -l > /tmp/num_negative && \
     jq 'keys[]' 'map.pythia.json' | sed 's/\"//g' | \
-      grep -oP '(?<=p)\d+' | sort -g | tail -n 1 > /tmp/num_positive && \
+      grep -oP '(?<=p)\d+' | wc -l > /tmp/num_positive && \
     sed -i "s/<<PROGRAM_NAME>>/${PROGRAM_NAME}/g" problem.json && \
     sed -i "s/<<SCENARIO_NAME>>/${SCENARIO_NAME}/g" problem.json && \
     sed -i "s/<<POSITIVE_TESTS>>/$(cat /tmp/num_positive)/g" problem.json && \
