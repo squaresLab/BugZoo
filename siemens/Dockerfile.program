@@ -1,16 +1,18 @@
-FROM squareslab/repairbox:siemens-base
 MAINTAINER Chris Timperley "christimperley@gmail.com"
 
-ENV PROGRAM_NAME <<PROGRAM_NAME>>
-ENV EXECUTABLE <<EXECUTABLE>>
-ENV SOURCE_FILE <<SOURCE_FILE>>
-ENV GCC_LIBS "<<GCC_LIBS>>"
+ARG program
+ARG executable
+ARG source_file
+ARG gcc_libs
+ENV PROGRAM_NAME "${program}"
+ENV EXECUTABLE "${executable}"
+ENV SOURCE_FILE "${source_file}"
+ENV GCC_LIBS "${gcc_libs}"
 
 # utilities
 ADD generate-pythia-manifest /usr/bin/generate-pythia-manifest
 
 # Mount bug files to /experiment
-ADD reduction.txt /experiment/reduction.txt
 ADD tests.txt /experiment/tests.txt
 ADD inputs /experiment/inputs
 ADD source /experiment/source
@@ -21,16 +23,11 @@ RUN sudo chown -R docker /experiment
 RUN mkdir -p fixed && \
     cp source/* fixed && \
     cd source && \
-    gcc -o ${EXECUTABLE} ${SOURCE_FILE} ${GCC_LIBS} -save-temps && \
+    gcc -o "${EXECUTABLE}" "${SOURCE_FILE}" ${GCC_LIBS} -save-temps && \
     rm *.s *.o && \
-    mv ${EXECUTABLE} ../${EXECUTABLE}
+    mv "${EXECUTABLE}" "../${EXECUTABLE}"
 
-# Generate manifest and oracle (GENERIC)
+# Generate manifest and oracle
 RUN generate-pythia-manifest && \
-    pythia generate ${EXECUTABLE} && \
-    rm ${EXECUTABLE}
-
-# Compute coverage and reduce test suite
-RUN generate-coverage && \
-    reduce-test-suite $(cat reduction.txt) && \
-    rm reduction.txt
+    pythia generate "${EXECUTABLE}" && \
+    rm "${EXECUTABLE}"

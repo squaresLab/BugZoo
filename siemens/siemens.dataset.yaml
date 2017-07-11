@@ -1,0 +1,4 @@
+version: 0
+base: rbox
+dataset: siemens
+dockerfile: base/Dockerfile

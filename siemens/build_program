@@ -11,10 +11,6 @@ gcc_libs=$(cat "${program_dir}/gcc-libs.txt")
 echo "Building siemens program: ${program_name}"
 
 cp "${here_dir}/Dockerfile.program" "${program_df}"
-sed -i "s#<<PROGRAM_NAME>>#${program_name}#" "${program_df}"
-sed -i "s#<<EXECUTABLE>>#${program_name}#" "${program_df}"
-sed -i "s#<<SOURCE_FILE>>#${source_file}#" "${program_df}"
-sed -i "s#<<GCC_LIBS>>#${gcc_libs}#" "${program_df}"
 
 docker build \
   -f "${program_dir}/.Dockerfile" \
