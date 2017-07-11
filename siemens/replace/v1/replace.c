@@ -2,13 +2,13 @@
 
 extern void	exit();
 # include <stdio.h>
+# include <stdlib.h>
 
 void	Caseerror();
 
 typedef char	bool;
 # define false 0
 # define true  1
-# define NULL 0
 
 # define MAXSTR 100
 # define MAXPAT MAXSTR
@@ -36,7 +36,7 @@ typedef char	character;
 typedef char string[MAXSTR];
 
 bool
-getline(s, maxsize)
+gtline(s, maxsize)
 char	*s;
 int	maxsize;
 {
@@ -44,6 +44,7 @@ int	maxsize;
     result = fgets(s, maxsize, stdin);
     return (result != NULL);
 }
+
 int
 addstr(c, outset, j, maxset)
 char	c;
@@ -510,14 +511,14 @@ char *pat, *sub;
     string  line;
     bool result;
     
-    result = getline(line, MAXSTR);
+    result = gtline(line, MAXSTR);
     while ((result)) {
 	subline(line, pat, sub);
-	result = getline(line, MAXSTR);
+	result = gtline(line, MAXSTR);
     }
 }
 
-main(argc, argv)
+int main(argc, argv)
 int	argc;
 char	*argv[];
 {
