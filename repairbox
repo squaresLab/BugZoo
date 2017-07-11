@@ -2,17 +2,20 @@
 import os
 import yaml
 import subprocess
+import shutil
 import argparse
 import time
 import json
 import requests
+
 from tabulate import tabulate
 from tempfile import NamedTemporaryFile
-
 from pprint import pprint as pp
+
 
 DEVNULL = open(os.devnull, 'w')
 remote_tag_versions = None
+
 
 def error(msg):
     print("Error: {}".format(msg))
@@ -164,15 +167,19 @@ class Resource(object):
         self.dockerfile = os.path.join(os.path.dirname(location), dockerfile)
         self.name = str(name)
         self.__buildargs = buildargs
-        self.__buildctx = build_ctx
         self.parent = parent
+
+        assert build_ctx is None or isinstance(build_ctx, str)
+        if build_ctx is None:
+            self.__buildctx = None
+        else:
+            self.__buildctx = os.path.join(os.path.dirname(location), build_ctx)
 
         if self.parent:
             self.__version_latest = Version(version_suffix, parent.version_latest())
         else:
             self.__version_latest = Version(version_suffix)
 
-        assert build_ctx is None or isinstance(build_ctx, str)
         assert parent is None or isinstance(parent, Resource)
         assert os.path.isfile(self.dockerfile), \
             "Dockerfile not found for resource: {}".format(self.identifier())
@@ -224,12 +231,28 @@ class Resource(object):
         print("building image: {}".format(self.name))
 
         ptag = self.parent.tag() if self.parent else None
-        dockerbuild(self.dockerfile,
-                    self.tag(),
-                    self.version_latest(),
-                    self.identifier(),
-                    ptag,
-                    self.__buildargs)
+
+        # create a temporary Dockerfile if a build context is in use
+        if self.__buildctx is None:
+            dockerfile = self.dockerfile
+        else:
+            dockerfile = os.path.join(self.__buildctx, ".Dockerfile")
+            shutil.copyfile(self.dockerfile, dockerfile) 
+
+        try:
+            dockerbuild(dockerfile,
+                        self.tag(),
+                        self.version_latest(),
+                        self.identifier(),
+                        ptag,
+                        self.__buildargs)
+
+        # if we're using a build context, ensure that the temporary Dockerfile
+        # is destroyed
+        finally:
+            if  not self.__buildctx is None and os.path.isfile(dockerfile):
+                os.remove(dockerfile)
+
         self.__version_installed = self.__version_latest
 
 
