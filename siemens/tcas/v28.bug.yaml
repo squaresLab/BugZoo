@@ -1,0 +1,8 @@
+bug: v28
+build-args:
+  fault: v28
+build-context: v28
+dataset: siemens
+dockerfile: ../Dockerfile.bug
+program: tcas
+version: 0

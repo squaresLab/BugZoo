@@ -1,0 +1,10 @@
+dataset: siemens
+dockerfile: ../Dockerfile.program
+program: tcas
+version: 0
+build-context: base
+build-arguments:
+  program: tcas
+  executable: tcas
+  file: tcas.c
+  gcc_libs: ""
