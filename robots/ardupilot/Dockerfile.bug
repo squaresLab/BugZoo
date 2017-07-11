@@ -1,1 +1,2 @@
-
+ARG fix-revision
+RUN git checkout "${fix-revision}"
