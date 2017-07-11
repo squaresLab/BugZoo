@@ -14,8 +14,9 @@ WORKDIR /experiment
 
 # Move extracted archive contents into /experiment and dispose of unnecessary
 # files
-RUN mv flex/* . && rmdir flex && \
-    rm -rf build.properties info
+RUN mkdir /experiment/source && \
+    mv flex/versions.alt /experiment/versions.alt && \
+    rm -rf flex
 
 # Generate the Pythia script
 #RUN pythia build-manifest-from-mts . testplans.alt/v1/v0.tsl.universe ${EXECUTABLE}
@@ -29,7 +30,7 @@ RUN cd versions.alt/versions.orig/v0 &&\
     gcc -c libstring.c &&\
     gcc -c libyywrap.c &&\
     ar cr libfl.a libmain.o liballoc.o libstring.o libyywrap.o &&\
-    mv libfl.a /experiment/source 
+    mv libfl.a /experiment/source/libfl.a
 
 # Remove all lib_src directories and libfl.a files from versions.alt
 RUN find versions.alt -name libfl.a\
