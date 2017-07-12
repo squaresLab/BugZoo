@@ -35,12 +35,12 @@ def build():
 
     # write failing tests to disk
     with open("/experiment/failing.tests.txt", "w") as f:
-        for t in failing:
+        for t in sorted(failing):
             f.write("{}\n".format(t))
 
     # write passing tests to disk
     with open("/experiment/passing.tests.txt", "w") as f:
-        for t in passing:
+        for t in sorted(passing):
             f.write("{}\n".format(t))
 
 def preexec():
