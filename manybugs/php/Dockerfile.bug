@@ -66,3 +66,5 @@ RUN cd src && \
 # Generate a better test harness
 RUN ./tester.py build && \
     rm tests.all.txt tests.indices.txt
+ADD ./test.sh /experiment/test.sh
+RUN sudo chown $(whoami) /experiment/test.sh
