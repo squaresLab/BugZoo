@@ -1,0 +1,7 @@
+version: 0
+tool: wllvm
+image: wllvm:latest
+environment:
+  PATH: "/opt/klee/bin"
+  CC: "wllvm"
+  LLVM_COMPILER: "clang"
