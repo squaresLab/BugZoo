@@ -8,3 +8,6 @@ coverage
 *.cache
 .vagrant
 .Dockerfile
+build
+dist
+*.egg-info

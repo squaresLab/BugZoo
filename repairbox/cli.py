@@ -753,7 +753,7 @@ class RepairBox(object):
                 p.communicate()
 
 
-if __name__ == "__main__":
+def main():
     rbox = RepairBox()
 
     with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
