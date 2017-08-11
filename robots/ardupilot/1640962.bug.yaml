@@ -1,0 +1,15 @@
+version: 0
+bug: 1640962
+build-arguments:
+  fix_revision: 1640962
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - libraries/APM_Control/AP_SteerController.cpp
+extra:
+  system: rover
+bug-kind: logical
+url: https://github.com/ArduPilot/ardupilot/commit/164096225b89db08337c9cc67bf253409d301a7b
+description: |
+  AP_SteerController: fix get_steering_out_rate bug when reversing
