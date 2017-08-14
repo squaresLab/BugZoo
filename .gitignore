@@ -1,3 +1,6 @@
+*.egg-info
+build
+dist
 *.rbox.crash
 *.swo
 *.swp
