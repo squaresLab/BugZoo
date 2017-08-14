@@ -7,6 +7,8 @@ program: ardupilot
 dockerfile: Dockerfile.bug
 files:
   - libraries/GCS_MAVLink/MAVLink_routing.cpp
+extra:
+  system: GCS
 bug-kind: logical
 url: https://github.com/ArduPilot/ardupilot/commit/cefb32566f043e9b7b94c58b07ed50afe897f380
 description: |
