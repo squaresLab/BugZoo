@@ -1,0 +1,18 @@
+version: 0
+bug: 60c6f8a
+build-arguments:
+  fix_revision: 60c6f8a
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files:
+  - libraries/AP_GPS/AP_GPS.cpp
+  - libraries/AP_GPS/AP_GPS.h
+extra:
+  system: unclear
+bug-kind: incorrect type
+url: https://github.com/ArduPilot/ardupilot/commits/master?after=58e784024f0b5f79a68573dadb9b63f12bf5236c+629
+description: |
+   AP_GPS: fix bug when injecting messages bigger than 255 bytes \
+   \
+   Commit 5261654 changed the used injection method so change this method signature to use uint16 for message length like previous injection method did
