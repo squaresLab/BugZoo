@@ -1,8 +1,3 @@
-RUN git clone https://github.com/ArduPilot/ardupilot source && \
-    cd source && \
-    git submodule update --init --recursive && \
-    sudo chown -R $(whoami):$(whoami) /experiment
-
 RUN sudo apt-get update && \
     sudo apt-get install -y libtool \
                             automake \
@@ -43,3 +38,10 @@ ENV PATH "${PATH}:/experiment/jsbsim/src"
 ENV PATH "${PATH}:/experiment/source/Tools/autotest"
 ENV PATH "${PATH}:/usr/lib/ccache:${PATH}"
 ENV PATH "/usr/games:${PATH}"
+
+ENV ARDUPILOT_REVISION 7173025
+RUN git clone https://github.com/ArduPilot/ardupilot source && \
+    cd source && \
+    git checkout "${ARDUPILOT_REVISION}" && \
+    git submodule update --init --recursive && \
+    sudo chown -R $(whoami):$(whoami) /experiment
