@@ -1,0 +1,15 @@
+version: 0
+bug: ab2532a
+build-arguments:
+  fix_revision:   ab2532a
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - libraries/AC_AttitudeControl/AC_AttitudeControl.cpp
+extra:
+  system:   unclear
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/ab2532a6092d0806f348ac9d4be9887c5934ee8f
+description: |
+  AC_AttitudeControl: constrain _angle_boost to avoid overflow

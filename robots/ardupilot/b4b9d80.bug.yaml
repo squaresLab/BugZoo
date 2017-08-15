@@ -1,0 +1,15 @@
+version: 0
+bug: b4b9d80
+build-arguments:
+  fix_revision:   b4b9d80
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/GCS_Mavlink.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/b4b9d80c2fd306a98a32c7d89287b97b4e2c16a9
+description: |
+  Copter: bug fix to accept HIL accel values correctly

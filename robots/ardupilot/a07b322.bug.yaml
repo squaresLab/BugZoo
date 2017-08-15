@@ -1,0 +1,15 @@
+version: 0
+bug: a07b322
+build-arguments:
+  fix_revision:   a07b322
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - libraries/AP_Motors/AP_Motors_Class.h
+extra:
+  system:   unclear
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/a07b322d31453485b9f7bfcf92b379aa3d9752e2
+description: |
+  AP_Motors: set_throttle takes a float

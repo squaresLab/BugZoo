@@ -1,0 +1,20 @@
+version: 0
+bug: 9d0f40b
+build-arguments:
+  fix_revision:   9d0f40b
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/ArduCopter.pde
+    - ArduCopter/test.pde
+    - ArduCopter/system.pde
+    - ArduCopter/setup.pde
+    - ArduCopter/radio.pde
+    - ArduCopter/motors.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/9d0f40b432d7b6e7663b1d26bf31c018b414e344
+description: |
+  Copter: add pre_arm_rc_check

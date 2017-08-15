@@ -1,0 +1,16 @@
+version: 0
+bug: a897c14
+build-arguments:
+  fix_revision:   a897c14
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/commands_logic.pde
+    - ArduCopter/position_vector.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/a897c1425509d3a0b0acf91701d4827751b92e6a
+description: |
+  Copter: ensure lat, lon, alt all zero is handled

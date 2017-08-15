@@ -1,0 +1,16 @@
+version: 0
+bug: d203f02
+build-arguments:
+  fix_revision:   d203f02
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - libraries/AC_WPNav/AC_WPNav.cpp
+    - libraries/AC_WPNav/AC_WPNav.h
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/d203f0295bf06ad23f37be4293a7c598eb02db14
+description: |
+  Copter: bug fix for vertical speed during missions

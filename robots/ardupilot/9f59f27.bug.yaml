@@ -1,0 +1,15 @@
+version: 0
+bug: 9f59f27
+build-arguments:
+  fix_revision:   9f59f27
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/commands_logic.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/9f59f2724fef29c7538b96762e5f21868700eae7
+description: |
+  Copter: bug fix for take-off when throttle is zero

@@ -1,0 +1,15 @@
+version: 0
+bug: 1c6606c
+build-arguments:
+  fix_revision:   1c6606c
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - libraries/AC_WPNav/AC_WPNav.cpp
+extra:
+  system:   unclear
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/1c6606cc58a3bdf6068a68673dedfb51954fd1c3
+description: |
+  AC_WPNav: resolve twitch when passing spline waypoints

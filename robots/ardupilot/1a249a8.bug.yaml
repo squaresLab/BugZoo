@@ -1,0 +1,15 @@
+version: 0
+bug: 1a249a8
+build-arguments:
+  fix_revision:   1a249a8
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/GCS_Mavlink.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/1a249a812983c141110431cbedc167f6ae85e228
+description: |
+  Copter: check target of set-mode request from GCS

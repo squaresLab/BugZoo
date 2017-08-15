@@ -1,0 +1,15 @@
+version: 0
+bug: c53dca0
+build-arguments:
+  fix_revision:   c53dca0
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/Attitude.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/c53dca061a9919b9ed345cb75d85804d96621dab
+description: |
+  Copter: reset yaw angle only when motors not spinning

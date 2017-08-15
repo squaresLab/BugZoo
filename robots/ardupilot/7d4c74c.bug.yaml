@@ -1,0 +1,15 @@
+version: 0
+bug: 7d4c74c
+build-arguments:
+  fix_revision:   7d4c74c
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/flight_mode.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/7d4c74c28e2d248b01375c8c68277d5e22c4e78a
+description: |
+  Copter: when leaving AUTO only stop mission if running

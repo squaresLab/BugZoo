@@ -1,0 +1,15 @@
+version: 0
+bug: 7fc1c301
+build-arguments:
+  fix_revision:   7fc1c301
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/flight_mode.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/pull/1460/commits/7fc1c30121bcad7cfb48b18d491c6c4b45fced38
+description: |
+  Copter: remove DRIFT and SPORT from manual_flight_mode function

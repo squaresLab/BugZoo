@@ -1,0 +1,15 @@
+version: 0
+bug: 012d7b0
+build-arguments:
+  fix_revision:   012d7b0
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - libraries/AP_OpticalFlow/AP_OpticalFlow_ADNS3080.cpp
+extra:
+  system:   unclear
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/012d7b0c0ad58a4b765bcc8be1a18aaf354dd192
+description: |
+  OptFlow: initialisation fix

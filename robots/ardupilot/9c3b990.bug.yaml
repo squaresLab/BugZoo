@@ -1,0 +1,16 @@
+version: 0
+bug: 9c3b990
+build-arguments:
+  fix_revision:   9c3b990
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/ArduCopter.pde
+    - ArduCopter/sensors.pde
+extra:
+  system:   copter
+bug-kind: OK
+url: https://github.com/ArduPilot/ardupilot/commit/9c3b9907dd417b20e5009b3f38013750aac0fd9b
+description: |
+  Copter: bug fix to set sonar_alt_health to zero when disabled

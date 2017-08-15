@@ -1,0 +1,17 @@
+version: 0
+bug: d1791ba
+build-arguments:
+  fix_revision:   d1791ba
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/sensors.pde
+    - ArduCopter/system.pde
+    - ArduCopter/test.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/d1791bab76525414717051a26d0ed764846797d3
+description: |
+  Copter: fix barometer cli test

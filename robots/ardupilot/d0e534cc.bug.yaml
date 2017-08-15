@@ -1,0 +1,15 @@
+version: 0
+bug: d0e534cc
+build-arguments:
+  fix_revision:   d0e534cc
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - libraries/AC_AttitudeControl/AC_PosControl.cpp
+extra:
+  system:   unclear
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/pull/1470/commits/d0e534cc858ceee5ed5a97c0e629ae5d49f0d347
+description: |
+  AC_PosControl: Protect from divide-by-zero in get_stopping_point_xy

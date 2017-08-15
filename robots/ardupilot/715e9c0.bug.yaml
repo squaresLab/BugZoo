@@ -1,0 +1,15 @@
+version: 0
+bug: 715e9c0
+build-arguments:
+  fix_revision:   715e9c0
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/motors.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/715e9c0474aeaff1b7479eca82ab9b75fa7a0721
+description: |
+  Copter: reset mission when disarming

@@ -1,0 +1,16 @@
+version: 0
+bug: 993bccc
+build-arguments:
+  fix_revision:   993bccc
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/commands_logic.pde
+    - ArduCopter/system.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/993bccc60eff8b8ac6f29525f08d89f446e67bad
+description: |
+  Copter: point nose at landing point if specified

@@ -1,0 +1,15 @@
+version: 0
+bug: 279aff8
+build-arguments:
+  fix_revision:   279aff8
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/control_land.pde
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/279aff87f2837807bb03cd36411ab63e4413da99
+description: |
+  Copter: bug fix to land-detector

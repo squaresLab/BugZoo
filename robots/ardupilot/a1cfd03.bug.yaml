@@ -1,0 +1,15 @@
+version: 0
+bug: a1cfd03
+build-arguments:
+  fix_revision:   a1cfd03
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - libraries/AC_AttitudeControl/AC_PosControl.cpp
+extra:
+  system:   unclear
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/commit/a1cfd03c9b2fc2337cb442e330eb33489a52b315
+description: |
+  AC_PosControl: bug fix dt calculation

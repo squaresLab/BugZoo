@@ -1,0 +1,15 @@
+version: 0
+bug: 6fcdcbcf
+build-arguments:
+  fix_revision:   6fcdcbcf
+dataset: robots
+program: ardupilot
+dockerfile: Dockerfile.bug
+files: 
+    - ArduCopter/GCS_Mavlink.cpp
+extra:
+  system:   copter
+bug-kind: unclear
+url: https://github.com/ArduPilot/ardupilot/pull/2775/commits/6fcdcbcffc641c000bdf21d262f9b36ac6f8f6f2
+description: |
+  Copter: mission_set_current can t restart a mission
