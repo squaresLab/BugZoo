@@ -45,3 +45,18 @@ RUN git clone https://github.com/ArduPilot/ardupilot source && \
     git checkout "${ARDUPILOT_REVISION}" && \
     git submodule update --init --recursive && \
     sudo chown -R $(whoami):$(whoami) /experiment
+
+# for now, we can just install Houston to the base image
+ENV HOUSTON_REVISION 188aeed
+RUN git clone https://github.com/ChrisTimperley/Houston /tmp/houston && \
+    cd /tmp/houston && \
+    git checkout "${HOUSTON_REVISION}" && \
+    sudo ./setup.py install && \
+    sudo rm -rf /tmp/houston
+
+RUN sudo pip install  future \
+                      MAVProxy \
+                      dronekit \
+                      statistics \
+                      geopy \
+		                  flask
