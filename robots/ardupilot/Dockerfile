@@ -47,7 +47,7 @@ RUN git clone https://github.com/ArduPilot/ardupilot source && \
     sudo chown -R $(whoami):$(whoami) /experiment
 
 # for now, we can just install Houston to the base image
-ENV HOUSTON_REVISION 188aeed
+ENV HOUSTON_REVISION 10412d1
 RUN git clone https://github.com/ChrisTimperley/Houston /tmp/houston && \
     cd /tmp/houston && \
     git checkout "${HOUSTON_REVISION}" && \
@@ -57,6 +57,13 @@ RUN git clone https://github.com/ChrisTimperley/Houston /tmp/houston && \
 RUN sudo pip install  future \
                       MAVProxy \
                       dronekit \
+                      dronekit-sitl \
                       statistics \
                       geopy \
 		                  flask
+
+
+ENV ARDUPILOT_LOCATION "/experiment/source"
+RUN cd "${ARDUPILOT_LOCATION}" && \
+    ./waf configure && \
+    ./waf build -j$(nproc)
