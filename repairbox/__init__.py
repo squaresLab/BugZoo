@@ -1,1 +1,1 @@
-import repairbox.cli
+import cli
