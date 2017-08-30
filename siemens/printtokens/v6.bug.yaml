@@ -1,8 +1,0 @@
-bug: v6
-build-args:
-  fault: v6
-build-context: v6
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: printtokens
-version: 0

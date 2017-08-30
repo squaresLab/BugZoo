@@ -1,7 +1,0 @@
-bug: 2007-11-23-82e378c-cf05a83
-build-arguments:
-  scenario: libtiff-bug-2007-11-23-82e378c-cf05a83
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

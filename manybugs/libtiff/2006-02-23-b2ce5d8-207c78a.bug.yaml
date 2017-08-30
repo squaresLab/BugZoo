@@ -1,7 +1,0 @@
-bug: 2006-02-23-b2ce5d8-207c78a
-build-arguments:
-  scenario: libtiff-bug-2006-02-23-b2ce5d8-207c78a
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

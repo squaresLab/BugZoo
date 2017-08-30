@@ -1,8 +1,0 @@
-bug: 2009-08-16-3fe0caeada-39a362ae9d
-build-arguments:
-  perl: '5.8.9'
-  scenario: gzip-bug-2009-08-16-3fe0caeada-39a362ae9d
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: gzip
-version: 2

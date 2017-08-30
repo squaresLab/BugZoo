@@ -1,5 +1,0 @@
-version: 2
-bug: demo
-program: arducopter
-dataset: robots
-dockerfile: Dockerfile

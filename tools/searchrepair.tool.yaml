@@ -1,5 +1,0 @@
-version: 0
-tool: searchrepair 
-image: searchrepair:latest
-environment:
-  PATH: "/opt/KLEE/KLEE/Release+Asserts/bin:${PATH}"

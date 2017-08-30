@@ -1,1 +1,0 @@
-fixed/src/rtlib/libfb_str_midassign.c

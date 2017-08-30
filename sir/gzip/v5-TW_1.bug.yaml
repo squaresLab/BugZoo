@@ -1,9 +1,0 @@
-bug: v5-TW_1
-build-arguments:
-  fault: TW_1
-  version: v5
-build-context: .
-dataset: sir
-dockerfile: ../Dockerfile.bug
-program: gzip
-version: 0

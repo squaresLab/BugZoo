@@ -1,9 +1,0 @@
-bug: v2-KL_8
-build-arguments:
-  fault: KL_8
-  version: v2
-build-context: .
-dataset: sir
-dockerfile: ../Dockerfile.bug
-program: gzip
-version: 0

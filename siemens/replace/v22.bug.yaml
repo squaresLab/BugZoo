@@ -1,8 +1,0 @@
-bug: v22
-build-args:
-  fault: v22
-build-context: v22
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: replace
-version: 0
