@@ -1,10 +1,15 @@
 import docker
 
+class CompilationOutcome(object):
+    pass
+
 
 class BugContainer(object):
     
 
-    def __init__(self):
+    def __init__(self, bug):
+        self.__bug = bug
+        self.__container = None
         pass
 
     
@@ -18,10 +23,28 @@ class BugContainer(object):
     def coverage(self, tests):
         pass
 
+    
+    def patch(self):
+        """
+        Apply a patch to the source code.
+        """
+        pass
+    
 
-    def compile(self):
+    def spectra(self):
+        """
+        Computes and returns the spectra for this bug.
+        """
+        pass
+
+
+    def compile(self, mode='default'):
         pass
 
     
-    def execute(self, tests):
+    def execute(self, test):
+        """
+        Executes a given test inside this container and returns the result of
+        that execution.
+        """
         pass
