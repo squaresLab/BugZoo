@@ -19,10 +19,8 @@ class RepairBoxManager(object):
             os.makedirs(path)
 
         mgr = RepairBoxManager(path)
-
+        mgr.sources.reload()
         return mgr
-        
-        # box.sources.load()
 
 
     def __init__(self, path: str) -> None:

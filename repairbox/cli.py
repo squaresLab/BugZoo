@@ -3,9 +3,13 @@ import argparse
 
 from manager import RepairBoxManager
 
-def source_list():
+def list_sources() -> None:
     for src in RepairBoxManager.sources.sources:
         print("- {}".format(src.url))
+
+def add_source(src: str) -> None:
+    RepairBoxManager.sources.add(src)
+    print('added source: {}'.format(src))
 
 
 def main():
@@ -17,9 +21,15 @@ def main():
     subparsers = parser.add_subparsers()
     parser.add_argument('--version', action='version', version='2.0.0')
 
-    # action: build
-    build_parser = subparsers.add_parser('source-list')
-    build_parser.set_defaults(func=lambda args: source_list())
+    # list-sources
+    list_sources_parser = subparsers.add_parser('list-sources')
+    list_sources_parser.set_defaults(func=lambda args: list_sources())
+
+    # add-source [src]
+    add_source_parser = subparsers.add_parser('add-source')
+    add_source_parser.add_argument('src')
+    add_source_parser.set_defaults(func=lambda args: add_source(args.src))
+
 
     args = parser.parse_args()
     if 'func' in vars(args):

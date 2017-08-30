@@ -13,7 +13,7 @@ class Source(object):
         self.__url = url
 
         # compute the relative path for this source
-        rel_path = rel_path.replace('https://', '')
+        rel_path = url.replace('https://', '')
         rel_path = rel_path.replace('/', '_')
         rel_path = rel_path.replace('.', '_')
         self.__rel_path = rel_path
@@ -64,7 +64,7 @@ class Source(object):
         """
         Returns the absolute path to this source.
         """
-        return os.path.join(RepairBox.sources.path, self.rel_path)
+        return os.path.join(self.manager.path, self.rel_path)
 
 
 class SourceManager(object):
@@ -99,12 +99,13 @@ class SourceManager(object):
             srcs = json.load(f)
 
         assert isinstance(srcs, list)
-        self.__sources = {s: Source(s) for s in srcs}
+        self.__sources = {s: Source(self, s) for s in srcs}
         
 
     def __write(self) -> None:
         with open(self.__manifest_fn, 'w') as f:
-            json.dump(self.__sources.keys(), f, indent=2)
+            srcs = list(self.__sources.keys())
+            json.dump(srcs, f, indent=2)
 
 
     def add(self, src: str) -> None:
@@ -115,7 +116,7 @@ class SourceManager(object):
         if src in self.__sources:
             raise Exception("source already exists: {}".format(src)) # TODO custom Error
 
-        src = Source(src)
+        src = Source(self, src)
         src.download()
 
         # update the sources file
