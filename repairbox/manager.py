@@ -7,7 +7,7 @@ import sources
 # source add https://github.com/ChrisTimperley/ManyBugs
 # source remove [s]
 
-class RepairBox(object):
+class RepairBoxManager(object):
 
     @staticmethod
     def load():
@@ -18,14 +18,16 @@ class RepairBox(object):
         if not os.path.exists(path): # ensure dir exists
             os.makedirs(path)
 
-        box = RepairBox(path)
+        mgr = RepairBoxManager(path)
+
+        return mgr
         
-        box.sources.load()
+        # box.sources.load()
 
 
-    def __init__(self, location: str) -> None:
+    def __init__(self, path: str) -> None:
         self.__path = path
-        self.__sources = SourceManager()
+        self.__sources = sources.SourceManager(self)
 
 
     @property
@@ -41,4 +43,4 @@ class RepairBox(object):
         return self.__sources
 
 
-RepairBox = RepairBox.load()
+RepairBoxManager = RepairBoxManager.load()

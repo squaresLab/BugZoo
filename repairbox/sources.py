@@ -2,12 +2,14 @@ import os
 import git
 import json
 import shutil
+import manager
 
 from typing import List
 
 
 class Source(object):
-    def __init__(self, url: str) -> None:
+    def __init__(self, manager: 'SourceManager', url: str) -> None:
+        self.__manager = manager
         self.__url = url
 
         # compute the relative path for this source
@@ -39,6 +41,10 @@ class Source(object):
         """
         shutil.rmtree(self.abs_path)
 
+    @property
+    def manager(self) -> 'SourceManager':
+        return self.__manager
+        
 
     @property
     def url(self) -> str:
@@ -69,14 +75,18 @@ class SourceManager(object):
         __sources_filename (str):
         __sources (dict of str to str):
     """
-    def __init__(self):
-        self.__path = os.path.join(RepairBox.path, 'sources')
+    def __init__(self, manager: 'manager.RepairBoxManager') -> None:
+        self.__path = os.path.join(manager.path, 'sources')
         self.__manifest_fn = \
             os.path.join(self.__path, 'sources.manifest.json')
+        self.__sources = {}
 
 
     @property
     def path(self):
+        """
+        The path to the sources directory on disk.
+        """
         return self.__path
 
    
@@ -94,10 +104,13 @@ class SourceManager(object):
 
     def __write(self) -> None:
         with open(self.__manifest_fn, 'w') as f:
-            json.dump(self.__sources, f, indent=2)
+            json.dump(self.__sources.keys(), f, indent=2)
 
 
     def add(self, src: str) -> None:
+        """
+        Adds a new source.
+        """
         assert src != ""
         if src in self.__sources:
             raise Exception("source already exists: {}".format(src)) # TODO custom Error
@@ -111,6 +124,9 @@ class SourceManager(object):
    
 
     def remove(self, src: str) -> None:
+        """
+        Removes an existing source.
+        """
         assert src != ""
         if src not in self.__sources:
             raise Exception("source not found: {}".format(src)) # TODO custom Error
@@ -122,6 +138,9 @@ class SourceManager(object):
 
 
     def update(self) -> None:
+        """
+        Downloads any available updates for all (installed) sources.
+        """
         for src in self.__sources.values():
             src.update()
 

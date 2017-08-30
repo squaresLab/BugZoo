@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import argparse
 
-from manager import RepairBox
+from manager import RepairBoxManager
 
 def source_list():
-    for src in RepairBox.sources.sources:
+    for src in RepairBoxManager.sources.sources:
         print("- {}".format(src.url))
 
 
