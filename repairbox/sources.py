@@ -1,8 +1,64 @@
 import os
 import git
 import json
+import shutil
 
 from typing import List
+
+
+class Source(object):
+    def __init__(self, url: str) -> None:
+        self.__url = url
+
+        # compute the relative path for this source
+        rel_path = rel_path.replace('https://', '')
+        rel_path = rel_path.replace('/', '_')
+        rel_path = rel_path.replace('.', '_')
+        self.__rel_path = rel_path
+
+    
+    def download(self) -> None:
+        """
+        Downloads this source to disk.
+        """
+        if not os.path.exists(self.abs_path):
+            git.Repo.clone_from(self.url, self.abs_path)#, {depth: 1})
+
+
+    def update(self) -> None:
+        """
+        Downloads any updates to the files for this source.
+        """
+        return
+
+
+    def remove(self) -> None:
+        """
+        Removes the files for this source from disk. This should only be called
+        by SourceManager.
+        """
+        shutil.rmtree(self.abs_path)
+
+
+    @property
+    def url(self) -> str:
+        return self.__url
+
+
+    @property
+    def rel_path(self) -> str:
+        """
+        Returns the location of this source, relative to the sources directory.
+        """
+        return self.__rel_path
+
+
+    @property
+    def abs_path(self) -> str:
+        """
+        Returns the absolute path to this source.
+        """
+        return os.path.join(RepairBox.sources.path, self.rel_path)
 
 
 class SourceManager(object):
@@ -13,22 +69,17 @@ class SourceManager(object):
         __sources_filename (str):
         __sources (dict of str to str):
     """
-    def __init__(self, rbox):
-        self.__source_path = os.path.join(rbox.path(), 'sources')
-        self.__manifest_fn = os.path.join(self.__source_path,
-                                          'sources.manifest.json')
-        self.reload()
+    def __init__(self):
+        self.__path = os.path.join(RepairBox.path, 'sources')
+        self.__manifest_fn = \
+            os.path.join(self.__path, 'sources.manifest.json')
 
 
-    def __source_rel_path(self, src: str) -> str:
-        src = src.replace('https://', '')
-        return src.replace('/', '_').replace('.', '_')
+    @property
+    def path(self):
+        return self.__path
 
-    
-    def __source_abs_path(self, src: str) -> str:
-        return os.path.join(self.__source_path, self.__source_rel_path(src))
-
-
+   
     def reload(self) -> None:
         if not os.path.exists(self.__manifest_fn):
             self.__sources = {}
@@ -37,11 +88,8 @@ class SourceManager(object):
         with open(self.__manifest_fn, 'r') as f:
             srcs = json.load(f)
 
-        assert isinstance(srcs, dict)
-        assert all(isinstance(k, str) for k in srcs)
-        assert all(isinstance(v, str) for v in srcs)
-
-        self.__sources = srcs
+        assert isinstance(srcs, list)
+        self.__sources = {s: Source(s) for s in srcs}
         
 
     def __write(self) -> None:
@@ -54,15 +102,11 @@ class SourceManager(object):
         if src in self.__sources:
             raise Exception("source already exists: {}".format(src)) # TODO custom Error
 
-        # generate a path for this source
-        rel_path = self.__source_rel_path(src)
-        abs_path = self.__source_abs_path(src)
-
-        # shallow clone
-        git.Repo.clone_from(src, abs_path)#, {depth: 1})
+        src = Source(src)
+        src.download()
 
         # update the sources file
-        self.__sources[src] = rel_path
+        self.__sources[src.url] = src.rel_path
         self.__write()
    
 
@@ -71,23 +115,17 @@ class SourceManager(object):
         if src not in self.__sources:
             raise Exception("source not found: {}".format(src)) # TODO custom Error
 
-        abs_path = self.__source_abs_path(src)
-        shutil.rmtree(abs_path)
+        self.__sources[src].remove()
         del self.__sources[src]
         self.__write()
 
 
-    def update_source(self, src: str) -> None:
-        """
-        Update the files for a given source.
-        """
-        return
-
 
     def update(self) -> None:
-        for src in self.__sources:
-            self.update_source(src)
+        for src in self.__sources.values():
+            src.update()
 
 
-    def sources(self) -> List[str]:
-        return list(self.__sources.keys())
+    @property
+    def sources(self) -> List[Source]:
+        return self.__sources.values()

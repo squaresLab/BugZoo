@@ -18,23 +18,25 @@ class RepairBox(object):
         if not os.path.exists(path): # ensure dir exists
             os.makedirs(path)
 
-        return RepairBox(path)
+        box = RepairBox(path)
+        
+        box.sources.load()
 
 
     def __init__(self, location: str) -> None:
-        self.__location = location
-        self.__sources = sources.SourceManager(self)
-        self.rescan()
+        self.__path = path
+        self.__sources = SourceManager()
 
 
+    @property
     def path(self):
-        return self.__location
+        return self.__path
 
 
     def rescan(self):
         print("rescanning...")
 
-
+    @property
     def sources(self):
         return self.__sources
 

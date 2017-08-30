@@ -4,8 +4,8 @@ import argparse
 from manager import RepairBox
 
 def source_list():
-    for src in RepairBox.sources().sources():
-        print("- {}".format(src))
+    for src in RepairBox.sources.sources:
+        print("- {}".format(src.url))
 
 
 def main():
