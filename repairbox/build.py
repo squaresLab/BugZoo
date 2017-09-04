@@ -8,14 +8,15 @@ class BuildInstructions(object):
     """
 
     @staticmethod
-    def from_file(fn: str) -> BuildInstructions:
+    def from_file(fn: str) -> 'BuildInstructions':
         with open(fn, 'r') as f:
-            yml = yaml.load(fn)
+            yml = yaml.load(f)
         return BuildInstructions.from_YAML(yml)
 
 
     @staticmethod
-    def from_YAML(yml: dict) -> BuildInstructions:
+    def from_YAML(yml: dict) -> 'BuildInstructions':
+        yml = yml['docker']
         tag = yml['tag']
         context = yml.get('context', '.')
         filename = yml['file']
