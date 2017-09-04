@@ -10,7 +10,7 @@ class BuildInstructions(object):
     @staticmethod
     def fromYAML(yml: dict) -> BuildInstructions:
         tag = yml['tag']
-        context = yml['context']
+        context = yml.get('context', '.')
         filename = yml['file']
         arguments = yml.get('arguments', {})
 
@@ -42,6 +42,7 @@ class BuildInstructions(object):
     @property
     def arguments(self):
         return copy.copy(self.__arguments)
+
 
     def build(self, tag):
         client.images.build(X, \
