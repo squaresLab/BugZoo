@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-from manager import RepairBoxManager
+from repairbox.manager import RepairBoxManager
 
 def list_sources() -> None:
     for src in RepairBoxManager.sources.sources:
@@ -15,6 +15,11 @@ def add_source(src: str) -> None:
 def main():
     #with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
     #    desc = f.read()
+
+    src = RepairBoxManager.sources['https://github.com/squaresLab/ardubugs']
+    bug = src.bugs['ardubugs:copter:027552e']
+    bug.build()
+
     desc = ':-)'
     parser = argparse.ArgumentParser(description=desc,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)

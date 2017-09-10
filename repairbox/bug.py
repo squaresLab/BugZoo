@@ -1,5 +1,8 @@
+import yaml
 import docker
 import copy
+
+from repairbox.build import BuildInstructions
 
 
 class Bug(object):
@@ -12,24 +15,34 @@ class Bug(object):
             belongs.
     """
 
-    def fromYAML(yml: dict) -> Bug:
+    def from_file(source: 'repairbox.manager.Source', fn: str) -> 'Bug':
         """
-        Generates a Bug object from its YAML description.
+        Loads a bug from its YAML manifest file.
         """
+        with open(fn, 'r') as f:
+            yml = yaml.load(f)
+
         name = yml['bug']
         dataset = yml['dataset']
         program = yml.get('program', None)
 
         # build the test harness
-        # harness = TestHarness.fromYAML(yml['test-harness'])
+        # harness = TestHarness.from_yaml(fn, yml['test-harness'])
 
         # docker build instructions
-        build_instructions = BuildInstructions.fromYAML(yml['docker'])
+        build_instructions = {'docker': yml['docker']}
+        build_instructions = \
+            BuildInstructions.from_yaml(source, fn, build_instructions)
 
-        return Bug(name, dataset, program)
+        return Bug(source, name, dataset, program, build_instructions)
 
 
-    def __init__(self, name: str, dataset: str, program: str) -> None:
+    def __init__(self,
+                 source: 'repairbox.manager.Source',
+                 name: str,
+                 dataset: str,
+                 program: str,
+                 build_instructions: BuildInstructions) -> None:
         assert name != ""
         assert dataset != ""
         assert program != ""
@@ -37,19 +50,22 @@ class Bug(object):
         self.__name = name
         self.__dataset = dataset
         self.__program = program
+        self.__build_instructions = build_instructions
 
 
+    @property
     def installed(self) -> bool:
         """
         Returns true if the Docker image for this bug is installed onto the
         local machine.
         """
-        return False
+        return self.__build_instructions.installed
 
 
-    def image(self) -> str:
+    @property
+    def identifier(self) -> str:
         """
-        Returns the fully-qualified name of the Docker image used by this bug.
+        Returns the fully-qualified name of this bug.
         """
         if self.__program:
             return "{}:{}:{}".format(self.__dataset, self.__program, self.__name)
@@ -57,7 +73,7 @@ class Bug(object):
 
 
     def build(self, force=False) -> None:
-        pass
+        self.__build_instructions.build(force=force)
 
 
     def download(self, force=False) -> None:

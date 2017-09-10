@@ -1,3 +1,2 @@
-import sources
-import manager
-import cli
+import repairbox.manager
+import repairbox.cli

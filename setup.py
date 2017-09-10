@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from setuptools import setup
 
 setup(
@@ -10,7 +10,7 @@ setup(
     author_email='christimperley@gmail.com',
     url='https://github.com/squaresLab/RepairBox',
     license='mit',
-    install_requires=['docker'],
+    install_requires=['docker', 'GitPython'],
     packages=['repairbox'],
     entry_points = {
         'console_scripts': [ 'repairbox = repairbox.cli:main' ]
