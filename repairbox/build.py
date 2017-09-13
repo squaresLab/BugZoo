@@ -28,8 +28,6 @@ class BuildInstructions(object):
         arguments = yml.get('arguments', {})
         depends_on = yml.get('depends-on', None)
 
-        print(root)
-
         return BuildInstructions(src, root, tag, context, filename, arguments, depends_on)
 
 

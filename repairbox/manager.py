@@ -83,9 +83,7 @@ class Source(object):
         
         # find all bugs
         fns = '{}/**/*.bug.yaml'.format(self.abs_path)
-        print("scanning bugs...")
         for fn in glob.iglob(fns, recursive=True):
-            print("loading bug: {}".format(fn))
             bug = Bug.from_file(self, fn)
             self.__bugs[bug.identifier] = bug
 
@@ -94,7 +92,11 @@ class Source(object):
         """
         Downloads any updates to the files for this source.
         """
-        return
+        repo = git.Repo(self.abs_path)
+        origin = repo.remotes.origin
+        origin.pull()
+        del repo
+        self.scan()
 
 
     def remove(self) -> None:

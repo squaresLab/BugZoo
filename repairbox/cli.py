@@ -7,9 +7,15 @@ def list_sources() -> None:
     for src in RepairBoxManager.sources.sources:
         print("- {}".format(src.url))
 
+
 def add_source(src: str) -> None:
     RepairBoxManager.sources.add(src)
     print('added source: {}'.format(src))
+
+
+def update_sources() -> None:
+    print('updating sources...')
+    RepairBoxManager.sources.update()
 
 
 def main():
@@ -17,9 +23,9 @@ def main():
     #    desc = f.read()
 
     src = RepairBoxManager.sources['https://github.com/squaresLab/ardubugs']
-    bug = src.bugs['ardubugs:copter:027552e']
-    bug.uninstall(force=True)
-    bug.build()
+    # bug = src.bugs['ardubugs:copter:027552e']
+    # bug.uninstall(force=True)
+    # bug.build()
 
     desc = ':-)'
     parser = argparse.ArgumentParser(description=desc,
@@ -35,6 +41,10 @@ def main():
     add_source_parser = subparsers.add_parser('add-source')
     add_source_parser.add_argument('src')
     add_source_parser.set_defaults(func=lambda args: add_source(args.src))
+
+    # update-sources
+    update_sources_parser = subparsers.add_parser('update-sources')
+    update_sources_parser.set_defaults(func=lambda args: update_sources())
 
 
     args = parser.parse_args()

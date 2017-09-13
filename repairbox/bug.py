@@ -62,7 +62,6 @@ class Bug(object):
         Returns true if the Docker image for this bug is installed onto the
         local machine.
         """
-        print(self.__build_instructions)
         return self.__build_instructions.installed
 
 
