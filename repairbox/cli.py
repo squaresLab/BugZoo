@@ -35,12 +35,14 @@ def launch(name: str) -> None:
 
 
 def list_bugs() -> None:
-    tbl = [['Bug', 'Dataset', 'Source', 'Installed?']]
+    tbl = []
+    hdrs = ['Bug', 'Dataset', 'Source', 'Installed?']
     for bug in RepairBoxManager.bugs:
         installed = 'Yes' if bug.installed else 'No'
         row = [bug.identifier, bug.dataset, bug.source.url, installed]
         tbl.append(row)
-    tbl = tabulate.tabulate(tbl)
+    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
+    print('')
     print(tbl)
 
 
