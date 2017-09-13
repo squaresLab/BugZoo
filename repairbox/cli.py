@@ -18,6 +18,12 @@ def update_sources() -> None:
     RepairBoxManager.sources.update()
 
 
+def install_bug(name: str) -> None:
+    print('installing bug: {}'.format(name))
+    bug = RepairBoxManager.bugs[name]
+    bug.install()
+
+
 def main():
     #with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
     #    desc = f.read()
@@ -41,6 +47,11 @@ def main():
     add_source_parser = subparsers.add_parser('add-source')
     add_source_parser.add_argument('src')
     add_source_parser.set_defaults(func=lambda args: add_source(args.src))
+
+    # install-bug [src]
+    install_bug_parser = subparsers.add_parser('install-bug')
+    install_bug_parser.add_argument('bug')
+    install_bug_parser.set_defaults(func=lambda args: install_bug(args.bug))
 
     # update-sources
     update_sources_parser = subparsers.add_parser('update-sources')

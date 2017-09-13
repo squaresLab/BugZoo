@@ -9,10 +9,6 @@ from typing import List
 from repairbox.build import BuildInstructions
 from repairbox.bug import Bug
 
-# source list
-# source update [s]
-# source add https://github.com/ChrisTimperley/ManyBugs
-# source remove [s]
 
 class RepairBoxManager(object):
 
@@ -33,6 +29,7 @@ class RepairBoxManager(object):
     def __init__(self, path: str) -> None:
         self.__path = path
         self.__sources = SourceManager(self)
+        self.__bugs = BugManager(self)
 
 
     @property
@@ -47,6 +44,11 @@ class RepairBoxManager(object):
     @property
     def sources(self):
         return self.__sources
+
+    
+    @property
+    def bugs(self):
+        return self.__bugs
 
 
 class Source(object):
@@ -106,7 +108,19 @@ class Source(object):
         """
         shutil.rmtree(self.abs_path)
 
-    
+
+    def contains(self, identifier: str) -> None:
+        """
+        Checks whether a bug with a given identifier is provided by this
+        source.
+        """
+        return identifier in self.__bugs
+
+
+    def __getitem__(self, key):
+        return self.__bugs[key]
+
+
     @property
     def bugs(self):
         return copy.copy(self.__bugs)
@@ -230,6 +244,18 @@ class SourceManager(object):
     def __getitem__(self, key):
         return self.__sources[key]
 
+
+class BugManager(object):
+    def __init__(self, manager):
+        self.__manager = manager
+
+
+    def __getitem__(self, name):
+        for src in self.__manager.sources.sources:
+            if src.contains(name):
+                return src[name]
+        raise IndexError('bug not found: {}'.format(name))
+ 
 
 # not sure about this...
 RepairBoxManager = RepairBoxManager.load()
