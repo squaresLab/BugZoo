@@ -137,6 +137,7 @@ class BuildInstructions(object):
         try:
             shutil.copy(self.file_abs, tf)
             client = docker.from_env()
+            print("Tag: {}".format(self.tag))
             client.images.build(path=self.abs_context,
                                 dockerfile='.Dockerfile',
                                 tag=self.tag,

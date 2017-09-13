@@ -91,4 +91,5 @@ class Bug(object):
 
 
     def install(self, upgrade=False) -> None:
-        pass
+        # TODO: attempt to download before trying to build
+        self.build(force=upgrade)
