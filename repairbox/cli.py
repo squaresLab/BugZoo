@@ -18,6 +18,7 @@ def main():
 
     src = RepairBoxManager.sources['https://github.com/squaresLab/ardubugs']
     bug = src.bugs['ardubugs:copter:027552e']
+    bug.uninstall(force=True)
     bug.build()
 
     desc = ':-)'

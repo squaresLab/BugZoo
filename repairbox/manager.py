@@ -85,7 +85,7 @@ class Source(object):
         fns = '{}/**/*.bug.yaml'.format(self.abs_path)
         print("scanning bugs...")
         for fn in glob.iglob(fns, recursive=True):
-            print("building bug: {}".format(fn))
+            print("loading bug: {}".format(fn))
             bug = Bug.from_file(self, fn)
             self.__bugs[bug.identifier] = bug
 

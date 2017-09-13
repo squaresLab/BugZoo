@@ -1,3 +1,4 @@
+import os
 import yaml
 import docker
 import copy
@@ -32,7 +33,9 @@ class Bug(object):
         # docker build instructions
         build_instructions = {'docker': yml['docker']}
         build_instructions = \
-            BuildInstructions.from_yaml(source, fn, build_instructions)
+            BuildInstructions.from_yaml(source,
+                                        os.path.dirname(fn),
+                                        build_instructions)
 
         return Bug(source, name, dataset, program, build_instructions)
 
@@ -59,6 +62,7 @@ class Bug(object):
         Returns true if the Docker image for this bug is installed onto the
         local machine.
         """
+        print(self.__build_instructions)
         return self.__build_instructions.installed
 
 
@@ -74,6 +78,13 @@ class Bug(object):
 
     def build(self, force=False) -> None:
         self.__build_instructions.build(force=force)
+
+
+    def uninstall(self, force=False, noprune=False) -> None:
+        """
+        Uninstalls all Docker images associated with this bug.
+        """
+        self.__build_instructions.uninstall(force=force, noprune=noprune)
 
 
     def download(self, force=False) -> None:
