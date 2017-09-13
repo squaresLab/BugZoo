@@ -54,6 +54,17 @@ class Bug(object):
         self.__dataset = dataset
         self.__program = program
         self.__build_instructions = build_instructions
+        self.__source = source
+
+
+    @property
+    def source(self) -> 'Source':
+        return self.__source
+
+
+    @property
+    def dataset(self) -> str:
+        return self.__dataset
 
 
     @property
@@ -64,11 +75,19 @@ class Bug(object):
         """
         return self.__build_instructions.installed
 
+    
+    @property
+    def image(self) -> str:
+        """
+        The name of the Docker image for this bug.
+        """
+        return self.__build_instructions.tag
+
 
     @property
     def identifier(self) -> str:
         """
-        Returns the fully-qualified name of this bug.
+        The fully-qualified name of this bug.
         """
         if self.__program:
             return "{}:{}:{}".format(self.__dataset, self.__program, self.__name)
@@ -93,3 +112,8 @@ class Bug(object):
     def install(self, upgrade=False) -> None:
         # TODO: attempt to download before trying to build
         self.build(force=upgrade)
+
+
+    def launch(self) -> None:
+        client = docker.from_env()
+        return client.containers.run(self.image, detach=True)

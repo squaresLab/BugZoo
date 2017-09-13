@@ -122,8 +122,8 @@ class Source(object):
 
 
     @property
-    def bugs(self):
-        return copy.copy(self.__bugs)
+    def bugs(self) -> List[Bug]:
+        return list(self.__bugs.values())
 
     
     @property
@@ -246,6 +246,22 @@ class SourceManager(object):
 
 
 class BugManager(object):
+    class BugIterator(object):
+        def __init__(self, sources):
+            self.__sources = list(sources)
+            self.__bugs = []
+
+        
+        def __next__(self):
+            if not self.__bugs:
+                if not self.__sources:
+                    raise StopIteration
+                src = self.__sources.pop()
+                bugs = src.bugs
+                self.__bugs += bugs
+            return self.__bugs.pop()
+
+
     def __init__(self, manager):
         self.__manager = manager
 
@@ -255,6 +271,10 @@ class BugManager(object):
             if src.contains(name):
                 return src[name]
         raise IndexError('bug not found: {}'.format(name))
+
+    
+    def __iter__(self):
+        return BugManager.BugIterator(self.__manager.sources.sources)
  
 
 # not sure about this...

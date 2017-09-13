@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import tabulate
 
 from repairbox.manager import RepairBoxManager
 
@@ -22,6 +23,25 @@ def install_bug(name: str) -> None:
     print('installing bug: {}'.format(name))
     bug = RepairBoxManager.bugs[name]
     bug.install()
+
+
+def launch(name: str) -> None:
+    bug = RepairBoxManager.bugs[name]
+    bug.install()
+    try:
+        container = bug.launch()
+    finally:
+        container.remove(force=True)
+
+
+def list_bugs() -> None:
+    tbl = [['Bug', 'Dataset', 'Source', 'Installed?']]
+    for bug in RepairBoxManager.bugs:
+        installed = 'Yes' if bug.installed else 'No'
+        row = [bug.identifier, bug.dataset, bug.source.url, installed]
+        tbl.append(row)
+    tbl = tabulate.tabulate(tbl)
+    print(tbl)
 
 
 def main():
@@ -52,6 +72,10 @@ def main():
     install_bug_parser = subparsers.add_parser('install-bug')
     install_bug_parser.add_argument('bug')
     install_bug_parser.set_defaults(func=lambda args: install_bug(args.bug))
+
+    # list-bugs
+    list_bugs_parser = subparsers.add_parser('list-bugs')
+    list_bugs_parser.set_defaults(func=lambda args: list_bugs())
 
     # update-sources
     update_sources_parser = subparsers.add_parser('update-sources')
