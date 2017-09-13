@@ -1,18 +1,51 @@
 import docker
 
+
 class CompilationOutcome(object):
     pass
 
 
 class BugContainer(object):
-    
-
-    def __init__(self, bug):
+    def __init__(self, bug: 'Bug') -> None:
+        """
+        Constructs a container for a given bug.
+        """
         self.__bug = bug
-        self.__container = None
-        pass
 
-    
+        # construct a Docker container for this bug
+        client = docker.from_env()
+        self.__container = \
+            client.containers.run(bug.image,
+                                  '/bin/bash',
+                                  stdin_open=True,
+                                  detach=True)
+
+    def destroy(self):
+        if self.__container:
+            self.__container.remove(force=True)
+
+
+    @property
+    def bug(self):
+        """
+        The bug inside this container.
+        """
+        return self.__bug
+
+
+    @property
+    def container(self):
+        """
+        The Docker container underlying this proxy.
+        """
+        return self.__container
+
+
+    @property
+    def alive(self):
+        return self.__container is not None
+
+
     def reset(self):
         """
         Resets the state of this bug container.

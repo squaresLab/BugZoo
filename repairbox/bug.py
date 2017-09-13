@@ -4,6 +4,7 @@ import docker
 import copy
 
 from repairbox.build import BuildInstructions
+from repairbox.container import BugContainer
 
 
 class Bug(object):
@@ -114,6 +115,5 @@ class Bug(object):
         self.build(force=upgrade)
 
 
-    def launch(self) -> None:
-        client = docker.from_env()
-        return client.containers.run(self.image, detach=True)
+    def provision(self) -> None:
+        return BugContainer(self)

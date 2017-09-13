@@ -75,6 +75,11 @@ def main():
     install_bug_parser.add_argument('bug')
     install_bug_parser.set_defaults(func=lambda args: install_bug(args.bug))
 
+    # launch [src]
+    launch_parser = subparsers.add_parser('launch')
+    launch_parser.add_argument('bug')
+    launch_parser.set_defaults(func=lambda args: launch(args.bug))
+
     # list-bugs
     list_bugs_parser = subparsers.add_parser('list-bugs')
     list_bugs_parser.set_defaults(func=lambda args: list_bugs())
