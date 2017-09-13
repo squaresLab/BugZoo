@@ -71,8 +71,16 @@ class BugContainer(object):
         pass
 
 
-    def compile(self, mode='default'):
-        pass
+    def compile(self, mode='default', verbose=True):
+        """
+        Attempts to compile the program inside this container.
+
+        TODO: check for failure
+        """
+        cmd = '/bin/bash -c "cd {} && {}"'.format(self.bug.compilation_instructions.context,
+                                                  self.bug.compilation_instructions.command)
+        out = self.__container.exec_run(cmd=cmd, stdout=verbose, stderr=verbose)
+        return True
 
     
     def execute(self, test):

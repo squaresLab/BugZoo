@@ -7,6 +7,28 @@ from repairbox.build import BuildInstructions
 from repairbox.container import BugContainer
 
 
+class CompilationInstructions(object):
+    @staticmethod
+    def from_yaml(yml: dict) -> 'CompilationInstructions':
+        return CompilationInstructions(yml['context'],
+                                       yml['command'])
+
+
+    def __init__(self, context: str, command: str) -> None:
+        self.__context = context
+        self.__command = command
+
+
+    @property
+    def context(self):
+        return self.__context
+
+
+    @property
+    def command(self):
+        return self.__command
+
+
 class Bug(object):
     """
 
@@ -31,6 +53,13 @@ class Bug(object):
         # build the test harness
         # harness = TestHarness.from_yaml(fn, yml['test-harness'])
 
+        # compilation instructions
+        if not 'compilation' in yml:
+            raise Exception('No compilation instructions provided for bug: {}'.format(name))
+
+        compilation_instructions = \
+            CompilationInstructions.from_yaml(yml['compilation'])
+
         # docker build instructions
         build_instructions = {'docker': yml['docker']}
         build_instructions = \
@@ -38,7 +67,12 @@ class Bug(object):
                                         os.path.dirname(fn),
                                         build_instructions)
 
-        return Bug(source, name, dataset, program, build_instructions)
+        return Bug(source,
+                   name,
+                   dataset,
+                   program,
+                   build_instructions,
+                   compilation_instructions)
 
 
     def __init__(self,
@@ -46,7 +80,8 @@ class Bug(object):
                  name: str,
                  dataset: str,
                  program: str,
-                 build_instructions: BuildInstructions) -> None:
+                 build_instructions: BuildInstructions,
+                 compilation_instructions: CompilationInstructions) -> None:
         assert name != ""
         assert dataset != ""
         assert program != ""
@@ -55,7 +90,13 @@ class Bug(object):
         self.__dataset = dataset
         self.__program = program
         self.__build_instructions = build_instructions
+        self.__compilation_instructions = compilation_instructions
         self.__source = source
+
+
+    @property
+    def compilation_instructions(self):
+        return self.__compilation_instructions
 
 
     @property

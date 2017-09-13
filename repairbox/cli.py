@@ -50,11 +50,6 @@ def main():
     #with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
     #    desc = f.read()
 
-    src = RepairBoxManager.sources['https://github.com/squaresLab/ardubugs']
-    # bug = src.bugs['ardubugs:copter:027552e']
-    # bug.uninstall(force=True)
-    # bug.build()
-
     desc = ':-)'
     parser = argparse.ArgumentParser(description=desc,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)

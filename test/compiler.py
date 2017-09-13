@@ -5,5 +5,6 @@ bug = RepairBoxManager.bugs['ardubugs:copter:4147825']
 bug.install()
 try:
     container = bug.provision()
+    container.compile()
 finally:
     container.destroy()
