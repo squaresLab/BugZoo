@@ -71,16 +71,24 @@ class BugContainer(object):
         pass
 
 
+    def execute_command(self, cmd, context='/', stdout=True, stderr=False):
+        """
+
+        TODO: return more information?
+        """
+        cmd = '/bin/bash -c "cd {} && {}"'.format(context, cmd)
+        out = self.__container.exec_run(cmd=cmd, stdout=stdout, stderr=stderr)
+        return out
+
+
     def compile(self, mode='default', verbose=True):
         """
         Attempts to compile the program inside this container.
 
         TODO: check for failure
         """
-        cmd = '/bin/bash -c "cd {} && {}"'.format(self.bug.compilation_instructions.context,
-                                                  self.bug.compilation_instructions.command)
-        out = self.__container.exec_run(cmd=cmd, stdout=verbose, stderr=verbose)
-        return True
+        return self.execute_command(self.bug.compilation_instructions.command,
+                                    context=self.bug.compilation_instructions.context)
 
     
     def execute(self, test):
@@ -88,4 +96,4 @@ class BugContainer(object):
         Executes a given test inside this container and returns the result of
         that execution.
         """
-        pass
+        cmd = 
