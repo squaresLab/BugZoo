@@ -14,6 +14,11 @@ def add_source(src: str) -> None:
     print('added source: {}'.format(src))
 
 
+def remove_source(src: str) -> None:
+    RepairBoxManager.sources.remove(src)
+    print('removed source: {}'.format(src))
+
+
 def update_sources() -> None:
     print('updating sources...')
     RepairBoxManager.sources.update()
@@ -64,6 +69,11 @@ def main():
     add_source_parser = subparsers.add_parser('add-source')
     add_source_parser.add_argument('src')
     add_source_parser.set_defaults(func=lambda args: add_source(args.src))
+
+    # remove-source [src]
+    remove_source_parser = subparsers.add_parser('remove-source')
+    remove_source_parser.add_argument('src')
+    remove_source_parser.set_defaults(func=lambda args: remove_source(args.src))
 
     # install-bug [src]
     install_bug_parser = subparsers.add_parser('install-bug')

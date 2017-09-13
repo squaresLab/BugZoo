@@ -96,4 +96,4 @@ class BugContainer(object):
         Executes a given test inside this container and returns the result of
         that execution.
         """
-        cmd = 
+        cmd = ''

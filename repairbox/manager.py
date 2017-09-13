@@ -106,6 +106,9 @@ class Source(object):
         Removes the files for this source from disk. This should only be called
         by SourceManager.
         """
+        for bug in self.bugs:
+            bug.uninstall(force=True)
+            
         shutil.rmtree(self.abs_path)
 
 
