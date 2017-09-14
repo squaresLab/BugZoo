@@ -1,7 +1,7 @@
 class TestHarness(object):
     
     @staticmethod
-    def fromYAML(yml: dict) -> TestHarness:
+    def from_yaml(yml: dict) -> 'TestHarness':
         """
         Constructs a test harness from its YAML-based (i.e., dictionary)
         description.
@@ -9,7 +9,7 @@ class TestHarness(object):
         typ = yml['type']
         # route based on type
         if typ == 'genprog':
-            return GenProgTestHarness.fromYAML(yml)
+            return GenProgTestHarness.from_yaml(yml)
 
         raise Exception("unexpected test harness type: {}".format(typ))
 
@@ -24,7 +24,7 @@ class GenProgTestHarness(TestHarness):
         return GenProgTestHarness(passing, failing, time_limit, command)
 
 
-    def __init___(self, passing: int, failing: int, time_limit: float, command: str) -> None:
+    def __init__(self, passing, failing, time_limit, command):
         assert time_limit > 0
         assert passing >= 0
         assert failing > 0
@@ -49,6 +49,14 @@ class GenProgTestHarness(TestHarness):
         The number of failing tests in the test suite.
         """
         return self.__failing
+
+    
+    @property
+    def time_limit(self):
+        """
+        The time limit on individual test case executions.
+        """
+        return self.__time_limit
 
 
 class Test(object):

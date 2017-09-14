@@ -5,6 +5,7 @@ import copy
 
 from repairbox.build import BuildInstructions
 from repairbox.container import BugContainer
+from repairbox.test import TestHarness
 
 
 class CompilationInstructions(object):
@@ -51,7 +52,7 @@ class Bug(object):
         program = yml.get('program', None)
 
         # build the test harness
-        # harness = TestHarness.from_yaml(fn, yml['test-harness'])
+        harness = TestHarness.from_yaml(yml['test-harness'])
 
         # compilation instructions
         if not 'compilation' in yml:
