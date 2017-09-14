@@ -1,5 +1,7 @@
 import docker
 
+from timeit import default_timer as timer
+
 
 class CompilationOutcome(object):
     pass
@@ -74,11 +76,23 @@ class BugContainer(object):
     def execute_command(self, cmd, context='/', stdout=True, stderr=False):
         """
 
-        TODO: return more information?
+        Returns a tuple containing the exit code, execution duration, and
+        output, respectively.
         """
         cmd = '/bin/bash -c "cd {} && {}"'.format(context, cmd)
-        out = self.__container.exec_run(cmd=cmd, stdout=stdout, stderr=stderr)
-        return out
+
+        # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
+        client = docker.from_env()
+        response = client.api.exec_create(self.__container, cmd, stdout=stdout, stderr=stderr)
+
+        start_time = timer()
+        out = self.client.api.exec_start(response['Id'], stream=False)
+        end_time = timer()
+        duration = end_time - start_time
+
+        code = self.client.api.exec_inspect(resp['Id'])['ExitCode']
+
+        return (code, duration, out)
 
 
     def compile(self, mode='default', verbose=True):
@@ -96,4 +110,8 @@ class BugContainer(object):
         Executes a given test inside this container and returns the result of
         that execution.
         """
-        cmd = ''
+        cmd = './test.sh p1'
+        ctx = '/experiment/source'
+        (code, duration, out) = self.execute_command(cmd, ctx)
+        passed = code == 0
+        return TestOutcome(passed, duration)
