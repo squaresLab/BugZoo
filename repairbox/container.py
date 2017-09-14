@@ -125,7 +125,7 @@ class BugContainer(object):
 
         code = self.client.api.exec_inspect(resp['Id'])['ExitCode']
 
-        return (code, duration, out)
+        return ExecResponse(code, duration, out)
 
 
     def compile(self, mode='default', verbose=True):
@@ -145,6 +145,6 @@ class BugContainer(object):
         """
         cmd = './test.sh p1'
         ctx = '/experiment/source'
-        (code, duration, out) = self.execute_command(cmd, ctx)
-        passed = code == 0
-        return TestOutcome(passed, duration)
+        response = self.execute_command(cmd, ctx)
+        passed = response.code == 0
+        return TestOutcome(passed, response.duration)
