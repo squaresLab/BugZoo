@@ -6,6 +6,39 @@ from timeit import default_timer as timer
 class CompilationOutcome(object):
     pass
 
+class ExecResponse(object):
+    """
+    Used to hold the response from a command execution.
+    """
+    def __init__(self, code: int, duration: float, output: str) -> None:
+        self.__code = code
+        self.__duration = duration
+        self.__output = output
+
+
+    @property
+    def code(self) -> int:
+        """
+        The exit code of the execution.
+        """
+        return self.__code
+
+
+    @property
+    def duration(self) -> float:
+        """
+        The length of time taken to complete the execution.
+        """
+        return self.__duration
+
+
+    @property
+    def output(self) -> str:
+        """
+        The output of the execution.
+        """
+        return self.__output
+
 
 class BugContainer(object):
     def __init__(self, bug: 'Bug') -> None:
