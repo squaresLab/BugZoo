@@ -63,3 +63,34 @@ class Test(object):
     
     def __init__(self, identifier):
         self.__identifier = identifier
+
+
+class TestOutcome(object):
+
+    def __init__(self, passed, duration):
+        self.__passed = passed
+        self.__duration = duration
+
+
+    @property
+    def passed(self):
+        """
+        Flag indicating whether the test execution was successful.
+        """
+        return self.__passed
+
+    
+    @property
+    def failed(self):
+        """
+        Flag indicating whether the test execution failed.
+        """
+        return self.__failed
+
+
+    @property
+    def duration(self) -> float:
+        """
+        Returns the duration of the test execution, measured in seconds.
+        """
+        return self.__duration
