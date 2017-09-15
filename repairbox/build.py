@@ -25,7 +25,7 @@ class BuildInstructions(object):
         tag = yml['tag']
         context = yml.get('context', '.')
         filename = yml.get('file', 'Dockerfile')
-        arguments = yml.get('arguments', {})
+        arguments = yml.get('build-arguments', {})
         depends_on = yml.get('depends-on', None)
 
         return BuildInstructions(src, root, tag, context, filename, arguments, depends_on)

@@ -103,6 +103,11 @@ class SimpleTestHarness(TestHarness):
         super().__init__(tests)
 
 
+    def command(self, test):
+        cmd = self.__command.replace('__ID__', test.identifier, 1)
+        return (cmd, self.__context)
+
+
 class GenProgTestHarness(SimpleTestHarness):
     @staticmethod
     def from_yaml(yml: dict) -> 'GenProgTestHarness':
@@ -110,7 +115,7 @@ class GenProgTestHarness(SimpleTestHarness):
         failing = yml['failing']
         time_limit = yml['time-limit']
         command = yml.get('command', './test.sh __ID__')
-        context = yml.get('context', '/experiment/source')
+        context = yml.get('context', '/experiment')
         return GenProgTestHarness(passing, failing, time_limit, command, context)
 
 
@@ -122,8 +127,8 @@ class GenProgTestHarness(SimpleTestHarness):
         self.__passing = passing
         self.__failing = failing
 
-        tests = ["p{}".format(n) for n in passing] + \
-                ["n{}".format(n) for n in failing]
+        tests = ["p{}".format(n) for n in range(1, passing + 1)] + \
+                ["n{}".format(n) for n in range(1, failing + 1)]
         super().__init__(command, context, time_limit, tests)
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from repairbox.manager import RepairBoxManager
 
-bug = RepairBoxManager.bugs['ardubugs:copter:4147825']
+bug = RepairBoxManager.bugs['manybugs:python:69223-69224']
 bug.install()
 try:
     container = bug.provision()
@@ -12,6 +12,7 @@ try:
     print(test)
 
     outcome = container.execute(tests[0])
-    print(outcome)
+    passed = "Yes" if outcome.passed else "No"
+    print("Passed: {}".format(passed))
 finally:
     container.destroy()

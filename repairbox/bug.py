@@ -104,6 +104,11 @@ class Bug(object):
 
 
     @property
+    def harness(self):
+        return self.__test_harness
+
+
+    @property
     def tests(self):
         return self.__test_harness.tests
 

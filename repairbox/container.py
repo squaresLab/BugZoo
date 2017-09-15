@@ -145,8 +145,7 @@ class BugContainer(object):
         Executes a given test inside this container and returns the result of
         that execution.
         """
-        cmd = './test.sh p1'
-        ctx = '/experiment/source'
+        (cmd, ctx) = self.__bug.harness.command(test)
         response = self.execute_command(cmd, ctx)
         passed = response.code == 0
         return TestOutcome(passed, response.duration)
