@@ -8,11 +8,13 @@ try:
     container.compile()
 
     tests = bug.tests
-    test = tests[0]
+    test = tests[4]
     print(test)
 
     outcome = container.execute(tests[0])
     passed = "Yes" if outcome.passed else "No"
     print("Passed: {}".format(passed))
+    print("Output:")
+    print(outcome.response.output)
 finally:
     container.destroy()

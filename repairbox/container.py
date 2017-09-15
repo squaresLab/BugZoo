@@ -137,7 +137,8 @@ class BugContainer(object):
         TODO: check for failure
         """
         return self.execute_command(self.bug.compilation_instructions.command,
-                                    context=self.bug.compilation_instructions.context)
+                                    context=self.bug.compilation_instructions.context,
+                                    stderr=True)
 
     
     def execute(self, test):
@@ -146,6 +147,6 @@ class BugContainer(object):
         that execution.
         """
         (cmd, ctx) = self.__bug.harness.command(test)
-        response = self.execute_command(cmd, ctx)
+        response = self.execute_command(cmd, ctx, stderr=True)
         passed = response.code == 0
-        return TestOutcome(passed, response.duration)
+        return TestOutcome(response, passed, response.duration)

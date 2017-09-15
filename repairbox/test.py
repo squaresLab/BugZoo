@@ -22,10 +22,16 @@ class TestCase(object):
 
 class TestOutcome(object):
 
-    def __init__(self, passed, duration):
+    def __init__(self, response, passed, duration):
+        self.__response = response
         self.__passed = passed
         self.__duration = duration
 
+    
+    @property
+    def response(self):
+        return self.__response
+    
 
     @property
     def passed(self):
