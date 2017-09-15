@@ -6,6 +6,7 @@ from timeit import default_timer as timer
 class CompilationOutcome(object):
     pass
 
+
 class ExecResponse(object):
     """
     Used to hold the response from a command execution.
@@ -116,14 +117,14 @@ class BugContainer(object):
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
         client = docker.from_env()
-        response = client.api.exec_create(self.__container, cmd, stdout=stdout, stderr=stderr)
+        response = client.api.exec_create(self.__container.id, cmd, stdout=stdout, stderr=stderr)
 
         start_time = timer()
-        out = self.client.api.exec_start(response['Id'], stream=False)
+        out = client.api.exec_start(response['Id'], stream=False)
         end_time = timer()
         duration = end_time - start_time
 
-        code = self.client.api.exec_inspect(resp['Id'])['ExitCode']
+        code = client.api.exec_inspect(response['Id'])['ExitCode']
 
         return ExecResponse(code, duration, out)
 

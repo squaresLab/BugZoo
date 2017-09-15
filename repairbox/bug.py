@@ -72,6 +72,7 @@ class Bug(object):
                    name,
                    dataset,
                    program,
+                   harness,
                    build_instructions,
                    compilation_instructions)
 
@@ -81,6 +82,7 @@ class Bug(object):
                  name: str,
                  dataset: str,
                  program: str,
+                 harness: TestHarness,
                  build_instructions: BuildInstructions,
                  compilation_instructions: CompilationInstructions) -> None:
         assert name != ""
@@ -90,6 +92,7 @@ class Bug(object):
         self.__name = name
         self.__dataset = dataset
         self.__program = program
+        self.__test_harness = harness
         self.__build_instructions = build_instructions
         self.__compilation_instructions = compilation_instructions
         self.__source = source
@@ -98,6 +101,11 @@ class Bug(object):
     @property
     def compilation_instructions(self):
         return self.__compilation_instructions
+
+
+    @property
+    def tests(self):
+        return self.__test_harness.tests
 
 
     @property

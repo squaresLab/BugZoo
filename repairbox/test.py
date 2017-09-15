@@ -1,5 +1,25 @@
 from typing import List
 
+
+class TestCase(object):
+    def __init__(self, identifier: str) -> None:
+        self.__identifier = identifier
+
+
+    @property
+    def identifier(self):
+        return self.__identifier
+
+    
+    def __repr__(self):
+        return "Test[{}]".format(self.__identifier)
+
+
+    def __eq__(self, other):
+        return  isinstance(other, TestCase) and \
+                other.identifier == self.__identifier
+
+
 class TestHarness(object):
     
     @staticmethod
@@ -16,6 +36,15 @@ class TestHarness(object):
             return SimpleTestHarness.from_yaml(yml)
 
         raise Exception("unexpected test harness type: {}".format(typ))
+
+    
+    def __init__(self, tests):
+        self.__tests = tests
+
+
+    @property
+    def tests(self):
+        return self.__tests[:]
 
 
 class SimpleTestHarness(TestHarness):
@@ -38,28 +67,33 @@ class SimpleTestHarness(TestHarness):
         self.__command = command
         self.__context = context
         self.__time_limit = time_limit
-        self.__tests = tests
+
+        tests = [TestCase(t) for t in tests]
+        super().__init__(tests)
 
 
-class GenProgTestHarness(TestHarness):
+class GenProgTestHarness(SimpleTestHarness):
     @staticmethod
     def from_yaml(yml: dict) -> 'GenProgTestHarness':
         passing = yml['passing']
         failing = yml['failing']
         time_limit = yml['time-limit']
         command = yml.get('command', './test.sh __ID__')
-        return GenProgTestHarness(passing, failing, time_limit, command)
+        context = yml.get('context', '/experiment/source')
+        return GenProgTestHarness(passing, failing, time_limit, command, context)
 
 
-    def __init__(self, passing, failing, time_limit, command):
+    def __init__(self, passing: int, failing: int, time_limit: float, command: str, context: str) -> None:
         assert time_limit > 0
         assert passing >= 0
         assert failing > 0
 
         self.__passing = passing
         self.__failing = failing
-        self.__time_limit = time_limit
-        self.__command = command
+
+        tests = ["p{}".format(n) for n in passing] + \
+                ["n{}".format(n) for n in failing]
+        super().__init__(command, context, time_limit, tests)
 
 
     @property
@@ -84,12 +118,6 @@ class GenProgTestHarness(TestHarness):
         The time limit on individual test case executions.
         """
         return self.__time_limit
-
-
-class Test(object):
-    
-    def __init__(self, identifier):
-        self.__identifier = identifier
 
 
 class TestOutcome(object):
