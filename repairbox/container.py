@@ -1,6 +1,7 @@
 import docker
 
 from timeit import default_timer as timer
+from repairbox.test import TestOutcome
 
 
 class CompilationOutcome(object):
