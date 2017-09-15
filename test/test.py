@@ -11,10 +11,8 @@ try:
     test = tests[4]
     print(test)
 
-    outcome = container.execute(tests[0])
+    outcome = container.execute(test)
     passed = "Yes" if outcome.passed else "No"
     print("Passed: {}".format(passed))
-    print("Output:")
-    print(outcome.response.output)
 finally:
     container.destroy()
