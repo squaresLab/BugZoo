@@ -1,3 +1,5 @@
+from typing import List
+
 class TestHarness(object):
     
     @staticmethod
@@ -10,8 +12,33 @@ class TestHarness(object):
         # route based on type
         if typ == 'genprog':
             return GenProgTestHarness.from_yaml(yml)
+        elif typ == 'simple':
+            return SimpleTestHarness.from_yaml(yml)
 
         raise Exception("unexpected test harness type: {}".format(typ))
+
+
+class SimpleTestHarness(TestHarness):
+    @staticmethod
+    def from_yaml(yml: dict) -> 'SimpleTestHarness':
+        cmd = yml['command']
+        ctx = yml['context']
+        time_limit = yml['time-limit']
+        tests = yml['tests']
+
+        return SimpleTestHarness(cmd, ctx, time_limit, tests)
+
+
+    def __init__(self, command: str, context: str, time_limit: float, tests: List[str]) -> None:
+        assert tests != []
+        assert command != ""
+        assert context != ""
+        assert time_limit > 0
+
+        self.__command = command
+        self.__context = context
+        self.__time_limit = time_limit
+        self.__tests = tests
 
 
 class GenProgTestHarness(TestHarness):
