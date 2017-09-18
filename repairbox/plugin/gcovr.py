@@ -21,7 +21,6 @@ class gcovr(repairbox.plugin.base.Plugin):
         outcome = container.execute(test)
 
         # compute coverage using gcovr
-        container.execute_command('sudo apt-get update && sudo apt-get install -y gcovr')
         response = \
             container.execute_command('gcovr -x -d -r .',
                                       context=container.bug.source_dir)
