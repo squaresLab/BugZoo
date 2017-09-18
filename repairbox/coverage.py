@@ -1,58 +1,5 @@
+from typing import Dict
 import xml.etree.ElementTree as ET
-
-
-class CoverageReport(object):
-    """
-
-    Attributes:
-        __files (dict: str -> FileCoverageReport): a dictionary mapping the
-            names of files contained within this report to their individual
-            coverage reports.
-    """
-    @staticmethod
-    def from_string(s):
-        return CoverageReport.from_xml(ET.fromstring(s))
-
-
-    @staticmethod
-    def from_xml(tree):
-        assert isinstance(tree, ET.ElementTree)
-
-        reports = {}
-        root = tree.getroot()
-        packages = root.find('packages')
-
-        for package in packages.findall('package'):
-            for cls in package.find('classes').findall('class'):
-                fn = cls.attrib['filename']
-                # normalise path
-                lines = cls.find('lines').findall('line')
-                lines = \
-                    {int(l.attrib['number']): int(l.attrib['hits']) for l in lines}
-                reports[fn] = FileCoverageReport(fn, lines)
-
-        return CoverageReport(reports)
-
-
-    def __init__(self, files):
-        assert isinstance(files, dict)
-        assert all(type(k) in [str, unicode] for k in files)
-        assert all(isinstance(v, FileCoverageReport) for v in files.values())
-
-        self.__files = files
-
-
-    def file(self, name):
-        assert type(name) in [str, unicode]
-        assert name != ""
-        return self.__files[name]
-
-
-    def __getitem__(self, lineNo):
-        """
-        Alias for `file`.
-        """
-        return self.file(name)
 
 
 class FileCoverageReport(object):
@@ -85,3 +32,50 @@ class FileCoverageReport(object):
         Alias for `hits`
         """
         return self.hits(lineNo)
+
+
+class CoverageReport(object):
+    """
+
+    Attributes:
+        __files (dict: str -> FileCoverageReport): a dictionary mapping the
+            names of files contained within this report to their individual
+            coverage reports.
+    """
+    @staticmethod
+    def from_string(s) -> 'CoverageReport':
+        root = ET.fromstring(s)
+        return CoverageReport.from_xml(root)
+
+
+    @staticmethod
+    def from_xml(root: ET.Element) -> 'CoverageReport':
+        reports = {}
+        packages = root.find('packages')
+
+        for package in packages.findall('package'):
+            for cls in package.find('classes').findall('class'):
+                fn = cls.attrib['filename']
+                # normalise path
+                lines = cls.find('lines').findall('line')
+                lines = \
+                    {int(l.attrib['number']): int(l.attrib['hits']) for l in lines}
+                reports[fn] = FileCoverageReport(fn, lines)
+
+        return CoverageReport(reports)
+
+
+    def __init__(self, files: Dict[str, FileCoverageReport]) -> None:
+        self.__files = files
+
+
+    def file(self, name: str) -> FileCoverageReport:
+        assert name != ""
+        return self.__files[name]
+
+
+    def __getitem__(self, name: str) -> FileCoverageReport:
+        """
+        Alias for `file`.
+        """
+        return self.file(name)
