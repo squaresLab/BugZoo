@@ -28,6 +28,6 @@ class Plugin(object):
         Detaches this plugin from a given container.
         """
         # detach all interfaces for this plugin from the container object
-        #for interface in self.__class__.interfaces:
-        #    print('detaching interface...')
-        #    # types.MethodType()
+        for (name, _) in self.interfaces:
+            print('detaching interface: {}'.format(name))
+            delattr(container, name)

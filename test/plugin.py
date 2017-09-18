@@ -11,6 +11,7 @@ try:
     container = bug.provision()
     gcovr.attach(container)
     container.coverage(tests[0])
+    gcovr.detach(container)
 
 finally:
     container.destroy()
