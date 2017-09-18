@@ -24,10 +24,10 @@ def update_sources() -> None:
     RepairBoxManager.sources.update()
 
 
-def install_bug(name: str) -> None:
+def install_bug(name: str, update: bool) -> None:
     print('installing bug: {}'.format(name))
     bug = RepairBoxManager.bugs[name]
-    bug.install()
+    bug.install(upgrade=update)
 
 
 def launch(name: str) -> None:
@@ -78,7 +78,9 @@ def main():
     # install-bug [src]
     install_bug_parser = subparsers.add_parser('install-bug')
     install_bug_parser.add_argument('bug')
-    install_bug_parser.set_defaults(func=lambda args: install_bug(args.bug))
+    install_bug_parser.add_argument('--update',
+                                    action='store_true')
+    install_bug_parser.set_defaults(func=lambda args: install_bug(args.bug, args.update))
 
     # launch [src]
     launch_parser = subparsers.add_parser('launch')

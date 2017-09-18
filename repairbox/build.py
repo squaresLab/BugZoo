@@ -127,6 +127,7 @@ class BuildInstructions(object):
         Constructs the Docker image described by these instructions.
         """
         if self.depends_on:
+            print("Building dep: {}".format(self.depends_on))
             dep = self.source.dependencies[self.depends_on]
             dep.build(force=force)
 
@@ -143,5 +144,6 @@ class BuildInstructions(object):
                                 pull=force,
                                 buildargs=self.__arguments,
                                 rm=True)
+            print("Built image: {}".format(self.tag))
         finally:
             os.remove(tf)

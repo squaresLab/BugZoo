@@ -2,6 +2,7 @@ import docker
 
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
+from repairbox.coverage import CoverageReport
 
 
 class CompilationOutcome(object):
@@ -90,10 +91,30 @@ class BugContainer(object):
         pass
 
 
-    def coverage(self, tests):
-        pass
-
+#    def coverage(self, test):
+#        self.compile(mode='coverage')
+#        outcome = self.execute(test)
+#
+#        # compute coverage using gcovr
+#        self.execute_command('sudo apt-get update && sudo apt-get install -y gcovr')
+#        response = \
+#            self.execute_command('gcovr -x -d -r .',
+#                                 context=self.__bug.source_dir,
+#                                 stderr=True)
+#        print(response.output)
+#        assert response.code == 0
+#        response = response.output.decode('utf-8')
+#
+#        
+#        # go through the logs!
+#        print(self.__container.logs())
+#
+#        print(response)
+#
+#        # parse XML to Python data structures
+#        return CoverageReport.from_string(response)
     
+
     def patch(self):
         """
         Apply a patch to the source code.
@@ -136,7 +157,12 @@ class BugContainer(object):
 
         TODO: check for failure
         """
-        return self.execute_command(self.bug.compilation_instructions.command,
+
+        cmd = ({'coverage': 'make -j8 CFLAGS="-fprofile-arcs -ftest-coverage -fPIC"',
+                'default': 'make -j8'})[mode]
+        # cmd = self.bug.compilation_instructions.command
+
+        return self.execute_command(cmd,
                                     context=self.bug.compilation_instructions.context,
                                     stderr=True)
 

@@ -97,6 +97,12 @@ class Bug(object):
         self.__compilation_instructions = compilation_instructions
         self.__source = source
 
+    
+    # TODO
+    @property
+    def source_dir(self):
+        return "/experiment/src"
+    
 
     @property
     def compilation_instructions(self):

@@ -11,7 +11,10 @@ setup(
     url='https://github.com/squaresLab/RepairBox',
     license='mit',
     install_requires=['docker', 'GitPython'],
-    packages=['repairbox'],
+    packages=[
+        'repairbox',
+        'repairbox.plugin'
+    ],
     entry_points = {
         'console_scripts': [ 'repairbox = repairbox.cli:main' ]
     }

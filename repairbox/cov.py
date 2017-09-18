@@ -10,12 +10,7 @@ class CoverageReport(object):
             coverage reports.
     """
     @staticmethod
-    def from_string(s):
-        return CoverageReport.from_xml(ET.fromstring(s))
-
-
-    @staticmethod
-    def from_xml(tree):
+    def fromXML(tree):
         assert isinstance(tree, ET.ElementTree)
 
         reports = {}
@@ -62,7 +57,7 @@ class FileCoverageReport(object):
         print(lines)
 
 
-    def was_hit(self, lineNo):
+    def wasHit(self, lineNo):
         """
         Determines whether a line with a given number was executed at least
         once during the execution(s).
@@ -85,3 +80,7 @@ class FileCoverageReport(object):
         Alias for `hits`
         """
         return self.hits(lineNo)
+
+
+tree = ET.parse('dump')
+CoverageReport.fromXML(tree)
