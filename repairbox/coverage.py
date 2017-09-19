@@ -1,37 +1,44 @@
-from typing import Dict
+from typing import Dict, List
 import xml.etree.ElementTree as ET
 
 
 class FileCoverageReport(object):
-    def __init__(self, fileName, lines):
+    def __init__(self, fileName: str, lines: Dict[int, int]) -> None:
         self.__fileName = fileName
         self.__lines = lines
-        print(lines)
 
 
-    def was_hit(self, lineNo):
+    @attribute
+    def lines(self) -> List[int]:
+        """
+        A list of the lines that are included in this report.
+        """
+        return list(self.__lines.keys())
+
+
+    def was_hit(self, num: int) -> bool:
         """
         Determines whether a line with a given number was executed at least
         once during the execution(s).
         """
-        return self.hits(lineNo) > 0
+        return self.hits(num) > 0
 
 
-    def hits(self, lineNo):
+    def hits(self, num: int) -> int:
         """
         Returns the number of times that a line with a given number was
         executed.
         """
-        assert isinstance(lineNo, int)
-        assert lineNo > 0
-        return self.__lines[lineNo]
+        assert isinstance(num, int)
+        assert num > 0
+        return self.__lines[num]
 
 
-    def __getitem__(self, lineNo):
+    def __getitem__(self, num: int) -> int:
         """
         Alias for `hits`
         """
-        return self.hits(lineNo)
+        return self.hits(num)
 
 
 class CoverageReport(object):
@@ -43,7 +50,7 @@ class CoverageReport(object):
             coverage reports.
     """
     @staticmethod
-    def from_string(s) -> 'CoverageReport':
+    def from_string(s: str) -> 'CoverageReport':
         root = ET.fromstring(s)
         return CoverageReport.from_xml(root)
 
@@ -70,7 +77,7 @@ class CoverageReport(object):
 
 
     @attribute
-    def files(self):
+    def files(self) -> List[str]:
         """
         A list of the names of the files that are included in this report.
         """
