@@ -69,6 +69,13 @@ class CoverageReport(object):
         self.__files = files
 
 
+    def files(self):
+        """
+        A list of the names of the files that are included in this report.
+        """
+        return list(self.__files.keys())
+
+
     def file(self, name: str) -> FileCoverageReport:
         assert name != ""
         return self.__files[name]
