@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 
 class LineSpectra(object):
     def __init__(self, ep: int, ef: int, np: int, nf: int) -> None:
@@ -36,6 +36,30 @@ class FileSpectra(object):
     def __init__(self, line_to_row: Dict[int, LineSpectra]) -> None:
         self.__line_to_row = line_to_row
 
-class Spectra(object):
-    pass
 
+    def __getitem__(self, num: int) -> LineSpectra:
+        """
+        Retrieves the spectra information for a given line (specified by line
+        number) in this file.
+        """
+        assert num >= 0
+        return self.__line_to_row[num]
+
+
+class Spectra(object):
+    
+    @staticmethod
+    def from_coverage(passing: List[CoverageReport], failing: List[CoverageReport]) -> 'Spectra':
+        return Spectra()
+
+
+    def __init__(self, file_to_spectra: Dict[str, FileSpectra]) -> None:
+        self.__file_to_spectra = file_to_spectra
+
+
+    def __getitem__(self, fn: str) -> FileSpectra:
+        """
+        Retrieves the spectra information for a given file.
+        """
+        assert fn != ""
+        return self.__file_to_spectra[fn]
