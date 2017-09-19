@@ -1,5 +1,6 @@
 from typing import Dict, List
 
+
 class LineSpectra(object):
     def __init__(self, ep: int, ef: int, np: int, nf: int) -> None:
         assert ep >= 0
@@ -33,8 +34,29 @@ class LineSpectra(object):
 
 
 class FileSpectra(object):
-    def __init__(self, line_to_row: Dict[int, LineSpectra]) -> None:
-        self.__line_to_row = line_to_row
+    @staticmethod
+    def from_coverage(passing: List[FileCoverageReport],
+                      failing: List[FileCoverageReport]) -> 'FileSpectra':
+        assert len(passing) + len(failing) > 0
+        lines = (passing + failing).lines
+
+        line_to_spectra = {}
+        for line in lines:
+            pass
+
+        return FileSpectra(line_to_spectra)
+
+
+    def __init__(self, line_to_spectra: Dict[int, LineSpectra]) -> None:
+        self.__line_to_row = line_to_spectra
+
+
+    @property
+    def lines(self) -> List[int]:
+        """
+        A list of the numbers of the lines that are included in this spectra.
+        """
+        return list(self.__line_to_spectra.keys())
 
 
     def __getitem__(self, num: int) -> LineSpectra:
@@ -43,13 +65,14 @@ class FileSpectra(object):
         number) in this file.
         """
         assert num >= 0
-        return self.__line_to_row[num]
+        return self.__line_to_spectra[num]
 
 
 class Spectra(object):
     
     @staticmethod
-    def from_coverage(passing: List[CoverageReport], failing: List[CoverageReport]) -> 'Spectra':
+    def from_coverage(passing: List[CoverageReport],
+                      failing: List[CoverageReport]) -> 'Spectra':
         assert len(passing) + len(failing) > 0
 
         # WARNING: assumes set of files is the same
