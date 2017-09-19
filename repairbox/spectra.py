@@ -91,6 +91,14 @@ class Spectra(object):
         self.__file_to_spectra = file_to_spectra
 
 
+    @property
+    def files(self) -> List[str]:
+        """
+        A list of the names of the files that are included in this spectra.
+        """
+        return list(self.__file_to_spectra.keys())
+
+
     def __getitem__(self, fn: str) -> FileSpectra:
         """
         Retrieves the spectra information for a given file.
