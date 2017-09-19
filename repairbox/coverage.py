@@ -69,6 +69,7 @@ class CoverageReport(object):
         self.__files = files
 
 
+    @attribute
     def files(self):
         """
         A list of the names of the files that are included in this report.
