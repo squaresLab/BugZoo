@@ -50,7 +50,18 @@ class Spectra(object):
     
     @staticmethod
     def from_coverage(passing: List[CoverageReport], failing: List[CoverageReport]) -> 'Spectra':
-        return Spectra()
+        assert len(passing) + len(failing) > 0
+
+        # WARNING: assumes set of files is the same
+        filenames = (passing + failing)[0].files
+
+        file_to_spectra = {}
+        for fn in filenames:
+            f_passing = [report[fn] for report in passing]
+            f_failing = [report[fn] for report in failing]
+            file_to_spectra[fn] = FileSpectra(f_passing, f_failing)
+
+        return Spectra(file_to_spectra)
 
 
     def __init__(self, file_to_spectra: Dict[str, FileSpectra]) -> None:
