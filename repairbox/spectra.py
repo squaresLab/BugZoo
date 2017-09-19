@@ -42,7 +42,21 @@ class FileSpectra(object):
 
         line_to_spectra = {}
         for line in lines:
-            pass
+            ep = ef = np = nf = 0
+
+            for p in passing:
+                if p.was_hit(line):
+                    ep += 1
+                else:
+                    np += 1
+
+            for f in failing:
+                if f.was_hit(line):
+                    ef += 1
+                else:
+                    nf += 1
+
+            line_to_spectra[line] = LineSpectra(ep, ef, np, nf)
 
         return FileSpectra(line_to_spectra)
 
