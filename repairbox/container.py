@@ -83,6 +83,16 @@ class BugContainer(object):
         return self.__container is not None
 
 
+    def mount_file(self, fn, mode):
+        """
+        Dynamically mounts a given file (or directory) inside this container.
+        """
+        assert isinstance(fn, str)
+        assert mode in ['ro', 'rw']
+
+        return
+
+
     def reset(self):
         """
         Resets the state of this bug container.
