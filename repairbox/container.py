@@ -1,4 +1,5 @@
 import docker
+import os
 
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
@@ -83,11 +84,13 @@ class BugContainer(object):
         return self.__container is not None
 
 
-    def mount_file(self, fn, mode):
+    def mount_file(self, src, dest, mode):
         """
         Dynamically mounts a given file (or directory) inside this container.
         """
-        assert isinstance(fn, str)
+        assert isinstance(src, str)
+        assert isinstance(dest, str)
+        assert os.path.exists(src)
         assert mode in ['ro', 'rw']
 
         return
