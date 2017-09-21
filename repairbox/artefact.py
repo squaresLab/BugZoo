@@ -30,24 +30,15 @@ class CompilationInstructions(object):
         return self.__command
 
 
-class Bug(object):
-    """
-
-    Attributes:
-        __name (str): the (unqualified) name of this bug.
-        __dataset (str): the name of the dataset to which this bug belongs.
-        __program (str, optional): the name of the program to which this bug
-            belongs.
-    """
-
-    def from_file(source: 'repairbox.manager.Source', fn: str) -> 'Bug':
+class Artefact(object):
+    def from_file(source: 'repairbox.manager.Source', fn: str) -> 'Artefact':
         """
-        Loads a bug from its YAML manifest file.
+        Loads an artefact from its YAML manifest file.
         """
         with open(fn, 'r') as f:
             yml = yaml.load(f)
 
-        name = yml['bug']
+        name = yml['bug'] # TODO: rename to 'artefact'
         dataset = yml['dataset']
         program = yml.get('program', None)
 
@@ -56,7 +47,7 @@ class Bug(object):
 
         # compilation instructions
         if not 'compilation' in yml:
-            raise Exception('No compilation instructions provided for bug: {}'.format(name))
+            raise Exception('No compilation instructions provided for artefact: {}'.format(name))
 
         compilation_instructions = \
             CompilationInstructions.from_yaml(yml['compilation'])
@@ -68,13 +59,13 @@ class Bug(object):
                                         os.path.dirname(fn),
                                         build_instructions)
 
-        return Bug(source,
-                   name,
-                   dataset,
-                   program,
-                   harness,
-                   build_instructions,
-                   compilation_instructions)
+        return Artefact(source,
+                        name,
+                        dataset,
+                        program,
+                        harness,
+                        build_instructions,
+                        compilation_instructions)
 
 
     def __init__(self,
@@ -111,28 +102,40 @@ class Bug(object):
 
     @property
     def harness(self):
+        """
+        The test harness used by this artefact.
+        """
         return self.__test_harness
 
 
     @property
     def tests(self):
+        """
+        The test suite used by this artefact.
+        """
         return self.__test_harness.tests
 
 
     @property
     def source(self) -> 'Source':
+        """
+        The source to which this artefact belongs.
+        """
         return self.__source
 
 
     @property
     def dataset(self) -> str:
+        """
+        The dataset to which this artefact belongs.
+        """
         return self.__dataset
 
 
     @property
     def installed(self) -> bool:
         """
-        Returns true if the Docker image for this bug is installed onto the
+        Returns true if the Docker image for this artefact is installed onto the
         local machine.
         """
         return self.__build_instructions.installed
@@ -141,7 +144,7 @@ class Bug(object):
     @property
     def image(self) -> str:
         """
-        The name of the Docker image for this bug.
+        The name of the Docker image for this artefact.
         """
         return self.__build_instructions.tag
 
@@ -149,7 +152,7 @@ class Bug(object):
     @property
     def identifier(self) -> str:
         """
-        The fully-qualified name of this bug.
+        The fully-qualified name of this artefact.
         """
         if self.__program:
             return "{}:{}:{}".format(self.__dataset, self.__program, self.__name)
@@ -157,12 +160,15 @@ class Bug(object):
 
 
     def build(self, force=False) -> None:
+        """
+        Builds the Docker image for this artefact.
+        """
         self.__build_instructions.build(force=force)
 
 
     def uninstall(self, force=False, noprune=False) -> None:
         """
-        Uninstalls all Docker images associated with this bug.
+        Uninstalls all Docker images associated with this artefact.
         """
         self.__build_instructions.uninstall(force=force, noprune=noprune)
 
@@ -177,4 +183,7 @@ class Bug(object):
 
 
     def provision(self) -> None:
+        """
+        Provisions a container for this artefact.
+        """
         return BugContainer(self)
