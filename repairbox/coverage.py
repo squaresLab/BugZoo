@@ -8,7 +8,7 @@ class FileCoverageReport(object):
         self.__lines = lines
 
 
-    @attribute
+    @property
     def lines(self) -> List[int]:
         """
         A list of the lines that are included in this report.
@@ -76,7 +76,7 @@ class CoverageReport(object):
         self.__files = files
 
 
-    @attribute
+    @property
     def files(self) -> List[str]:
         """
         A list of the names of the files that are included in this report.
