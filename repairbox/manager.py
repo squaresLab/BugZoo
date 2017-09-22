@@ -7,7 +7,7 @@ import copy
 
 from typing import List
 from repairbox.build import BuildInstructions
-from repairbox.bug import Bug
+from repairbox.artefact import Artefact
 
 
 class RepairBoxManager(object):
@@ -86,7 +86,7 @@ class Source(object):
         # find all bugs
         fns = '{}/**/*.bug.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            bug = Bug.from_file(self, fn)
+            bug = Artefact.from_file(self, fn)
             self.__bugs[bug.identifier] = bug
 
     
@@ -125,7 +125,7 @@ class Source(object):
 
 
     @property
-    def bugs(self) -> List[Bug]:
+    def bugs(self) -> List[Artefact]:
         return list(self.__bugs.values())
 
     

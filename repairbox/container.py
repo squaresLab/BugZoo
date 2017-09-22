@@ -87,6 +87,8 @@ class BugContainer(object):
     def mount_file(self, src, dest, mode):
         """
         Dynamically mounts a given file (or directory) inside this container.
+
+        https://jpetazzo.github.io/2015/01/13/docker-mount-dynamic-volumes/
         """
         assert isinstance(src, str)
         assert isinstance(dest, str)
