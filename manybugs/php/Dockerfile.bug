@@ -57,11 +57,8 @@ ARG fix_revision
 ENV FIX_REVISION "${fix_revision}"
 
 # Patch and configure
-RUN cd src && \
-    cat ../libxml.patch | patch -p0 && \
-    rm ../libxml.patch && \
-    ./buildconf && \
-    ./configure 
+ADD prepare.py /experiment/prepare.py
+RUN /experiment/prepare.py
 
 # Generate a better test harness
 RUN ./tester.py build && \
