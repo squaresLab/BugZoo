@@ -1,8 +1,9 @@
-#!/usr/bin/env python3
 import argparse
 import tabulate
+import typing
 
 from repairbox.manager import RepairBoxManager
+
 
 def list_sources() -> None:
     for src in RepairBoxManager.sources.sources:

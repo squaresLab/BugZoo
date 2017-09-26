@@ -1,5 +1,7 @@
 import docker
 import os
+import subprocess
+import typing
 
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
@@ -155,6 +157,16 @@ class BugContainer(object):
         Computes and returns the spectra for this bug.
         """
         pass
+
+    
+    def copy_to(self, source_fn, dest_fn):
+        """
+        Copies a given file from the host machine to a specified location
+        inside this container.
+        """
+        ctr_id = self.container.id
+        cmd = "docker cp '{}' '{}:{}'".format(source_fn, ctr_id, dest_fn)
+        subprocess.check_output(cmd, shell=True)
 
 
     def execute_command(self, cmd, context='/', stdout=True, stderr=False, block=True):

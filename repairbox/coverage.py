@@ -1,5 +1,6 @@
-from typing import Dict, List
+import typing
 import xml.etree.ElementTree as ET
+from typing import Dict, List
 
 
 class FileCoverageReport(object):

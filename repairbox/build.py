@@ -2,6 +2,7 @@ import docker
 import yaml
 import os
 import shutil
+import typing
 
 
 class BuildInstructions(object):

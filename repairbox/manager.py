@@ -4,6 +4,7 @@ import json
 import shutil
 import glob
 import copy
+import typing
 
 from typing import List
 from repairbox.build import BuildInstructions
