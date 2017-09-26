@@ -9,6 +9,37 @@ class CompilationOutcome(object):
     pass
 
 
+class PendingExecResponse(object):
+    def __init__(self, exec_response, output) -> None:
+        self.__exec_response = exec_response
+        self.__output = output
+
+
+    @property
+    def running(self):
+        client = docker.from_env()
+        return client.api.exec_inspect(self.exec_response)['Running']
+
+
+    @property
+    def exec_response(self):
+        return self.__exec_response
+
+    
+    @property
+    def output(self):
+        return self.__output
+
+
+    @property
+    def exit_code(self):
+        if self.running:
+            return None
+        client = docker.from_env()
+        id = self.exec_response['Id']
+        return client.api.exec_inspect(id)
+
+
 class ExecResponse(object):
     """
     Used to hold the response from a command execution.
@@ -44,7 +75,7 @@ class ExecResponse(object):
 
 
 class BugContainer(object):
-    def __init__(self, bug: 'Bug') -> None:
+    def __init__(self, bug: 'Bug', volumes=[], network_mode='bridge', ports={}) -> None:
         """
         Constructs a container for a given bug.
         """
@@ -55,6 +86,9 @@ class BugContainer(object):
         self.__container = \
             client.containers.run(bug.image,
                                   '/bin/bash',
+                                  volumes=volumes,
+                                  ports=ports,
+                                  network_mode=network_mode,
                                   stdin_open=True,
                                   detach=True)
 
@@ -82,6 +116,10 @@ class BugContainer(object):
     @property
     def alive(self):
         return self.__container is not None
+
+    
+    def logs(self, stream=False):
+        return self.__container.logs(stream=stream)
 
 
     def mount_file(self, src, dest, mode):
@@ -119,7 +157,7 @@ class BugContainer(object):
         pass
 
 
-    def execute_command(self, cmd, context='/', stdout=True, stderr=False):
+    def execute_command(self, cmd, context='/', stdout=True, stderr=False, block=True):
         """
 
         Returns a tuple containing the exit code, execution duration, and
@@ -131,14 +169,19 @@ class BugContainer(object):
         client = docker.from_env()
         response = client.api.exec_create(self.__container.id, cmd, stdout=stdout, stderr=stderr)
 
-        start_time = timer()
-        out = client.api.exec_start(response['Id'], stream=False)
-        end_time = timer()
-        duration = end_time - start_time
+        # blocking mode
+        if block:
+            start_time = timer()
+            out = client.api.exec_start(response['Id'], stream=False)
+            end_time = timer()
+            duration = end_time - start_time
+            code = client.api.exec_inspect(response['Id'])['ExitCode']
+            return ExecResponse(code, duration, out)
 
-        code = client.api.exec_inspect(response['Id'])['ExitCode']
-
-        return ExecResponse(code, duration, out)
+        # non-blocking mode
+        else:
+            out = client.api.exec_start(response['Id'], stream=True)
+            return PendingExecResponse(response, out)
 
 
     def compile(self, mode='default', verbose=True):

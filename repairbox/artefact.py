@@ -182,8 +182,8 @@ class Artefact(object):
         self.build(force=upgrade)
 
 
-    def provision(self) -> None:
+    def provision(self, volumes=[], network_mode='bridge', ports={}) -> None:
         """
         Provisions a container for this artefact.
         """
-        return BugContainer(self)
+        return BugContainer(self, volumes=volumes, network_mode=network_mode, ports=ports)
