@@ -58,6 +58,8 @@ ENV FIX_REVISION "${fix_revision}"
 
 # Patch and configure
 ADD prepare.py /experiment/prepare.py
+RUN sudo apt-get update && \
+    sudo apt-get install -y python
 RUN /experiment/prepare.py
 
 # Generate a better test harness

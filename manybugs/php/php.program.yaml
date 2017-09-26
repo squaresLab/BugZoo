@@ -1,4 +1,4 @@
 dataset: manybugs
 dockerfile: Dockerfile
 program: php
-version: 24
+version: 26
