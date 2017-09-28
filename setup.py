@@ -9,7 +9,12 @@ setup(
     author_email='christimperley@gmail.com',
     url='https://github.com/squaresLab/RepairBox',
     license='mit',
-    install_requires=['docker', 'GitPython'],
+    install_requires=[
+        'docker',
+        'GitPython',
+        'pyyaml',
+        'tabulate'
+    ],
     packages=[
         'repairbox',
         'repairbox.plugin'
