@@ -31,6 +31,12 @@ def install_bug(name: str, update: bool) -> None:
     bug.install(upgrade=update)
 
 
+def uninstall_bug(name: str, force: bool) -> None:
+    print('uninstalling bug: {}'.format(name))
+    bug = RepairBoxManager.bugs[name]
+    bug.uninstall(force=force)
+
+
 def launch(name: str) -> None:
     bug = RepairBoxManager.bugs[name]
     bug.install()
@@ -76,12 +82,19 @@ def main():
     remove_source_parser.add_argument('src')
     remove_source_parser.set_defaults(func=lambda args: remove_source(args.src))
 
-    # install-bug [src]
+    # install-bug [id]
     install_bug_parser = subparsers.add_parser('install-bug')
     install_bug_parser.add_argument('bug')
     install_bug_parser.add_argument('--update',
                                     action='store_true')
     install_bug_parser.set_defaults(func=lambda args: install_bug(args.bug, args.update))
+
+    # uninstall-bug [id]
+    install_bug_parser = subparsers.add_parser('uninstall-bug')
+    install_bug_parser.add_argument('bug')
+    install_bug_parser.add_argument('--force',
+                                    action='store_true')
+    install_bug_parser.set_defaults(func=lambda args: uninstall_bug(args.bug, force=args.force))
 
     # launch [src]
     launch_parser = subparsers.add_parser('launch')
