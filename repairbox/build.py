@@ -3,6 +3,7 @@ import yaml
 import os
 import shutil
 import typing
+import json
 
 
 class BuildInstructions(object):
@@ -123,7 +124,7 @@ class BuildInstructions(object):
             raise e
 
 
-    def build(self, force=False) -> None:
+    def build(self, force=False, quiet=False) -> None:
         """
         Constructs the Docker image described by these instructions.
         """
@@ -139,12 +140,21 @@ class BuildInstructions(object):
         try:
             shutil.copy(self.file_abs, tf)
             client = docker.from_env()
-            client.images.build(path=self.abs_context,
-                                dockerfile='.Dockerfile',
-                                tag=self.tag,
-                                pull=force,
-                                buildargs=self.__arguments,
-                                rm=True)
+            # client.images.build(...)
+            response = client.api.build(path=self.abs_context,
+                                        dockerfile='.Dockerfile',
+                                        tag=self.tag,
+                                        # pull=force,
+                                        buildargs=self.__arguments,
+                                        rm=True)
+            for line in response:
+                line = json.loads(line.decode('utf8'))
+                line = line['stream'].rstrip()
+                if not quiet:
+                    print(line)
+
+                # TODO: check build status!
+
             print("Built image: {}".format(self.tag))
         finally:
             os.remove(tf)
