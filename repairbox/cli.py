@@ -2,6 +2,7 @@ import argparse
 import tabulate
 import typing
 
+from operator import itemgetter
 from repairbox.manager import RepairBoxManager
 
 
@@ -53,6 +54,11 @@ def list_bugs() -> None:
         installed = 'Yes' if bug.installed else 'No'
         row = [bug.identifier, bug.dataset, bug.source.url, installed]
         tbl.append(row)
+
+    # sort by source then by bug
+    tbl = sorted(tbl, key=itemgetter(1,2))
+
+    # transform into a pretty table
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
