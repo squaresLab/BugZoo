@@ -77,7 +77,7 @@ class ExecResponse(object):
 
 
 class BugContainer(object):
-    def __init__(self, bug: 'Bug', volumes=[], network_mode='bridge', ports={}) -> None:
+    def __init__(self, bug: 'Bug', volumes=[], network_mode='bridge', ports={}, tty=False) -> None:
         """
         Constructs a container for a given bug.
         """
@@ -92,6 +92,7 @@ class BugContainer(object):
                                   ports=ports,
                                   network_mode=network_mode,
                                   stdin_open=True,
+                                  tty=tty,
                                   detach=True)
 
     def destroy(self):
