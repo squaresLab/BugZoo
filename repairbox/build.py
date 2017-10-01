@@ -15,6 +15,10 @@ class BuildInstructions(object):
 
     @staticmethod
     def from_file(src: 'repairbox.manager.Source', fn: str) -> 'BuildInstructions':
+        """
+        Loads a set of build instructions belonging to a given source from a
+        specified YAML file.
+        """
         with open(fn, 'r') as f:
             yml = yaml.load(f)
         root = os.path.dirname(fn)
@@ -57,6 +61,11 @@ class BuildInstructions(object):
 
     @property
     def depends_on(self):
+        """
+        The name of the Docker image that the construction of the image
+        associated with these build instructions depends on. If no such
+        dependency exists, None is returned.
+        """
         return self.__depends_on
 
 
@@ -84,6 +93,11 @@ class BuildInstructions(object):
 
     @property
     def file(self) -> str:
+        """
+        The path to the Dockerfile used to build the image associated with
+        these instructions, relative to the location of the build instruction
+        file.
+        """
         return self.__filename
 
 
@@ -94,13 +108,17 @@ class BuildInstructions(object):
 
     @property
     def arguments(self):
+        """
+        A dictionary of build-time arguments provided during the construction
+        of the Docker image associated with these instructions.
+        """
         return copy.copy(self.__arguments)
 
 
     @property
     def installed(self) -> bool:
         """
-        Determines whether this image exists on the local machine.
+        Indicates whether this image is installed to the local machine.
         """
         client = docker.from_env()
         try:
@@ -112,7 +130,7 @@ class BuildInstructions(object):
 
     def uninstall(self, force=False, noprune=False) -> None:
         """
-        Attempts to uninstall the Docker image described by these instructions.
+        Attempts to uninstall the Docker image associated with these instructions.
         """
         client = docker.from_env()
 
