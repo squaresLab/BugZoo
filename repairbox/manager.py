@@ -104,11 +104,14 @@ class Source(object):
 
     def remove(self) -> None:
         """
-        Removes the files for this source from disk. This should only be called
-        by SourceManager.
+        Removes the files for this source from disk, and uninstalls all
+        associated Docker images. This should only be called by SourceManager.
         """
         for bug in self.bugs:
             bug.uninstall(force=True)
+
+        for dep in self.__dependencies.values():
+            dep.uninstall(force=True)
             
         shutil.rmtree(self.abs_path)
 
