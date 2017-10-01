@@ -220,7 +220,9 @@ class SourceManager(object):
 
     def remove(self, src: str) -> None:
         """
-        Removes an existing source.
+        Removes an existing source. The removal process destroys the local
+        copies of the manifest (and build) files for this source, and
+        uninstalls all of its associated images.
         """
         assert src != ""
         if src not in self.__sources:
@@ -229,7 +231,6 @@ class SourceManager(object):
         self.__sources[src].remove()
         del self.__sources[src]
         self.__write()
-
 
 
     def update(self) -> None:
