@@ -15,22 +15,34 @@ class LineSpectra(object):
         self.__nf = nf
 
 
-    @attribute
+    @property
     def ep(self) -> int:
+        """
+        The number of passing tests that cover this line.
+        """
         return self.__ep
 
-    @attribute
+    @property
     def ef(self) -> int:
+        """
+        The number of failing tests that cover this line.
+        """
         return self.__ef
 
 
-    @attribute
+    @property
     def np(self) -> int:
+        """
+        The number of passing tests that do not cover this line.
+        """
         return self.__np
 
 
-    @attribute
+    @property
     def nf(self) -> int:
+        """
+        The number of failing tests that do not cover this line.
+        """
         return self.__nf
 
 
