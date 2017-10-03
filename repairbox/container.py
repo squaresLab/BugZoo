@@ -79,7 +79,7 @@ class ExecResponse(object):
         return self.__output
 
 
-class BugContainer(object):
+class Container(object):
     def __init__(self,
                  bug: 'repairbox.artefact.Artefact',
                  volumes=[],
@@ -198,7 +198,7 @@ class BugContainer(object):
         subprocess.check_output(cmd, shell=True)
 
 
-    def execute_command(self, cmd, context='/', stdout=True, stderr=False, block=True):
+    def command(self, cmd, context='/', stdout=True, stderr=False, block=True):
         """
 
         Returns a tuple containing the exit code, execution duration, and
@@ -236,7 +236,7 @@ class BugContainer(object):
                 'default': 'make -j8'})[mode]
         # cmd = self.bug.compilation_instructions.command
 
-        return self.execute_command(cmd,
+        return self.command(cmd,
                                     context=self.bug.compilation_instructions.context,
                                     stderr=True)
 
@@ -247,6 +247,6 @@ class BugContainer(object):
         that execution.
         """
         (cmd, ctx) = self.__bug.harness.command(test)
-        response = self.execute_command(cmd, ctx, stderr=True)
+        response = self.command(cmd, ctx, stderr=True)
         passed = response.code == 0
         return TestOutcome(response, passed, response.duration)

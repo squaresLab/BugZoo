@@ -14,7 +14,7 @@ class Plugin(object):
         return [(n, m) for (n, m) in methods if hasattr(m, 'is_interface') and m.is_interface]
 
 
-    def attach(self, container: 'repairbox.container.BugContainer') -> None:
+    def attach(self, container: 'repairbox.container.Container') -> None:
         """
         Used to attach this plugin to a given container.
         """
@@ -25,7 +25,7 @@ class Plugin(object):
             setattr(container, name, method)
 
 
-    def detach(self, container: 'repairbox.container.BugContainer') -> None:
+    def detach(self, container: 'repairbox.container.Container') -> None:
         """
         Detaches this plugin from a given container.
         """

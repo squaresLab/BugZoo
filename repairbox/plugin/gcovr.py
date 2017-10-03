@@ -11,7 +11,7 @@ class gcovr(repairbox.plugin.base.Plugin):
     def attach(self, container):
         super().attach(container)
         print('installing gcovr...')
-        container.execute_command('sudo apt-get update && sudo apt-get install -y gcovr')
+        container.command('sudo apt-get update && sudo apt-get install -y gcovr')
         print('installed gcovr')
 
 
@@ -22,8 +22,8 @@ class gcovr(repairbox.plugin.base.Plugin):
 
         # compute coverage using gcovr
         response = \
-            container.execute_command('gcovr -x -d -r .',
-                                      context=container.bug.source_dir)
+            container.command('gcovr -x -d -r .',
+                              context=container.bug.source_dir)
         assert response.code == 0
         response = response.output.decode('utf-8')
 

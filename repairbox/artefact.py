@@ -6,7 +6,7 @@ import typing
 import repairbox
 
 from repairbox.build import BuildInstructions
-from repairbox.container import BugContainer
+from repairbox.container import Container
 from repairbox.test import TestHarness
 
 
@@ -198,8 +198,8 @@ class Artefact(object):
         self.build(force=upgrade)
 
 
-    def provision(self, volumes=[], network_mode='bridge', ports={}, tty=False) -> 'BugContainer':
+    def provision(self, volumes=[], network_mode='bridge', ports={}, tty=False) -> 'Container':
         """
         Provisions a container for this artefact.
         """
-        return BugContainer(self, volumes=volumes, network_mode=network_mode, ports=ports, interactive=tty)
+        return Container(self, volumes=volumes, network_mode=network_mode, ports=ports, interactive=tty)

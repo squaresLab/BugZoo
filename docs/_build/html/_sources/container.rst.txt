@@ -6,7 +6,7 @@ Container
 Container reference
 -------------------
 
-.. autoclass:: BugContainer()
+.. autoclass:: Container()
 
   .. autoattribute:: alive
   .. autoattribute:: bug
@@ -18,6 +18,6 @@ Container reference
   .. automethod:: patch
   .. automethod:: spectra
   .. automethod:: copy_to
-  .. automethod:: execute_command
+  .. automethod:: command
   .. automethod:: compile
   .. automethod:: execute
