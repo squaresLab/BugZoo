@@ -291,34 +291,10 @@ $ repairbox execute -v /home/foo/bar:/experiment/bar \
 
 ## Integration
 
-### Adding a tool to RepairBox
+### Adding a dataset
 
-Discuss how one goes about adding a new tool.
+...
 
-```yaml
-version: 0
-tool: genprog
-image: christimperley/genprog:latest
-environment:
-  PATH: "/opt/genprog3:${PATH}"
-```
+### Adding a plugin
 
-Discuss how one constructs a compatible Docker container.
-
-Add a link to a page in the Wiki explaining how all of this works under the hood.
-
-### Adding a bug scenario to RepairBox
-
-To add your own dataset of bugs into RepairBox, you'll first need to supply a
-`.dataset.yaml`. We suggest forking the repository and creating a directory for
-your dataset at the project root. The `.dataset.yaml` file should be placed in
-this directory, and should share the same name as the dataset.
-
-For example, let's say that we wanted to put together a new dataset of bugs,
-known as the `notsomanybugs` dataset. We would create a `notsomanybugs`
-directory at the root of the project, then we would add a
-`notsomanybugs.dataset.yaml` file inside the `notsomanybugs` directory.
-
-The `notsomanybugs.dataset.yaml` file
-
-Discuss how one might go about adding a bug scenario.
+...
