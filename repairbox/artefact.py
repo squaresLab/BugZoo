@@ -91,9 +91,13 @@ class Artefact(object):
         self.__source = source
 
     
-    # TODO
     @property
-    def source_dir(self):
+    def source_dir(self) -> str:
+        """
+        The absolute path of the source directory (within the container) for
+        this artefact.
+        """
+        # TODO
         return "/experiment/src"
     
 
@@ -103,7 +107,7 @@ class Artefact(object):
 
 
     @property
-    def harness(self):
+    def harness(self) -> TestHarness:
         """
         The test harness used by this artefact.
         """
@@ -177,7 +181,14 @@ class Artefact(object):
 
     def download(self, force=False) -> None:
         """
-        Attempts to download the Docker image for this artefact from DockerHub.
+        Attempts to download the image for this artefact from DockerHub.
+        """
+        pass
+
+
+    def upload(self) -> None:
+        """
+        Attempts to upload the image for this artefact to DockerHub.
         """
         pass
 
