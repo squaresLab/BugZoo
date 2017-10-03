@@ -19,5 +19,8 @@ Test reference
   .. autoattribute:: passed
   .. autoattribute:: duration
 
-  .. automethod:: __eq__
-  .. automethod:: __repr__
+.. autoclass:: TestHarness()
+
+  .. automethod:: from_dict
+
+  .. autoattribute:: tests

@@ -64,10 +64,9 @@ class TestOutcome(object):
 class TestHarness(object):
     
     @staticmethod
-    def from_yaml(yml: dict) -> 'TestHarness':
+    def from_dict(yml: dict) -> 'TestHarness':
         """
-        Constructs a test harness from its YAML-based (i.e., dictionary)
-        description.
+        Constructs a test harness from a dictionary-based description.
         """
         typ = yml['type']
         # route based on type
@@ -85,6 +84,9 @@ class TestHarness(object):
 
     @property
     def tests(self):
+        """
+        The list of tests associated with this test harness.
+        """
         return self.__tests[:]
 
 

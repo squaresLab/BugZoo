@@ -33,7 +33,9 @@ class CompilationInstructions(object):
 
 
 class Artefact(object):
-    def from_file(source: 'repairbox.manager.Source', fn: str) -> 'Artefact':
+    @staticmethod
+    def from_file(source: 'repairbox.manager.Source',
+                  fn: str) -> 'Artefact':
         """
         Loads an artefact from its YAML manifest file.
         """
@@ -45,7 +47,7 @@ class Artefact(object):
         program = yml.get('program', None)
 
         # build the test harness
-        harness = TestHarness.from_yaml(yml['test-harness'])
+        harness = TestHarness.from_dict(yml['test-harness'])
 
         # compilation instructions
         if not 'compilation' in yml:
@@ -90,7 +92,7 @@ class Artefact(object):
         self.__compilation_instructions = compilation_instructions
         self.__source = source
 
-    
+
     @property
     def source_dir(self) -> str:
         """
@@ -141,7 +143,7 @@ class Artefact(object):
     @property
     def installed(self) -> bool:
         """
-        Returns true if the Docker image for this artefact is installed onto the
+        Indicates whether the Docker image for this artefact is installed on the
         local machine.
         """
         return self.__build_instructions.installed
@@ -181,7 +183,8 @@ class Artefact(object):
 
     def download(self, force=False) -> None:
         """
-        Attempts to download the image for this artefact from DockerHub.
+        Attempts to download the image for this artefact from DockerHub. If the
+        force parameter is set to True, any existing image will be overwritten.
         """
         pass
 
