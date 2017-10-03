@@ -22,9 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="repairbox.plugin package" href="repairbox.plugin.html" />
-    <link rel="prev" title="Welcome to repairbox’s documentation!" href="index.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,12 +34,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="repairbox.plugin.html" title="repairbox.plugin package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to repairbox’s documentation!"
-             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">repairbox  documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -202,7 +194,8 @@ this artefact.</p>
 <dt id="repairbox.build.BuildInstructions">
 <em class="property">class </em><code class="descclassname">repairbox.build.</code><code class="descname">BuildInstructions</code><span class="sig-paren">(</span><em>src: repairbox.manager.Source</em>, <em>root: str</em>, <em>tag: str</em>, <em>context: str</em>, <em>filename: str</em>, <em>arguments: dict</em>, <em>depends_on: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.build.BuildInstructions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Used to store instructions on how to build a Docker image.</p>
+<p>Used to store instructions on how to build a Docker image (for an artefact
+or for a dependency of an artefact).</p>
 <p>TODO: only allow relative, forward roots</p>
 <dl class="attribute">
 <dt id="repairbox.build.BuildInstructions.abs_context">
@@ -253,12 +246,18 @@ file.</p>
 <em class="property">static </em><code class="descname">from_file</code><span class="sig-paren">(</span><em>src: repairbox.manager.Source</em>, <em>fn: str</em><span class="sig-paren">)</span> &#x2192; repairbox.build.BuildInstructions<a class="headerlink" href="#repairbox.build.BuildInstructions.from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a set of build instructions belonging to a given source from a
 specified YAML file.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>src (repairbox.manager.Source): the source to which these build                 instructions belong.
+fn (str): the name of the file.</dd>
+</dl>
 </dd></dl>
 
 <dl class="staticmethod">
 <dt id="repairbox.build.BuildInstructions.from_yaml">
 <em class="property">static </em><code class="descname">from_yaml</code><span class="sig-paren">(</span><em>src: repairbox.manager.Source</em>, <em>root: str</em>, <em>yml: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.build.BuildInstructions.from_yaml" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Loads a set of build instructions from a dictionary.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="repairbox.build.BuildInstructions.installed">
@@ -895,12 +894,6 @@ description.</p>
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to repairbox’s documentation!</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="repairbox.plugin.html"
-                        title="next chapter">repairbox.plugin package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -931,12 +924,6 @@ description.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="repairbox.plugin.html" title="repairbox.plugin package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to repairbox’s documentation!"
-             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">repairbox  documentation</a> &#187;</li> 
       </ul>
     </div>

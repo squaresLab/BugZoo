@@ -1,16 +1,10 @@
-.. repairbox documentation master file, created by
-   sphinx-quickstart on Mon Oct  2 20:16:23 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to repairbox's documentation!
-=====================================
+RepairBox
+=========
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Contents:
+  :maxdepth: 1
 
-   repairbox
+  container
 
 
 Indices and tables
