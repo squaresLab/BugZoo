@@ -17,6 +17,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+
+import datetime
+
 # import os
 # import sys
 # sys.path.insert(0, '/home/chris/git/repairbox/repairbox')
@@ -52,8 +55,9 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'repairbox'
-copyright = '2017, Author'
-author = 'Author'
+year = datetime.datetime.now().year
+copyright = '{}, Christopher Steven Timperley'.format(year)
+author = 'Christopher Steven Timperley'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -81,6 +85,9 @@ pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# Disable preceding module names
+add_module_names = False
 
 
 # -- Options for HTML output ----------------------------------------------
