@@ -8,15 +8,26 @@ class TestCase(object):
 
 
     @property
-    def identifier(self):
+    def identifier(self) -> str:
+        """
+        A unique identifier assigned to this test case.
+        """
         return self.__identifier
 
     
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """
+        Produces a human-readable description of this test case in the form of:
+        Test[:identifier], where :identifier is replaced by the identifier for
+        this test case.
+        """
         return "Test[{}]".format(self.__identifier)
 
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
+        """
+        Checks this test case against another for equality.
+        """
         return  isinstance(other, TestCase) and \
                 other.identifier == self.__identifier
 
@@ -35,25 +46,17 @@ class TestOutcome(object):
     
 
     @property
-    def passed(self):
+    def passed(self) -> bool:
         """
-        Flag indicating whether the test execution was successful.
+        Flag indicating whether the associated test execution was successful.
         """
         return self.__passed
 
     
     @property
-    def failed(self):
-        """
-        Flag indicating whether the test execution failed.
-        """
-        return self.__failed
-
-
-    @property
     def duration(self) -> float:
         """
-        Returns the duration of the test execution, measured in seconds.
+        The duration of the test execution, measured in seconds.
         """
         return self.__duration
 
