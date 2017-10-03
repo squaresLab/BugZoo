@@ -3,6 +3,7 @@ import yaml
 import docker
 import copy
 import typing
+import repairbox
 
 from repairbox.build import BuildInstructions
 from repairbox.container import BugContainer

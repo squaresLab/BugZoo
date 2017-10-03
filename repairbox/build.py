@@ -4,6 +4,7 @@ import os
 import shutil
 import typing
 import json
+import repairbox
 
 
 class BuildInstructions(object):
@@ -14,7 +15,8 @@ class BuildInstructions(object):
     """
 
     @staticmethod
-    def from_file(src: 'repairbox.manager.Source', fn: str) -> 'BuildInstructions':
+    def from_file(src: 'repairbox.manager.Source',
+                  fn: str) -> 'BuildInstructions':
         """
         Loads a set of build instructions belonging to a given source from a
         specified YAML file.

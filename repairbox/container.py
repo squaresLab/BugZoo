@@ -3,6 +3,7 @@ import dockerpty
 import os
 import subprocess
 import typing
+import repairbox
 
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
@@ -78,7 +79,12 @@ class ExecResponse(object):
 
 
 class BugContainer(object):
-    def __init__(self, bug: 'Bug', volumes=[], network_mode='bridge', ports={}, tty=False) -> None:
+    def __init__(self,
+                 bug: 'repairbox.artefact.Artefact',
+                 volumes=[],
+                 network_mode='bridge',
+                 ports={},
+                 tty=False) -> None:
         """
         Constructs a container for a given bug.
         """

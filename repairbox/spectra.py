@@ -1,5 +1,6 @@
 import typing
 from typing import Dict, List
+from repairbox.coverage import CoverageReport, FileCoverageReport
 
 
 class LineSpectra(object):
