@@ -103,8 +103,32 @@ class BugContainer(object):
                                      detach=True)
         self.__container.start()
 
-    
-    def interact(self):
+
+    @property
+    def bug(self) -> 'repairbox.artefact.Artefact':
+        """
+        The bug inside this container.
+        """
+        return self.__bug
+
+
+    @property
+    def container(self):
+        """
+        The Docker container underlying this object.
+        """
+        return self.__container
+
+
+    @property
+    def alive(self):
+        """
+        Indicates whether or not the container is still running.
+        """
+        return self.__container is not None
+
+
+    def interact(self) -> None:
         """
         Opens the PTY (pseudo-TTY) for this container.
         Blocks until the user exits the PTY.
@@ -115,27 +139,6 @@ class BugContainer(object):
     def destroy(self):
         if self.__container:
             self.__container.remove(force=True)
-
-
-    @property
-    def bug(self):
-        """
-        The bug inside this container.
-        """
-        return self.__bug
-
-
-    @property
-    def container(self):
-        """
-        The Docker container underlying this proxy.
-        """
-        return self.__container
-
-
-    @property
-    def alive(self):
-        return self.__container is not None
 
     
     def logs(self, stream=False):
