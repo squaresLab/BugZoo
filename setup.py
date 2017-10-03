@@ -11,6 +11,7 @@ setup(
     license='mit',
     install_requires=[
         'docker',
+        'dockerpty',
         'GitPython',
         'pyyaml',
         'tabulate'

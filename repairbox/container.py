@@ -1,4 +1,5 @@
 import docker
+import dockerpty
 import os
 import subprocess
 import typing
@@ -86,14 +87,20 @@ class BugContainer(object):
         # construct a Docker container for this bug
         client = docker.from_env()
         self.__container = \
-            client.containers.run(bug.image,
-                                  '/bin/bash',
-                                  volumes=volumes,
-                                  ports=ports,
-                                  network_mode=network_mode,
-                                  stdin_open=True,
-                                  tty=tty,
-                                  detach=True)
+            client.containers.create(bug.image,
+                                     '/bin/bash',
+                                     volumes=volumes,
+                                     ports=ports,
+                                     network_mode=network_mode,
+                                     stdin_open=True,
+                                     tty=tty,
+                                     detach=(not tty))
+
+        if tty:
+            dockerpty.start(client, self.__container)
+        else:
+            self.__container.start()
+
 
     def destroy(self):
         if self.__container:
@@ -159,7 +166,7 @@ class BugContainer(object):
         """
         pass
 
-    
+
     def copy_to(self, source_fn, dest_fn):
         """
         Copies a given file from the host machine to a specified location

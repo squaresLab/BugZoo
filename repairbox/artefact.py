@@ -175,6 +175,9 @@ class Artefact(object):
 
 
     def download(self, force=False) -> None:
+        """
+        Attempts to download the Docker image for this artefact from DockerHub.
+        """
         pass
 
 
@@ -183,8 +186,21 @@ class Artefact(object):
         self.build(force=upgrade)
 
 
-    def provision(self, volumes=[], network_mode='bridge', ports={}) -> None:
+    def provision(self, volumes=[], network_mode='bridge', ports={}, tty=False) -> 'BugContainer':
         """
         Provisions a container for this artefact.
         """
-        return BugContainer(self, volumes=volumes, network_mode=network_mode, ports=ports)
+        return BugContainer(self, volumes=volumes, network_mode=network_mode, ports=ports, tty=tty)
+
+
+    def launch(self) -> None:
+        """
+        Launches an interactive container for this artefact. Once the pseudotty
+        session has ended, the container is destroyed.
+        """
+        c = None
+        try:
+            c = self.provision(tty=True)
+        finally:
+            if c:
+                c.destroy()
