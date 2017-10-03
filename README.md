@@ -29,6 +29,7 @@ users produce a shallow clone of this repository using the command below:
 
 ```
 $ git clone git://github.com/squaresLab/RepairBox --depth 0
+$ sudo python3 setup.py install
 ```
 
 Producing a shallow clone takes far less time, and the git protocol both
@@ -41,18 +42,6 @@ To use RepairBox, the following packages must be installed:
 
 * Python 2.7+
 * Docker
-
-Additionally, RepairBox requires the following Python packages:
-
-* tabulate
-* requests
-* yaml
-
-These may be installed via the following `pip` command:
-
-```
-$ pip install tabulate requests yaml
-```
 
 ## Usage
 
