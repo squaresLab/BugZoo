@@ -91,6 +91,19 @@ class TestHarness(object):
 
 
 class SimpleTestHarness(TestHarness):
+    """
+    This test harness uses bash to execute its test suite. Each test is
+    transformed into a unique bash command by replacing all instances of
+    "__ID__" in a template command (given as a string) with the unique
+    identifier for that test case.
+
+    For example, if the template command for a simple test harness was:
+    
+        ./executable run __ID___
+    
+    Tests are deemed to have passed if the execution of the associated bash
+    command results in an exit code of zero.
+    """
     @staticmethod
     def from_yaml(yml: dict) -> 'SimpleTestHarness':
         cmd = yml['command']
@@ -115,7 +128,10 @@ class SimpleTestHarness(TestHarness):
         super().__init__(tests)
 
 
-    def command(self, test):
+    def command(self, test : TestCase) -> str:
+        """
+        Computes the bash command that should be used to execute a given test.
+        """
         cmd = self.__command.replace('__ID__', test.identifier, 1)
         return (cmd, self.__context)
 
