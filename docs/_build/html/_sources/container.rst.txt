@@ -12,4 +12,12 @@ Container reference
   .. autoattribute:: bug
   .. autoattribute:: container
 
-  .. automethod:: interact()
+  .. automethod:: interact
+  .. automethod:: destroy
+  .. automethod:: reset
+  .. automethod:: patch
+  .. automethod:: spectra
+  .. automethod:: copy_to
+  .. automethod:: execute_command
+  .. automethod:: compile
+  .. automethod:: execute

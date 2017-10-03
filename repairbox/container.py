@@ -4,6 +4,7 @@ import os
 import subprocess
 import typing
 import repairbox
+import repairbox.spectra
 
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
@@ -166,7 +167,7 @@ class BugContainer(object):
         return
 
 
-    def reset(self):
+    def reset(self) -> None:
         """
         Resets the state of this container.
         """
@@ -180,14 +181,14 @@ class BugContainer(object):
         pass
     
 
-    def spectra(self):
+    def spectra(self) -> 'repairbox.spectra.Spectra':
         """
         Computes and returns the spectra for this bug.
         """
         pass
 
 
-    def copy_to(self, source_fn, dest_fn):
+    def copy_to(self, source_fn: str, dest_fn: str) -> None:
         """
         Copies a given file from the host machine to a specified location
         inside this container.

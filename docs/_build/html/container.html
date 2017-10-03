@@ -74,11 +74,65 @@
 
 <dl class="method">
 <dt id="repairbox.container.BugContainer.interact">
-<code class="descname">interact</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.BugContainer.interact" title="Permalink to this definition">¶</a></dt>
+<code class="descname">interact</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.BugContainer.interact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connects to the PTY (pseudo-TTY) for this container.
 Blocks until the user exits the PTY. Does not handle destruction of
 the container; user should call <cite>destroy</cite> once finished with the
 container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.BugContainer.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocates all resources associated with this container. If this
+container has already been destroyed, this method quietly returns
+(i.e., no errors are thrown).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.BugContainer.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the state of this container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.patch">
+<code class="descname">patch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.BugContainer.patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a patch to the source code.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.spectra">
+<code class="descname">spectra</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; repairbox.spectra.Spectra<a class="headerlink" href="#repairbox.container.BugContainer.spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes and returns the spectra for this bug.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.copy_to">
+<code class="descname">copy_to</code><span class="sig-paren">(</span><em>source_fn: str</em>, <em>dest_fn: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.BugContainer.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies a given file from the host machine to a specified location
+inside this container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.execute_command">
+<code class="descname">execute_command</code><span class="sig-paren">(</span><em>cmd</em>, <em>context='/'</em>, <em>stdout=True</em>, <em>stderr=False</em>, <em>block=True</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.BugContainer.execute_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple containing the exit code, execution duration, and
+output, respectively.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.compile">
+<code class="descname">compile</code><span class="sig-paren">(</span><em>mode='default'</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.BugContainer.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to compile the program inside this container.</p>
+<p>TODO: check for failure</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.BugContainer.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a given test inside this container and returns the result of
+that execution.</p>
 </dd></dl>
 
 </dd></dl>

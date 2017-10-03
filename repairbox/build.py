@@ -9,7 +9,8 @@ import repairbox
 
 class BuildInstructions(object):
     """
-    Used to store instructions on how to build a Docker image.
+    Used to store instructions on how to build a Docker image (for an artefact
+    or for a dependency of an artefact).
 
     TODO: only allow relative, forward roots
     """
@@ -20,6 +21,11 @@ class BuildInstructions(object):
         """
         Loads a set of build instructions belonging to a given source from a
         specified YAML file.
+
+        Args:
+            src (repairbox.manager.Source): the source to which these build \
+                instructions belong.
+            fn (str): the name of the file.
         """
         with open(fn, 'r') as f:
             yml = yaml.load(f)
@@ -29,6 +35,9 @@ class BuildInstructions(object):
 
     @staticmethod
     def from_yaml(src: 'repairbox.manager.Source', root: str, yml: dict):
+        """
+        Loads a set of build instructions from a dictionary.
+        """
         yml = yml['docker']
         tag = yml['tag']
         context = yml.get('context', '.')
