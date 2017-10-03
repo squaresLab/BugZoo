@@ -3,6 +3,11 @@ from typing import Dict, List
 
 
 class LineSpectra(object):
+    """
+    Summarises the coverage information for a single line in the program in
+    terms of the number of passing and failing tests that do and do not
+    cover it, respectively.
+    """
     def __init__(self, ep: int, ef: int, np: int, nf: int) -> None:
         assert ep >= 0
         assert ef >= 0
