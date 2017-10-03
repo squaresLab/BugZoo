@@ -7,6 +7,9 @@ from repairbox.manager import RepairBoxManager
 
 
 def list_sources() -> None:
+    """
+    Produces a list of all the sources known to RepairBox.
+    """
     for src in RepairBoxManager.sources.sources:
         print("- {}".format(src.url))
 
@@ -45,10 +48,19 @@ def launch(name: str) -> None:
     bug.launch()
 
 
-def list_bugs() -> None:
+def list_bugs(show_installed=None) -> None:
+    """
+    Produces a list of all the artefacts registered with RepairBox.
+    """
     tbl = []
     hdrs = ['Bug', 'Dataset', 'Source', 'Installed?']
     for bug in RepairBoxManager.bugs:
+
+        # apply filtering based on installation status
+        if show_installed is not None:
+            if show_installed != bug.installed:
+                continue
+
         installed = 'Yes' if bug.installed else 'No'
         row = [bug.identifier, bug.dataset, bug.source.url, installed]
         tbl.append(row)
@@ -107,7 +119,14 @@ def main():
 
     # list-bugs
     list_bugs_parser = subparsers.add_parser('list-bugs')
-    list_bugs_parser.set_defaults(func=lambda args: list_bugs())
+    list_bugs_parser.add_argument('--installed',
+                                    dest='installed',
+                                    action='store_true')
+    list_bugs_parser.add_argument('--uninstalled',
+                                    dest='installed',
+                                    action='store_false')
+    list_bugs_parser.set_defaults(feature=True)
+    list_bugs_parser.set_defaults(func=lambda args: list_bugs(args.installed))
 
     # update-sources
     update_sources_parser = subparsers.add_parser('update-sources')
