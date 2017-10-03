@@ -97,9 +97,14 @@ class SimpleTestHarness(TestHarness):
     "__ID__" in a template command (given as a string) with the unique
     identifier for that test case.
 
-    For example, if the template command for a simple test harness was:
+    For example, if the template command for a simple test harness is:
     
         ./executable run __ID___
+
+    and the identifier for a test is "test-one", then the unique command for
+    that test would be:
+
+        ./executable run test-one
     
     Tests are deemed to have passed if the execution of the associated bash
     command results in an exit code of zero.
@@ -179,6 +184,6 @@ class GenProgTestHarness(SimpleTestHarness):
     @property
     def time_limit(self):
         """
-        The time limit on individual test case executions.
+        The time limit on individual test case executions, measured in seconds.
         """
         return self.__time_limit

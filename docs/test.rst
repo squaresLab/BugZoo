@@ -4,7 +4,7 @@ Test
 
 
 Test reference
--------------------
+--------------
 
 .. autoclass:: TestCase()
 
@@ -24,3 +24,17 @@ Test reference
   .. automethod:: from_dict
 
   .. autoattribute:: tests
+
+
+Test harnesses
+--------------
+
+.. autoclass:: SimpleTestHarness()
+
+  .. automethod:: command
+
+.. autoclass:: GenProgTestHarness()
+
+  .. autoattribute:: num_passing
+  .. autoattribute:: num_failing
+  .. autoattribute:: time_limit
