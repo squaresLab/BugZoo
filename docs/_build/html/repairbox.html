@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>repairbox package &#8212; repairbox  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,16 +24,27 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="repairbox.plugin package" href="repairbox.plugin.html" />
-    <link rel="prev" title="Welcome to repairbox’s documentation!" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="prev" title="Welcome to repairbox’s documentation!" href="index.html" /> 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="repairbox.plugin.html" title="repairbox.plugin package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to repairbox’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">repairbox  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -85,7 +96,7 @@
 <dl class="method">
 <dt id="repairbox.artefact.Artefact.download">
 <code class="descname">download</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.download" title="Permalink to this definition">¶</a></dt>
-<dd><p>Attempts to download the Docker image for this artefact from DockerHub.</p>
+<dd><p>Attempts to download the image for this artefact from DockerHub.</p>
 </dd></dl>
 
 <dl class="method">
@@ -125,13 +136,6 @@ local machine.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="repairbox.artefact.Artefact.launch">
-<code class="descname">launch</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.launch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Launches an interactive container for this artefact. Once the pseudotty
-session has ended, the container is destroyed.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="repairbox.artefact.Artefact.provision">
 <code class="descname">provision</code><span class="sig-paren">(</span><em>volumes=[]</em>, <em>network_mode='bridge'</em>, <em>ports={}</em>, <em>tty=False</em><span class="sig-paren">)</span> &#x2192; repairbox.container.BugContainer<a class="headerlink" href="#repairbox.artefact.Artefact.provision" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provisions a container for this artefact.</p>
@@ -146,7 +150,9 @@ session has ended, the container is destroyed.</p>
 <dl class="attribute">
 <dt id="repairbox.artefact.Artefact.source_dir">
 <code class="descname">source_dir</code><a class="headerlink" href="#repairbox.artefact.Artefact.source_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The absolute path of the source directory (within the container) for
+this artefact.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="repairbox.artefact.Artefact.tests">
@@ -158,6 +164,12 @@ session has ended, the container is destroyed.</p>
 <dt id="repairbox.artefact.Artefact.uninstall">
 <code class="descname">uninstall</code><span class="sig-paren">(</span><em>force=False</em>, <em>noprune=False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.uninstall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uninstalls all Docker images associated with this artefact.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.artefact.Artefact.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to upload the image for this artefact to DockerHub.</p>
 </dd></dl>
 
 </dd></dl>
@@ -297,13 +309,15 @@ specified YAML file.</p>
 
 <dl class="function">
 <dt id="repairbox.cli.list_bugs">
-<code class="descclassname">repairbox.cli.</code><code class="descname">list_bugs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.cli.list_bugs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">repairbox.cli.</code><code class="descname">list_bugs</code><span class="sig-paren">(</span><em>show_installed=None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.cli.list_bugs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces a list of all the artefacts registered with RepairBox.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="repairbox.cli.list_sources">
 <code class="descclassname">repairbox.cli.</code><code class="descname">list_sources</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.cli.list_sources" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Produces a list of all the sources known to RepairBox.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="repairbox.cli.main">
@@ -330,7 +344,7 @@ specified YAML file.</p>
 <span id="repairbox-container-module"></span><h2>repairbox.container module<a class="headerlink" href="#module-repairbox.container" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="repairbox.container.BugContainer">
-<em class="property">class </em><code class="descclassname">repairbox.container.</code><code class="descname">BugContainer</code><span class="sig-paren">(</span><em>bug: repairbox.artefact.Artefact</em>, <em>volumes=[]</em>, <em>network_mode='bridge'</em>, <em>ports={}</em>, <em>tty=False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.BugContainer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">repairbox.container.</code><code class="descname">BugContainer</code><span class="sig-paren">(</span><em>bug: repairbox.artefact.Artefact</em>, <em>volumes=[]</em>, <em>network_mode='bridge'</em>, <em>ports={}</em>, <em>interactive=False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.BugContainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="attribute">
 <dt id="repairbox.container.BugContainer.alive">
@@ -380,6 +394,13 @@ that execution.</p>
 <code class="descname">execute_command</code><span class="sig-paren">(</span><em>cmd</em>, <em>context='/'</em>, <em>stdout=True</em>, <em>stderr=False</em>, <em>block=True</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.BugContainer.execute_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a tuple containing the exit code, execution duration, and
 output, respectively.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.BugContainer.interact">
+<code class="descname">interact</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.BugContainer.interact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the PTY (pseudo-TTY) for this container.
+Blocks until the user exits the PTY.</p>
 </dd></dl>
 
 <dl class="method">
@@ -856,46 +877,37 @@ description.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">repairbox</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">repairbox package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="repairbox.plugin.html">repairbox.plugin package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.artefact">repairbox.artefact module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.build">repairbox.build module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.cli">repairbox.cli module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.container">repairbox.container module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.coverage">repairbox.coverage module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.manager">repairbox.manager module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.spectra">repairbox.spectra module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox.test">repairbox.test module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-repairbox">Module contents</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">repairbox package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-repairbox.artefact">repairbox.artefact module</a></li>
+<li><a class="reference internal" href="#module-repairbox.build">repairbox.build module</a></li>
+<li><a class="reference internal" href="#module-repairbox.cli">repairbox.cli module</a></li>
+<li><a class="reference internal" href="#module-repairbox.container">repairbox.container module</a></li>
+<li><a class="reference internal" href="#module-repairbox.coverage">repairbox.coverage module</a></li>
+<li><a class="reference internal" href="#module-repairbox.manager">repairbox.manager module</a></li>
+<li><a class="reference internal" href="#module-repairbox.spectra">repairbox.spectra module</a></li>
+<li><a class="reference internal" href="#module-repairbox.test">repairbox.test module</a></li>
+<li><a class="reference internal" href="#module-repairbox">Module contents</a></li>
 </ul>
 </li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to repairbox’s documentation!</a></li>
-      <li>Next: <a href="repairbox.plugin.html" title="next chapter">repairbox.plugin package</a></li>
-  </ul></li>
-</ul>
-</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to repairbox’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="repairbox.plugin.html"
+                        title="next chapter">repairbox.plugin package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/repairbox.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -910,20 +922,27 @@ description.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2017, Author.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/repairbox.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="repairbox.plugin.html" title="repairbox.plugin package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to repairbox’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">repairbox  documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Author.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.4.
+    </div>
   </body>
 </html>
