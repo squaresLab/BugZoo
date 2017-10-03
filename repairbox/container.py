@@ -8,6 +8,7 @@ import repairbox.spectra
 
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
+from repairbox.patch import Patch
 
 
 class CompilationOutcome(object):
@@ -174,9 +175,14 @@ class Container(object):
         pass
 
 
-    def patch(self):
+    def apply_patch(self, patch: Patch) -> bool:
         """
-        Apply a patch to the source code.
+        Attempts to apply a given patch to the source code. All patch
+        applications are guaranteed to be atomic; if the patch fails to
+        apply, no changes will be made to the relevant source code files.
+
+        Returns true if the patch application was successful, and false if
+        the attempt was unsuccessful.
         """
         pass
     
