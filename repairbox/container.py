@@ -130,13 +130,20 @@ class BugContainer(object):
 
     def interact(self) -> None:
         """
-        Opens the PTY (pseudo-TTY) for this container.
-        Blocks until the user exits the PTY.
+        Connects to the PTY (pseudo-TTY) for this container.
+        Blocks until the user exits the PTY. Does not handle destruction of
+        the container; user should call `destroy` once finished with the
+        container.
         """
         subprocess.call(['docker', 'attach', self.__container.id])
 
 
-    def destroy(self):
+    def destroy(self) -> None:
+        """
+        Deallocates all resources associated with this container. If this
+        container has already been destroyed, this method quietly returns
+        (i.e., no errors are thrown).
+        """
         if self.__container:
             self.__container.remove(force=True)
 
@@ -161,7 +168,7 @@ class BugContainer(object):
 
     def reset(self):
         """
-        Resets the state of this bug container.
+        Resets the state of this container.
         """
         pass
 
