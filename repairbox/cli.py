@@ -44,8 +44,13 @@ def uninstall_bug(name: str, force: bool) -> None:
 def launch(name: str) -> None:
     bug = RepairBoxManager.bugs[name]
     bug.install()
-    # responsibility of Artefact::launch to perform cleanup
-    bug.launch()
+    try:
+        c = None
+        c = bug.provision(tty=True)
+        c.interact()
+    finally:
+        if c: # ensure the container is destroyed
+            c.destroy()
 
 
 def list_bugs(show_installed=None) -> None:

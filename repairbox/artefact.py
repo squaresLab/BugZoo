@@ -191,17 +191,4 @@ class Artefact(object):
         """
         Provisions a container for this artefact.
         """
-        return BugContainer(self, volumes=volumes, network_mode=network_mode, ports=ports, tty=tty)
-
-
-    def launch(self) -> None:
-        """
-        Launches an interactive container for this artefact. Once the pseudotty
-        session has ended, the container is destroyed.
-        """
-        c = None
-        try:
-            c = self.provision(tty=True)
-        finally:
-            if c:
-                c.destroy()
+        return BugContainer(self, volumes=volumes, network_mode=network_mode, ports=ports, interactive=tty)

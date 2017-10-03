@@ -84,7 +84,7 @@ class BugContainer(object):
                  volumes=[],
                  network_mode='bridge',
                  ports={},
-                 tty=False) -> None:
+                 interactive=False) -> None:
         """
         Constructs a container for a given bug.
         """
@@ -99,13 +99,17 @@ class BugContainer(object):
                                      ports=ports,
                                      network_mode=network_mode,
                                      stdin_open=True,
-                                     tty=tty,
-                                     detach=(not tty))
+                                     tty=interactive,
+                                     detach=True)
+        self.__container.start()
 
-        if tty:
-            dockerpty.start(client, self.__container)
-        else:
-            self.__container.start()
+    
+    def interact(self):
+        """
+        Opens the PTY (pseudo-TTY) for this container.
+        Blocks until the user exits the PTY.
+        """
+        subprocess.call(['docker', 'attach', self.__container.id])
 
 
     def destroy(self):

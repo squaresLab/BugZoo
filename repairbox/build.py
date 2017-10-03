@@ -169,6 +169,9 @@ class BuildInstructions(object):
                                         rm=True)
             for line in response:
                 line = json.loads(line.decode('utf8'))
+                if not 'stream' in line:
+                    print("DIDN'T FIND stream")
+                    print(line)
                 line = line['stream'].rstrip()
                 if not quiet:
                     print(line)
