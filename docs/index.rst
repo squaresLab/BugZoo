@@ -19,3 +19,4 @@ API Reference
   container
   test
   patch
+  coverage

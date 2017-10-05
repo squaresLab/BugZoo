@@ -44,20 +44,25 @@ class FileCoverageReport(object):
 
 class CoverageReport(object):
     """
-
-    Attributes:
-        __files (dict: str -> FileCoverageReport): a dictionary mapping the
-            names of files contained within this report to their individual
-            coverage reports.
+    Provides complete line coverage information for all files and across all
+    tests within a given project.
     """
+
     @staticmethod
     def from_string(s: str) -> 'CoverageReport':
+        """
+        Loads a coverage report from a string-based XML description.
+        """
         root = ET.fromstring(s)
         return CoverageReport.from_xml(root)
 
 
     @staticmethod
     def from_xml(root: ET.Element) -> 'CoverageReport':
+        """
+        Transforms an XML tree, produced by gcovr, into its corresponding
+        CoverageReport object.
+        """
         reports = {}
         packages = root.find('packages')
 
@@ -86,6 +91,10 @@ class CoverageReport(object):
 
 
     def file(self, name: str) -> FileCoverageReport:
+        """
+        Returns the coverage information for a given file within the project
+        associated with this report.
+        """
         assert name != ""
         return self.__files[name]
 
