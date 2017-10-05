@@ -90,17 +90,17 @@ class CoverageReport(object):
         return list(self.__files.keys())
 
 
-    def file(self, filename: str) -> FileCoverageReport:
+    def file(self, name: str) -> FileCoverageReport:
         """
         Returns the coverage information for a given file within the project
         associated with this report.
         """
         assert name != ""
-        return self.__files[filename]
+        return self.__files[name]
 
 
-    def __getitem__(self, name: str) -> FileCoverageReport:
+    def __getitem__(self, filename: str) -> FileCoverageReport:
         """
         Alias for `file`.
         """
-        return self.file(name)
+        return self.file(filename)
