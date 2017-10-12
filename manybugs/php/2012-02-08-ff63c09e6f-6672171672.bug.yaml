@@ -8,4 +8,4 @@ build-arguments:
 dataset: manybugs
 dockerfile: Dockerfile.bug
 program: php
-version: 0
+version: 1
