@@ -62,3 +62,6 @@ supplying the :code:`-q` flag.
 
 Produces exit code zero if the bug is successfully installed or
 was already installed, or exit code one if the installation failed.
+
+`uninstall-artefact [-f] {identifier}`
+--------------------------------------
