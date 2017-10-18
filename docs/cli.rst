@@ -18,7 +18,7 @@ list of artefacts (:code:`-q`).
 
 .. code-block:: bash
 
-  $ repairbox list-artefacts
+  $ repairbox artefact list
 
   Artefact                                        Dataset    Source                                      Installed?
   ----------------------------------------------  ---------  ------------------------------------------  ------------
@@ -30,7 +30,7 @@ list of artefacts (:code:`-q`).
   ardubugs:copter:9f59f27                         ardubugs   https://github.com/squaresLab/ArduBugs      No
   ...
 
-  $ repairbox list-artefacts -q
+  $ repairbox artefact list -q
   ardubugs:copter:2e6b6e4
   ardubugs:copter:cb1b9b6
   ardubugs:copter:766ccea
@@ -64,7 +64,7 @@ supplying the :code:`-q` flag.
 
 .. code-block:: bash
 
-  $ repairbox install-artefact ardubugs:copter:2e6b6e4
+  $ repairbox artefact install ardubugs:copter:2e6b6e4
   ...
 
 Produces exit code zero if the bug is successfully installed or
@@ -75,7 +75,7 @@ was already installed, or exit code one if the installation failed.
 
 .. code-block:: bash
 
-  $ repairbox uninstall-artefact ardubugs:copter:2e6b6e4
+  $ repairbox artefact uninstall ardubugs:copter:2e6b6e4
   ...
 
 The :code:`-f` flag can be used to force the uninstallation of an artefact,
