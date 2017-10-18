@@ -15,6 +15,9 @@ a program (i.e., bugs). For other purposes, such as studies on
 (non-functional) performance, artefacts needn't represent a version of the
 program that is known to buggy.
 
+Artefacts are provided as lightweight `Docker <https://www.docker.com>`_
+containers.
+
 
 Artefact reference
 -------------------
