@@ -4,8 +4,11 @@ from typing import Dict, List
 
 
 class FileCoverageReport(object):
-    def __init__(self, fileName: str, lines: Dict[int, int]) -> None:
-        self.__fileName = fileName
+    """
+    Provides coverage information for a given file within a project.
+    """
+    def __init__(self, filename: str, lines: Dict[int, int]) -> None:
+        self.__filename = filename
         self.__lines = lines
 
 

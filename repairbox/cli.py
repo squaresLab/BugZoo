@@ -29,21 +29,21 @@ def update_sources() -> None:
     RepairBoxManager.sources.update()
 
 
-def install_bug(name: str, update: bool) -> None:
-    print('installing bug: {}'.format(name))
-    bug = RepairBoxManager.bugs[name]
-    bug.install(upgrade=update)
+def install_artefact(name: str, update: bool) -> None:
+    print('installing artefact: {}'.format(name))
+    artefact = RepairBoxManager.bugs[name]
+    artefact.install(upgrade=update)
 
 
 def uninstall_bug(name: str, force: bool) -> None:
     print('uninstalling bug: {}'.format(name))
-    bug = RepairBoxManager.bugs[name]
-    bug.uninstall(force=force)
+    artefact = RepairBoxManager.bugs[name]
+    artefact.uninstall(force=force)
 
 
 def launch(name: str) -> None:
-    bug = RepairBoxManager.bugs[name]
-    bug.install()
+    artefact = RepairBoxManager.bugs[name]
+    artefact.install()
     try:
         c = None
         c = bug.provision(tty=True)
@@ -53,7 +53,7 @@ def launch(name: str) -> None:
             c.destroy()
 
 
-def list_bugs(show_installed=None) -> None:
+def list_artefacts(show_installed=None) -> None:
     """
     Produces a list of all the artefacts registered with RepairBox.
     """
@@ -103,35 +103,35 @@ def main():
     remove_source_parser.add_argument('src')
     remove_source_parser.set_defaults(func=lambda args: remove_source(args.src))
 
-    # install-bug [id]
-    install_bug_parser = subparsers.add_parser('install-bug')
-    install_bug_parser.add_argument('bug')
-    install_bug_parser.add_argument('--update',
+    # install-artefact [id]
+    install_artefact_parser = subparsers.add_parser('install-artefact')
+    install_artefact_parser.add_argument('artefact')
+    install_artefact_parser.add_argument('--update',
                                     action='store_true')
-    install_bug_parser.set_defaults(func=lambda args: install_bug(args.bug, args.update))
+    install_artefact_parser.set_defaults(func=lambda args: install_artefact(args.artefact, args.update))
 
-    # uninstall-bug [id]
-    install_bug_parser = subparsers.add_parser('uninstall-bug')
-    install_bug_parser.add_argument('bug')
-    install_bug_parser.add_argument('--force',
+    # uninstall-artefact [id]
+    uninstall_artefact_parser = subparsers.add_parser('uninstall-artefact')
+    uninstall_artefact_parser.add_argument('artefact')
+    uninstall_artefact_parser.add_argument('--force',
                                     action='store_true')
-    install_bug_parser.set_defaults(func=lambda args: uninstall_bug(args.bug, force=args.force))
+    uninstall_artefact_parser.set_defaults(func=lambda args: uninstall_artefact(args.artefact, force=args.force))
 
     # launch [src]
     launch_parser = subparsers.add_parser('launch')
-    launch_parser.add_argument('bug')
-    launch_parser.set_defaults(func=lambda args: launch(args.bug))
+    launch_parser.add_argument('artefact')
+    launch_parser.set_defaults(func=lambda args: launch(args.artefact))
 
-    # list-bugs
-    list_bugs_parser = subparsers.add_parser('list-bugs')
-    list_bugs_parser.add_argument('--installed',
+    # list-artefacts
+    list_artefacts_parser = subparsers.add_parser('list-artefacts')
+    list_artefacts_parser.add_argument('--installed',
                                     dest='installed',
                                     action='store_true')
-    list_bugs_parser.add_argument('--uninstalled',
+    list_artefacts_parser.add_argument('--uninstalled',
                                     dest='installed',
                                     action='store_false')
-    list_bugs_parser.set_defaults(feature=True)
-    list_bugs_parser.set_defaults(func=lambda args: list_bugs(args.installed))
+    list_artefacts_parser.set_defaults(feature=True)
+    list_artefacts_parser.set_defaults(func=lambda args: list_artefacts(args.installed))
 
     # update-sources
     update_sources_parser = subparsers.add_parser('update-sources')
