@@ -1,8 +1,15 @@
 Command-Line Interface
 ======================
 
-`list-artefacts [-q] [--installed|--uninstalled]`
--------------------------------------------------
+`artefact` commands
+...................
+
+The `artefact` command group is used to manage the installation of artefacts
+on the local machine.
+
+
+`artefact list [-q] [--installed|--uninstalled]`
+------------------------------------------------
 
 Produces a list of all artefacts provided by sources registered with your
 local RepairBox installation. Optional flags can be used to filter the contents
@@ -32,7 +39,7 @@ list of artefacts (:code:`-q`).
   ardubugs:copter:9f59f27
 
 
-`install-artefact [--upgrade] [-q] {identifier}`
+`artefact install [--upgrade] [-q] {identifier}`
 ------------------------------------------------
 
 Installs a given artefact, specified by its identifier. For a list of artefacts
@@ -48,7 +55,7 @@ dependencies) locally.
 If the artefact has already been installed to the machine, this command will
 simply do nothing and exit with code :code:`0`. To force the installation of
 the latest version of the artefact, either supply the :code:`--upgrade` flag
-or use the :code:`upgrade-artefact` command.
+or use the :code:`artefact upgrade` command.
 
 
 By default, this command produces detailed information when downloading or
@@ -63,7 +70,7 @@ supplying the :code:`-q` flag.
 Produces exit code zero if the bug is successfully installed or
 was already installed, or exit code one if the installation failed.
 
-`uninstall-artefact [-f] {identifier}`
+`artefact uninstall [-f] {identifier}`
 --------------------------------------
 
 .. code-block:: bash
