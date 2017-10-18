@@ -141,3 +141,29 @@ source will be uninstalled and delisted.
   $ repairbox source remove https://github.com/squaresLab/ArduBugs
   removed source: https://github.com/squaresLab/ArduBugs
   ...
+
+
+`source update [url]`
+---------------------
+
+This command can be used to update the manifest files for all artefacts
+provided by all sources registered with RepairBox, as shown below. Note that
+this command does not attempt to install any updated versions of its
+artefacts.
+
+.. code-block:: bash
+
+  $ repairbox source update
+  
+  TODO
+  ...
+
+Optionally, the URL associated with a given source can be provided to
+restrict the update to the artefacts associated with that source.
+
+.. code-block:: bash
+
+  $ repairbox source update https://github.com/squaresLab/ArduBugs
+  
+  TODO
+  ...
