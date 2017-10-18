@@ -30,7 +30,7 @@ class RepairBoxManager(object):
     def __init__(self, path: str) -> None:
         self.__path = path
         self.__sources = SourceManager(self)
-        self.__bugs = BugManager(self)
+        self.__artefacts = ArtefactManager(self)
 
 
     @property
@@ -48,15 +48,15 @@ class RepairBoxManager(object):
 
     
     @property
-    def bugs(self):
-        return self.__bugs
+    def artefacts(self):
+        return self.__artefacts
 
 
 class Source(object):
     def __init__(self, manager: 'SourceManager', url: str) -> None:
         self.__manager = manager
         self.__url = url
-        self.__bugs = {}
+        self.__artefacts = {}
         self.__dependencies = {}
 
         # compute the relative path for this source
@@ -84,11 +84,11 @@ class Source(object):
             self.__dependencies[dep.tag] = dep
 
         
-        # find all bugs
-        fns = '{}/**/*.bug.yaml'.format(self.abs_path)
+        # find all artefacts
+        fns = '{}/**/*.artefact.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            bug = Artefact.from_file(self, fn)
-            self.__bugs[bug.identifier] = bug
+            artefact = Artefact.from_file(self, fn)
+            self.__artefact[artefact.identifier] = artefact
 
     
     def update(self) -> None:
@@ -107,8 +107,8 @@ class Source(object):
         Removes the files for this source from disk, and uninstalls all
         associated Docker images. This should only be called by SourceManager.
         """
-        for bug in self.bugs:
-            bug.uninstall(force=True)
+        for artefact in self.artefacts:
+            artefact.uninstall(force=True)
 
         for dep in self.__dependencies.values():
             dep.uninstall(force=True)
@@ -118,19 +118,19 @@ class Source(object):
 
     def contains(self, identifier: str) -> None:
         """
-        Checks whether a bug with a given identifier is provided by this
+        Checks whether an artefact with a given identifier is provided by this
         source.
         """
-        return identifier in self.__bugs
+        return identifier in self.__artefacts
 
 
     def __getitem__(self, key):
-        return self.__bugs[key]
+        return self.__artefacts[key]
 
 
     @property
-    def bugs(self) -> List[Artefact]:
-        return list(self.__bugs.values())
+    def artefacts(self) -> List[Artefact]:
+        return list(self.__artefacts.values())
 
     
     @property
@@ -253,21 +253,21 @@ class SourceManager(object):
         return self.__sources[key]
 
 
-class BugManager(object):
-    class BugIterator(object):
+class ArtefactManager(object):
+    class ArtefactIterator(object):
         def __init__(self, sources):
             self.__sources = list(sources)
-            self.__bugs = []
+            self.__artefacts = []
 
         
         def __next__(self):
-            if not self.__bugs:
+            if not self.__artefacts:
                 if not self.__sources:
                     raise StopIteration
                 src = self.__sources.pop()
-                bugs = src.bugs
-                self.__bugs += bugs
-            return self.__bugs.pop()
+                self.__artefacts += src.artefacts
+                return self.__next__()
+            return self.__artefacts.pop()
 
 
     def __init__(self, manager):
@@ -278,11 +278,11 @@ class BugManager(object):
         for src in self.__manager.sources.sources:
             if src.contains(name):
                 return src[name]
-        raise IndexError('bug not found: {}'.format(name))
+        raise IndexError('artefact not found: {}'.format(name))
 
     
     def __iter__(self):
-        return BugManager.BugIterator(self.__manager.sources.sources)
+        return ArtefactManager.ArtefactIterator(self.__manager.sources.sources)
  
 
 # not sure about this...

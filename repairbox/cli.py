@@ -31,18 +31,18 @@ def update_sources() -> None:
 
 def install_artefact(name: str, update: bool) -> None:
     print('installing artefact: {}'.format(name))
-    artefact = RepairBoxManager.bugs[name]
+    artefact = RepairBoxManager.artefacts[name]
     artefact.install(upgrade=update)
 
 
 def uninstall_bug(name: str, force: bool) -> None:
     print('uninstalling bug: {}'.format(name))
-    artefact = RepairBoxManager.bugs[name]
+    artefact = RepairBoxManager.artefacts[name]
     artefact.uninstall(force=force)
 
 
 def launch(name: str) -> None:
-    artefact = RepairBoxManager.bugs[name]
+    artefact = RepairBoxManager.artefacts[name]
     artefact.install()
     try:
         c = None
@@ -59,7 +59,7 @@ def list_artefacts(show_installed=None) -> None:
     """
     tbl = []
     hdrs = ['Artefact', 'Dataset', 'Source', 'Installed?']
-    for artefact in RepairBoxManager.bugs:
+    for artefact in RepairBoxManager.artefacts:
 
         # apply filtering based on installation status
         if show_installed is not None:
