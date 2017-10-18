@@ -73,6 +73,8 @@ was already installed, or exit code one if the installation failed.
 `artefact uninstall [-f] {identifier}`
 --------------------------------------
 
+Uninstalls the Docker image for a given identifier from the local machine.
+
 .. code-block:: bash
 
   $ repairbox artefact uninstall ardubugs:copter:2e6b6e4
@@ -81,3 +83,9 @@ was already installed, or exit code one if the installation failed.
 The :code:`-f` flag can be used to force the uninstallation of an artefact,
 regardless of whether or not it is running, causing any containers using
 that artefact to abruptly terminate -- **use at your own risk**.
+
+`source` commands
+.................
+
+`source add {url}`
+------------------
