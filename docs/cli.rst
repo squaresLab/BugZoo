@@ -65,3 +65,12 @@ was already installed, or exit code one if the installation failed.
 
 `uninstall-artefact [-f] {identifier}`
 --------------------------------------
+
+.. code-block:: bash
+
+  $ repairbox uninstall-artefact ardubugs:copter:2e6b6e4
+  ...
+
+The :code:`-f` flag can be used to force the uninstallation of an artefact,
+regardless of whether or not it is running, causing any containers using
+that artefact to abruptly terminate -- **use at your own risk**.
