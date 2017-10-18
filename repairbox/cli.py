@@ -58,16 +58,16 @@ def list_artefacts(show_installed=None) -> None:
     Produces a list of all the artefacts registered with RepairBox.
     """
     tbl = []
-    hdrs = ['Bug', 'Dataset', 'Source', 'Installed?']
-    for bug in RepairBoxManager.bugs:
+    hdrs = ['Artefact', 'Dataset', 'Source', 'Installed?']
+    for artefact in RepairBoxManager.bugs:
 
         # apply filtering based on installation status
         if show_installed is not None:
-            if show_installed != bug.installed:
+            if show_installed != artefact.installed:
                 continue
 
-        installed = 'Yes' if bug.installed else 'No'
-        row = [bug.identifier, bug.dataset, bug.source.url, installed]
+        installed = 'Yes' if artefact.installed else 'No'
+        row = [artefact.identifier, artefact.dataset, artefact.source.url, installed]
         tbl.append(row)
 
     # sort by source then by bug
