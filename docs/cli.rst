@@ -87,5 +87,32 @@ that artefact to abruptly terminate -- **use at your own risk**.
 `source` commands
 .................
 
+The `source` commands are used to add, remove, and list sources of artefacts
+that are known to RepairBox.
+
 `source add {url}`
 ------------------
+
+Registers a source, given by the URL of a remote Git repository, with the local
+machine. All artefacts associated with the source will be registered with the
+machine, allowing them to be installed and executed.
+
+.. code-block:: bash
+
+  $ repairbox source add https://github.com/squaresLab/ArduBugs
+  added source: https://github.com/squaresLab/ArduBugs
+  ...
+
+
+`source remove {url}`
+---------------------
+
+Deregisters a source, given by the URL of its remote Git repository, with the
+local machine. After executing this command, all artefacts associated with the
+source will be uninstalled and delisted.
+
+.. code-block:: bash
+
+  $ repairbox source remove https://github.com/squaresLab/ArduBugs
+  removed source: https://github.com/squaresLab/ArduBugs
+  ...
