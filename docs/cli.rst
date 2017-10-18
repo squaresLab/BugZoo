@@ -90,6 +90,31 @@ that artefact to abruptly terminate -- **use at your own risk**.
 The `source` commands are used to add, remove, and list sources of artefacts
 that are known to RepairBox.
 
+`source list`
+-------------
+
+Produces a pretty-printed list of all sources registered with RepairBox.
+
+.. code-block:: bash
+
+  $ repairbox source list
+
+  - https://github.com/squaresLab/ArduBugs
+  - https://github.com/ChrisTimperley/ManyBugs
+  ...
+
+
+The :code:`-q` flag can be used to disable pretty printing, allowing the output
+to be piped to other commands.
+
+.. code-block:: bash
+
+  $ repairbox source list
+  https://github.com/squaresLab/ArduBugs
+  https://github.com/ChrisTimperley/ManyBugs
+  ...
+
+
 `source add {url}`
 ------------------
 
