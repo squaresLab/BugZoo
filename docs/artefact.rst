@@ -2,6 +2,7 @@ Artefact
 ========
 .. py:module:: repairbox.artefact
 
+
 Artefacts are used to provide an interactive snapshot of a given piece of
 software at a fixed point in time (e.g., a tagged release, a version-control
 revision). Outside of RepairBox, artefacts are sometimes referred to as
@@ -10,7 +11,9 @@ program versions (see XYZ).
 
 In the context of fault localisation, automated program repair, and to some
 extent, software testing, artefacts are used to represent buggy versions of
-a program (i.e., bugs).
+a program (i.e., bugs). For other purposes, such as studies on 
+(non-functional) performance, artefacts needn't represent a version of the
+program that is known to buggy.
 
 
 Artefact reference
