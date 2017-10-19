@@ -2,7 +2,9 @@ Adding a dataset to RepairBox
 =============================
 
 In this section, we describe how to integrate your own dataset of software
-artefacts with RepairBox. Integrating your dataset allows yourself and others
+artefacts with RepairBox.
+**But wait, why would I want to add my dataset to RepairBox?**
+Integrating your dataset allows yourself and others
 to use RepairBox to write elegant, reproducible, executable experiment designs
 for your empirical studies.
 
