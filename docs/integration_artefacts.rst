@@ -51,3 +51,16 @@ Finally: registering the dataset with RepairBox
         and adding new datasets required issuing a pull request to the
         RepairBox Git repository. Our current, *decentralised* approach removes
         this bottleneck and allows users to control their dataset directly.
+
+
+-------------------------------------------------------------------------------
+
+
+Best Practices
+--------------
+
+* In general, we advise that each dataset uses its own repository (i.e., avoid
+  providing multiple datasets in a single repository). Keeping datasets
+  separate should also make it easier to report and track issues. There are
+  rare cases where providing multiple datasets in a single source is
+  preferable; use your discretion.
