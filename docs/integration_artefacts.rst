@@ -45,6 +45,7 @@ declare your dataset to RepairBox using a `.repairbox.yml` file. This file is
 responsible for giving your dataset a name and providing useful information
 about it.
 
+Below is a minimal example of a dataset manifest file (i.e., `.repairbox.yml`).
 
 .. code-block:: yaml
 
@@ -53,15 +54,19 @@ about it.
     name: tutorial-bugs
 
 
+In the example above, the `dataset.name` attribute provides a name for the
+model, and the `version` attribute specifies the manifest file version that is
+used by the manifest file.
 
-3. Defining the artefacts (`*.artefact.yml`)
----------------------------------------------
 
-4. Defining the dependencies (`*.dep.yml`)
--------------------------------------------
+3. Defining the artefacts
+-------------------------
 
-Finally: registering the dataset with RepairBox
------------------------------------------------
+4. Defining the dependencies
+----------------------------
+
+5. Registering with RepairBox
+-----------------------------
 
 .. [#]  An earlier version of RepairBox used a *centralised* approach to provide
         artefacts. Artefact files were included as part of RepairBox itself,
