@@ -8,6 +8,17 @@ Installation
 
 Installation instructions.
 
+**Building from cutting-edge source:**
+
+We advise that users produce a shallow clone of this repository using the
+command below. Producing a shallow clone is considerably faster and avoids
+the need to download redundant files.
+
+.. code-block:: bash
+
+  $ git clone https://github.com/squaresLab/RepairBox
+  $ python3 setup.py install
+
 
 API Reference
 -------------
@@ -28,6 +39,7 @@ Usage
 .. toctree::
   :maxdepth: 1
 
+  examples
   cli
 
 
