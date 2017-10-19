@@ -43,6 +43,15 @@ Usage
   cli
 
 
+Contributing
+------------
+
+.. toctree::
+  :maxdepth: 1
+
+  integration_artefacts
+
+
 Publications
 ------------
 
