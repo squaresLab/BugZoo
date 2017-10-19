@@ -36,21 +36,28 @@ the repository as a source with your local RepairBox installation:
   $ repairbox source add https://your-repo-url-goes-here.git
 
 
-2. Declaring the dataset (`*.dataset.yaml`)
--------------------------------------------
+2. Declaring the dataset
+------------------------
 
+Now that you've registered your repository as a source, you can start adding
+artefacts to it -- right? Not so fast. Before you add artefacts, you'll need to
+declare your dataset to RepairBox using a `.repairbox.yml` file. This file is
+responsible for giving your dataset a name and providing useful information
+about it.
 
 
 .. code-block:: yaml
 
   version: '1.0'
+  dataset:
+    name: tutorial-bugs
 
 
 
-3. Defining the artefacts (`*.artefact.yaml`)
+3. Defining the artefacts (`*.artefact.yml`)
 ---------------------------------------------
 
-4. Defining the dependencies (`*.dep.yaml`)
+4. Defining the dependencies (`*.dep.yml`)
 -------------------------------------------
 
 Finally: registering the dataset with RepairBox
