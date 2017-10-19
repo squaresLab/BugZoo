@@ -103,7 +103,10 @@ html_theme = 'alabaster'
 #
 html_theme_options = {
     'description': 'A Python-based framework for conducting high-quality empirical studies of software artefacts.',
-    'fixed_sidebar': True
+    'fixed_sidebar': True,
+    'github_user': 'squaresLab',
+    'github_repo': 'RepairBox',
+    'github_type': 'star'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
