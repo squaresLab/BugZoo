@@ -41,6 +41,7 @@ Usage
 
   examples
   cli
+  faqs
 
 
 Contributing
