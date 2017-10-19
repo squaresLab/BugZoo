@@ -1,5 +1,5 @@
-Integrating your dataset with RepairBox
-=======================================
+Adding a dataset to RepairBox
+=============================
 
 In this section, we describe how to integrate your own dataset of software
 artefacts with RepairBox. Integrating your dataset allows yourself and others

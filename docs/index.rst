@@ -50,6 +50,7 @@ Contributing
   :maxdepth: 1
 
   integration_artefacts
+  integration_plugin
 
 
 Publications
