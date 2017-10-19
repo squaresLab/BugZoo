@@ -27,9 +27,19 @@ assumed that you know how to create a Git repository. If this isn't the case,
 we recommend that you check out some of the tutorials on `GitHub <https://github.com>`_
 at https://guides.github.com/activities/hello-world/.
 
+Once you've created a Git repository for your dataset, go ahead and register
+the repository as a source with your local RepairBox installation:
 
-Declaring the dataset (`*.dataset.yaml`)
-----------------------------------------
+
+.. code-block:: bash
+
+  $ repairbox source add https://your-repo-url-goes-here.git
+
+
+2. Declaring the dataset (`*.dataset.yaml`)
+-------------------------------------------
+
+
 
 .. code-block:: yaml
 
@@ -37,11 +47,11 @@ Declaring the dataset (`*.dataset.yaml`)
 
 
 
-Defining the artefacts (`*.artefact.yaml`)
-------------------------------------------
+3. Defining the artefacts (`*.artefact.yaml`)
+---------------------------------------------
 
-Defining the dependencies (`*.dep.yaml`)
-----------------------------------------
+4. Defining the dependencies (`*.dep.yaml`)
+-------------------------------------------
 
 Finally: registering the dataset with RepairBox
 -----------------------------------------------
