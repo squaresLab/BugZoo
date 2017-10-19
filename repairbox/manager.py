@@ -68,6 +68,14 @@ class Source(object):
 
         self.scan()
 
+
+    @property
+    def name(self) -> str:
+        """
+        The unique name of this source.
+        """
+        return "MOCK-NAME"
+
     
     @property
     def version(self) -> str:
