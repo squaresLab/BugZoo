@@ -10,8 +10,15 @@ def list_sources() -> None:
     """
     Produces a list of all the sources known to RepairBox.
     """
+    hdrs = ['Source', 'URL', 'Version'] 
+    tbl = []
     for src in RepairBoxManager.sources.sources:
-        print("- {}".format(src.url))
+        tbl.append([src.name, src.url, src.version])
+
+    # transform into a pretty table
+    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
+    print('')
+    print(tbl)
 
 
 def add_source(src: str) -> None:
