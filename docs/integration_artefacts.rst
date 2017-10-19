@@ -27,14 +27,6 @@ assumed that you know how to create a Git repository. If this isn't the case,
 we recommend that you check out some of the tutorials on `GitHub <https://github.com>`_
 at https://guides.github.com/activities/hello-world/.
 
-Once you've created a Git repository for your dataset, go ahead and register
-the repository as a source with your local RepairBox installation:
-
-
-.. code-block:: bash
-
-  $ repairbox source add https://your-repo-url-goes-here.git
-
 
 2. Declaring the dataset
 ------------------------
@@ -62,11 +54,22 @@ used by the manifest file.
 3. Defining the artefacts
 -------------------------
 
+
+
 4. Defining the dependencies
 ----------------------------
 
 5. Registering with RepairBox
 -----------------------------
+
+Once you've created a Git repository for your dataset, go ahead and register
+the repository as a source with your local RepairBox installation:
+
+
+.. code-block:: bash
+
+  $ repairbox source add https://your-repo-url-goes-here.git
+
 
 .. [#]  An earlier version of RepairBox used a *centralised* approach to provide
         artefacts. Artefact files were included as part of RepairBox itself,
