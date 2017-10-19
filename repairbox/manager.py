@@ -5,6 +5,7 @@ import shutil
 import glob
 import copy
 import typing
+import git
 
 from typing import List
 from repairbox.build import BuildInstructions
@@ -68,6 +69,15 @@ class Source(object):
         self.scan()
 
     
+    @property
+    def version(self) -> str:
+        """
+        The current version of this source, given as the first eight characters
+        of its current revision.
+        """
+        return "X" * 8
+
+    
     def download(self) -> None:
         """
         Downloads this source to disk.
@@ -88,7 +98,7 @@ class Source(object):
         fns = '{}/**/*.artefact.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
             artefact = Artefact.from_file(self, fn)
-            self.__artefact[artefact.identifier] = artefact
+            self.__artefacts[artefact.identifier] = artefact
 
     
     def update(self) -> None:
