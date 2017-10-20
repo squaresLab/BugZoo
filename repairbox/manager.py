@@ -6,6 +6,7 @@ import glob
 import copy
 import typing
 import git
+import yaml
 
 from typing import List
 from repairbox.build import BuildInstructions
@@ -66,6 +67,13 @@ class Source(object):
         rel_path = rel_path.replace('.', '_')
         self.__rel_path = rel_path
 
+        # determine the name of this source
+        manifest_fn = os.path.join(self.abs_path, '.repairbox.yml')
+        assert os.path.isfile(manifest_fn), "missing manifest file."
+        with open(manifest_fn, 'r') as f:
+            yml = yaml.load(f)
+        self.__name = yml['dataset']['name']
+
         self.scan()
 
 
@@ -74,7 +82,7 @@ class Source(object):
         """
         The unique name of this source.
         """
-        return "MOCK-NAME"
+        return self.__name
 
     
     @property
