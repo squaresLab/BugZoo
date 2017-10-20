@@ -121,13 +121,20 @@ the same directory as the file to build a Docker image with the tag
 5. Registering with RepairBox
 -----------------------------
 
-Once you've created a Git repository for your dataset, go ahead and register
-the repository as a source with your local RepairBox installation:
+Once you've followed the steps above, go ahead and register your repository
+as a source with your local RepairBox installation:
 
 
 .. code-block:: bash
 
   $ repairbox source add https://your-repo-url-goes-here.git
+
+
+The artefacts provided by your source will thereafter be known to RepairBox
+[#]_.
+(Note that before they can be used, you'll need to install them via the CLI
+or the Python API.)
+
 
 
 .. [#]  An earlier version of RepairBox used a *centralised* approach to provide
@@ -136,6 +143,9 @@ the repository as a source with your local RepairBox installation:
         RepairBox Git repository. Our current, *decentralised* approach removes
         this bottleneck and allows users to control their dataset directly.
 
+.. [#]  Behind the scenes, RepairBox clones the latest version of your
+        Git repository to the local RepairBox directory on your machine
+        (located at `~/.repairbox`, by default).
 
 -------------------------------------------------------------------------------
 
