@@ -135,7 +135,9 @@ The artefacts provided by your source will thereafter be known to RepairBox
 (Note that before they can be used, you'll need to install them via the CLI
 or the Python API.)
 
-Discuss updates.
+If you make changes to your dataset after registering it with RepairBox, you
+can use the :code:`source update` command to update RepairBox to use the latest
+version of your dataset, as shown below.
 
 .. code-block:: bash
 
