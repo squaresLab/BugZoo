@@ -54,7 +54,44 @@ used by the manifest file.
 3. Defining the artefacts
 -------------------------
 
+Artefacts are added to the dataset using artefact manifest files
+(`*.artefact.yml`). Manifest files are identified by a `.artefact.yml` suffix,
+and provide instructions on how to build and interact with a particular
+software artefact.
 
+An example artefact manifest file is given below. For more details on the
+manifest file format, see LINK.
+
+.. code-block:: yaml
+
+  version: '1.0'
+  tag: 69223-69224
+  program: python
+  language: c
+  source-location: /experiment/src
+  test-harness:
+    failing: 1
+    passing: 284
+    time-limit: 600
+    type: genprog
+  compilation:
+    command: make -j$(nproc)
+    context: /experiment/src
+    time-limit: 300
+  docker:
+    tag: squareslab/manybugs:python-69223-69224
+    file: Dockerfile.bug
+    depends-on: squareslab/manybugs:python
+    build-arguments:
+      scenario: python-bug-69223-69224
+
+
+Note that artefact manifest files are allowed to appear anywhere in the
+repository. RepairBox will recursively scan the files in the repository to
+locate its artefacts (after which it will cache the results, until the source
+is updated). Paths provided as part of the `docker` property are assumed to be
+relative to the location of the artefact manifest file.
+  
 
 4. Defining the dependencies
 ----------------------------
