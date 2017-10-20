@@ -123,8 +123,7 @@ class Source(object):
         """
         Downloads any updates to the files for this source.
         """
-        repo = git.Repo(self.abs_path)
-        origin = repo.remotes.origin
+        origin = self.__repo.remotes.origin
         origin.pull()
         del repo
         self.scan()
