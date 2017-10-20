@@ -43,7 +43,7 @@ def install_artefact(name: str, update: bool) -> None:
 
 
 def uninstall_bug(name: str, force: bool) -> None:
-    print('uninstalling bug: {}'.format(name))
+    print('uninstalling artefact: {}'.format(name))
     artefact = RepairBoxManager.artefacts[name]
     artefact.uninstall(force=force)
 
@@ -53,7 +53,7 @@ def launch(name: str) -> None:
     artefact.install()
     try:
         c = None
-        c = bug.provision(tty=True)
+        c = artefact.provision(tty=True)
         c.interact()
     finally:
         if c: # ensure the container is destroyed
@@ -77,7 +77,7 @@ def list_artefacts(show_installed=None) -> None:
         row = [artefact.identifier, artefact.source.name, installed]
         tbl.append(row)
 
-    # sort by source then by bug
+    # sort by source then by artefact
     tbl = sorted(tbl, key=itemgetter(1,2))
 
     # transform into a pretty table
