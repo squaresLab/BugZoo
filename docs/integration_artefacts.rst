@@ -43,7 +43,7 @@ Below is a minimal example of a dataset manifest file (i.e., `.repairbox.yml`).
 
   version: '1.0'
   dataset:
-    name: tutorial-bugs
+    name: tutorial-artefacts
 
 
 In the example above, the `dataset.name` attribute provides a name for the
@@ -135,6 +135,11 @@ The artefacts provided by your source will thereafter be known to RepairBox
 (Note that before they can be used, you'll need to install them via the CLI
 or the Python API.)
 
+Discuss updates.
+
+.. code-block:: bash
+
+  $ repairbox source update tutorial-artefacts
 
 
 .. [#]  An earlier version of RepairBox used a *centralised* approach to provide
