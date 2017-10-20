@@ -28,14 +28,9 @@ API Reference
 -------------
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 2
 
-  artefact
-  container
-  test
-  patch
-  coverage
-
+  api
 
 Usage
 -----

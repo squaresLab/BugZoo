@@ -1,0 +1,226 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Container &#8212; repairbox  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Test" href="test.html" />
+    <link rel="prev" title="Artefact" href="artefact.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">repairbox</a></h1>
+
+
+
+<p class="blurb">A Python-based framework for conducting high-quality empirical studies of software artefacts.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=RepairBox&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="artefact.html">Artefact</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Coverage</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Basic Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Command-Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../integration_artefacts.html">Adding a dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_plugin.html">Adding a plugin</a></li>
+</ul>
+
+
+<h3>Usage</h3>
+<ul>
+  <li class="toctree-l1"><a href="examples.html">Basic Examples</a></li>
+  <li class="toctree-l1"><a href="cli.html">Command-Line Interface</a></li>
+</ul>
+
+<h3>How to...</h3>
+<ul>
+  <li class="toctree-l1"><a href="integration_artefacts.html">Add a dataset</a></li>
+  <li class="toctree-l1"><a href="integration_plugin.html">Add a plugin</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-repairbox.container">
+<span id="container"></span><h1>Container<a class="headerlink" href="#module-repairbox.container" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="container-reference">
+<h2>Container reference<a class="headerlink" href="#container-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="repairbox.container.Container">
+<em class="property">class </em><code class="descname">Container</code><a class="headerlink" href="#repairbox.container.Container" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="repairbox.container.Container.alive">
+<code class="descname">alive</code><a class="headerlink" href="#repairbox.container.Container.alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether or not the container is still running.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="repairbox.container.Container.bug">
+<code class="descname">bug</code><a class="headerlink" href="#repairbox.container.Container.bug" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bug inside this container.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="repairbox.container.Container.container">
+<code class="descname">container</code><a class="headerlink" href="#repairbox.container.Container.container" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Docker container underlying this object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.interact">
+<code class="descname">interact</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.Container.interact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to the PTY (pseudo-TTY) for this container.
+Blocks until the user exits the PTY. Does not handle destruction of
+the container; user should call <cite>destroy</cite> once finished with the
+container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.destroy">
+<code class="descname">destroy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.Container.destroy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocates all resources associated with this container. If this
+container has already been destroyed, this method quietly returns
+(i.e., no errors are thrown).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.Container.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the state of this container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.apply_patch">
+<code class="descname">apply_patch</code><span class="sig-paren">(</span><em>patch: repairbox.patch.Patch</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#repairbox.container.Container.apply_patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to apply a given patch to the source code. All patch
+applications are guaranteed to be atomic; if the patch fails to
+apply, no changes will be made to the relevant source code files.</p>
+<p>Returns true if the patch application was successful, and false if
+the attempt was unsuccessful.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.spectra">
+<code class="descname">spectra</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; repairbox.spectra.Spectra<a class="headerlink" href="#repairbox.container.Container.spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes and returns the spectra for this bug.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.copy_to">
+<code class="descname">copy_to</code><span class="sig-paren">(</span><em>source_fn: str</em>, <em>dest_fn: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.container.Container.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies a given file from the host machine to a specified location
+inside this container.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.command">
+<code class="descname">command</code><span class="sig-paren">(</span><em>cmd</em>, <em>context='/'</em>, <em>stdout=True</em>, <em>stderr=False</em>, <em>block=True</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.Container.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple containing the exit code, execution duration, and
+output, respectively.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.compile">
+<code class="descname">compile</code><span class="sig-paren">(</span><em>mode='default'</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.Container.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to compile the program inside this container.</p>
+<p>TODO: check for failure</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.container.Container.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>test</em><span class="sig-paren">)</span><a class="headerlink" href="#repairbox.container.Container.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a given test inside this container and returns the result of
+that execution.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2017, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/api/container.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

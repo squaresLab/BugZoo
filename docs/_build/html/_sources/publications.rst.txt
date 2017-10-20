@@ -1,0 +1,11 @@
+Publications
+============
+
+
+
+List of publications that use RepairBox
+.......................................
+
+* An Investigation into the Use of Mutation Analysis for Automated Program Repair.
+  CS Timperley, S Stepney, C Le Goues.
+  International Symposium on Search Based Software Engineering, 99-114.

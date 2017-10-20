@@ -1,0 +1,220 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Artefact &#8212; repairbox  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Container" href="container.html" />
+    <link rel="prev" title="API Reference" href="api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">repairbox</a></h1>
+
+
+
+<p class="blurb">A Python-based framework for conducting high-quality empirical studies of software artefacts.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=RepairBox&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Artefact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Coverage</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Basic Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">Frequently Asked Questions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="integration_artefacts.html">Adding a dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration_plugin.html">Adding a plugin</a></li>
+</ul>
+
+
+<h3>Usage</h3>
+<ul>
+  <li class="toctree-l1"><a href="examples.html">Basic Examples</a></li>
+  <li class="toctree-l1"><a href="cli.html">Command-Line Interface</a></li>
+</ul>
+
+<h3>How to...</h3>
+<ul>
+  <li class="toctree-l1"><a href="integration_artefacts.html">Add a dataset</a></li>
+  <li class="toctree-l1"><a href="integration_plugin.html">Add a plugin</a></li>
+</ul>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-repairbox.artefact">
+<span id="artefact"></span><h1>Artefact<a class="headerlink" href="#module-repairbox.artefact" title="Permalink to this headline">¶</a></h1>
+<p>Artefacts are used to provide an interactive snapshot of a given piece of
+software at a fixed point in time (e.g., a tagged release, a version-control
+revision). Outside of RepairBox, artefacts are sometimes referred to as
+software objects (see Software-artifact Infrastructure Repository [X]), or
+program versions (see XYZ).</p>
+<p>In the context of fault localisation, automated program repair, and to some
+extent, software testing, artefacts are used to represent buggy versions of
+a program (i.e., bugs). For other purposes, such as studies on
+(non-functional) performance, artefacts needn’t represent a version of the
+program that is known to buggy.</p>
+<p>Artefacts are provided as lightweight <a class="reference external" href="https://www.docker.com">Docker</a>
+containers.</p>
+<div class="section" id="artefact-reference">
+<h2>Artefact reference<a class="headerlink" href="#artefact-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="repairbox.artefact.Artefact">
+<em class="property">class </em><code class="descname">Artefact</code><a class="headerlink" href="#repairbox.artefact.Artefact" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="repairbox.artefact.Artefact.identifier">
+<code class="descname">identifier</code><a class="headerlink" href="#repairbox.artefact.Artefact.identifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>The fully-qualified name of this artefact.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="repairbox.artefact.Artefact.image">
+<code class="descname">image</code><a class="headerlink" href="#repairbox.artefact.Artefact.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the Docker image for this artefact.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="repairbox.artefact.Artefact.source">
+<code class="descname">source</code><a class="headerlink" href="#repairbox.artefact.Artefact.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>The source to which this artefact belongs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="repairbox.artefact.Artefact.installed">
+<code class="descname">installed</code><a class="headerlink" href="#repairbox.artefact.Artefact.installed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates whether the Docker image for this artefact is installed on the
+local machine.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="repairbox.artefact.Artefact.harness">
+<code class="descname">harness</code><a class="headerlink" href="#repairbox.artefact.Artefact.harness" title="Permalink to this definition">¶</a></dt>
+<dd><p>The test harness used by this artefact.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="repairbox.artefact.Artefact.tests">
+<code class="descname">tests</code><a class="headerlink" href="#repairbox.artefact.Artefact.tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>The test suite used by this artefact.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.artefact.Artefact.download">
+<code class="descname">download</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to download the image for this artefact from DockerHub. If the
+force parameter is set to True, any existing image will be overwritten.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.artefact.Artefact.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to upload the image for this artefact to DockerHub.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.artefact.Artefact.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds the Docker image for this artefact.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repairbox.artefact.Artefact.install">
+<code class="descname">install</code><span class="sig-paren">(</span><em>upgrade=False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#repairbox.artefact.Artefact.install" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="repairbox.artefact.Artefact.provision">
+<code class="descname">provision</code><span class="sig-paren">(</span><em>volumes=[]</em>, <em>network_mode='bridge'</em>, <em>ports={}</em>, <em>tty=False</em><span class="sig-paren">)</span> &#x2192; repairbox.container.Container<a class="headerlink" href="#repairbox.artefact.Artefact.provision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provisions a container for this artefact.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2017, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/artefact.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

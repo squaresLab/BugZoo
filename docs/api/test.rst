@@ -3,6 +3,9 @@ Test
 .. py:module:: repairbox.test
 
 
+Give an example of how to run a test.
+
+
 Test reference
 --------------
 

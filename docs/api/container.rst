@@ -15,7 +15,7 @@ Container reference
   .. automethod:: interact
   .. automethod:: destroy
   .. automethod:: reset
-  .. automethod:: patch
+  .. automethod:: apply_patch
   .. automethod:: spectra
   .. automethod:: copy_to
   .. automethod:: command
