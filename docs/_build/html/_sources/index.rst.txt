@@ -3,41 +3,16 @@ RepairBox
 
 Top-level description of RepairBox.
 
-...............................................................................
-
-Contents
---------
-
 .. toctree::
-  installation
-
-.. toctree::
+  :hidden:
   :maxdepth: 2
 
+  installation
   api
   cli
-
-.. toctree::
-  faqs
-
-
-Usage
------
-
-.. toctree::
-  :maxdepth: 1
-
   examples
-
-
-Contributing
-------------
-
-.. toctree::
-  :maxdepth: 1
-
-  integration_artefacts
-  integration_plugin
+  contributing
+  faqs
 
 
 Publications

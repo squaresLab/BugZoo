@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Patch &#8212; repairbox  documentation</title>
+    <title>Adding a plugin &#8212; repairbox  documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Coverage" href="coverage.html" />
-    <link rel="prev" title="Test" href="test.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -56,16 +54,9 @@
 
 
 <h3>Navigation</h3>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="artefact.html">Artefact</a></li>
-<li class="toctree-l2"><a class="reference internal" href="container.html">Container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test.html">Test</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Patch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="coverage.html">Coverage</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -89,24 +80,17 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-repairbox.patch">
-<span id="patch"></span><h1>Patch<a class="headerlink" href="#module-repairbox.patch" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="patch-reference">
-<h2>Patch reference<a class="headerlink" href="#patch-reference" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="repairbox.patch.Patch">
-<em class="property">class </em><code class="descname">Patch</code><a class="headerlink" href="#repairbox.patch.Patch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used to abstractly represent a change to the source code of an artefact.
-All subclasses of Patch implement their own <cite>to_diff</cite> method, responsible
-for transforming their own internal representation to a diff.</p>
-<dl class="method">
-<dt id="repairbox.patch.Patch.to_diff">
-<code class="descname">to_diff</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#repairbox.patch.Patch.to_diff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the contents of this patch as a diff.</p>
-</dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="adding-a-plugin">
+<h1>Adding a plugin<a class="headerlink" href="#adding-a-plugin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Write automated tests.</li>
+</ul>
+</div>
+<div class="section" id="example-writing-a-plugin-for-daikon">
+<h2>Example: Writing a plugin for Daikon<a class="headerlink" href="#example-writing-a-plugin-for-daikon" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we show how</p>
 </div>
 </div>
 
@@ -125,7 +109,7 @@ for transforming their own internal representation to a diff.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/api/patch.rst.txt"
+      <a href="../_sources/contributing/plugin.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

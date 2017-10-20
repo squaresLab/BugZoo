@@ -1,5 +1,5 @@
-Basic Examples
-==============
+Examples
+========
 
 Here, we provide a number of examples that show how the RepairBox API can be
 used to perform various analyses of software artefacts.
