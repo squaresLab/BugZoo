@@ -55,7 +55,7 @@ used by the manifest file.
 -------------------------
 
 Artefacts are added to the dataset using artefact manifest files
-(`*.artefact.yml`). Manifest files are identified by a `.artefact.yml` suffix,
+(`*.artefact.yml`). Artefact manifest files are identified by a `.artefact.yml` suffix,
 and provide instructions on how to build and interact with a particular
 software artefact.
 
@@ -95,6 +95,28 @@ relative to the location of the artefact manifest file.
 
 4. Defining the dependencies
 ----------------------------
+
+Dependency manifest files can be used to provide instructions for building
+shared base images. Dependency manifest files are identified by a
+`.dependency.yml` suffix, and, like artefact manifests, they may appear
+anywhere in the repository.
+
+An example dependency manifest file is given below.
+
+
+.. code-block:: yaml
+
+  version: '1.0'
+  docker:
+    tag: squareslab/ardubugs:base
+    file: Dockerfile
+    context: .
+
+
+The example dependency manifest file above uses the `Dockerfile` located in
+the same directory as the file to build a Docker image with the tag
+`squareslab/ardubugs:base`.
+
 
 5. Registering with RepairBox
 -----------------------------
