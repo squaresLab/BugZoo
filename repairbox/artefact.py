@@ -43,7 +43,6 @@ class Artefact(object):
             yml = yaml.load(f)
 
         name = yml['bug'] # TODO: rename to 'artefact'
-        dataset = yml['dataset']
         program = yml.get('program', None)
 
         # build the test harness
@@ -65,7 +64,6 @@ class Artefact(object):
 
         return Artefact(source,
                         name,
-                        dataset,
                         program,
                         harness,
                         build_instructions,
@@ -75,17 +73,14 @@ class Artefact(object):
     def __init__(self,
                  source: 'repairbox.manager.Source',
                  name: str,
-                 dataset: str,
                  program: str,
                  harness: TestHarness,
                  build_instructions: BuildInstructions,
                  compilation_instructions: CompilationInstructions) -> None:
         assert name != ""
-        assert dataset != ""
         assert program != ""
 
         self.__name = name
-        self.__dataset = dataset
         self.__program = program
         self.__test_harness = harness
         self.__build_instructions = build_instructions
@@ -133,14 +128,6 @@ class Artefact(object):
 
 
     @property
-    def dataset(self) -> str:
-        """
-        The dataset to which this artefact belongs.
-        """
-        return self.__dataset
-
-
-    @property
     def installed(self) -> bool:
         """
         Indicates whether the Docker image for this artefact is installed on the
@@ -163,8 +150,8 @@ class Artefact(object):
         The fully-qualified name of this artefact.
         """
         if self.__program:
-            return "{}:{}:{}".format(self.__dataset, self.__program, self.__name)
-        return "{}:{}".format(self.__dataset, self.__name)
+            return "{}:{}:{}".format(self.__source.name, self.__program, self.__name)
+        return "{}:{}".format(self.__source.name, self.__name)
 
 
     def build(self, force=False) -> None:
