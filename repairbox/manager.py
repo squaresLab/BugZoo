@@ -55,25 +55,36 @@ class RepairBoxManager(object):
 
 
 class Source(object):
+    @staticmethod
+    def download(manager: 'SourceManager', url: str) -> 'Source':
+        """
+        Downloads a source from a given URL to disk.
+        """
+        assert not os.path.exists(abs_path), "already downloaded source: {}".format(url)
+        git.Repo.clone_from(url, abs_path)
+        return Source(manager, url)
+
+
+    @staticmethod
+    def url_to_rel_path(url: str) -> str:
+        rel_path = url.replace('https://', '')
+        rel_path = rel_path.replace('/', '_')
+        rel_path = rel_path.replace('.', '_')
+        return rel_path
+
+
+    @staticmethod
+    def url_to_abs_path(manager: 'SourceManager', url: str) -> str:
+        rel_path = Source.url_to_rel_path(url)
+        return os.path.join(manager.path, rel_path)
+
+
     def __init__(self, manager: 'SourceManager', url: str) -> None:
         self.__manager = manager
         self.__url = url
         self.__artefacts = {}
         self.__dependencies = {}
-
-        # compute the relative path for this source
-        rel_path = url.replace('https://', '')
-        rel_path = rel_path.replace('/', '_')
-        rel_path = rel_path.replace('.', '_')
-        self.__rel_path = rel_path
         self.__repo = git.Repo(self.abs_path)
-
-        # determine the name of this source
-        manifest_fn = os.path.join(self.abs_path, '.repairbox.yml')
-        assert os.path.isfile(manifest_fn), "missing manifest file."
-        with open(manifest_fn, 'r') as f:
-            yml = yaml.load(f)
-        self.__name = yml['dataset']['name']
 
         self.scan()
 
@@ -96,15 +107,14 @@ class Source(object):
         return self.__repo.git.rev_parse(sha, short=8)
 
     
-    def download(self) -> None:
-        """
-        Downloads this source to disk.
-        """
-        if not os.path.exists(self.abs_path):
-            git.Repo.clone_from(self.url, self.abs_path)#, {depth: 1})
-
-
     def scan(self) -> None:
+        # determine the name of this source
+        manifest_fn = os.path.join(self.abs_path, '.repairbox.yml')
+        assert os.path.isfile(manifest_fn), "missing manifest file."
+        with open(manifest_fn, 'r') as f:
+            yml = yaml.load(f)
+        self.__name = yml['dataset']['name']
+
         # find all dependencies
         fns = '{}/**/*.dependency.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
@@ -125,7 +135,6 @@ class Source(object):
         """
         origin = self.__repo.remotes.origin
         origin.pull()
-        del repo
         self.scan()
 
 
@@ -180,7 +189,7 @@ class Source(object):
         """
         Returns the location of this source, relative to the sources directory.
         """
-        return self.__rel_path
+        return Source.url_to_rel_path(self.url)
 
 
     @property
@@ -188,7 +197,7 @@ class Source(object):
         """
         Returns the absolute path to this source.
         """
-        return os.path.join(self.manager.path, self.rel_path)
+        return Source.url_to_abs_path(self.manager, self.url)
 
 
 class SourceManager(object):
@@ -240,8 +249,7 @@ class SourceManager(object):
         if src in self.__sources:
             raise Exception("source already exists: {}".format(src)) # TODO custom Error
 
-        src = Source(self, src)
-        src.download()
+        src = Source.download(src)
 
         # update the sources file
         self.__sources[src.url] = src.rel_path
