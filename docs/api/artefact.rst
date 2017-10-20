@@ -3,7 +3,7 @@ Artefact
 .. py:module:: repairbox.artefact
 
 
-Artefacts are used to provide an interactive snapshot of a given piece of
+Artefacts are used to provide a snapshot of a given piece of
 software at a fixed point in time (e.g., a tagged release, a version-control
 revision). Outside of RepairBox, artefacts are sometimes referred to as
 software objects (see Software-artifact Infrastructure Repository [X]), or
@@ -15,12 +15,14 @@ a program (i.e., bugs). For other purposes, such as studies on
 (non-functional) performance, artefacts needn't represent a version of the
 program that is known to buggy.
 
-Artefacts are provided as lightweight `Docker <https://www.docker.com>`_
-containers.
 
+Artefacts are provided as lightweight, immutable
+`Docker <https://www.docker.com>`_ container images. To interact with an
+artefact, users' must provision an ephemeral `container <container.html>`_
+using the artefact's :code:`provision` method.
 
-Artefact reference
--------------------
+API Reference
+-------------
 
 .. autoclass:: Artefact()
 
