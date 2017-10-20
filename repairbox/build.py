@@ -158,12 +158,13 @@ class BuildInstructions(object):
         Constructs the Docker image described by these instructions.
         """
         if self.depends_on:
-            print("Building dep: {}".format(self.depends_on))
             dep = self.source.dependencies[self.depends_on]
             dep.build(force=force)
 
         if self.installed and not force:
             return
+
+        print("Building image: {}".format(self.tag))
 
         tf = os.path.join(self.abs_context, '.Dockerfile')
         try:
@@ -178,12 +179,8 @@ class BuildInstructions(object):
                                         rm=True)
             for line in response:
                 line = json.loads(line.decode('utf8'))
-                if not 'stream' in line:
-                    print("DIDN'T FIND stream")
-                    print(line)
-                line = line['stream'].rstrip()
-                if not quiet:
-                    print(line)
+                if not quiet and 'stream' in line:
+                    print(line['stream'].rstrip())
 
                 # TODO: check build status!
 
