@@ -66,6 +66,7 @@ class Source(object):
         rel_path = rel_path.replace('/', '_')
         rel_path = rel_path.replace('.', '_')
         self.__rel_path = rel_path
+        self.__repo = git.Repo(self.abs_path)
 
         # determine the name of this source
         manifest_fn = os.path.join(self.abs_path, '.repairbox.yml')
@@ -91,7 +92,8 @@ class Source(object):
         The current version of this source, given as the first eight characters
         of its current revision.
         """
-        return "X" * 8
+        sha = self.__repo.head.object.hexsha
+        return self.__repo.git.rev_parse(sha, short=8)
 
     
     def download(self) -> None:
