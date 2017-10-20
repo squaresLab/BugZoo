@@ -15,6 +15,11 @@ Contents
   :maxdepth: 2
 
   api
+  cli
+
+.. toctree::
+  faqs
+
 
 Usage
 -----
@@ -23,8 +28,6 @@ Usage
   :maxdepth: 1
 
   examples
-  cli
-  faqs
 
 
 Contributing
