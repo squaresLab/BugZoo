@@ -24,3 +24,8 @@ API Reference
   .. automethod:: reload
 
   .. automethod:: __getitem__
+  .. automethod:: __iter__
+
+
+
+.. autoclass:: ArtefactManager() 

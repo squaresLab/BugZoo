@@ -336,6 +336,23 @@ class SourceManager(object):
         return self.__sources[name]
 
 
+    def __iter__(self):
+        """
+        Returns an iterator over the sources registered with this local
+        installation.
+
+        Example:
+
+            .. code-block:: python
+
+                # print the names and URLs of all registered sources
+                rbx = RepairBox()
+                for src in rbx.sources:
+                    print("{}: {}".format(src.name, src.url))
+        """
+        return self.__sources.iter()
+
+
 class ArtefactManager(object):
     class ArtefactIterator(object):
         def __init__(self, sources):
