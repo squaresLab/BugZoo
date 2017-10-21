@@ -13,30 +13,31 @@ from repairbox.build import BuildInstructions
 from repairbox.artefact import Artefact
 
 
-class RepairBoxManager(object):
-
-    @staticmethod
-    def load():
+class RepairBox(object):
+    """
+    Blah.
+    """
+    def __init__(self, path=None) -> None:
         # TODO support windows
-        default_path = os.path.join(os.environ.get('HOME'),
-                                    '.repairbox')
-        path = os.environ.get('REPAIRBOX_PATH', default_path)
-        if not os.path.exists(path): # ensure dir exists
+        if path is None:
+            default_path = os.path.join(os.environ.get('HOME'), '.repairbox')
+            path = os.environ.get('REPAIRBOX_PATH', default_path)
+
+        # ensure dir exists
+        if not os.path.exists(path):
             os.makedirs(path)
 
-        mgr = RepairBoxManager(path)
-        mgr.sources.reload()
-        return mgr
-
-
-    def __init__(self, path: str) -> None:
         self.__path = path
         self.__sources = SourceManager(self)
         self.__artefacts = ArtefactManager(self)
+        self.__sources.reload()
 
 
     @property
     def path(self):
+        """
+        X.
+        """
         return self.__path
 
 
@@ -46,6 +47,9 @@ class RepairBoxManager(object):
 
     @property
     def sources(self):
+        """
+        B.
+        """
         return self.__sources
 
     
@@ -208,7 +212,7 @@ class SourceManager(object):
         __sources_filename (str):
         __sources (dict of str to str):
     """
-    def __init__(self, manager: RepairBoxManager) -> None:
+    def __init__(self, manager: 'RepairBox') -> None:
         self.__path = os.path.join(manager.path, 'sources')
         self.__manifest_fn = \
             os.path.join(self.__path, 'sources.manifest.json')
@@ -318,7 +322,3 @@ class ArtefactManager(object):
     
     def __iter__(self):
         return ArtefactManager.ArtefactIterator(self.__manager.sources.sources)
- 
-
-# not sure about this...
-RepairBoxManager = RepairBoxManager.load()

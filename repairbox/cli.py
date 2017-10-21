@@ -3,16 +3,16 @@ import tabulate
 import typing
 
 from operator import itemgetter
-from repairbox.manager import RepairBoxManager
+from repairbox.manager import RepairBox
 
 
-def list_sources() -> None:
+def list_sources(rbox: 'RepairBox') -> None:
     """
     Produces a list of all the sources known to RepairBox.
     """
     hdrs = ['Source', 'URL', 'Version'] 
     tbl = []
-    for src in RepairBoxManager.sources.sources:
+    for src in rbox.sources.sources:
         tbl.append([src.name, src.url, src.version])
 
     # transform into a pretty table
@@ -21,35 +21,35 @@ def list_sources() -> None:
     print(tbl)
 
 
-def add_source(src: str) -> None:
-    RepairBoxManager.sources.add(src)
+def add_source(rbox: 'RepairBox', src: str) -> None:
+    rbox.sources.add(src)
     print('added source: {}'.format(src))
 
 
-def remove_source(src: str) -> None:
-    RepairBoxManager.sources.remove(src)
+def remove_source(rbox: 'RepairBox', src: str) -> None:
+    rbox.sources.remove(src)
     print('removed source: {}'.format(src))
 
 
-def update_sources() -> None:
+def update_sources(rbox: 'RepairBox', ) -> None:
     print('updating sources...')
-    RepairBoxManager.sources.update()
+    rbox.sources.update()
 
 
-def install_artefact(name: str, update: bool) -> None:
+def install_artefact(rbox: 'RepairBox', name: str, update: bool) -> None:
     print('installing artefact: {}'.format(name))
-    artefact = RepairBoxManager.artefacts[name]
+    artefact = rbox.artefacts[name]
     artefact.install(upgrade=update)
 
 
-def uninstall_bug(name: str, force: bool) -> None:
+def uninstall_bug(rbox: 'RepairBox', name: str, force: bool) -> None:
     print('uninstalling artefact: {}'.format(name))
-    artefact = RepairBoxManager.artefacts[name]
+    artefact = rbox.artefacts[name]
     artefact.uninstall(force=force)
 
 
-def launch(name: str) -> None:
-    artefact = RepairBoxManager.artefacts[name]
+def launch(rbox: 'RepairBox', name: str) -> None:
+    artefact = rbox.artefacts[name]
     artefact.install()
     try:
         c = None
@@ -60,13 +60,13 @@ def launch(name: str) -> None:
             c.destroy()
 
 
-def list_artefacts(show_installed=None) -> None:
+def list_artefacts(rbox: 'RepairBox', show_installed=None) -> None:
     """
     Produces a list of all the artefacts registered with RepairBox.
     """
     tbl = []
     hdrs = ['Artefact', 'Source', 'Installed?']
-    for artefact in RepairBoxManager.artefacts:
+    for artefact in rbox.artefacts:
 
         # apply filtering based on installation status
         if show_installed is not None:
@@ -89,6 +89,8 @@ def list_artefacts(show_installed=None) -> None:
 def main():
     #with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
     #    desc = f.read()
+    rbox = RepairBox()
+
 
     desc = ':-)'
     parser = argparse.ArgumentParser(description=desc,
@@ -98,36 +100,36 @@ def main():
 
     # list-sources
     list_sources_parser = subparsers.add_parser('list-sources')
-    list_sources_parser.set_defaults(func=lambda args: list_sources())
+    list_sources_parser.set_defaults(func=lambda args: list_sources(rbox))
 
     # add-source [src]
     add_source_parser = subparsers.add_parser('add-source')
     add_source_parser.add_argument('src')
-    add_source_parser.set_defaults(func=lambda args: add_source(args.src))
+    add_source_parser.set_defaults(func=lambda args: add_source(rbox, args.src))
 
     # remove-source [src]
     remove_source_parser = subparsers.add_parser('remove-source')
     remove_source_parser.add_argument('src')
-    remove_source_parser.set_defaults(func=lambda args: remove_source(args.src))
+    remove_source_parser.set_defaults(func=lambda args: remove_source(rbox, args.src))
 
     # install-artefact [id]
     install_artefact_parser = subparsers.add_parser('install-artefact')
     install_artefact_parser.add_argument('artefact')
     install_artefact_parser.add_argument('--update',
                                     action='store_true')
-    install_artefact_parser.set_defaults(func=lambda args: install_artefact(args.artefact, args.update))
+    install_artefact_parser.set_defaults(func=lambda args: install_artefact(rbox, args.artefact, args.update))
 
     # uninstall-artefact [id]
     uninstall_artefact_parser = subparsers.add_parser('uninstall-artefact')
     uninstall_artefact_parser.add_argument('artefact')
     uninstall_artefact_parser.add_argument('--force',
                                     action='store_true')
-    uninstall_artefact_parser.set_defaults(func=lambda args: uninstall_artefact(args.artefact, force=args.force))
+    uninstall_artefact_parser.set_defaults(func=lambda args: uninstall_artefact(rbox, args.artefact, force=args.force))
 
     # launch [src]
     launch_parser = subparsers.add_parser('launch')
     launch_parser.add_argument('artefact')
-    launch_parser.set_defaults(func=lambda args: launch(args.artefact))
+    launch_parser.set_defaults(func=lambda args: launch(rbox, args.artefact))
 
     # list-artefacts
     list_artefacts_parser = subparsers.add_parser('list-artefacts')
@@ -138,7 +140,7 @@ def main():
                                     dest='installed',
                                     action='store_false')
     list_artefacts_parser.set_defaults(feature=True)
-    list_artefacts_parser.set_defaults(func=lambda args: list_artefacts(args.installed))
+    list_artefacts_parser.set_defaults(func=lambda args: list_artefacts(rbox,args.installed))
 
     # update-sources
     update_sources_parser = subparsers.add_parser('update-sources')
