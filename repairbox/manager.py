@@ -15,9 +15,18 @@ from repairbox.artefact import Artefact
 
 class RepairBox(object):
     """
-    Blah.
+    Used to interact with and manage a local RepairBox installation.
     """
     def __init__(self, path=None) -> None:
+        """
+        Creates a new RepairBox installation manager. 
+
+        Args:
+            path: the absolute path of a RepairBox installation on this machine.
+                If unspecified, the value of the environmental variable
+                :code:`REPAIRBOX_PATH` will be used, unless unspecified, in
+                which case :code:`./${HOME}/.repairbox` will be used instead.
+        """
         # TODO support windows
         if path is None:
             default_path = os.path.join(os.environ.get('HOME'), '.repairbox')
@@ -48,13 +57,16 @@ class RepairBox(object):
     @property
     def sources(self):
         """
-        B.
+        The sources registered with this RepairBox installation.
         """
         return self.__sources
 
     
     @property
     def artefacts(self):
+        """
+        The artefacts registered with this RepairBox installation.
+        """
         return self.__artefacts
 
 
