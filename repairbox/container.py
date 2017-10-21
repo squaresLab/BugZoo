@@ -87,20 +87,20 @@ class Container(object):
     containers are implemented as `Docker containers <https://docker.com>`_.
     """
     def __init__(self,
-                 bug: 'repairbox.artefact.Artefact',
+                 artefact: 'repairbox.artefact.Artefact',
                  volumes=[],
                  network_mode='bridge',
                  ports={},
                  interactive=False) -> None:
         """
-        Constructs a container for a given bug.
+        Constructs a container for a given artefact.
         """
-        self.__bug = bug
+        self.__artefact = artefact
 
-        # construct a Docker container for this bug
+        # construct a Docker container for this artefact
         client = docker.from_env()
         self.__container = \
-            client.containers.create(bug.image,
+            client.containers.create(artefact.image,
                                      '/bin/bash',
                                      volumes=volumes,
                                      ports=ports,
@@ -116,13 +116,14 @@ class Container(object):
         """
         The artefact that was used to provision this container.
         """
-        return self.__bug
+        return self.__artefact
 
 
     @property
     def container(self):
         """
-        The Docker container underlying this object.
+        The Docker container underlying this object, or :code:`None`, if the
+        container is no longer running.
         """
         return self.__container
 
@@ -155,10 +156,6 @@ class Container(object):
             self.__container.remove(force=True)
 
     
-    def logs(self, stream=False):
-        return self.__container.logs(stream=stream)
-
-
     def mount_file(self, src, dest, mode):
         """
         Dynamically mounts a given file (or directory) inside this container.
@@ -169,8 +166,6 @@ class Container(object):
         assert isinstance(dest, str)
         assert os.path.exists(src)
         assert mode in ['ro', 'rw']
-
-        return
 
 
     def reset(self) -> None:
@@ -194,7 +189,7 @@ class Container(object):
 
     def spectra(self) -> 'repairbox.spectra.Spectra':
         """
-        Computes and returns the spectra for this bug.
+        Computes and returns the spectra for this artefact.
         """
         pass
 
@@ -245,10 +240,10 @@ class Container(object):
 
         cmd = ({'coverage': 'make -j8 CFLAGS="-fprofile-arcs -ftest-coverage -fPIC"',
                 'default': 'make -j8'})[mode]
-        # cmd = self.bug.compilation_instructions.command
+        # cmd = self.artefact.compilation_instructions.command
 
         return self.command(cmd,
-                                    context=self.bug.compilation_instructions.context,
+                                    context=self.artefact.compilation_instructions.context,
                                     stderr=True)
 
     
@@ -257,7 +252,7 @@ class Container(object):
         Executes a given test inside this container and returns the result of
         that execution.
         """
-        (cmd, ctx) = self.__bug.harness.command(test)
+        (cmd, ctx) = self.artefact.harness.command(test)
         response = self.command(cmd, ctx, stderr=True)
         passed = response.code == 0
         return TestOutcome(response, passed, response.duration)
