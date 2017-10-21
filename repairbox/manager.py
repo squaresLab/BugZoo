@@ -217,13 +217,6 @@ class Source(object):
 
 
 class SourceManager(object):
-    """
-
-    Attributes:
-        __rbox (RepairBox):
-        __sources_filename (str):
-        __sources (dict of str to str):
-    """
     def __init__(self, manager: 'RepairBox') -> None:
         self.__path = os.path.join(manager.path, 'sources')
         self.__manifest_fn = \
@@ -240,6 +233,11 @@ class SourceManager(object):
 
    
     def reload(self) -> None:
+        """
+        Reloads all the manifest and build files associated with registered
+        sources. This method is called (internally) after adding, removing,
+        or updating sources.
+        """
         if not os.path.exists(self.__manifest_fn):
             self.__sources = {}
             return
@@ -275,8 +273,11 @@ class SourceManager(object):
     def remove(self, src: str) -> None:
         """
         Removes an existing source. The removal process destroys the local
-        copies of the manifest (and build) files for this source, and
-        uninstalls all of its associated images.
+        copies of the manifest and build files for this source, and uninstalls
+        all of its associated images.
+
+        Args:
+            src:    the URL of the source that should be removed.
         """
         assert src != ""
         if src not in self.__sources:
