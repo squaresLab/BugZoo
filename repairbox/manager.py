@@ -34,9 +34,9 @@ class RepairBox(object):
 
 
     @property
-    def path(self):
+    def path(self) -> str:
         """
-        X.
+        The absolute path to the local installation of RepairBox's sources.
         """
         return self.__path
 
