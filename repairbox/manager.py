@@ -218,7 +218,7 @@ class Source(object):
 
 class SourceManager(object):
     """
-    Used to access and manage the sources registered with a local RepairBox
+    Used to access and manage all sources registered with a local RepairBox
     installation.
     """
     def __init__(self, manager: 'RepairBox') -> None:
@@ -259,9 +259,15 @@ class SourceManager(object):
             json.dump(srcs, f, indent=2)
 
 
-    def add(self, src: str) -> None:
+    def add(self, url: str) -> None:
         """
         Registers a new source with this local installation.
+
+        Args:
+            url:    the URL of the Git repository for this source.
+
+        Raises:
+            Exception: if an existing, installed source uses the given URL.
         """
         assert src != ""
         if src in self.__sources:
@@ -282,6 +288,9 @@ class SourceManager(object):
 
         Args:
             name:    the name of the source that should be removed.
+
+        Raises:
+            Exception:  if no installed source exists with the given URL.
         """
         assert src != ""
         if src not in self.__sources:
