@@ -15,11 +15,11 @@ a program (i.e., bugs). For other purposes, such as studies on
 (non-functional) performance, artefacts needn't represent a version of the
 program that is known to buggy.
 
-
 Artefacts are provided as lightweight, immutable
 `Docker <https://www.docker.com>`_ container images. To interact with an
 artefact, users' must provision an ephemeral `container <container.html>`_
 using the artefact's :code:`provision` method.
+
 
 API Reference
 -------------
