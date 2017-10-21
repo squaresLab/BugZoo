@@ -16,8 +16,6 @@ API Reference
 
 .. autoclass:: SourceManager() 
 
-  .. autoattribute:: sources
-
   .. automethod:: add
   .. automethod:: remove
   .. automethod:: update
@@ -29,3 +27,6 @@ API Reference
 
 
 .. autoclass:: ArtefactManager() 
+
+  .. automethod:: __getitem__
+  .. automethod:: __iter__

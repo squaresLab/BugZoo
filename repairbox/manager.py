@@ -354,6 +354,10 @@ class SourceManager(object):
 
 
 class ArtefactManager(object):
+    """
+    Used to access and manage all artefacts registered with a local RepairBox
+    installation.
+    """
     class ArtefactIterator(object):
         def __init__(self, sources):
             self.__sources = list(sources)
@@ -374,7 +378,18 @@ class ArtefactManager(object):
         self.__manager = manager
 
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: str) -> Artefact:
+        """
+        Fetches a registered artefact by its identifier.
+
+        Example:
+
+            .. code-block:: python
+
+                rbx = RepairBox()
+                rbx.artefacts['manybugs:python:69223-69224']
+
+        """
         for src in self.__manager.sources.sources:
             if src.contains(name):
                 return src[name]
@@ -382,4 +397,18 @@ class ArtefactManager(object):
 
     
     def __iter__(self):
+        """
+        Returns an iterator over all the artefacts registered with the local
+        RepairBox installation.
+
+        Example:
+
+            .. code-block:: python
+
+                # print the identifier and Docker image name for all
+                # registered artefacts
+                rbx = RepairBox()
+                for artefact in rbx.artefacts:
+                    print("{}: {}".format(src.identifier, src.image))
+        """
         return ArtefactManager.ArtefactIterator(self.__manager.sources.sources)
