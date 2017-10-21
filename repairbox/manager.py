@@ -217,6 +217,10 @@ class Source(object):
 
 
 class SourceManager(object):
+    """
+    Used to access and manage the sources registered with a local RepairBox
+    installation.
+    """
     def __init__(self, manager: 'RepairBox') -> None:
         self.__path = os.path.join(manager.path, 'sources')
         self.__manifest_fn = \
@@ -257,7 +261,7 @@ class SourceManager(object):
 
     def add(self, src: str) -> None:
         """
-        Adds a new source.
+        Registers a new source with this local installation.
         """
         assert src != ""
         if src in self.__sources:
@@ -272,12 +276,12 @@ class SourceManager(object):
 
     def remove(self, src: str) -> None:
         """
-        Removes an existing source. The removal process destroys the local
-        copies of the manifest and build files for this source, and uninstalls
-        all of its associated images.
+        Removes an existing source, given by its name. The removal process
+        destroys the local copies of the manifest and build files for this
+        source, and uninstalls all of its associated images.
 
         Args:
-            src:    the URL of the source that should be removed.
+            name:    the name of the source that should be removed.
         """
         assert src != ""
         if src not in self.__sources:
@@ -298,11 +302,29 @@ class SourceManager(object):
 
     @property
     def sources(self) -> List[Source]:
+        """
+        A pseudo-immutable list of sources associated with this local
+        installation. I.e., any changes to this list are not permanent.
+        """
         return self.__sources.values()
 
 
-    def __getitem__(self, key):
-        return self.__sources[key]
+    def __getitem__(self, name: str) -> Source:
+        """
+        Fetches a registered source by its name.
+
+        Args:
+            name:   the name of the source.
+
+        Example:
+
+            .. code-block:: python
+
+                # fetch the ManyBugs source
+                rbx = RepairBox()
+                src = rbx.sources['manybugs']
+        """
+        return self.__sources[name]
 
 
 class ArtefactManager(object):
