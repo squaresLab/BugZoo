@@ -81,6 +81,11 @@ class ExecResponse(object):
 
 
 class Container(object):
+    """
+    Containers provide ephemeral, mutable instances of registered artefacts,
+    and are used to conduct studies of software artefacts. Behind the scenes,
+    containers are implemented as `Docker containers <https://docker.com>`_.
+    """
     def __init__(self,
                  bug: 'repairbox.artefact.Artefact',
                  volumes=[],
@@ -107,9 +112,9 @@ class Container(object):
 
 
     @property
-    def bug(self) -> 'repairbox.artefact.Artefact':
+    def artefact(self) -> 'repairbox.artefact.Artefact':
         """
-        The bug inside this container.
+        The artefact that was used to provision this container.
         """
         return self.__bug
 

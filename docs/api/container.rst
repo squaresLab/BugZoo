@@ -9,7 +9,7 @@ Container reference
 .. autoclass:: Container()
 
   .. autoattribute:: alive
-  .. autoattribute:: bug
+  .. autoattribute:: artefact
   .. autoattribute:: container
 
   .. automethod:: interact
