@@ -18,8 +18,17 @@ class TestCase(object):
     def __repr__(self) -> str:
         """
         Produces a human-readable description of this test case in the form of:
-        Test[:identifier], where :identifier is replaced by the identifier for
+        `Test[:identifier]`, where `:identifier` is replaced by the identifier for
         this test case.
+
+        Example:
+
+        .. code-block:: python
+
+            rbox = RepairBox()
+            artefact = rbox.artefacts['manybugs:python:69223-69224']
+            for test in artefact.tests:
+                print(test)
         """
         return "Test[{}]".format(self.__identifier)
 
@@ -33,7 +42,9 @@ class TestCase(object):
 
 
 class TestOutcome(object):
-
+    """
+    Used to describe the outcome of a test execution.
+    """
     def __init__(self, response, passed, duration):
         self.__response = response
         self.__passed = passed
@@ -42,6 +53,9 @@ class TestOutcome(object):
     
     @property
     def response(self):
+        """
+        
+        """
         return self.__response
     
 
@@ -61,19 +75,19 @@ class TestOutcome(object):
         return self.__duration
 
 
-class TestHarness(object):
+class TestSuite(object):
     
     @staticmethod
-    def from_dict(yml: dict) -> 'TestHarness':
+    def from_dict(yml: dict) -> 'TestSuite':
         """
         Constructs a test harness from a dictionary-based description.
         """
         typ = yml['type']
         # route based on type
         if typ == 'genprog':
-            return GenProgTestHarness.from_yaml(yml)
+            return GenProgTestSuite.from_yaml(yml)
         elif typ == 'simple':
-            return SimpleTestHarness.from_yaml(yml)
+            return SimpleTestSuite.from_yaml(yml)
 
         raise Exception("unexpected test harness type: {}".format(typ))
 
@@ -90,7 +104,7 @@ class TestHarness(object):
         return self.__tests[:]
 
 
-class SimpleTestHarness(TestHarness):
+class SimpleTestSuite(TestSuite):
     """
     This test harness uses bash to execute its test suite. Each test is
     transformed into a unique bash command by replacing all instances of
@@ -110,13 +124,13 @@ class SimpleTestHarness(TestHarness):
     command results in an exit code of zero.
     """
     @staticmethod
-    def from_yaml(yml: dict) -> 'SimpleTestHarness':
+    def from_yaml(yml: dict) -> 'SimpleTestSuite':
         cmd = yml['command']
         ctx = yml['context']
         time_limit = yml['time-limit']
         tests = yml['tests']
 
-        return SimpleTestHarness(cmd, ctx, time_limit, tests)
+        return SimpleTestSuite(cmd, ctx, time_limit, tests)
 
 
     def __init__(self, command: str, context: str, time_limit: float, tests: List[str]) -> None:
@@ -141,15 +155,15 @@ class SimpleTestHarness(TestHarness):
         return (cmd, self.__context)
 
 
-class GenProgTestHarness(SimpleTestHarness):
+class GenProgTestSuite(SimpleTestSuite):
     @staticmethod
-    def from_yaml(yml: dict) -> 'GenProgTestHarness':
+    def from_yaml(yml: dict) -> 'GenProgTestSuite':
         passing = yml['passing']
         failing = yml['failing']
         time_limit = yml['time-limit']
         command = yml.get('command', './test.sh __ID__')
         context = yml.get('context', '/experiment')
-        return GenProgTestHarness(passing, failing, time_limit, command, context)
+        return GenProgTestSuite(passing, failing, time_limit, command, context)
 
 
     def __init__(self, passing: int, failing: int, time_limit: float, command: str, context: str) -> None:

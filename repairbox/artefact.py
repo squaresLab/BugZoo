@@ -7,7 +7,7 @@ import repairbox
 
 from repairbox.build import BuildInstructions
 from repairbox.container import Container
-from repairbox.test import TestHarness
+from repairbox.test import TestSuite
 
 
 class CompilationInstructions(object):
@@ -61,7 +61,7 @@ class Artefact(object):
         program = yml.get('program', None)
 
         # build the test harness
-        harness = TestHarness.from_dict(yml['test-harness'])
+        harness = TestSuite.from_dict(yml['test-harness'])
 
         # compilation instructions
         if not 'compilation' in yml:
@@ -89,7 +89,7 @@ class Artefact(object):
                  source: 'repairbox.manager.Source',
                  name: str,
                  program: str,
-                 harness: TestHarness,
+                 harness: TestSuite,
                  build_instructions: BuildInstructions,
                  compilation_instructions: CompilationInstructions) -> None:
         assert name != ""
@@ -119,7 +119,7 @@ class Artefact(object):
 
 
     @property
-    def harness(self) -> TestHarness:
+    def harness(self) -> TestSuite:
         """
         The test harness used by this artefact.
         """
