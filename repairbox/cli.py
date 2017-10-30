@@ -42,6 +42,12 @@ def install_artefact(rbox: 'RepairBox', name: str, update: bool) -> None:
     artefact.install(upgrade=update)
 
 
+def build_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
+    print('building artefact: {}'.format(name))
+    artefact = rbox.artefacts[name]
+    artefact.build(force=force)
+
+
 def download_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
     print('downloading artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
@@ -85,6 +91,8 @@ def list_artefacts(rbox: 'RepairBox', show_installed=None) -> None:
             if show_installed != artefact.installed:
                 continue
 
+        print("{}: {}".format(artefact.identifier, artefact.installed))
+        print(artefact.installed)
         installed = 'Yes' if artefact.installed else 'No'
         row = [artefact.identifier, artefact.source.name, installed]
         tbl.append(row)
@@ -153,6 +161,13 @@ def main():
                      action='store_true')
     cmd.set_defaults(func=lambda args: uninstall_artefact(rbox, args.artefact, force=args.force))
 
+    # [artefact build (--update) :artefact]
+    cmd = g_subparsers.add_parser('build')
+    cmd.add_argument('artefact')
+    cmd.add_argument('--force',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: build_artefact(rbox, args.artefact, args.force))
+
     # [artefact download (--force) :artefact]
     cmd = g_subparsers.add_parser('download')
     cmd.add_argument('artefact')
@@ -179,7 +194,7 @@ def main():
     cmd.add_argument('--uninstalled',
                      dest='installed',
                      action='store_false')
-    cmd.set_defaults(feature=True)
+    cmd.set_defaults(installed=None)
     cmd.set_defaults(func=lambda args: list_artefacts(rbox,args.installed))
 
 
