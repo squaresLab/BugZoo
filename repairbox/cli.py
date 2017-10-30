@@ -48,6 +48,12 @@ def download_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
     artefact.download(force=force)
 
 
+def upload_artefact(rbox: 'RepairBox', name: str) -> None:
+    print('uploading artefact: {}'.format(name))
+    artefact = rbox.artefacts[name]
+    artefact.upload()
+
+
 def uninstall_bug(rbox: 'RepairBox', name: str, force: bool) -> None:
     print('uninstalling artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
@@ -153,6 +159,11 @@ def main():
     cmd.add_argument('--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: download_artefact(rbox, args.artefact, args.force))
+
+    # [artefact upload :artefact]
+    cmd = g_subparsers.add_parser('upload')
+    cmd.add_argument('artefact')
+    cmd.set_defaults(func=lambda args: upload_artefact(rbox, args.artefact))
 
     # TODO: to which group does this belong?
     # [artefact launch :artefact]
