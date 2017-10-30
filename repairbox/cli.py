@@ -141,6 +141,19 @@ def main():
     cmd = g_subparsers.add_parser('update')
     cmd.set_defaults(func=lambda args: update_sources())
 
+
+    ###########################################################################
+    # [container] group
+    ###########################################################################
+    g_container = subparsers.add_parser('container')
+    g_subparsers = g_container.add_subparsers()
+
+    # [container launch :artefact]
+    cmd = g_subparsers.add_parser('launch')
+    cmd.add_argument('artefact')
+    cmd.set_defaults(func=lambda args: launch(rbox, args.artefact))
+
+
     ###########################################################################
     # [artefact] group
     ###########################################################################
@@ -179,12 +192,6 @@ def main():
     cmd = g_subparsers.add_parser('upload')
     cmd.add_argument('artefact')
     cmd.set_defaults(func=lambda args: upload_artefact(rbox, args.artefact))
-
-    # TODO: to which group does this belong?
-    # [artefact launch :artefact]
-    cmd = g_subparsers.add_parser('launch')
-    cmd.add_argument('artefact')
-    cmd.set_defaults(func=lambda args: launch(rbox, args.artefact))
 
     # [artefact list]
     cmd = g_subparsers.add_parser('list')
