@@ -114,6 +114,14 @@ class Artefact(object):
     
 
     @property
+    def program(self) -> str:
+        """
+        The name of the program that this artefact belongs to, if specified.
+        """
+        return self.__program
+
+
+    @property
     def compilation_instructions(self):
         return self.__compilation_instructions
 
