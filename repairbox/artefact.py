@@ -195,12 +195,12 @@ class Artefact(object):
         return self.__build_instructions.download(force=force)
 
 
-    def upload(self) -> None:
+    def upload(self) -> bool:
         """
         Attempts to upload the image for this artefact to
         `DockerHub <https://hub.docker.com>`_.
         """
-        pass
+        return self.__build_instructions.upload()
 
 
     def install(self, upgrade=False) -> None:

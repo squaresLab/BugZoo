@@ -170,7 +170,20 @@ class BuildInstructions(object):
         except docker.errors.NotFound:
             print("Failed to locate image on DockerHub: {}".format(self.tag))
             return False
-    
+
+
+    def upload(self) -> bool:
+        client = docker.from_env()
+        try:
+            out = client.images.push(self.tag, stream=True)
+            for line in out:
+                line = line.strip()
+                print(line)
+            return True
+        except docker.errors.NotFound:
+            print("Failed to push image ({}): not installed.".format(self.tag))
+            return False
+
 
     def build(self, force=False, quiet=False) -> None:
         """
