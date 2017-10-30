@@ -153,6 +153,25 @@ class BuildInstructions(object):
             raise e
 
 
+    def download(self, force=False) -> bool:
+        """
+        Attempts to download the Docker image described by these instructions,
+        from DockerHub. If `force=True`, then any previously installed version
+        of the image (described by these instructions) will be replaced by the
+        image on DockerHub.
+
+        Returns:
+            `True` if successfully downloaded, otherwise `False`.
+        """
+        client = docker.from_env()
+        try:
+            client.images.pull(self.tag)
+            return True
+        except docker.errors.NotFound:
+            print("Failed to locate image on DockerHub: {}".format(self.tag))
+            return False
+    
+
     def build(self, force=False, quiet=False) -> None:
         """
         Constructs the Docker image described by these instructions.

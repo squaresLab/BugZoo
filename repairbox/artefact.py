@@ -183,13 +183,16 @@ class Artefact(object):
         self.__build_instructions.uninstall(force=force, noprune=noprune)
 
 
-    def download(self, force=False) -> None:
+    def download(self, force=False) -> bool:
         """
         Attempts to download the image for this artefact from
         `DockerHub <https://hub.docker.com>`_. If the force parameter is set to
         True, any existing image will be overwritten.
+
+        Returns:
+            `True` if successfully downloaded, else `False`.
         """
-        pass
+        return self.__build_instructions.download(force=force)
 
 
     def upload(self) -> None:
