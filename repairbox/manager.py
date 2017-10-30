@@ -76,6 +76,7 @@ class Source(object):
         """
         Downloads a source from a given URL to disk.
         """
+        abs_path = Source.url_to_abs_path(manager, url)
         assert not os.path.exists(abs_path), "already downloaded source: {}".format(url)
         git.Repo.clone_from(url, abs_path)
         return Source(manager, url)
@@ -259,12 +260,15 @@ class SourceManager(object):
             json.dump(srcs, f, indent=2)
 
 
-    def exists(self, name: str) -> bool:
+    def exists(self, url: str) -> bool:
         """
-        Determines whether a source with a given name has been installed to
+        Determines whether a source at a given URL has been installed to
         this machine.
+
+        Args:
+            url:    the URL of the Git repository for this source.
         """
-        return name in self.__sources
+        return url in self.__sources
 
 
     def add(self, url: str) -> Source:
@@ -280,11 +284,11 @@ class SourceManager(object):
         Raises:
             Exception: if an existing, installed source uses the given URL.
         """
-        assert src != ""
-        if src in self.__sources:
-            raise Exception("source already exists: {}".format(src)) # TODO custom Error
+        assert url != ""
+        if url in self.__sources:
+            raise Exception("source already registered: {}".format(url)) # TODO custom Error
 
-        src = Source.download(src)
+        src = Source.download(self, url)
 
         # update the sources file
         self.__sources[src.url] = src.rel_path
@@ -331,22 +335,36 @@ class SourceManager(object):
         return self.__sources.values()
 
 
-    def __getitem__(self, name: str) -> Source:
+    def __getitem__(self, name_or_url: str) -> Source:
         """
-        Fetches a registered source by its name.
+        Fetches a registered source by its name or URL.
 
         Args:
-            name:   the name of the source.
+            name_or_url:   the name or URL of the source.
 
         Example:
 
             .. code-block:: python
 
-                # fetch the ManyBugs source
+                # fetch the ManyBugs source,
                 rbx = RepairBox()
+
+                # by name,
                 src = rbx.sources['manybugs']
+
+                # or by URL
+                src = rbx.sources['https://github.com/ChrisTimperley/ManyBugs']
         """
-        return self.__sources[name]
+        # URL
+        if name_or_url in self.__sources:
+            return self.__sources[name]
+
+        # name
+        for src in self.__sources.values():
+            if src.name == name_or_url:
+                return src
+
+        raise IndexError('no source found with given URL or name: {}'.format(url_or_name))
 
 
     def __iter__(self):
