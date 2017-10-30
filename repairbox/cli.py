@@ -91,8 +91,6 @@ def list_artefacts(rbox: 'RepairBox', show_installed=None) -> None:
             if show_installed != artefact.installed:
                 continue
 
-        print("{}: {}".format(artefact.identifier, artefact.installed))
-        print(artefact.installed)
         installed = 'Yes' if artefact.installed else 'No'
         row = [artefact.identifier, artefact.source.name, installed]
         tbl.append(row)
