@@ -259,6 +259,14 @@ class SourceManager(object):
             json.dump(srcs, f, indent=2)
 
 
+    def exists(self, name: str) -> bool:
+        """
+        Determines whether a source with a given name has been installed to
+        this machine.
+        """
+        return name in self.__sources
+
+
     def add(self, url: str) -> Source:
         """
         Registers a new source with this local installation.
