@@ -259,12 +259,15 @@ class SourceManager(object):
             json.dump(srcs, f, indent=2)
 
 
-    def add(self, url: str) -> None:
+    def add(self, url: str) -> Source:
         """
         Registers a new source with this local installation.
 
         Args:
             url:    the URL of the Git repository for this source.
+
+        Returns:
+            The `Source` object for the newly registered source.
 
         Raises:
             Exception: if an existing, installed source uses the given URL.
@@ -278,6 +281,8 @@ class SourceManager(object):
         # update the sources file
         self.__sources[src.url] = src.rel_path
         self.__write()
+
+        return src
    
 
     def remove(self, src: str) -> None:
