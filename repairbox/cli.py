@@ -91,62 +91,75 @@ def main():
     #    desc = f.read()
     rbox = RepairBox()
 
-
     desc = ':-)'
     parser = argparse.ArgumentParser(description=desc,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     subparsers = parser.add_subparsers()
     parser.add_argument('--version', action='version', version='2.0.0')
 
-    # list-sources
-    list_sources_parser = subparsers.add_parser('list-sources')
-    list_sources_parser.set_defaults(func=lambda args: list_sources(rbox))
+    ###########################################################################
+    # [source] group
+    ###########################################################################
+    g_src = subparsers.add_parser('source')
+    g_subparsers = g_src.add_subparsers()
 
-    # add-source [src]
-    add_source_parser = subparsers.add_parser('add-source')
-    add_source_parser.add_argument('src')
-    add_source_parser.set_defaults(func=lambda args: add_source(rbox, args.src))
+    # [source list]
+    cmd = g_subparsers.add_parser('list')
+    cmd.set_defaults(func=lambda args: list_sources(rbox))
 
-    # remove-source [src]
-    remove_source_parser = subparsers.add_parser('remove-source')
-    remove_source_parser.add_argument('src')
-    remove_source_parser.set_defaults(func=lambda args: remove_source(rbox, args.src))
+    # [source add :src]
+    cmd = g_subparsers.add_parser('add')
+    cmd.add_argument('src')
+    cmd.set_defaults(func=lambda args: add_source(rbox, args.src))
 
-    # install-artefact [id]
-    install_artefact_parser = subparsers.add_parser('install-artefact')
-    install_artefact_parser.add_argument('artefact')
-    install_artefact_parser.add_argument('--update',
-                                    action='store_true')
-    install_artefact_parser.set_defaults(func=lambda args: install_artefact(rbox, args.artefact, args.update))
+    # [source remove :src]
+    cmd = g_subparsers.add_parser('remove')
+    cmd.add_argument('src')
+    cmd.set_defaults(func=lambda args: remove_source(rbox, args.src))
 
-    # uninstall-artefact [id]
-    uninstall_artefact_parser = subparsers.add_parser('uninstall-artefact')
-    uninstall_artefact_parser.add_argument('artefact')
-    uninstall_artefact_parser.add_argument('--force',
-                                    action='store_true')
-    uninstall_artefact_parser.set_defaults(func=lambda args: uninstall_artefact(rbox, args.artefact, force=args.force))
+    # [source update]
+    cmd = g_subparsers.add_parser('update')
+    cmd.set_defaults(func=lambda args: update_sources())
 
-    # launch [src]
-    launch_parser = subparsers.add_parser('launch')
-    launch_parser.add_argument('artefact')
-    launch_parser.set_defaults(func=lambda args: launch(rbox, args.artefact))
+    ###########################################################################
+    # [artefact] group
+    ###########################################################################
+    g_artefact = subparsers.add_parser('artefact')
+    g_subparsers = g_artefact.add_subparsers()
 
-    # list-artefacts
-    list_artefacts_parser = subparsers.add_parser('list-artefacts')
-    list_artefacts_parser.add_argument('--installed',
-                                    dest='installed',
-                                    action='store_true')
-    list_artefacts_parser.add_argument('--uninstalled',
-                                    dest='installed',
-                                    action='store_false')
-    list_artefacts_parser.set_defaults(feature=True)
-    list_artefacts_parser.set_defaults(func=lambda args: list_artefacts(rbox,args.installed))
+    # [artefact install (--update) :artefact]
+    cmd = g_subparsers.add_parser('install')
+    cmd.add_argument('artefact')
+    cmd.add_argument('--update',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: install_artefact(rbox, args.artefact, args.update))
 
-    # update-sources
-    update_sources_parser = subparsers.add_parser('update-sources')
-    update_sources_parser.set_defaults(func=lambda args: update_sources())
+    # [artefact uninstall (--force) :artefact]
+    cmd = g_subparsers.add_parser('uninstall')
+    cmd.add_argument('artefact')
+    cmd.add_argument('--force',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: uninstall_artefact(rbox, args.artefact, force=args.force))
+
+    # TODO: to which group does this belong?
+    # [artefact launch :artefact]
+    cmd = g_subparsers.add_parser('launch')
+    cmd.add_argument('artefact')
+    cmd.set_defaults(func=lambda args: launch(rbox, args.artefact))
+
+    # [artefact list]
+    cmd = g_subparsers.add_parser('list')
+    cmd.add_argument('--installed',
+                     dest='installed',
+                     action='store_true')
+    cmd.add_argument('--uninstalled',
+                     dest='installed',
+                     action='store_false')
+    cmd.set_defaults(feature=True)
+    cmd.set_defaults(func=lambda args: list_artefacts(rbox,args.installed))
 
 
+    # parse and process arguments
     args = parser.parse_args()
     if 'func' in vars(args):
         args.func(args)
