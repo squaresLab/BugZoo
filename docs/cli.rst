@@ -6,3 +6,4 @@ CLI Reference
 
   cli/artefact
   cli/source
+  cli/container
