@@ -1,0 +1,53 @@
+FROM squareslab/repairbox:manybugs-wireshark-base
+
+ARG scenario
+ENV SCENARIO_NAME ${scenario}
+ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
+
+RUN wget -nv -O scenario.tar.gz \
+      "http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz" && \
+    tar -xf scenario.tar.gz && \
+    rm scenario.tar.gz && \
+    mv wireshark-bug-* scenario && \
+    cd scenario && \
+    rm -rf  *.cache \
+            *~ \
+            *.debug.* \
+            *-failures \
+            limit* \
+            *lines \
+            coverage* \
+            sanity \
+            fixed-program.txt \
+            compile.pl \
+            local-root && \
+    mv wireshark src && \
+    cd src && \
+    make distclean && \
+    cat /experiment/doc.patch | patch -p1 && \
+    rm /experiment/doc.patch
+
+RUN cd /experiment/scenario && \
+    find . -type f -print0 | xargs -0 sed -i '' && \
+    cd src && \
+    svn upgrade && \
+    ./autogen.sh && \
+    ./configure --disable-warnings-as-errors && \
+    make -j$(nproc)
+
+RUN mv scenario/bug-info . && \
+    mv scenario/bugged-program.txt manifest.txt && \
+    mv scenario/configuration-* . && \
+    mv scenario/diffs . && \
+    mv scenario/fixed . && \
+    mv scenario/preprocessed . && \
+    mv scenario/src . && \
+    mv scenario/test . && \
+    mv scenario/test.sh . && \
+    mv scenario/wireshark-run-tests.sh . && \
+    rm -rf scenario
+
+# fix up the test harness
+RUN sed -i "s#cd wireshark#cd /experiment/src#g" test.sh && \
+    sed -i "s#${OLD_LOCATION}/limit#timeout ${TEST_TIMEOUT}#g" test.sh && \
+    sed -i "s#${OLD_LOCATION}/wireshark-run-tests.sh#/experiment/wireshark-run-tests.sh#g" test.sh
