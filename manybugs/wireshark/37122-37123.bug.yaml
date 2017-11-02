@@ -1,0 +1,7 @@
+bug: 37122-37123
+build-arguments:
+  scenario: wireshark-bug-37122-37123
+dataset: manybugs
+dockerfile: Dockerfile.bug
+program: wireshark
+version: 0
