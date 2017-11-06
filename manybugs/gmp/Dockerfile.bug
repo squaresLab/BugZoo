@@ -4,7 +4,7 @@ FROM squareslab/repairbox:manybugs-gmp-base
 #ENV SCENARIO_NAME ${scenario}
 ENV BUG_COMMIT 13420
 ENV SCENARIO_NAME gmp-bug-13420-13421
-ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
+ENV OLD_LOCATION /root/genprog-many-bugs/${SCENARIO_NAME}
 
 # 1. download and unextract the ManyBugs archive
 # 2. remove junk and tidy files
@@ -53,3 +53,9 @@ RUN cd src &&  \
 RUN cd src && \
     ./configure && \
     make -j$(nproc)
+
+# fix the test harness
+RUN sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
+    sed -i "s#cd gmp#cd src#g" test.sh && \
+    sed -i "s#/experiment/limit#timeout \${time_limit}#g" test.sh && \
+    sed -i "s#/usr/bin/perl#perl#g" test.sh
