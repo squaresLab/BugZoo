@@ -5,4 +5,5 @@ MAINTAINER Chris Timperley "christimperley@gmail.com"
 RUN mkdir -p /experiment/local-root
 RUN sudo apt-get update && \
     sudo apt-get install --no-install-recommends -y mercurial \
-                                                    moreutils
+                                                    moreutils \
+                                                    m4
