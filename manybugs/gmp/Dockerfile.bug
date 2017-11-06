@@ -2,10 +2,14 @@ FROM squareslab/repairbox:manybugs-gmp-base
 
 #ARG scenario
 #ENV SCENARIO_NAME ${scenario}
+ENV BUG_COMMIT 13420
 ENV SCENARIO_NAME gmp-bug-13420-13421
 ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
 
-# download and unextract the ManyBugs archive, then remove junk
+# 1. download and unextract the ManyBugs archive
+# 2. remove junk and tidy files
+# 3. reset hg to bug commit
+# 4. destroy hg info (TODO)
 RUN cd /experiment && \
     wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
           -O scenario.tar.gz && \
@@ -32,8 +36,10 @@ RUN cd /experiment && \
     cd ../ && \
     mv scenario/* /experiment && \
     rm -rf scenario && \
-    sudo chown -R docker /experiment && \
-    (cd /experiment/src && make distclean)
+    cd /experiment/src && \
+    make distclean && \
+    hg revert -r${BUG_COMMIT} --all && \
+    sudo chown -R docker /experiment
 
 # Remove all references to tests/mpbsd/Makefile from configure.
 # Fixes: "config.status: error: cannot find input file: `tests/mpbsd/Makefile.in'"
