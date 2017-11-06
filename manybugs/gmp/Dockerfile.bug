@@ -1,24 +1,49 @@
-FROM squareslab/repairbox:manybugs-gmp
+FROM squareslab/repairbox:manybugs-gmp-base
 
-ADD bug-info /experiment/bug-info
-ADD diffs /experiment/diffs
-ADD fixed /experiment/fixed
-ADD preprocessed /experiment/preprocessed
-ADD src.tar.gz /experiment
-ADD test.sh /experiment
-ADD test.pl /experiment
-ADD configuration-default /experiment
-#ADD problem.json /experiment
+#ARG scenario
+#ENV SCENARIO_NAME ${scenario}
+ENV SCENARIO_NAME gmp-bug-13420-13421
+ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
 
+# download and unextract the ManyBugs archive, then remove junk
+RUN cd /experiment && \
+    wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
+          -O scenario.tar.gz && \
+    tar -xf scenario.tar.gz && \
+    mv ${SCENARIO_NAME} scenario && \
+    rm scenario.tar.gz && \
+    cd scenario && \
+    rm -rf  coverage* \
+            configuration-oracle \
+            local-root \
+            limit* \
+            *.cache \
+            *.debug.* \
+            sanity \
+            compile.pl \
+            *~ \
+            test \
+            fixed-program.txt && \
+    mv bug-failures bug-info && \
+    mv bugged-program.txt manifest.txt && \
+    mv *.lines bug-info && \
+    mv fix-failures bug-info && \
+    mv gmp src && \
+    cd ../ && \
+    mv scenario/* /experiment && \
+    rm -rf scenario && \
+    sudo chown -R docker /experiment && \
+    (cd /experiment/src && make distclean)
 
-# Remove all references to tests/mpbsd/Makefile from configure
-# Credit to Eduardo Souza (github.com/eduardodx) for fix
+# Remove all references to tests/mpbsd/Makefile from configure.
+# Fixes: "config.status: error: cannot find input file: `tests/mpbsd/Makefile.in'"
+# Credit to Eduardo Souza (github.com/eduardodx)
 RUN cd src &&  \
   grep -v '"tests/mpbsd/Makefile") ' configure | \
   sed "s#tests/mpbsd/Makefile ##g" | \
   sponge configure
-#RUN cd src && \
-#    ./configure --build=i386-linux-gnu \
-#                CFLAGS="-m32" \
-#                CXXFLAGS="-m32" \
-#                LDFLAGS="-m32"
+
+# configure and compile
+RUN cd src && \
+    ./configure && \
+    make -j$(nproc)
