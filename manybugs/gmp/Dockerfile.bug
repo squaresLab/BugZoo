@@ -9,7 +9,8 @@ ENV OLD_LOCATION /root/genprog-many-bugs/${SCENARIO_NAME}
 # 1. download and unextract the ManyBugs archive
 # 2. remove junk and tidy files
 # 3. reset hg to bug commit
-# 4. destroy hg info (TODO)
+# 4. destroy redundant tests directory
+# 5. destroy hg info (TODO)
 RUN cd /experiment && \
     wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
           -O scenario.tar.gz && \
@@ -27,6 +28,7 @@ RUN cd /experiment && \
             compile.pl \
             *~ \
             test \
+            reconfigure \
             fixed-program.txt && \
     mv bug-failures bug-info && \
     mv bugged-program.txt manifest.txt && \
@@ -36,6 +38,8 @@ RUN cd /experiment && \
     cd ../ && \
     mv scenario/* /experiment && \
     rm -rf scenario && \
+    cd /experiment && \
+    rm -rf tests && \
     cd /experiment/src && \
     make distclean && \
     hg revert -r${BUG_COMMIT} --all && \
@@ -58,4 +62,6 @@ RUN cd src && \
 RUN sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
     sed -i "s#cd gmp#cd src#g" test.sh && \
     sed -i "s#/experiment/limit#timeout \${time_limit}#g" test.sh && \
-    sed -i "s#/usr/bin/perl#perl#g" test.sh
+    sed -i "s#/usr/bin/perl#perl#g" test.sh && \
+    sed -i 's#lt-\.\*#lt-\.\* \&\> /dev/null#g' test.sh && \
+    chmod +x gmp-run-tests.pl
