@@ -1,0 +1,4 @@
+dataset: manybugs
+dockerfile: Dockerfile
+program: lighttpd
+version: 0
