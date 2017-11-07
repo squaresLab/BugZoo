@@ -50,6 +50,14 @@ class Tool(object):
         return self.__build_instructions.build(force=force)
 
 
+    def upload(self) -> bool:
+        """
+        Attempts to upload the image for this tool to
+        `DockerHub <https://hub.docker.com>`_.
+        """
+        return self.__build_instructions.upload()
+
+
 class ToolManager(object):
     def __init__(self, manager: 'repairbox.manager.RepairBox') -> None:
         self.__manager = manager
