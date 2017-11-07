@@ -8,9 +8,8 @@ ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
 
 # 1. download and unextract the ManyBugs archive
 # 2. remove junk and tidy files
-# 3. reset hg to bug commit
+# 3. reset svn to bug commit
 # 4. destroy redundant tests directory
-# 5. destroy hg info (TODO)
 RUN cd /experiment && \
     wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
           -O scenario.tar.gz && \
@@ -29,6 +28,7 @@ RUN cd /experiment && \
             *~ \
             test \
             reconfigure \
+            preprocessed \
             fixed-program.txt && \
     mv bug-failures bug-info && \
     mv bugged-program.txt manifest.txt && \
@@ -46,15 +46,17 @@ RUN cd /experiment && \
       svn revert --recursive . && \
     sudo chown -R docker /experiment
 
-# configure and compile
-RUN cd src && \
+# preprocess, configure, and compile
+RUN ./preprocess && \
+    cd src && \
     ./configure && \
     make -j$(nproc)
 
-# fix the test harness
+# fix the test harness and the configuration script
 RUN sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
     sed -i "s#cd gmp#cd src#g" test.sh && \
     sed -i "s#/experiment/limit#timeout 5#g" test.sh && \
     sed -i "s#/usr/bin/perl#perl#g" test.sh && \
     sed -i 's#lt-\.\*#lt-\.\* \&\> /dev/null#g' test.sh && \
-    sed -i 's#cd lighttpd/tests#cd src/tests#g' test.sh
+    sed -i 's#cd lighttpd/tests#cd src/tests#g' test.sh && \
+    sed -i 's#perl compile.pl __EXE_NAME__ > /dev/null#./compile.sh __EXE_NAME__ &> /dev/null#g' configuration-default

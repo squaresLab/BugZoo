@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+import os
+import shutil
+import subprocess
+import errno    
+
+
+# https://stackoverflow.com/questions/600268/mkdir-p-functionality-in-python
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
+
+with open('/experiment/manifest.txt', 'r') as f:
+  files = [fn.strip() for fn in f]
+
+# destroy the current contents, if any, of the preprocessed directory
+shutil.rmtree('/experiment/preprocessed', ignore_errors=True)
+os.mkdir('/experiment/preprocessed')
+
+# recompile
+os.chdir('/experiment/src')
+subprocess.check_call('./configure CFLAGS="-save-temps=obj"', shell=True)
+subprocess.check_call('make -j$(nproc)', shell=True)
+
+# extract preprocessed files
+for fn in files:
+    fn_no_suffix = fn.rpartition('.')[0]
+    fn_preprocessed = os.path.join('/experiment/src/', fn_no_suffix + '.i')
+    fn_dest = os.path.join('/experiment/preprocessed/', fn)
+
+    # create necessary dirs
+    mkdir_p(os.path.dirname(fn_dest))
+
+    os.rename(fn_preprocessed, fn_dest)
+
+# tidy up
+subprocess.check_call('make distclean', shell=True)
+subprocess.check_call('./configure', shell=True)
+
+for root, dirs, files in os.walk('/experiment/src'):
+    for fn in files:
+        if fn.endswith('.i') or fn.endswith('.s'):
+            fn = os.path.join(root, fn)
+            os.remove(fn)
+
+# self-destruct
+os.remove('/experiment/preprocess')

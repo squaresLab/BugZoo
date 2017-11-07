@@ -1,5 +1,7 @@
-FROM squareslab/repairbox:rbox
+FROM squareslab/repairbox:manybugs
 MAINTAINER Chris Timperley "christimperley@gmail.com"
+
+ADD preprocess /experiment/preprocess
 
 # Fix /bin/sh to point to /bin/bash
 # I've added this to the base image, but for now I've also added it here
