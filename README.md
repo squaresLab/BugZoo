@@ -51,7 +51,7 @@ Additionally, RepairBox requires the following Python packages:
 These may be installed via the following `pip` command:
 
 ```
-$ pip install tabulate requests yaml
+$ pip install tabulate requests pyyaml
 ```
 
 ## Usage
