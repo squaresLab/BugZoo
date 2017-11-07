@@ -1,9 +1,10 @@
 FROM squareslab/repairbox:manybugs-lighttpd-base
 
-#ARG scenario
-#ENV SCENARIO_NAME ${scenario}
-ENV BUG_COMMIT 1794
-ENV SCENARIO_NAME lighttpd-bug-1794-1795
+ARG bug_commit
+ARG fix_commit
+ENV BUG_COMMIT ${bug_commit}
+ENV FIX_COMMIT ${fix_commit}
+ENV SCENARIO_NAME lighttpd-bug-${BUG_COMMIT}-${FIX_COMMIT}
 ENV OLD_LOCATION /root/mountpoint-genprog/genprog-many-bugs/${SCENARIO_NAME}
 
 # 1. download and unextract the ManyBugs archive
