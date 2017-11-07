@@ -58,6 +58,18 @@ class Tool(object):
         return self.__build_instructions.upload()
 
 
+    def download(self, force=False) -> bool:
+        """
+        Attempts to download the image for this tool from
+        `DockerHub <https://hub.docker.com>`_. If the force parameter is set to
+        True, any existing image will be overwritten.
+
+        Returns:
+            `True` if successfully downloaded, else `False`.
+        """
+        return self.__build_instructions.download(force=force)
+
+
 class ToolManager(object):
     def __init__(self, manager: 'repairbox.manager.RepairBox') -> None:
         self.__manager = manager
