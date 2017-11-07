@@ -1,3 +1,5 @@
+import yaml
+import os
 from repairbox.build import BuildInstructions
 
 class Tool(object):
@@ -13,9 +15,12 @@ class Tool(object):
         name = yml['name']
 
         assert 'docker' in yml
-        build_instructions = BuildInstructions.from_dict(yml['docker'])
+        src = None # TODO!
+        root = os.path.dirname(os.path.abspath(fn))
+        build = {'docker': yml['docker']} # TODO: don't wrap
+        build = BuildInstructions.from_dict(None, root, build)
 
-        return Tool(name, build_instructions)
+        return Tool(name, build)
 
 
     def __init__(self,
@@ -34,7 +39,8 @@ class Tool(object):
 
 
 class ToolManager(object):
-    def __init__(self):
+    def __init__(self, manager: 'repairbox.manager.RepairBox') -> None:
+        self.__manager = manager
         self.__tools = {}
         self.scan()
 
@@ -43,7 +49,7 @@ class ToolManager(object):
         """
         Scans the local RepairBox installation for installed tools.
         """
-        fn = "/home/chris/git/genprog/genprog.tool.rbox.yml"
+        fn = "/home/chris/git/genprog/genprog.tool.yml"
         tool = Tool.from_file(fn)
         self.__tools['genprog'] = tool
 
