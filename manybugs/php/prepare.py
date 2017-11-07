@@ -5,6 +5,7 @@ import subprocess
 import multiprocessing
 
 NASTY_REVISIONS = [
+    "e7a1d5004e",
     "0a1cc5f01c",
     "51a4ae6576",
     "eeba0b5681",
