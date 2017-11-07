@@ -1,2 +1,0 @@
-src/http_resp.c
-src/http_resp_parser.c
