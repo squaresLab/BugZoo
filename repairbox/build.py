@@ -9,8 +9,7 @@ import repairbox
 
 class BuildInstructions(object):
     """
-    Used to store instructions on how to build a Docker image (for an artefact
-    or for a dependency of an artefact).
+    Used to store instructions on how to build a Docker image.
 
     TODO: only allow relative, forward roots
     """
@@ -30,15 +29,15 @@ class BuildInstructions(object):
         with open(fn, 'r') as f:
             yml = yaml.load(f)
         root = os.path.dirname(fn)
-        return BuildInstructions.from_yaml(src, root, yml)
+        return BuildInstructions.from_dict(src, root, yml)
 
 
     @staticmethod
-    def from_yaml(src: 'repairbox.manager.Source', root: str, yml: dict):
+    def from_dict(src: 'repairbox.manager.Source', root: str, yml: dict):
         """
         Loads a set of build instructions from a dictionary.
         """
-        yml = yml['docker']
+        yml = yml['docker'] # TODO: why?
         tag = yml['tag']
         context = yml.get('context', '.')
         filename = yml.get('file', 'Dockerfile')

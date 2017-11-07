@@ -11,6 +11,7 @@ import yaml
 from typing import List
 from repairbox.build import BuildInstructions
 from repairbox.artefact import Artefact
+from repairbox.tool import ToolManager
 
 
 class RepairBox(object):
@@ -39,6 +40,7 @@ class RepairBox(object):
         self.__path = path
         self.__sources = SourceManager(self)
         self.__artefacts = ArtefactManager(self)
+        self.__tools = ToolManager(self)
         self.__sources.reload()
 
 
@@ -60,6 +62,14 @@ class RepairBox(object):
         The sources registered with this RepairBox installation.
         """
         return self.__sources
+
+
+    @property
+    def tools(self):
+        """
+        The tools registered with this RepairBox installation.
+        """
+        return self.__tools
 
     
     @property

@@ -71,9 +71,10 @@ class Artefact(object):
             CompilationInstructions.from_yaml(yml['compilation'])
 
         # docker build instructions
+        # TODO: this is stupid
         build_instructions = {'docker': yml['docker']}
         build_instructions = \
-            BuildInstructions.from_yaml(source,
+            BuildInstructions.from_dict(source,
                                         os.path.dirname(fn),
                                         build_instructions)
 
