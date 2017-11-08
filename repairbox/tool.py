@@ -27,6 +27,7 @@ class Tool(object):
                  name: str,
                  build_instructions: BuildInstructions) -> None:
         self.__name = name
+        self.__url = "TODO" # TODO url
         self.__build_instructions = build_instructions
 
 

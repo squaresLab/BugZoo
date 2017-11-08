@@ -39,7 +39,7 @@ class Artefact(object):
     transparent and reproducible manner.
 
     Each artefact is assigned a unique identifier, based on its name, and
-    the name of the program, if any, and source to which it belongs. This
+    the name of the program, if any, and dataset to which it belongs. This
     identifier takes the form: `"SOURCE:[PROGRAM:]NAME"`. Artefacts can be
     retrieved by using this name, as shown below.
 
@@ -49,7 +49,7 @@ class Artefact(object):
         artefact = rbox.artefacts['manybugs:python:69223-69224']
     """
     @staticmethod
-    def from_file(source: 'repairbox.manager.Source',
+    def from_file(dataset: 'repairbox.manager.Dataset',
                   fn: str) -> 'Artefact':
         """
         Loads an artefact from its YAML manifest file.
@@ -77,7 +77,7 @@ class Artefact(object):
             BuildInstructions.from_dict(os.path.dirname(fn),
                                         build_instructions)
 
-        return Artefact(source,
+        return Artefact(dataset,
                         name,
                         program,
                         harness,
@@ -86,7 +86,7 @@ class Artefact(object):
 
 
     def __init__(self,
-                 source: 'repairbox.manager.Source',
+                 dataset: 'repairbox.manager.Dataset',
                  name: str,
                  program: str,
                  harness: TestSuite,
@@ -100,13 +100,13 @@ class Artefact(object):
         self.__test_harness = harness
         self.__build_instructions = build_instructions
         self.__compilation_instructions = compilation_instructions
-        self.__source = source
+        self.__dataset = dataset
 
 
     @property
-    def source_dir(self) -> str:
+    def dataset_dir(self) -> str:
         """
-        The absolute path of the source directory (within the container) for
+        The absolute path of the dataset directory (within the container) for
         this artefact.
         """
         # TODO
@@ -143,11 +143,11 @@ class Artefact(object):
 
 
     @property
-    def source(self) -> 'Source':
+    def dataset(self) -> 'Dataset':
         """
-        The source to which this artefact belongs.
+        The dataset to which this artefact belongs.
         """
-        return self.__source
+        return self.__dataset
 
 
     @property
@@ -173,8 +173,8 @@ class Artefact(object):
         The fully-qualified name of this artefact.
         """
         if self.__program:
-            return "{}:{}:{}".format(self.__source.name, self.__program, self.__name)
-        return "{}:{}".format(self.__source.name, self.__name)
+            return "{}:{}:{}".format(self.__dataset.name, self.__program, self.__name)
+        return "{}:{}".format(self.__dataset.name, self.__name)
 
 
     def build(self, force=False) -> None:
@@ -244,16 +244,16 @@ class ArtefactManager(object):
     installation.
     """
     class ArtefactIterator(object):
-        def __init__(self, sources):
-            self.__sources = list(sources)
+        def __init__(self, datasets):
+            self.__datasets = list(datasets)
             self.__artefacts = []
 
 
         def __next__(self):
             if not self.__artefacts:
-                if not self.__sources:
+                if not self.__datasets:
                     raise StopIteration
-                src = self.__sources.pop()
+                src = self.__datasets.pop()
                 self.__artefacts += src.artefacts
                 return self.__next__()
             return self.__artefacts.pop()
@@ -275,7 +275,7 @@ class ArtefactManager(object):
                 rbx.artefacts['manybugs:python:69223-69224']
 
         """
-        for src in self.__manager.sources.sources:
+        for src in self.__manager.datasets.datasets:
             if src.contains(name):
                 return src[name]
         raise IndexError('artefact not found: {}'.format(name))
@@ -296,4 +296,4 @@ class ArtefactManager(object):
                 for artefact in rbx.artefacts:
                     print("{}: {}".format(src.identifier, src.image))
         """
-        return ArtefactManager.ArtefactIterator(self.__manager.sources.sources)
+        return ArtefactManager.ArtefactIterator(self.__manager.datasets.datasets)

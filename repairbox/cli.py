@@ -6,14 +6,14 @@ from operator import itemgetter
 from repairbox.manager import RepairBox
 
 
-def list_sources(rbox: 'RepairBox') -> None:
+def list_datasets(rbox: 'RepairBox') -> None:
     """
-    Produces a list of all the sources known to RepairBox.
+    Produces a list of all the datasets known to RepairBox.
     """
-    hdrs = ['Source', 'URL', 'Version'] 
+    hdrs = ['Dataset', 'URL', 'Version'] 
     tbl = []
-    for src in rbox.sources.sources:
-        tbl.append([src.name, src.url, src.version])
+    for ds in rbox.datasets.datasets:
+        tbl.append([ds.name, ds.url, ds.version])
 
     # transform into a pretty table
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
@@ -21,19 +21,19 @@ def list_sources(rbox: 'RepairBox') -> None:
     print(tbl)
 
 
-def add_source(rbox: 'RepairBox', src: str) -> None:
-    rbox.sources.add(src)
-    print('added source: {}'.format(src))
+def add_dataset(rbox: 'RepairBox', ds: str) -> None:
+    rbox.datasets.add(ds)
+    print('added dataset: {}'.format(ds))
 
 
-def remove_source(rbox: 'RepairBox', src: str) -> None:
-    rbox.sources.remove(src)
-    print('removed source: {}'.format(src))
+def remove_dataset(rbox: 'RepairBox', ds: str) -> None:
+    rbox.datasets.remove(ds)
+    print('removed dataset: {}'.format(ds))
 
 
-def update_sources(rbox: 'RepairBox', ) -> None:
-    print('updating sources...')
-    rbox.sources.update()
+def update_datasets(rbox: 'RepairBox', ) -> None:
+    print('updating datasets...')
+    rbox.datasets.update()
 
 
 def install_artefact(rbox: 'RepairBox', name: str, update: bool) -> None:
@@ -109,11 +109,11 @@ def list_tools(rbox: 'RepairBox', show_installed=None) -> None:
                 continue
 
         installed = 'Yes' if tool.installed else 'No'
-        src = 'X' # tool.source.name
-        row = [tool.identifier, src, installed]
+        ds = 'X' # tool.dataset.name
+        row = [tool.identifier, ds, installed]
         tbl.append(row)
 
-    # sort by source then by artefact
+    # sort by dataset then by artefact
     tbl = sorted(tbl, key=itemgetter(1,2))
 
     # transform into a pretty table
@@ -150,10 +150,10 @@ def list_artefacts(rbox: 'RepairBox', show_installed=None) -> None:
                 continue
 
         installed = 'Yes' if artefact.installed else 'No'
-        row = [artefact.identifier, artefact.source.name, installed]
+        row = [artefact.identifier, artefact.dataset.name, installed]
         tbl.append(row)
 
-    # sort by source then by artefact
+    # sort by dataset then by artefact
     tbl = sorted(tbl, key=itemgetter(1,2))
 
     # transform into a pretty table
@@ -174,28 +174,28 @@ def main():
     parser.add_argument('--version', action='version', version='2.0.0')
 
     ###########################################################################
-    # [source] group
+    # [dataset] group
     ###########################################################################
-    g_src = subparsers.add_parser('source')
-    g_subparsers = g_src.add_subparsers()
+    g_ds = subparsers.add_parser('dataset')
+    g_subparsers = g_ds.add_subparsers()
 
-    # [source list]
+    # [dataset list]
     cmd = g_subparsers.add_parser('list')
-    cmd.set_defaults(func=lambda args: list_sources(rbox))
+    cmd.set_defaults(func=lambda args: list_datasets(rbox))
 
-    # [source add :src]
+    # [dataset add :dataset]
     cmd = g_subparsers.add_parser('add')
-    cmd.add_argument('src')
-    cmd.set_defaults(func=lambda args: add_source(rbox, args.src))
+    cmd.add_argument('dataset')
+    cmd.set_defaults(func=lambda args: add_dataset(rbox, args.dataset))
 
-    # [source remove :src]
+    # [dataset remove :dataset]
     cmd = g_subparsers.add_parser('remove')
-    cmd.add_argument('src')
-    cmd.set_defaults(func=lambda args: remove_source(rbox, args.src))
+    cmd.add_argument('dataset')
+    cmd.set_defaults(func=lambda args: remove_dataset(rbox, args.dataset))
 
-    # [source update]
+    # [dataset update]
     cmd = g_subparsers.add_parser('update')
-    cmd.set_defaults(func=lambda args: update_sources())
+    cmd.set_defaults(func=lambda args: update_datasets())
 
 
     ###########################################################################

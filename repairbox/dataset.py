@@ -11,16 +11,16 @@ from repairbox.artefact import Artefact
 from repairbox.build import BuildInstructions
 
 
-class Source(object):
+class Dataset(object):
     @staticmethod
-    def download(manager: 'SourceManager', url: str) -> 'Source':
+    def download(manager: 'DatasetManager', url: str) -> 'Dataset':
         """
-        Downloads a source from a given URL to disk.
+        Downloads a dataset from a given URL to disk.
         """
-        abs_path = Source.url_to_abs_path(manager, url)
-        assert not os.path.exists(abs_path), "already downloaded source: {}".format(url)
+        abs_path = Dataset.url_to_abs_path(manager, url)
+        assert not os.path.exists(abs_path), "already downloaded dataset: {}".format(url)
         git.Repo.clone_from(url, abs_path)
-        return Source(manager, url)
+        return Dataset(manager, url)
 
 
     @staticmethod
@@ -32,12 +32,12 @@ class Source(object):
 
 
     @staticmethod
-    def url_to_abs_path(manager: 'SourceManager', url: str) -> str:
-        rel_path = Source.url_to_rel_path(url)
+    def url_to_abs_path(manager: 'DatasetManager', url: str) -> str:
+        rel_path = Dataset.url_to_rel_path(url)
         return os.path.join(manager.path, rel_path)
 
 
-    def __init__(self, manager: 'SourceManager', url: str) -> None:
+    def __init__(self, manager: 'DatasetManager', url: str) -> None:
         self.__manager = manager
         self.__url = url
         self.__artefacts = {}
@@ -50,7 +50,7 @@ class Source(object):
     @property
     def name(self) -> str:
         """
-        The unique name of this source.
+        The unique name of this dataset.
         """
         return self.__name
 
@@ -58,7 +58,7 @@ class Source(object):
     @property
     def version(self) -> str:
         """
-        The current version of this source, given as the first eight characters
+        The current version of this dataset, given as the first eight characters
         of its current revision.
         """
         sha = self.__repo.head.object.hexsha
@@ -66,7 +66,7 @@ class Source(object):
 
 
     def scan(self) -> None:
-        # determine the name of this source
+        # determine the name of this dataset
         manifest_fn = os.path.join(self.abs_path, '.repairbox.yml')
         assert os.path.isfile(manifest_fn), "missing manifest file."
         with open(manifest_fn, 'r') as f:
@@ -89,7 +89,7 @@ class Source(object):
 
     def update(self) -> None:
         """
-        Downloads any updates to the files for this source.
+        Downloads any updates to the files for this dataset.
         """
         origin = self.__repo.remotes.origin
         origin.pull()
@@ -98,8 +98,8 @@ class Source(object):
 
     def remove(self) -> None:
         """
-        Removes the files for this source from disk, and uninstalls all
-        associated Docker images. This should only be called by SourceManager.
+        Removes the files for this dataset from disk, and uninstalls all
+        associated Docker images. This should only be called by DatasetManager.
         """
         for artefact in self.artefacts:
             artefact.uninstall(force=True)
@@ -113,7 +113,7 @@ class Source(object):
     def contains(self, identifier: str) -> None:
         """
         Checks whether an artefact with a given identifier is provided by this
-        source.
+        dataset.
         """
         return identifier in self.__artefacts
 
@@ -133,7 +133,7 @@ class Source(object):
 
 
     @property
-    def manager(self) -> 'SourceManager':
+    def manager(self) -> 'DatasetManager':
         return self.__manager
 
 
@@ -145,35 +145,35 @@ class Source(object):
     @property
     def rel_path(self) -> str:
         """
-        Returns the location of this source, relative to the sources directory.
+        Returns the location of this dataset, relative to the datasets directory.
         """
-        return Source.url_to_rel_path(self.url)
+        return Dataset.url_to_rel_path(self.url)
 
 
     @property
     def abs_path(self) -> str:
         """
-        Returns the absolute path to this source.
+        Returns the absolute path to this dataset.
         """
-        return Source.url_to_abs_path(self.manager, self.url)
+        return Dataset.url_to_abs_path(self.manager, self.url)
 
 
-class SourceManager(object):
+class DatasetManager(object):
     """
-    Used to access and manage all sources registered with a local RepairBox
+    Used to access and manage all datasets registered with a local RepairBox
     installation.
     """
     def __init__(self, manager: 'RepairBox') -> None:
-        self.__path = os.path.join(manager.path, 'sources')
+        self.__path = os.path.join(manager.path, 'datasets')
         self.__manifest_fn = \
-            os.path.join(self.__path, 'sources.manifest.json')
-        self.__sources = {}
+            os.path.join(self.__path, 'datasets.manifest.json')
+        self.__datasets = {}
 
 
     @property
     def path(self):
         """
-        The path to the sources directory on disk.
+        The path to the datasets directory on disk.
         """
         return self.__path
 
@@ -181,58 +181,58 @@ class SourceManager(object):
     def reload(self) -> None:
         """
         Reloads all the manifest and build files associated with registered
-        sources. This method is called (internally) after adding, removing,
-        or updating sources.
+        datasets. This method is called (internally) after adding, removing,
+        or updating datasets.
         """
         if not os.path.exists(self.__manifest_fn):
-            self.__sources = {}
+            self.__datasets = {}
             return
 
         with open(self.__manifest_fn, 'r') as f:
             srcs = json.load(f)
 
         assert isinstance(srcs, list)
-        self.__sources = {s: Source(self, s) for s in srcs}
+        self.__datasets = {s: Dataset(self, s) for s in srcs}
 
 
     def __write(self) -> None:
         with open(self.__manifest_fn, 'w') as f:
-            srcs = list(self.__sources.keys())
+            srcs = list(self.__datasets.keys())
             json.dump(srcs, f, indent=2)
 
 
     def exists(self, url: str) -> bool:
         """
-        Determines whether a source at a given URL has been installed to
+        Determines whether a dataset at a given URL has been installed to
         this machine.
 
         Args:
-            url:    the URL of the Git repository for this source.
+            url:    the URL of the Git repository for this dataset.
         """
-        return url in self.__sources
+        return url in self.__datasets
 
 
-    def add(self, url: str) -> Source:
+    def add(self, url: str) -> Dataset:
         """
-        Registers a new source with this local installation.
+        Registers a new dataset with this local installation.
 
         Args:
-            url:    the URL of the Git repository for this source.
+            url:    the URL of the Git repository for this dataset.
 
         Returns:
-            The `Source` object for the newly registered source.
+            The `Dataset` object for the newly registered dataset.
 
         Raises:
-            Exception: if an existing, installed source uses the given URL.
+            Exception: if an existing, installed dataset uses the given URL.
         """
         assert url != ""
-        if url in self.__sources:
-            raise Exception("source already registered: {}".format(url)) # TODO custom Error
+        if url in self.__datasets:
+            raise Exception("dataset already registered: {}".format(url)) # TODO custom Error
 
-        src = Source.download(self, url)
+        src = Dataset.download(self, url)
 
-        # update the sources file
-        self.__sources[src.url] = src.rel_path
+        # update the datasets file
+        self.__datasets[src.url] = src.rel_path
         self.__write()
 
         return src
@@ -240,86 +240,86 @@ class SourceManager(object):
 
     def remove(self, src: str) -> None:
         """
-        Removes an existing source, given by its name. The removal process
+        Removes an existing dataset, given by its name. The removal process
         destroys the local copies of the manifest and build files for this
-        source, and uninstalls all of its associated images.
+        dataset, and uninstalls all of its associated images.
 
         Args:
-            name:    the name of the source that should be removed.
+            name:    the name of the dataset that should be removed.
 
         Raises:
-            Exception:  if no installed source exists with the given URL.
+            Exception:  if no installed dataset exists with the given URL.
         """
         assert src != ""
-        if src not in self.__sources:
-            raise Exception("source not found: {}".format(src)) # TODO custom Error
+        if src not in self.__datasets:
+            raise Exception("dataset not found: {}".format(src)) # TODO custom Error
 
-        self.__sources[src].remove()
-        del self.__sources[src]
+        self.__datasets[src].remove()
+        del self.__datasets[src]
         self.__write()
 
 
     def update(self) -> None:
         """
-        Downloads any available updates for all (installed) sources.
+        Downloads any available updates for all (installed) datasets.
         """
-        for src in self.__sources.values():
+        for src in self.__datasets.values():
             src.update()
 
 
     @property
-    def sources(self) -> List[Source]:
+    def datasets(self) -> List[Dataset]:
         """
-        A pseudo-immutable list of sources associated with this local
+        A pseudo-immutable list of datasets associated with this local
         installation. I.e., any changes to this list are not permanent.
         """
-        return self.__sources.values()
+        return self.__datasets.values()
 
 
-    def __getitem__(self, name_or_url: str) -> Source:
+    def __getitem__(self, name_or_url: str) -> Dataset:
         """
-        Fetches a registered source by its name or URL.
+        Fetches a registered dataset by its name or URL.
 
         Args:
-            name_or_url:   the name or URL of the source.
+            name_or_url:   the name or URL of the dataset.
 
         Example:
 
             .. code-block:: python
 
-                # fetch the ManyBugs source,
+                # fetch the ManyBugs dataset,
                 rbx = RepairBox()
 
                 # by name,
-                src = rbx.sources['manybugs']
+                src = rbx.datasets['manybugs']
 
                 # or by URL
-                src = rbx.sources['https://github.com/ChrisTimperley/ManyBugs']
+                src = rbx.datasets['https://github.com/ChrisTimperley/ManyBugs']
         """
         # URL
-        if name_or_url in self.__sources:
-            return self.__sources[name]
+        if name_or_url in self.__datasets:
+            return self.__datasets[name]
 
         # name
-        for src in self.__sources.values():
+        for src in self.__datasets.values():
             if src.name == name_or_url:
                 return src
 
-        raise IndexError('no source found with given URL or name: {}'.format(url_or_name))
+        raise IndexError('no dataset found with given URL or name: {}'.format(url_or_name))
 
 
     def __iter__(self):
         """
-        Returns an iterator over the sources registered with this local
+        Returns an iterator over the datasets registered with this local
         installation.
 
         Example:
 
             .. code-block:: python
 
-                # print the names and URLs of all registered sources
+                # print the names and URLs of all registered datasets
                 rbx = RepairBox()
-                for src in rbx.sources:
+                for src in rbx.datasets:
                     print("{}: {}".format(src.name, src.url))
         """
-        return self.__sources.iter()
+        return self.__datasets.iter()

@@ -1,7 +1,7 @@
 import os
 
 from repairbox.artefact import ArtefactManager
-from repairbox.source import SourceManager
+from repairbox.dataset import DatasetManager
 from repairbox.tool import ToolManager
 
 
@@ -29,16 +29,16 @@ class RepairBox(object):
             os.makedirs(path)
 
         self.__path = path
-        self.__sources = SourceManager(self)
+        self.__datasets = DatasetManager(self)
         self.__artefacts = ArtefactManager(self)
         self.__tools = ToolManager(self)
-        self.__sources.reload()
+        self.__datasets.reload()
 
 
     @property
     def path(self) -> str:
         """
-        The absolute path to the local installation of RepairBox's sources.
+        The absolute path to the local installation of RepairBox.
         """
         return self.__path
 
@@ -48,11 +48,11 @@ class RepairBox(object):
 
 
     @property
-    def sources(self):
+    def datasets(self):
         """
-        The sources registered with this RepairBox installation.
+        The datasets registered with this RepairBox installation.
         """
-        return self.__sources
+        return self.__datasets
 
 
     @property
@@ -62,7 +62,7 @@ class RepairBox(object):
         """
         return self.__tools
 
-    
+
     @property
     def artefacts(self):
         """

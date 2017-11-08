@@ -21,8 +21,6 @@ class BuildInstructions(object):
         specified YAML file.
 
         Args:
-            src (repairbox.manager.Source): the source to which these build \
-                instructions belong.
             fn (str): the name of the file.
         """
         with open(fn, 'r') as f:
