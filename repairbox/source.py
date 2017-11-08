@@ -1,3 +1,4 @@
+from typing import Iterator
 import git
 import json
 import yaml
@@ -182,6 +183,11 @@ class SourceManager(object):
                 return src
 
         raise IndexError
+
+
+    def __iter__(self) -> Iterator[Source]:
+        for src in self.__sources.values():
+            yield src
 
 
     # TODO: we don't necessary need to put this here?
