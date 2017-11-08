@@ -60,10 +60,71 @@ def upload_artefact(rbox: 'RepairBox', name: str) -> None:
     artefact.upload()
 
 
+# TODO: wrong name!
 def uninstall_bug(rbox: 'RepairBox', name: str, force: bool) -> None:
     print('uninstalling artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     artefact.uninstall(force=force)
+
+
+###############################################################################
+# [tool] group
+###############################################################################
+
+def install_tool(rbox: 'RepairBox', name: str, update: bool) -> None:
+    print('installing tool: {}'.format(name))
+    t = rbox.tools[name]
+    t.install(upgrade=update)
+
+
+def uninstall_tool(rbox: 'RepairBox', name: str, force: bool) -> None:
+    print('uninstalling tool: {}'.format(name))
+    rbox.tools[name].uninstall(force=force)
+
+
+def build_tool(rbox: 'RepairBox', name: str, force: bool) -> None:
+    print('building tool: {}'.format(name))
+    rbox.tools[name].build(force=force)
+
+
+def download_tool(rbox: 'RepairBox', name: str, force: bool) -> None:
+    print('downloading tool: {}'.format(name))
+    rbox.tools[name].download(force=force)
+
+
+def upload_tool(rbox: 'RepairBox', name: str) -> None:
+    print('uploading tool: {}'.format(name))
+    rbox.tools[name].upload()
+
+
+# TODO: tidy up copypasta
+def list_tools(rbox: 'RepairBox', show_installed=None) -> None:
+    tbl = []
+    hdrs = ['Tool', 'Source', 'Installed?']
+    for tool in rbox.tools:
+
+        # apply filtering based on installation status
+        if show_installed is not None:
+            if show_installed != tool.installed:
+                continue
+
+        installed = 'Yes' if tool.installed else 'No'
+        src = 'X' # tool.source.name
+        row = [tool.identifier, src, installed]
+        tbl.append(row)
+
+    # sort by source then by artefact
+    tbl = sorted(tbl, key=itemgetter(1,2))
+
+    # transform into a pretty table
+    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
+    print('')
+    print(tbl)
+
+
+###############################################################################
+# [container] group
+###############################################################################
 
 
 def launch(rbox: 'RepairBox', name: str) -> None:
@@ -79,9 +140,6 @@ def launch(rbox: 'RepairBox', name: str) -> None:
 
 
 def list_artefacts(rbox: 'RepairBox', show_installed=None) -> None:
-    """
-    Produces a list of all the artefacts registered with RepairBox.
-    """
     tbl = []
     hdrs = ['Artefact', 'Source', 'Installed?']
     for artefact in rbox.artefacts:
@@ -141,6 +199,57 @@ def main():
 
 
     ###########################################################################
+    # [tool] group
+    ###########################################################################
+    g_tool = subparsers.add_parser('tool')
+    g_subparsers = g_tool.add_subparsers()
+
+    # [tool install (--update) :tool]
+    cmd = g_subparsers.add_parser('install')
+    cmd.add_argument('tool')
+    cmd.add_argument('--update',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: install_tool(rbox, args.tool, args.update))
+
+    # [tool uninstall (--force) :tool]
+    cmd = g_subparsers.add_parser('uninstall')
+    cmd.add_argument('tool')
+    cmd.add_argument('--force',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: uninstall_tool(rbox, args.tool, force=args.force))
+
+    # [tool build (--update) :artefact]
+    cmd = g_subparsers.add_parser('build')
+    cmd.add_argument('tool')
+    cmd.add_argument('--force',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: build_tool(rbox, args.tool, args.force))
+
+    # [tool download (--force) :artefact]
+    cmd = g_subparsers.add_parser('download')
+    cmd.add_argument('tool')
+    cmd.add_argument('--force',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: download_tool(rbox, args.tool, args.force))
+
+    # [tool upload :artefact]
+    cmd = g_subparsers.add_parser('upload')
+    cmd.add_argument('tool')
+    cmd.set_defaults(func=lambda args: upload_tool(rbox, args.tool))
+
+    # [tool list]
+    cmd = g_subparsers.add_parser('list')
+    cmd.add_argument('--installed',
+                     dest='installed',
+                     action='store_true')
+    cmd.add_argument('--uninstalled',
+                     dest='installed',
+                     action='store_false')
+    cmd.set_defaults(installed=None)
+    cmd.set_defaults(func=lambda args: list_tools(rbox, args.installed))
+
+
+    ###########################################################################
     # [container] group
     ###########################################################################
     g_container = subparsers.add_parser('container')
@@ -150,6 +259,10 @@ def main():
     cmd = g_subparsers.add_parser('launch')
     cmd.add_argument('artefact')
     cmd.set_defaults(func=lambda args: launch(rbox, args.artefact))
+
+    # [container run :artefact]
+
+    # [container connect :artefact]
 
 
     ###########################################################################
@@ -200,7 +313,7 @@ def main():
                      dest='installed',
                      action='store_false')
     cmd.set_defaults(installed=None)
-    cmd.set_defaults(func=lambda args: list_artefacts(rbox,args.installed))
+    cmd.set_defaults(func=lambda args: list_artefacts(rbox, args.installed))
 
 
     # parse and process arguments
