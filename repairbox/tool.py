@@ -105,31 +105,3 @@ class Tool(object):
             `True` if successfully downloaded, else `False`.
         """
         return self.__build_instructions.download(force=force)
-
-
-class ToolManager(object):
-    def __init__(self, manager: 'repairbox.manager.RepairBox') -> None:
-        self.__manager = manager
-        self.__tools = {}
-        self.scan()
-
-
-    def scan(self):
-        """
-        Scans the local RepairBox installation for installed tools.
-        """
-        fn = "/home/chris/git/genprog/genprog.tool.yml"
-        # src = self.__manager.sources['genprog']
-        # tool = Tool.from_file(fn)
-        # self.__tools['genprog'] = tool
-
-
-    def __getitem__(self, name: str) -> Tool:
-        if not name in self.__tools:
-            raise IndexError('tool not found: {}'.format(name))
-        return self.__tools[name]
-
-
-    def __iter__(self):
-        for tool in self.__tools.values():
-            yield tool

@@ -1,8 +1,8 @@
 import os
 
-from repairbox.artefact import ArtefactManager
-from repairbox.dataset import DatasetManager
-from repairbox.tool import ToolManager
+from repairbox.artefact import Artefact
+from repairbox.dataset import Dataset
+from repairbox.tool import Tool
 
 
 class RepairBox(object):
@@ -11,7 +11,7 @@ class RepairBox(object):
     """
     def __init__(self, path=None) -> None:
         """
-        Creates a new RepairBox installation manager. 
+        Creates a new RepairBox installation manager.
 
         Args:
             path: the absolute path of a RepairBox installation on this machine.
@@ -29,9 +29,12 @@ class RepairBox(object):
             os.makedirs(path)
 
         self.__path = path
-        self.__datasets = DatasetManager(self)
-        self.__artefacts = ArtefactManager(self)
-        self.__tools = ToolManager(self)
+        self.__sources = SourceManager(self)
+        self.__datasets = Datasets(self)
+        self.__artefacts = Artefacts(self)
+        self.__tools = Tools(self)
+
+        # TODO
         self.__datasets.reload()
 
 
@@ -69,3 +72,71 @@ class RepairBox(object):
         The artefacts registered with this RepairBox installation.
         """
         return self.__artefacts
+
+
+class Tools(object):
+    def __init__(self, installation: 'RepairBox') -> None:
+        self.__installation = installation
+
+
+    def __iter__(self) -> Iterator[Tool]:
+        return self.__installation.sources.tools
+
+
+    def __getitem__(self, name_or_url: str) -> Dataset:
+        for tool in self.__iter__():
+            if tool.name == name_or_url or tool.url == name_or_url:
+                return tool
+        raise IndexError
+
+
+class Datasets(object):
+    def __init__(self, installation: 'RepairBox') -> None:
+        self.__installation = installation
+
+
+    def __iter__(self) -> Iterator[Dataset]:
+        return self.__installation.sources.datasets
+
+
+    def __getitem__(self, name_or_url: str) -> Dataset:
+        for dataset in self.__iter__():
+            if dataset.name == name_or_url or dataset.url == name_or_url:
+                return dataset
+        raise IndexError
+
+
+class Artefacts(object):
+    """
+    Used to access and manage all artefacts registered with a local RepairBox
+    installation.
+    """
+    class ArtefactIterator(object):
+        def __init__(self, datasets):
+            self.__datasets = [d for d in datasets]
+            self.__artefacts = []
+
+
+        def __next__(self):
+            if not self.__artefacts:
+                if not self.__datasets:
+                    raise StopIteration
+                src = self.__datasets.pop()
+                self.__artefacts += src.artefacts
+                return self.__next__()
+            return self.__artefacts.pop()
+
+
+    def __init__(self, installation: 'RepairBox') -> None:
+        self.__installation = installation
+
+
+    def __getitem__(self, name: str) -> Artefact:
+        for src in self.__installation.datasets:
+            if src.contains(name):
+                return src[name]
+        raise IndexError('artefact not found: {}'.format(name))
+
+
+    def __iter__(self):
+        return ArtefactManager.ArtefactIterator(self.__installation.datasets)
