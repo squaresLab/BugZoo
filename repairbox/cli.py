@@ -6,14 +6,14 @@ from operator import itemgetter
 from repairbox.manager import RepairBox
 
 
-def list_datasets(rbox: 'RepairBox') -> None:
+def list_sources(rbox: 'RepairBox') -> None:
     """
-    Produces a list of all the datasets known to RepairBox.
+    Produces a list of all the sources known to RepairBox.
     """
-    hdrs = ['Dataset', 'URL', 'Version']
+    hdrs = ['Source', 'URL', 'Version']
     tbl = []
-    for ds in rbox.datasets:
-        tbl.append([ds.name, ds.url, ds.version])
+    for src in rbox.sources:
+        tbl.append([src.name, src.url, src.version])
 
     # transform into a pretty table
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
@@ -21,19 +21,19 @@ def list_datasets(rbox: 'RepairBox') -> None:
     print(tbl)
 
 
-def add_dataset(rbox: 'RepairBox', ds: str) -> None:
-    rbox.datasets.add(ds)
-    print('added dataset: {}'.format(ds))
+def add_source(rbox: 'RepairBox', src: str) -> None:
+    rbox.sources.add(src)
+    print('added dataset: {}'.format(src))
 
 
-def remove_dataset(rbox: 'RepairBox', ds: str) -> None:
-    rbox.datasets.remove(ds)
-    print('removed dataset: {}'.format(ds))
+def remove_source(rbox: 'RepairBox', src: str) -> None:
+    rbox.sources.remove(ds)
+    print('removed source: {}'.format(src))
 
 
-def update_datasets(rbox: 'RepairBox', ) -> None:
-    print('updating datasets...')
-    rbox.datasets.update()
+def update_sources(rbox: 'RepairBox', ) -> None:
+    print('updating sources...')
+    rbox.sources.update()
 
 
 def install_artefact(rbox: 'RepairBox', name: str, update: bool) -> None:
@@ -174,28 +174,28 @@ def main():
     parser.add_argument('--version', action='version', version='2.0.0')
 
     ###########################################################################
-    # [dataset] group
+    # [source] group
     ###########################################################################
-    g_ds = subparsers.add_parser('dataset')
-    g_subparsers = g_ds.add_subparsers()
+    g_src = subparsers.add_parser('source')
+    g_subparsers = g_src.add_subparsers()
 
-    # [dataset list]
+    # [source list]
     cmd = g_subparsers.add_parser('list')
-    cmd.set_defaults(func=lambda args: list_datasets(rbox))
+    cmd.set_defaults(func=lambda args: list_sources(rbox))
 
-    # [dataset add :dataset]
+    # [source add :dataset]
     cmd = g_subparsers.add_parser('add')
-    cmd.add_argument('dataset')
-    cmd.set_defaults(func=lambda args: add_dataset(rbox, args.dataset))
+    cmd.add_argument('source')
+    cmd.set_defaults(func=lambda args: add_source(rbox, args.source))
 
-    # [dataset remove :dataset]
+    # [source remove :dataset]
     cmd = g_subparsers.add_parser('remove')
-    cmd.add_argument('dataset')
-    cmd.set_defaults(func=lambda args: remove_dataset(rbox, args.dataset))
+    cmd.add_argument('source')
+    cmd.set_defaults(func=lambda args: remove_source(rbox, args.source))
 
-    # [dataset update]
+    # [source update]
     cmd = g_subparsers.add_parser('update')
-    cmd.set_defaults(func=lambda args: update_datasets())
+    cmd.set_defaults(func=lambda args: update_sources())
 
 
     ###########################################################################
