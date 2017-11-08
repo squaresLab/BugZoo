@@ -41,6 +41,7 @@ class Source(object):
                  name: str) -> None:
         self.__manager = manager
         self.__url = url
+        self.__name = name
         self.__repo = git.Repo(self.abs_path)
 
 
@@ -96,8 +97,10 @@ class Source(object):
 class SourceManager(object):
     def __init__(self, installation: 'RepairBox') -> None:
         self.__installation = installation
-        self.__registry_fn = os.path.join(installation.path, 'registry.json')
+        self.__path = os.path.join(installation.path, 'sources')
+        self.__registry_fn = os.path.join(self.__path, 'registry.json')
         self.__sources = {}
+        self.scan()
 
 
     @property
@@ -105,7 +108,7 @@ class SourceManager(object):
         return self.__path
 
 
-    def reload(self) -> None:
+    def scan(self) -> None:
         if not os.path.exists(self.__registry_fn):
             self.__sources = {}
             return
@@ -128,7 +131,7 @@ class SourceManager(object):
 
 
     def __download(self, url: str) -> None:
-        abs_path = Source.url_to_abs_path(url)
+        abs_path = Source.url_to_abs_path(self, url)
         # TODO: throw appropriate exception
         assert not os.path.exists(abs_path)
         git.Repo.clone_from(url, abs_path)
@@ -137,7 +140,7 @@ class SourceManager(object):
 
     def load(self, url: str) -> Source:
         rel_path = Source.url_to_rel_path(url)
-        abs_path = Source.url_to_abs_path(url)
+        abs_path = Source.url_to_abs_path(self, url)
         manifest_path = os.path.join(abs_path, '.repairbox.yml')
         with open(manifest_path, 'r') as f:
             yml = yaml.load(f)
@@ -168,7 +171,7 @@ class SourceManager(object):
             src.update()
 
 
-    def __getitem__(self, url: str) -> Source:
+    def __getitem__(self, name_or_url: str) -> Source:
         # URL
         if name_or_url in self.__sources:
             return self.__sources[name_or_url]
