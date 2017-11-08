@@ -15,8 +15,7 @@ class BuildInstructions(object):
     """
 
     @staticmethod
-    def from_file(src: 'repairbox.manager.Source',
-                  fn: str) -> 'BuildInstructions':
+    def from_file(fn: str) -> 'BuildInstructions':
         """
         Loads a set of build instructions belonging to a given source from a
         specified YAML file.
@@ -29,11 +28,11 @@ class BuildInstructions(object):
         with open(fn, 'r') as f:
             yml = yaml.load(f)
         root = os.path.dirname(fn)
-        return BuildInstructions.from_dict(src, root, yml)
+        return BuildInstructions.from_dict(root, yml)
 
 
     @staticmethod
-    def from_dict(src: 'repairbox.manager.Source', root: str, yml: dict):
+    def from_dict(root: str, yml: dict) -> 'BuildInstructions':
         """
         Loads a set of build instructions from a dictionary.
         """
@@ -44,18 +43,16 @@ class BuildInstructions(object):
         arguments = yml.get('build-arguments', {})
         depends_on = yml.get('depends-on', None)
 
-        return BuildInstructions(src, root, tag, context, filename, arguments, depends_on)
+        return BuildInstructions(root, tag, context, filename, arguments, depends_on)
 
 
     def __init__(self,
-                 src: 'repairbox.manager.Source',
                  root: str,
                  tag: str,
                  context: str,
                  filename: str,
                  arguments: dict,
                  depends_on: str) -> None:
-        self.__source = src
         self.__root = root
         self.__tag = tag
         self.__context = context
@@ -63,11 +60,11 @@ class BuildInstructions(object):
         self.__arguments = arguments
         self.__depends_on = depends_on
 
-    
+
     @property
     def root(self):
         return self.__root
-    
+
 
     @property
     def depends_on(self):
@@ -77,11 +74,6 @@ class BuildInstructions(object):
         dependency exists, None is returned.
         """
         return self.__depends_on
-
-
-    @property
-    def source(self):
-        return self.__source
 
 
     @property
