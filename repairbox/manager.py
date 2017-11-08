@@ -1,6 +1,6 @@
 import os
 
-from repairbox.artefact import Artefact
+from repairbox.artefact import ArtefactManager
 from repairbox.source import SourceManager
 from repairbox.tool import ToolManager
 
@@ -69,64 +69,3 @@ class RepairBox(object):
         The artefacts registered with this RepairBox installation.
         """
         return self.__artefacts
-
-
-class ArtefactManager(object):
-    """
-    Used to access and manage all artefacts registered with a local RepairBox
-    installation.
-    """
-    class ArtefactIterator(object):
-        def __init__(self, sources):
-            self.__sources = list(sources)
-            self.__artefacts = []
-
-        
-        def __next__(self):
-            if not self.__artefacts:
-                if not self.__sources:
-                    raise StopIteration
-                src = self.__sources.pop()
-                self.__artefacts += src.artefacts
-                return self.__next__()
-            return self.__artefacts.pop()
-
-
-    def __init__(self, manager):
-        self.__manager = manager
-
-
-    def __getitem__(self, name: str) -> Artefact:
-        """
-        Fetches a registered artefact by its identifier.
-
-        Example:
-
-            .. code-block:: python
-
-                rbx = RepairBox()
-                rbx.artefacts['manybugs:python:69223-69224']
-
-        """
-        for src in self.__manager.sources.sources:
-            if src.contains(name):
-                return src[name]
-        raise IndexError('artefact not found: {}'.format(name))
-
-    
-    def __iter__(self):
-        """
-        Returns an iterator over all the artefacts registered with the local
-        RepairBox installation.
-
-        Example:
-
-            .. code-block:: python
-
-                # print the identifier and Docker image name for all
-                # registered artefacts
-                rbx = RepairBox()
-                for artefact in rbx.artefacts:
-                    print("{}: {}".format(src.identifier, src.image))
-        """
-        return ArtefactManager.ArtefactIterator(self.__manager.sources.sources)
