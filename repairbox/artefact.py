@@ -2,12 +2,13 @@ import os
 import yaml
 import docker
 import copy
-import typing
 import repairbox
 
+from typing import List, Iterator
 from repairbox.build import BuildInstructions
 from repairbox.container import Container
 from repairbox.test import TestSuite
+from repairbox.tool import Tool
 
 
 class CompilationInstructions(object):
@@ -224,7 +225,12 @@ class Artefact(object):
         self.build(force=upgrade)
 
 
-    def provision(self, volumes=[], network_mode='bridge', ports={}, tty=False) -> 'Container':
+    def provision(self,
+                  volumes : List[str] = [],
+                  tools : List[Tool] = [],
+                  network_mode : str = 'bridge',
+                  ports : dict = {},
+                  tty : bool = False) -> 'Container':
         """
         Provisions a container for this artefact.
 

@@ -2,13 +2,14 @@ import docker
 import dockerpty
 import os
 import subprocess
-import typing
 import repairbox
 import repairbox.spectra
 
+from typing import List, Iterator
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
 from repairbox.patch import Patch
+from repairbox.tool import Tool
 
 
 class CompilationOutcome(object):
@@ -31,7 +32,7 @@ class PendingExecResponse(object):
     def exec_response(self):
         return self.__exec_response
 
-    
+
     @property
     def output(self):
         return self.__output
@@ -87,15 +88,17 @@ class Container(object):
     containers are implemented as `Docker containers <https://docker.com>`_.
     """
     def __init__(self,
-                 artefact: 'repairbox.artefact.Artefact',
-                 volumes=[],
-                 network_mode='bridge',
+                 artefact: str = 'repairbox.artefact.Artefact',
+                 tools : List[Tool] = [],
+                 volumes : List[str] = [],
+                 network_mode : str = 'bridge',
                  ports={},
                  interactive=False) -> None:
         """
         Constructs a container for a given artefact.
         """
         self.__artefact = artefact
+        self.__tools = tools
 
         # construct a Docker container for this artefact
         client = docker.from_env()
@@ -109,6 +112,12 @@ class Container(object):
                                      tty=interactive,
                                      detach=True)
         self.__container.start()
+
+
+    @property
+    def tools(self) -> Iterator[Tool]:
+        for tool in self.__tools:
+            yield tool
 
 
     @property
@@ -155,7 +164,7 @@ class Container(object):
         if self.__container:
             self.__container.remove(force=True)
 
-    
+
     def mount_file(self, src, dest, mode):
         """
         Dynamically mounts a given file (or directory) inside this container.
@@ -172,7 +181,7 @@ class Container(object):
         """
         Resets the state of this container.
         """
-        pass
+        raise NotImplementedError
 
 
     def apply_patch(self, patch: Patch) -> bool:
@@ -185,7 +194,7 @@ class Container(object):
         the attempt was unsuccessful.
         """
         pass
-    
+
 
     def spectra(self) -> 'repairbox.spectra.Spectra':
         """
@@ -246,7 +255,7 @@ class Container(object):
                                     context=self.artefact.compilation_instructions.context,
                                     stderr=True)
 
-    
+
     def execute(self, test):
         """
         Executes a given test inside this container and returns the result of
