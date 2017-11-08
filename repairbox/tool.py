@@ -1,50 +1,33 @@
 import yaml
 import os
+from repairbox.source import Source
 from repairbox.build import BuildInstructions
 
 
-class Tool(object):
+class Tool(Source):
     @staticmethod
-    def from_file(fn: str) -> 'Tool':
-        """
-        Loads a tool from its YAML manifest file.
-        """
-        with open(fn, 'r') as f:
-            yml = yaml.load(f)
+    def from_dict(manager: 'SourceManager',
+                  url: str,
+                  d: dict) -> 'Tool':
+        assert 'name' in d
+        name = d['name']
 
-        assert 'name' in yml
-        name = yml['name']
-
+        # TODO: tidy up this mess
         assert 'docker' in yml
-        root = os.path.dirname(os.path.abspath(fn))
-        build = {'docker': yml['docker']} # TODO: don't wrap
+        root = Source.url_to_abs_path(url)
+        build = {'docker': yml['docker']}
         build = BuildInstructions.from_dict(root, build)
 
-        return Tool(name, build)
+        return Tool(manager, url, name, build)
 
 
     def __init__(self,
+                 manager: 'SourceManager',
+                 url: str,
                  name: str,
                  build_instructions: BuildInstructions) -> None:
-        self.__name = name
-        self.__url = "TODO" # TODO url
+        super().__init__(manager, url, name)
         self.__build_instructions = build_instructions
-
-
-    @property
-    def name(self) -> str:
-        """
-        The name of this tool.
-        """
-        return self.__name
-
-
-    @property
-    def identifier(self) -> str:
-        """
-        The name of the tool.
-        """
-        return self.name
 
 
     @property

@@ -7,14 +7,18 @@ import shutil
 
 class Source(object):
     @staticmethod
-    def download(manager: 'SourceManager', url: str) -> None:
-        """
-        Downloads a source from a given URL to disk.
-        """
-        abs_path = Source.url_to_abs_path(manager, url) # todo
-        # TODO: throw appropriate exception
-        assert not os.path.exists(abs_path)
-        git.Repo.clone_from(url, abs_path)
+    def from_dict(manager: 'SourceManager',
+                  url: str,
+                  d: dict) -> 'Source':
+        if d['type'] == 'dataset':
+            import repairbox.dataset
+            return repairbox.dataset.Dataset.from_dict(manager, url, d)
+        if d['type'] == 'tool':
+            import repairbox.tool
+            return repairbox.tool.Tool.from_dict(manager, url, d)
+
+        # TODO
+        raise "UNEXPECTED SOURCE TYPE"
 
 
     @staticmethod
@@ -31,18 +35,13 @@ class Source(object):
         return os.path.join(manager.path, rel_path)
 
 
-    def __init__(self, manager: 'SourceManager', url: str) -> None:
+    def __init__(self,
+                 manager: 'SourceManager',
+                 url: str,
+                 name: str) -> None:
         self.__manager = manager
         self.__url = url
         self.__repo = git.Repo(self.abs_path)
-
-        # determine the name from the manifest file
-        # TODO: raise custom error
-        assert os.path.isfile(self.manifest_fn)
-        with open(self.manifest_fn, 'r') as f:
-            yml = yaml.load(f)
-            self.__type = yml['type']
-            self.__name = yml['name']
 
 
     @property
@@ -95,9 +94,9 @@ class Source(object):
 
 
 class SourceManager(object):
-    def __init__(self, path) -> None:
-        self.__path = path
-        self.__registry_fn = os.path.join(path, 'registry.json')
+    def __init__(self, installation: 'RepairBox') -> None:
+        self.__installation = installation
+        self.__registry_fn = os.path.join(installation.path, 'registry.json')
         self.__sources = {}
 
 
@@ -113,10 +112,9 @@ class SourceManager(object):
 
         with open(self.__registry_fn, 'r') as f:
             srcs = json.load(f)
-
         assert isinstance(srcs, list)
-        # TODO
-        self.__sources = {s: self.construct(s) for s in srcs}
+
+        self.__sources = {s: self.load(s) for s in srcs}
 
 
     def __write(self) -> None:
@@ -126,19 +124,24 @@ class SourceManager(object):
 
 
     def exists(self, url: str) -> bool:
-        return url in self.__datasets
+        return url in self.__sources
 
 
     def __download(self, url: str) -> None:
-        abs_path = Source.url_to_abs_path(self, url) # todo
+        abs_path = Source.url_to_abs_path(url)
         # TODO: throw appropriate exception
         assert not os.path.exists(abs_path)
         git.Repo.clone_from(url, abs_path)
-        return self.construct(url)
+        return self.load(url)
 
 
-    def construct(self, url: str) -> Source:
-        raise NotImplementedError
+    def load(self, url: str) -> Source:
+        rel_path = Source.url_to_rel_path(url)
+        abs_path = Source.url_to_abs_path(url)
+        manifest_path = os.path.join(abs_path, '.repairbox.yml')
+        with open(manifest_path, 'r') as f:
+            yml = yaml.load(f)
+        return Source.from_dict(self, url, yml)
 
 
     def add(self, url: str) -> Source:
@@ -165,36 +168,31 @@ class SourceManager(object):
             src.update()
 
 
-    def __getitem__(self, name_or_url: str) -> Source:
+    def __getitem__(self, url: str) -> Source:
         # URL
         if name_or_url in self.__sources:
             return self.__sources[name_or_url]
 
         # name
-        for src in self.__datasets.values():
+        for src in self.__sources.values():
             if src.name == name_or_url:
                 return src
 
         raise IndexError
 
 
-    def __iter__(self):
-        """
-        Returns an iterator over the datasets registered with this local
-        installation.
-
-        Example:
-
-            .. code-block:: python
-
-                # print the names and URLs of all registered datasets
-                rbx = RepairBox()
-                for src in rbx.datasets:
-                    print("{}: {}".format(src.name, src.url))
-        """
-        return super().__iter__()
+    # TODO: we don't necessary need to put this here?
+    @property
+    def tools(self) -> 'Iterator[Tool]':
+        import repairbox.tool
+        for src in self.__sources:
+            if isinstance(src, repairbox.tool.Tool):
+                yield src
 
 
-    def __iter__(self):
-        for src in self.__sources.values():
-            yield src
+    @property
+    def datasets(self) -> 'Iterator[Dataset]':
+        import repairbox.dataset
+        for src in self.__sources:
+            if isinstance(src, repairbox.dataset.Dataset):
+                yield src

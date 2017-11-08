@@ -1,5 +1,7 @@
 import os
 
+from typing import Iterator
+from repairbox.source import SourceManager
 from repairbox.artefact import Artefact
 from repairbox.dataset import Dataset
 from repairbox.tool import Tool
@@ -34,9 +36,6 @@ class RepairBox(object):
         self.__artefacts = Artefacts(self)
         self.__tools = Tools(self)
 
-        # TODO
-        self.__datasets.reload()
-
 
     @property
     def path(self) -> str:
@@ -48,6 +47,14 @@ class RepairBox(object):
 
     def rescan(self):
         print("rescanning...")
+
+
+    @property
+    def sources(self):
+        """
+        The sources registered with this RepairBox installation.
+        """
+        return self.__sources
 
 
     @property

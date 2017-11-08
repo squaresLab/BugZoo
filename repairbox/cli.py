@@ -10,7 +10,7 @@ def list_datasets(rbox: 'RepairBox') -> None:
     """
     Produces a list of all the datasets known to RepairBox.
     """
-    hdrs = ['Dataset', 'URL', 'Version'] 
+    hdrs = ['Dataset', 'URL', 'Version']
     tbl = []
     for ds in rbox.datasets:
         tbl.append([ds.name, ds.url, ds.version])

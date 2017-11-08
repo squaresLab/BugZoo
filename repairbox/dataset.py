@@ -12,17 +12,16 @@ from repairbox.source import Source, SourceManager
 
 class Dataset(Source):
     @staticmethod
-    def download(manager: 'DatasetManager', url: str) -> 'Dataset':
-        """
-        Downloads a dataset from a given URL to disk.
-        """
-        # TODO: exception handling
-        Source.download(manager, url)
-        return Dataset(manager, url)
+    def from_dict(manager: 'SourceManager',
+                  url: str,
+                  d: dict) -> 'Dataset':
+        assert 'name' in d
+        name = d['name']
+        return Dataset(manager, url, name)
 
 
-    def __init__(self, manager: 'DatasetManager', url: str) -> None:
-        super().__init__(manager, url)
+    def __init__(self, manager: 'DatasetManager', url: str, name: str) -> None:
+        super().__init__(manager, url, name)
         self.__artefacts = {}
         self.__dependencies = {}
         self.scan()
@@ -77,11 +76,13 @@ class Dataset(Source):
         return self.__artefacts[key]
 
 
+    # TODO: return iterator
     @property
     def artefacts(self) -> List[Artefact]:
         return list(self.__artefacts.values())
 
 
+    # TODO: return iterator
     @property
     def dependencies(self):
         return copy.copy(self.__dependencies)
