@@ -13,9 +13,9 @@ class Tool(Source):
         name = d['name']
 
         # TODO: tidy up this mess
-        assert 'docker' in yml
-        root = Source.url_to_abs_path(url)
-        build = {'docker': yml['docker']}
+        assert 'docker' in d
+        root = Source.url_to_abs_path(manager, url)
+        build = {'docker': d['docker']}
         build = BuildInstructions.from_dict(root, build)
 
         return Tool(manager, url, name, build)

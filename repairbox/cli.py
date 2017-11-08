@@ -109,8 +109,7 @@ def list_tools(rbox: 'RepairBox', show_installed=None) -> None:
                 continue
 
         installed = 'Yes' if tool.installed else 'No'
-        ds = 'X' # tool.dataset.name
-        row = [tool.identifier, ds, installed]
+        row = [tool.name, tool.url, installed]
         tbl.append(row)
 
     # sort by dataset then by artefact
