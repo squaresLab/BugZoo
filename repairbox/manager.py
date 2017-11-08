@@ -146,4 +146,4 @@ class Artefacts(object):
 
 
     def __iter__(self):
-        return ArtefactManager.ArtefactIterator(self.__installation.datasets)
+        return Artefacts.ArtefactIterator(self.__installation.datasets)
