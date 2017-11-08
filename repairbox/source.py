@@ -54,7 +54,7 @@ class Source(object):
         """
         return self.__name
 
-    
+
     @property
     def version(self) -> str:
         """
@@ -64,7 +64,7 @@ class Source(object):
         sha = self.__repo.head.object.hexsha
         return self.__repo.git.rev_parse(sha, short=8)
 
-    
+
     def scan(self) -> None:
         # determine the name of this source
         manifest_fn = os.path.join(self.abs_path, '.repairbox.yml')
@@ -76,17 +76,17 @@ class Source(object):
         # find all dependencies
         fns = '{}/**/*.dependency.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            dep = BuildInstructions.from_file(self, fn)
+            dep = BuildInstructions.from_file(fn)
             self.__dependencies[dep.tag] = dep
 
-        
+
         # find all artefacts
         fns = '{}/**/*.artefact.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
             artefact = Artefact.from_file(self, fn)
             self.__artefacts[artefact.identifier] = artefact
 
-    
+
     def update(self) -> None:
         """
         Downloads any updates to the files for this source.
@@ -106,7 +106,7 @@ class Source(object):
 
         for dep in self.__dependencies.values():
             dep.uninstall(force=True)
-            
+
         shutil.rmtree(self.abs_path)
 
 
@@ -126,7 +126,7 @@ class Source(object):
     def artefacts(self) -> List[Artefact]:
         return list(self.__artefacts.values())
 
-    
+
     @property
     def dependencies(self):
         return copy.copy(self.__dependencies)
@@ -135,7 +135,7 @@ class Source(object):
     @property
     def manager(self) -> 'SourceManager':
         return self.__manager
-        
+
 
     @property
     def url(self) -> str:
@@ -177,7 +177,7 @@ class SourceManager(object):
         """
         return self.__path
 
-   
+
     def reload(self) -> None:
         """
         Reloads all the manifest and build files associated with registered
@@ -193,7 +193,7 @@ class SourceManager(object):
 
         assert isinstance(srcs, list)
         self.__sources = {s: Source(self, s) for s in srcs}
-        
+
 
     def __write(self) -> None:
         with open(self.__manifest_fn, 'w') as f:
@@ -236,7 +236,7 @@ class SourceManager(object):
         self.__write()
 
         return src
-   
+
 
     def remove(self, src: str) -> None:
         """
@@ -323,6 +323,3 @@ class SourceManager(object):
                     print("{}: {}".format(src.name, src.url))
         """
         return self.__sources.iter()
-
-
-

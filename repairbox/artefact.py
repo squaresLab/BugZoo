@@ -74,8 +74,7 @@ class Artefact(object):
         # TODO: this is stupid
         build_instructions = {'docker': yml['docker']}
         build_instructions = \
-            BuildInstructions.from_dict(source,
-                                        os.path.dirname(fn),
+            BuildInstructions.from_dict(os.path.dirname(fn),
                                         build_instructions)
 
         return Artefact(source,

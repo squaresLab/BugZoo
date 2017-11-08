@@ -16,10 +16,9 @@ class Tool(object):
         name = yml['name']
 
         assert 'docker' in yml
-        src = None # TODO!
         root = os.path.dirname(os.path.abspath(fn))
         build = {'docker': yml['docker']} # TODO: don't wrap
-        build = BuildInstructions.from_dict(None, root, build)
+        build = BuildInstructions.from_dict(root, build)
 
         return Tool(name, build)
 
@@ -119,8 +118,9 @@ class ToolManager(object):
         Scans the local RepairBox installation for installed tools.
         """
         fn = "/home/chris/git/genprog/genprog.tool.yml"
-        tool = Tool.from_file(fn)
-        self.__tools['genprog'] = tool
+        # src = self.__manager.sources['genprog']
+        # tool = Tool.from_file(fn)
+        # self.__tools['genprog'] = tool
 
 
     def __getitem__(self, name: str) -> Tool:
