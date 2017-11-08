@@ -39,6 +39,15 @@ class Tool(object):
         return self.__name
 
 
+    @property
+    def installed(self) -> bool:
+        """
+        Indicates whether the Docker image for this tool is installed on the
+        local machine.
+        """
+        return self.__build_instructions.installed
+
+
     def build(self, force=False) -> None:
         """
         Constructs the Docker image associated with this tool. By default, this
@@ -48,6 +57,19 @@ class Tool(object):
         any exiting image.
         """
         return self.__build_instructions.build(force=force)
+
+
+    def install(self, upgrade=False) -> None:
+        """
+        Installs this tool by first trying to download it, and if that is
+        not possible, by building it locally.
+
+        Args:
+            upgrade:    a flag indicating whether this tool should be
+                upgraded if it is already installed.
+        """
+        # TODO: attempt to download before trying to build
+        self.build(force=upgrade)
 
 
     def upload(self) -> bool:
