@@ -32,11 +32,19 @@ class Tool(object):
 
 
     @property
-    def name(self) -> 'str':
+    def name(self) -> str:
         """
         The name of this tool.
         """
         return self.__name
+
+
+    @property
+    def identifier(self) -> str:
+        """
+        The name of the tool.
+        """
+        return self.name
 
 
     @property
@@ -46,6 +54,13 @@ class Tool(object):
         local machine.
         """
         return self.__build_instructions.installed
+
+
+    def uninstall(self, force=False, noprune=False) -> None:
+        """
+        Uninstalls all Docker images associated with this tool.
+        """
+        self.__build_instructions.uninstall(force=force, noprune=noprune)
 
 
     def build(self, force=False) -> None:
@@ -108,7 +123,7 @@ class ToolManager(object):
         self.__tools['genprog'] = tool
 
 
-    def __getitem__(name: str) -> Tool:
+    def __getitem__(self, name: str) -> Tool:
         if not name in self.__tools:
             raise IndexError('tool not found: {}'.format(name))
         return self.__tools[name]
