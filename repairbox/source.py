@@ -188,20 +188,3 @@ class SourceManager(object):
     def __iter__(self) -> Iterator[Source]:
         for src in self.__sources.values():
             yield src
-
-
-    # TODO: we don't necessary need to put this here?
-    @property
-    def tools(self) -> 'Iterator[Tool]':
-        import repairbox.tool
-        for src in self.__sources:
-            if isinstance(src, repairbox.tool.Tool):
-                yield src
-
-
-    @property
-    def datasets(self) -> 'Iterator[Dataset]':
-        import repairbox.dataset
-        for src in self.__sources:
-            if isinstance(src, repairbox.dataset.Dataset):
-                yield src

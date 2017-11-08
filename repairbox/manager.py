@@ -87,7 +87,9 @@ class Tools(object):
 
 
     def __iter__(self) -> Iterator[Tool]:
-        return self.__installation.sources.tools
+        for src in self.__installation.sources:
+            if isinstance(src, Tool):
+                yield src
 
 
     def __getitem__(self, name_or_url: str) -> Dataset:
@@ -103,7 +105,9 @@ class Datasets(object):
 
 
     def __iter__(self) -> Iterator[Dataset]:
-        return self.__installation.sources.datasets
+        for src in self.__installation.sources:
+            if isinstance(src, Dataset):
+                yield src
 
 
     def __getitem__(self, name_or_url: str) -> Dataset:
