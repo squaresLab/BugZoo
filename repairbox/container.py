@@ -99,9 +99,8 @@ class Container(object):
         """
         self.__artefact = artefact
         self.__tools = tools
-
-        for t in tools:
-            print("Using tool: {}".format(t.name))
+        self.__tool_containers = [t.provision() for t in tools]
+        tool_container_ids = [c.id for c in self.__tool_containers]
 
         # construct a Docker container for this artefact
         client = docker.from_env()
@@ -109,6 +108,7 @@ class Container(object):
             client.containers.create(artefact.image,
                                      '/bin/bash',
                                      volumes=volumes,
+                                     volumes_from=tool_container_ids,
                                      ports=ports,
                                      network_mode=network_mode,
                                      stdin_open=True,
@@ -166,6 +166,11 @@ class Container(object):
         """
         if self.__container:
             self.__container.remove(force=True)
+
+        # destroy tool containers
+        for c in self.__tool_containers:
+            c.remove(force=True)
+        self.__tool_containers = []
 
 
     def mount_file(self, src, dest, mode):

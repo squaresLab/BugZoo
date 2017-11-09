@@ -1,4 +1,5 @@
 import yaml
+import docker
 import os
 from repairbox.source import Source
 from repairbox.build import BuildInstructions
@@ -27,6 +28,15 @@ class Tool(Source):
         super().__init__(manager, url, name)
         self.__build_instructions = \
             BuildInstructions.from_dict(self, self.abs_path, build_instructions)
+
+
+    def provision(self):
+        # TODO: use custom error
+        if not self.installed:
+            raise Exception("tool is not installed: {}".format(self.name))
+
+        client = docker.from_env()
+        return client.containers.create(self.__build_instructions.tag)
 
 
     @property
