@@ -1,8 +1,11 @@
 `source` commands
 .................
 
-The `source` commands are used to add, remove, and list sources of artefacts
-that are known to RepairBox.
+The `source` commands are used to add, remove, and list *sources* that are
+known to RepairBox. Sources are used to represent remote Git repositories
+that are responsible for providing a particular dataset of artefacts, or
+a tool that is compatible with the RepairBox platform.
+
 
 `source list`
 -------------
@@ -13,8 +16,10 @@ Produces a pretty-printed list of all sources registered with RepairBox.
 
   $ repairbox source list
 
-  - https://github.com/squaresLab/ArduBugs
-  - https://github.com/ChrisTimperley/ManyBugs
+  Source                                      Version
+  ------------------------------------------  ---------
+  https://github.com/ChrisTimperley/ManyBugs  597b917f
+  https://bitbucket.org/ChrisTimperley/GP3    0c5d9255
   ...
 
 
@@ -24,8 +29,8 @@ to be piped to other commands.
 .. code-block:: bash
 
   $ repairbox source list
-  https://github.com/squaresLab/ArduBugs
   https://github.com/ChrisTimperley/ManyBugs
+  https://bitbucket.org/ChrisTimperley/GP3
   ...
 
 
@@ -33,8 +38,8 @@ to be piped to other commands.
 ------------------
 
 Registers a source, given by the URL of a remote Git repository, with the local
-machine. All artefacts associated with the source will be registered with the
-machine, allowing them to be installed and executed.
+machine. The dataset of artefacts or the tool associated with the source will
+be registered with the machine, allowing it to be installed and executed.
 
 .. code-block:: bash
 
@@ -47,8 +52,8 @@ machine, allowing them to be installed and executed.
 ---------------------
 
 Deregisters a source, given by the URL of its remote Git repository, with the
-local machine. After executing this command, all artefacts associated with the
-source will be uninstalled and delisted.
+local machine. After executing this command, the dataset of artefacts or the
+tool associated with the source will be uninstalled and delisted.
 
 .. code-block:: bash
 
@@ -57,27 +62,17 @@ source will be uninstalled and delisted.
   ...
 
 
-`source update [url]`
+`source update`
 ---------------------
 
-This command can be used to update the manifest files for all artefacts
-provided by all sources registered with RepairBox, as shown below. Note that
-this command does not attempt to install any updated versions of its
-artefacts.
+This command can be used to update the files used to specify and construct the
+the artefacts or tool, provided by their associated sources, as shown below.
+Note that this command does not attempt to install/rebuild the artefacts
+or tool associated with each source -- it is the user's responsibility to call
+`tool install` or `artefact install` where appropriate.
 
 .. code-block:: bash
 
   $ repairbox source update
-
-  TODO
-  ...
-
-Optionally, the URL associated with a given source can be provided to
-restrict the update to the artefacts associated with that source.
-
-.. code-block:: bash
-
-  $ repairbox source update https://github.com/squaresLab/ArduBugs
-
-  TODO
+  updating sources...
   ...
