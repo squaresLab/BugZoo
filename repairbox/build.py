@@ -187,12 +187,13 @@ class BuildInstructions(object):
         """
         if self.depends_on:
             dep = self.source.dependencies[self.depends_on]
-            dep.build(force=force)
+            dep.build(force=force, quiet=quiet)
 
         if self.installed and not force:
             return
 
-        print("Building image: {}".format(self.tag))
+        if not quiet:
+            print("Building image: {}".format(self.tag))
 
         tf = os.path.join(self.abs_context, '.Dockerfile')
         try:
@@ -212,6 +213,7 @@ class BuildInstructions(object):
 
                 # TODO: check build status!
 
-            print("Built image: {}".format(self.tag))
+            if not quiet:
+                print("Built image: {}".format(self.tag))
         finally:
             os.remove(tf)

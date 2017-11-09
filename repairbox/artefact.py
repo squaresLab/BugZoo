@@ -2,9 +2,12 @@ import os
 import yaml
 import docker
 import copy
+import textwrap
 import repairbox
+import repairbox.test
 
 from typing import List, Iterator, Dict
+from repairbox.util import print_task_start, print_task_end
 from repairbox.build import BuildInstructions
 from repairbox.container import Container
 from repairbox.test import TestSuite
@@ -179,11 +182,78 @@ class Artefact(object):
         return "{}:{}".format(self.__dataset.name, self.__name)
 
 
-    def build(self, force=False) -> None:
+    def validate(self, verbose: bool = True) -> bool:
+        """
+        Checks that this artefact successfully builds and that it produces an
+        expected set of test suite outcomes.
+
+        :param verbose: toggles verbosity of output. If set to `True`, the
+            outcomes of each test suite will be printed to the standard output.
+
+        :returns `True` if artefact builds and produces expected outcomes, else
+            `False`.
+        """
+
+        # attempt to rebuild -- don't worry, Docker's layer caching prevents us
+        # from actually having to rebuild everything from scratch :-)
+        try:
+            self.build(force=True, quiet=True)
+        except docker.errors.BuildError:
+            print("failed to build artefact: {}".format(self.identifier))
+            return False
+
+        # provision a container
+        validated = True
+        try:
+            c = self.provision()
+
+            # ensure we can compile the artefact
+            # TODO: check compilation status!
+            print_task_start('Compiling')
+            c.compile()
+            print_task_end('Compiling', 'OK')
+
+            if isinstance(self.harness, repairbox.test.GenProgTestSuite):
+
+                for t in self.harness.passing:
+                    task = 'Running test: {}'.format(t.identifier)
+                    print_task_start(task)
+
+                    outcome = c.execute(t)
+                    if not outcome.passed:
+                        validated = False
+                        print_task_end(task, 'UNEXPECTED: FAIL')
+                        response = textwrap.indent(outcome.response.output, ' ' * 4)
+                        print('\n' + response)
+                    else:
+                        print_task_end(task, 'OK')
+
+                for t in self.harness.failing:
+                    task = 'Running test: {}'.format(t.identifier)
+                    print_task_start(task)
+
+                    outcome = c.execute(t)
+                    if outcome.passed:
+                        validated = False
+                        print_task_end(task, 'UNEXPECTED: PASS')
+                        response = textwrap.indent(outcome.response.output, ' ' * 4)
+                        print('\n' + response)
+                    else:
+                        print_task_end(task, 'OK')
+
+        # ensure that the container is destroyed!
+        finally:
+            if c:
+                c.destroy()
+
+        return validated
+
+
+    def build(self, force=False, quiet=False) -> None:
         """
         Builds the Docker image for this artefact.
         """
-        self.__build_instructions.build(force=force)
+        self.__build_instructions.build(force=force, quiet=quiet)
 
 
     def uninstall(self, force=False, noprune=False) -> None:

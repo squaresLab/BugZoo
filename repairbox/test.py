@@ -1,5 +1,5 @@
 import typing
-from typing import List
+from typing import List, Iterator
 
 
 class TestCase(object):
@@ -171,12 +171,37 @@ class GenProgTestSuite(SimpleTestSuite):
         assert passing >= 0
         assert failing > 0
 
-        self.__passing = passing
-        self.__failing = failing
-
         tests = ["p{}".format(n) for n in range(1, passing + 1)] + \
                 ["n{}".format(n) for n in range(1, failing + 1)]
         super().__init__(command, context, time_limit, tests)
+
+        # extract the passing and failing test cases
+        self.__passing = []
+        self.__failing = []
+
+        for t in self.tests:
+            if t.identifier.startswith('p'):
+                self.__passing.append(t)
+            else:
+                self.__failing.append(t)
+
+
+    @property
+    def passing(self) -> Iterator[TestCase]:
+        """
+        The test cases that were passed by the original, unmodified artefact.
+        """
+        for t in self.__passing:
+            yield t
+
+
+    @property
+    def failing(self) -> Iterator[TestCase]:
+        """
+        The test cases that were failed by the original, unmodified artefact.
+        """
+        for t in self.__failing:
+            yield t
 
 
     @property
@@ -184,7 +209,7 @@ class GenProgTestSuite(SimpleTestSuite):
         """
         The number of passing tests in the test suite.
         """
-        return self.__passing
+        return len(self.__passing)
 
 
     @property
@@ -192,7 +217,7 @@ class GenProgTestSuite(SimpleTestSuite):
         """
         The number of failing tests in the test suite.
         """
-        return self.__failing
+        return len(self.__failing)
 
 
     @property

@@ -1,5 +1,6 @@
 import docker
 import copy
+import sys
 import os
 import subprocess
 import tempfile
@@ -79,7 +80,7 @@ class ExecResponse(object):
         """
         The output of the execution.
         """
-        return self.__output
+        return self.__output.decode(sys.stdout.encoding)
 
 
 class Container(object):
