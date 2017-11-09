@@ -82,9 +82,9 @@ regardless of whether or not it is running, causing any containers using
 that artefact to abruptly terminate -- **use at your own risk**.
 
 
-`artefact build {identifier}`
------------------------------
+`artefact build [-f] {identifier}`
+----------------------------------
 
 
-`artefact download {identifier}`
---------------------------------
+`artefact download [-f] {identifier}`
+-------------------------------------
