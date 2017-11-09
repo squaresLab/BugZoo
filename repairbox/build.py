@@ -6,6 +6,8 @@ import typing
 import json
 import repairbox
 
+from pprint import pprint as pp
+
 
 class BuildInstructions(object):
     """
@@ -57,7 +59,7 @@ class BuildInstructions(object):
         self.__tag = tag
         self.__context = context
         self.__filename = filename
-        self.__arguments = arguments
+        self.__arguments = {k: str(v) for (k, v) in arguments.items()}
         self.__depends_on = depends_on
 
 
@@ -199,7 +201,6 @@ class BuildInstructions(object):
         try:
             shutil.copy(self.file_abs, tf)
             client = docker.from_env()
-            # client.images.build(...)
             response = client.api.build(path=self.abs_context,
                                         dockerfile='.Dockerfile',
                                         tag=self.tag,
