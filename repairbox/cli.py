@@ -44,7 +44,10 @@ def update_sources(rbox: 'RepairBox', ) -> None:
 def validate_artefact(rbox: 'RepairBox', name: str, verbose: bool = True) -> None:
     print('validating artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
-    artefact.validate(verbose=verbose)
+    if artefact.validate(verbose=verbose):
+        print('OK')
+    else:
+        print('FAIL')
 
 
 def install_artefact(rbox: 'RepairBox', name: str, update: bool) -> None:
