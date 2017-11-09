@@ -30,5 +30,19 @@ users produce a shallow clone of this repository using the command below:
 
 ```
 $ git clone git://github.com/squaresLab/RepairBox --depth 1
-$ sudo python3 setup.py install
+$ python3 setup.py install
+```
+
+## Known Sources
+
+Below is a list of sources that are known to provide datasets or tools that
+are compatible with the RepairBox platform.
+
+* [ManyBugs](https://github.com/ChrisTimperley/ManyBugs)
+* [GenProg*](https://bitbucket.org/ChrisTimperley/GP3)
+
+To add one of these sources, simply execute the following from the command line:
+
+```
+repairbox source add https://github.com/ChrisTimperley/ManyBugs
 ```
