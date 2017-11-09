@@ -39,10 +39,9 @@ list of artefacts (:code:`-q`).
 `artefact install [--upgrade] [-q] {identifier}`
 ------------------------------------------------
 
-Installs a given artefact, specified by its identifier. For a list of artefacts
-and their associated identifiers, use :code:`list-artefacts`. Internally, this
-command installs the Docker image for the given artefact, along with any of its
-dependencies.
+Installs a given artefact, specified by its identifier.
+Internally, this command installs the Docker image for the given artefact,
+along with any of its dependencies.
 
 To install the artefact, this command will attempt to download a
 prebuilt Docker for the artefact, if one is publicly available on DockerHub; if
@@ -67,6 +66,7 @@ supplying the :code:`-q` flag.
 Produces exit code zero if the bug is successfully installed or
 was already installed, or exit code one if the installation failed.
 
+
 `artefact uninstall [-f] {identifier}`
 --------------------------------------
 
@@ -80,3 +80,11 @@ Uninstalls the Docker image for a given identifier from the local machine.
 The :code:`-f` flag can be used to force the uninstallation of an artefact,
 regardless of whether or not it is running, causing any containers using
 that artefact to abruptly terminate -- **use at your own risk**.
+
+
+`artefact build {identifier}`
+-----------------------------
+
+
+`artefact download {identifier}`
+--------------------------------
