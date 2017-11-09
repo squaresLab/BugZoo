@@ -3,6 +3,7 @@ import yaml
 import docker
 import copy
 import repairbox
+import repairbox.test
 
 from typing import List, Iterator, Dict
 from repairbox.build import BuildInstructions
@@ -200,17 +201,34 @@ class Artefact(object):
             return False
 
         # provision a container
+        validated = True
         try:
             c = self.provision()
 
-            # TODO: check test suite outcomes
+            if isinstance(self.harness, repairbox.test.GenProgTestSuite):
+
+                for t in self.harness.passing:
+                    print('Running test: {}...\t'.format(t.identifier), end='')
+                    if not c.execute(t).passed:
+                        validated = False
+                        print('[UNEXPECTED: FAIL]')
+                    else:
+                        print('[OK]')
+
+                for t in self.harness.failing:
+                    print('Running test: {}...\t'.format(t.identifier), end='')
+                    if c.execute(t).passed:
+                        validated = False
+                        print('[UNEXPECTED: PASS]')
+                    else:
+                        print('[OK]')
 
         # ensure that the container is destroyed!
         finally:
             if c:
                 c.destroy()
 
-        return True
+        return validated
 
 
     def build(self, force=False, quiet=False) -> None:
