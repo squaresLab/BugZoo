@@ -5,3 +5,5 @@ python:
   - "3.6"
   - "3.6-dev"
   - "nightly"
+install:
+  - python setup.py -q install
