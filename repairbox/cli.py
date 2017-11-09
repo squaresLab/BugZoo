@@ -195,7 +195,7 @@ def main():
 
     # [source update]
     cmd = g_subparsers.add_parser('update')
-    cmd.set_defaults(func=lambda args: update_sources())
+    cmd.set_defaults(func=lambda args: update_sources(rbox))
 
 
     ###########################################################################

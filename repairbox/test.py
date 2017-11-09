@@ -14,7 +14,7 @@ class TestCase(object):
         """
         return self.__identifier
 
-    
+
     def __repr__(self) -> str:
         """
         Produces a human-readable description of this test case in the form of:
@@ -50,14 +50,14 @@ class TestOutcome(object):
         self.__passed = passed
         self.__duration = duration
 
-    
+
     @property
     def response(self):
         """
-        
+
         """
         return self.__response
-    
+
 
     @property
     def passed(self) -> bool:
@@ -66,7 +66,7 @@ class TestOutcome(object):
         """
         return self.__passed
 
-    
+
     @property
     def duration(self) -> float:
         """
@@ -76,7 +76,7 @@ class TestOutcome(object):
 
 
 class TestSuite(object):
-    
+
     @staticmethod
     def from_dict(yml: dict) -> 'TestSuite':
         """
@@ -91,7 +91,7 @@ class TestSuite(object):
 
         raise Exception("unexpected test harness type: {}".format(typ))
 
-    
+
     def __init__(self, tests):
         self.__tests = tests
 
@@ -112,14 +112,14 @@ class SimpleTestSuite(TestSuite):
     identifier for that test case.
 
     For example, if the template command for a simple test harness is:
-    
+
         ./executable run __ID___
 
     and the identifier for a test is "test-one", then the unique command for
     that test would be:
 
         ./executable run test-one
-    
+
     Tests are deemed to have passed if the execution of the associated bash
     command results in an exit code of zero.
     """
@@ -194,7 +194,7 @@ class GenProgTestSuite(SimpleTestSuite):
         """
         return self.__failing
 
-    
+
     @property
     def time_limit(self):
         """
