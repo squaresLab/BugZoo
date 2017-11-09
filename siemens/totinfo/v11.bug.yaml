@@ -1,8 +1,0 @@
-bug: v11
-build-args:
-  fault: v11
-build-context: v11
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: totinfo
-version: 0

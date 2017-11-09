@@ -1,7 +1,0 @@
-bug: 69368-69372
-build-arguments:
-  scenario: python-bug-69368-69372
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: python
-version: 0

@@ -1,4 +1,0 @@
-version: 10
-dataset: robots
-dockerfile: Dockerfile
-program: ardurover

@@ -1,4 +1,0 @@
-dataset: sir
-dockerfile: base/Dockerfile
-program: grep
-version: 0

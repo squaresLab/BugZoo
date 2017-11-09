@@ -1,7 +1,0 @@
-bug: 2009-09-03-6406250-6b6496b
-build-arguments:
-  scenario: libtiff-bug-2009-09-03-6406250-6b6496b
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

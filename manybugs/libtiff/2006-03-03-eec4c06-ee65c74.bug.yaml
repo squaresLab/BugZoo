@@ -1,7 +1,0 @@
-bug: 2006-03-03-eec4c06-ee65c74
-build-arguments:
-  scenario: libtiff-bug-2006-03-03-eec4c06-ee65c74
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

@@ -1,8 +1,0 @@
-bug: v9
-build-args:
-  fault: v9
-build-context: v9
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: schedule
-version: 0

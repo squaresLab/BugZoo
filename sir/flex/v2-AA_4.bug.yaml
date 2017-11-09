@@ -1,9 +1,0 @@
-bug: v2-AA_4
-build-arguments:
-  fault: AA_4
-  version: v2
-build-context: .
-dataset: sir
-dockerfile: ../Dockerfile.bug
-program: flex
-version: 0

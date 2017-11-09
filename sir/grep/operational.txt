@@ -1,5 +1,0 @@
-grep/v1/DG_4
-grep/v1/DG_9
-grep/v1/KP_2
-grep/v2/DG_1
-grep/v3/DG_3

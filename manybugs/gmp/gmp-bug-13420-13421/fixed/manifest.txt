@@ -1,1 +1,0 @@
-fixed/mpn/generic/powm.c

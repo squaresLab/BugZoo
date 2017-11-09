@@ -1,0 +1,30 @@
+language: python
+
+python:
+  - "3.5"
+  - "3.6"
+  - "nightly"
+
+install:
+  - pip install sphinx
+  - python setup.py install
+
+# TODO: replace this with a bonafide test suite
+script:
+  - cd docs && make html
+  - repairbox -h
+  - repairbox tool -h
+  - repairbox source -h
+  - repairbox artefact -h
+  - repairbox container -h
+  - repairbox tool list
+  - repairbox source list
+  - repairbox artefact list
+
+deploy:
+  provider: pages
+  local_dir: docs/_build/html
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: migration

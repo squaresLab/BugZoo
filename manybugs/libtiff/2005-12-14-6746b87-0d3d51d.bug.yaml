@@ -1,7 +1,0 @@
-bug: 2005-12-14-6746b87-0d3d51d
-build-arguments:
-  scenario: libtiff-bug-2005-12-14-6746b87-0d3d51d
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

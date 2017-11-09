@@ -1,8 +1,0 @@
-bug: v36
-build-args:
-  fault: v36
-build-context: v36
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: tcas
-version: 0

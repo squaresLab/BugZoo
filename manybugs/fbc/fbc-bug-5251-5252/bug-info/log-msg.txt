@@ -1,5 +1,0 @@
-------------------------------------------------------------------------
-r5251 | counting_pine | 2009-06-09 04:22:10 -0400 (Tue, 09 Jun 2009) | 1 line
-
-Fix: SINGLE constants were being converted to string with double precision, e.g. str(sqr(2!))
-------------------------------------------------------------------------

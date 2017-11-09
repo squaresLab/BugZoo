@@ -1,9 +1,0 @@
-bug: v3-JR_3
-build-arguments:
-  fault: JR_3
-  version: v3
-build-context: .
-dataset: sir
-dockerfile: ../Dockerfile.bug
-program: flex
-version: 0

@@ -1,5 +1,0 @@
-changeset:   13421:131005cc271b
-user:        Torbjorn Granlund <tege@gmplib.org>
-date:        Fri Feb 05 23:43:40 2010 +0100
-summary:     Use less scratch in mpn_powm.
-

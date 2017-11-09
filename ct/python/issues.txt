@@ -1,3 +1,0 @@
-* 6c3d527:p11:test__all__
-* 6c3d527:n2:test_posix
-* 6c3d527:n3:test_site

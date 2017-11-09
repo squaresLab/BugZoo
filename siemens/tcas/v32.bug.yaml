@@ -1,8 +1,0 @@
-bug: v32
-build-args:
-  fault: v32
-build-context: v32
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: tcas
-version: 0

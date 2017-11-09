@@ -1,7 +1,0 @@
-bug: 2010-11-27-eb326f9-eec7ec0
-build-arguments:
-  scenario: libtiff-bug-2010-11-27-eb326f9-eec7ec0
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

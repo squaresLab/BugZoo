@@ -1,7 +1,0 @@
-bug: 2007-07-19-ce4b7af-7d6e298
-build-arguments:
-  scenario: libtiff-bug-2007-07-19-ce4b7af-7d6e298
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

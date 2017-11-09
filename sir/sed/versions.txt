@@ -1,7 +1,0 @@
-sed/v1
-sed/v2
-sed/v3
-sed/v4
-sed/v5
-sed/v6
-sed/v7

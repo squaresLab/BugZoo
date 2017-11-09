@@ -1,3 +1,0 @@
-base: rbox
-dockerfile: rbox/Dockerfile
-version: 0
