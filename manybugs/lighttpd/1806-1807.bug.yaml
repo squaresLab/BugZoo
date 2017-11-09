@@ -1,0 +1,8 @@
+bug: 1806-1807
+build-arguments:
+  bug_commit: 1806
+  fix_commit: 1807
+dataset: manybugs
+dockerfile: Dockerfile.bug
+program: lighttpd
+version: 0

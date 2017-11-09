@@ -1,0 +1,8 @@
+bug: 2330-2331
+build-arguments:
+  bug_commit: 2330
+  fix_commit: 2331
+dataset: manybugs
+dockerfile: Dockerfile.bug
+program: lighttpd
+version: 0

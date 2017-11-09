@@ -1,3 +1,0 @@
-src/configfile-glue.c
-src/configparser.c
-src/response.c
