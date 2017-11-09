@@ -2,10 +2,12 @@ import os
 import yaml
 import docker
 import copy
+import textwrap
 import repairbox
 import repairbox.test
 
 from typing import List, Iterator, Dict
+from repairbox.util import print_task_start, print_task_end
 from repairbox.build import BuildInstructions
 from repairbox.container import Container
 from repairbox.test import TestSuite
@@ -207,31 +209,37 @@ class Artefact(object):
 
             # ensure we can compile the artefact
             # TODO: check compilation status!
-            print('Compiling...\t', end='')
+            print_task_start('Compiling')
             c.compile()
-            print('[OK?]')
+            print_task_end('Compiling', 'OK')
 
             if isinstance(self.harness, repairbox.test.GenProgTestSuite):
 
                 for t in self.harness.passing:
-                    print('Running test: {}...\t'.format(t.identifier), end='')
+                    task = 'Running test: {}'.format(t.identifier)
+                    print_task_start(task)
+
                     outcome = c.execute(t)
                     if not outcome.passed:
                         validated = False
-                        print('[UNEXPECTED: FAIL]')
-                        print(outcome.response.output)
+                        print_task_end(task, 'UNEXPECTED: FAIL')
+                        response = textwrap.indent(outcome.response.output, ' ' * 4)
+                        print('\n' + response)
                     else:
-                        print('[OK]')
+                        print_task_end(task, 'OK')
 
                 for t in self.harness.failing:
-                    print('Running test: {}...\t'.format(t.identifier), end='')
+                    task = 'Running test: {}'.format(t.identifier)
+                    print_task_start(task)
+
                     outcome = c.execute(t)
                     if outcome.passed:
                         validated = False
-                        print('[UNEXPECTED: PASS]')
-                        print(outcome.response.output)
+                        print_task_end(task, 'UNEXPECTED: PASS')
+                        response = textwrap.indent(outcome.response.output, ' ' * 4)
+                        print('\n' + response)
                     else:
-                        print('[OK]')
+                        print_task_end(task, 'OK')
 
         # ensure that the container is destroyed!
         finally:
