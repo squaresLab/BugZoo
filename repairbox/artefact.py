@@ -205,21 +205,31 @@ class Artefact(object):
         try:
             c = self.provision()
 
+            # ensure we can compile the artefact
+            # TODO: check compilation status!
+            print('Compiling...\t', end='')
+            c.compile()
+            print('[OK?]')
+
             if isinstance(self.harness, repairbox.test.GenProgTestSuite):
 
                 for t in self.harness.passing:
                     print('Running test: {}...\t'.format(t.identifier), end='')
-                    if not c.execute(t).passed:
+                    outcome = c.execute(t)
+                    if not outcome.passed:
                         validated = False
                         print('[UNEXPECTED: FAIL]')
+                        print(outcome.response.output)
                     else:
                         print('[OK]')
 
                 for t in self.harness.failing:
                     print('Running test: {}...\t'.format(t.identifier), end='')
-                    if c.execute(t).passed:
+                    outcome = c.execute(t)
+                    if outcome.passed:
                         validated = False
                         print('[UNEXPECTED: PASS]')
+                        print(outcome.response.output)
                     else:
                         print('[OK]')
 
