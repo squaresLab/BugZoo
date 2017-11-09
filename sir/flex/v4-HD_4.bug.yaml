@@ -1,9 +1,0 @@
-bug: v4-HD_4
-build-arguments:
-  fault: HD_4
-  version: v4
-build-context: .
-dataset: sir
-dockerfile: ../Dockerfile.bug
-program: flex
-version: 0

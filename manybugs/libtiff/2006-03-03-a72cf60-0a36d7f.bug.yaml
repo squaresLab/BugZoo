@@ -1,7 +1,0 @@
-bug: 2006-03-03-a72cf60-0a36d7f
-build-arguments:
-  scenario: libtiff-bug-2006-03-03-a72cf60-0a36d7f
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

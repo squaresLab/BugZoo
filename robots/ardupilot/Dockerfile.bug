@@ -1,3 +1,0 @@
-ARG fix_revision
-RUN cd source && \
-    git checkout "${fix_revision}"

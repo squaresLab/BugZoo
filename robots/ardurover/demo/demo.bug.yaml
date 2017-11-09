@@ -1,5 +1,0 @@
-version: 14
-bug: demo
-program: ardurover
-dataset: robots
-dockerfile: Dockerfile

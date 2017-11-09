@@ -1,5 +1,0 @@
-changeset:   14167:08ad8ac3a4f4
-user:        Torbjorn Granlund <tege@gmplib.org>
-date:        Thu May 05 22:49:27 2011 +0200
-summary:     Correct sgn computation.
-

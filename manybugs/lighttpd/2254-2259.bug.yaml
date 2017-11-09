@@ -1,8 +1,0 @@
-bug: 2254-2259
-build-arguments:
-  bug_commit: 2254
-  fix_commit: 2259
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: lighttpd
-version: 0

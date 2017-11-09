@@ -1,8 +1,0 @@
-bug: v31
-build-args:
-  fault: v31
-build-context: v31
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: replace
-version: 0

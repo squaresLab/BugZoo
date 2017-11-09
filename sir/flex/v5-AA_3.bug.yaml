@@ -1,9 +1,0 @@
-bug: v5-AA_3
-build-arguments:
-  fault: AA_3
-  version: v5
-build-context: .
-dataset: sir
-dockerfile: ../Dockerfile.bug
-program: flex
-version: 0

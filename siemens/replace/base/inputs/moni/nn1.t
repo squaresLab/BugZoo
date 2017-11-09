@@ -1,3 +1,0 @@
-amamamamamam
-nomatch
-amamamamamam

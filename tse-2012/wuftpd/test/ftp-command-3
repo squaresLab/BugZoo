@@ -1,5 +1,0 @@
-user ftp weimer@
-bin
-cd /bin
-get dmesg
-quit

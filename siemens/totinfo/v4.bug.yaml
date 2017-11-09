@@ -1,8 +1,0 @@
-bug: v4
-build-args:
-  fault: v4
-build-context: v4
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: totinfo
-version: 0

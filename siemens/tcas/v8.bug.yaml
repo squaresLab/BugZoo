@@ -1,8 +1,0 @@
-bug: v8
-build-args:
-  fault: v8
-build-context: v8
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: tcas
-version: 0

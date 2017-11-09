@@ -1,8 +1,0 @@
-* PHP
-* Python
-* Julia?
-* gzip?
-* libtiff?
-
-* ccv -- test cases can be easily split apart by hand
-* FFmpeg

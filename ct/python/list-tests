@@ -1,6 +1,0 @@
-#!/bin/bash
-pushd /experiment
-find source/Lib/test -name 'test_*' \
-  | sed "s#source/Lib/test/##" \
-  | sed "s#\..*##" \
-  | sort > tests.txt

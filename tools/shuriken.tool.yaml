@@ -1,5 +1,0 @@
-version: 0
-tool: shuriken
-image: christimperley/shuriken:latest
-environment:
-  PATH: "/opt/shuriken:/opt/gcov:${PATH}"

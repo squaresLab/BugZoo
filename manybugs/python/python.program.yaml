@@ -1,4 +1,0 @@
-dataset: manybugs
-dockerfile: Dockerfile
-program: python
-version: 0

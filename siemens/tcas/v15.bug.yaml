@@ -1,8 +1,0 @@
-bug: v15
-build-args:
-  fault: v15
-build-context: v15
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: tcas
-version: 0

@@ -1,7 +1,0 @@
-bug: 2007-07-13-09e8220-f2d989d
-build-arguments:
-  scenario: libtiff-bug-2007-07-13-09e8220-f2d989d
-dataset: manybugs
-dockerfile: Dockerfile.bug
-program: libtiff
-version: 0

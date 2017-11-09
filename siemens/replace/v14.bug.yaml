@@ -1,8 +1,0 @@
-bug: v14
-build-args:
-  fault: v14
-build-context: v14
-dataset: siemens
-dockerfile: ../Dockerfile.bug
-program: replace
-version: 0

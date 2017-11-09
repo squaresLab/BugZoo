@@ -1,4 +1,0 @@
-122c122
-<         do_set_home(cmd);
----
-> 	camera_mount.set_roi_target(cmd.content.location);

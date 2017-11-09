@@ -1,4 +1,0 @@
-122c122
-<         do_set_home(cmd);
----
-> 	break;
