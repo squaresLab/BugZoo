@@ -194,7 +194,7 @@ class Artefact(object):
         # attempt to rebuild -- don't worry, Docker's layer caching prevents us
         # from actually having to rebuild everything from scratch :-)
         try:
-            self.build(force=True)
+            self.build(quiet=True, force=True)
         except docker.errors.BuildError:
             print("failed to build artefact: {}".format(self.identifier))
             return False
@@ -213,11 +213,11 @@ class Artefact(object):
         return True
 
 
-    def build(self, force=False) -> None:
+    def build(self, quiet=False, force=False) -> None:
         """
         Builds the Docker image for this artefact.
         """
-        self.__build_instructions.build(force=force)
+        self.__build_instructions.build(quiet=quiet, force=force)
 
 
     def uninstall(self, force=False, noprune=False) -> None:
