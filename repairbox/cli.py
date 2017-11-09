@@ -61,7 +61,7 @@ def upload_artefact(rbox: 'RepairBox', name: str) -> None:
 
 
 # TODO: wrong name!
-def uninstall_bug(rbox: 'RepairBox', name: str, force: bool) -> None:
+def uninstall_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
     print('uninstalling artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     artefact.uninstall(force=force)
