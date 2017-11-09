@@ -179,10 +179,13 @@ class Artefact(object):
         return "{}:{}".format(self.__dataset.name, self.__name)
 
 
-    def validate(self) -> bool:
+    def validate(self, verbose: bool = True) -> bool:
         """
         Checks that this artefact successfully builds and that it produces an
         expected set of test suite outcomes.
+
+        :param verbose: toggles verbosity of output. If set to `True`, the
+            outcomes of each test suite will be printed to the standard output.
 
         :returns `True` if artefact builds and produces expected outcomes, else
             `False`.
