@@ -153,15 +153,3 @@ version of your dataset, as shown below.
 .. [#]  Behind the scenes, RepairBox clones the latest version of your
         Git repository to the local RepairBox directory on your machine
         (located at `~/.repairbox`, by default).
-
--------------------------------------------------------------------------------
-
-
-Best Practices
---------------
-
-* In general, we advise that each dataset uses its own repository (i.e., avoid
-  providing multiple datasets in a single repository). Keeping datasets
-  separate should also make it easier to report and track issues. There are
-  rare cases where providing multiple datasets in a single source is
-  preferable; use your discretion.
