@@ -1,9 +1,17 @@
 language: python
 python:
   - "3.5"
-  - "3.5-dev"
   - "3.6"
-  - "3.6-dev"
   - "nightly"
 install:
   - python setup.py install
+# TODO: replace this with a bonafide test suite
+script:
+  - repairbox -h
+  - repairbox tool -h
+  - repairbox source -h
+  - repairbox artefact -h
+  - repairbox container -h
+  - repairbox tool list
+  - repairbox source list
+  - repairbox artefact list
