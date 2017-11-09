@@ -1,5 +1,5 @@
 Installation
-------------
+============
 
 **Building from source:**
 
@@ -17,3 +17,11 @@ the need to download redundant files.
 **Building the latest stable release:**
 
 Coming soon.
+
+
+Requirements
+------------
+
+* Python 3.x
+* EasyInstall
+* Docker version

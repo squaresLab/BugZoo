@@ -5,7 +5,7 @@ Here, we provide a number of examples that show how the RepairBox API can be
 used to perform various analyses of software artefacts.
 
 
-Finding test suite results for an artefact
+Finding test-suite results for an artefact
 ------------------------------------------
 
 .. code-block:: python
@@ -21,7 +21,7 @@ Finding test suite results for an artefact
     result = container.execute_test(test)
 
 
-Obtaining line coverage information for an artefact
+Obtaining line-coverage information for an artefact
 ---------------------------------------------------
 
 .. code-block:: python

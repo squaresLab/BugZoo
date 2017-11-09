@@ -6,8 +6,8 @@ Test
 Give an example of how to run a test.
 
 
-Test reference
---------------
+API reference
+-------------
 
 .. autoclass:: TestCase()
 
@@ -22,9 +22,7 @@ Test reference
   .. autoattribute:: passed
   .. autoattribute:: duration
 
-.. autoclass:: TestHarness()
-
-  .. automethod:: from_dict
+.. autoclass:: TestSuite()
 
   .. autoattribute:: tests
 
@@ -32,11 +30,11 @@ Test reference
 Test harnesses
 --------------
 
-.. autoclass:: SimpleTestHarness()
+.. autoclass:: SimpleTestSuite()
 
   .. automethod:: command
 
-.. autoclass:: GenProgTestHarness()
+.. autoclass:: GenProgTestSuite()
 
   .. autoattribute:: num_passing
   .. autoattribute:: num_failing
