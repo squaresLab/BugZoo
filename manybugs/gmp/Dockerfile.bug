@@ -1,24 +1,71 @@
-FROM squareslab/repairbox:manybugs-gmp
+FROM squareslab/repairbox:manybugs-gmp-base
 
-ADD bug-info /experiment/bug-info
-ADD diffs /experiment/diffs
-ADD fixed /experiment/fixed
-ADD preprocessed /experiment/preprocessed
-ADD src.tar.gz /experiment
-ADD test.sh /experiment
-ADD test.pl /experiment
-ADD configuration-default /experiment
-#ADD problem.json /experiment
+#ARG scenario
+#ENV SCENARIO_NAME ${scenario}
+ARG bug_commit
+ARG fix_commit
+ENV BUG_COMMIT ${bug_commit}
+ENV FIX_COMMIT ${fix_commit}
+ENV SCENARIO_NAME gmp-bug-${BUG_COMMIT}-${FIX_COMMIT}
+ENV OLD_LOCATION /root/genprog-many-bugs/${SCENARIO_NAME}
 
+# 1. download and unextract the ManyBugs archive
+# 2. remove junk and tidy files
+# 3. reset hg to bug commit
+# 4. destroy redundant tests directory
+# 5. destroy hg info (TODO)
+RUN cd /experiment && \
+    wget  -nv http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/${SCENARIO_NAME}.tar.gz \
+          -O scenario.tar.gz && \
+    tar -xf scenario.tar.gz && \
+    mv ${SCENARIO_NAME} scenario && \
+    rm scenario.tar.gz && \
+    cd scenario && \
+    rm -rf  coverage* \
+            configuration-oracle \
+            local-root \
+            limit* \
+            *.cache \
+            *.debug.* \
+            sanity \
+            compile.pl \
+            *~ \
+            test \
+            reconfigure \
+            fixed-program.txt && \
+    mv bug-failures bug-info && \
+    mv bugged-program.txt manifest.txt && \
+    mv *.lines bug-info && \
+    mv fix-failures bug-info && \
+    mv gmp src && \
+    cd ../ && \
+    mv scenario/* /experiment && \
+    rm -rf scenario && \
+    cd /experiment && \
+    rm -rf tests && \
+    cd /experiment/src && \
+    make distclean && \
+    hg revert -r${BUG_COMMIT} --all && \
+    sudo chown -R docker /experiment
 
-# Remove all references to tests/mpbsd/Makefile from configure
-# Credit to Eduardo Souza (github.com/eduardodx) for fix
+ADD ltmain.sh src/
+# Remove all references to tests/mpbsd/Makefile from configure.
+# Fixes: "config.status: error: cannot find input file: `tests/mpbsd/Makefile.in'"
+# Credit to Eduardo Souza (github.com/eduardodx)
 RUN cd src &&  \
   grep -v '"tests/mpbsd/Makefile") ' configure | \
   sed "s#tests/mpbsd/Makefile ##g" | \
   sponge configure
-#RUN cd src && \
-#    ./configure --build=i386-linux-gnu \
-#                CFLAGS="-m32" \
-#                CXXFLAGS="-m32" \
-#                LDFLAGS="-m32"
+
+# configure and compile
+RUN cd src && \
+    ./configure && \
+    make -j$(nproc)
+
+# fix the test harness
+RUN sed -i "s#${OLD_LOCATION}#/experiment#g" test.sh && \
+    sed -i "s#cd gmp#cd src#g" test.sh && \
+    sed -i "s#/experiment/limit#timeout \${time_limit}#g" test.sh && \
+    sed -i "s#/usr/bin/perl#perl#g" test.sh && \
+    sed -i 's#lt-\.\*#lt-\.\* \&\> /dev/null#g' test.sh && \
+    chmod +x gmp-run-tests.pl

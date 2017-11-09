@@ -1,0 +1,8 @@
+bug: 13420-13421
+build-arguments:
+  bug_commit: 13420
+  fix_commit: 13421
+dataset: manybugs
+dockerfile: Dockerfile.bug
+program: gmp
+version: 0

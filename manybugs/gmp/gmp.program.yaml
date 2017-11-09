@@ -1,0 +1,4 @@
+dataset: manybugs
+dockerfile: Dockerfile
+program: gmp
+version: 0
