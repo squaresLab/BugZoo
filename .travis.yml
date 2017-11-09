@@ -22,7 +22,8 @@ script:
   - repairbox artefact list
 
 deploy:
-  provider: docs/_build/html
+  provider: pages
+  local_dir: docs/_build/html
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   on:
