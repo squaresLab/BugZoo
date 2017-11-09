@@ -36,6 +36,17 @@ def update_sources(rbox: 'RepairBox', ) -> None:
     rbox.sources.update()
 
 
+###############################################################################
+# [artefact] group
+###############################################################################
+
+
+def validate_artefact(rbox: 'RepairBox', name: str, verbose: bool = True) -> None:
+    print('validating artefact: {}'.format(name))
+    artefact = rbox.artefacts[name]
+    artefact.validate(verbose=verbose)
+
+
 def install_artefact(rbox: 'RepairBox', name: str, update: bool) -> None:
     print('installing artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
@@ -60,7 +71,6 @@ def upload_artefact(rbox: 'RepairBox', name: str) -> None:
     artefact.upload()
 
 
-# TODO: wrong name!
 def uninstall_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
     print('uninstalling artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
@@ -276,6 +286,13 @@ def main():
     ###########################################################################
     g_artefact = subparsers.add_parser('artefact')
     g_subparsers = g_artefact.add_subparsers()
+
+    # [artefact validate (-v|--verbose) :artefact]
+    cmd = g_subparsers.add_parser('validate')
+    cmd.add_argument('artefact')
+    cmd.add_argument('-v', '--verbose',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: validate_artefact(rbox, args.artefact, args.verbose))
 
     # [artefact install (--update) :artefact]
     cmd = g_subparsers.add_parser('install')
