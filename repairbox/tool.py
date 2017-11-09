@@ -1,6 +1,9 @@
+import copy
 import yaml
 import docker
 import os
+
+from typing import Dict
 from repairbox.source import Source
 from repairbox.build import BuildInstructions
 
@@ -13,19 +16,23 @@ class Tool(Source):
         assert 'name' in d
         name = d['name']
 
+        environment = d.get('environment', {})
+
         # TODO: tidy up this mess
         assert 'docker' in d
         build = {'docker': d['docker']}
 
-        return Tool(manager, url, name, build)
+        return Tool(manager, url, name, environment, build)
 
 
     def __init__(self,
                  manager: 'SourceManager',
                  url: str,
                  name: str,
+                 environment: Dict[str, str],
                  build_instructions: dict) -> None: # TODO: fix this hack!
         super().__init__(manager, url, name)
+        self.__environment = environment
         self.__build_instructions = \
             BuildInstructions.from_dict(self, self.abs_path, build_instructions)
 
@@ -37,6 +44,11 @@ class Tool(Source):
 
         client = docker.from_env()
         return client.containers.create(self.__build_instructions.tag)
+
+
+    @property
+    def environment(self) -> Dict[str, str]:
+        return copy.copy(self.__environment)
 
 
     @property

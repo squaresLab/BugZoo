@@ -1,11 +1,12 @@
 import docker
-import dockerpty
+import copy
 import os
 import subprocess
+import tempfile
 import repairbox
 import repairbox.spectra
 
-from typing import List, Iterator
+from typing import List, Iterator, Dict
 from timeit import default_timer as timer
 from repairbox.test import TestOutcome
 from repairbox.patch import Patch
@@ -90,7 +91,7 @@ class Container(object):
     def __init__(self,
                  artefact: str = 'repairbox.artefact.Artefact',
                  tools : List[Tool] = [],
-                 volumes : List[str] = [],
+                 volumes : Dict[str, str] = {},
                  network_mode : str = 'bridge',
                  ports={},
                  interactive=False) -> None:
@@ -102,11 +103,26 @@ class Container(object):
         self.__tool_containers = [t.provision() for t in tools]
         tool_container_ids = [c.id for c in self.__tool_containers]
 
+        # prepare the environment for the container
+        env = [(k, v) for t in tools for (k, v) in t.environment.items()]
+        env = ["{}=\"{}\"".format(k, v) for (k, v) in env]
+        env = "\n".join(env)
+        self.__env_file = tempfile.NamedTemporaryFile(mode='w')
+        self.__env_file.write(env)
+        self.__env_file.flush()
+
+        # we don't want to accidentally disturb the dictionary that was passed
+        volumes = copy.deepcopy(volumes)
+
+        # mount the environment file
+        volumes[self.__env_file.name] = \
+            {'bind': '/.environment', 'mode': 'rw'}
+
         # construct a Docker container for this artefact
         client = docker.from_env()
         self.__container = \
             client.containers.create(artefact.image,
-                                     '/bin/bash',
+                                     '/bin/bash -v -c "source /.environment && /bin/bash"',
                                      volumes=volumes,
                                      volumes_from=tool_container_ids,
                                      ports=ports,
@@ -171,6 +187,11 @@ class Container(object):
         for c in self.__tool_containers:
             c.remove(force=True)
         self.__tool_containers = []
+
+        # destroy env file
+        if self.__env_file:
+            self.__env_file.close()
+            self.__env_file = None
 
 
     def mount_file(self, src, dest, mode):

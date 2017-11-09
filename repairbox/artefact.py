@@ -4,7 +4,7 @@ import docker
 import copy
 import repairbox
 
-from typing import List, Iterator
+from typing import List, Iterator, Dict
 from repairbox.build import BuildInstructions
 from repairbox.container import Container
 from repairbox.test import TestSuite
@@ -227,7 +227,7 @@ class Artefact(object):
 
 
     def provision(self,
-                  volumes : List[str] = [],
+                  volumes : Dict[str, str] = {},
                   tools : List[Tool] = [],
                   network_mode : str = 'bridge',
                   ports : dict = {},
