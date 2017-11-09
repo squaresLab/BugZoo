@@ -5,5 +5,6 @@ CLI Reference
   :maxdepth: 1
 
   cli/artefact
-  cli/source
+  cli/tool
   cli/container
+  cli/source
