@@ -179,6 +179,37 @@ class Artefact(object):
         return "{}:{}".format(self.__dataset.name, self.__name)
 
 
+    def validate(self) -> bool:
+        """
+        Checks that this artefact successfully builds and that it produces an
+        expected set of test suite outcomes.
+
+        :returns `True` if artefact builds and produces expected outcomes, else
+            `False`.
+        """
+
+        # attempt to rebuild -- don't worry, Docker's layer caching prevents us
+        # from actually having to rebuild everything from scratch :-)
+        try:
+            self.build(force=True)
+        except docker.errors.BuildError:
+            print("failed to build artefact: {}".format(self.identifier))
+            return False
+
+        # provision a container
+        try:
+            c = self.provision()
+
+            # TODO: check test suite outcomes
+
+        # ensure that the container is destroyed!
+        finally:
+            if c:
+                c.destroy()
+
+        return True
+
+
     def build(self, force=False) -> None:
         """
         Builds the Docker image for this artefact.
