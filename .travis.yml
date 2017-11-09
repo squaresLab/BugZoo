@@ -21,7 +21,7 @@ script:
   - repairbox artefact list
 
 before_deploy:
-  - cd docs && make html
+  - (cd docs && make html)
 
 deploy:
   provider: pages
