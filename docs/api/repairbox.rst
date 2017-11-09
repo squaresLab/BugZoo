@@ -12,21 +12,15 @@ API Reference
   .. autoattribute:: path
   .. autoattribute:: sources
   .. autoattribute:: artefacts
+  .. autoattribute:: datasets
+  .. autoattribute:: tools
 
 
-.. autoclass:: SourceManager() 
+.. autoclass:: SourceManager()
 
   .. automethod:: add
   .. automethod:: remove
   .. automethod:: update
-  .. automethod:: reload
-
-  .. automethod:: __getitem__
-  .. automethod:: __iter__
-
-
-
-.. autoclass:: ArtefactManager() 
 
   .. automethod:: __getitem__
   .. automethod:: __iter__

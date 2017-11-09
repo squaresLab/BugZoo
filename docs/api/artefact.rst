@@ -11,7 +11,7 @@ program versions (see XYZ).
 
 In the context of fault localisation, automated program repair, and to some
 extent, software testing, artefacts are used to represent buggy versions of
-a program (i.e., bugs). For other purposes, such as studies on 
+a program (i.e., bugs). For other purposes, such as studies on
 (non-functional) performance, artefacts needn't represent a version of the
 program that is known to buggy.
 
@@ -28,7 +28,7 @@ API Reference
 
   .. autoattribute:: identifier
   .. autoattribute:: image
-  .. autoattribute:: source
+  .. autoattribute:: dataset
   .. autoattribute:: installed
   .. autoattribute:: harness
   .. autoattribute:: tests

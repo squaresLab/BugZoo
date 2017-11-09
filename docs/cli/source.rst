@@ -68,7 +68,7 @@ artefacts.
 .. code-block:: bash
 
   $ repairbox source update
-  
+
   TODO
   ...
 
@@ -78,6 +78,6 @@ restrict the update to the artefacts associated with that source.
 .. code-block:: bash
 
   $ repairbox source update https://github.com/squaresLab/ArduBugs
-  
+
   TODO
   ...
