@@ -8,7 +8,7 @@ import repairbox.spectra
 
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
-from repairbox.test import TestOutcome
+from repairbox.test import TestOutcome, TestCase
 from repairbox.patch import Patch
 from repairbox.tool import Tool
 
@@ -135,6 +135,9 @@ class Container(object):
 
     @property
     def tools(self) -> Iterator[Tool]:
+        """
+        A list of tools that are mounted inside this container.
+        """
         for tool in self.__tools:
             yield tool
 
@@ -157,7 +160,7 @@ class Container(object):
 
 
     @property
-    def alive(self):
+    def alive(self) -> bool:
         """
         Indicates whether or not the container is still running.
         """
@@ -194,7 +197,7 @@ class Container(object):
             self.__env_file = None
 
 
-    def mount_file(self, src, dest, mode):
+    def mount_file(self, src: str, dest: str, mode: str) -> None:
         """
         Dynamically mounts a given file (or directory) inside this container.
 
@@ -242,7 +245,12 @@ class Container(object):
         subprocess.check_output(cmd, shell=True)
 
 
-    def command(self, cmd, context='/', stdout=True, stderr=False, block=True):
+    def command(self,
+                cmd: str,
+                context: str = '/',
+                stdout: bool = True,
+                stderr: bool = False,
+                block: bool = True):
         """
 
         Returns a tuple containing the exit code, execution duration, and
@@ -269,7 +277,7 @@ class Container(object):
             return PendingExecResponse(response, out)
 
 
-    def compile(self, mode='default', verbose=True):
+    def compile(self, mode: str = 'default', verbose: bool = True):
         """
         Attempts to compile the program inside this container.
 
@@ -285,10 +293,10 @@ class Container(object):
                                     stderr=True)
 
 
-    def execute(self, test):
+    def execute(self, test: TestCase) -> TestOutcome:
         """
-        Executes a given test inside this container and returns the result of
-        that execution.
+        Executes a given test inside this container and returns the outcome of
+        the execution.
         """
         (cmd, ctx) = self.artefact.harness.command(test)
         response = self.command(cmd, ctx, stderr=True)

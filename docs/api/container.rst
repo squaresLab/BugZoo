@@ -10,6 +10,7 @@ Container reference
 
   .. autoattribute:: alive
   .. autoattribute:: artefact
+  .. autoattribute:: tools
   .. autoattribute:: container
 
   .. automethod:: interact
