@@ -15,7 +15,7 @@ class BuildInstructions(object):
     """
 
     @staticmethod
-    def from_file(fn: str) -> 'BuildInstructions':
+    def from_file(source: 'Source', fn: str) -> 'BuildInstructions':
         """
         Loads a set of build instructions belonging to a given source from a
         specified YAML file.
@@ -26,11 +26,11 @@ class BuildInstructions(object):
         with open(fn, 'r') as f:
             yml = yaml.load(f)
         root = os.path.dirname(fn)
-        return BuildInstructions.from_dict(root, yml)
+        return BuildInstructions.from_dict(source, root, yml)
 
 
     @staticmethod
-    def from_dict(root: str, yml: dict) -> 'BuildInstructions':
+    def from_dict(source: 'Source', root: str, yml: dict) -> 'BuildInstructions':
         """
         Loads a set of build instructions from a dictionary.
         """
@@ -41,16 +41,18 @@ class BuildInstructions(object):
         arguments = yml.get('build-arguments', {})
         depends_on = yml.get('depends-on', None)
 
-        return BuildInstructions(root, tag, context, filename, arguments, depends_on)
+        return BuildInstructions(source, root, tag, context, filename, arguments, depends_on)
 
 
     def __init__(self,
+                 source: 'Source',
                  root: str,
                  tag: str,
                  context: str,
                  filename: str,
                  arguments: dict,
                  depends_on: str) -> None:
+        self.__source = source
         self.__root = root
         self.__tag = tag
         self.__context = context
@@ -82,6 +84,11 @@ class BuildInstructions(object):
     @property
     def context(self) -> str:
         return self.__context
+
+
+    @property
+    def source(self) -> 'Source':
+        return self.__source
 
 
     @property

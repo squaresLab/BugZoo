@@ -31,7 +31,7 @@ class Dataset(Source):
         # find all dependencies
         fns = '{}/**/*.dependency.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            dep = BuildInstructions.from_file(fn)
+            dep = BuildInstructions.from_file(self, fn)
             self.__dependencies[dep.tag] = dep
 
 

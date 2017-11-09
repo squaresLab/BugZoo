@@ -14,9 +14,7 @@ class Tool(Source):
 
         # TODO: tidy up this mess
         assert 'docker' in d
-        root = Source.url_to_abs_path(manager, url)
         build = {'docker': d['docker']}
-        build = BuildInstructions.from_dict(root, build)
 
         return Tool(manager, url, name, build)
 
@@ -25,9 +23,10 @@ class Tool(Source):
                  manager: 'SourceManager',
                  url: str,
                  name: str,
-                 build_instructions: BuildInstructions) -> None:
+                 build_instructions: dict) -> None: # TODO: fix this hack!
         super().__init__(manager, url, name)
-        self.__build_instructions = build_instructions
+        self.__build_instructions = \
+            BuildInstructions.from_dict(self, self.abs_path, build_instructions)
 
 
     @property

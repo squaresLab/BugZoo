@@ -1,7 +1,7 @@
 import argparse
 import tabulate
-import typing
 
+from typing import List
 from operator import itemgetter
 from repairbox.manager import RepairBox
 
@@ -126,12 +126,13 @@ def list_tools(rbox: 'RepairBox', show_installed=None) -> None:
 ###############################################################################
 
 
-def launch(rbox: 'RepairBox', name: str) -> None:
+def launch(rbox: 'RepairBox', name: str, tools: List[str] = []) -> None:
     artefact = rbox.artefacts[name]
     artefact.install()
+    tools = [rbox.tools[t] for t in tools]
     try:
         c = None
-        c = artefact.provision(tty=True)
+        c = artefact.provision(tty=True, tools=tools)
         c.interact()
     finally:
         if c: # ensure the container is destroyed
@@ -257,7 +258,13 @@ def main():
     # [container launch :artefact]
     cmd = g_subparsers.add_parser('launch')
     cmd.add_argument('artefact')
-    cmd.set_defaults(func=lambda args: launch(rbox, args.artefact))
+    # TODO: add volumes
+    cmd.add_argument('--with',
+                     help='name of a tool',
+                     dest='tools',
+                     action='append',
+                     default=[])
+    cmd.set_defaults(func=lambda args: launch(rbox, args.artefact, args.tools))
 
     # [container run :artefact]
 

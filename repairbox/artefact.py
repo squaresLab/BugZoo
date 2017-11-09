@@ -75,7 +75,8 @@ class Artefact(object):
         # TODO: this is stupid
         build_instructions = {'docker': yml['docker']}
         build_instructions = \
-            BuildInstructions.from_dict(os.path.dirname(fn),
+            BuildInstructions.from_dict(dataset,
+                                        os.path.dirname(fn),
                                         build_instructions)
 
         return Artefact(dataset,
@@ -241,4 +242,4 @@ class Artefact(object):
             tty:    a flag indicating whether a pseudo-TTY should be created
                 for this container. By default, a pseudo-TTY is not created.
         """
-        return Container(self, volumes=volumes, network_mode=network_mode, ports=ports, interactive=tty)
+        return Container(self, volumes=volumes, network_mode=network_mode, ports=ports, interactive=tty, tools=tools)

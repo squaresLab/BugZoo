@@ -100,6 +100,9 @@ class Container(object):
         self.__artefact = artefact
         self.__tools = tools
 
+        for t in tools:
+            print("Using tool: {}".format(t.name))
+
         # construct a Docker container for this artefact
         client = docker.from_env()
         self.__container = \
