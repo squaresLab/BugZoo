@@ -17,14 +17,14 @@ list of artefacts (:code:`-q`).
 
   $ repairbox artefact list
 
-  Artefact                                        Dataset    Source                                      Installed?
-  ----------------------------------------------  ---------  ------------------------------------------  ------------
-  ardubugs:copter:2e6b6e4                         ardubugs   https://github.com/squaresLab/ArduBugs      No
-  ardubugs:copter:cb1b9b6                         ardubugs   https://github.com/squaresLab/ArduBugs      No
-  ardubugs:copter:766ccea                         ardubugs   https://github.com/squaresLab/ArduBugs      No
-  ardubugs:copter:bd0229b                         ardubugs   https://github.com/squaresLab/ArduBugs      No
-  ardubugs:copter:aa98531                         ardubugs   https://github.com/squaresLab/ArduBugs      No
-  ardubugs:copter:9f59f27                         ardubugs   https://github.com/squaresLab/ArduBugs      No
+  Artefact                                        Dataset    Installed?
+  ----------------------------------------------  ---------  ------------
+  ardubugs:copter:2e6b6e4                         ardubugs   No
+  ardubugs:copter:cb1b9b6                         ardubugs   No
+  ardubugs:copter:766ccea                         ardubugs   No
+  ardubugs:copter:bd0229b                         ardubugs   No
+  ardubugs:copter:aa98531                         ardubugs   No
+  ardubugs:copter:9f59f27                         ardubugs   No
   ...
 
   $ repairbox artefact list -q
@@ -49,10 +49,9 @@ no such image is available, the command will build the image (and its
 dependencies) locally.
 
 If the artefact has already been installed to the machine, this command will
-simply do nothing and exit with code :code:`0`. To force the installation of
-the latest version of the artefact, either supply the :code:`--upgrade` flag
-or use the :code:`artefact upgrade` command.
-
+simply do nothing. To force the installation of the latest version of the
+artefact, either supply the :code:`--upgrade` flag or use the
+:code:`artefact upgrade` command.
 
 By default, this command produces detailed information when downloading or
 building the artefact, as shown below. This behaviour can be disabled by
@@ -60,12 +59,16 @@ supplying the :code:`-q` flag.
 
 .. code-block:: bash
 
-  $ repairbox artefact install ardubugs:copter:2e6b6e4
+  $ repairbox artefact install manybugs:python:69934-69935
+  installing artefact: manybugs:python:69934-69935
+  Building image: squareslab/manybugs:python-69934-69935
+  Step 1/9 : FROM squareslab/manybugs:python
+   ---> 9f2dd23f670c
+  Step 2/9 : ARG scenario
+   ---> Using cache
+   ---> 98c9fcf95b1c
+  Step 3/9 : ENV SCENARIO_NAME ${scenario}
   ...
-
-Produces exit code zero if the bug is successfully installed or
-was already installed, or exit code one if the installation failed.
-
 
 `artefact uninstall [-f] {identifier}`
 --------------------------------------
@@ -88,3 +91,20 @@ that artefact to abruptly terminate -- **use at your own risk**.
 
 `artefact download [-f] {identifier}`
 -------------------------------------
+
+Downloads a prebuilt Docker image from DockerHub for a given artefact if such
+an image exists. If the artefact is already installed to the local machine,
+this command will do nothing, by default. Supplying a :code:`-f` flag will
+force RepairBox to download the artefact's image from DockerHub regardless of
+whether the image is already installed or the remote image is older than the
+image installed to the local machine.
+
+.. code-block:: bash
+
+  $ repairbox artefact download manybugs:python:69223-69224
+  ...
+
+If your internet connection is good, this command is great for quickly fetching
+images for artefacts, but in some cases, where internet connectivity is poor
+or the prebuilt image is particularly large, it may be faster to use the
+:code:`artefact build` command.
