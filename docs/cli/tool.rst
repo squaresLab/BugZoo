@@ -64,6 +64,15 @@ that artefact to abruptly terminate -- **use at your own risk**.
 `tool build [-f] {name}`
 ------------------------
 
+Attempts to build the Docker image associated with a given tool. If an image
+for the tool is already installed to the local machine, the request to build
+will simply be ignored. Passing the `-f` flag will force the image to be
+rebuilt.
+
+.. code-block:: bash
+
+  $ repairbox tool build genprog
+  ...
 
 
 `tool download [-f] {name}`
