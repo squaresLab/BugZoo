@@ -17,14 +17,14 @@ list of artefacts (:code:`-q`).
 
   $ repairbox artefact list
 
-  Artefact                                        Dataset    Installed?
-  ----------------------------------------------  ---------  ------------
-  ardubugs:copter:2e6b6e4                         ardubugs   No
-  ardubugs:copter:cb1b9b6                         ardubugs   No
-  ardubugs:copter:766ccea                         ardubugs   No
-  ardubugs:copter:bd0229b                         ardubugs   No
-  ardubugs:copter:aa98531                         ardubugs   No
-  ardubugs:copter:9f59f27                         ardubugs   No
+  Artefact                   Dataset    Installed?
+  -------------------------  ---------  ------------
+  ardubugs:copter:2e6b6e4    ardubugs   No
+  ardubugs:copter:cb1b9b6    ardubugs   No
+  ardubugs:copter:766ccea    ardubugs   No
+  ardubugs:copter:bd0229b    ardubugs   No
+  ardubugs:copter:aa98531    ardubugs   No
+  ardubugs:copter:9f59f27    ardubugs   No
   ...
 
   $ repairbox artefact list -q
@@ -88,6 +88,18 @@ that artefact to abruptly terminate -- **use at your own risk**.
 `artefact build [-f] {identifier}`
 ----------------------------------
 
+Attempts to locally build the Docker image for a given artefact.
+
+.. code-block:: bash
+
+  $ repairbox artefact build ardubugs:copter:2e6b6e4
+  ...
+
+By default, this command will be ignored if a version of the image already
+exists on the local machine. The :code:`-f` flag can be used to override
+this behaviour, forcing RepairBox to rebuild the image for the artefact
+and to overwrite the existing image.
+
 
 `artefact download [-f] {identifier}`
 -------------------------------------
@@ -108,3 +120,9 @@ If your internet connection is good, this command is great for quickly fetching
 images for artefacts, but in some cases, where internet connectivity is poor
 or the prebuilt image is particularly large, it may be faster to use the
 :code:`artefact build` command.
+
+
+`artefact upload {identifier}`
+------------------------------
+
+
