@@ -89,8 +89,8 @@ that artefact to abruptly terminate -- **use at your own risk**.
 ----------------------------------
 
 
-:code:`artefact download [-f] {identifier}`
--------------------------------------------
+`artefact download [-f] {identifier}`
+-------------------------------------
 
 Downloads a prebuilt Docker image from DockerHub for a given artefact if such
 an image exists. If the artefact is already installed to the local machine,
