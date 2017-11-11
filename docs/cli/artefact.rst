@@ -139,3 +139,26 @@ machine.
 This command should only be used by artefact maintainers to conveniently
 upload their images (instead of having to manually perform hundreds of
 :code:`docker push` commands.
+
+
+`artefact validate {identifier}`
+--------------------------------
+
+Validates the quality of a given artefact by ensuring thats
+associated Docker image can be built from scratch successfully, that the source
+code for the software contained within the artefact compiles successfully, and
+that its test suite produces an expected set of outcomes.
+
+.. code-block:: bash
+
+  $ repairbox artefact validate manybugs:python:69223-69224
+  Compiling...                                                                [OK]
+  Running test: p1...                                                         [OK]
+  Running test: p2...                                                         [OK]
+  Running test: p3...                                                         [OK]
+  Running test: p4...                                                         [OK]
+  Running test: p5...                                                         [OK]
+  Running test: p6...                                                         [OK]
+  Running test: p7...                                                         [OK]
+  ...
+  PASS
