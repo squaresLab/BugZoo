@@ -14,7 +14,7 @@ container will be destroyed.
 
 .. code-block:: bash
 
-  $ repairbox container launch artefact manybugs:python:69223-69224
+  $ repairbox container launch manybugs:python:69223-69224
 
 The :code:`-v` flag is used to share and persist files between the host
 and the container (using Docker's volume mounting feature).
@@ -25,14 +25,14 @@ a container for one of the ManyBugs artefacts:
 
 .. code-block:: bash
 
-  $ repairbox container launch artefact --with genprog manybugs:python:69223-69224
+  $ repairbox container launch --with genprog manybugs:python:69223-69224
 
 Like the :code:`-v` flag, the :code:`--with` flag can be used multiple times
 to mount more than one tool inside the container as shown below.
 
 .. code-block:: bash
 
-  $ repairbox container launch artefact --with genprog --with gcovr manybugs:python:69223-69224
+  $ repairbox container launch --with genprog --with gcovr manybugs:python:69223-69224
 
 
 `container list [-q]`
