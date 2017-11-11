@@ -127,8 +127,9 @@ or the prebuilt image is particularly large, it may be faster to use the
 
 Attempts to upload the image for a given artefact from the local machine to
 DockerHub. Requires that the user is logged into DockerHub
-(via `docker login`) and has permission to push to the DockerHub repository
-for that artefact, and that the image is installed on the local machine.
+(via :code:`docker login`) and has permission to push to the DockerHub
+repository for that artefact, and that the image is installed on the local
+machine.
 
 .. code-block:: bash
 
@@ -137,4 +138,4 @@ for that artefact, and that the image is installed on the local machine.
 
 This command should only be used by artefact maintainers to conveniently
 upload their images (instead of having to manually perform hundreds of
-`docker push` commands.
+:code:`docker push` commands.
