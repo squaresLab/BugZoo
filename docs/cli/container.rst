@@ -16,6 +16,9 @@ container will be destroyed.
 
   $ repairbox container launch artefact manybugs:python:69223-69224
 
+The :code:`-v` flag can be used to share and persist files between the host
+and the container (using Docker's volume mounting feature).
+
 
 `container list [-q]`
 ---------------------
@@ -28,7 +31,7 @@ Produces a pretty-printed list of all running RepairBox containers:
 
   $ repairbox container list
 
-Passing the optional `-q` flag will produce an unannotated list of
+Passing the optional :code:`-q` flag will produce an unannotated list of
 unique identifiers used by running RepairBox containers, as shown below.
 
 .. code-block:: bash
