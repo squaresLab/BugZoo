@@ -5,8 +5,8 @@ The `container` command group can be used to manage the creation and
 destruction of containers, and to inspect and interact with running containers.
 
 
-`container launch [-v HOST:CONTAINER] [--with TOOL] {artefact}`
----------------------------------------------------------------
+`container launch [--name NAME] [-v HOST:CONTAINER] [--with TOOL] {artefact}`
+-----------------------------------------------------------------------------
 
 Provisions an ephemeral container for a given artefact and drops the user into
 an interactive shell (bash) inside that container. After exiting the shell, the
@@ -15,6 +15,16 @@ container will be destroyed.
 .. code-block:: bash
 
   $ repairbox container launch manybugs:python:69223-69224
+
+The :code:`--name` flag is used to assign an optional name to the container,
+making it easier to refer to and interact with using the other commands within
+the :code:`container` group.
+
+.. code-block:: bash
+
+  $ repairbox container launch  --name pybug \
+                                manybugs:python:69223-69224
+
 
 The :code:`-v` flag is used to share and persist files between the host
 and the container (using Docker's volume mounting feature).
