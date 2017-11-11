@@ -87,5 +87,23 @@ from DockerHub, overwriting the existing image.
 
 .. code-block:: bash
 
-  $ repairbox artefact download genprog
+  $ repairbox tool download genprog
   ...
+
+
+`tool upload {name}`
+--------------------
+
+Uploads the Docker image for a given tool from the local machine to DockerHub.
+Requires that the image has been built, and that the user is logged into
+DockerHub (via :code:`docker login`) and has the necessary permissions to push
+to the DockerHub repository for the image.
+
+.. code-block:: bash
+
+  $ repairbox tool upload genprog
+  ...
+
+This command should be used by tools maintainers to conveniently push the
+images for their tools to DockerHub, allowing others to quickly and
+conveniently download them using :code:`tool download`.
