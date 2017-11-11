@@ -64,6 +64,15 @@ that artefact to abruptly terminate -- **use at your own risk**.
 `tool build [-f] {name}`
 ------------------------
 
+Attempts to build the Docker image associated with a given tool. If an image
+for the tool is already installed to the local machine, the request to build
+will simply be ignored. Passing the `-f` flag will force the image to be
+rebuilt.
+
+.. code-block:: bash
+
+  $ repairbox tool build genprog
+  ...
 
 
 `tool download [-f] {name}`
@@ -78,5 +87,23 @@ from DockerHub, overwriting the existing image.
 
 .. code-block:: bash
 
-  $ repairbox artefact download genprog
+  $ repairbox tool download genprog
   ...
+
+
+`tool upload {name}`
+--------------------
+
+Uploads the Docker image for a given tool from the local machine to DockerHub.
+Requires that the image has been built, and that the user is logged into
+DockerHub (via :code:`docker login`) and has the necessary permissions to push
+to the DockerHub repository for the image.
+
+.. code-block:: bash
+
+  $ repairbox tool upload genprog
+  ...
+
+This command should be used by tools maintainers to conveniently push the
+images for their tools to DockerHub, allowing others to quickly and
+conveniently download them using :code:`tool download`.
