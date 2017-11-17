@@ -27,7 +27,7 @@ def add_source(rbox: 'RepairBox', src: str) -> None:
 
 
 def remove_source(rbox: 'RepairBox', src: str) -> None:
-    rbox.sources.remove(ds)
+    rbox.sources.remove(src)
     print('removed source: {}'.format(src))
 
 
