@@ -160,11 +160,20 @@ class SourceManager(object):
         return src
 
 
-    def remove(self, url: str) -> None:
-        assert url!= ""
-        self.__sources[url].remove()
-        del self.__sources[url]
+    def __remove(self, src: Source) -> None:
+        src.remove()
+        del self.__sources[src.url]
         self.__write()
+
+
+    def remove_by_url(self, url: str) -> None:
+        assert url != ""
+        self.__remove(self.get_by_url(url))
+
+
+    def remove_by_name(self, name: str) -> None:
+        assert name != ""
+        self.__remove(self.get_by_name(name))
 
 
     def update(self) -> None:
