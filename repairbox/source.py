@@ -172,6 +172,33 @@ class SourceManager(object):
             src.update()
 
 
+    def get_by_name(self, name: str) -> Source:
+        """
+        Retrieves the source associated with a given name.
+
+        Raises:
+            IndexError: if no source is associated with that name.
+        """
+        for s in self:
+            if s.name == name:
+                return s
+
+        raise IndexError
+
+
+    def get_by_url(self, url: str) -> Source:
+        """
+        Retrieves the source provided by a given URL.
+
+        Raises:
+            IndexError: if no source is associated with that URL.
+        """
+        if url in self.__sources:
+            return self.__sources[url]
+
+        raise IndexError
+
+
     def __getitem__(self, name_or_url: str) -> Source:
         # URL
         if name_or_url in self.__sources:
