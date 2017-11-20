@@ -11,14 +11,14 @@ install:
 
 # TODO: replace this with a bonafide test suite
 script:
-  - repairbox -h
-  - repairbox tool -h
-  - repairbox source -h
-  - repairbox artefact -h
-  - repairbox container -h
-  - repairbox tool list
-  - repairbox source list
-  - repairbox artefact list
+  - bugzoo -h
+  - bugzoo tool -h
+  - bugzoo source -h
+  - bugzoo artefact -h
+  - bugzoo container -h
+  - bugzoo tool list
+  - bugzoo source list
+  - bugzoo artefact list
 
 before_deploy:
   - (cd docs && make html && cd _build/html && touch .nojekyll)
