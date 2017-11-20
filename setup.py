@@ -1,13 +1,13 @@
 from setuptools import setup
 
 setup(
-    name='repairbox',
+    name='bugzoo',
     version='0.0.1',
     description='TBA',
     long_description='TBA',
     author='Chris Timperley',
     author_email='christimperley@gmail.com',
-    url='https://github.com/squaresLab/RepairBox',
+    url='https://github.com/squaresLab/BugZoo',
     license='mit',
     install_requires=[
         'docker',
@@ -17,10 +17,10 @@ setup(
         'tabulate'
     ],
     packages=[
-        'repairbox',
-        'repairbox.plugin'
+        'bugzoo',
+        'bugzoo.plugin'
     ],
     entry_points = {
-        'console_scripts': [ 'repairbox = repairbox.cli:main' ]
+        'console_scripts': [ 'bugzoo = bugzoo.cli:main' ]
     }
 )
