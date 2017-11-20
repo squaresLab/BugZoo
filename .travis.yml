@@ -19,6 +19,7 @@ script:
   - bugzoo tool list
   - bugzoo source list
   - bugzoo bug list
+  - bugzoo dataset list
 
 before_deploy:
   - (cd docs && make html && cd _build/html && touch .nojekyll)
