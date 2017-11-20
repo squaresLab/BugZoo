@@ -2,7 +2,7 @@ import os
 
 from typing import Iterator
 from bugzoo.source import SourceManager
-from bugzoo.artefact import Artefact
+from bugzoo.bug import Artefact
 from bugzoo.dataset import Dataset
 from bugzoo.tool import Tool
 
@@ -33,7 +33,7 @@ class BugZoo(object):
         self.__path = path
         self.__sources = SourceManager(self)
         self.__datasets = Datasets(self)
-        self.__artefacts = Artefacts(self)
+        self.__bugs = Artefacts(self)
         self.__tools = Tools(self)
 
 
@@ -74,11 +74,11 @@ class BugZoo(object):
 
 
     @property
-    def artefacts(self):
+    def bugs(self):
         """
-        The artefacts registered with this BugZoo installation.
+        The bugs registered with this BugZoo installation.
         """
-        return self.__artefacts
+        return self.__bugs
 
 
 class Tools(object):
@@ -119,23 +119,23 @@ class Datasets(object):
 
 class Artefacts(object):
     """
-    Used to access and manage all artefacts registered with a local BugZoo
+    Used to access and manage all bugs registered with a local BugZoo
     installation.
     """
     class ArtefactIterator(object):
         def __init__(self, datasets):
             self.__datasets = [d for d in datasets]
-            self.__artefacts = []
+            self.__bugs = []
 
 
         def __next__(self):
-            if not self.__artefacts:
+            if not self.__bugs:
                 if not self.__datasets:
                     raise StopIteration
                 src = self.__datasets.pop()
-                self.__artefacts += src.artefacts
+                self.__bugs += src.bugs
                 return self.__next__()
-            return self.__artefacts.pop()
+            return self.__bugs.pop()
 
 
     def __init__(self, installation: 'BugZoo') -> None:
@@ -146,7 +146,7 @@ class Artefacts(object):
         for src in self.__installation.datasets:
             if src.contains(name):
                 return src[name]
-        raise IndexError('artefact not found: {}'.format(name))
+        raise IndexError('bug not found: {}'.format(name))
 
 
     def __iter__(self):

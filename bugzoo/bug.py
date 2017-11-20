@@ -42,7 +42,7 @@ class Artefact(object):
     point in time, allowing it to be empirically studied and inspected in a
     transparent and reproducible manner.
 
-    Each artefact is assigned a unique identifier, based on its name, and
+    Each bug is assigned a unique identifier, based on its name, and
     the name of the program, if any, and dataset to which it belongs. This
     identifier takes the form: `"SOURCE:[PROGRAM:]NAME"`. Artefacts can be
     retrieved by using this name, as shown below.
@@ -50,18 +50,18 @@ class Artefact(object):
     .. code-block:: python
 
         rbox = BugZoo()
-        artefact = rbox.artefacts['manybugs:python:69223-69224']
+        bug = rbox.bugs['manybugs:python:69223-69224']
     """
     @staticmethod
     def from_file(dataset: 'bugzoo.manager.Dataset',
                   fn: str) -> 'Artefact':
         """
-        Loads an artefact from its YAML manifest file.
+        Loads an bug from its YAML manifest file.
         """
         with open(fn, 'r') as f:
             yml = yaml.load(f)
 
-        name = yml['bug'] # TODO: rename to 'artefact'
+        name = yml['bug'] # TODO: rename to 'bug'
         program = yml.get('program', None)
 
         # build the test harness
@@ -69,7 +69,7 @@ class Artefact(object):
 
         # compilation instructions
         if not 'compilation' in yml:
-            raise Exception('No compilation instructions provided for artefact: {}'.format(name))
+            raise Exception('No compilation instructions provided for bug: {}'.format(name))
 
         compilation_instructions = \
             CompilationInstructions.from_yaml(yml['compilation'])
@@ -112,7 +112,7 @@ class Artefact(object):
     def dataset_dir(self) -> str:
         """
         The absolute path of the dataset directory (within the container) for
-        this artefact.
+        this bug.
         """
         # TODO
         return "/experiment/src"
@@ -121,7 +121,7 @@ class Artefact(object):
     @property
     def program(self) -> str:
         """
-        The name of the program that this artefact belongs to, if specified.
+        The name of the program that this bug belongs to, if specified.
         """
         return self.__program
 
@@ -134,7 +134,7 @@ class Artefact(object):
     @property
     def harness(self) -> TestSuite:
         """
-        The test harness used by this artefact.
+        The test harness used by this bug.
         """
         return self.__test_harness
 
@@ -142,7 +142,7 @@ class Artefact(object):
     @property
     def tests(self):
         """
-        The test suite used by this artefact.
+        The test suite used by this bug.
         """
         return self.__test_harness.tests
 
@@ -150,7 +150,7 @@ class Artefact(object):
     @property
     def dataset(self) -> 'Dataset':
         """
-        The dataset to which this artefact belongs.
+        The dataset to which this bug belongs.
         """
         return self.__dataset
 
@@ -158,7 +158,7 @@ class Artefact(object):
     @property
     def installed(self) -> bool:
         """
-        Indicates whether the Docker image for this artefact is installed on the
+        Indicates whether the Docker image for this bug is installed on the
         local machine.
         """
         return self.__build_instructions.installed
@@ -167,7 +167,7 @@ class Artefact(object):
     @property
     def image(self) -> str:
         """
-        The name of the Docker image for this artefact.
+        The name of the Docker image for this bug.
         """
         return self.__build_instructions.tag
 
@@ -175,7 +175,7 @@ class Artefact(object):
     @property
     def identifier(self) -> str:
         """
-        The fully-qualified name of this artefact.
+        The fully-qualified name of this bug.
         """
         if self.__program:
             return "{}:{}:{}".format(self.__dataset.name, self.__program, self.__name)
@@ -184,13 +184,13 @@ class Artefact(object):
 
     def validate(self, verbose: bool = True) -> bool:
         """
-        Checks that this artefact successfully builds and that it produces an
+        Checks that this bug successfully builds and that it produces an
         expected set of test suite outcomes.
 
         :param verbose: toggles verbosity of output. If set to `True`, the
             outcomes of each test suite will be printed to the standard output.
 
-        :returns `True` if artefact builds and produces expected outcomes, else
+        :returns `True` if bug builds and produces expected outcomes, else
             `False`.
         """
 
@@ -199,7 +199,7 @@ class Artefact(object):
         try:
             self.build(force=True, quiet=True)
         except docker.errors.BuildError:
-            print("failed to build artefact: {}".format(self.identifier))
+            print("failed to build bug: {}".format(self.identifier))
             return False
 
         # provision a container
@@ -207,7 +207,7 @@ class Artefact(object):
         try:
             c = self.provision()
 
-            # ensure we can compile the artefact
+            # ensure we can compile the bug
             # TODO: check compilation status!
             print_task_start('Compiling')
             c.compile()
@@ -251,21 +251,21 @@ class Artefact(object):
 
     def build(self, force=False, quiet=False) -> None:
         """
-        Builds the Docker image for this artefact.
+        Builds the Docker image for this bug.
         """
         self.__build_instructions.build(force=force, quiet=quiet)
 
 
     def uninstall(self, force=False, noprune=False) -> None:
         """
-        Uninstalls all Docker images associated with this artefact.
+        Uninstalls all Docker images associated with this bug.
         """
         self.__build_instructions.uninstall(force=force, noprune=noprune)
 
 
     def download(self, force=False) -> bool:
         """
-        Attempts to download the image for this artefact from
+        Attempts to download the image for this bug from
         `DockerHub <https://hub.docker.com>`_. If the force parameter is set to
         True, any existing image will be overwritten.
 
@@ -277,7 +277,7 @@ class Artefact(object):
 
     def upload(self) -> bool:
         """
-        Attempts to upload the image for this artefact to
+        Attempts to upload the image for this bug to
         `DockerHub <https://hub.docker.com>`_.
         """
         return self.__build_instructions.upload()
@@ -285,11 +285,11 @@ class Artefact(object):
 
     def install(self, upgrade=False) -> None:
         """
-        Installs this artefact by first trying to download it, and if that is
+        Installs this bug by first trying to download it, and if that is
         not possible, by building it locally.
 
         Args:
-            upgrade:    a flag indicating whether this artefact should be
+            upgrade:    a flag indicating whether this bug should be
                 upgraded if it is already installed.
         """
         # TODO: attempt to download before trying to build
@@ -303,7 +303,7 @@ class Artefact(object):
                   ports : dict = {},
                   tty : bool = False) -> 'Container':
         """
-        Provisions a container for this artefact.
+        Provisions a container for this bug.
 
         Parameters:
             network_mode:   the network mode that should be used by the

@@ -1,6 +1,6 @@
 class Patch(object):
     """
-    Used to abstractly represent a change to the source code of an artefact.
+    Used to abstractly represent a change to the source code of an bug.
     All subclasses of Patch implement their own `to_diff` method, responsible
     for transforming their own internal representation to a diff.
     """
