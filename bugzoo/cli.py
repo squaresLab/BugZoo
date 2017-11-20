@@ -37,6 +37,26 @@ def update_sources(rbox: 'BugZoo', ) -> None:
 
 
 ###############################################################################
+# [dataset] group
+###############################################################################
+
+
+def list_datasets(rbox: 'BugZoo') -> None:
+    tbl = []
+    hdrs = ['Dataset', 'Source', '# Bugs']
+    for ds in rbox.datasets:
+        row = [ds.name, ds.url, ds.size]
+        tbl.append(row)
+
+    tbl = sorted(tbl, key=itemgetter(0))
+
+    # transform into a pretty table
+    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
+    print('')
+    print(tbl)
+
+
+###############################################################################
 # [bug] group
 ###############################################################################
 
@@ -78,6 +98,29 @@ def uninstall_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling bug: {}'.format(name))
     bug = rbox.bugs[name]
     bug.uninstall(force=force)
+
+
+def list_bugs(rbox: 'BugZoo', show_installed=None) -> None:
+    tbl = []
+    hdrs = ['Bug', 'Source', 'Installed?']
+    for bug in rbox.bugs:
+
+        # apply filtering based on installation status
+        if show_installed is not None:
+            if show_installed != bug.installed:
+                continue
+
+        installed = 'Yes' if bug.installed else 'No'
+        row = [bug.identifier, bug.dataset.name, installed]
+        tbl.append(row)
+
+    # sort by dataset then by bug
+    tbl = sorted(tbl, key=itemgetter(1,2))
+
+    # transform into a pretty table
+    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
+    print('')
+    print(tbl)
 
 
 ###############################################################################
@@ -151,28 +194,6 @@ def launch(rbox: 'BugZoo', name: str, tools: List[str] = []) -> None:
         if c: # ensure the container is destroyed
             c.destroy()
 
-
-def list_bugs(rbox: 'BugZoo', show_installed=None) -> None:
-    tbl = []
-    hdrs = ['Bug', 'Source', 'Installed?']
-    for bug in rbox.bugs:
-
-        # apply filtering based on installation status
-        if show_installed is not None:
-            if show_installed != bug.installed:
-                continue
-
-        installed = 'Yes' if bug.installed else 'No'
-        row = [bug.identifier, bug.dataset.name, installed]
-        tbl.append(row)
-
-    # sort by dataset then by bug
-    tbl = sorted(tbl, key=itemgetter(1,2))
-
-    # transform into a pretty table
-    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
-    print('')
-    print(tbl)
 
 
 def main():
@@ -260,6 +281,17 @@ def main():
                      action='store_false')
     cmd.set_defaults(installed=None)
     cmd.set_defaults(func=lambda args: list_tools(rbox, args.installed))
+
+
+    ###########################################################################
+    # [dataset] group
+    ###########################################################################
+    g_dataset = subparsers.add_parser('dataset')
+    g_subparsers = g_dataset.add_subparsers()
+
+    # [datasetlaunch :bug]
+    cmd = g_subparsers.add_parser('list')
+    cmd.set_defaults(func=lambda args: list_datasets(rbox))
 
 
     ###########################################################################

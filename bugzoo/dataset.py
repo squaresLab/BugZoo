@@ -76,6 +76,14 @@ class Dataset(Source):
         return self.__bugs[key]
 
 
+    @property
+    def size(self) -> int:
+        """
+        The number of bugs contained within this dataset.
+        """
+        return len(self.__bugs)
+
+
     # TODO: return iterator
     @property
     def bugs(self) -> List[Bug]:
