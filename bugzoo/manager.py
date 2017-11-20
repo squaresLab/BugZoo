@@ -2,7 +2,7 @@ import os
 
 from typing import Iterator
 from bugzoo.source import SourceManager
-from bugzoo.bug import Artefact
+from bugzoo.bug import Bug
 from bugzoo.dataset import Dataset
 from bugzoo.tool import Tool
 
@@ -33,7 +33,7 @@ class BugZoo(object):
         self.__path = path
         self.__sources = SourceManager(self)
         self.__datasets = Datasets(self)
-        self.__bugs = Artefacts(self)
+        self.__bugs = Bugs(self)
         self.__tools = Tools(self)
 
 
@@ -117,12 +117,12 @@ class Datasets(object):
         raise IndexError
 
 
-class Artefacts(object):
+class Bugs(object):
     """
     Used to access and manage all bugs registered with a local BugZoo
     installation.
     """
-    class ArtefactIterator(object):
+    class BugIterator(object):
         def __init__(self, datasets):
             self.__datasets = [d for d in datasets]
             self.__bugs = []
@@ -142,7 +142,7 @@ class Artefacts(object):
         self.__installation = installation
 
 
-    def __getitem__(self, name: str) -> Artefact:
+    def __getitem__(self, name: str) -> Bug:
         for src in self.__installation.datasets:
             if src.contains(name):
                 return src[name]
@@ -150,4 +150,4 @@ class Artefacts(object):
 
 
     def __iter__(self):
-        return Artefacts.ArtefactIterator(self.__installation.datasets)
+        return Bugs.BugIterator(self.__installation.datasets)

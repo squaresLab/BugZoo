@@ -36,15 +36,15 @@ class CompilationInstructions(object):
         return self.__command
 
 
-class Artefact(object):
+class Bug(object):
     """
-    Artefacts provide an immutable snapshot of a software system at a given
+    Bugs provide an immutable snapshot of a software system at a given
     point in time, allowing it to be empirically studied and inspected in a
     transparent and reproducible manner.
 
     Each bug is assigned a unique identifier, based on its name, and
     the name of the program, if any, and dataset to which it belongs. This
-    identifier takes the form: `"SOURCE:[PROGRAM:]NAME"`. Artefacts can be
+    identifier takes the form: `"SOURCE:[PROGRAM:]NAME"`. Bugs can be
     retrieved by using this name, as shown below.
 
     .. code-block:: python
@@ -54,7 +54,7 @@ class Artefact(object):
     """
     @staticmethod
     def from_file(dataset: 'bugzoo.manager.Dataset',
-                  fn: str) -> 'Artefact':
+                  fn: str) -> 'Bug':
         """
         Loads an bug from its YAML manifest file.
         """
@@ -82,7 +82,7 @@ class Artefact(object):
                                         os.path.dirname(fn),
                                         build_instructions)
 
-        return Artefact(dataset,
+        return Bug(dataset,
                         name,
                         program,
                         harness,

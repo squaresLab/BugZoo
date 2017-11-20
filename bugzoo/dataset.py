@@ -5,7 +5,7 @@ import glob
 import copy
 
 from typing import List
-from bugzoo.bug import Artefact
+from bugzoo.bug import Bug
 from bugzoo.build import BuildInstructions
 from bugzoo.source import Source, SourceManager
 
@@ -38,7 +38,7 @@ class Dataset(Source):
         # find all bugs
         fns = '{}/**/*.bug.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            bug = Artefact.from_file(self, fn)
+            bug = Bug.from_file(self, fn)
             self.__bugs[bug.identifier] = bug
 
 
@@ -78,7 +78,7 @@ class Dataset(Source):
 
     # TODO: return iterator
     @property
-    def bugs(self) -> List[Artefact]:
+    def bugs(self) -> List[Bug]:
         return list(self.__bugs.values())
 
 

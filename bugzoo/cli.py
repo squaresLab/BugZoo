@@ -154,7 +154,7 @@ def launch(rbox: 'BugZoo', name: str, tools: List[str] = []) -> None:
 
 def list_bugs(rbox: 'BugZoo', show_installed=None) -> None:
     tbl = []
-    hdrs = ['Artefact', 'Source', 'Installed?']
+    hdrs = ['Bug', 'Source', 'Installed?']
     for bug in rbox.bugs:
 
         # apply filtering based on installation status

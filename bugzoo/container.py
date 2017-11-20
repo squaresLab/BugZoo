@@ -90,7 +90,7 @@ class Container(object):
     containers are implemented as `Docker containers <https://docker.com>`_.
     """
     def __init__(self,
-                 bug: str = 'bugzoo.bug.Artefact',
+                 bug: str = 'bugzoo.bug.Bug',
                  tools : List[Tool] = [],
                  volumes : Dict[str, str] = {},
                  network_mode : str = 'bridge',
@@ -144,7 +144,7 @@ class Container(object):
 
 
     @property
-    def bug(self) -> 'bugzoo.bug.Artefact':
+    def bug(self) -> 'bugzoo.bug.Bug':
         """
         The bug that was used to provision this container.
         """
