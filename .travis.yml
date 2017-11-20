@@ -14,7 +14,7 @@ script:
   - bugzoo -h
   - bugzoo tool -h
   - bugzoo source -h
-  - bugzoo artefact -h
+  - bugzoo bug -h
   - bugzoo container -h
   - bugzoo tool list
   - bugzoo source list
