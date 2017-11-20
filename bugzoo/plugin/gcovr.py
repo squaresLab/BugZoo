@@ -1,10 +1,10 @@
-import repairbox.plugin
-import repairbox.plugin.base
+import bugzoo.plugin
+import bugzoo.plugin.base
 
-from repairbox.coverage import CoverageReport
+from bugzoo.coverage import CoverageReport
 
 
-class gcovr(repairbox.plugin.base.Plugin):
+class gcovr(bugzoo.plugin.base.Plugin):
     """
     Used to compute line coverage.
     """
@@ -15,7 +15,7 @@ class gcovr(repairbox.plugin.base.Plugin):
         print('installed gcovr')
 
 
-    @repairbox.plugin.interface
+    @bugzoo.plugin.interface
     def coverage(self, container, test):
         container.compile(mode='coverage')
         outcome = container.execute(test)

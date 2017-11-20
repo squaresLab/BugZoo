@@ -5,9 +5,9 @@ import glob
 import copy
 
 from typing import List
-from repairbox.artefact import Artefact
-from repairbox.build import BuildInstructions
-from repairbox.source import Source, SourceManager
+from bugzoo.artefact import Artefact
+from bugzoo.build import BuildInstructions
+from bugzoo.source import Source, SourceManager
 
 
 class Dataset(Source):

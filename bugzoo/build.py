@@ -4,7 +4,7 @@ import os
 import shutil
 import typing
 import json
-import repairbox
+import bugzoo
 
 from pprint import pprint as pp
 

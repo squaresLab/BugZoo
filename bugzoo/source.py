@@ -12,11 +12,11 @@ class Source(object):
                   url: str,
                   d: dict) -> 'Source':
         if d['type'] == 'dataset':
-            import repairbox.dataset
-            return repairbox.dataset.Dataset.from_dict(manager, url, d)
+            import bugzoo.dataset
+            return bugzoo.dataset.Dataset.from_dict(manager, url, d)
         if d['type'] == 'tool':
-            import repairbox.tool
-            return repairbox.tool.Tool.from_dict(manager, url, d)
+            import bugzoo.tool
+            return bugzoo.tool.Tool.from_dict(manager, url, d)
 
         # TODO
         raise "UNEXPECTED SOURCE TYPE"
@@ -48,7 +48,7 @@ class Source(object):
 
     @property
     def manifest_fn(self) -> str:
-        return os.path.join(self.abs_path, '.repairbox.yml')
+        return os.path.join(self.abs_path, '.bugzoo.yml')
 
 
     @property
@@ -96,7 +96,7 @@ class Source(object):
 
 
 class SourceManager(object):
-    def __init__(self, installation: 'RepairBox') -> None:
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
         self.__path = os.path.join(installation.path, 'sources')
         self.__registry_fn = os.path.join(self.__path, 'registry.json')
@@ -142,7 +142,7 @@ class SourceManager(object):
     def load(self, url: str) -> Source:
         rel_path = Source.url_to_rel_path(url)
         abs_path = Source.url_to_abs_path(self, url)
-        manifest_path = os.path.join(abs_path, '.repairbox.yml')
+        manifest_path = os.path.join(abs_path, '.bugzoo.yml')
         with open(manifest_path, 'r') as f:
             yml = yaml.load(f)
         return Source.from_dict(self, url, yml)

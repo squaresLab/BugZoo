@@ -1,29 +1,29 @@
 import os
 
 from typing import Iterator
-from repairbox.source import SourceManager
-from repairbox.artefact import Artefact
-from repairbox.dataset import Dataset
-from repairbox.tool import Tool
+from bugzoo.source import SourceManager
+from bugzoo.artefact import Artefact
+from bugzoo.dataset import Dataset
+from bugzoo.tool import Tool
 
 
-class RepairBox(object):
+class BugZoo(object):
     """
-    Used to interact with and manage a local RepairBox installation.
+    Used to interact with and manage a local BugZoo installation.
     """
     def __init__(self, path=None) -> None:
         """
-        Creates a new RepairBox installation manager.
+        Creates a new BugZoo installation manager.
 
         Args:
-            path: the absolute path of a RepairBox installation on this machine.
+            path: the absolute path of a BugZoo installation on this machine.
                 If unspecified, the value of the environmental variable
                 :code:`REPAIRBOX_PATH` will be used, unless unspecified, in
-                which case :code:`./${HOME}/.repairbox` will be used instead.
+                which case :code:`./${HOME}/.bugzoo` will be used instead.
         """
         # TODO support windows
         if path is None:
-            default_path = os.path.join(os.environ.get('HOME'), '.repairbox')
+            default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
             path = os.environ.get('REPAIRBOX_PATH', default_path)
 
         # ensure dir exists
@@ -40,7 +40,7 @@ class RepairBox(object):
     @property
     def path(self) -> str:
         """
-        The absolute path to the local installation of RepairBox.
+        The absolute path to the local installation of BugZoo.
         """
         return self.__path
 
@@ -52,7 +52,7 @@ class RepairBox(object):
     @property
     def sources(self):
         """
-        The sources registered with this RepairBox installation.
+        The sources registered with this BugZoo installation.
         """
         return self.__sources
 
@@ -60,7 +60,7 @@ class RepairBox(object):
     @property
     def datasets(self):
         """
-        The datasets registered with this RepairBox installation.
+        The datasets registered with this BugZoo installation.
         """
         return self.__datasets
 
@@ -68,7 +68,7 @@ class RepairBox(object):
     @property
     def tools(self):
         """
-        The tools registered with this RepairBox installation.
+        The tools registered with this BugZoo installation.
         """
         return self.__tools
 
@@ -76,13 +76,13 @@ class RepairBox(object):
     @property
     def artefacts(self):
         """
-        The artefacts registered with this RepairBox installation.
+        The artefacts registered with this BugZoo installation.
         """
         return self.__artefacts
 
 
 class Tools(object):
-    def __init__(self, installation: 'RepairBox') -> None:
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
 
 
@@ -100,7 +100,7 @@ class Tools(object):
 
 
 class Datasets(object):
-    def __init__(self, installation: 'RepairBox') -> None:
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
 
 
@@ -119,7 +119,7 @@ class Datasets(object):
 
 class Artefacts(object):
     """
-    Used to access and manage all artefacts registered with a local RepairBox
+    Used to access and manage all artefacts registered with a local BugZoo
     installation.
     """
     class ArtefactIterator(object):
@@ -138,7 +138,7 @@ class Artefacts(object):
             return self.__artefacts.pop()
 
 
-    def __init__(self, installation: 'RepairBox') -> None:
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
 
 

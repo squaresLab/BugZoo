@@ -4,8 +4,8 @@ import docker
 import os
 
 from typing import Dict
-from repairbox.source import Source
-from repairbox.build import BuildInstructions
+from bugzoo.source import Source
+from bugzoo.build import BuildInstructions
 
 
 class Tool(Source):

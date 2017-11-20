@@ -4,14 +4,14 @@ import sys
 import os
 import subprocess
 import tempfile
-import repairbox
-import repairbox.spectra
+import bugzoo
+import bugzoo.spectra
 
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
-from repairbox.test import TestOutcome, TestCase
-from repairbox.patch import Patch
-from repairbox.tool import Tool
+from bugzoo.test import TestOutcome, TestCase
+from bugzoo.patch import Patch
+from bugzoo.tool import Tool
 
 
 class CompilationOutcome(object):
@@ -90,7 +90,7 @@ class Container(object):
     containers are implemented as `Docker containers <https://docker.com>`_.
     """
     def __init__(self,
-                 artefact: str = 'repairbox.artefact.Artefact',
+                 artefact: str = 'bugzoo.artefact.Artefact',
                  tools : List[Tool] = [],
                  volumes : Dict[str, str] = {},
                  network_mode : str = 'bridge',
@@ -144,7 +144,7 @@ class Container(object):
 
 
     @property
-    def artefact(self) -> 'repairbox.artefact.Artefact':
+    def artefact(self) -> 'bugzoo.artefact.Artefact':
         """
         The artefact that was used to provision this container.
         """
@@ -229,7 +229,7 @@ class Container(object):
         pass
 
 
-    def spectra(self) -> 'repairbox.spectra.Spectra':
+    def spectra(self) -> 'bugzoo.spectra.Spectra':
         """
         Computes and returns the spectra for this artefact.
         """

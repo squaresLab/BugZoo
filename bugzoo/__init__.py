@@ -1,6 +1,6 @@
-from repairbox.manager import RepairBox
-import repairbox.cli
-import repairbox.tool
+from bugzoo.manager import BugZoo
+import bugzoo.cli
+import bugzoo.tool
 
-from repairbox.patch import Patch
-from repairbox.artefact import Artefact
+from bugzoo.patch import Patch
+from bugzoo.artefact import Artefact

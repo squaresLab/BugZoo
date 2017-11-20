@@ -3,12 +3,12 @@ import tabulate
 
 from typing import List
 from operator import itemgetter
-from repairbox.manager import RepairBox
+from bugzoo.manager import BugZoo
 
 
-def list_sources(rbox: 'RepairBox') -> None:
+def list_sources(rbox: 'BugZoo') -> None:
     """
-    Produces a list of all the sources known to RepairBox.
+    Produces a list of all the sources known to BugZoo.
     """
     hdrs = ['Source', 'URL', 'Version']
     tbl = []
@@ -21,17 +21,17 @@ def list_sources(rbox: 'RepairBox') -> None:
     print(tbl)
 
 
-def add_source(rbox: 'RepairBox', src: str) -> None:
+def add_source(rbox: 'BugZoo', src: str) -> None:
     rbox.sources.add(src)
     print('added dataset: {}'.format(src))
 
 
-def remove_source(rbox: 'RepairBox', name: str) -> None:
+def remove_source(rbox: 'BugZoo', name: str) -> None:
     rbox.sources.remove_by_name(name)
     print('removed source: {}'.format(name))
 
 
-def update_sources(rbox: 'RepairBox', ) -> None:
+def update_sources(rbox: 'BugZoo', ) -> None:
     print('updating sources...')
     rbox.sources.update()
 
@@ -41,7 +41,7 @@ def update_sources(rbox: 'RepairBox', ) -> None:
 ###############################################################################
 
 
-def validate_artefact(rbox: 'RepairBox', name: str, verbose: bool = True) -> None:
+def validate_artefact(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
     print('validating artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     if artefact.validate(verbose=verbose):
@@ -50,31 +50,31 @@ def validate_artefact(rbox: 'RepairBox', name: str, verbose: bool = True) -> Non
         print('FAIL')
 
 
-def install_artefact(rbox: 'RepairBox', name: str, update: bool) -> None:
+def install_artefact(rbox: 'BugZoo', name: str, update: bool) -> None:
     print('installing artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     artefact.install(upgrade=update)
 
 
-def build_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
+def build_artefact(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     artefact.build(force=force)
 
 
-def download_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
+def download_artefact(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('downloading artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     artefact.download(force=force)
 
 
-def upload_artefact(rbox: 'RepairBox', name: str) -> None:
+def upload_artefact(rbox: 'BugZoo', name: str) -> None:
     print('uploading artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     artefact.upload()
 
 
-def uninstall_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
+def uninstall_artefact(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling artefact: {}'.format(name))
     artefact = rbox.artefacts[name]
     artefact.uninstall(force=force)
@@ -84,34 +84,34 @@ def uninstall_artefact(rbox: 'RepairBox', name: str, force: bool) -> None:
 # [tool] group
 ###############################################################################
 
-def install_tool(rbox: 'RepairBox', name: str, update: bool) -> None:
+def install_tool(rbox: 'BugZoo', name: str, update: bool) -> None:
     print('installing tool: {}'.format(name))
     t = rbox.tools[name]
     t.install(upgrade=update)
 
 
-def uninstall_tool(rbox: 'RepairBox', name: str, force: bool) -> None:
+def uninstall_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling tool: {}'.format(name))
     rbox.tools[name].uninstall(force=force)
 
 
-def build_tool(rbox: 'RepairBox', name: str, force: bool) -> None:
+def build_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building tool: {}'.format(name))
     rbox.tools[name].build(force=force)
 
 
-def download_tool(rbox: 'RepairBox', name: str, force: bool) -> None:
+def download_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('downloading tool: {}'.format(name))
     rbox.tools[name].download(force=force)
 
 
-def upload_tool(rbox: 'RepairBox', name: str) -> None:
+def upload_tool(rbox: 'BugZoo', name: str) -> None:
     print('uploading tool: {}'.format(name))
     rbox.tools[name].upload()
 
 
 # TODO: tidy up copypasta
-def list_tools(rbox: 'RepairBox', show_installed=None) -> None:
+def list_tools(rbox: 'BugZoo', show_installed=None) -> None:
     tbl = []
     hdrs = ['Tool', 'Source', 'Installed?']
     for tool in rbox.tools:
@@ -139,7 +139,7 @@ def list_tools(rbox: 'RepairBox', show_installed=None) -> None:
 ###############################################################################
 
 
-def launch(rbox: 'RepairBox', name: str, tools: List[str] = []) -> None:
+def launch(rbox: 'BugZoo', name: str, tools: List[str] = []) -> None:
     artefact = rbox.artefacts[name]
     artefact.install()
     tools = [rbox.tools[t] for t in tools]
@@ -152,7 +152,7 @@ def launch(rbox: 'RepairBox', name: str, tools: List[str] = []) -> None:
             c.destroy()
 
 
-def list_artefacts(rbox: 'RepairBox', show_installed=None) -> None:
+def list_artefacts(rbox: 'BugZoo', show_installed=None) -> None:
     tbl = []
     hdrs = ['Artefact', 'Source', 'Installed?']
     for artefact in rbox.artefacts:
@@ -178,7 +178,7 @@ def list_artefacts(rbox: 'RepairBox', show_installed=None) -> None:
 def main():
     #with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
     #    desc = f.read()
-    rbox = RepairBox()
+    rbox = BugZoo()
 
     desc = ':-)'
     parser = argparse.ArgumentParser(description=desc,

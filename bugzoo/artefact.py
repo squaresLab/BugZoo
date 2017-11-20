@@ -3,15 +3,15 @@ import yaml
 import docker
 import copy
 import textwrap
-import repairbox
-import repairbox.test
+import bugzoo
+import bugzoo.test
 
 from typing import List, Iterator, Dict
-from repairbox.util import print_task_start, print_task_end
-from repairbox.build import BuildInstructions
-from repairbox.container import Container
-from repairbox.test import TestSuite
-from repairbox.tool import Tool
+from bugzoo.util import print_task_start, print_task_end
+from bugzoo.build import BuildInstructions
+from bugzoo.container import Container
+from bugzoo.test import TestSuite
+from bugzoo.tool import Tool
 
 
 class CompilationInstructions(object):
@@ -49,11 +49,11 @@ class Artefact(object):
 
     .. code-block:: python
 
-        rbox = RepairBox()
+        rbox = BugZoo()
         artefact = rbox.artefacts['manybugs:python:69223-69224']
     """
     @staticmethod
-    def from_file(dataset: 'repairbox.manager.Dataset',
+    def from_file(dataset: 'bugzoo.manager.Dataset',
                   fn: str) -> 'Artefact':
         """
         Loads an artefact from its YAML manifest file.
@@ -91,7 +91,7 @@ class Artefact(object):
 
 
     def __init__(self,
-                 dataset: 'repairbox.manager.Dataset',
+                 dataset: 'bugzoo.manager.Dataset',
                  name: str,
                  program: str,
                  harness: TestSuite,
@@ -213,7 +213,7 @@ class Artefact(object):
             c.compile()
             print_task_end('Compiling', 'OK')
 
-            if isinstance(self.harness, repairbox.test.GenProgTestSuite):
+            if isinstance(self.harness, bugzoo.test.GenProgTestSuite):
 
                 for t in self.harness.passing:
                     task = 'Running test: {}'.format(t.identifier)

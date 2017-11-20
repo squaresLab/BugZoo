@@ -25,7 +25,7 @@ class TestCase(object):
 
         .. code-block:: python
 
-            rbox = RepairBox()
+            rbox = BugZoo()
             artefact = rbox.artefacts['manybugs:python:69223-69224']
             for test in artefact.tests:
                 print(test)
