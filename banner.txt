@@ -1,16 +1,18 @@
-______                 _     ______           
-| ___ \               (_)    | ___ \          
-| |_/ /___ _ __   __ _ _ _ __| |_/ / _____  __
-|    // _ \ '_ \ / _` | | '__| ___ \/ _ \ \/ /
-| |\ \  __/ |_) | (_| | | |  | |_/ / (_) >  < 
-\_| \_\___| .__/ \__,_|_|_|  \____/ \___/_/\_\
-          | |                                 
-          |_|                                 
+  o__ __o                             _\__o__ __o/                           
+ <|     v\                                 v    |/                           
+ / \     <\                                    /                             
+ \o/     o/   o       o     o__ __o/         o/       o__ __o      o__ __o   
+  |__  _<|   <|>     <|>   /v     |         /v       /v     v\    /v     v\  
+  |       \  < >     < >  />     / \       />       />       <\  />       <\ 
+ <o>      /   |       |   \      \o/     o/         \         /  \         / 
+  |      o    o       o    o      |     /v           o       o    o       o  
+ / \  __/>    <\__ __/>    <\__  < >   />  _\o__/_   <\__ __/>    <\__ __/>  
+                                  |                                          
+                          o__     o                                          
+                          <\__ __/>                                          
 
 
-A platform for reproducible empirical studies of program repair
+A platform for reproducible studies of software versions
 
-
-Download at: https://github.com/squaresLab/RepairBox
-
-
+URL: 	https://github.com/squaresLab/BugZoo
+Docs: 	https://squareslab.github.io/BugZoo

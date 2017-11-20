@@ -1,10 +1,10 @@
-# RepairBox
+# BugZoo
 
- [![Join the chat at https://gitter.im/RepairBox/Lobby](https://badges.gitter.im/RepairBox/Lobby.svg)](https://gitter.im/RepairBox/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
- [![Build Status](https://travis-ci.org/squaresLab/RepairBox.svg?branch=master)](https://travis-ci.org/squaresLab/RepairBox)
+ [![Join the chat at https://gitter.im/BugZoo/Lobby](https://badges.gitter.im/BugZoo/Lobby.svg)](https://gitter.im/BugZoo/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+ [![Build Status](https://travis-ci.org/squaresLab/BugZoo.svg?branch=master)](https://travis-ci.org/squaresLab/BugZoo)
 
-RepairBox is an ongoing effort to provide a series of controlled environments
-for performing experiments on automated program repair of C programs. RepairBox
+BugZoo is an ongoing effort to provide a series of controlled environments
+for performing experiments on automated program repair of C programs. BugZoo
 provides a number of bug scenarios, adapted from existing publicly-available
 datasets, including [ManyBugs](http://repairbenchmarks.cs.umass.edu/),
 [GenProg's earlier benchmarks](http://dijkstra.cs.virginia.edu/genprog/), and
@@ -12,10 +12,10 @@ several datasets from the
 [Software Infrastructure Repository](http://sir.unl.edu/).
 
 As well as providing the files necessary to study each bug,
-RepairBox also provides a minimal, isolated environment for execution, in the
+BugZoo also provides a minimal, isolated environment for execution, in the
 form of an accompanying Docker container. By providing a container for
 each bug, rather than a single, monolithic virtual machine for a group of bugs,
-RepairBox incurs fewer overheads (resulting in a much higher performance, crucial
+BugZoo incurs fewer overheads (resulting in a much higher performance, crucial
 for rigorous experimental trials), makes dependencies easier to manage, and
 results in a smaller disk footprint.
 
@@ -25,18 +25,18 @@ referred to
 
 ## Installation
 
-To install the RepairBox platform, we advise that
+To install the BugZoo platform, we advise that
 users produce a shallow clone of this repository using the command below:
 
 ```
-$ git clone git://github.com/squaresLab/RepairBox --depth 1
+$ git clone git://github.com/squaresLab/BugZoo --depth 1
 $ python3 setup.py install
 ```
 
 ## Known Sources
 
 Below is a list of sources that are known to provide datasets or tools that
-are compatible with the RepairBox platform.
+are compatible with the BugZoo platform.
 
 * [ManyBugs](https://github.com/ChrisTimperley/ManyBugs)
 * [GenProg*](https://bitbucket.org/ChrisTimperley/GP3)
@@ -44,5 +44,5 @@ are compatible with the RepairBox platform.
 To add one of these sources, simply execute the following from the command line:
 
 ```
-repairbox source add https://github.com/ChrisTimperley/ManyBugs
+bugzoo source add https://github.com/ChrisTimperley/ManyBugs
 ```

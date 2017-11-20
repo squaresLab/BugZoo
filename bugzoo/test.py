@@ -25,9 +25,9 @@ class TestCase(object):
 
         .. code-block:: python
 
-            rbox = RepairBox()
-            artefact = rbox.artefacts['manybugs:python:69223-69224']
-            for test in artefact.tests:
+            rbox = BugZoo()
+            bug = rbox.bugs['manybugs:python:69223-69224']
+            for test in bug.tests:
                 print(test)
         """
         return "Test[{}]".format(self.__identifier)
@@ -189,7 +189,7 @@ class GenProgTestSuite(SimpleTestSuite):
     @property
     def passing(self) -> Iterator[TestCase]:
         """
-        The test cases that were passed by the original, unmodified artefact.
+        The test cases that were passed by the original, unmodified bug.
         """
         for t in self.__passing:
             yield t
@@ -198,7 +198,7 @@ class GenProgTestSuite(SimpleTestSuite):
     @property
     def failing(self) -> Iterator[TestCase]:
         """
-        The test cases that were failed by the original, unmodified artefact.
+        The test cases that were failed by the original, unmodified bug.
         """
         for t in self.__failing:
             yield t

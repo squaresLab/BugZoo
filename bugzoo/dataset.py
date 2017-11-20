@@ -5,9 +5,9 @@ import glob
 import copy
 
 from typing import List
-from repairbox.artefact import Artefact
-from repairbox.build import BuildInstructions
-from repairbox.source import Source, SourceManager
+from bugzoo.bug import Bug
+from bugzoo.build import BuildInstructions
+from bugzoo.source import Source, SourceManager
 
 
 class Dataset(Source):
@@ -22,7 +22,7 @@ class Dataset(Source):
 
     def __init__(self, manager: 'DatasetManager', url: str, name: str) -> None:
         super().__init__(manager, url, name)
-        self.__artefacts = {}
+        self.__bugs = {}
         self.__dependencies = {}
         self.scan()
 
@@ -35,11 +35,11 @@ class Dataset(Source):
             self.__dependencies[dep.tag] = dep
 
 
-        # find all artefacts
-        fns = '{}/**/*.artefact.yaml'.format(self.abs_path)
+        # find all bugs
+        fns = '{}/**/*.bug.yaml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            artefact = Artefact.from_file(self, fn)
-            self.__artefacts[artefact.identifier] = artefact
+            bug = Bug.from_file(self, fn)
+            self.__bugs[bug.identifier] = bug
 
 
     def update(self) -> None:
@@ -55,8 +55,8 @@ class Dataset(Source):
         Removes the files for this dataset from disk, and uninstalls all
         associated Docker images. This should only be called by DatasetManager.
         """
-        for artefact in self.artefacts:
-            artefact.uninstall(force=True)
+        for bug in self.bugs:
+            bug.uninstall(force=True)
 
         for dep in self.__dependencies.values():
             dep.uninstall(force=True)
@@ -66,20 +66,20 @@ class Dataset(Source):
 
     def contains(self, identifier: str) -> None:
         """
-        Checks whether an artefact with a given identifier is provided by this
+        Checks whether an bug with a given identifier is provided by this
         dataset.
         """
-        return identifier in self.__artefacts
+        return identifier in self.__bugs
 
 
     def __getitem__(self, key):
-        return self.__artefacts[key]
+        return self.__bugs[key]
 
 
     # TODO: return iterator
     @property
-    def artefacts(self) -> List[Artefact]:
-        return list(self.__artefacts.values())
+    def bugs(self) -> List[Bug]:
+        return list(self.__bugs.values())
 
 
     # TODO: return iterator

@@ -4,14 +4,14 @@ import sys
 import os
 import subprocess
 import tempfile
-import repairbox
-import repairbox.spectra
+import bugzoo
+import bugzoo.spectra
 
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
-from repairbox.test import TestOutcome, TestCase
-from repairbox.patch import Patch
-from repairbox.tool import Tool
+from bugzoo.test import TestOutcome, TestCase
+from bugzoo.patch import Patch
+from bugzoo.tool import Tool
 
 
 class CompilationOutcome(object):
@@ -85,21 +85,21 @@ class ExecResponse(object):
 
 class Container(object):
     """
-    Containers provide ephemeral, mutable instances of registered artefacts,
-    and are used to conduct studies of software artefacts. Behind the scenes,
+    Containers provide ephemeral, mutable instances of registered bugs,
+    and are used to conduct studies of software bugs. Behind the scenes,
     containers are implemented as `Docker containers <https://docker.com>`_.
     """
     def __init__(self,
-                 artefact: str = 'repairbox.artefact.Artefact',
+                 bug: str = 'bugzoo.bug.Bug',
                  tools : List[Tool] = [],
                  volumes : Dict[str, str] = {},
                  network_mode : str = 'bridge',
                  ports={},
                  interactive=False) -> None:
         """
-        Constructs a container for a given artefact.
+        Constructs a container for a given bug.
         """
-        self.__artefact = artefact
+        self.__bug = bug
         self.__tools = tools
         self.__tool_containers = [t.provision() for t in tools]
         tool_container_ids = [c.id for c in self.__tool_containers]
@@ -119,10 +119,10 @@ class Container(object):
         volumes[self.__env_file.name] = \
             {'bind': '/.environment', 'mode': 'rw'}
 
-        # construct a Docker container for this artefact
+        # construct a Docker container for this bug
         client = docker.from_env()
         self.__container = \
-            client.containers.create(artefact.image,
+            client.containers.create(bug.image,
                                      '/bin/bash -v -c "source /.environment && /bin/bash"',
                                      volumes=volumes,
                                      volumes_from=tool_container_ids,
@@ -144,11 +144,11 @@ class Container(object):
 
 
     @property
-    def artefact(self) -> 'repairbox.artefact.Artefact':
+    def bug(self) -> 'bugzoo.bug.Bug':
         """
-        The artefact that was used to provision this container.
+        The bug that was used to provision this container.
         """
-        return self.__artefact
+        return self.__bug
 
 
     @property
@@ -229,9 +229,9 @@ class Container(object):
         pass
 
 
-    def spectra(self) -> 'repairbox.spectra.Spectra':
+    def spectra(self) -> 'bugzoo.spectra.Spectra':
         """
-        Computes and returns the spectra for this artefact.
+        Computes and returns the spectra for this bug.
         """
         pass
 
@@ -287,10 +287,10 @@ class Container(object):
 
         cmd = ({'coverage': 'make -j8 CFLAGS="-fprofile-arcs -ftest-coverage -fPIC"',
                 'default': 'make -j8'})[mode]
-        # cmd = self.artefact.compilation_instructions.command
+        # cmd = self.bug.compilation_instructions.command
 
         return self.command(cmd,
-                                    context=self.artefact.compilation_instructions.context,
+                                    context=self.bug.compilation_instructions.context,
                                     stderr=True)
 
 
@@ -299,7 +299,7 @@ class Container(object):
         Executes a given test inside this container and returns the outcome of
         the execution.
         """
-        (cmd, ctx) = self.artefact.harness.command(test)
+        (cmd, ctx) = self.bug.harness.command(test)
         response = self.command(cmd, ctx, stderr=True)
         passed = response.code == 0
         return TestOutcome(response, passed, response.duration)

@@ -1,29 +1,29 @@
 import os
 
 from typing import Iterator
-from repairbox.source import SourceManager
-from repairbox.artefact import Artefact
-from repairbox.dataset import Dataset
-from repairbox.tool import Tool
+from bugzoo.source import SourceManager
+from bugzoo.bug import Bug
+from bugzoo.dataset import Dataset
+from bugzoo.tool import Tool
 
 
-class RepairBox(object):
+class BugZoo(object):
     """
-    Used to interact with and manage a local RepairBox installation.
+    Used to interact with and manage a local BugZoo installation.
     """
     def __init__(self, path=None) -> None:
         """
-        Creates a new RepairBox installation manager.
+        Creates a new BugZoo installation manager.
 
         Args:
-            path: the absolute path of a RepairBox installation on this machine.
+            path: the absolute path of a BugZoo installation on this machine.
                 If unspecified, the value of the environmental variable
                 :code:`REPAIRBOX_PATH` will be used, unless unspecified, in
-                which case :code:`./${HOME}/.repairbox` will be used instead.
+                which case :code:`./${HOME}/.bugzoo` will be used instead.
         """
         # TODO support windows
         if path is None:
-            default_path = os.path.join(os.environ.get('HOME'), '.repairbox')
+            default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
             path = os.environ.get('REPAIRBOX_PATH', default_path)
 
         # ensure dir exists
@@ -33,14 +33,14 @@ class RepairBox(object):
         self.__path = path
         self.__sources = SourceManager(self)
         self.__datasets = Datasets(self)
-        self.__artefacts = Artefacts(self)
+        self.__bugs = Bugs(self)
         self.__tools = Tools(self)
 
 
     @property
     def path(self) -> str:
         """
-        The absolute path to the local installation of RepairBox.
+        The absolute path to the local installation of BugZoo.
         """
         return self.__path
 
@@ -52,7 +52,7 @@ class RepairBox(object):
     @property
     def sources(self):
         """
-        The sources registered with this RepairBox installation.
+        The sources registered with this BugZoo installation.
         """
         return self.__sources
 
@@ -60,7 +60,7 @@ class RepairBox(object):
     @property
     def datasets(self):
         """
-        The datasets registered with this RepairBox installation.
+        The datasets registered with this BugZoo installation.
         """
         return self.__datasets
 
@@ -68,21 +68,21 @@ class RepairBox(object):
     @property
     def tools(self):
         """
-        The tools registered with this RepairBox installation.
+        The tools registered with this BugZoo installation.
         """
         return self.__tools
 
 
     @property
-    def artefacts(self):
+    def bugs(self):
         """
-        The artefacts registered with this RepairBox installation.
+        The bugs registered with this BugZoo installation.
         """
-        return self.__artefacts
+        return self.__bugs
 
 
 class Tools(object):
-    def __init__(self, installation: 'RepairBox') -> None:
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
 
 
@@ -100,7 +100,7 @@ class Tools(object):
 
 
 class Datasets(object):
-    def __init__(self, installation: 'RepairBox') -> None:
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
 
 
@@ -117,37 +117,37 @@ class Datasets(object):
         raise IndexError
 
 
-class Artefacts(object):
+class Bugs(object):
     """
-    Used to access and manage all artefacts registered with a local RepairBox
+    Used to access and manage all bugs registered with a local BugZoo
     installation.
     """
-    class ArtefactIterator(object):
+    class BugIterator(object):
         def __init__(self, datasets):
             self.__datasets = [d for d in datasets]
-            self.__artefacts = []
+            self.__bugs = []
 
 
         def __next__(self):
-            if not self.__artefacts:
+            if not self.__bugs:
                 if not self.__datasets:
                     raise StopIteration
                 src = self.__datasets.pop()
-                self.__artefacts += src.artefacts
+                self.__bugs += src.bugs
                 return self.__next__()
-            return self.__artefacts.pop()
+            return self.__bugs.pop()
 
 
-    def __init__(self, installation: 'RepairBox') -> None:
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
 
 
-    def __getitem__(self, name: str) -> Artefact:
+    def __getitem__(self, name: str) -> Bug:
         for src in self.__installation.datasets:
             if src.contains(name):
                 return src[name]
-        raise IndexError('artefact not found: {}'.format(name))
+        raise IndexError('bug not found: {}'.format(name))
 
 
     def __iter__(self):
-        return Artefacts.ArtefactIterator(self.__installation.datasets)
+        return Bugs.BugIterator(self.__installation.datasets)
