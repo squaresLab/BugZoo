@@ -18,7 +18,7 @@ script:
   - bugzoo container -h
   - bugzoo tool list
   - bugzoo source list
-  - bugzoo artefact list
+  - bugzoo bug list
 
 before_deploy:
   - (cd docs && make html && cd _build/html && touch .nojekyll)
