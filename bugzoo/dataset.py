@@ -36,7 +36,7 @@ class Dataset(Source):
 
 
         # find all bugs
-        fns = '{}/**/*.bug.yaml'.format(self.abs_path)
+        fns = '{}/**/*.bug.yml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
             bug = Bug.from_file(self, fn)
             self.__bugs[bug.identifier] = bug
