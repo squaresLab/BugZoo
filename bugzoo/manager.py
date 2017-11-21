@@ -24,7 +24,7 @@ class BugZoo(object):
         # TODO support windows
         if path is None:
             default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
-            path = os.environ.get('REPAIRBOX_PATH', default_path)
+            path = os.environ.get('BUGZOO_PATH', default_path)
 
         # ensure dir exists
         if not os.path.exists(path):
