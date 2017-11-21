@@ -175,8 +175,14 @@ class BuildInstructions(object):
         try:
             out = client.images.push(self.tag, stream=True)
             for line in out:
-                line = line.strip()
-                print(line)
+                line = line.strip().decode('utf-8')
+                jsn = json.loads(line)
+                if 'progress' in jsn:
+                    line = "{}. {}.".format(jsn['status'], jsn['progress'])
+                    print(line, end='\r')
+                elif 'status' in jsn:
+                    print(jsn['status'])
+            print('uploaded image to DockerHub: {}'.format(self.tag))
             return True
         except docker.errors.NotFound:
             print("Failed to push image ({}): not installed.".format(self.tag))
