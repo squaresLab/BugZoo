@@ -1,6 +1,6 @@
 Coverage
 ========
-.. py:module:: repairbox.coverage
+.. py:module:: bugzoo.coverage
 
 
 Coverage API

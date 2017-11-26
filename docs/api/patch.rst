@@ -1,6 +1,6 @@
 Patch
 =====
-.. py:module:: repairbox.patch
+.. py:module:: bugzoo.patch
 
 
 Patch reference

@@ -1,11 +1,11 @@
-RepairBox
-=========
-.. py:module:: repairbox.manager
+BugZoo
+======
+.. py:module:: bugzoo.manager
 
 API Reference
 -------------
 
-.. autoclass:: RepairBox()
+.. autoclass:: BugZoo()
 
   .. automethod:: __init__
 
