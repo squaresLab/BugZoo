@@ -103,10 +103,10 @@ html_theme = 'alabaster'
 #
 # http://alabaster.readthedocs.io/en/latest/customization.html
 html_theme_options = {
-    'description': 'A Python-based framework for conducting high-quality empirical studies of software artefacts.',
+    'description': 'A Python framework for studying historical software faults.',
     'fixed_sidebar': True,
     'github_user': 'squaresLab',
-    'github_repo': 'RepairBox',
+    'github_repo': 'BugZoo',
     'github_type': 'star'
 }
 
@@ -159,7 +159,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'repairbox.tex', 'repairbox Documentation',
+    (master_doc, 'bugzoo.tex', 'bugzoo Documentation',
      'Author', 'manual'),
 ]
 
@@ -169,7 +169,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'repairbox', 'repairbox Documentation',
+    (master_doc, 'bugzoo', 'bugzoo Documentation',
      [author], 1)
 ]
 
@@ -180,8 +180,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'repairbox', 'repairbox Documentation',
-     author, 'repairbox', 'One line description of project.',
+    (master_doc, 'bugzoo', 'bugzoo Documentation',
+     author, 'bugzoo', 'One line description of project.',
      'Miscellaneous'),
 ]
 
