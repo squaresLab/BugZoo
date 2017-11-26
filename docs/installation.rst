@@ -16,7 +16,7 @@ by cloning the BugZoo repository and executing `setup.py`, shown below.
 
 .. code-block:: bash
 
-  $ git clone https://github.com/squaresLab/RepairBox
+  $ git clone https://github.com/squaresLab/BugZoo
   $ cd BugZoo
   $ python3 setup.py install
 
@@ -27,7 +27,7 @@ produce a shallow clone containing the *n* most recent commits.
 
 .. code-block:: bash
 
-  $ git clone https://github.com/squaresLab/RepairBox --depth 50
+  $ git clone https://github.com/squaresLab/BugZoo --depth 50
 
 
 Requirements
