@@ -54,7 +54,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'repairbox'
+project = 'BugZoo'
 year = datetime.datetime.now().year
 copyright = '{}, Christopher Steven Timperley'.format(year)
 author = 'Christopher Steven Timperley'
