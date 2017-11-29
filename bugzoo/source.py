@@ -156,7 +156,7 @@ class SourceManager(object):
             raise bugzoo.errors.SourceAlreadyRegisteredWithURL(url)
 
         src = self.__download(url)
-        self.__sources[src.url] = src.rel_path
+        self.__sources[src.url] = src
         self.__write()
         return src
 
