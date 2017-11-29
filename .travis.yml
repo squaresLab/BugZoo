@@ -1,5 +1,10 @@
 language: python
 
+sudo: required
+
+services:
+  - docker
+
 python:
   - "3.5"
   - "3.6"
@@ -11,6 +16,15 @@ install:
 
 # TODO: replace this with a bonafide test suite
 script:
+  - bugzoo -h
+  - bugzoo tool -h
+  - bugzoo source -h
+  - bugzoo bug -h
+  - bugzoo container -h
+  - bugzoo tool list
+  - bugzoo source list
+  - bugzoo bug list
+  - bugzoo dataset list
   - python3 test/test_manybugs.py
 
 before_deploy:
