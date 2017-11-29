@@ -46,7 +46,7 @@ class BugZoo(object):
 
 
     def rescan(self):
-        print("rescanning...")
+        self.__sources.scan()
 
 
     @property
