@@ -5,7 +5,7 @@ API Reference
   :maxdepth: 1
 
   api/bugzoo
-  api/artefact
+  api/bug
   api/container
   api/test
   api/patch

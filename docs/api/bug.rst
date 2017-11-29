@@ -1,11 +1,11 @@
-Artefact
-========
-.. py:module:: repairbox.artefact
+Bug
+===
+.. py:module:: repairbox.bug
 
 
 Artefacts are used to provide a snapshot of a given piece of
 software at a fixed point in time (e.g., a tagged release, a version-control
-revision). Outside of RepairBox, artefacts are sometimes referred to as
+revision). Outside of BugZoo, artefacts are sometimes referred to as
 software objects (see Software-artifact Infrastructure Repository [X]), or
 program versions (see XYZ).
 
@@ -15,16 +15,16 @@ a program (i.e., bugs). For other purposes, such as studies on
 (non-functional) performance, artefacts needn't represent a version of the
 program that is known to buggy.
 
-Artefacts are provided as lightweight, immutable
-`Docker <https://www.docker.com>`_ container images. To interact with an
-artefact, users' must provision an ephemeral `container <container.html>`_
-using the artefact's :code:`provision` method.
+Bugs are provided as lightweight, immutable
+`Docker <https://www.docker.com>`_ container images. To interact with a
+bug, users' must provision an ephemeral `container <container.html>`_
+using the bug's :code:`provision` method.
 
 
 API Reference
 -------------
 
-.. autoclass:: Artefact()
+.. autoclass:: Bug()
 
   .. autoattribute:: identifier
   .. autoattribute:: image
