@@ -27,12 +27,15 @@ def add_source(rbox: 'BugZoo', url: str) -> None:
         rbox.sources.add(url)
         print('added source: {}'.format(url))
     except bugzoo.errors.SourceAlreadyRegisteredWithURL:
-        print('source already registered with given URL ({}).'.format(url))
+        print('source already registered with URL: {}'.format(url))
 
 
-def remove_source(rbox: 'BugZoo', name: str) -> None:
-    rbox.sources.remove_by_name(name)
-    print('removed source: {}'.format(name))
+def remove_source(rbox: 'BugZoo', url: str) -> None:
+    try:
+        rbox.sources.remove_by_url(url)
+        print('removed source: {}'.format(url))
+    except bugzoo.errors.SourceNotFoundWithURL(url):
+        print("no source registered with URL: {}".format(url))
 
 
 def update_sources(rbox: 'BugZoo', ) -> None:
@@ -220,12 +223,12 @@ def build_parser():
     cmd = g_subparsers.add_parser('list')
     cmd.set_defaults(func=lambda args: list_sources(rbox))
 
-    # [source add :dataset]
+    # [source add :url]
     cmd = g_subparsers.add_parser('add')
     cmd.add_argument('source')
     cmd.set_defaults(func=lambda args: add_source(rbox, args.source))
 
-    # [source remove :dataset]
+    # [source remove :url]
     cmd = g_subparsers.add_parser('remove')
     cmd.add_argument('source')
     cmd.set_defaults(func=lambda args: remove_source(rbox, args.source))
