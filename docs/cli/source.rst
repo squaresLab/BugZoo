@@ -3,7 +3,7 @@
 
 The `source` commands are used to add, remove, and list *sources* that are
 known to BugZoo. Sources are used to represent remote Git repositories
-that are responsible for providing a particular dataset of artefacts, or
+that are responsible for providing a particular dataset of bugs, or
 a tool that is compatible with the BugZoo platform.
 
 
@@ -52,7 +52,7 @@ be registered with the machine, allowing it to be installed and executed.
 ---------------------
 
 Deregisters a source, given by the URL of its remote Git repository, with the
-local machine. After executing this command, the dataset of artefacts or the
+local machine. After executing this command, the dataset of bugs or the
 tool associated with the source will be uninstalled and delisted.
 
 .. code-block:: bash
@@ -66,8 +66,8 @@ tool associated with the source will be uninstalled and delisted.
 ---------------------
 
 This command can be used to update the files used to specify and construct the
-the artefacts or tool, provided by their associated sources, as shown below.
-Note that this command does not attempt to install/rebuild the artefacts
+the bugs or tool, provided by their associated sources, as shown below.
+Note that this command does not attempt to install/rebuild the bugs
 or tool associated with each source -- it is the user's responsibility to call
 `tool install` or `artefact install` where appropriate.
 
