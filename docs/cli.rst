@@ -8,7 +8,7 @@ list of available commands and to view concise descriptions for them.
 .. toctree::
   :maxdepth: 1
 
-  cli/artefact
+  cli/bug
   cli/tool
   cli/container
   cli/source
