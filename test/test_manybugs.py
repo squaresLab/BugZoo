@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import unittest
 import bugzoo.cli
+import bugzoo
+
 
 class CLITestCase(unittest.TestCase):
     @classmethod
@@ -14,8 +16,20 @@ class CLITestCase(unittest.TestCase):
 
 class ManyBugsTestCase(CLITestCase):
     def test_add_source(self):
-        self.run_command(['source', 'add', 'https://github.com/ChrisTimperley/ManyBugs'])
-        self.assertTrue(True)
+        manybugs_url = 'https://github.com/ChrisTimperley/ManyBugs'
+
+        # attempt to install ManyBugs
+        self.run_command(['source', 'add', manybugs_url])
+
+        # check that the source has been registered
+        bz = bugzoo.BugZoo()
+        try:
+            bz.sources.get_by_url(manybugs_url)
+        except:
+            self.fail("Failed to find registered source.")
+
+        # remove the source
+        self.run_command(['source', 'remove', manybugs_url])
 
 
 if __name__ == '__main__':
