@@ -1,4 +1,4 @@
-class SourceNotFoundWithURL(Exception):
+class SourceNotFoundWithURL(BaseException):
     """
     Indicates that no source has been found that matches a provided URL.
     """
@@ -12,7 +12,7 @@ class SourceNotFoundWithURL(Exception):
         return self.__url
 
 
-class SourceNotFoundWithName(Exception):
+class SourceNotFoundWithName(BaseException):
     """
     Indicates that there exists no source registered with a given name.
     """
@@ -26,7 +26,7 @@ class SourceNotFoundWithName(Exception):
         return self.__name
 
 
-class SourceAlreadyRegisteredWithURL(Exception):
+class SourceAlreadyRegisteredWithURL(BaseException):
     """
     Indicates that there exists a source that is already registered with a
     given URL.

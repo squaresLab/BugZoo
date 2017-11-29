@@ -169,12 +169,16 @@ class SourceManager(object):
 
     def remove_by_url(self, url: str) -> None:
         assert url != ""
-        self.__remove(self.get_by_url(url))
+        src = self.get_by_url(url)
+        assert isinstance(src, Source)
+        self.__remove(src)
 
 
     def remove_by_name(self, name: str) -> None:
         assert name != ""
-        self.__remove(self.get_by_name(name))
+        src = self.get_by_name(name)
+        assert isinstance(src, Source)
+        self.__remove(src)
 
 
     def update(self) -> None:
@@ -207,19 +211,6 @@ class SourceManager(object):
             return self.__sources[url]
 
         raise bugzoo.errors.SourceNotFoundWithURL(url)
-
-
-    def __getitem__(self, name_or_url: str) -> Source:
-        # URL
-        if name_or_url in self.__sources:
-            return self.__sources[name_or_url]
-
-        # name
-        for src in self.__sources.values():
-            if src.name == name_or_url:
-                return src
-
-        raise IndexError
 
 
     def __iter__(self) -> Iterator[Source]:

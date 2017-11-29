@@ -34,8 +34,8 @@ def remove_source(rbox: 'BugZoo', url: str) -> None:
     try:
         rbox.sources.remove_by_url(url)
         print('removed source: {}'.format(url))
-    except bugzoo.errors.SourceNotFoundWithURL(url):
-        print("no source registered with URL: {}".format(url))
+    except bugzoo.errors.SourceNotFoundWithURL as err:
+        print("no source registered with URL: {}".format(err.url))
 
 
 def update_sources(rbox: 'BugZoo', ) -> None:
