@@ -195,8 +195,7 @@ def launch(rbox: 'BugZoo', name: str, tools: List[str] = []) -> None:
             c.destroy()
 
 
-
-def main():
+def build_parser():
     #with open(os.path.join(os.path.dirname(__file__), "banner.txt"), "r") as f:
     #    desc = f.read()
     rbox = BugZoo()
@@ -373,8 +372,11 @@ def main():
     cmd.set_defaults(installed=None)
     cmd.set_defaults(func=lambda args: list_bugs(rbox, args.installed))
 
+    return parser
 
-    # parse and process arguments
+
+def main():
+    parser = build_parser()
     args = parser.parse_args()
     if 'func' in vars(args):
         args.func(args)
