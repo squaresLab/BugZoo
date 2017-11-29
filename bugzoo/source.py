@@ -1,4 +1,5 @@
 from typing import Iterator
+import bugzoo.errors
 import git
 import json
 import yaml
@@ -152,10 +153,10 @@ class SourceManager(object):
         assert url != ""
         # TODO: new exception
         if url in self.__sources:
-            raise Exception("already registered source: {}".format(url))
+            raise bugzoo.errors.SourceAlreadyRegisteredWithURL(url)
 
         src = self.__download(url)
-        self.__sources[src.url] = src.rel_path
+        self.__sources[src.url] = src
         self.__write()
         return src
 
@@ -168,12 +169,16 @@ class SourceManager(object):
 
     def remove_by_url(self, url: str) -> None:
         assert url != ""
-        self.__remove(self.get_by_url(url))
+        src = self.get_by_url(url)
+        assert isinstance(src, Source)
+        self.__remove(src)
 
 
     def remove_by_name(self, name: str) -> None:
         assert name != ""
-        self.__remove(self.get_by_name(name))
+        src = self.get_by_name(name)
+        assert isinstance(src, Source)
+        self.__remove(src)
 
 
     def update(self) -> None:
@@ -186,13 +191,13 @@ class SourceManager(object):
         Retrieves the source associated with a given name.
 
         Raises:
-            IndexError: if no source is associated with that name.
+            SourceNotFoundWithName: if no source is associated with that name.
         """
         for s in self:
             if s.name == name:
                 return s
 
-        raise IndexError
+        raise bugzoo.errors.SourceNotFoundWithName(name)
 
 
     def get_by_url(self, url: str) -> Source:
@@ -205,20 +210,7 @@ class SourceManager(object):
         if url in self.__sources:
             return self.__sources[url]
 
-        raise IndexError
-
-
-    def __getitem__(self, name_or_url: str) -> Source:
-        # URL
-        if name_or_url in self.__sources:
-            return self.__sources[name_or_url]
-
-        # name
-        for src in self.__sources.values():
-            if src.name == name_or_url:
-                return src
-
-        raise IndexError
+        raise bugzoo.errors.SourceNotFoundWithURL(url)
 
 
     def __iter__(self) -> Iterator[Source]:

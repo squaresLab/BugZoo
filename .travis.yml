@@ -1,5 +1,10 @@
 language: python
 
+sudo: required
+
+services:
+  - docker
+
 python:
   - "3.5"
   - "3.6"
@@ -20,6 +25,7 @@ script:
   - bugzoo source list
   - bugzoo bug list
   - bugzoo dataset list
+  - python3 test/test_manybugs.py
 
 before_deploy:
   - (cd docs && make html && cd _build/html && touch .nojekyll)
