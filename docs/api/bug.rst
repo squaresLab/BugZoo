@@ -1,6 +1,6 @@
 Bug
 ===
-.. py:module:: repairbox.bug
+.. py:module:: bugzoo.bug
 
 
 Artefacts are used to provide a snapshot of a given piece of
