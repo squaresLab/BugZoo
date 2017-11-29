@@ -20,7 +20,7 @@ script:
   - bugzoo source list
   - bugzoo bug list
   - bugzoo dataset list
-  - python3 tests/test_manybugs.py
+  - python3 test/test_manybugs.py
 
 before_deploy:
   - (cd docs && make html && cd _build/html && touch .nojekyll)
