@@ -23,7 +23,7 @@ def list_sources(rbox: 'BugZoo') -> None:
 
 def add_source(rbox: 'BugZoo', src: str) -> None:
     rbox.sources.add(src)
-    print('added dataset: {}'.format(src))
+    print('added source: {}'.format(src))
 
 
 def remove_source(rbox: 'BugZoo', name: str) -> None:
