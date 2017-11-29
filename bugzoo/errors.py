@@ -1,12 +1,26 @@
-class SourceNotFoundByURI(Exception):
+class SourceNotFoundWithURL(Exception):
     """
-    Used to indicate that no source has been found that matches a provided URI.
+    Used to indicate that no source has been found that matches a provided URL.
     """
-    def __init__(self, uri):
-        self.__uri = uri
-        super().__init__("no source registered with URI: {}".format(url))
+    def __init__(self, url):
+        self.__url = url
+        super().__init__("no source registered with URL: {}".format(url))
 
 
     @property
-    def uri(self):
-        return self.__uri
+    def url(self):
+        return self.__url
+
+
+class SourceNotFoundWithName(Exception):
+    """
+    Used to indicate that there exists no source registered with a given name.
+    """
+    def __init__(self, name):
+        self.__name = name
+        super().__init__("no source registered with name: {}".format(name))
+
+
+    @property
+    def name(self):
+        return self.__name

@@ -186,13 +186,13 @@ class SourceManager(object):
         Retrieves the source associated with a given name.
 
         Raises:
-            IndexError: if no source is associated with that name.
+            SourceNotFoundWithName: if no source is associated with that name.
         """
         for s in self:
             if s.name == name:
                 return s
 
-        raise IndexError
+        raise SourceNotFoundWithName(name)
 
 
     def get_by_url(self, url: str) -> Source:
@@ -205,7 +205,7 @@ class SourceManager(object):
         if url in self.__sources:
             return self.__sources[url]
 
-        raise IndexError
+        raise SourceNotFoundWithURL(url)
 
 
     def __getitem__(self, name_or_url: str) -> Source:
