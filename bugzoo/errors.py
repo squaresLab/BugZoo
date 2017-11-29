@@ -1,6 +1,6 @@
 class SourceNotFoundWithURL(Exception):
     """
-    Used to indicate that no source has been found that matches a provided URL.
+    Indicates that no source has been found that matches a provided URL.
     """
     def __init__(self, url):
         self.__url = url
@@ -14,7 +14,7 @@ class SourceNotFoundWithURL(Exception):
 
 class SourceNotFoundWithName(Exception):
     """
-    Used to indicate that there exists no source registered with a given name.
+    Indicates that there exists no source registered with a given name.
     """
     def __init__(self, name):
         self.__name = name
@@ -24,3 +24,18 @@ class SourceNotFoundWithName(Exception):
     @property
     def name(self):
         return self.__name
+
+
+class SourceAlreadyRegisteredWithURL(Exception):
+    """
+    Indicates that there exists a source that is already registered with a
+    given URL.
+    """
+    def __init__(self, url):
+        self.__url = url
+        super().__init__("source already registered with URL: {}".format(url))
+
+
+    @property
+    def url(self):
+        return self.__url
