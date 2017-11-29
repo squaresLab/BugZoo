@@ -1,4 +1,4 @@
-class SourceNotFound(Exception):
+class SourceNotFoundByURI(Exception):
     """
     Used to indicate that no source has been found that matches a provided URI.
     """
