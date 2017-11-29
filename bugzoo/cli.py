@@ -1,5 +1,6 @@
 import argparse
 import tabulate
+import bugzoo.errors
 
 from typing import List
 from operator import itemgetter
@@ -21,9 +22,12 @@ def list_sources(rbox: 'BugZoo') -> None:
     print(tbl)
 
 
-def add_source(rbox: 'BugZoo', src: str) -> None:
-    rbox.sources.add(src)
-    print('added source: {}'.format(src))
+def add_source(rbox: 'BugZoo', url: str) -> None:
+    try:
+        rbox.sources.add(url)
+        print('added source: {}'.format(url))
+    except bugzoo.errors.SourceAlreadyRegisteredWithURL:
+        print('source already registered with given URL ({}).'.format(url))
 
 
 def remove_source(rbox: 'BugZoo', name: str) -> None:
