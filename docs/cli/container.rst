@@ -23,7 +23,7 @@ the :code:`container` group.
 .. code-block:: bash
 
   $ bugzoo container launch  --name pybug \
-                                manybugs:python:69223-69224
+                             manybugs:python:69223-69224
 
 The :code:`-v` flag is used to share and persist files between the host
 and the container (using Docker's volume mounting feature). To share files,
@@ -37,7 +37,7 @@ directory will be automatically created.
 .. code-block:: bash
 
   $ bugzoo container launch  -v ${PWD}/db:/opt/db \
-                                manybugs:python:69223-69224
+                             manybugs:python:69223-69224
 
 Multiple directories may be mounted inside a single container by passing
 multiple instances of the :code:`-v` flag.
@@ -49,7 +49,7 @@ a container for one of the ManyBugs bugs:
 .. code-block:: bash
 
   $ bugzoo container launch --with genprog \
-                                manybugs:python:69223-69224
+                            manybugs:python:69223-69224
 
 Like the :code:`-v` flag, the :code:`--with` flag can be used multiple times
 to mount more than one tool inside the container as shown below.
@@ -57,8 +57,8 @@ to mount more than one tool inside the container as shown below.
 .. code-block:: bash
 
   $ bugzoo container launch  --with genprog \
-                                --with gcovr \
-                                manybugs:python:69223-69224
+                             --with gcovr \
+                             manybugs:python:69223-69224
 
 
 `container list [-q]`
