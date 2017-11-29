@@ -1,7 +1,7 @@
-RepairBox
-=========
+BugZoo
+======
 
-Top-level description of RepairBox.
+Top-level description of BugZoo.
 
 .. toctree::
   :hidden:
@@ -18,7 +18,7 @@ Top-level description of RepairBox.
 Publications
 ------------
 
-Below is a list of publications that have used RepairBox. If you don't see your
+Below is a list of publications that have used BugZoo. If you don't see your
 publication listed, please submit a pull request to add it to the list.
 
 * `An Investigation into the Use of Mutation Analysis for Automated Program Repair. <http://eprints.whiterose.ac.uk/121297/1/ssbse17.pdf>`_

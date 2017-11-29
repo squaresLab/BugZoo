@@ -18,7 +18,7 @@ class BugZoo(object):
         Args:
             path: the absolute path of a BugZoo installation on this machine.
                 If unspecified, the value of the environmental variable
-                :code:`REPAIRBOX_PATH` will be used, unless unspecified, in
+                :code:`BUGZOO_PATH` will be used, unless unspecified, in
                 which case :code:`./${HOME}/.bugzoo` will be used instead.
         """
         # TODO support windows

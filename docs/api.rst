@@ -4,8 +4,8 @@ API Reference
 .. toctree::
   :maxdepth: 1
 
-  api/repairbox
-  api/artefact
+  api/bugzoo
+  api/bug
   api/container
   api/test
   api/patch

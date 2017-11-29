@@ -2,19 +2,19 @@
 .................
 
 The `source` commands are used to add, remove, and list *sources* that are
-known to RepairBox. Sources are used to represent remote Git repositories
-that are responsible for providing a particular dataset of artefacts, or
-a tool that is compatible with the RepairBox platform.
+known to BugZoo. Sources are used to represent remote Git repositories
+that are responsible for providing a particular dataset of bugs, or
+a tool that is compatible with the BugZoo platform.
 
 
 `source list`
 -------------
 
-Produces a pretty-printed list of all sources registered with RepairBox.
+Produces a pretty-printed list of all sources registered with BugZoo.
 
 .. code-block:: bash
 
-  $ repairbox source list
+  $ bugzoo source list
 
   Source                                      Version
   ------------------------------------------  ---------
@@ -28,7 +28,7 @@ to be piped to other commands.
 
 .. code-block:: bash
 
-  $ repairbox source list
+  $ bugzoo source list
   https://github.com/ChrisTimperley/ManyBugs
   https://bitbucket.org/ChrisTimperley/GP3
   ...
@@ -43,7 +43,7 @@ be registered with the machine, allowing it to be installed and executed.
 
 .. code-block:: bash
 
-  $ repairbox source add https://github.com/squaresLab/ArduBugs
+  $ bugzoo source add https://github.com/squaresLab/ArduBugs
   added source: https://github.com/squaresLab/ArduBugs
   ...
 
@@ -52,12 +52,12 @@ be registered with the machine, allowing it to be installed and executed.
 ---------------------
 
 Deregisters a source, given by the URL of its remote Git repository, with the
-local machine. After executing this command, the dataset of artefacts or the
+local machine. After executing this command, the dataset of bugs or the
 tool associated with the source will be uninstalled and delisted.
 
 .. code-block:: bash
 
-  $ repairbox source remove https://github.com/squaresLab/ArduBugs
+  $ bugzoo source remove https://github.com/squaresLab/ArduBugs
   removed source: https://github.com/squaresLab/ArduBugs
   ...
 
@@ -66,13 +66,13 @@ tool associated with the source will be uninstalled and delisted.
 ---------------------
 
 This command can be used to update the files used to specify and construct the
-the artefacts or tool, provided by their associated sources, as shown below.
-Note that this command does not attempt to install/rebuild the artefacts
+the bugs or tool, provided by their associated sources, as shown below.
+Note that this command does not attempt to install/rebuild the bugs
 or tool associated with each source -- it is the user's responsibility to call
 `tool install` or `artefact install` where appropriate.
 
 .. code-block:: bash
 
-  $ repairbox source update
+  $ bugzoo source update
   updating sources...
   ...

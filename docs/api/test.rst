@@ -1,6 +1,6 @@
 Test
 ====
-.. py:module:: repairbox.test
+.. py:module:: bugzoo.test
 
 
 Give an example of how to run a test.

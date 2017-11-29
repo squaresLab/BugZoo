@@ -1,21 +1,21 @@
-`artefact` commands
+`bug` commands
 ...................
 
-The `artefact` command group is used to manage the installation of artefacts
+The `bug` command group is used to manage the installation of bugs
 on the local machine.
 
 
-`artefact list [-q] [--installed|--uninstalled]`
+`bug list [-q] [--installed|--uninstalled]`
 ------------------------------------------------
 
-Produces a list of all artefacts provided by sources registered with your
+Produces a list of all bugs provided by sources registered with your
 local RepairBox installation. Optional flags can be used to filter the contents
 of the list (e.g., :code:`--installed`, :code:`--uninstalled`), or to produce an unannotated
-list of artefacts (:code:`-q`).
+list of bugs (:code:`-q`).
 
 .. code-block:: bash
 
-  $ repairbox artefact list
+  $ bugzoo bug list
 
   Artefact                   Dataset    Installed?
   -------------------------  ---------  ------------
@@ -27,7 +27,7 @@ list of artefacts (:code:`-q`).
   ardubugs:copter:9f59f27    ardubugs   No
   ...
 
-  $ repairbox artefact list -q
+  $ bugzoo bug list -q
   ardubugs:copter:2e6b6e4
   ardubugs:copter:cb1b9b6
   ardubugs:copter:766ccea
@@ -36,31 +36,31 @@ list of artefacts (:code:`-q`).
   ardubugs:copter:9f59f27
 
 
-`artefact install [--upgrade] [-q] {identifier}`
+`bug install [--upgrade] [-q] {identifier}`
 ------------------------------------------------
 
-Installs a given artefact, specified by its identifier.
-Internally, this command installs the Docker image for the given artefact,
+Installs a given bug, specified by its identifier.
+Internally, this command installs the Docker image for the given bug,
 along with any of its dependencies.
 
-To install the artefact, this command will attempt to download a
-prebuilt Docker for the artefact, if one is publicly available on DockerHub; if
+To install the bug, this command will attempt to download a
+prebuilt Docker for the bug, if one is publicly available on DockerHub; if
 no such image is available, the command will build the image (and its
 dependencies) locally.
 
-If the artefact has already been installed to the machine, this command will
+If the bug has already been installed to the machine, this command will
 simply do nothing. To force the installation of the latest version of the
-artefact, either supply the :code:`--upgrade` flag or use the
-:code:`artefact upgrade` command.
+bug, either supply the :code:`--upgrade` flag or use the
+:code:`bug upgrade` command.
 
 By default, this command produces detailed information when downloading or
-building the artefact, as shown below. This behaviour can be disabled by
+building the bug, as shown below. This behaviour can be disabled by
 supplying the :code:`-q` flag.
 
 .. code-block:: bash
 
-  $ repairbox artefact install manybugs:python:69934-69935
-  installing artefact: manybugs:python:69934-69935
+  $ bugzoo bug install manybugs:python:69934-69935
+  installing bug: manybugs:python:69934-69935
   Building image: squareslab/manybugs:python-69934-69935
   Step 1/9 : FROM squareslab/manybugs:python
    ---> 9f2dd23f670c
@@ -70,88 +70,88 @@ supplying the :code:`-q` flag.
   Step 3/9 : ENV SCENARIO_NAME ${scenario}
   ...
 
-`artefact uninstall [-f] {identifier}`
+`bug uninstall [-f] {identifier}`
 --------------------------------------
 
 Uninstalls the Docker image for a given identifier from the local machine.
 
 .. code-block:: bash
 
-  $ repairbox artefact uninstall ardubugs:copter:2e6b6e4
+  $ bugzoo bug uninstall ardubugs:copter:2e6b6e4
   ...
 
-The :code:`-f` flag can be used to force the uninstallation of an artefact,
+The :code:`-f` flag can be used to force the uninstallation of an bug,
 regardless of whether or not it is running, causing any containers using
-that artefact to abruptly terminate -- **use at your own risk**.
+that bug to abruptly terminate -- **use at your own risk**.
 
 
-`artefact build [-f] {identifier}`
+`bug build [-f] {identifier}`
 ----------------------------------
 
-Attempts to locally build the Docker image for a given artefact.
+Attempts to locally build the Docker image for a given bug.
 
 .. code-block:: bash
 
-  $ repairbox artefact build ardubugs:copter:2e6b6e4
+  $ bugzoo bug build ardubugs:copter:2e6b6e4
   ...
 
 By default, this command will be ignored if a version of the image already
 exists on the local machine. The :code:`-f` flag can be used to override
-this behaviour, forcing RepairBox to rebuild the image for the artefact
+this behaviour, forcing RepairBox to rebuild the image for the bug
 and to overwrite the existing image.
 
 
-`artefact download [-f] {identifier}`
+`bug download [-f] {identifier}`
 -------------------------------------
 
-Downloads a prebuilt Docker image from DockerHub for a given artefact if such
-an image exists. If the artefact is already installed to the local machine,
+Downloads a prebuilt Docker image from DockerHub for a given bug if such
+an image exists. If the bug is already installed to the local machine,
 this command will do nothing, by default. Supplying a :code:`-f` flag will
-force RepairBox to download the artefact's image from DockerHub regardless of
+force RepairBox to download the bug's image from DockerHub regardless of
 whether the image is already installed or the remote image is older than the
 image installed to the local machine.
 
 .. code-block:: bash
 
-  $ repairbox artefact download manybugs:python:69223-69224
+  $ bugzoo bug download manybugs:python:69223-69224
   ...
 
 If your internet connection is good, this command is great for quickly fetching
-images for artefacts, but in some cases, where internet connectivity is poor
+images for bugs, but in some cases, where internet connectivity is poor
 or the prebuilt image is particularly large, it may be faster to use the
-:code:`artefact build` command.
+:code:`bug build` command.
 
 
-`artefact upload {identifier}`
+`bug upload {identifier}`
 ------------------------------
 
-Attempts to upload the image for a given artefact from the local machine to
+Attempts to upload the image for a given bug from the local machine to
 DockerHub. Requires that the user is logged into DockerHub
 (via :code:`docker login`) and has permission to push to the DockerHub
-repository for that artefact, and that the image is installed on the local
+repository for that bug, and that the image is installed on the local
 machine.
 
 .. code-block:: bash
 
-  $ repairbox artefact upload manybugs:python:69223-69224
+  $ bugzoo bug upload manybugs:python:69223-69224
   ...
 
-This command should only be used by artefact maintainers to conveniently
+This command should only be used by bug maintainers to conveniently
 upload their images (instead of having to manually perform hundreds of
 :code:`docker push` commands.
 
 
-`artefact validate {identifier}`
+`bug validate {identifier}`
 --------------------------------
 
-Validates the quality of a given artefact by ensuring thats
+Validates the quality of a given bug by ensuring thats
 associated Docker image can be built from scratch successfully, that the source
-code for the software contained within the artefact compiles successfully, and
+code for the software contained within the bug compiles successfully, and
 that its test suite produces an expected set of outcomes.
 
 .. code-block:: bash
 
-  $ repairbox artefact validate manybugs:python:69223-69224
+  $ bugzoo bug validate manybugs:python:69223-69224
   Compiling...                                                                [OK]
   Running test: p1...                                                         [OK]
   Running test: p2...                                                         [OK]

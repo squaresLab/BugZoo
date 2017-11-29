@@ -1,6 +1,6 @@
 Container
 =========
-.. py:module:: repairbox.container
+.. py:module:: bugzoo.container
 
 
 Container reference

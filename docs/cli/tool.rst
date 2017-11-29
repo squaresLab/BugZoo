@@ -8,14 +8,14 @@ on the local machine.
 `tool list [-q] [--installed|--uninstalled]`
 --------------------------------------------
 
-Produces a list of all tools that are registered with the local RepairBox
+Produces a list of all tools that are registered with the local BugZoo
 installation. Optional flags can be used to filter out (un)installed tools
 (i.e.., :code:`--installed`, :code:`--uninstalled`), or to produce an
 unannotated list of artefacts (:code:`-q`).
 
 .. code-block:: bash
 
-  $ repairbox tool list
+  $ bugzoo tool list
 
 
   Tool     Source                                    Installed?
@@ -38,7 +38,7 @@ can be installed using :code:`tool build -f` or :code:`tool download -f`.
 
 .. code-block:: bash
 
-  $ repairbox tool install genprog
+  $ bugzoo tool install genprog
   ...
 
 By default, this command produces detailed information when downloading or
@@ -53,7 +53,7 @@ Uninstalls the Docker image associated with a given tool.
 
 .. code-block:: bash
 
-  $ repairbox tool uninstall genprog
+  $ bugzoo tool uninstall genprog
   ...
 
 The :code:`-f` flag can be used to force the uninstallation of a tool,
@@ -71,7 +71,7 @@ rebuilt.
 
 .. code-block:: bash
 
-  $ repairbox tool build genprog
+  $ bugzoo tool build genprog
   ...
 
 
@@ -82,12 +82,12 @@ Attempts to download a prebuilt Docker image from DockerHub for a given tool.
 If an image for the tool already exists on the local machine, then,
 by default, the download request will be ignored (regardless of whether the
 remote image is older or newer than the local image). Passing the `-f` flag will
-override this default behaviour and force RepairBox to download the image
+override this default behaviour and force BugZoo to download the image
 from DockerHub, overwriting the existing image.
 
 .. code-block:: bash
 
-  $ repairbox tool download genprog
+  $ bugzoo tool download genprog
   ...
 
 
@@ -101,7 +101,7 @@ to the DockerHub repository for the image.
 
 .. code-block:: bash
 
-  $ repairbox tool upload genprog
+  $ bugzoo tool upload genprog
   ...
 
 This command should be used by tools maintainers to conveniently push the
