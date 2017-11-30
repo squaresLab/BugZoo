@@ -19,8 +19,8 @@ class Tool(Source):
         environment = d.get('environment', {})
 
         # TODO: tidy up this mess
-        assert 'docker' in d
-        build = {'docker': d['docker']}
+        assert 'build' in d
+        build = {'build': d['build']}
 
         return Tool(manager, url, name, environment, build)
 

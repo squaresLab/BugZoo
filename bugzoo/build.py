@@ -36,7 +36,14 @@ class BuildInstructions(object):
         """
         Loads a set of build instructions from a dictionary.
         """
-        yml = yml['docker'] # TODO: why?
+        if 'docker' in yml:
+            yml = yml['docker']
+            print("WARNING: use `build` property rather than `docker` to provide build instructions.")
+        elif 'build' in yml:
+            yml = yml['build']
+        else:
+            raise Exception("Illegal build instructions: missing `build` or `docker` property")
+
         tag = yml['tag']
         context = yml.get('context', '.')
         filename = yml.get('file', 'Dockerfile')
