@@ -136,7 +136,10 @@ class SourceManager(object):
         abs_path = Source.url_to_abs_path(self, url)
         # TODO: throw appropriate exception
         assert not os.path.exists(abs_path)
-        git.Repo.clone_from(url, abs_path)
+        try:
+            git.Repo.clone_from(url, abs_path)
+        except:
+            shutil.rmtree(abs_path, ignore_errors=True)
         return self.load(url)
 
 
