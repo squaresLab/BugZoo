@@ -25,12 +25,18 @@ referred to
 
 ## Installation
 
-To install the BugZoo platform, we advise that
-users produce a shallow clone of this repository using the command below:
+To install the latest stable version of BugZoo:
+
+```
+$ pip3 install bugzoo
+```
+
+To install the latest development version of BugZoo, first produce a shallow
+clone of this repository before executing `setup.py`, as shown below.
 
 ```
 $ git clone git://github.com/squaresLab/BugZoo --depth 1
-$ python3 setup.py install
+$ python3 setup.py install --user
 ```
 
 ## Known Sources
