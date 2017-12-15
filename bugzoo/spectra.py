@@ -1,6 +1,4 @@
-import typing
-from typing import Dict, List
-from bugzoo.coverage import CoverageReport, FileCoverageReport
+from bugzoo.coverage import ProjectLineCoverage, FileLineCoverage
 
 
 class LineSpectra(object):
@@ -54,8 +52,8 @@ class LineSpectra(object):
 
 class FileSpectra(object):
     @staticmethod
-    def from_coverage(passing: List[FileCoverageReport],
-                      failing: List[FileCoverageReport]) -> 'FileSpectra':
+    def from_coverage(passing: List[FileLineCoverage],
+                      failing: List[FileLineCoverage]) -> 'FileSpectra':
         assert len(passing) + len(failing) > 0
         lines = (passing + failing).lines
 
@@ -102,10 +100,10 @@ class FileSpectra(object):
 
 
 class Spectra(object):
-    
+
     @staticmethod
-    def from_coverage(passing: List[CoverageReport],
-                      failing: List[CoverageReport]) -> 'Spectra':
+    def from_coverage(passing: List[ProjectLineCoverage],
+                      failing: List[ProjectLineCoverage]) -> 'Spectra':
         assert len(passing) + len(failing) > 0
 
         # WARNING: assumes set of files is the same
