@@ -1,7 +1,7 @@
 import bugzoo.plugin
 import bugzoo.plugin.base
 
-from bugzoo.coverage import CoverageReport
+from bugzoo.coverage import ProjectLineCoverage
 
 
 class gcovr(bugzoo.plugin.base.Plugin):
@@ -28,4 +28,4 @@ class gcovr(bugzoo.plugin.base.Plugin):
         response = response.output.decode('utf-8')
 
         # parse XML to Python data structures
-        return CoverageReport.from_string(response)
+        return ProjectLineCoverage.from_string(response)
