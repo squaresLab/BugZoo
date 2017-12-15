@@ -1,11 +1,10 @@
-import typing
 import xml.etree.ElementTree as ET
 from typing import Dict, List
 
 
-class FileCoverageReport(object):
+class FileLineCoverage(object):
     """
-    Provides coverage information for a given file within a project.
+    Provides line-level coverage information for a given file.
     """
     def __init__(self, filename: str, lines: Dict[int, int]) -> None:
         self.__filename = filename
@@ -15,7 +14,8 @@ class FileCoverageReport(object):
     @property
     def lines(self) -> List[int]:
         """
-        A list of the lines that are included in this report.
+        A list of the one-indexed numbers of the lines that are included in
+        this report.
         """
         return list(self.__lines.keys())
 
@@ -45,26 +45,27 @@ class FileCoverageReport(object):
         return self.hits(num)
 
 
-class CoverageReport(object):
+class ProjectLineCoverage(object):
     """
     Provides complete line coverage information for all files and across all
     tests within a given project.
     """
 
     @staticmethod
-    def from_string(s: str) -> 'CoverageReport':
+    def from_string(s: str) -> 'ProjectLineCoverage':
         """
-        Loads a coverage report from a string-based XML description.
+        Loads a project line-coverage report from a string-based XML
+        description.
         """
         root = ET.fromstring(s)
-        return CoverageReport.from_xml(root)
+        return ProjectLineCoverage.from_xml(root)
 
 
     @staticmethod
-    def from_xml(root: ET.Element) -> 'CoverageReport':
+    def from_xml(root: ET.Element) -> 'ProjectLineCoverage':
         """
-        Transforms an XML tree, produced by gcovr, into its corresponding
-        CoverageReport object.
+        Transforms an XML tree, produced by gcovr, into a project
+        line-coverage report.
         """
         reports = {}
         packages = root.find('packages')
@@ -76,12 +77,12 @@ class CoverageReport(object):
                 lines = cls.find('lines').findall('line')
                 lines = \
                     {int(l.attrib['number']): int(l.attrib['hits']) for l in lines}
-                reports[fn] = FileCoverageReport(fn, lines)
+                reports[fn] = FileLineCoverage(fn, lines)
 
-        return CoverageReport(reports)
+        return ProjectLineCoverage(reports)
 
 
-    def __init__(self, files: Dict[str, FileCoverageReport]) -> None:
+    def __init__(self, files: Dict[str, FileLineCoverage]) -> None:
         self.__files = files
 
 
@@ -93,7 +94,7 @@ class CoverageReport(object):
         return list(self.__files.keys())
 
 
-    def file(self, name: str) -> FileCoverageReport:
+    def file(self, name: str) -> FileLineCoverage:
         """
         Returns the coverage information for a given file within the project
         associated with this report.
@@ -102,7 +103,7 @@ class CoverageReport(object):
         return self.__files[name]
 
 
-    def __getitem__(self, filename: str) -> FileCoverageReport:
+    def __getitem__(self, filename: str) -> FileLineCoverage:
         """
         Alias for `file`.
         """
