@@ -1,3 +1,4 @@
+from typing import List, Dict
 from bugzoo.coverage import ProjectLineCoverage, FileLineCoverage
 
 
