@@ -1,3 +1,5 @@
+import bugzoo.test
+import bugzoo.container
 import bugzoo.plugin
 import bugzoo.plugin.base
 
@@ -16,7 +18,10 @@ class gcovr(bugzoo.plugin.base.Plugin):
 
 
     @bugzoo.plugin.interface
-    def coverage(self, container, test):
+    def coverage(self,
+                 container: bugzoo.container.Container,
+                 test: bugzoo.test.TestCase
+                 ) -> ProjectLineCoverage:
         container.compile(mode='coverage')
         outcome = container.execute(test)
 
