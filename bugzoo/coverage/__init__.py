@@ -110,3 +110,10 @@ class ProjectCoverageMap(object):
                 case.
         """
         return self.__contents[test]
+
+    def __contains__(self, test: TestCase) -> bool:
+        """
+        Determines whether this map contains coverage information for a given
+        test case.
+        """
+        return test in self.__contents
