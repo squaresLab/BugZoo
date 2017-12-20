@@ -91,3 +91,22 @@ class ProjectLineCoverage(object):
         return self.__files[name]
 
     __getitem__ = file
+
+
+class ProjectCoverageMap(object):
+    """
+    Holds coverage information for all tests belonging to a particular program
+    version.
+    """
+    def __init__(self):
+        self.__contents = {}
+
+    def __getitem__(self, test: TestCase) -> ProjectLineCoverage:
+        """
+        Retrieves coverage information for a given test case.
+
+        Raises:
+            KeyError: if there is no coverage information for the given test
+                case.
+        """
+        return self.__contents[test]
