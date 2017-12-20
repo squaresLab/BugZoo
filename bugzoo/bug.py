@@ -4,14 +4,13 @@ import docker
 import copy
 import textwrap
 import bugzoo
-import bugzoo.test
 
 from typing import List, Iterator, Dict
 from bugzoo.util import print_task_start, print_task_end
 from bugzoo.build import BuildInstructions
 from bugzoo.container import Container
-from bugzoo.test import TestSuite
 from bugzoo.tool import Tool
+from bugzoo.testing import TestCase, TestOutcome, TestSuite
 
 
 class CompilationInstructions(object):
@@ -213,7 +212,7 @@ class Bug(object):
             c.compile()
             print_task_end('Compiling', 'OK')
 
-            if isinstance(self.harness, bugzoo.test.GenProgTestSuite):
+            if isinstance(self.harness, bugzoo.testing.GenProgTestSuite):
 
                 for t in self.harness.passing:
                     task = 'Running test: {}'.format(t.identifier)

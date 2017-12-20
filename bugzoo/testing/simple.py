@@ -1,5 +1,5 @@
-from bugzoo.testing import TestCase, TestOutcome, TestSuite
 from typing import List, Iterator
+from bugzoo.testing.base import TestSuite, TestCase
 
 
 class SimpleTestSuite(TestSuite):
