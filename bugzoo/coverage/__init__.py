@@ -10,7 +10,6 @@ class FileLineCoverage(object):
         self.__filename = filename
         self.__lines = lines
 
-
     @property
     def lines(self) -> List[int]:
         """
@@ -19,14 +18,12 @@ class FileLineCoverage(object):
         """
         return list(self.__lines.keys())
 
-
     def was_hit(self, num: int) -> bool:
         """
         Determines whether a line with a given number was executed at least
         once during the execution(s).
         """
         return self.hits(num) > 0
-
 
     def hits(self, num: int) -> int:
         """
@@ -37,12 +34,7 @@ class FileLineCoverage(object):
         assert num > 0
         return self.__lines[num]
 
-
-    def __getitem__(self, num: int) -> int:
-        """
-        Alias for `hits`
-        """
-        return self.hits(num)
+    __getitem__ = hits
 
 
 class ProjectLineCoverage(object):
@@ -59,7 +51,6 @@ class ProjectLineCoverage(object):
         """
         root = ET.fromstring(s)
         return ProjectLineCoverage.from_xml(root)
-
 
     @staticmethod
     def from_xml(root: ET.Element) -> 'ProjectLineCoverage':
@@ -81,10 +72,8 @@ class ProjectLineCoverage(object):
 
         return ProjectLineCoverage(reports)
 
-
     def __init__(self, files: Dict[str, FileLineCoverage]) -> None:
         self.__files = files
-
 
     @property
     def files(self) -> List[str]:
@@ -92,7 +81,6 @@ class ProjectLineCoverage(object):
         A list of the names of the files that are included in this report.
         """
         return list(self.__files.keys())
-
 
     def file(self, name: str) -> FileLineCoverage:
         """
@@ -102,9 +90,4 @@ class ProjectLineCoverage(object):
         assert name != ""
         return self.__files[name]
 
-
-    def __getitem__(self, filename: str) -> FileLineCoverage:
-        """
-        Alias for `file`.
-        """
-        return self.file(filename)
+    __getitem__ = file
