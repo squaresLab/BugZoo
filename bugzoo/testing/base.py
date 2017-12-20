@@ -83,6 +83,7 @@ class TestSuite(object):
         """
         Constructs a test harness from a dictionary-based description.
         """
+        from bugzoo.testing.simple import SimpleTestSuite, GenProgTestSuite
         typ = yml['type']
         # route based on type
         if typ == 'genprog':
