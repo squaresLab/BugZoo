@@ -18,6 +18,7 @@ setup(
     ],
     packages=[
         'bugzoo',
+        'bugzoo.testing',
         'bugzoo.plugin'
     ],
     entry_points = {
