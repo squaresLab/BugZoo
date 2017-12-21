@@ -6,6 +6,7 @@ import textwrap
 import bugzoo
 
 from typing import List, Iterator, Dict
+from bugzoo.core import Language
 from bugzoo.util import print_task_start, print_task_end
 from bugzoo.build import BuildInstructions
 from bugzoo.container import Container
@@ -84,7 +85,7 @@ class Bug(object):
 
         # docker build instructions
         # TODO: this is stupid
-        build_instructions = {'docker': yml['docker']}
+        build_instructions = {'build': yml['build']}
         build_instructions = \
             BuildInstructions.from_dict(dataset,
                                         os.path.dirname(fn),
