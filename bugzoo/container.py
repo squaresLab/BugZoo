@@ -12,6 +12,7 @@ from timeit import default_timer as timer
 from bugzoo.testing import TestOutcome, TestCase
 from bugzoo.patch import Patch
 from bugzoo.tool import Tool
+from bugzoo.coverage import ProjectLineCoverage
 
 
 class CompilationOutcome(object):
@@ -132,6 +133,14 @@ class Container(object):
                                      tty=interactive,
                                      detach=True)
         self.__container.start()
+
+    @property
+    def id(self) -> str:
+        """
+        A unique identifier for this container.
+        """
+        assert self.alive
+        return self.__container.id
 
 
     @property
@@ -277,6 +286,16 @@ class Container(object):
             out = client.api.exec_start(response['Id'], stream=True)
             return PendingExecResponse(response, out)
 
+
+    def coverage(self, test: TestCase) -> ProjectLineCoverage:
+        assert self.alive
+
+        # fetch the extractor for this language
+
+        # prepare the container for the purposes of collecting coverage
+
+        # extract coverage information
+        return extractor.extract(self)
 
     def compile(self, mode: str = 'default', verbose: bool = True):
         """
