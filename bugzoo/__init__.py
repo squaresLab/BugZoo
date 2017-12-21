@@ -2,6 +2,7 @@ from bugzoo.manager import BugZoo
 import bugzoo.cli
 import bugzoo.tool
 import bugzoo.coverage
+import bugzoo.container
 
 from bugzoo.container import Container
 from bugzoo.patch import Patch
