@@ -14,7 +14,7 @@ from bugzoo.core import Language
 from bugzoo.testing import TestOutcome, TestCase
 from bugzoo.patch import Patch
 from bugzoo.tool import Tool
-from bugzoo.coverage import ProjectLineCoverage
+from bugzoo.coverage.base import ProjectLineCoverage
 
 
 class CompilationOutcome(object):
