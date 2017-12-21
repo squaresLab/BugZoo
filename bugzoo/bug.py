@@ -55,13 +55,18 @@ class Bug(object):
     def from_file(dataset: 'bugzoo.manager.Dataset',
                   fn: str) -> 'Bug':
         """
-        Loads an bug from its YAML manifest file.
+        Loads a bug from its YAML manifest file.
         """
         with open(fn, 'r') as f:
             yml = yaml.load(f)
 
         name = yml['bug']
         program = yml.get('program', None)
+
+        # determine the languages used by the program
+        if not 'languages' in yml:
+            raise Exception('No "languages" property specified for bug: {}'.format(name))
+        languages = yml['languages'] # TODO: validate
 
         # build the test harness
         harness = TestSuite.from_dict(yml['test-harness'])
