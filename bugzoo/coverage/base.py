@@ -105,7 +105,7 @@ class ProjectCoverageMap(object):
     T = Dict[TestCase, ProjectLineCoverage.T]
 
     @staticmethod
-    def from_dict(d: ) -> 'ProjectCoverageMap':
+    def from_dict(d: T) -> 'ProjectCoverageMap':
         coverage = {}
         for (test_name, test_coverage) in d.items():
             test = tests[test_name]
