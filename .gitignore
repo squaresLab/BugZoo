@@ -8,7 +8,6 @@ __pycache__
 debug.txt
 configuration.full
 sanity
-coverage
 *.cache
 .vagrant
 .Dockerfile
