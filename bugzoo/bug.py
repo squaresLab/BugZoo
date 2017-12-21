@@ -11,7 +11,7 @@ from bugzoo.build import BuildInstructions
 from bugzoo.container import Container
 from bugzoo.tool import Tool
 from bugzoo.testing import TestCase, TestOutcome, TestSuite
-
+from bugzoo.coverage import ProjectLineCoverage, ProjectCoverageMap
 
 class CompilationInstructions(object):
     @staticmethod
@@ -66,7 +66,11 @@ class Bug(object):
         # determine the languages used by the program
         if not 'languages' in yml:
             raise Exception('No "languages" property specified for bug: {}'.format(name))
+
         languages = yml['languages'] # TODO: validate
+        if languages is []:
+            raise Exception('No associated languages specified for bug: {}'.format(name))
+        languages = [Language[l] for l in languages]
 
         # build the test harness
         harness = TestSuite.from_dict(yml['test-harness'])
@@ -158,6 +162,37 @@ class Bug(object):
         """
         return self.__dataset
 
+    @property
+    def coverage(self) -> 'ProjectCoverageMap':
+        """
+        Provides coverage information for each test within the test suite
+        for the program associated with this bug.
+        """
+        # determine the location of the coverage map on disk
+        installation = None
+        fn = os.path.join(installation.coverage_dir,
+                          "{}.coverage.yml".format(self.identifier))
+
+        # is the coverage already cached? if so, load.
+        if os.path.exists(fn):
+            return ProjectCoverageMap.from_file(fn)
+
+        # TODO
+        # if we don't have coverage information, compute it
+        cov: Dict[TestCase, ProjectLineCoverage] = {}
+        container = self.provision()
+        container.compile()
+        for test in self.tests:
+            container.execute(test)
+            cov[test] = container.coverage(wipe=True)
+        self.__coverage = ProjectCoverageMap(cov)
+
+        # save to disk
+        # TODO: ensure coverage directory exists
+        with open(fn, 'w') as f:
+            yaml.dump(self.__coverage.to_dict())
+
+        return self.__coverage
 
     @property
     def installed(self) -> bool:
