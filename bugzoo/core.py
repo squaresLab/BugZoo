@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class Language(Enum):
     C = 'c'
     CPP = 'cpp'
