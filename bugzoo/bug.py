@@ -60,7 +60,7 @@ class Bug(object):
         with open(fn, 'r') as f:
             yml = yaml.load(f)
 
-        name = yml['bug'] # TODO: rename to 'bug'
+        name = yml['bug']
         program = yml.get('program', None)
 
         # build the test harness
