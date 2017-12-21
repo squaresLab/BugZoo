@@ -47,13 +47,17 @@ class CCoverageExtractor(object):
     def _prepare(self,
                  container: Container
                  ) -> None:
+        """
+        Recompiles the program within the container using the appropriate
+        GCC options, and also ensures that 'gcov' is installed inside the
+        container.
+        """
         # ensure that gcovr is mounted within the container
         # TODO: mount binaries
         container.command('sudo apt-get update && sudo apt-get install -y gcovr')
 
         # ensure any preexisting coverage files within this container are purged
-        # TODO
-
+        # TODO: not a priority
         options = {
             "CFLAGS": "CFLAGS='-fprofile-arcs -ftest-coverage -fPIC'"
         }
@@ -67,4 +71,15 @@ class CCoverageExtractor(object):
     def _extract(self,
                  container: Container
                  ) -> ProjectLineCoverage:
-        pass
+        """
+        Uses gcovr to extract coverage information for all of the C/C++ source
+        code files within the project. Destroys '.gcda' files upon computing
+        coverage.
+        """
+        response = container.command('gcovr -x -d -r .',
+                                     context=container.bug.source_dir)
+        assert response.code == 0
+        response = response.output.decode('utf-8')
+
+        # parse XML to Python data structures
+        return ProjectLineCoverage.from_gcovr_xml(response)
