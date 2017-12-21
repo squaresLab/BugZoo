@@ -1,4 +1,4 @@
-from bugzoo.container import Container
+from bugzoo.testing import TestCase
 from bugzoo.coverage.base import ProjectLineCoverage
 
 
@@ -9,7 +9,7 @@ class CoverageExtractor(object):
     extractor to account for the language used by the program being studied.
     """
     def _prepare(self,
-                container: Container
+                container: 'Container'
                 ) -> None:
         """
         Prepares a given container such that it is able to
@@ -17,7 +17,7 @@ class CoverageExtractor(object):
         raise NotImplementedError
 
     def _extract(self,
-                container: Container
+                container: 'Container'
                 ) -> ProjectLineCoverage:
         """
         Extracts coverage information from the relevant coverage files within
@@ -26,7 +26,7 @@ class CoverageExtractor(object):
         raise NotImplementedError
 
     def collect(self,
-                container: Container,
+                container: 'Container',
                 test: TestCase
                 ) -> ProjectLineCoverage:
         """
@@ -45,7 +45,7 @@ class CCoverageExtractor(object):
     """
     @override
     def _prepare(self,
-                 container: Container
+                 container: 'Container'
                  ) -> None:
         """
         Recompiles the program within the container using the appropriate
@@ -69,7 +69,7 @@ class CCoverageExtractor(object):
 
     @override
     def _extract(self,
-                 container: Container
+                 container: 'Container'
                  ) -> ProjectLineCoverage:
         """
         Uses gcovr to extract coverage information for all of the C/C++ source
