@@ -4,6 +4,7 @@ import bugzoo.tool
 import bugzoo.coverage
 import bugzoo.container
 
+from bugzoo.core import Language
 from bugzoo.container import Container
 from bugzoo.patch import Patch
 from bugzoo.bug import Bug
