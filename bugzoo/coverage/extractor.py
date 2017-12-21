@@ -43,7 +43,6 @@ class CCoverageExtractor(object):
     Responsible for collecting coverage information from programs written in C
     and C++.
     """
-    @override
     def _prepare(self,
                  container: 'Container'
                  ) -> None:
@@ -67,7 +66,6 @@ class CCoverageExtractor(object):
             msg = "failed to generate coverage for container ({}) due to compilation failure.".format(container.id)
             raise Exception(msg)
 
-    @override
     def _extract(self,
                  container: 'Container'
                  ) -> ProjectLineCoverage:
