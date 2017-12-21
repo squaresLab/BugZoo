@@ -1,12 +1,15 @@
 import xml.etree.ElementTree as ET
 from typing import Dict, List
+from bugzoo.testing import TestCase
 
 
 class FileLineCoverage(object):
     """
     Provides line-level coverage information for a given file.
     """
-    def __init__(self, filename: str, lines: Dict[int, int]) -> None:
+    T = Dict[int, int]
+
+    def __init__(self, filename: str, lines: T) -> None:
         self.__filename = filename
         self.__lines = lines
 
@@ -42,6 +45,7 @@ class ProjectLineCoverage(object):
     Provides complete line coverage information for all files and across all
     tests within a given project.
     """
+    T = Dict[str, FileLineCoverage.T]
 
     @staticmethod
     def from_string(s: str) -> 'ProjectLineCoverage':
@@ -98,8 +102,19 @@ class ProjectCoverageMap(object):
     Holds coverage information for all tests belonging to a particular program
     version.
     """
-    def __init__(self):
-        self.__contents = {}
+    T = Dict[TestCase, ProjectLineCoverage.T]
+
+    @staticmethod
+    def from_dict(d: ) -> 'ProjectCoverageMap':
+        coverage = {}
+        for (test_name, test_coverage) in d.items():
+            test = tests[test_name]
+            test_coverage = ProjectLineCoverage.from_dict(test_coverage)
+            coverage[test] = test_coverage
+        return ProjectCoverageMap(coverage)
+
+    def __init__(self, contents: T):
+        self.__contents = contents
 
     def __getitem__(self, test: TestCase) -> ProjectLineCoverage:
         """
