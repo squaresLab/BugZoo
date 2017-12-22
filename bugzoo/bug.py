@@ -174,32 +174,31 @@ class Bug(object):
         return self.__dataset
 
     @property
+    def installation(self) -> 'BugZoo':
+        """
+        The installation associated with this bug.
+        """
+        return self.dataset.manager
+
+    @property
     def coverage(self) -> 'ProjectCoverageMap':
         """
         Provides coverage information for each test within the test suite
         for the program associated with this bug.
         """
         # determine the location of the coverage map on disk
-        installation = None
-        fn = os.path.join(installation.coverage_dir,
+        fn = os.path.join(self.installation.coverage_dir,
                           "{}.coverage.yml".format(self.identifier))
 
         # is the coverage already cached? if so, load.
         if os.path.exists(fn):
             return ProjectCoverageMap.from_file(fn)
 
-        # TODO
         # if we don't have coverage information, compute it
-        cov: Dict[TestCase, ProjectLineCoverage] = {}
         container = self.provision()
-        container.compile()
-        for test in self.tests:
-            container.execute(test)
-            cov[test] = container.coverage(wipe=True)
-        self.__coverage = ProjectCoverageMap(cov)
+        cov = container.coverage()
 
         # save to disk
-        # TODO: ensure coverage directory exists
         with open(fn, 'w') as f:
             yaml.dump(self.__coverage.to_dict())
 
