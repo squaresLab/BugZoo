@@ -1,3 +1,5 @@
+from bugzoo.coverage import CoverageExtractor, \
+                            CCoverageExtractor
 import enum
 
 
@@ -7,7 +9,18 @@ class LanguageEnumMeta(enum.EnumMeta):
 
 
 class Language(enum.Enum, metaclass=LanguageEnumMeta):
-    C = enum.auto()
-    CPP = enum.auto()
-    JAVA = enum.auto()
-    PYTHON = enum.auto()
+    C = CCoverageExtractor()
+    CPP = CCoverageExtractor()
+    # JAVA = None
+    # PYTHON = None
+
+    def __init__(self, coverage_extractor: CoverageExtractor) -> None:
+        self.__coverage_extractor = coverage_extractor
+
+    @property
+    def coverage_extractor(self) -> CoverageExtractor:
+        """
+        The default coverage extractor used to obtain coverage information
+        for programs written in this language.
+        """
+        return self.__coverage_extractor
