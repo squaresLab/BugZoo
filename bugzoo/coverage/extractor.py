@@ -42,6 +42,7 @@ class CoverageExtractor(object):
         self._prepare(container)
 
         for test in tests:
+            print("generating coverage: {}".format(test))
             container.execute(test)
             cov[test] = self._extract(container)
 
@@ -50,7 +51,7 @@ class CoverageExtractor(object):
         return ProjectCoverageMap(cov)
 
 
-class CCoverageExtractor(object):
+class CCoverageExtractor(CoverageExtractor):
     """
     Responsible for collecting coverage information from programs written in C
     and C++.
@@ -89,7 +90,7 @@ class CCoverageExtractor(object):
         response = container.command('gcovr -x -d -r .',
                                      context=container.bug.source_dir)
         assert response.code == 0
-        response = response.output.decode('utf-8')
+        response = response.output #.decode('utf-8')
 
         # parse XML to Python data structures
         return ProjectLineCoverage.from_gcovr_xml(response)
