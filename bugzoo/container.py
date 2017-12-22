@@ -288,16 +288,26 @@ class Container(object):
             out = client.api.exec_start(response['Id'], stream=True)
             return PendingExecResponse(response, out)
 
-
-    def coverage(self, test: TestCase) -> ProjectLineCoverage:
+    def coverage(self,
+                 tests: List[TestCase] = None
+                 ) -> ProjectCoverageMap:
+        """
+        Computes line coverage information for an optionally provided list of
+        tests. If no list of tests is provided, then coverage will be computed
+        for all tests within the test suite associated with the program inside
+        this container.
+        """
         assert self.alive
+        assert tests != []
+
+        if tests is None:
+            tests = self.bug.tests
 
         # fetch the extractor for this language
-
-        # prepare the container for the purposes of collecting coverage
-
-        # extract coverage information
-        return extractor.extract(self)
+        # TODO: assumes a single language
+        language = self.bug.languages[0]
+        extractor = language.coverage_extractor
+        return extractor.coverage(self, tests)
 
     def compile(self, mode: str = 'default', verbose: bool = True):
         """
