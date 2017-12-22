@@ -4,7 +4,6 @@
 # information for a historical bug from the ManyBugs dataset.
 #
 from bugzoo import BugZoo
-from bugzoo.plugin.gcovr import gcovr
 
 if __name__ == "__main__":
     bgz = BugZoo()
@@ -17,17 +16,11 @@ if __name__ == "__main__":
     bug = bgz.bugs['manybugs:python:69223-69224']
     bug.build()
 
-    # we use the "gcovr" plugin to compute coverage
-    plugin_gcovr = gcovr()
-
-    # provision a container for the bug and attach the plugin to that container
+    # provision a container for the bug
     container = bug.provision()
-    plugin_gcovr.attach(container)
 
     # compute coverage for each of the tests
-    cov = {}
-    for test in bug.tests:
-        cov[test.identifier] = container.coverage(test)
+    coverage = container.coverage()
 
     # let's determine which tests executed the faulty line
     #
