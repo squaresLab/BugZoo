@@ -48,20 +48,12 @@ class ProjectLineCoverage(object):
     T = Dict[str, FileLineCoverage.T]
 
     @staticmethod
-    def from_string(s: str) -> 'ProjectLineCoverage':
+    def from_gcovr_xml_string(s: str) -> 'ProjectLineCoverage':
         """
         Loads a project line-coverage report from a string-based XML
         description.
         """
         root = ET.fromstring(s)
-        return ProjectLineCoverage.from_xml(root)
-
-    @staticmethod
-    def from_xml(root: ET.Element) -> 'ProjectLineCoverage':
-        """
-        Transforms an XML tree, produced by gcovr, into a project
-        line-coverage report.
-        """
         reports = {}
         packages = root.find('packages')
 

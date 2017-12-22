@@ -93,4 +93,4 @@ class CCoverageExtractor(CoverageExtractor):
         response = response.output #.decode('utf-8')
 
         # parse XML to Python data structures
-        return ProjectLineCoverage.from_gcovr_xml(response)
+        return ProjectLineCoverage.from_gcovr_xml_string(response)
