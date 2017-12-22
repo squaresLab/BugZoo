@@ -25,17 +25,18 @@ class BugZoo(object):
         if path is None:
             default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
             path = os.environ.get('BUGZOO_PATH', default_path)
-
-        # ensure dir exists
-        if not os.path.exists(path):
-            os.makedirs(path)
-
         self.__path = path
+
+        # ensure dirs exist
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        if not os.path.exists(self.coverage_path):
+            os.makedirs(self.coverage_path)
+
         self.__sources = SourceManager(self)
         self.__datasets = Datasets(self)
         self.__bugs = Bugs(self)
         self.__tools = Tools(self)
-
 
     @property
     def path(self) -> str:
@@ -44,10 +45,16 @@ class BugZoo(object):
         """
         return self.__path
 
+    @property
+    def coverage_path(self) -> str:
+        """
+        The absolute path to the directory used to store cached coverage
+        information for bugs provided by this BugZoo installation.
+        """
+        return os.path.join(self.path, ".coverage")
 
     def rescan(self):
         self.__sources.scan()
-
 
     @property
     def sources(self):
@@ -56,7 +63,6 @@ class BugZoo(object):
         """
         return self.__sources
 
-
     @property
     def datasets(self):
         """
@@ -64,14 +70,12 @@ class BugZoo(object):
         """
         return self.__datasets
 
-
     @property
     def tools(self):
         """
         The tools registered with this BugZoo installation.
         """
         return self.__tools
-
 
     @property
     def bugs(self):
