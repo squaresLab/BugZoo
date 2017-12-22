@@ -1,3 +1,4 @@
+from typing import List
 from bugzoo.testing import TestCase
 from bugzoo.coverage.base import ProjectLineCoverage, \
                                  ProjectCoverageMap
@@ -73,7 +74,7 @@ class CCoverageExtractor(object):
         }
 
         outcome = container.compile(options=options)
-        if not outcome.passed:
+        if not outcome.successful:
             msg = "failed to generate coverage for container ({}) due to compilation failure.".format(container.id)
             raise Exception(msg)
 
