@@ -17,10 +17,6 @@ from bugzoo.tool import Tool
 from bugzoo.coverage.base import ProjectLineCoverage
 
 
-class CompilationOutcome(object):
-    pass
-
-
 class PendingExecResponse(object):
     def __init__(self, exec_response, output) -> None:
         self.__exec_response = exec_response
@@ -84,6 +80,15 @@ class ExecResponse(object):
         The output of the execution.
         """
         return self.__output.decode(sys.stdout.encoding)
+
+
+class CompilationOutcome(object):
+    def __init__(self, command_outcome: ExecResponse) -> None:
+        self.__command_outcome = command_outcome
+
+    @property
+    def successful(self):
+        return self.__command_outcome.code == 0
 
 
 class Container(object):
@@ -309,20 +314,32 @@ class Container(object):
         extractor = language.coverage_extractor
         return extractor.coverage(self, tests)
 
-    def compile(self, mode: str = 'default', verbose: bool = True):
+    def compile(self,
+                options: Dict[str, str] = None,
+                verbose: bool = True
+                ) -> CompilationOutcome:
         """
         Attempts to compile the program inside this container.
 
-        TODO: check for failure
+        Params:
+            options: An optional dictionary of keyword parameters that are
+                supplied to the compilation command. If a parameter within
+                the command template is not supplied with a value, then an
+                empty string will be used instead.
+            verbose: Specifies whether to print the stdout and stderr produced
+                by the compilation command to the stdout. If `True`, then the
+                stdout and stderr will be printed.
+
+        Returns:
+            A summary of the outcome of the compilation attempt.
         """
-
-        cmd = ({'coverage': 'make -j8 CFLAGS="-fprofile-arcs -ftest-coverage -fPIC"',
-                'default': 'make -j8'})[mode]
+        cmd = 'make -j8 CFLAGS="-fprofile-arcs -ftest-coverage -fPIC"'
+        # TODO: use virtual compiler
         # cmd = self.bug.compilation_instructions.command
-
-        return self.command(cmd,
-                                    context=self.bug.compilation_instructions.context,
-                                    stderr=True)
+        cmd_outcome = self.command(cmd,
+                                   context=self.bug.compilation_instructions.context,
+                                   stderr=True)
+        return CompilationOutcome(cmd_outcome)
 
 
     def execute(self, test: TestCase) -> TestOutcome:
