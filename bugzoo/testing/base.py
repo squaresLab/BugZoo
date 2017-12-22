@@ -8,7 +8,6 @@ class TestCase(object):
     def __init__(self, identifier: str) -> None:
         self.__identifier = identifier
 
-
     @property
     def identifier(self) -> str:
         """
@@ -16,6 +15,8 @@ class TestCase(object):
         """
         return self.__identifier
 
+    def __hash__(self) -> int:
+        return hash(self.identifier)
 
     def __repr__(self) -> str:
         """
@@ -33,7 +34,6 @@ class TestCase(object):
                 print(test)
         """
         return "Test[{}]".format(self.__identifier)
-
 
     def __eq__(self, other) -> bool:
         """
