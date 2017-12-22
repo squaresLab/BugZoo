@@ -101,7 +101,7 @@ class Bug(object):
 
 
     def __init__(self,
-                 dataset: 'bugzoo.manager.Dataset',
+                 dataset: 'Dataset',
                  name: str,
                  program: str,
                  languages: List[Language],
@@ -120,9 +120,12 @@ class Bug(object):
         self.__compilation_instructions = compilation_instructions
         self.__dataset = dataset
 
+    @property
+    def dataset(self) -> 'Dataset':
+        return self.__dataset
 
     @property
-    def dataset_dir(self) -> str:
+    def source_dir(self) -> str:
         """
         The absolute path of the dataset directory (within the container) for
         this bug.
