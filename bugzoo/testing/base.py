@@ -14,6 +14,7 @@ class TestCase(object):
         A unique identifier assigned to this test case.
         """
         return self.__identifier
+    name = identifier
 
     def __hash__(self) -> int:
         return hash(self.identifier)
