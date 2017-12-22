@@ -104,11 +104,13 @@ class SourceManager(object):
         self.__sources = {}
         self.scan()
 
-
     @property
-    def path(self):
+    def path(self) -> str:
         return self.__path
 
+    @property
+    def installation(self) -> 'BugZoo':
+        return self.__installation
 
     def scan(self) -> None:
         if not os.path.exists(self.__registry_fn):
@@ -121,16 +123,13 @@ class SourceManager(object):
 
         self.__sources = {s: self.load(s) for s in srcs}
 
-
     def __write(self) -> None:
         with open(self.__registry_fn, 'w') as f:
             srcs = list(self.__sources.keys())
             json.dump(srcs, f, indent=2)
 
-
     def exists(self, url: str) -> bool:
         return url in self.__sources
-
 
     def __download(self, url: str) -> None:
         abs_path = Source.url_to_abs_path(self, url)
@@ -142,7 +141,6 @@ class SourceManager(object):
             shutil.rmtree(abs_path, ignore_errors=True)
         return self.load(url)
 
-
     def load(self, url: str) -> Source:
         rel_path = Source.url_to_rel_path(url)
         abs_path = Source.url_to_abs_path(self, url)
@@ -150,7 +148,6 @@ class SourceManager(object):
         with open(manifest_path, 'r') as f:
             yml = yaml.load(f)
         return Source.from_dict(self, url, yml)
-
 
     def add(self, url: str) -> Source:
         assert url != ""
@@ -163,12 +160,10 @@ class SourceManager(object):
         self.__write()
         return src
 
-
     def __remove(self, src: Source) -> None:
         src.remove()
         del self.__sources[src.url]
         self.__write()
-
 
     def remove_by_url(self, url: str) -> None:
         assert url != ""
@@ -176,18 +171,15 @@ class SourceManager(object):
         assert isinstance(src, Source)
         self.__remove(src)
 
-
     def remove_by_name(self, name: str) -> None:
         assert name != ""
         src = self.get_by_name(name)
         assert isinstance(src, Source)
         self.__remove(src)
 
-
     def update(self) -> None:
         for src in self.__sources.values():
             src.update()
-
 
     def get_by_name(self, name: str) -> Source:
         """
@@ -202,7 +194,6 @@ class SourceManager(object):
 
         raise bugzoo.errors.SourceNotFoundWithName(name)
 
-
     def get_by_url(self, url: str) -> Source:
         """
         Retrieves the source provided by a given URL.
@@ -214,7 +205,6 @@ class SourceManager(object):
             return self.__sources[url]
 
         raise bugzoo.errors.SourceNotFoundWithURL(url)
-
 
     def __iter__(self) -> Iterator[Source]:
         for src in self.__sources.values():
