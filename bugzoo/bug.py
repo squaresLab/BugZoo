@@ -94,6 +94,7 @@ class Bug(object):
         return Bug(dataset,
                         name,
                         program,
+                        languages,
                         harness,
                         build_instructions,
                         compilation_instructions)
@@ -103,14 +104,17 @@ class Bug(object):
                  dataset: 'bugzoo.manager.Dataset',
                  name: str,
                  program: str,
+                 languages: List[Language],
                  harness: TestSuite,
                  build_instructions: BuildInstructions,
                  compilation_instructions: CompilationInstructions) -> None:
         assert name != ""
         assert program != ""
+        assert languages != []
 
         self.__name = name
         self.__program = program
+        self.__languages = languages[:]
         self.__test_harness = harness
         self.__build_instructions = build_instructions
         self.__compilation_instructions = compilation_instructions
@@ -126,6 +130,9 @@ class Bug(object):
         # TODO
         return "/experiment/src"
 
+    @property
+    def languages(self) -> List[Language]:
+        return self.__languages[:]
 
     @property
     def program(self) -> str:
