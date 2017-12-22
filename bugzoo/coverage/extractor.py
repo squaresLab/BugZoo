@@ -1,5 +1,6 @@
 from bugzoo.testing import TestCase
-from bugzoo.coverage.base import ProjectLineCoverage
+from bugzoo.coverage.base import ProjectLineCoverage, \
+                                 ProjectCoverageMap
 
 
 class CoverageExtractor(object):
@@ -25,17 +26,27 @@ class CoverageExtractor(object):
         """
         raise NotImplementedError
 
-    def collect(self,
-                container: 'Container',
-                test: TestCase
-                ) -> ProjectLineCoverage:
+    def coverage(self,
+                 container: 'Container',
+                 tests: List[TestCase]
+                 ) -> ProjectCoverageMap:
         """
-        Uses this coverage extractor to compute line coverage information for
-        a given test.
+        Uses a provided container to compute line coverage information for a
+        given list of tests.
         """
+        assert tests != []
+
+        cov: Dict[Testcase, ProjectLineCoverage] = {}
+
         self._prepare(container)
-        container.execute(test)
-        return self._extract(container)
+
+        for test in tests:
+            container.execute(test)
+            cov[test] = self._extract(container)
+
+        # TODO: cleanup?
+
+        return ProjectCoverageMap(cov)
 
 
 class CCoverageExtractor(object):
