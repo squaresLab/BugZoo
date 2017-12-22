@@ -121,10 +121,6 @@ class Bug(object):
         self.__dataset = dataset
 
     @property
-    def dataset(self) -> 'Dataset':
-        return self.__dataset
-
-    @property
     def source_dir(self) -> str:
         """
         The absolute path of the dataset directory (within the container) for
@@ -144,11 +140,9 @@ class Bug(object):
         """
         return self.__program
 
-
     @property
     def compilation_instructions(self):
         return self.__compilation_instructions
-
 
     @property
     def harness(self) -> TestSuite:
@@ -157,14 +151,12 @@ class Bug(object):
         """
         return self.__test_harness
 
-
     @property
     def tests(self):
         """
         The test suite used by this bug.
         """
         return self.__test_harness.tests
-
 
     @property
     def dataset(self) -> 'Dataset':
@@ -178,7 +170,7 @@ class Bug(object):
         """
         The installation associated with this bug.
         """
-        return self.dataset.manager
+        return self.dataset.manager.installation
 
     @property
     def coverage(self) -> 'ProjectCoverageMap':
@@ -196,13 +188,13 @@ class Bug(object):
 
         # if we don't have coverage information, compute it
         container = self.provision()
-        cov = container.coverage()
+        coverage = container.coverage()
 
         # save to disk
         with open(fn, 'w') as f:
-            yaml.dump(self.__coverage.to_dict())
+            yaml.dump(coverage.to_dict())
 
-        return self.__coverage
+        return coverage
 
     @property
     def installed(self) -> bool:
