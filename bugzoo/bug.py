@@ -188,6 +188,7 @@ class Bug(object):
 
         # if we don't have coverage information, compute it
         try:
+            container = None
             container = self.provision()
             coverage = container.coverage()
 
@@ -250,6 +251,7 @@ class Bug(object):
         # provision a container
         validated = True
         try:
+            c = None
             c = self.provision()
 
             # ensure we can compile the bug
