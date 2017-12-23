@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from copy import copy
 from typing import Dict, List
 from bugzoo.testing import TestCase
 
@@ -38,6 +39,9 @@ class FileLineCoverage(object):
         return self.__lines[num]
 
     __getitem__ = hits
+
+    def to_dict(self) -> dict:
+        return copy(self.__lines)
 
 
 class ProjectLineCoverage(object):
@@ -88,6 +92,10 @@ class ProjectLineCoverage(object):
 
     __getitem__ = file
 
+    def to_dict(self) -> dict:
+        return {fn: cov.to_dict() \
+                for (fn, cov) in self.__files.items()}
+
 
 class ProjectCoverageMap(object):
     """
@@ -124,3 +132,7 @@ class ProjectCoverageMap(object):
         test case.
         """
         return test in self.__contents
+
+    def to_dict(self) -> dict:
+        return {test.name: cov.to_dict() \
+                for (test, cov) in self.__contents.items()}
