@@ -194,7 +194,7 @@ class Bug(object):
 
             # save to disk
             with open(fn, 'w') as f:
-                yaml.dump(coverage.to_dict(), f)
+                yaml.dump(coverage.to_dict(), f, default_flow_style=False)
         finally:
             if container:
                 container.destroy()
