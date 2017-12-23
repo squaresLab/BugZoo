@@ -1,4 +1,4 @@
-from typing import List, Iterator
+from typing import List, Iterator, Dict
 
 
 class TestCase(object):
@@ -8,14 +8,16 @@ class TestCase(object):
     def __init__(self, identifier: str) -> None:
         self.__identifier = identifier
 
-
     @property
     def identifier(self) -> str:
         """
         A unique identifier assigned to this test case.
         """
         return self.__identifier
+    name = identifier
 
+    def __hash__(self) -> int:
+        return hash(self.identifier)
 
     def __repr__(self) -> str:
         """
@@ -33,7 +35,6 @@ class TestCase(object):
                 print(test)
         """
         return "Test[{}]".format(self.__identifier)
-
 
     def __eq__(self, other) -> bool:
         """
@@ -93,14 +94,23 @@ class TestSuite(object):
 
         raise Exception("unexpected test harness type: {}".format(typ))
 
+    def __init__(self, tests: List[TestCase]) -> None:
+        self.__tests: Dict[str, TestCase] = \
+            {test.name: test for test in tests}
 
-    def __init__(self, tests):
-        self.__tests = tests
+    def __getitem__(self, name: str) -> TestCase:
+        """
+        Attempts to fetch a test case from this test suite by its name.
 
+        Raises:
+            KeyError: if no test case with the given name belongs to this
+                test suite.
+        """
+        return self.__tests[name]
 
     @property
-    def tests(self):
+    def tests(self) -> List[TestCase]:
         """
         The list of tests associated with this test harness.
         """
-        return self.__tests[:]
+        return list(self.__tests.values())

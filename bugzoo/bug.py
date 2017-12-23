@@ -6,12 +6,13 @@ import textwrap
 import bugzoo
 
 from typing import List, Iterator, Dict
+from bugzoo.core import Language
 from bugzoo.util import print_task_start, print_task_end
 from bugzoo.build import BuildInstructions
 from bugzoo.container import Container
 from bugzoo.tool import Tool
 from bugzoo.testing import TestCase, TestOutcome, TestSuite
-
+from bugzoo.coverage import ProjectLineCoverage, ProjectCoverageMap
 
 class CompilationInstructions(object):
     @staticmethod
@@ -55,13 +56,22 @@ class Bug(object):
     def from_file(dataset: 'bugzoo.manager.Dataset',
                   fn: str) -> 'Bug':
         """
-        Loads an bug from its YAML manifest file.
+        Loads a bug from its YAML manifest file.
         """
         with open(fn, 'r') as f:
             yml = yaml.load(f)
 
-        name = yml['bug'] # TODO: rename to 'bug'
+        name = yml['bug']
         program = yml.get('program', None)
+
+        # determine the languages used by the program
+        if not 'languages' in yml:
+            raise Exception('No "languages" property specified for bug: {}'.format(name))
+
+        languages = yml['languages'] # TODO: validate
+        if languages is []:
+            raise Exception('No associated languages specified for bug: {}'.format(name))
+        languages = [Language[l] for l in languages]
 
         # build the test harness
         harness = TestSuite.from_dict(yml['test-harness'])
@@ -75,7 +85,7 @@ class Bug(object):
 
         # docker build instructions
         # TODO: this is stupid
-        build_instructions = {'docker': yml['docker']}
+        build_instructions = {'build': yml['build']}
         build_instructions = \
             BuildInstructions.from_dict(dataset,
                                         os.path.dirname(fn),
@@ -84,31 +94,34 @@ class Bug(object):
         return Bug(dataset,
                         name,
                         program,
+                        languages,
                         harness,
                         build_instructions,
                         compilation_instructions)
 
 
     def __init__(self,
-                 dataset: 'bugzoo.manager.Dataset',
+                 dataset: 'Dataset',
                  name: str,
                  program: str,
+                 languages: List[Language],
                  harness: TestSuite,
                  build_instructions: BuildInstructions,
                  compilation_instructions: CompilationInstructions) -> None:
         assert name != ""
         assert program != ""
+        assert languages != []
 
         self.__name = name
         self.__program = program
+        self.__languages = languages[:]
         self.__test_harness = harness
         self.__build_instructions = build_instructions
         self.__compilation_instructions = compilation_instructions
         self.__dataset = dataset
 
-
     @property
-    def dataset_dir(self) -> str:
+    def source_dir(self) -> str:
         """
         The absolute path of the dataset directory (within the container) for
         this bug.
@@ -116,6 +129,9 @@ class Bug(object):
         # TODO
         return "/experiment/src"
 
+    @property
+    def languages(self) -> List[Language]:
+        return self.__languages[:]
 
     @property
     def program(self) -> str:
@@ -124,11 +140,9 @@ class Bug(object):
         """
         return self.__program
 
-
     @property
     def compilation_instructions(self):
         return self.__compilation_instructions
-
 
     @property
     def harness(self) -> TestSuite:
@@ -137,14 +151,12 @@ class Bug(object):
         """
         return self.__test_harness
 
-
     @property
     def tests(self):
         """
         The test suite used by this bug.
         """
         return self.__test_harness.tests
-
 
     @property
     def dataset(self) -> 'Dataset':
@@ -153,6 +165,41 @@ class Bug(object):
         """
         return self.__dataset
 
+    @property
+    def installation(self) -> 'BugZoo':
+        """
+        The installation associated with this bug.
+        """
+        return self.dataset.manager.installation
+
+    @property
+    def coverage(self) -> 'ProjectCoverageMap':
+        """
+        Provides coverage information for each test within the test suite
+        for the program associated with this bug.
+        """
+        # determine the location of the coverage map on disk
+        fn = os.path.join(self.installation.coverage_path,
+                          "{}.coverage.yml".format(self.identifier))
+
+        # is the coverage already cached? if so, load.
+        if os.path.exists(fn):
+            return ProjectCoverageMap.from_file(fn, self.harness)
+
+        # if we don't have coverage information, compute it
+        try:
+            container = None
+            container = self.provision()
+            coverage = container.coverage()
+
+            # save to disk
+            with open(fn, 'w') as f:
+                yaml.dump(coverage.to_dict(), f, default_flow_style=False)
+        finally:
+            if container:
+                container.destroy()
+
+        return coverage
 
     @property
     def installed(self) -> bool:
@@ -204,6 +251,7 @@ class Bug(object):
         # provision a container
         validated = True
         try:
+            c = None
             c = self.provision()
 
             # ensure we can compile the bug

@@ -3,8 +3,8 @@
 # This example demonstrates how BugZoo can be used to collect coverage
 # information for a historical bug from the ManyBugs dataset.
 #
+from pprint import pprint as pp
 from bugzoo import BugZoo
-from bugzoo.plugin.gcovr import gcovr
 
 if __name__ == "__main__":
     bgz = BugZoo()
@@ -14,20 +14,15 @@ if __name__ == "__main__":
         bgz.sources.add('https://github.com/ChrisTimperley/ManyBugs')
 
     # build the Docker image for one of the bugs within the ManyBugs dataset
-    bug = bgz.bugs['manybugs:python:69223-69224']
+    bug = bgz.bugs['manybugs:lighttpd:1794-1795']
     bug.build()
 
-    # we use the "gcovr" plugin to compute coverage
-    plugin_gcovr = gcovr()
-
-    # provision a container for the bug and attach the plugin to that container
-    container = bug.provision()
-    plugin_gcovr.attach(container)
-
     # compute coverage for each of the tests
-    cov = {}
-    for test in bug.tests:
-        cov[test.identifier] = container.coverage(test)
+    # container = bug.provision()
+    # coverage = container.coverage()
+    coverage = bug.coverage
+
+    pp(coverage.to_dict())
 
     # let's determine which tests executed the faulty line
     #

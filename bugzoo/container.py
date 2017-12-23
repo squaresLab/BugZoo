@@ -9,13 +9,13 @@ import bugzoo.spectra
 
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
+
+from bugzoo.core import Language
 from bugzoo.testing import TestOutcome, TestCase
 from bugzoo.patch import Patch
 from bugzoo.tool import Tool
-
-
-class CompilationOutcome(object):
-    pass
+from bugzoo.coverage.base import ProjectLineCoverage, \
+                                 ProjectCoverageMap
 
 
 class PendingExecResponse(object):
@@ -83,6 +83,15 @@ class ExecResponse(object):
         return self.__output.decode(sys.stdout.encoding)
 
 
+class CompilationOutcome(object):
+    def __init__(self, command_outcome: ExecResponse) -> None:
+        self.__command_outcome = command_outcome
+
+    @property
+    def successful(self):
+        return self.__command_outcome.code == 0
+
+
 class Container(object):
     """
     Containers provide ephemeral, mutable instances of registered bugs,
@@ -132,6 +141,14 @@ class Container(object):
                                      tty=interactive,
                                      detach=True)
         self.__container.start()
+
+    @property
+    def id(self) -> str:
+        """
+        A unique identifier for this container.
+        """
+        assert self.alive
+        return self.__container.id
 
 
     @property
@@ -277,21 +294,54 @@ class Container(object):
             out = client.api.exec_start(response['Id'], stream=True)
             return PendingExecResponse(response, out)
 
+    def coverage(self,
+                 tests: List[TestCase] = None
+                 ) -> ProjectCoverageMap:
+        """
+        Computes line coverage information for an optionally provided list of
+        tests. If no list of tests is provided, then coverage will be computed
+        for all tests within the test suite associated with the program inside
+        this container.
+        """
+        assert self.alive
+        assert tests != []
 
-    def compile(self, mode: str = 'default', verbose: bool = True):
+        if tests is None:
+            tests = self.bug.tests
+
+        # fetch the extractor for this language
+        # TODO: assumes a single language
+        language = self.bug.languages[0]
+        extractor = language.coverage_extractor
+        return extractor.coverage(self, tests)
+
+    def compile(self,
+                options: Dict[str, str] = None,
+                verbose: bool = True
+                ) -> CompilationOutcome:
         """
         Attempts to compile the program inside this container.
 
-        TODO: check for failure
+        Params:
+            options: An optional dictionary of keyword parameters that are
+                supplied to the compilation command. If a parameter within
+                the command template is not supplied with a value, then an
+                empty string will be used instead.
+            verbose: Specifies whether to print the stdout and stderr produced
+                by the compilation command to the stdout. If `True`, then the
+                stdout and stderr will be printed.
+
+        Returns:
+            A summary of the outcome of the compilation attempt.
         """
-
-        cmd = ({'coverage': 'make -j8 CFLAGS="-fprofile-arcs -ftest-coverage -fPIC"',
-                'default': 'make -j8'})[mode]
+        # TODO: hardcoded!
+        cmd = "make clean && make -j8 CFLAGS='-fprofile-arcs -ftest-coverage -fPIC'"
+        # TODO: use virtual compiler
         # cmd = self.bug.compilation_instructions.command
-
-        return self.command(cmd,
-                                    context=self.bug.compilation_instructions.context,
-                                    stderr=True)
+        cmd_outcome = self.command(cmd,
+                                   context=self.bug.compilation_instructions.context,
+                                   stderr=True)
+        return CompilationOutcome(cmd_outcome)
 
 
     def execute(self, test: TestCase) -> TestOutcome:
