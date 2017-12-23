@@ -47,7 +47,6 @@ class CoverageExtractor(object):
             cov[test] = self._extract(container)
 
         # TODO: cleanup?
-
         return ProjectCoverageMap(cov)
 
 
@@ -61,7 +60,7 @@ class CCoverageExtractor(CoverageExtractor):
                  ) -> None:
         """
         Recompiles the program within the container using the appropriate
-        GCC options, and also ensures that 'gcov' is installed inside the
+        GCC options, and also ensures that 'gcovr' is installed inside the
         container.
         """
         # ensure that gcovr is mounted within the container
