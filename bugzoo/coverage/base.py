@@ -114,6 +114,11 @@ class ProjectCoverageMap(object):
             coverage[test] = test_coverage
         return ProjectCoverageMap(coverage)
 
+    @staticmethod
+    def from_file(fn: str) -> 'ProjectCoverageMap':
+        with open(fn, 'r') as f:
+            return ProjectCoverageMap.from_dict(f)
+
     def __init__(self, contents: T):
         self.__contents = contents
 
