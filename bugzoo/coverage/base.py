@@ -12,7 +12,8 @@ class FileLineCoverage(object):
 
     def __init__(self, filename: str, lines: T) -> None:
         self.__filename = filename
-        self.__lines = lines
+        self.__lines = \
+            {num: hits for (num, hits) in lines.items() if hits > 0}
 
     @property
     def lines(self) -> List[int]:
