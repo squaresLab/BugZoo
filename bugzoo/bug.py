@@ -179,7 +179,7 @@ class Bug(object):
         for the program associated with this bug.
         """
         # determine the location of the coverage map on disk
-        fn = os.path.join(self.installation.coverage_dir,
+        fn = os.path.join(self.installation.coverage_path,
                           "{}.coverage.yml".format(self.identifier))
 
         # is the coverage already cached? if so, load.
@@ -187,12 +187,16 @@ class Bug(object):
             return ProjectCoverageMap.from_file(fn)
 
         # if we don't have coverage information, compute it
-        container = self.provision()
-        coverage = container.coverage()
+        try:
+            container = self.provision()
+            coverage = container.coverage()
 
-        # save to disk
-        with open(fn, 'w') as f:
-            yaml.dump(coverage.to_dict())
+            # save to disk
+            with open(fn, 'w') as f:
+                yaml.dump(coverage.to_dict(), f)
+        finally:
+            if container:
+                container.destroy()
 
         return coverage
 
