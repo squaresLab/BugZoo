@@ -334,7 +334,8 @@ class Container(object):
         Returns:
             A summary of the outcome of the compilation attempt.
         """
-        cmd = 'make -j8 CFLAGS="-fprofile-arcs -ftest-coverage -fPIC"'
+        # TODO: hardcoded!
+        cmd = "make clean && make -j8 CFLAGS='-fprofile-arcs -ftest-coverage -fPIC'"
         # TODO: use virtual compiler
         # cmd = self.bug.compilation_instructions.command
         cmd_outcome = self.command(cmd,
