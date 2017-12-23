@@ -51,7 +51,7 @@ class BugZoo(object):
         The absolute path to the directory used to store cached coverage
         information for bugs provided by this BugZoo installation.
         """
-        return os.path.join(self.path, ".coverage")
+        return os.path.join(self.path, "coverage")
 
     def rescan(self):
         self.__sources.scan()
