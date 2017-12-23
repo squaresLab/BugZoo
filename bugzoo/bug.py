@@ -184,7 +184,7 @@ class Bug(object):
 
         # is the coverage already cached? if so, load.
         if os.path.exists(fn):
-            return ProjectCoverageMap.from_file(fn)
+            return ProjectCoverageMap.from_file(fn, self.harness)
 
         # if we don't have coverage information, compute it
         try:

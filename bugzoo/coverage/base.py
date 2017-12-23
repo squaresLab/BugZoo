@@ -1,7 +1,8 @@
+import yaml
 import xml.etree.ElementTree as ET
 from copy import copy
 from typing import Dict, List
-from bugzoo.testing import TestCase
+from bugzoo.testing import TestCase, TestSuite
 
 
 class FileLineCoverage(object):
@@ -51,6 +52,13 @@ class ProjectLineCoverage(object):
     tests within a given project.
     """
     T = Dict[str, FileLineCoverage.T]
+
+    @staticmethod
+    def from_dict(d: Dict[str, Dict[int, int]]) -> 'ProjectLineCoverage':
+        cov: T = {}
+        for (fn, fcov) in d.items():
+            cov[fn] = FileLineCoverage(fn, fcov)
+        return ProjectLineCoverage(cov)
 
     @staticmethod
     def from_gcovr_xml_string(s: str) -> 'ProjectLineCoverage':
@@ -106,7 +114,7 @@ class ProjectCoverageMap(object):
     T = Dict[TestCase, ProjectLineCoverage.T]
 
     @staticmethod
-    def from_dict(d: T) -> 'ProjectCoverageMap':
+    def from_dict(d: T, tests) -> 'ProjectCoverageMap':
         coverage = {}
         for (test_name, test_coverage) in d.items():
             test = tests[test_name]
@@ -115,9 +123,10 @@ class ProjectCoverageMap(object):
         return ProjectCoverageMap(coverage)
 
     @staticmethod
-    def from_file(fn: str) -> 'ProjectCoverageMap':
+    def from_file(fn: str, tests: TestSuite) -> 'ProjectCoverageMap':
         with open(fn, 'r') as f:
-            return ProjectCoverageMap.from_dict(f)
+            yml = yaml.load(f)
+            return ProjectCoverageMap.from_dict(yml, tests)
 
     def __init__(self, contents: T):
         self.__contents = contents
