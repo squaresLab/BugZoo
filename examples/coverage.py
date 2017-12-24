@@ -5,6 +5,7 @@
 #
 from pprint import pprint as pp
 from bugzoo import BugZoo
+from bugzoo.coverage.base import FileLine
 
 if __name__ == "__main__":
     bgz = BugZoo()
@@ -22,7 +23,12 @@ if __name__ == "__main__":
     # coverage = container.coverage()
     coverage = bug.coverage
 
+    line = FileLine('src/stat_cache.c', 115)
+
     pp(coverage.to_dict())
+
+    tests = coverage.covering_tests(line)
+    print(tests)
 
     # let's determine which tests executed the faulty line
     #

@@ -1,8 +1,32 @@
 import yaml
 import xml.etree.ElementTree as ET
 from copy import copy
-from typing import Dict, List
+from typing import Dict, List, Set, Iterator
 from bugzoo.testing import TestCase, TestSuite
+
+class FileLine(object):
+    """
+    Used to represent an one-indexed line within a specific file.
+    """
+    def __init__(self, fn: str, num: int) -> None:
+        self.__fn = fn
+        self.__num = num
+
+    @property
+    def filename(self) -> str:
+        """
+        The name of the file to which this line belongs.
+        """
+        return self.__fn
+
+    fn = filename
+
+    @property
+    def num(self) -> int:
+        """
+        The one-indexed number of this line.
+        """
+        return self.__num
 
 
 class FileLineCoverage(object):
@@ -36,9 +60,8 @@ class FileLineCoverage(object):
         Returns the number of times that a line with a given number was
         executed.
         """
-        assert isinstance(num, int)
         assert num > 0
-        return self.__lines[num]
+        return self.__lines[num] if num in self.__lines else 0
 
     __getitem__ = hits
 
@@ -83,6 +106,16 @@ class ProjectLineCoverage(object):
 
     def __init__(self, files: Dict[str, FileLineCoverage]) -> None:
         self.__files = files
+
+    def covers(self, line: FileLine) -> bool:
+        """
+        Returns `True` if given line was covered, or `False` if not.
+        """
+        if not line.filename in self.__files:
+            return False
+
+        f = self[line.filename]
+        return f.was_hit(line.num)
 
     @property
     def files(self) -> List[str]:
@@ -130,6 +163,20 @@ class ProjectCoverageMap(object):
 
     def __init__(self, contents: T):
         self.__contents = contents
+
+    def covering_tests(self, line: FileLine) -> Set[TestCase]:
+        """
+        Returns the set of test cases that cover a given line.
+        """
+        return set(test for (test, cov) in self.__contents.items() \
+                   if cov.covers(line))
+
+    def __iter__(self) -> Iterator[TestCase]:
+        """
+        Returns an iterator over the test cases within this test suite.
+        """
+        for test in self.__contents.values():
+            yield test
 
     def __getitem__(self, test: TestCase) -> ProjectLineCoverage:
         """
