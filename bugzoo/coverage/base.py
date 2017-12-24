@@ -45,6 +45,11 @@ class FileLine(object):
         """
         return self.__num
 
+    def __str__(self) -> str:
+        return "{}:{}".format(self.filename, self.num)
+
+    __repr__ = __str__
+
 
 class FileLineCoverage(object):
     """
