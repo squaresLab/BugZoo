@@ -1,3 +1,4 @@
+from bugzoo.core import ExecResponse
 from typing import List, Iterator, Dict
 
 
@@ -48,19 +49,20 @@ class TestOutcome(object):
     """
     Used to describe the outcome of a test execution.
     """
-    def __init__(self, response, passed, duration):
+    def __init__(self,
+                 response,
+                 passed: bool
+                 ) -> None:
         self.__response = response
         self.__passed = passed
-        self.__duration = duration
 
 
     @property
-    def response(self):
+    def response(self) -> ExecResponse:
         """
-
+        The response produced by the command used to execute this test.
         """
         return self.__response
-
 
     @property
     def passed(self) -> bool:
@@ -69,14 +71,21 @@ class TestOutcome(object):
         """
         return self.__passed
 
-
     @property
     def duration(self) -> float:
         """
         The duration of the test execution, measured in seconds.
         """
-        return self.__duration
+        return self.response.duration
 
+    def to_dict(self) -> dict:
+        """
+        Produces a JSON and YAML--ready dictionary describing this test
+        outcome.
+        """
+        return {'passed': self.passed,
+                'response': self.response.to_dict()
+               }
 
 class TestSuite(object):
     @staticmethod
