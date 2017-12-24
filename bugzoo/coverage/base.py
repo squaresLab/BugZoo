@@ -193,3 +193,19 @@ class ProjectCoverageMap(object):
     def to_dict(self) -> dict:
         return {test.name: cov.to_dict() \
                 for (test, cov) in self.__contents.items()}
+
+    def failing(self) -> 'ProjectCoverageMap':
+        """
+        Returns a variant of this coverage report that only contains coverage
+        for failing test executions.
+        """
+        return ProjectCoverageMap(tcov for tcov in self \
+                                  if not tcov.outcome.passed)
+
+    def passing(self) -> 'ProjectCoverageMap':
+        """
+        Returns a variant of this coverage report that only contains coverage
+        for failing test executions.
+        """
+        return ProjectCoverageMap(tcov for tcov in self \
+                                  if tcov.outcome.passed)
