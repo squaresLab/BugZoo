@@ -209,3 +209,10 @@ class ProjectCoverageMap(object):
         """
         return ProjectCoverageMap(tcov for tcov in self \
                                   if tcov.outcome.passed)
+
+    def __len__(self) -> 'ProjectCoverageMap':
+        """
+        Returns a count of the number of test executions that are included
+        within this coverage report.
+        """
+        return len(self.__contents)
