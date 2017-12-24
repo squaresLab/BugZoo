@@ -25,6 +25,14 @@ class FileLine(object):
             out[line.filename][line.num] = val
         return out
 
+    @staticmethod
+    def decompactify(d: Dict[str, Dict[int, Any]]) -> 'Dict[FileLine, Any]':
+        lines = {}
+        for fn in d:
+            for num in d[fn]:
+                lines[Line(fn, num)] = d[fn][num]
+        return lines
+
     def __init__(self, fn: str, num: int) -> None:
         self.__fn = fn
         self.__num = num
