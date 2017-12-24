@@ -10,7 +10,8 @@ import bugzoo.spectra
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
 
-from bugzoo.core import Language, ExecResponse, PendingExecResponse
+from bugzoo.core import Language
+from bugzoo.cmd import ExecResponse, PendingExecResponse
 from bugzoo.testing import TestOutcome, TestCase
 from bugzoo.patch import Patch
 from bugzoo.tool import Tool
