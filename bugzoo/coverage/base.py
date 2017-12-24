@@ -4,6 +4,30 @@ from copy import copy
 from typing import Dict, List
 from bugzoo.testing import TestCase, TestSuite
 
+class FileLine(object):
+    """
+    Used to represent an one-indexed line within a specific file.
+    """
+    def __init__(self, fn: str, num: int) -> None:
+        self.__fn = fn
+        self.__num = num
+
+    @property
+    def filename(self) -> str:
+        """
+        The name of the file to which this line belongs.
+        """
+        return self.__fn
+
+    fn = filename
+
+    @property
+    def num(self) -> int:
+        """
+        The one-indexed number of this line.
+        """
+        return self.__num
+
 
 class FileLineCoverage(object):
     """
@@ -131,10 +155,12 @@ class ProjectCoverageMap(object):
     def __init__(self, contents: T):
         self.__contents = contents
 
-    def covering_tests(self, num: int) -> Set[TestCase]:
+    def covering_tests(self, line: Line) -> Set[TestCase]:
         """
         Returns the set of test cases that cover a given line.
         """
+        for test in self:
+
         raise NotImplementedError
 
     def __iter__(self) -> Iterator[TestCase]:
