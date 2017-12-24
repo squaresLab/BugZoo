@@ -15,6 +15,9 @@ class FileLine(object):
         nested dictionary structures that maps from file names to a dictionary
         of line numbers.
         """
+        assert isinstance(d, dict)
+        assert all(isinstance(x, FileLine) for x in d)
+
         out: Dict[str, Dict[int, Any]] = {}
         for (line, val) in d.items():
             if not line.filename in out:
@@ -54,13 +57,13 @@ class FileLineCoverage(object):
         self.__lines = \
             {num: hits for (num, hits) in lines.items() if hits > 0}
 
-    @property
-    def lines(self) -> List[int]:
-        """
-        A list of the one-indexed numbers of the lines that are included in
-        this report.
-        """
-        return list(self.__lines.keys())
+#    @property
+#    def lines(self) -> List[int]:
+#        """
+#        A list of the one-indexed numbers of the lines that are included in
+#        this report.
+#        """
+#        return list(self.__lines.keys())
 
     def was_hit(self, num: int) -> bool:
         """
@@ -78,6 +81,15 @@ class FileLineCoverage(object):
         return self.__lines[num] if num in self.__lines else 0
 
     __getitem__ = hits
+
+    @property
+    def lines(self) -> Iterator[FileLine]:
+        """
+        Returns an iterator over the set of all lines within this file
+        that were covered.
+        """
+        for num in self.__lines:
+            yield FileLine(self.__filename, num)
 
     def to_dict(self) -> dict:
         return copy(self.__lines)
@@ -141,6 +153,15 @@ class ProjectLineCoverage(object):
         return self.__files[name]
 
     __getitem__ = file
+
+    @property
+    def lines(self) -> Iterator[FileLine]:
+        """
+        Returns an iterator over the set of all lines that were covered.
+        """
+        for report in self.__files.values():
+            for line in report.lines:
+                yield line
 
     def to_dict(self) -> dict:
         f_dict = {fn: cov.to_dict() for (fn, cov) in self.__files.items()}
