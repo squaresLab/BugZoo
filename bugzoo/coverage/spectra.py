@@ -48,6 +48,7 @@ class LineSpectra(object):
         """
         return self.__nf
 
+
 class FileSpectra(object):
     """
     Summarises the coverage information for a single file within the program
@@ -79,10 +80,8 @@ class FileSpectra(object):
 
         return FileSpectra(line_to_spectra)
 
-
     def __init__(self, line_to_spectra: Dict[int, LineSpectra]) -> None:
         self.__line_to_row = line_to_spectra
-
 
     @property
     def lines(self) -> List[int]:
@@ -90,7 +89,6 @@ class FileSpectra(object):
         A list of the numbers of the lines that are included in this spectra.
         """
         return list(self.__line_to_spectra.keys())
-
 
     def __getitem__(self, num: int) -> LineSpectra:
         """
@@ -100,8 +98,8 @@ class FileSpectra(object):
         assert num >= 0
         return self.__line_to_spectra[num]
 
-class Spectra(object):
 
+class Spectra(object):
     @staticmethod
     def from_coverage(passing: List[ProjectLineCoverage],
                       failing: List[ProjectLineCoverage]) -> 'Spectra':
@@ -122,14 +120,12 @@ class Spectra(object):
     def __init__(self, file_to_spectra: Dict[str, FileSpectra]) -> None:
         self.__file_to_spectra = file_to_spectra
 
-
     @property
     def files(self) -> List[str]:
         """
         A list of the names of the files that are included in this spectra.
         """
         return list(self.__file_to_spectra.keys())
-
 
     def __getitem__(self, fn: str) -> FileSpectra:
         """
