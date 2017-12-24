@@ -131,6 +131,19 @@ class ProjectCoverageMap(object):
     def __init__(self, contents: T):
         self.__contents = contents
 
+    def covering_tests(self, num: int) -> Set[TestCase]:
+        """
+        Returns the set of test cases that cover a given line.
+        """
+        raise NotImplementedError
+
+    def __iter__(self) -> Iterator[TestCase]:
+        """
+        Returns an iterator over the test cases within this test suite.
+        """
+        for test in self.__contents.values():
+            yield test
+
     def __getitem__(self, test: TestCase) -> ProjectLineCoverage:
         """
         Retrieves coverage information for a given test case.
