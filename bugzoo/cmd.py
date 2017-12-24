@@ -33,6 +33,12 @@ class ExecResponse(object):
     """
     Used to hold the response from a command execution.
     """
+    @staticmethod
+    def from_dict(d: dict) -> 'ExecResponse':
+        return ExecResponse(d['code'],
+                            d['duration'],
+                            d['output'])
+
     def __init__(self,
                  code: int,
                  duration: float,
@@ -61,7 +67,7 @@ class ExecResponse(object):
         """
         The output of the execution.
         """
-        return self.__output.decode(sys.stdout.encoding)
+        return self.__output
 
     def to_dict(self) -> dict:
         """
