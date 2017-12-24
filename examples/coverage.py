@@ -23,19 +23,12 @@ if __name__ == "__main__":
     # container = bug.provision()
     # coverage = container.coverage()
     coverage = bug.coverage
+    # pp(coverage.to_dict())
 
     line = FileLine('src/stat_cache.c', 115)
-
-    pp(coverage.to_dict())
-
     tests = coverage.covering_tests(line)
     print(tests)
-
-    # get the passing and failing coverage
 
     # generate a spectra
     spectra = Spectra.from_coverage(coverage)
 
-    # let's determine which tests executed the faulty line
-    #
-    # TODO
