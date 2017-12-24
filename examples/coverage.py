@@ -30,6 +30,10 @@ if __name__ == "__main__":
     tests = coverage.covering_tests(line)
     print(tests)
 
+    # get the passing and failing coverage
+
+    # generate a spectra
+
     # let's determine which tests executed the faulty line
     #
     # TODO

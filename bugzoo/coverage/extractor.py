@@ -1,7 +1,9 @@
-from typing import List
+import xml.etree.ElementTree as ET
+from typing import List, Dict
 from bugzoo.testing import TestCase
 from bugzoo.coverage.base import ProjectLineCoverage, \
-                                 ProjectCoverageMap
+                                 ProjectCoverageMap, \
+                                 FileLineCoverage
 
 
 class CoverageExtractor(object):
@@ -43,8 +45,9 @@ class CoverageExtractor(object):
 
         for test in tests:
             print("generating coverage: {}".format(test))
-            container.execute(test)
-            cov[test] = self._extract(container)
+            outcome = container.execute(test)
+            file_reports = self._extract(container)
+            cov[test] = ProjectLineCoverage(test, outcome, file_reports)
 
         # TODO: cleanup?
         return ProjectCoverageMap(cov)
@@ -80,7 +83,7 @@ class CCoverageExtractor(CoverageExtractor):
 
     def _extract(self,
                  container: 'Container'
-                 ) -> ProjectLineCoverage:
+                 ) -> Dict[str, FileLineCoverage]:
         """
         Uses gcovr to extract coverage information for all of the C/C++ source
         code files within the project. Destroys '.gcda' files upon computing
@@ -92,4 +95,26 @@ class CCoverageExtractor(CoverageExtractor):
         response = response.output #.decode('utf-8')
 
         # parse XML to Python data structures
-        return ProjectLineCoverage.from_gcovr_xml_string(response)
+        return self.__from_gcovr_xml_string(response)
+
+    def __from_gcovr_xml_string(self,
+                                s: str
+                                ) -> Dict[str, FileLineCoverage]:
+        """
+        Prases a project line-coverage report from a string-based XML
+        description produced by 'gcovr'.
+        """
+        root = ET.fromstring(s)
+        reports: Dict[str, FileLineCoverage] = {}
+        packages = root.find('packages')
+
+        for package in packages.findall('package'):
+            for cls in package.find('classes').findall('class'):
+                fn = cls.attrib['filename']
+                # normalise path
+                lines = cls.find('lines').findall('line')
+                lines = \
+                    {int(l.attrib['number']): int(l.attrib['hits']) for l in lines}
+                reports[fn] = FileLineCoverage(fn, lines)
+
+        return reports

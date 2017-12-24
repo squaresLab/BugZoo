@@ -1,8 +1,8 @@
 import yaml
-import xml.etree.ElementTree as ET
 from copy import copy
 from typing import Dict, List, Set, Iterator
-from bugzoo.testing import TestCase, TestSuite
+from bugzoo.testing import TestCase, TestSuite, TestOutcome
+
 
 class FileLine(object):
     """
@@ -77,34 +77,21 @@ class ProjectLineCoverage(object):
     T = Dict[str, FileLineCoverage.T]
 
     @staticmethod
-    def from_dict(d: Dict[str, Dict[int, int]]) -> 'ProjectLineCoverage':
+    def from_dict(test: TestCase,
+                  d: dict,
+                  ) -> 'ProjectLineCoverage':
         cov: T = {}
-        for (fn, fcov) in d.items():
+        outcome = TestOutcome.from_dict(d['outcome'])
+        for (fn, fcov) in d['coverage'].items():
             cov[fn] = FileLineCoverage(fn, fcov)
-        return ProjectLineCoverage(cov)
+        return ProjectLineCoverage(test, outcome, cov)
 
-    @staticmethod
-    def from_gcovr_xml_string(s: str) -> 'ProjectLineCoverage':
-        """
-        Loads a project line-coverage report from a string-based XML
-        description.
-        """
-        root = ET.fromstring(s)
-        reports = {}
-        packages = root.find('packages')
-
-        for package in packages.findall('package'):
-            for cls in package.find('classes').findall('class'):
-                fn = cls.attrib['filename']
-                # normalise path
-                lines = cls.find('lines').findall('line')
-                lines = \
-                    {int(l.attrib['number']): int(l.attrib['hits']) for l in lines}
-                reports[fn] = FileLineCoverage(fn, lines)
-
-        return ProjectLineCoverage(reports)
-
-    def __init__(self, files: Dict[str, FileLineCoverage]) -> None:
+    def __init__(self,
+                 test: TestCase,
+                 outcome: TestOutcome,
+                 files: Dict[str, FileLineCoverage]) -> None:
+        self.__test = test
+        self.__outcome = outcome
         self.__files = files
 
     def covers(self, line: FileLine) -> bool:
@@ -116,6 +103,13 @@ class ProjectLineCoverage(object):
 
         f = self[line.filename]
         return f.was_hit(line.num)
+
+    @property
+    def outcome(self) -> TestOutcome:
+        """
+        The outcome of the test associated with this coverage.
+        """
+        return self.__outcome
 
     @property
     def files(self) -> List[str]:
@@ -135,8 +129,9 @@ class ProjectLineCoverage(object):
     __getitem__ = file
 
     def to_dict(self) -> dict:
-        return {fn: cov.to_dict() \
-                for (fn, cov) in self.__files.items()}
+        f_dict = {fn: cov.to_dict() for (fn, cov) in self.__files.items()}
+        return {'coverage': f_dict,
+                'outcome': self.outcome.to_dict()}
 
 
 class ProjectCoverageMap(object):
@@ -151,7 +146,7 @@ class ProjectCoverageMap(object):
         coverage = {}
         for (test_name, test_coverage) in d.items():
             test = tests[test_name]
-            test_coverage = ProjectLineCoverage.from_dict(test_coverage)
+            test_coverage = ProjectLineCoverage.from_dict(test, test_coverage)
             coverage[test] = test_coverage
         return ProjectCoverageMap(coverage)
 
