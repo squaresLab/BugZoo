@@ -1,6 +1,6 @@
 from typing import List, Dict
-from bugzoo.coverage.base import ProjectLineCoverage, \
-                                 FileLineCoverage
+from bugzoo.coverage.base import ProjectCoverageMap, \
+                                 FileLine
 
 
 class LineSpectra(object):
@@ -49,87 +49,53 @@ class LineSpectra(object):
         return self.__nf
 
 
-class FileSpectra(object):
-    """
-    Summarises the coverage information for a single file within the program
-    in terms of the number of passing and fail tests that cover each line.
-    """
-    @staticmethod
-    def from_coverage(passing: List[FileLineCoverage],
-                      failing: List[FileLineCoverage]) -> 'FileSpectra':
-        assert len(passing) + len(failing) > 0
-        lines = (passing + failing).lines
-
-        line_to_spectra = {}
-        for line in lines:
-            ep = ef = np = nf = 0
-
-            for p in passing:
-                if p.was_hit(line):
-                    ep += 1
-                else:
-                    np += 1
-
-            for f in failing:
-                if f.was_hit(line):
-                    ef += 1
-                else:
-                    nf += 1
-
-            line_to_spectra[line] = LineSpectra(ep, ef, np, nf)
-
-        return FileSpectra(line_to_spectra)
-
-    def __init__(self, line_to_spectra: Dict[int, LineSpectra]) -> None:
-        self.__line_to_row = line_to_spectra
-
-    @property
-    def lines(self) -> List[int]:
-        """
-        A list of the numbers of the lines that are included in this spectra.
-        """
-        return list(self.__line_to_spectra.keys())
-
-    def __getitem__(self, num: int) -> LineSpectra:
-        """
-        Retrieves the spectra information for a given line (specified by line
-        number) in this file.
-        """
-        assert num >= 0
-        return self.__line_to_spectra[num]
-
-
 class Spectra(object):
     @staticmethod
-    def from_coverage(passing: List[ProjectLineCoverage],
-                      failing: List[ProjectLineCoverage]) -> 'Spectra':
-        assert len(passing) + len(failing) > 0
+    def from_coverage(coverage: ProjectCoverageMap) -> 'Spectra':
+        # tally the number of times that each line is touched by a passing
+        # or failing test
+        tally_failing: Dict[FileLine, int] = {}
+        tally_passing: Dict[FileLine, int] = {}
 
-        # WARNING: assumes set of files is the same
-        filenames = (passing + failing)[0].files
+        for test_coverage in coverage.passing:
+            for line in test_coverage.lines:
+                tally_passing[line] = tally_passing.get(line, 1)
 
-        file_to_spectra = {}
-        for fn in filenames:
-            f_passing = [report[fn] for report in passing]
-            f_failing = [report[fn] for report in failing]
-            file_to_spectra[fn] = FileSpectra(f_passing, f_failing)
+        for test_coverage in coverage.failing:
+            for line in test_coverage.lines:
+                tally_failing[line] = tally_failing.get(line, 1)
 
-        return Spectra(file_to_spectra)
+        return Spectra(len(coverage.passing),
+                       len(coverage.failing),
+                       FileLine.compactify(tally_passing),
+                       FileLine.compactify(tally_failing))
 
+    def __init__(self,
+                 num_passing: int,
+                 num_failing: int,
+                 tally_passing: Dict[str, Dict[int, int]],
+                 tally_failing: Dict[str, Dict[int, int]]
+                 ) -> None:
+        self.__num_passing = num_passing
+        self.__num_failing = num_failing
+        self.__tally_passing = tally_passing
+        self.__tally_failing = tally_failing
 
-    def __init__(self, file_to_spectra: Dict[str, FileSpectra]) -> None:
-        self.__file_to_spectra = file_to_spectra
-
-    @property
-    def files(self) -> List[str]:
+    def __getitem__(self, line: FileLine) -> LineSpectra:
         """
-        A list of the names of the files that are included in this spectra.
+        Retrieves the spectra information for a given line.
         """
-        return list(self.__file_to_spectra.keys())
+        if not line.filename in self.__tally_passing:
+            ep = 0
+        else:
+            ep = self.__tally_passing[line.filename].get(line.num, 0)
 
-    def __getitem__(self, fn: str) -> FileSpectra:
-        """
-        Retrieves the spectra information for a given file.
-        """
-        assert fn != ""
-        return self.__file_to_spectra[fn]
+        if not line.filename in self.__tally_failing:
+            ef = 0
+        else:
+            ef = self.__tally_failing[line.filename].get(line.num, 0)
+
+        np = self.__num_passing - ep
+        nf = self.__num_failing - ef
+
+        return LineSpectra(ep, ef, np, nf)
