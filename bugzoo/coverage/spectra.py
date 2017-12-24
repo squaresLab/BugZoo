@@ -1,5 +1,6 @@
 from typing import List, Dict
-from bugzoo.coverage import ProjectLineCoverage, FileLineCoverage
+from bugzoo.coverage.base import ProjectLineCoverage, \
+                                 FileLineCoverage
 
 
 class LineSpectra(object):
@@ -19,7 +20,6 @@ class LineSpectra(object):
         self.__np = np
         self.__nf = nf
 
-
     @property
     def ep(self) -> int:
         """
@@ -34,14 +34,12 @@ class LineSpectra(object):
         """
         return self.__ef
 
-
     @property
     def np(self) -> int:
         """
         The number of passing tests that do not cover this line.
         """
         return self.__np
-
 
     @property
     def nf(self) -> int:
@@ -50,8 +48,11 @@ class LineSpectra(object):
         """
         return self.__nf
 
-
 class FileSpectra(object):
+    """
+    Summarises the coverage information for a single file within the program
+    in terms of the number of passing and fail tests that cover each line.
+    """
     @staticmethod
     def from_coverage(passing: List[FileLineCoverage],
                       failing: List[FileLineCoverage]) -> 'FileSpectra':
@@ -98,7 +99,6 @@ class FileSpectra(object):
         """
         assert num >= 0
         return self.__line_to_spectra[num]
-
 
 class Spectra(object):
 
