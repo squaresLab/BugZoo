@@ -1,7 +1,7 @@
 import yaml
 import xml.etree.ElementTree as ET
 from copy import copy
-from typing import Dict, List
+from typing import Dict, List, Set, Iterator
 from bugzoo.testing import TestCase, TestSuite
 
 class FileLine(object):
@@ -60,9 +60,8 @@ class FileLineCoverage(object):
         Returns the number of times that a line with a given number was
         executed.
         """
-        assert isinstance(num, int)
         assert num > 0
-        return self.__lines[num]
+        return self.__lines[num] if num in self.__lines else 0
 
     __getitem__ = hits
 
@@ -169,7 +168,8 @@ class ProjectCoverageMap(object):
         """
         Returns the set of test cases that cover a given line.
         """
-        return set(test for test in self if test.covers(line))
+        return set(test for (test, cov) in self.__contents.items() \
+                   if cov.covers(line))
 
     def __iter__(self) -> Iterator[TestCase]:
         """
