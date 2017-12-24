@@ -287,4 +287,4 @@ class Container(object):
         (cmd, ctx) = self.bug.harness.command(test)
         response = self.command(cmd, ctx, stderr=True)
         passed = response.code == 0
-        return TestOutcome(response, passed, response.duration)
+        return TestOutcome(response, passed)
