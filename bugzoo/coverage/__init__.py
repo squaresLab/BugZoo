@@ -3,3 +3,4 @@ from bugzoo.coverage.base import FileLineCoverage, \
                                  ProjectCoverageMap
 from bugzoo.coverage.extractor import CoverageExtractor, \
                                       CCoverageExtractor
+from bugzoo.coverage.spectra import Spectra

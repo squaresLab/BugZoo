@@ -5,7 +5,6 @@ import os
 import subprocess
 import tempfile
 import bugzoo
-import bugzoo.spectra
 
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
@@ -17,6 +16,7 @@ from bugzoo.patch import Patch
 from bugzoo.tool import Tool
 from bugzoo.coverage.base import ProjectLineCoverage, \
                                  ProjectCoverageMap
+from bugzoo.coverage.spectra import Spectra
 
 
 class CompilationOutcome(object):
@@ -178,13 +178,6 @@ class Container(object):
 
         Returns true if the patch application was successful, and false if
         the attempt was unsuccessful.
-        """
-        pass
-
-
-    def spectra(self) -> 'bugzoo.spectra.Spectra':
-        """
-        Computes and returns the spectra for this bug.
         """
         pass
 

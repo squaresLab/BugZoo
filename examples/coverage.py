@@ -30,5 +30,4 @@ if __name__ == "__main__":
     print(tests)
 
     # generate a spectra
-    spectra = Spectra.from_coverage(coverage)
-
+    spectra = bug.spectra

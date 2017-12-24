@@ -12,7 +12,9 @@ from bugzoo.build import BuildInstructions
 from bugzoo.container import Container
 from bugzoo.tool import Tool
 from bugzoo.testing import TestCase, TestOutcome, TestSuite
-from bugzoo.coverage import ProjectLineCoverage, ProjectCoverageMap
+from bugzoo.coverage import ProjectLineCoverage, \
+                            ProjectCoverageMap, \
+                            Spectra
 
 class CompilationInstructions(object):
     @staticmethod
@@ -25,11 +27,9 @@ class CompilationInstructions(object):
         self.__context = context
         self.__command = command
 
-
     @property
     def context(self):
         return self.__context
-
 
     @property
     def command(self):
@@ -98,7 +98,6 @@ class Bug(object):
                         harness,
                         build_instructions,
                         compilation_instructions)
-
 
     def __init__(self,
                  dataset: 'Dataset',
@@ -202,6 +201,13 @@ class Bug(object):
         return coverage
 
     @property
+    def spectra(self) -> Spectra:
+        """
+        Computes and returns the fault spectra for this bug.
+        """
+        return Spectra.from_coverage(self.coverage)
+
+    @property
     def installed(self) -> bool:
         """
         Indicates whether the Docker image for this bug is installed on the
@@ -209,14 +215,12 @@ class Bug(object):
         """
         return self.__build_instructions.installed
 
-
     @property
     def image(self) -> str:
         """
         The name of the Docker image for this bug.
         """
         return self.__build_instructions.tag
-
 
     @property
     def identifier(self) -> str:
@@ -226,7 +230,6 @@ class Bug(object):
         if self.__program:
             return "{}:{}:{}".format(self.__dataset.name, self.__program, self.__name)
         return "{}:{}".format(self.__dataset.name, self.__name)
-
 
     def validate(self, verbose: bool = True) -> bool:
         """
@@ -295,20 +298,17 @@ class Bug(object):
 
         return validated
 
-
     def build(self, force=False, quiet=False) -> None:
         """
         Builds the Docker image for this bug.
         """
         self.__build_instructions.build(force=force, quiet=quiet)
 
-
     def uninstall(self, force=False, noprune=False) -> None:
         """
         Uninstalls all Docker images associated with this bug.
         """
         self.__build_instructions.uninstall(force=force, noprune=noprune)
-
 
     def download(self, force=False) -> bool:
         """
@@ -321,14 +321,12 @@ class Bug(object):
         """
         return self.__build_instructions.download(force=force)
 
-
     def upload(self) -> bool:
         """
         Attempts to upload the image for this bug to
         `DockerHub <https://hub.docker.com>`_.
         """
         return self.__build_instructions.upload()
-
 
     def install(self, upgrade=False) -> None:
         """
@@ -341,7 +339,6 @@ class Bug(object):
         """
         # TODO: attempt to download before trying to build
         self.build(force=upgrade)
-
 
     def provision(self,
                   volumes : Dict[str, str] = {},
