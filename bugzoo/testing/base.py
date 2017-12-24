@@ -49,13 +49,18 @@ class TestOutcome(object):
     """
     Used to describe the outcome of a test execution.
     """
+    @staticmethod
+    def from_dict(d: dict) -> 'TestOutcome':
+        response = ExecResponse.from_dict(d['response'])
+        passed = d['passed']
+        return TestOutcome(response, passed)
+
     def __init__(self,
                  response,
                  passed: bool
                  ) -> None:
         self.__response = response
         self.__passed = passed
-
 
     @property
     def response(self) -> ExecResponse:
