@@ -1,4 +1,4 @@
-from bugzoo.core import ExecResponse
+from bugzoo.cmd import ExecResponse
 from typing import List, Iterator, Dict
 
 
