@@ -10,77 +10,12 @@ import bugzoo.spectra
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
 
-from bugzoo.core import Language
+from bugzoo.core import Language, ExecResponse, PendingExecResponse
 from bugzoo.testing import TestOutcome, TestCase
 from bugzoo.patch import Patch
 from bugzoo.tool import Tool
 from bugzoo.coverage.base import ProjectLineCoverage, \
                                  ProjectCoverageMap
-
-
-class PendingExecResponse(object):
-    def __init__(self, exec_response, output) -> None:
-        self.__exec_response = exec_response
-        self.__output = output
-
-
-    @property
-    def running(self):
-        client = docker.from_env()
-        return client.api.exec_inspect(self.exec_response)['Running']
-
-
-    @property
-    def exec_response(self):
-        return self.__exec_response
-
-
-    @property
-    def output(self):
-        return self.__output
-
-
-    @property
-    def exit_code(self):
-        if self.running:
-            return None
-        client = docker.from_env()
-        id = self.exec_response['Id']
-        return client.api.exec_inspect(id)
-
-
-class ExecResponse(object):
-    """
-    Used to hold the response from a command execution.
-    """
-    def __init__(self, code: int, duration: float, output: str) -> None:
-        self.__code = code
-        self.__duration = duration
-        self.__output = output
-
-
-    @property
-    def code(self) -> int:
-        """
-        The exit code of the execution.
-        """
-        return self.__code
-
-
-    @property
-    def duration(self) -> float:
-        """
-        The length of time taken to complete the execution.
-        """
-        return self.__duration
-
-
-    @property
-    def output(self) -> str:
-        """
-        The output of the execution.
-        """
-        return self.__output.decode(sys.stdout.encoding)
 
 
 class CompilationOutcome(object):
