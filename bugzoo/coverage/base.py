@@ -1,6 +1,6 @@
 import yaml
 from copy import copy
-from typing import Dict, List, Set, Iterator
+from typing import Dict, List, Set, Iterator, Any
 from bugzoo.testing import TestCase, TestSuite, TestOutcome
 
 
@@ -8,6 +8,20 @@ class FileLine(object):
     """
     Used to represent an one-indexed line within a specific file.
     """
+    @staticmethod
+    def compactify(d: Dict['FileLine', Any]) -> Dict[str, Dict[int, Any]]:
+        """
+        Converts a dictionary that is indexed by FileLine objects into a
+        nested dictionary structures that maps from file names to a dictionary
+        of line numbers.
+        """
+        out: Dict[str, Dict[int, Any]] = {}
+        for (line, val) in d.items():
+            if not line.filename in out:
+                out[line.filename] = {}
+            out[line.filename][line.num] = val
+        return out
+
     def __init__(self, fn: str, num: int) -> None:
         self.__fn = fn
         self.__num = num
@@ -194,21 +208,25 @@ class ProjectCoverageMap(object):
         return {test.name: cov.to_dict() \
                 for (test, cov) in self.__contents.items()}
 
+    @property
     def failing(self) -> 'ProjectCoverageMap':
         """
         Returns a variant of this coverage report that only contains coverage
         for failing test executions.
         """
-        return ProjectCoverageMap(tcov for tcov in self \
-                                  if not tcov.outcome.passed)
+        return ProjectCoverageMap({t: cov \
+                                   for (t, cov) in self.__contents.items() \
+                                   if not cov.outcome.passed})
 
+    @property
     def passing(self) -> 'ProjectCoverageMap':
         """
         Returns a variant of this coverage report that only contains coverage
         for failing test executions.
         """
-        return ProjectCoverageMap(tcov for tcov in self \
-                                  if tcov.outcome.passed)
+        return ProjectCoverageMap({t: cov \
+                                   for (t, cov) in self.__contents.items() \
+                                   if cov.outcome.passed})
 
     def __len__(self) -> 'ProjectCoverageMap':
         """
