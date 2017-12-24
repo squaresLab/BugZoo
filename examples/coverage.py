@@ -6,6 +6,7 @@
 from pprint import pprint as pp
 from bugzoo import BugZoo
 from bugzoo.coverage.base import FileLine
+from bugzoo.coverage.spectra import Spectra
 
 if __name__ == "__main__":
     bgz = BugZoo()
@@ -22,14 +23,11 @@ if __name__ == "__main__":
     # container = bug.provision()
     # coverage = container.coverage()
     coverage = bug.coverage
+    # pp(coverage.to_dict())
 
     line = FileLine('src/stat_cache.c', 115)
-
-    pp(coverage.to_dict())
-
     tests = coverage.covering_tests(line)
     print(tests)
 
-    # let's determine which tests executed the faulty line
-    #
-    # TODO
+    # generate a spectra
+    spectra = bug.spectra

@@ -1,13 +1,30 @@
 import yaml
-import xml.etree.ElementTree as ET
 from copy import copy
-from typing import Dict, List, Set, Iterator
-from bugzoo.testing import TestCase, TestSuite
+from typing import Dict, List, Set, Iterator, Any
+from bugzoo.testing import TestCase, TestSuite, TestOutcome
+
 
 class FileLine(object):
     """
     Used to represent an one-indexed line within a specific file.
     """
+    @staticmethod
+    def compactify(d: Dict['FileLine', Any]) -> Dict[str, Dict[int, Any]]:
+        """
+        Converts a dictionary that is indexed by FileLine objects into a
+        nested dictionary structures that maps from file names to a dictionary
+        of line numbers.
+        """
+        assert isinstance(d, dict)
+        assert all(isinstance(x, FileLine) for x in d)
+
+        out: Dict[str, Dict[int, Any]] = {}
+        for (line, val) in d.items():
+            if not line.filename in out:
+                out[line.filename] = {}
+            out[line.filename][line.num] = val
+        return out
+
     def __init__(self, fn: str, num: int) -> None:
         self.__fn = fn
         self.__num = num
@@ -28,6 +45,11 @@ class FileLine(object):
         """
         return self.__num
 
+    def __str__(self) -> str:
+        return "{}:{}".format(self.filename, self.num)
+
+    __repr__ = __str__
+
 
 class FileLineCoverage(object):
     """
@@ -40,13 +62,13 @@ class FileLineCoverage(object):
         self.__lines = \
             {num: hits for (num, hits) in lines.items() if hits > 0}
 
-    @property
-    def lines(self) -> List[int]:
-        """
-        A list of the one-indexed numbers of the lines that are included in
-        this report.
-        """
-        return list(self.__lines.keys())
+#    @property
+#    def lines(self) -> List[int]:
+#        """
+#        A list of the one-indexed numbers of the lines that are included in
+#        this report.
+#        """
+#        return list(self.__lines.keys())
 
     def was_hit(self, num: int) -> bool:
         """
@@ -65,6 +87,15 @@ class FileLineCoverage(object):
 
     __getitem__ = hits
 
+    @property
+    def lines(self) -> Iterator[FileLine]:
+        """
+        Returns an iterator over the set of all lines within this file
+        that were covered.
+        """
+        for num in self.__lines:
+            yield FileLine(self.__filename, num)
+
     def to_dict(self) -> dict:
         return copy(self.__lines)
 
@@ -77,34 +108,21 @@ class ProjectLineCoverage(object):
     T = Dict[str, FileLineCoverage.T]
 
     @staticmethod
-    def from_dict(d: Dict[str, Dict[int, int]]) -> 'ProjectLineCoverage':
+    def from_dict(test: TestCase,
+                  d: dict,
+                  ) -> 'ProjectLineCoverage':
         cov: T = {}
-        for (fn, fcov) in d.items():
+        outcome = TestOutcome.from_dict(d['outcome'])
+        for (fn, fcov) in d['coverage'].items():
             cov[fn] = FileLineCoverage(fn, fcov)
-        return ProjectLineCoverage(cov)
+        return ProjectLineCoverage(test, outcome, cov)
 
-    @staticmethod
-    def from_gcovr_xml_string(s: str) -> 'ProjectLineCoverage':
-        """
-        Loads a project line-coverage report from a string-based XML
-        description.
-        """
-        root = ET.fromstring(s)
-        reports = {}
-        packages = root.find('packages')
-
-        for package in packages.findall('package'):
-            for cls in package.find('classes').findall('class'):
-                fn = cls.attrib['filename']
-                # normalise path
-                lines = cls.find('lines').findall('line')
-                lines = \
-                    {int(l.attrib['number']): int(l.attrib['hits']) for l in lines}
-                reports[fn] = FileLineCoverage(fn, lines)
-
-        return ProjectLineCoverage(reports)
-
-    def __init__(self, files: Dict[str, FileLineCoverage]) -> None:
+    def __init__(self,
+                 test: TestCase,
+                 outcome: TestOutcome,
+                 files: Dict[str, FileLineCoverage]) -> None:
+        self.__test = test
+        self.__outcome = outcome
         self.__files = files
 
     def covers(self, line: FileLine) -> bool:
@@ -116,6 +134,13 @@ class ProjectLineCoverage(object):
 
         f = self[line.filename]
         return f.was_hit(line.num)
+
+    @property
+    def outcome(self) -> TestOutcome:
+        """
+        The outcome of the test associated with this coverage.
+        """
+        return self.__outcome
 
     @property
     def files(self) -> List[str]:
@@ -134,9 +159,19 @@ class ProjectLineCoverage(object):
 
     __getitem__ = file
 
+    @property
+    def lines(self) -> Iterator[FileLine]:
+        """
+        Returns an iterator over the set of all lines that were covered.
+        """
+        for report in self.__files.values():
+            for line in report.lines:
+                yield line
+
     def to_dict(self) -> dict:
-        return {fn: cov.to_dict() \
-                for (fn, cov) in self.__files.items()}
+        f_dict = {fn: cov.to_dict() for (fn, cov) in self.__files.items()}
+        return {'coverage': f_dict,
+                'outcome': self.outcome.to_dict()}
 
 
 class ProjectCoverageMap(object):
@@ -151,7 +186,7 @@ class ProjectCoverageMap(object):
         coverage = {}
         for (test_name, test_coverage) in d.items():
             test = tests[test_name]
-            test_coverage = ProjectLineCoverage.from_dict(test_coverage)
+            test_coverage = ProjectLineCoverage.from_dict(test, test_coverage)
             coverage[test] = test_coverage
         return ProjectCoverageMap(coverage)
 
@@ -198,3 +233,30 @@ class ProjectCoverageMap(object):
     def to_dict(self) -> dict:
         return {test.name: cov.to_dict() \
                 for (test, cov) in self.__contents.items()}
+
+    @property
+    def failing(self) -> 'ProjectCoverageMap':
+        """
+        Returns a variant of this coverage report that only contains coverage
+        for failing test executions.
+        """
+        return ProjectCoverageMap({t: cov \
+                                   for (t, cov) in self.__contents.items() \
+                                   if not cov.outcome.passed})
+
+    @property
+    def passing(self) -> 'ProjectCoverageMap':
+        """
+        Returns a variant of this coverage report that only contains coverage
+        for failing test executions.
+        """
+        return ProjectCoverageMap({t: cov \
+                                   for (t, cov) in self.__contents.items() \
+                                   if cov.outcome.passed})
+
+    def __len__(self) -> 'ProjectCoverageMap':
+        """
+        Returns a count of the number of test executions that are included
+        within this coverage report.
+        """
+        return len(self.__contents)
