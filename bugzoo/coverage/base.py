@@ -108,6 +108,16 @@ class ProjectLineCoverage(object):
     def __init__(self, files: Dict[str, FileLineCoverage]) -> None:
         self.__files = files
 
+    def covers(self, line: FileLine) -> bool:
+        """
+        Returns `True` if given line was covered, or `False` if not.
+        """
+        if not line.filename in self.__files:
+            return False
+
+        f = self[line.filename]
+        return f.was_hit(line.num)
+
     @property
     def files(self) -> List[str]:
         """
@@ -155,13 +165,11 @@ class ProjectCoverageMap(object):
     def __init__(self, contents: T):
         self.__contents = contents
 
-    def covering_tests(self, line: Line) -> Set[TestCase]:
+    def covering_tests(self, line: FileLine) -> Set[TestCase]:
         """
         Returns the set of test cases that cover a given line.
         """
-        for test in self:
-
-        raise NotImplementedError
+        return set(test for test in self if test.covers(line))
 
     def __iter__(self) -> Iterator[TestCase]:
         """
