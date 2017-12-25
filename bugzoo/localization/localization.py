@@ -1,7 +1,8 @@
-import copy
+from copy import copy
+from typing import List, Dict, Iterable
 from bugzoo.coverage import FileLine, \
-                            Spectra, \
-                            Metric
+                            Spectra
+from bugzoo.localization.suspiciousness import SuspiciousnessMetric
 
 
 class Localization(object):
@@ -11,22 +12,25 @@ class Localization(object):
     """
     @staticmethod
     def from_spectra(spectra: Spectra,
-                     metric: Metric
+                     metric: SuspiciousnessMetric
                      ) -> 'Localization':
-        loc = {line: metric(row.ep, row.np, row.ef, row.nf) \
-               for (line, row) in spectra}
+        loc = {}
+        for line in spectra:
+            row = spectra[line]
+            loc[line] = metric(row.ep, row.np, row.ef, row.nf)
         return Localization(loc)
 
     def __init__(self,
-                 scores: Dict[Line, float]
+                 scores: Dict[FileLine, float]
                  ) -> None:
-        self.__scores: Dict[Line, float] = copy(scores)
+        self.__scores = copy(scores)
 
         sum_scores = float(sum(self.__scores.values()))
-        self.__normalized: Dict[line, float] = \
-            {line: s/sum_scores in scores.items()}
 
-    def score(self, line: Line) -> float:
+        self.__normalized = \
+            {line: s/sum_scores for (line, s) in scores.items()}
+
+    def score(self, line: FileLine) -> float:
         """
         Returns the suspiciousness score for a given line. If no suspiciousness
         score is recorded for the given line, then a suspiciousness of zero
@@ -36,7 +40,7 @@ class Localization(object):
 
     __getitem__ = score
 
-    def __iter__(self) -> List[Line]:
+    def __iter__(self) -> List[FileLine]:
         """
         Returns an iterator over all lines within this localization with a
         suspiciousness above zero.

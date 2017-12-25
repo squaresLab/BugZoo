@@ -30,7 +30,7 @@ class FileLine(object):
         lines = {}
         for fn in d:
             for num in d[fn]:
-                lines[Line(fn, num)] = d[fn][num]
+                lines[FileLine(fn, num)] = d[fn][num]
         return lines
 
     def __init__(self, fn: str, num: int) -> None:

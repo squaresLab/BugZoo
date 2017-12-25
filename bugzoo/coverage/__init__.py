@@ -1,4 +1,5 @@
-from bugzoo.coverage.base import FileLineCoverage, \
+from bugzoo.coverage.base import FileLine, \
+                                 FileLineCoverage, \
                                  ProjectLineCoverage, \
                                  ProjectCoverageMap
 from bugzoo.coverage.extractor import CoverageExtractor, \

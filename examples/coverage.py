@@ -3,8 +3,10 @@
 # This example demonstrates how BugZoo can be used to collect coverage
 # information for a historical bug from the ManyBugs dataset.
 #
+import bugzoo
 from pprint import pprint as pp
 from bugzoo import BugZoo
+from bugzoo.localization import Localization
 from bugzoo.coverage.base import FileLine
 from bugzoo.coverage.spectra import Spectra
 
@@ -31,3 +33,7 @@ if __name__ == "__main__":
 
     # generate a spectra
     spectra = bug.spectra
+
+    # compute localization using tarantula
+    tarantula = bugzoo.localization.suspiciousness.tarantula
+    loc = Localization.from_spectra(spectra, tarantula)
