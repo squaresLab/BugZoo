@@ -37,6 +37,14 @@ class FileLine(object):
         self.__fn = fn
         self.__num = num
 
+    def __hash__(self) -> int:
+        return hash((self.__fn, self.__num))
+
+    def __eq__(self, other) -> bool:
+        return  isinstance(other, FileLine) and \
+                self.filename == other.filename and \
+                self.num == other.num
+
     @property
     def filename(self) -> str:
         """
