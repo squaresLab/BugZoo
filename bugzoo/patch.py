@@ -163,18 +163,15 @@ class Patch(object):
         """
         Constructs a Patch from a provided unified format diff.
         """
-        # split the patch by file
         lines = diff.split('\n')
+        file_patches: List[FilePatch] = []
+        while lines:
+            files_patches.append(FilePatch._read_next(lines))
 
-        file_patches = TODO
-        file_patches = \
-            {fn: FileDiff.from_unidiff(d) for (fn, d) in file_patches}
         return Patch(file_patches)
 
-
-    def __init__(self, file_patches: Dict[str, FilePatch]) -> None:
-        self.__file_patches = copy(file_patches)
-
+    def __init__(self, file_patches: List[FilePatch]) -> None:
+        self.__file_patches = file_patches[:]
 
     def __iter__(self) -> Iterator[Hunk]:
         """
