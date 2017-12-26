@@ -37,6 +37,14 @@ class FileLine(object):
         self.__fn = fn
         self.__num = num
 
+    def __hash__(self) -> int:
+        return hash((self.__fn, self.__num))
+
+    def __eq__(self, other) -> bool:
+        return  isinstance(other, FileLine) and \
+                self.filename == other.filename and \
+                self.num == other.num
+
     @property
     def filename(self) -> str:
         """
@@ -144,6 +152,13 @@ class ProjectLineCoverage(object):
         return f.was_hit(line.num)
 
     @property
+    def test(self) -> TestCase:
+        """
+        The test case used to generate this coverage.
+        """
+        return self.__test
+
+    @property
     def outcome(self) -> TestOutcome:
         """
         The outcome of the test associated with this coverage.
@@ -175,6 +190,17 @@ class ProjectLineCoverage(object):
         for report in self.__files.values():
             for line in report.lines:
                 yield line
+
+    def restricted_to_files(self,
+                            filenames: List[str]
+                            ) -> 'ProjectLineCoverage':
+        """
+        Returns a variant of this coverage that is restricted to a given list
+        of files.
+        """
+        cov = {fn: c for (fn, c) in self.__files.items() \
+               if fn in filenames}
+        return ProjectLineCoverage(self.test, self.outcome, cov)
 
     def to_dict(self) -> dict:
         f_dict = {fn: cov.to_dict() for (fn, cov) in self.__files.items()}
@@ -218,7 +244,7 @@ class ProjectCoverageMap(object):
         """
         Returns an iterator over the test cases within this test suite.
         """
-        for test in self.__contents.values():
+        for test in self.__contents.keys():
             yield test
 
     def __getitem__(self, test: TestCase) -> ProjectLineCoverage:
@@ -241,6 +267,18 @@ class ProjectCoverageMap(object):
     def to_dict(self) -> dict:
         return {test.name: cov.to_dict() \
                 for (test, cov) in self.__contents.items()}
+
+    def restricted_to_files(self,
+                            filenames: List[str]
+                            ) -> 'ProjectCoverageMap':
+        """
+        Returns a variant of this coverage that is restricted to a given list
+        of files.
+        """
+        cov = {}
+        for test in self:
+            cov[test] = self[test].restricted_to_files(filenames)
+        return ProjectCoverageMap(cov)
 
     @property
     def failing(self) -> 'ProjectCoverageMap':

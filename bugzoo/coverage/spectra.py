@@ -57,12 +57,12 @@ class Spectra(object):
         tally_failing: Dict[FileLine, int] = {}
         tally_passing: Dict[FileLine, int] = {}
 
-        for test_coverage in coverage.passing:
-            for line in test_coverage.lines:
+        for test in coverage.passing:
+            for line in coverage[test].lines:
                 tally_passing[line] = tally_passing.get(line, 1)
 
-        for test_coverage in coverage.failing:
-            for line in test_coverage.lines:
+        for test in coverage.failing:
+            for line in coverage[test].lines:
                 tally_failing[line] = tally_failing.get(line, 1)
 
         return Spectra(len(coverage.passing),
