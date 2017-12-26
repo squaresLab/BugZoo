@@ -19,7 +19,7 @@ class ManyBugsTestCase(unittest.TestCase):
            so we may see their subtlety,
          And let there always be being,
         """
-        from_s = dedent(from_s)
+        from_s = dedent(from_s)[1:-1]
         lines = from_s.split('\n')
 
         hunk = Hunk._read_next(lines)
