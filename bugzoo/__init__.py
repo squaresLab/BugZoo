@@ -3,6 +3,7 @@ import bugzoo.cli
 import bugzoo.tool
 import bugzoo.coverage
 import bugzoo.container
+import bugzoo.localization
 
 from bugzoo.core import Language
 from bugzoo.container import Container

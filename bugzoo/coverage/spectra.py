@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Iterator
 from bugzoo.coverage.base import ProjectCoverageMap, \
                                  FileLine
 
@@ -99,3 +99,12 @@ class Spectra(object):
         nf = self.__num_failing - ef
 
         return LineSpectra(ep, ef, np, nf)
+
+    def __iter__(self) -> Iterator[FileLine]:
+        passing_lines = \
+            set(FileLine.decompactify(self.__tally_passing).keys())
+        failing_lines = \
+            set(FileLine.decompactify(self.__tally_failing).keys())
+        lines = passing_lines.union(failing_lines)
+        for line in lines:
+            yield line
