@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import unittest
 import bugzoo
-from bugzoo.patch import Hunk, FilePatch
+from bugzoo.patch import Hunk, FilePatch, Patch
 
 
 def dedent(s: str) -> str:
@@ -79,6 +79,39 @@ class FilePatchTestCase(unittest.TestCase):
 
         self.assertEqual(str(patch), expected_s2)
         self.assertEqual(lines, [])
+
+
+class PatchTestCase(unittest.TestCase):
+    def test_from_unidiff(self):
+        from_s = """
+        diff --git a/file-two.txt b/file-two.txt
+        new file mode 100644
+        index 0000000..2990e5b
+        --- /dev/null
+        +++ b/file-two.txt
+        @@ -0 +1 @@
+        +This is file two.
+        +How do you do?
+        diff --git a/testfile.c b/testfile.c
+        index f50a1fc..60ed6ff 100644
+        --- a/testfile.c
+        +++ b/testfile.c
+        @@ -6 +6 @@ int testfun(int a, int b)
+           x = a + b;
+           x *= x;
+         
+        +  int z = 10000;
+        +
+           int y;
+           y = x * 2;
+        """
+        from_s = dedent(from_s)[1:-1]
+        lines = from_s.split('\n')
+        expected_s = \
+            '\n'.join(lines[3:8] + lines[10:])
+
+        patch = Patch.from_unidiff(from_s)
+        self.assertEqual(str(patch), expected_s)
 
 
 if __name__ == '__main__':
