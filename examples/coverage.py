@@ -42,11 +42,14 @@ if __name__ == "__main__":
     coverage = coverage.restricted_to_files(['src/stat_cache.c'])
 
     # generate a spectra
-    spectra = Spectra.from_coverage(coverage)
+    # spectra = Spectra.from_coverage(coverage)
+    # spectra = bug.spectra.restricted_to_files(['src/joblist.c'])
+    spectra = bug.spectra
 
     # compute localization using tarantula
     tarantula = bugzoo.localization.suspiciousness.tarantula
     loc = Localization.from_spectra(spectra, tarantula)
+    loc = loc.restricted_to_files(['src/joblist.c'])
 
     tbl = []
     for line in loc:
