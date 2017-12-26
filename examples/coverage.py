@@ -4,11 +4,18 @@
 # information for a historical bug from the ManyBugs dataset.
 #
 import bugzoo
+from typing import List
+from tabulate import tabulate as _tabulate
 from pprint import pprint as pp
 from bugzoo import BugZoo
 from bugzoo.localization import Localization
 from bugzoo.coverage.base import FileLine
 from bugzoo.coverage.spectra import Spectra
+
+
+def tabulate(headers: List[str], rows: List[List[str]]):
+    print(_tabulate(rows, headers=headers, tablefmt='simple'))
+
 
 if __name__ == "__main__":
     bgz = BugZoo()
@@ -37,3 +44,9 @@ if __name__ == "__main__":
     # compute localization using tarantula
     tarantula = bugzoo.localization.suspiciousness.tarantula
     loc = Localization.from_spectra(spectra, tarantula)
+
+    tbl = []
+    for line in loc:
+        if loc[line] > 0:
+            tbl.append([line, "{:.2f}".format(loc[line])])
+    tabulate(['Line', 'Suspiciousness'], tbl)
