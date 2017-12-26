@@ -200,7 +200,7 @@ class Patch(object):
         lines = diff.split('\n')
         file_patches: List[FilePatch] = []
         while lines:
-            files_patches.append(FilePatch._read_next(lines))
+            file_patches.append(FilePatch._read_next(lines))
 
         return Patch(file_patches)
 
