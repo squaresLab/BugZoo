@@ -1,20 +1,112 @@
 from copy import copy
 from typing import List, Iterator
 
+# See following for details about unified diff format:
+#   https://www.artima.com/weblogs/viewpost.jsp?thread=164293
+
+class HunkLine(object):
+    pass
+
+
+class InsertedLine(HunkLine):
+    def __init__(self, line: str) -> None:
+        """
+        Constructs a new InsertedLine instance.
+
+        Params:
+            line:   The contents of the line that was inserted (with any
+                    trailing line endings removed).
+        """
+        self.__line = line
+
+    def __str__(self) -> str:
+        return "+ {}".format(self.__line)
+
+
+class DeletedLine(HunkLine):
+    def __init__(self, line: str) -> None:
+        """
+        Constructs a new DeletedLine instance.
+
+        Params:
+            line:   The contents of the line that was removed (with any
+                    trailing line endings removed).
+        """
+        self.__line = line
+
+    def __str__(self) -> str:
+        return "- {}".format(self.__line)
+
+
+class ContextLine(HunkLine):
+    def __init__(self, line: str) -> None:
+        """
+        Constructs a new ContextLine instance.
+
+        Params:
+            line:   The contents of the line.
+        """
+        self.__line = line
+
+    def __str__(self) -> str:
+        return self.__line
+
 
 class Hunk(object):
     @classmethod
-    def from_unidiff(cls, diff: str) -> 'Hunk':
+    def _read_next(cls, lines: List[str]) -> 'Hunk':
         """
         Constructs a hunk from a supplied fragment of a unified format diff.
         """
-        raise NotImplementedError
+        header = lines.peek()
+        assert header.startswith('@@ -') and header.endswith(' @@')
+        header = header[4:-3]
+        left, _, right = line.partition(' +')
+        old_start_at = int(left.split(',')[0])
+        new_start_at = int(right.split(',')[0])
+
+        hunk_lines: List[HunkLine] = []
+        while lines:
+            # discarding the previous line ensures that we only consume lines
+            # from the line buffer that belong to the hunk
+            lines.pop()
+            line = lines.peek()
+
+            # inserted line
+            if line.startswith('+'):
+                hunk_lines.append(InsertedLine(line[2:]))
+
+            # deleted line
+            elif line.startswith('-'):
+                hunk_lines.append(DeletedLine(line[2:]))
+
+            # context line
+            elif line.startswith(' '):
+                hunk_lines.append(ContextLine(line[2:]))
+
+            # end of hunk
+            else:
+                break
+
+        return Hunk(old_start_at, new_start_at, hunk_lines)
+
+    def __init__(self,
+                 old_start_at: int,
+                 new_start_at: int,
+                 lines: List[HunkLine]
+                 ) -> None:
+        self.__old_start_at = old_start_at
+        self.__new_start_at = new_start_at
+        self.__lines = lines
 
     def __str__(self) -> str:
         """
         Returns the contents of this hunk as part of a unified format diff.
         """
-        raise NotImplementedError
+        header = '@@ -{} +{} @@'.format(self.__old_start_at,
+                                        self.__new_start_at)
+        body = '\n'.join([str(line) for line in self.__lines])
+        return header + body
 
 
 class FilePatch(object):
@@ -24,6 +116,15 @@ class FilePatch(object):
     @classmethod
     def from_unidiff(cls, diff: str) -> 'FilePatch':
         raise NotImplementedError
+
+    def __init__(self,
+                 old_fn: str,
+                 new_fn: str,
+                 hunks: List[Hunk]
+                 ) -> None:
+        self.__old_fn = old_fn
+        self.__new_fn = new_fn
+        self.__hunks = hunks
 
 
 class Patch(object):
@@ -35,8 +136,28 @@ class Patch(object):
         """
         Constructs a Patch from a provided unified format diff.
         """
+
+        def fetch_next(lines: List[str]) -> FilePatch:
+            assert line[0].startswith('---')
+            assert line[1].startswith('+++')
+            old_fn = line[0][4:].strip()
+            new_fn = line[1][4:].strip()
+
+
+        # extract the patch for each file
+        old_fn = None
+        new_fn = None
+        lines = []
+
+        file_lines = []
+
+        for line in diff.split('\n'):
+            if line.startswith('+++')
+            pass
+
+
         # split the patch by file
-        file_diffs = TODO
+        file_patches = TODO
         file_patches = \
             {fn: FileDiff.from_unidiff(d) for (fn, d) in file_patches}
         return Patch(file_patches)
