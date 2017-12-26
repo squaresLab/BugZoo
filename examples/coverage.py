@@ -38,8 +38,11 @@ if __name__ == "__main__":
     tests = coverage.covering_tests(line)
     print(tests)
 
+    # can we restrict the coverage?
+    coverage = coverage.restricted_to_files(['src/stat_cache.c'])
+
     # generate a spectra
-    spectra = bug.spectra
+    spectra = Spectra.from_coverage(coverage)
 
     # compute localization using tarantula
     tarantula = bugzoo.localization.suspiciousness.tarantula
