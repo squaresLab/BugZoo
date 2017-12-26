@@ -2,11 +2,11 @@
 import unittest
 import bugzoo
 from textwrap import dedent
-from bugzoo.patch import Hunk
+from bugzoo.patch import Hunk, FilePatch
 
 
-class ManyBugsTestCase(unittest.TestCase):
-    def test_parse_hunk(self):
+class HunkTestCase(unittest.TestCase):
+    def test_read_next(self):
         from_s = """
         @@ -1 +1 @@
         -The Way that can be told of is not the eternal Way;
@@ -26,6 +26,54 @@ class ManyBugsTestCase(unittest.TestCase):
 
         self.assertEqual(lines, [])
         self.assertEqual(str(hunk), from_s)
+
+
+class FilePatchTestCase(unittest.TestCase):
+    def test_read_next(self):
+        from_s = """
+        diff --git a/file-two.txt b/file-two.txt
+        new file mode 100644
+        index 0000000..2990e5b
+        --- /dev/null
+        +++ b/file-two.txt
+        @@ -0 +1 @@
+        +This is file two.
+        +How do you do?
+        diff --git a/testfile.c b/testfile.c
+        index f50a1fc..60ed6ff 100644
+        --- a/testfile.c
+        +++ b/testfile.c
+        @@ -6 +6 @@ int testfun(int a, int b)
+           x = a + b;
+           x *= x;
+         
+        +  int z = 10000;
+        +
+           int y;
+           y = x * 2;
+        """
+        from_s = dedent(from_s)[1:-1]
+        lines = from_s.split('\n')
+
+        expected_l1 = lines[8:]
+        expected_s1 = '\n'.join(lines[3:-12])
+        print(expected_s1)
+
+        patch = FilePatch._read_next(lines)
+
+#        print("[EXPECTED]")
+#        print(expected_s1)
+#        print("[\EXPECTED]\n[ACTUAL]")
+#        print(patch)
+#        print("[\ACTUAL]")
+
+        self.assertEqual(str(patch), expected_s1)
+        self.assertEqual(lines, expected_l1)
+
+        patch = FilePatch._read_next(lines)
+
+        self.assertEqual(str(patch), expected_s2)
+        self.assertEqual(lines, [])
 
 
 if __name__ == '__main__':
