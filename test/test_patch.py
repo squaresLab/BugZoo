@@ -31,13 +31,13 @@ class HunkTestCase(unittest.TestCase):
            so we may see their subtlety,
          And let there always be being,
         """
-        # from_s = dedent(from_s)[1:-1]
-        # lines = from_s.split('\n')
+        from_s = dedent(from_s)[1:-1]
+        lines = from_s.split('\n')
 
-        # hunk = Hunk._read_next(lines)
+        hunk = Hunk._read_next(lines)
 
-        # self.assertEqual(lines, [])
-        # self.assertEqual(str(hunk), from_s)
+        self.assertEqual(lines, [])
+        self.assertEqual(str(hunk), from_s)
 
 
 class FilePatchTestCase(unittest.TestCase):
@@ -65,9 +65,7 @@ class FilePatchTestCase(unittest.TestCase):
            y = x * 2;
         """
         from_s = dedent(from_s)[1:-1]
-        print(from_s)
         lines = from_s.split('\n')
-        print(lines)
 
         expected_l1 = lines[8:]
         expected_s1 = '\n'.join(lines[3:-12])
@@ -78,15 +76,7 @@ class FilePatchTestCase(unittest.TestCase):
         self.assertEqual(str(patch), expected_s1)
         self.assertEqual(lines, expected_l1)
 
-        print(lines)
-
         patch = FilePatch._read_next(lines)
-
-        print("[EXPECTED]")
-        print(expected_s2)
-        print("[\EXPECTED]\n[ACTUAL]")
-        print(patch)
-        print("[\ACTUAL]")
 
         self.assertEqual(str(patch), expected_s2)
         self.assertEqual(lines, [])
