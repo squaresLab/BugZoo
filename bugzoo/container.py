@@ -86,7 +86,6 @@ class Container(object):
         assert self.alive
         return self.__container.id
 
-
     @property
     def tools(self) -> Iterator[Tool]:
         """
@@ -95,14 +94,12 @@ class Container(object):
         for tool in self.__tools:
             yield tool
 
-
     @property
     def bug(self) -> 'bugzoo.bug.Bug':
         """
         The bug that was used to provision this container.
         """
         return self.__bug
-
 
     @property
     def container(self):
@@ -112,14 +109,12 @@ class Container(object):
         """
         return self.__container
 
-
     @property
     def alive(self) -> bool:
         """
         Indicates whether or not the container is still running.
         """
         return self.__container is not None
-
 
     def interact(self) -> None:
         """
@@ -129,7 +124,6 @@ class Container(object):
         container.
         """
         subprocess.call(['docker', 'attach', self.__container.id])
-
 
     def destroy(self) -> None:
         """
@@ -150,7 +144,6 @@ class Container(object):
             self.__env_file.close()
             self.__env_file = None
 
-
     def mount_file(self, src: str, dest: str, mode: str) -> None:
         """
         Dynamically mounts a given file (or directory) inside this container.
@@ -162,15 +155,13 @@ class Container(object):
         assert os.path.exists(src)
         assert mode in ['ro', 'rw']
 
-
     def reset(self) -> None:
         """
         Resets the state of this container.
         """
         raise NotImplementedError
 
-
-    def apply_patch(self, patch: Patch) -> bool:
+    def patch(self, p: Patch) -> bool:
         """
         Attempts to apply a given patch to the source code. All patch
         applications are guaranteed to be atomic; if the patch fails to
@@ -181,7 +172,6 @@ class Container(object):
         """
         pass
 
-
     def copy_to(self, source_fn: str, dest_fn: str) -> None:
         """
         Copies a given file from the host machine to a specified location
@@ -190,7 +180,6 @@ class Container(object):
         ctr_id = self.container.id
         cmd = "docker cp '{}' '{}:{}'".format(source_fn, ctr_id, dest_fn)
         subprocess.check_output(cmd, shell=True)
-
 
     def command(self,
                 cmd: str,
