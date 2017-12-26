@@ -3,6 +3,7 @@ from typing import List, Iterator
 
 # See following for details about unified diff format:
 #   https://www.artima.com/weblogs/viewpost.jsp?thread=164293
+#   https://www.gnu.org/software/diffutils/manual/html_node/Detailed-Unified.html#Detailed-Unified
 
 class HunkLine(object):
     pass
@@ -172,13 +173,6 @@ class Patch(object):
 
     def __init__(self, file_patches: List[FilePatch]) -> None:
         self.__file_patches = file_patches[:]
-
-    def __iter__(self) -> Iterator[Hunk]:
-        """
-        Returns an iterator over the hunks contained within this patch.
-        """
-        for hunk in self.__hunks:
-            yield hunk
 
     def __str__(self) -> str:
         """
