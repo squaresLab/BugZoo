@@ -7,7 +7,6 @@ from bugzoo.patch import Hunk, FilePatch
 def dedent(s: str) -> str:
     def num_leading_spaces(s: str) -> int:
         n = len(s) - len(s.lstrip(' '))
-        print(n)
         return n
 
     offset = 1 if s[0] == '\n' else 0
