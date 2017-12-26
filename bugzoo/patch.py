@@ -114,8 +114,25 @@ class FilePatch(object):
     Represents a set of changes to a single text-based file.
     """
     @classmethod
-    def from_unidiff(cls, diff: str) -> 'FilePatch':
-        raise NotImplementedError
+    def _read_next(cls, lines: List[str]) -> 'FilePatch':
+        """
+        Destructively extracts the next file patch from the line buffer.
+        """
+        assert line[0].startswith('---')
+        assert line[1].startswith('+++')
+        old_fn = lines.pop()[4:].strip()
+        new_fn = lines.pop()[4:].strip()
+
+        hunks = []
+        while lines:
+            # have we hit a new hunk?
+            if hit_hunk:
+                break
+
+            # fetch the next hunk
+            hunks.append(Hunk._read_next(lines))
+
+        return FilePatch(old_fn, new_fn, hunks)
 
     def __init__(self,
                  old_fn: str,
@@ -125,6 +142,16 @@ class FilePatch(object):
         self.__old_fn = old_fn
         self.__new_fn = new_fn
         self.__hunks = hunks
+
+    def __str__(self) -> str:
+        """
+        Returns a string encoding of this file patch in the unified diff
+        format.
+        """
+        old_fn_line = '--- {}'.format(self.__old_fn)
+        new_fn_line = '+++ {}'.format(self.__new_fn)
+        lines = [old_fn_line, new_fn_lines] + [str(h) for h in self.__hunks]
+        return '\n'.join(lines)
 
 
 class Patch(object):
@@ -136,27 +163,9 @@ class Patch(object):
         """
         Constructs a Patch from a provided unified format diff.
         """
-
-        def fetch_next(lines: List[str]) -> FilePatch:
-            assert line[0].startswith('---')
-            assert line[1].startswith('+++')
-            old_fn = line[0][4:].strip()
-            new_fn = line[1][4:].strip()
-
-
-        # extract the patch for each file
-        old_fn = None
-        new_fn = None
-        lines = []
-
-        file_lines = []
-
-        for line in diff.split('\n'):
-            if line.startswith('+++')
-            pass
-
-
         # split the patch by file
+        lines = diff.split('\n')
+
         file_patches = TODO
         file_patches = \
             {fn: FileDiff.from_unidiff(d) for (fn, d) in file_patches}
