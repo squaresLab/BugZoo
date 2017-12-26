@@ -118,11 +118,11 @@ class Spectra(object):
         given list.
         """
         tally_passing = \
-            {line: num for (line, num) in self.__tally_passing \
-             if line.filename in filenames}
+            {fn: entries for (fn, entries) in self.__tally_passing.items() \
+             if fn in filenames}
         tally_failing = \
-            {line: num for (line, num) in self.__tally_failing \
-             if line.filename in filenames}
+            {fn: entries for (fn, entries) in self.__tally_failing.items() \
+             if fn in filenames}
         return Spectra(self.__num_passing,
                        self.__num_failing,
                        tally_passing,
