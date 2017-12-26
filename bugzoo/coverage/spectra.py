@@ -108,3 +108,22 @@ class Spectra(object):
         lines = passing_lines.union(failing_lines)
         for line in lines:
             yield line
+
+    def restricted_to_files(self,
+                            filenames: List[str]
+                            ) -> 'Spectra':
+        """
+        Returns a variant of this spectra that only contains entries for
+        lines that appear in any of the files whose name appear in the
+        given list.
+        """
+        tally_passing = \
+            {line: num for (line, num) in self.__tally_passing \
+             if line.filename in filenames}
+        tally_failing = \
+            {line: num for (line, num) in self.__tally_failing \
+             if line.filename in filenames}
+        return Spectra(self.__num_passing,
+                       self.__num_failing,
+                       tally_passing,
+                       tally_failing)
