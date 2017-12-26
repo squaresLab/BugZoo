@@ -60,8 +60,16 @@ class Hunk(object):
         Constructs a hunk from a supplied fragment of a unified format diff.
         """
         header = lines[0]
-        assert header.startswith('@@ -') and header.endswith(' @@')
-        header = header[4:-3]
+        assert header.startswith('@@ -')
+
+        # sometimes the first line can occur on the same line as the header.
+        # in that case, we inject a new line into the buffer
+        end_header_at = header.index(' @@')
+        bonus_line = header[end_header_at+3:]
+        if bonus_line != "":
+            lines.insert(1, bonus_line)
+
+        header = header[4:end_header_at]
         left, _, right = header.partition(' +')
         old_start_at = int(left.split(',')[0])
         new_start_at = int(right.split(',')[0])
@@ -69,6 +77,7 @@ class Hunk(object):
         old_line_num = old_start_at
         new_line_num = new_start_at
         last_insertion_at = old_start_at
+
 
         hunk_lines: List[HunkLine] = []
         while True:
@@ -79,7 +88,6 @@ class Hunk(object):
                 break
 
             line = lines[0]
-            #print(line)
 
             # inserted line
             if line.startswith('+'):
@@ -116,10 +124,17 @@ class Hunk(object):
         """
         Returns the contents of this hunk as part of a unified format diff.
         """
-        header = ['@@ -{} +{} @@'.format(self.__old_start_at,
-                                         self.__new_start_at)]
-        body = [str(line) for line in self.__lines]
-        return '\n'.join(header + body)
+        header = '@@ -{} +{} @@'.format(self.__old_start_at,
+                                        self.__new_start_at)
+
+        # if the first line is a context line, merge it into the header
+        lines = self.__lines
+        if isinstance(lines[0], ContextLine):
+            header += str(lines[0])
+            lines = lines[1:]
+
+        body = [str(line) for line in lines]
+        return '\n'.join([header] + body)
 
 
 class FilePatch(object):
@@ -131,18 +146,24 @@ class FilePatch(object):
         """
         Destructively extracts the next file patch from the line buffer.
         """
-        assert line[0].startswith('---')
-        assert line[1].startswith('+++')
+        # keep munching lines until we hit one starting with '---'
+        while True:
+            if not lines:
+                raise Exception("illegal file patch format: couldn't find line starting with '---'")
+            line = lines[0]
+            if line.startswith('---'):
+                break
+            lines.pop(0)
+
+        assert lines[0].startswith('---')
+        assert lines[1].startswith('+++')
         old_fn = lines.pop(0)[4:].strip()
         new_fn = lines.pop(0)[4:].strip()
 
         hunks = []
         while lines:
-            # have we hit a new hunk?
-            if hit_hunk:
+            if not lines[0].startswith('@@'):
                 break
-
-            # fetch the next hunk
             hunks.append(Hunk._read_next(lines))
 
         return FilePatch(old_fn, new_fn, hunks)
@@ -163,7 +184,7 @@ class FilePatch(object):
         """
         old_fn_line = '--- {}'.format(self.__old_fn)
         new_fn_line = '+++ {}'.format(self.__new_fn)
-        lines = [old_fn_line, new_fn_lines] + [str(h) for h in self.__hunks]
+        lines = [old_fn_line, new_fn_line] + [str(h) for h in self.__hunks]
         return '\n'.join(lines)
 
 
