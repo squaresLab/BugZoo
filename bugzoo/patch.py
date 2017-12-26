@@ -21,7 +21,7 @@ class InsertedLine(HunkLine):
         self.__line = line
 
     def __str__(self) -> str:
-        return "+ {}".format(self.__line)
+        return "+{}".format(self.__line)
 
 
 class DeletedLine(HunkLine):
@@ -36,7 +36,7 @@ class DeletedLine(HunkLine):
         self.__line = line
 
     def __str__(self) -> str:
-        return "- {}".format(self.__line)
+        return "-{}".format(self.__line)
 
 
 class ContextLine(HunkLine):
@@ -50,7 +50,7 @@ class ContextLine(HunkLine):
         self.__line = line
 
     def __str__(self) -> str:
-        return self.__line
+        return " {}".format(self.__line)
 
 
 class Hunk(object):
@@ -59,31 +59,43 @@ class Hunk(object):
         """
         Constructs a hunk from a supplied fragment of a unified format diff.
         """
-        header = lines.peek()
+        header = lines[0]
         assert header.startswith('@@ -') and header.endswith(' @@')
         header = header[4:-3]
-        left, _, right = line.partition(' +')
+        left, _, right = header.partition(' +')
         old_start_at = int(left.split(',')[0])
         new_start_at = int(right.split(',')[0])
 
+        old_line_num = old_start_at
+        new_line_num = new_start_at
+        last_insertion_at = old_start_at
+
         hunk_lines: List[HunkLine] = []
-        while lines:
+        while True:
             # discarding the previous line ensures that we only consume lines
             # from the line buffer that belong to the hunk
-            lines.pop()
-            line = lines.peek()
+            lines.pop(0)
+            if not lines:
+                break
+
+            line = lines[0]
+            #print(line)
 
             # inserted line
             if line.startswith('+'):
-                hunk_lines.append(InsertedLine(line[2:]))
+                hunk_lines.append(InsertedLine(line[1:]))
+                new_line_num += 1
 
             # deleted line
             elif line.startswith('-'):
-                hunk_lines.append(DeletedLine(line[2:]))
+                hunk_lines.append(DeletedLine(line[1:]))
+                old_line_num += 1
 
             # context line
             elif line.startswith(' '):
-                hunk_lines.append(ContextLine(line[2:]))
+                hunk_lines.append(ContextLine(line[1:]))
+                new_line_num += 1
+                old_line_num += 1
 
             # end of hunk
             else:
@@ -104,10 +116,10 @@ class Hunk(object):
         """
         Returns the contents of this hunk as part of a unified format diff.
         """
-        header = '@@ -{} +{} @@'.format(self.__old_start_at,
-                                        self.__new_start_at)
-        body = '\n'.join([str(line) for line in self.__lines])
-        return header + body
+        header = ['@@ -{} +{} @@'.format(self.__old_start_at,
+                                         self.__new_start_at)]
+        body = [str(line) for line in self.__lines]
+        return '\n'.join(header + body)
 
 
 class FilePatch(object):
@@ -121,8 +133,8 @@ class FilePatch(object):
         """
         assert line[0].startswith('---')
         assert line[1].startswith('+++')
-        old_fn = lines.pop()[4:].strip()
-        new_fn = lines.pop()[4:].strip()
+        old_fn = lines.pop(0)[4:].strip()
+        new_fn = lines.pop(0)[4:].strip()
 
         hunks = []
         while lines:
