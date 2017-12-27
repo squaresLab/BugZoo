@@ -2,18 +2,7 @@
 import unittest
 import bugzoo
 from bugzoo.patch import Hunk, FilePatch, Patch
-
-
-def dedent(s: str) -> str:
-    def num_leading_spaces(s: str) -> int:
-        n = len(s) - len(s.lstrip(' '))
-        return n
-
-    offset = 1 if s[0] == '\n' else 0
-    lines = s.split('\n')
-    spaces = min(num_leading_spaces(ss) for ss in lines[offset:])
-    dedented = '\n'.join(l[spaces:] for l in lines)
-    return dedented
+from bugzoo.util import dedent
 
 
 class HunkTestCase(unittest.TestCase):

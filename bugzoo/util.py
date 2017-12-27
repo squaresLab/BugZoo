@@ -21,3 +21,15 @@ def print_task_end(task: str, outcome: str) -> None:
     right = outcome.rjust(width - len(left), ' ')
     s = left + right
     printflush(s, end='\n')
+
+
+def dedent(s: str) -> str:
+    def num_leading_spaces(s: str) -> int:
+        n = len(s) - len(s.lstrip(' '))
+        return n
+
+    offset = 1 if s[0] == '\n' else 0
+    lines = s.split('\n')
+    spaces = min(num_leading_spaces(ss) for ss in lines[offset:])
+    dedented = '\n'.join(l[spaces:] for l in lines)
+    return dedented
