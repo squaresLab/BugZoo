@@ -54,7 +54,8 @@ class FilePatchTestCase(unittest.TestCase):
         index f50a1fc..60ed6ff 100644
         --- a/testfile.c
         +++ b/testfile.c
-        @@ -6 +6 @@ int testfun(int a, int b)
+        @@ -6 +6 @@
+         int testfun(int a, int b)
            x = a + b;
            x *= x;
          
@@ -67,7 +68,7 @@ class FilePatchTestCase(unittest.TestCase):
         lines = from_s.split('\n')
 
         expected_l1 = lines[8:]
-        expected_s1 = '\n'.join(lines[3:-12])
+        expected_s1 = '\n'.join(lines[3:8])
         expected_s2 = '\n'.join(lines[10:])
 
         patch = FilePatch._read_next(lines)
@@ -96,7 +97,8 @@ class PatchTestCase(unittest.TestCase):
         index f50a1fc..60ed6ff 100644
         --- a/testfile.c
         +++ b/testfile.c
-        @@ -6 +6 @@ int testfun(int a, int b)
+        @@ -6 +6 @@
+         int testfun(int a, int b)
            x = a + b;
            x *= x;
          
@@ -109,6 +111,52 @@ class PatchTestCase(unittest.TestCase):
         lines = from_s.split('\n')
         expected_s = \
             '\n'.join(lines[3:8] + lines[10:])
+
+        patch = Patch.from_unidiff(from_s)
+        self.assertEqual(str(patch), expected_s)
+
+        # produced using 'svn diff'
+        from_s = """
+        Index: src/joblist.c
+        ===================================================================
+        --- src/joblist.c	(revision 1794)
+        +++ src/joblist.c	(working copy)
+        @@ -7 +7 @@
+         
+         int joblist_append(server *srv, connection *con) {
+           if (con->in_joblist) return 0;
+        -  con->in_joblist = 1;
+        +  con->in_joblist = 10000;
+         
+           if (srv->joblist->size == 0) {
+             srv->joblist->size  = 16;
+        @@ -19 +19 @@
+         
+           srv->joblist->ptr[srv->joblist->used++] = con;
+         
+        -  return 0;
+        +  return 3300;
+         }
+         
+         void joblist_free(server *srv, connections *joblist) {
+        Index: tests/core-request.t
+        ===================================================================
+        --- tests/core-request.t	(revision 2792)
+        +++ tests/core-request.t	(working copy)
+        @@ -246 +246 @@
+         ok($tf->handle_http($t) == 0, 'Content-Type - image/jpeg');
+         
+         $t->{REQUEST}  = ( <<EOF
+        - GET /image.JPG HTTP/1.0
+        + GET /image.jpg HTTP/1.0
+         EOF
+         );
+         $t->{RESPONSE} = [ { 'HTTP-Protocol' => 'HTTP/1.0', 'HTTP-Status' => 200, 'Content-Type' => 'image/jpeg' } ];
+        """
+        from_s = dedent(from_s)[1:-1]
+        lines = from_s.split('\n')
+        expected_s = \
+            '\n'.join(lines[2:22] + lines[24:])
 
         patch = Patch.from_unidiff(from_s)
         self.assertEqual(str(patch), expected_s)
