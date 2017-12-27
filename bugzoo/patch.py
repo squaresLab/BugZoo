@@ -126,15 +126,7 @@ class Hunk(object):
         """
         header = '@@ -{} +{} @@'.format(self.__old_start_at,
                                         self.__new_start_at)
-
-        # if the first line is a context line, merge it into the header
-        # unless that context line contains only whitespace
-        lines = self.__lines
-        if isinstance(lines[0], ContextLine) and not str(lines[0]).isspace():
-            header += str(lines[0])
-            lines = lines[1:]
-
-        body = [str(line) for line in lines]
+        body = [str(line) for line in self.__lines]
         return '\n'.join([header] + body)
 
 
