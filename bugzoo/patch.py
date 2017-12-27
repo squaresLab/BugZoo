@@ -124,8 +124,20 @@ class Hunk(object):
         """
         Returns the contents of this hunk as part of a unified format diff.
         """
-        header = '@@ -{} +{} @@'.format(self.__old_start_at,
-                                        self.__new_start_at)
+        num_deleted = \
+            sum(1 for l in self.__lines if isinstance(l, DeletedLine))
+        num_inserted = \
+            sum(1 for l in self.__lines if isinstance(l, InsertedLine))
+        num_context = \
+            sum(1 for l in self.__lines if isinstance(l, ContextLine))
+
+        num_old_lines = num_context + num_deleted
+        num_new_lines = num_context + num_inserted
+
+        header = '@@ -{},{} +{},{} @@'.format(self.__old_start_at,
+                                              num_old_lines,
+                                              self.__new_start_at,
+                                              num_new_lines)
         body = [str(line) for line in self.__lines]
         return '\n'.join([header] + body)
 
