@@ -8,7 +8,7 @@ from bugzoo.util import dedent
 class HunkTestCase(unittest.TestCase):
     def test_read_next(self):
         from_s = """
-        @@ -1 +1 @@
+        @@ -1,7 +1,6 @@
         -The Way that can be told of is not the eternal Way;
         -The name that can be named is not the eternal name.
          The Nameless is the origin of Heaven and Earth;
@@ -36,14 +36,14 @@ class FilePatchTestCase(unittest.TestCase):
         index 0000000..2990e5b
         --- /dev/null
         +++ b/file-two.txt
-        @@ -0 +1 @@
+        @@ -0,0 +1,2 @@
         +This is file two.
         +How do you do?
         diff --git a/testfile.c b/testfile.c
         index f50a1fc..60ed6ff 100644
         --- a/testfile.c
         +++ b/testfile.c
-        @@ -6 +6 @@
+        @@ -6,6 +6,8 @@
          int testfun(int a, int b)
            x = a + b;
            x *= x;
@@ -79,14 +79,14 @@ class PatchTestCase(unittest.TestCase):
         index 0000000..2990e5b
         --- /dev/null
         +++ b/file-two.txt
-        @@ -0 +1 @@
+        @@ -0,0 +1,2 @@
         +This is file two.
         +How do you do?
         diff --git a/testfile.c b/testfile.c
         index f50a1fc..60ed6ff 100644
         --- a/testfile.c
         +++ b/testfile.c
-        @@ -6 +6 @@
+        @@ -6,6 +6,8 @@
          int testfun(int a, int b)
            x = a + b;
            x *= x;
@@ -110,7 +110,7 @@ class PatchTestCase(unittest.TestCase):
         ===================================================================
         --- src/joblist.c	(revision 1794)
         +++ src/joblist.c	(working copy)
-        @@ -7 +7 @@
+        @@ -7,7 +7,7 @@
          
          int joblist_append(server *srv, connection *con) {
            if (con->in_joblist) return 0;
@@ -119,7 +119,7 @@ class PatchTestCase(unittest.TestCase):
          
            if (srv->joblist->size == 0) {
              srv->joblist->size  = 16;
-        @@ -19 +19 @@
+        @@ -19,7 +19,7 @@
          
            srv->joblist->ptr[srv->joblist->used++] = con;
          
@@ -132,7 +132,7 @@ class PatchTestCase(unittest.TestCase):
         ===================================================================
         --- tests/core-request.t	(revision 2792)
         +++ tests/core-request.t	(working copy)
-        @@ -246 +246 @@
+        @@ -246,7 +246,7 @@
          ok($tf->handle_http($t) == 0, 'Content-Type - image/jpeg');
          
          $t->{REQUEST}  = ( <<EOF
