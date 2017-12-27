@@ -5,7 +5,9 @@ import os
 import subprocess
 import tempfile
 import bugzoo
+import time
 
+from tempfile import NamedTemporaryFile
 from typing import List, Iterator, Dict
 from timeit import default_timer as timer
 
@@ -170,7 +172,30 @@ class Container(object):
         Returns true if the patch application was successful, and false if
         the attempt was unsuccessful.
         """
-        pass
+        assert isinstance(p, Patch)
+        host_file = container_file = None
+
+        try:
+            # write the patch to a temporary file on the host
+            host_file = NamedTemporaryFile(mode='w', suffix='bugzoo')
+            host_file.write(str(p))
+            host_file.flush()
+
+            # copy contents to a temporary file on the container
+            container_file = \
+                self.container.exec_run('mktemp').decode(sys.stdout.encoding).strip()
+            self.copy_to(host_file.name, container_file)
+
+            # run patch command inside the source directory
+            # cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
+            cmd = 'git apply -p0 "{}"'.format(container_file)
+            outcome = self.command(cmd, context=self.bug.source_dir)
+            return outcome.code == 0
+
+        # destroy temporary files on container
+        finally:
+            if container_file:
+                self.container.exec_run('rm "{}"'.format(container_file))
 
     def copy_to(self, source_fn: str, dest_fn: str) -> None:
         """
