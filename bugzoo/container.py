@@ -186,11 +186,9 @@ class Container(object):
                 self.container.exec_run('mktemp').decode(sys.stdout.encoding).strip()
             self.copy_to(host_file.name, container_file)
 
-            # TODO: debugging
-            time.sleep(300)
-
             # run patch command inside the source directory
-            cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
+            # cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
+            cmd = 'git apply -p0 "{}"'.format(container_file)
             outcome = self.command(cmd, context=self.bug.source_dir)
             return outcome.code == 0
 
