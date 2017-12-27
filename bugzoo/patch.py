@@ -217,4 +217,4 @@ class Patch(object):
         Returns the contents of this patch as a unified format diff.
         """
         file_patches = [str(p) for p in self.__file_patches]
-        return '\n'.join(file_patches)
+        return '\n'.join(file_patches + [''])
