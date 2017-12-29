@@ -21,7 +21,8 @@ setup(
         'bugzoo.testing',
         'bugzoo.plugin',
         'bugzoo.coverage',
-        'bugzoo.localization'
+        'bugzoo.localization',
+        'bugzoo.compiler'
     ],
     entry_points = {
         'console_scripts': [ 'bugzoo = bugzoo.cli:main' ]

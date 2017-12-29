@@ -19,15 +19,7 @@ from bugzoo.tool import Tool
 from bugzoo.coverage.base import ProjectLineCoverage, \
                                  ProjectCoverageMap
 from bugzoo.coverage.spectra import Spectra
-
-
-class CompilationOutcome(object):
-    def __init__(self, command_outcome: ExecResponse) -> None:
-        self.__command_outcome = command_outcome
-
-    @property
-    def successful(self):
-        return self.__command_outcome.code == 0
+from bugzoo.compiler import Compiler, CompilationOutcome
 
 
 class Container(object):
