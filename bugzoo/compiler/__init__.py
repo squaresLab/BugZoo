@@ -10,7 +10,15 @@ class CompilationOutcome(object):
         self.__command_outcome = command_outcome
 
     @property
-    def successful(self):
+    def response(self) -> ExecResponse:
+        """
+        The response produced by the command that was used to attempt the
+        compilation.
+        """
+        return self.__command_outcome
+
+    @property
+    def successful(self) -> bool:
         """
         True if the attempt to compile the source code was successful;
         False if not.
@@ -97,7 +105,7 @@ class SimpleCompiler(Compiler):
         """
         super().__init__()
         self.__command = command
-        self.__command_with_instrumentation = comand_with_instrumentation
+        self.__command_with_instrumentation = command_with_instrumentation
         self.__context = context
         self.__time_limit = time_limit
 
@@ -139,7 +147,7 @@ class SimpleCompiler(Compiler):
 class WafCompiler(SimpleCompiler):
     @staticmethod
     def from_dict(d: dict) -> 'WafCompiler':
-        return WafCompiler(d['time_limit'])
+        return WafCompiler(d['time-limit'])
 
     def __init__(self, time_limit: float) -> None:
         cmd = "./waf build -j$(nproc)"
