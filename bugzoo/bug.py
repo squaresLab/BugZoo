@@ -15,25 +15,7 @@ from bugzoo.testing import TestCase, TestOutcome, TestSuite
 from bugzoo.coverage import ProjectLineCoverage, \
                             ProjectCoverageMap, \
                             Spectra
-
-class CompilationInstructions(object):
-    @staticmethod
-    def from_yaml(yml: dict) -> 'CompilationInstructions':
-        return CompilationInstructions(yml['context'],
-                                       yml['command'])
-
-
-    def __init__(self, context: str, command: str) -> None:
-        self.__context = context
-        self.__command = command
-
-    @property
-    def context(self):
-        return self.__context
-
-    @property
-    def command(self):
-        return self.__command
+from bugzoo.compiler import Compiler
 
 
 class Bug(object):
@@ -76,12 +58,14 @@ class Bug(object):
         # build the test harness
         harness = TestSuite.from_dict(yml['test-harness'])
 
-        # compilation instructions
-        if not 'compilation' in yml:
-            raise Exception('No compilation instructions provided for bug: {}'.format(name))
+        # source directory
+        source_dir = yml['source-location']
 
-        compilation_instructions = \
-            CompilationInstructions.from_yaml(yml['compilation'])
+        # compilation instructions
+        if not 'compiler' in yml:
+            raise Exception('No compiler provided for bug: {}'.format(name))
+        compiler = \
+            Compiler.from_dict(yml['compiler'])
 
         # docker build instructions
         # TODO: this is stupid
@@ -95,18 +79,21 @@ class Bug(object):
                         name,
                         program,
                         languages,
+                        source_dir,
                         harness,
                         build_instructions,
-                        compilation_instructions)
+                        compiler)
 
     def __init__(self,
                  dataset: 'Dataset',
                  name: str,
                  program: str,
                  languages: List[Language],
+                 source_dir: str,
                  harness: TestSuite,
                  build_instructions: BuildInstructions,
-                 compilation_instructions: CompilationInstructions) -> None:
+                 compiler: Compiler
+                 ) -> None:
         assert name != ""
         assert program != ""
         assert languages != []
@@ -114,9 +101,10 @@ class Bug(object):
         self.__name = name
         self.__program = program
         self.__languages = languages[:]
+        self.__source_dir = source_dir
         self.__test_harness = harness
         self.__build_instructions = build_instructions
-        self.__compilation_instructions = compilation_instructions
+        self.__compiler = compiler
         self.__dataset = dataset
 
     @property
@@ -126,7 +114,7 @@ class Bug(object):
         this bug.
         """
         # TODO
-        return "/experiment/src"
+        return self.__source_dir
 
     @property
     def languages(self) -> List[Language]:
@@ -140,8 +128,8 @@ class Bug(object):
         return self.__program
 
     @property
-    def compilation_instructions(self):
-        return self.__compilation_instructions
+    def compiler(self) -> Compiler:
+        return self.__compiler
 
     @property
     def harness(self) -> TestSuite:
