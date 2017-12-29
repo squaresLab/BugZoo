@@ -24,7 +24,8 @@ class Compiler(object):
     (with and without different forms of instrumentation).
     """
     def compile(self,
-                container: 'Container'
+                container: 'Container',
+                verbose: bool = False,
                 ) -> CompilationOutcome:
         """
         Attempts to use this compiler to build the source code inside a
@@ -33,7 +34,8 @@ class Compiler(object):
         raise NotImplementedError
 
     def compile_with_coverage_instrumentation(self,
-                                              container: 'Container'
+                                              container: 'Container',
+                                              verbose: bool = False
                                               ) -> CompilationOutcome:
         """
         Attempts to use this compiler to build the source code inside a
