@@ -24,6 +24,21 @@ class Compiler(object):
     user and to provide a simple, uniform interface for compiling programs
     (with and without different forms of instrumentation).
     """
+    @staticmethod
+    def from_dict(d: dict) -> 'Compiler':
+        assert 'type' in d
+        typ = d['type']
+        try:
+            cls = ({
+                'simple': SimpleCompiler,
+                'waf': WafCompiler
+            })[typ]
+
+        except KeyError:
+            raise Exception("unsupported compiler type: {}".format(typ))
+
+        return cls.from_dict(d)
+
     def compile(self,
                 container: 'Container',
                 verbose: bool = False,
@@ -80,6 +95,7 @@ class SimpleCompiler(Compiler):
                 command will be used when the user requests to compile the
                 program with instrumentation.
         """
+        super().__init__()
         self.__command = command
         self.__command_with_instrumentation = comand_with_instrumentation
         self.__context = context
@@ -119,3 +135,17 @@ class SimpleCompiler(Compiler):
             cmd = self.__command
 
         return self.__compile(container, cmd, verbose)
+
+class WafCompiler(SimpleCompiler):
+    @staticmethod
+    def from_dict(d: dict) -> 'WafCompiler':
+        return WafCompiler(d['time_limit'])
+
+    def __init__(self, time_limit: float) -> None:
+        cmd = "./waf build -j$(nproc)"
+        cflags = "-fprofile-arcs -ftest-coverage -fPIC"
+        cmdi = "./waf configure CFLAGS='{}' CXXFLAGS='{}'; {}".format(cflags, cflags, cmd)
+        super().__init__(command=cmd,
+                         command_with_instrumentation=cmdi,
+                         context=None,
+                         time_limit=time_limit)
