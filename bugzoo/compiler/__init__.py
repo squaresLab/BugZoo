@@ -1,3 +1,4 @@
+from typing import Optional
 from bugzoo.cmd import ExecResponse
 
 
@@ -42,3 +43,79 @@ class Compiler(object):
         given container with coverage instrumentation enabled.
         """
         raise NotImplementedError
+
+
+class SimpleCompiler(object):
+    @staticmethod
+    def from_dict(d: dict) -> 'SimpleCompiler':
+        """
+        Loads a SimpleCompiler from its dictionary-based description.
+        """
+        cmd = d['command']
+        cmd_with_instrumentation = d.get('command_with_instrumentation', None)
+        time_limit = d['time-limit']
+        return SimpleCompiler(cmd, cmd_with_instrumentation, time_limit)
+
+    def __init__(self,
+                 command: str,
+                 time_limit: float,
+                 context: Optional[str] = None,
+                 command_with_instrumentation: Optional[str] = None,
+                 ) -> None:
+        """
+        Constructs a new simple compiler.
+
+        Params:
+            command: The shell command that should be used to compile the
+                source code for a given container.
+            time_limit: The maximum number of seconds that the compilation
+                should be allowed to run before it is aborted.
+            context: The directory within the container in which the given
+                command should be executed. If no context is provided then
+                the source directory in the container will be used by
+                default.
+            command_with_instrumentation: The command that should be used to
+                compile the source code with the instrumentation necessary to
+                collect coverage information. If let unspecified, the standard
+                command will be used when the user requests to compile the
+                program with instrumentation.
+        """
+        self.__command = command
+        self.__command_with_instrumentation = comand_with_instrumentation
+        self.__context = context
+        self.__time_limit = time_limit
+
+    def __compile(self,
+                  container: 'Container',
+                  command: str,
+                  verbose: bool
+                  ) -> CompilationOutcome:
+        # if a context isn't given, use the source directory of the bug
+        context = self.__context if self.__context else container.bug.source_dir
+        cmd_outcome = container.command(self.__command,
+                                        context=context,
+                                        stderr=True)
+        return CompilationOutcome(cmd_outcome)
+
+    def compile(self,
+                container: 'Container',
+                verbose: bool = False
+                ) -> CompilationOutcome:
+        """
+        See `Compiler.compile`
+        """
+        return self.__compile(container, self.__command, verbose)
+
+    def compile_with_coverage_instrumentation(self,
+                                              container: 'Container',
+                                              verbose: bool = False
+                                              ) -> CompilationOutcome:
+        """
+        See `Compiler.compile_with_coverage_instrumentation`
+        """
+        if self.__command_with_instrumentation:
+            cmd = self.__command_with_instrumentation
+        else:
+            cmd = self.__command
+
+        return self.__compile(container, cmd, verbose)

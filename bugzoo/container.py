@@ -272,7 +272,6 @@ class Container(object):
         """
         # TODO: hardcoded!
         cmd = "make clean && make -j8 CFLAGS='-fprofile-arcs -ftest-coverage -fPIC'"
-        # TODO: use virtual compiler
         # cmd = self.bug.compilation_instructions.command
         cmd_outcome = self.command(cmd,
                                    context=self.bug.compilation_instructions.context,
