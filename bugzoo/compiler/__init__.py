@@ -45,7 +45,7 @@ class Compiler(object):
         raise NotImplementedError
 
 
-class SimpleCompiler(object):
+class SimpleCompiler(Compiler):
     @staticmethod
     def from_dict(d: dict) -> 'SimpleCompiler':
         """
