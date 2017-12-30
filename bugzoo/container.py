@@ -198,6 +198,15 @@ class Container(object):
         cmd = "docker cp '{}' '{}:{}'".format(source_fn, ctr_id, dest_fn)
         subprocess.check_output(cmd, shell=True)
 
+    def copy_from(self, source_fn: str, dest_fn: str) -> None:
+        """
+        Copies a given file from the container to a specified location on the
+        host machine.
+        """
+        ctr_id = self.container.id
+        cmd = "docker cp '{}:{}' '{}'".format(ctr_id, source_fn, dest_fn)
+        subprocess.check_output(cmd, shell=True)
+
     def command(self,
                 cmd: str,
                 context: str = '/',
