@@ -116,7 +116,7 @@ class SimpleCompiler(Compiler):
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
         context = self.__context if self.__context else container.bug.source_dir
-        cmd_outcome = container.command(self.__command,
+        cmd_outcome = container.command(command,
                                         context=context,
                                         stderr=True)
         return CompilationOutcome(cmd_outcome)
@@ -151,8 +151,11 @@ class WafCompiler(SimpleCompiler):
 
     def __init__(self, time_limit: float) -> None:
         cmd = "./waf build -j$(nproc)"
-        cflags = "-fprofile-arcs -ftest-coverage -fPIC"
-        cmdi = "./waf configure CFLAGS='{}' CXXFLAGS='{}'; {}".format(cflags, cflags, cmd)
+        cxxflags = "--coverage -Wno-error=maybe-uninitialized -save-temps=obj"
+        ldflags = "--coverage"
+        cmdi = "./waf configure LDFLAGS='{}' CXXFLAGS='{}'; {}".format(ldflags,
+                                                                       cxxflags,
+                                                                       cmd)
         super().__init__(command=cmd,
                          command_with_instrumentation=cmdi,
                          context=None,
