@@ -39,7 +39,8 @@ class Compiler(object):
         try:
             cls = ({
                 'simple': SimpleCompiler,
-                'waf': WafCompiler
+                'waf': WafCompiler,
+                'configure-and-make': ConfigureMakeCompiler
             })[typ]
 
         except KeyError:
@@ -144,6 +145,7 @@ class SimpleCompiler(Compiler):
 
         return self.__compile(container, cmd, verbose)
 
+
 class WafCompiler(SimpleCompiler):
     @staticmethod
     def from_dict(d: dict) -> 'WafCompiler':
@@ -156,6 +158,26 @@ class WafCompiler(SimpleCompiler):
         cmdi = "./waf configure LDFLAGS='{}' CXXFLAGS='{}'; {}".format(ldflags,
                                                                        cxxflags,
                                                                        cmd)
+        super().__init__(command=cmd,
+                         command_with_instrumentation=cmdi,
+                         context=None,
+                         time_limit=time_limit)
+
+
+class ConfigureMakeCompiler(SimpleCompiler):
+    @staticmethod
+    def from_dict(d: dict) -> 'ConfigureMakeCompiler':
+        return ConfigureMakeCompiler(d['time-limit'])
+
+    def __init__(self, time_limit: float) -> None:
+        cmd = 'make -j$(nproc)'
+        cflags = "--coverage save-temps=obj"
+        ldflags = "--coverage"
+        flags = "LDFLAGS='{}' CXXFLAGS='{}' CFLAGS='{}'".format(ldflags,
+                                                                cflags,
+                                                                cflags)
+        cmdi = "make clean; ./configure {}; {}".format(flags, cmd)
+
         super().__init__(command=cmd,
                          command_with_instrumentation=cmdi,
                          context=None,
