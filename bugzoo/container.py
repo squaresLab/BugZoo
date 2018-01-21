@@ -19,15 +19,7 @@ from bugzoo.tool import Tool
 from bugzoo.coverage.base import ProjectLineCoverage, \
                                  ProjectCoverageMap
 from bugzoo.coverage.spectra import Spectra
-
-
-class CompilationOutcome(object):
-    def __init__(self, command_outcome: ExecResponse) -> None:
-        self.__command_outcome = command_outcome
-
-    @property
-    def successful(self):
-        return self.__command_outcome.code == 0
+from bugzoo.compiler import Compiler, CompilationOutcome
 
 
 class Container(object):
@@ -206,6 +198,15 @@ class Container(object):
         cmd = "docker cp '{}' '{}:{}'".format(source_fn, ctr_id, dest_fn)
         subprocess.check_output(cmd, shell=True)
 
+    def copy_from(self, source_fn: str, dest_fn: str) -> None:
+        """
+        Copies a given file from the container to a specified location on the
+        host machine.
+        """
+        ctr_id = self.container.id
+        cmd = "docker cp '{}:{}' '{}'".format(ctr_id, source_fn, dest_fn)
+        subprocess.check_output(cmd, shell=True)
+
     def command(self,
                 cmd: str,
                 context: str = '/',
@@ -260,17 +261,12 @@ class Container(object):
         return extractor.coverage(self, tests)
 
     def compile(self,
-                options: Dict[str, str] = None,
-                verbose: bool = True
+                verbose: bool = False
                 ) -> CompilationOutcome:
         """
         Attempts to compile the program inside this container.
 
         Params:
-            options: An optional dictionary of keyword parameters that are
-                supplied to the compilation command. If a parameter within
-                the command template is not supplied with a value, then an
-                empty string will be used instead.
             verbose: Specifies whether to print the stdout and stderr produced
                 by the compilation command to the stdout. If `True`, then the
                 stdout and stderr will be printed.
@@ -278,15 +274,18 @@ class Container(object):
         Returns:
             A summary of the outcome of the compilation attempt.
         """
-        # TODO: hardcoded!
-        cmd = "make clean && make -j8 CFLAGS='-fprofile-arcs -ftest-coverage -fPIC'"
-        # TODO: use virtual compiler
-        # cmd = self.bug.compilation_instructions.command
-        cmd_outcome = self.command(cmd,
-                                   context=self.bug.compilation_instructions.context,
-                                   stderr=True)
-        return CompilationOutcome(cmd_outcome)
+        return self.bug.compiler.compile(self, verbose=verbose)
 
+    def compile_with_instrumentation(self,
+                                     verbose: bool = False
+                                     ) -> CompilationOutcome:
+        """
+        Attempts to compile the program inside this container with
+        instrumentation enabled.
+
+        See: `Container.compile`
+        """
+        return self.bug.compiler.compile_with_coverage_instrumentation(self, verbose=verbose)
 
     def execute(self, test: TestCase) -> TestOutcome:
         """

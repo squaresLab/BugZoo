@@ -70,13 +70,7 @@ class CCoverageExtractor(CoverageExtractor):
         # TODO: mount binaries
         container.command('sudo apt-get update && sudo apt-get install -y gcovr')
 
-        # ensure any preexisting coverage files within this container are purged
-        # TODO: not a priority
-        options = {
-            "CFLAGS": "CFLAGS='-fprofile-arcs -ftest-coverage -fPIC'"
-        }
-
-        outcome = container.compile(options=options)
+        outcome = container.compile_with_instrumentation()
         if not outcome.successful:
             msg = "failed to generate coverage for container ({}) due to compilation failure.".format(container.id)
             raise Exception(msg)

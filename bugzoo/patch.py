@@ -205,6 +205,9 @@ class Patch(object):
         lines = diff.split('\n')
         file_patches: List[FilePatch] = []
         while lines:
+            if lines[0] == '' or lines[0].isspace():
+                lines.pop(0)
+                continue
             file_patches.append(FilePatch._read_next(lines))
 
         return Patch(file_patches)
