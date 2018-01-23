@@ -1,0 +1,247 @@
+swagger: '2.0'
+info:
+  description: |
+    Official documentation for BugZoo's RESTful API.
+  version: '1.0'
+  title: BugZoo - API Specification
+  contact:
+    name: Christopher Timperley
+    url: https://github.com/ChrisTimperley/bugzoo-api-docs
+host: localhost
+basePath: /bugzoo
+
+
+tags:
+  - name: container
+    description: All operations related to containers
+  - name: bug
+    description: All operations related to bugs
+
+
+definitions:
+  Bug:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: A unique identifier for this bug.
+        example: 'manybugs:python:69223-69224'
+
+  Container:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: >-
+          A unique identifier for the container. If an ID was not provided by
+          the user upon the creation of the container, an ID will automatically
+          be generated instead.
+
+
+paths:
+###############################################################################
+#
+# Bugs
+#
+###############################################################################
+
+  /bugs:
+    get:
+      summary: List of registered bugs.
+      description: >-
+        Produces a list of all the bugs registered with this server given by
+        their unique identifiers.
+      tags:
+        - bug
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: string
+              description: The unique identifier of the bug.
+              example: 'manybugs:python:69223-69224'
+
+  /bugs/${id}:
+    get:
+      summary: Bug information.
+      description: Produces a detailed description of a given bug.
+      tags:
+        - bug
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the bug.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Bug'
+
+###############################################################################
+#
+# Containers
+#
+###############################################################################
+
+  /containers:
+    get:
+      summary: List of running containers.
+      description: >-
+        Produces a list of the names of all of the containers that are
+        currently running on this server.
+      tags:
+        - container
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Container'
+        404:
+          description: Bug not found.
+
+  /containers/${id}:
+    get:
+      summary: Container information.
+      description: Produces a detailed description of a given container.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Container'
+        404:
+          description: Container not found.
+
+    post:
+      summary: Provisions a container.
+      description: Provisions a new container for a given bug.
+      tags:
+        - container
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+
+    delete:
+      summary: Destroy container.
+      description: Destroys a given container.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+      - in: path
+        name: id
+        type: string
+        description: The unique identifier of the container.
+        required: true
+      responses:
+        204:
+          description: OK
+        404:
+          description: Container does not exist or was already destroyed.
+
+  /containers/${container-id}/test/${test-id}:
+    post:
+      summary: Executes a test inside a container.
+      description: >-
+        Executes a test case belonging to the program within a given container,
+        and returns the outcome of the execution.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: container-id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+        - in: path
+          name: test-id
+          type: string
+          description: The unique identifier of the test case.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+        404:
+          description: Container or test case not found.
+
+  /containers/${container-id}/compile:
+    post:
+      summary: Compiles program inside container.
+      description: >-
+        Attempts to compile the program inside a given container, and returns
+        a description of the outcome of the compilation process.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: container-id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+      responses:
+        200:
+          description: Compilation success.
+        211:
+          description: Compilation failure.
+        212:
+          description: Compilation timeout.
+        404:
+          description: Container not found.
+
+  /containers/${container-id}/patch:
+    patch:
+      summary: Patches source code inside container.
+      description: >-
+        Attempts to apply a given patch to the source code for the program
+        inside the container.
+      tags:
+        - container
+      consumes:
+        - text/plain
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: container-id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+      responses:
+        204:
+          description: OK.
+        400:
+          description: Failed to apply patch.
