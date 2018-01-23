@@ -8,7 +8,7 @@ import bugzoo
 import time
 
 from tempfile import NamedTemporaryFile
-from typing import List, Iterator, Dict
+from typing import List, Iterator, Dict, Optional
 from timeit import default_timer as timer
 
 from bugzoo.core import Language
@@ -30,14 +30,22 @@ class Container(object):
     """
     def __init__(self,
                  bug: str = 'bugzoo.bug.Bug',
-                 tools : List[Tool] = [],
-                 volumes : Dict[str, str] = {},
-                 network_mode : str = 'bridge',
-                 ports={},
+                 tools: Optional[List[Tool]] = None,
+                 volumes: Optional[Dict[str, str]] = None,
+                 network_mode: str = 'bridge',
+                 ports: Optional[Dict[int, int]] = None,
+                 uid: str = None,
                  interactive=False) -> None:
         """
         Constructs a container for a given bug.
         """
+        if tools is None:
+            tools = []
+        if volumes is None:
+            volumes = {}
+        if ports is None:
+            ports = {}
+
         self.__bug = bug
         self.__tools = tools
         self.__tool_containers = [t.provision() for t in tools]
@@ -59,7 +67,7 @@ class Container(object):
             {'bind': '/.environment', 'mode': 'rw'}
 
         # construct a Docker container for this bug
-        client = docker.from_env()
+        client = docker.from_env() # nooooooooo
         self.__container = \
             client.containers.create(bug.image,
                                      '/bin/bash -v -c "source /.environment && /bin/bash"',
