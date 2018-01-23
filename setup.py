@@ -14,7 +14,8 @@ setup(
         'dockerpty',
         'GitPython',
         'pyyaml',
-        'tabulate'
+        'tabulate',
+        'flask'
     ],
     packages=[
         'bugzoo',
@@ -22,9 +23,13 @@ setup(
         'bugzoo.plugin',
         'bugzoo.coverage',
         'bugzoo.localization',
-        'bugzoo.compiler'
+        'bugzoo.compiler',
+        'bugzoo.server'
     ],
     entry_points = {
-        'console_scripts': [ 'bugzoo = bugzoo.cli:main' ]
+        'console_scripts': [
+            'bugzoo = bugzoo.cli:main',
+            'bugzood = bugzoo.server:main'
+        ]
     }
 )
