@@ -9,13 +9,25 @@ class LanguageEnumMeta(enum.EnumMeta):
 
 
 class Language(enum.Enum, metaclass=LanguageEnumMeta):
-    C = CCoverageExtractor()
-    CPP = CCoverageExtractor()
+    C = ("c", CCoverageExtractor())
+    CPP = ("cpp", CCoverageExtractor())
     # JAVA = None
     # PYTHON = None
 
-    def __init__(self, coverage_extractor: CoverageExtractor) -> None:
+    def __init__(self,
+                 name: str,
+                 coverage_extractor: CoverageExtractor
+                 ) -> None:
+        self.__name = name
         self.__coverage_extractor = coverage_extractor
+
+    @property
+    def name(self) -> str:
+        """
+        The canonical name of this language.
+        """
+        return self.__name
+    __str__ = name
 
     @property
     def coverage_extractor(self) -> CoverageExtractor:
