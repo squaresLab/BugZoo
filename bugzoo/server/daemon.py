@@ -3,6 +3,7 @@ import flask
 import os
 from bugzoo.container import Container
 from bugzoo.bug import Bug
+from bugzoo.manager import BugZoo, Bugs
 from typing import Iterator
 
 
@@ -39,13 +40,33 @@ class ContainerManager(object):
         """
         c = Container(bug, uid=uid)
         self.__containers[c.id] = c
+        print(c)
         return c
 
 
 class Daemon(object):
     def __init__(self):
+        self.__installation = BugZoo()
         self.__containers = ContainerManager()
 
     @property
+    def installation(self) -> BugZoo:
+        """
+        TODO: change name of type from BugZoo to Installation
+        """
+        return self.__installation
+
+    @property
     def containers(self) -> ContainerManager:
+        """
+        The collection of containers that are currently running on this
+        server.
+        """
         return self.__containers
+
+    @property
+    def bugs(self) -> Bugs:
+        """
+        The collection of bugs that are registered with this server.
+        """
+        return self.installation.bugs
