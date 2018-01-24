@@ -218,6 +218,7 @@ class Bug(object):
         if self.__program:
             return "{}:{}:{}".format(self.__dataset.name, self.__program, self.__name)
         return "{}:{}".format(self.__dataset.name, self.__name)
+    uid = identifier
 
     def validate(self, verbose: bool = True) -> bool:
         """
