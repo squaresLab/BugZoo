@@ -87,6 +87,7 @@ class Container(object):
         """
         assert self.alive
         return self.__container.id
+    uid = id
 
     @property
     def tools(self) -> Iterator[Tool]:
