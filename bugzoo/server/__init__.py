@@ -1,5 +1,6 @@
 import flask
 from bugzoo.server.daemon import Daemon
+from bugzoo.server.code import ErrorCode
 
 daemon: Daemon = None
 app = flask.Flask(__name__)
@@ -41,9 +42,19 @@ def list_containers():
 
 @app.route('/containers', methods=['POST'])
 def provision_container():
-    jsn = []
-    bug = "TODO"
-    daemon.containers.provision(bug)
+    args = flask.request.get_json()
+
+    if 'bug-uid' not in args:
+        return ErrorCode.BUG_NOT_SPECIFIED.to_response()
+    bug_uid = args['bug-uid']
+
+    try:
+        bug = daemon.bugs[bug_uid]
+        c = daemon.containers.provision(bug)
+        return c.uid
+
+    except KeyError:
+        return ErrorCode.BUG_NOT_FOUND.to_response()
 
 
 def run(port: int = 6060) -> None:
