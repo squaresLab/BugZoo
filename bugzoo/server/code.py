@@ -5,6 +5,7 @@ from enum import Enum
 class ErrorCode(Enum):
     BUG_NOT_FOUND = ("No bug was found with the given UID.", 404)
     BUG_NOT_SPECIFIED = ("No bug ID was specified.", 400)
+    CONTAINER_NOT_FOUND = ("No (running) container was found with the given UID.", 404)
 
     def __init__(self, message: str, status_code: int) -> None:
         self.__message = message
