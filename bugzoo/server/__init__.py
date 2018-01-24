@@ -18,6 +18,19 @@ def list_bugs():
     return flask.jsonify(jsn)
 
 
+@app.route('/bugs/<uid>', methods=['GET'])
+def show_bug(uid: str):
+    jsn = {}
+    try:
+        bug = daemon.bugs[uid]
+        jsn = bug.to_dict()
+    except KeyError:
+        # not found
+        jsn = {'error': {'code': 'BLAH',
+                         'message': 'No bug found with given UID.'}}
+    return flask.jsonify(jsn)
+
+
 @app.route('/containers', methods=['GET'])
 def list_containers():
     jsn = []
