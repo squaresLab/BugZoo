@@ -5,7 +5,7 @@ import copy
 import textwrap
 import bugzoo
 
-from typing import List, Iterator, Dict
+from typing import List, Iterator, Dict, Optional
 from bugzoo.core import Language
 from bugzoo.util import print_task_start, print_task_end
 from bugzoo.build import BuildInstructions
@@ -107,6 +107,19 @@ class Bug(object):
         self.__compiler = compiler
         self.__dataset = dataset
 
+    def to_dict(self) -> dict:
+        """
+        Produces a dictionary-based description of this bug, ready to be
+        serialised in a JSON or YAML format.
+        """
+        jsn = {
+            'uid': self.uid,
+            'program': self.program,
+            'dataset': self.dataset.name if self.dataset else None,
+            'languages': [l.name for l in self.__languages]
+        }
+        return jsn
+
     @property
     def source_dir(self) -> str:
         """
@@ -121,9 +134,10 @@ class Bug(object):
         return self.__languages[:]
 
     @property
-    def program(self) -> str:
+    def program(self) -> Optional[str]:
         """
-        The name of the program that this bug belongs to, if specified.
+        The name of the program to which this bug belongs, if specified. If
+        no program is specified for this bug, None will be returned instead.
         """
         return self.__program
 
