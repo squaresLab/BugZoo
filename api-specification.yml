@@ -147,6 +147,8 @@ paths:
       responses:
         200:
           description: OK
+        404:
+          description: No bug exists with specified UID.
 
     delete:
       summary: Destroy container.
