@@ -1,3 +1,4 @@
+import flask
 from typing import Tuple, Dict
 from enum import Enum
 
@@ -21,4 +22,4 @@ class ErrorCode(Enum):
 
     def to_response(self) -> Tuple[Dict[str, str], int]:
         jsn = {'error': {'message': self.message}}
-        return (jsn, self.status_code)
+        return (flask.jsonify(jsn), self.status_code)
