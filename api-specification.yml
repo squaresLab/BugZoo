@@ -89,6 +89,28 @@ paths:
           schema:
             $ref: '#/definitions/Bug'
 
+  /bugs/${id}/build:
+    post:
+      summary: Builds a bug.
+      description: Builds the Docker image for a given bug.
+      tags:
+        - bug
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the bug.
+          required: true
+      responses:
+        204:
+          description: Built bug.
+        200:
+          description: Bug already built.
+        404:
+          description: Bug not found.
+
 ###############################################################################
 #
 # Containers
