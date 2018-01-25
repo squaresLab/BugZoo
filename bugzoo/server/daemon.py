@@ -40,8 +40,24 @@ class ContainerManager(object):
         """
         c = Container(bug, uid=uid)
         self.__containers[c.id] = c
-        print(c)
         return c
+
+    def delete(self,
+               uid: str = None) -> Container:
+        """
+        Deletes a running container with a given UID.
+
+        Parameters:
+            uid:    The unique identifier of the container that should be
+                    deleted.
+
+        Raises:
+            KeyError:   If no container was found with the given UID.
+        """
+        print("Deleting container: {}".format(uid))
+        self.__containers[uid].destroy()
+        del self.__containers[uid]
+        print("Deleted container: {}".format(uid))
 
 
 class Daemon(object):
