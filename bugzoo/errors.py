@@ -1,3 +1,7 @@
+from typing import Dict, List, Iterator
+from copy import copy
+
+
 class SourceNotFoundWithURL(BaseException):
     """
     Indicates that no source has been found that matches a provided URL.
@@ -39,3 +43,32 @@ class SourceAlreadyRegisteredWithURL(BaseException):
     @property
     def url(self):
         return self.__url
+
+
+class ImageBuildFailed(BaseException):
+    """
+    Indicates that an attempt to build a given Docker image has failed.
+    """
+    def __init__(self,
+                 image_name: str,
+                 log: List[Dict[str, str]]
+                 ) -> None:
+        self.__image_name = image_name
+        self.__log = copy(log)
+        msg = "failed to build image: {}".format(image_name)
+        super().__init__(image_name)
+
+    @property
+    def image_name(self) -> str:
+        """
+        The name of the image that failed to build.
+        """
+        return self.__image_name
+
+    @property
+    def log(self) -> Iterator[Dict[str, str]]:
+        """
+        A log of the failed build attempt.
+        """
+        for entry in self.__log:
+            yield entry
