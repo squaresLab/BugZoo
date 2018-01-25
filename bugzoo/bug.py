@@ -116,7 +116,8 @@ class Bug(object):
             'uid': self.uid,
             'program': self.program,
             'dataset': self.dataset.name if self.dataset else None,
-            'languages': [l.name for l in self.__languages]
+            'languages': [l.name for l in self.__languages],
+            'installed': self.installed
         }
         return jsn
 
