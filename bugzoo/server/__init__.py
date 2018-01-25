@@ -5,11 +5,6 @@ from bugzoo.server.code import ErrorCode
 daemon: Daemon = None
 app = flask.Flask(__name__)
 
-@app.route('/hello', methods=['GET'])
-def hello():
-    jsn = "Hello world"
-    return flask.jsonify(jsn)
-
 
 @app.route('/bugs', methods=['GET'])
 def list_bugs():
@@ -38,6 +33,16 @@ def list_containers():
     for container in daemon.containers:
         jsn.append(container.uid)
     return flask.jsonify(jsn)
+
+
+# TODO: deal with race condition
+@app.route('/containers/<uid>', methods=['DELETE'])
+def delete_container(uid: str):
+    try:
+        daemon.containers.delete(uid)
+        return ('', 204)
+    except KeyError:
+        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
 
 
 @app.route('/containers', methods=['POST'])
