@@ -27,6 +27,21 @@ def show_bug(uid: str):
     return flask.jsonify(jsn)
 
 
+@app.route('/bugs/<uid>/build', methods=['POST'])
+def build_bug(uid: str):
+    try:
+        bug = daemon.bugs[uid]
+    except KeyError:
+        return ErrorCode.BUG_NOT_FOUND.to_response()
+
+    # is the bug already installed?
+    if bug.installed:
+        return ErrorCode.BUG_ALREADY_INSTALLED.to_response()
+
+    bug.install()
+    return ('', 204)
+
+
 @app.route('/containers', methods=['GET'])
 def list_containers():
     jsn = []
@@ -56,7 +71,7 @@ def provision_container():
     try:
         bug = daemon.bugs[bug_uid]
         c = daemon.containers.provision(bug)
-        return c.uid
+        return (flask.jsonify(c.uid), 201)
 
     except KeyError:
         return ErrorCode.BUG_NOT_FOUND.to_response()
