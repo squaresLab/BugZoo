@@ -2,6 +2,22 @@ from typing import Dict, List, Iterator
 from copy import copy
 
 
+class UnexpectedStatusCode(BaseException):
+    """
+    Indicates that the API request produced an unexpected status code.
+    """
+    def __init__(self, code: int) -> None:
+        self.__code = code
+        super().__init__("API request produced unexpected status code: {}".format(code))
+
+    @property
+    def code(self) -> int:
+        """
+        The unexpected status code that was produced by the API request.
+        """
+        return self.__code
+
+
 class BugAlreadyBuilt(BaseException):
     """
     Indicates that the given bug has already been installed on the server.
