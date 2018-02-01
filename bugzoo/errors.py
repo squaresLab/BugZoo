@@ -2,17 +2,33 @@ from typing import Dict, List, Iterator
 from copy import copy
 
 
+class BugNotFound(BaseException):
+    """
+    Indicates that no bug was found that matches the provided identifier.
+    """
+    def __init__(self, name: str) -> None:
+        self.__name = name
+        super().__init__("no bug found with name: {}".format(name))
+
+    @property
+    def name(self) -> str:
+        """
+        The name of the requested bug.
+        """
+        return self.__name
+
+
 class SourceNotFoundWithURL(BaseException):
     """
     Indicates that no source has been found that matches a provided URL.
     """
-    def __init__(self, url):
+    def __init__(self, url: str) -> None:
         self.__url = url
         super().__init__("no source registered with URL: {}".format(url))
 
 
     @property
-    def url(self):
+    def url(self) -> str:
         return self.__url
 
 
@@ -20,13 +36,13 @@ class SourceNotFoundWithName(BaseException):
     """
     Indicates that there exists no source registered with a given name.
     """
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.__name = name
         super().__init__("no source registered with name: {}".format(name))
 
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
 
@@ -35,13 +51,13 @@ class SourceAlreadyRegisteredWithURL(BaseException):
     Indicates that there exists a source that is already registered with a
     given URL.
     """
-    def __init__(self, url):
+    def __init__(self, url: str):
         self.__url = url
         super().__init__("source already registered with URL: {}".format(url))
 
 
     @property
-    def url(self):
+    def url(self) -> str:
         return self.__url
 
 
