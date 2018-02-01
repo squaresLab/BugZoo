@@ -7,6 +7,7 @@ import json
 import bugzoo
 
 from pprint import pprint as pp
+from bugzoo.errors import ImageBuildFailed
 
 
 class BuildInstructions(object):
@@ -15,7 +16,6 @@ class BuildInstructions(object):
 
     TODO: only allow relative, forward roots
     """
-
     @staticmethod
     def from_file(source: 'Source', fn: str) -> 'BuildInstructions':
         """
@@ -29,7 +29,6 @@ class BuildInstructions(object):
             yml = yaml.load(f)
         root = os.path.dirname(fn)
         return BuildInstructions.from_dict(source, root, yml)
-
 
     @staticmethod
     def from_dict(source: 'Source', root: str, yml: dict) -> 'BuildInstructions':
@@ -52,7 +51,6 @@ class BuildInstructions(object):
 
         return BuildInstructions(source, root, tag, context, filename, arguments, depends_on)
 
-
     def __init__(self,
                  source: 'Source',
                  root: str,
@@ -69,11 +67,9 @@ class BuildInstructions(object):
         self.__arguments = {k: str(v) for (k, v) in arguments.items()}
         self.__depends_on = depends_on
 
-
     @property
     def root(self):
         return self.__root
-
 
     @property
     def depends_on(self):
@@ -84,28 +80,23 @@ class BuildInstructions(object):
         """
         return self.__depends_on
 
-
     @property
     def tag(self) -> str:
         return self.__tag
-
 
     @property
     def context(self) -> str:
         return self.__context
 
-
     @property
     def source(self) -> 'Source':
         return self.__source
-
 
     @property
     def abs_context(self) -> str:
         path = os.path.join(self.root, self.context)
         path = os.path.normpath(path)
         return path
-
 
     @property
     def file(self) -> str:
@@ -116,11 +107,9 @@ class BuildInstructions(object):
         """
         return self.__filename
 
-
     @property
     def file_abs(self) -> str:
         return os.path.join(self.root, self.file)
-
 
     @property
     def arguments(self):
@@ -129,7 +118,6 @@ class BuildInstructions(object):
         of the Docker image associated with these instructions.
         """
         return copy.copy(self.__arguments)
-
 
     @property
     def installed(self) -> bool:
@@ -143,7 +131,6 @@ class BuildInstructions(object):
         except docker.errors.ImageNotFound:
             return False
 
-
     def uninstall(self, force=False, noprune=False) -> None:
         """
         Attempts to uninstall the Docker image associated with these instructions.
@@ -156,7 +143,6 @@ class BuildInstructions(object):
             if force:
                 return
             raise e
-
 
     def download(self, force=False) -> bool:
         """
@@ -176,7 +162,6 @@ class BuildInstructions(object):
             print("Failed to locate image on DockerHub: {}".format(self.tag))
             return False
 
-
     def upload(self) -> bool:
         client = docker.from_env()
         try:
@@ -195,7 +180,6 @@ class BuildInstructions(object):
             print("Failed to push image ({}): not installed.".format(self.tag))
             return False
 
-
     def build(self, force=False, quiet=False) -> None:
         """
         Constructs the Docker image described by these instructions.
@@ -212,6 +196,7 @@ class BuildInstructions(object):
 
         tf = os.path.join(self.abs_context, '.Dockerfile')
         try:
+            success = False
             shutil.copy(self.file_abs, tf)
             client = docker.from_env()
             response = client.api.build(path=self.abs_context,
@@ -219,15 +204,24 @@ class BuildInstructions(object):
                                         tag=self.tag,
                                         # pull=force,
                                         buildargs=self.__arguments,
+                                        decode=True,
                                         rm=True)
+
+            # TODO: flatten to list of strings
+            log = []
             for line in response:
-                line = json.loads(line.decode('utf8'))
-                if not quiet and 'stream' in line:
-                    print(line['stream'].rstrip())
+                if 'stream' in line:
+                    log.append(line)
+                    if not quiet:
+                        print(line['stream'].rstrip())
+                    if line['stream'].startswith('Successfully built'):
+                        success = True
 
-                # TODO: check build status!
+            if not success:
+                raise ImageBuildFailed(self.tag, log)
 
-            if not quiet:
+            if success and not quiet:
                 print("Built image: {}".format(self.tag))
+                return
         finally:
             os.remove(tf)
