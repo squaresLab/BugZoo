@@ -14,7 +14,7 @@ from timeit import default_timer as timer
 from bugzoo.core import Language
 from bugzoo.cmd import ExecResponse, PendingExecResponse
 from bugzoo.testing import TestOutcome, TestCase
-from bugzoo.patch import Patch
+from bugzoo.core import Patch
 from bugzoo.tool import Tool
 from bugzoo.coverage.base import ProjectLineCoverage, \
                                  ProjectCoverageMap
