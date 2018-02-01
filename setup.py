@@ -20,7 +20,6 @@ setup(
     packages=[
         'bugzoo',
         'bugzoo.testing',
-        'bugzoo.plugin',
         'bugzoo.coverage',
         'bugzoo.localization',
         'bugzoo.compiler',
