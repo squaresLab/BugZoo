@@ -167,7 +167,7 @@ paths:
       produces:
         - application/json
       responses:
-        200:
+        204:
           description: OK
         404:
           description: No bug exists with specified UID.
