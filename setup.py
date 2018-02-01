@@ -24,7 +24,8 @@ setup(
         'bugzoo.coverage',
         'bugzoo.localization',
         'bugzoo.compiler',
-        'bugzoo.server'
+        'bugzoo.server',
+        'bugzoo.core'
     ],
     entry_points = {
         'console_scripts': [

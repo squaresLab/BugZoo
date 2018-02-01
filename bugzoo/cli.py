@@ -1,3 +1,4 @@
+import sys
 import argparse
 import tabulate
 import bugzoo.errors
@@ -5,6 +6,14 @@ import bugzoo.errors
 from typing import List
 from operator import itemgetter
 from bugzoo.manager import BugZoo
+
+
+def error(msg: str) -> None:
+    """
+    Prints a given error message to the standard output and causes the
+    program to terminate.
+    """
+    sys.exit(msg)
 
 
 def list_sources(rbox: 'BugZoo') -> None:
@@ -136,28 +145,43 @@ def list_bugs(rbox: 'BugZoo', show_installed=None) -> None:
 
 def install_tool(rbox: 'BugZoo', name: str, update: bool) -> None:
     print('installing tool: {}'.format(name))
-    t = rbox.tools[name]
+    try:
+        t = rbox.tools[name]
+    except IndexError:
+        error("no tool found with the given name: {}".format(name))
     t.install(upgrade=update)
 
 
 def uninstall_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling tool: {}'.format(name))
-    rbox.tools[name].uninstall(force=force)
+    try:
+        rbox.tools[name].uninstall(force=force)
+    except IndexError:
+        error("no tool found with the given name: {}".format(name))
 
 
 def build_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building tool: {}'.format(name))
-    rbox.tools[name].build(force=force)
+    try:
+        rbox.tools[name].build(force=force)
+    except IndexError:
+        error("no tool found with the given name: {}".format(name))
 
 
 def download_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('downloading tool: {}'.format(name))
-    rbox.tools[name].download(force=force)
+    try:
+        rbox.tools[name].download(force=force)
+    except IndexError:
+        error("no tool found with the given name: {}".format(name))
 
 
 def upload_tool(rbox: 'BugZoo', name: str) -> None:
     print('uploading tool: {}'.format(name))
-    rbox.tools[name].upload()
+    try:
+        rbox.tools[name].upload()
+    except IndexError:
+        error("no tool found with the given name: {}".format(name))
 
 
 # TODO: tidy up copypasta
