@@ -6,8 +6,7 @@ import bugzoo.container
 import bugzoo.localization
 import bugzoo.util
 
-from bugzoo.core import Language
+from bugzoo.core import Language, Patch
 from bugzoo.container import Container
-from bugzoo.patch import Patch
 from bugzoo.bug import Bug
 from bugzoo.coverage import ProjectLineCoverage, FileLineCoverage
