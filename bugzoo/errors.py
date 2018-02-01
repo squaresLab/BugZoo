@@ -2,6 +2,22 @@ from typing import Dict, List, Iterator
 from copy import copy
 
 
+class BugAlreadyBuilt(BaseException):
+    """
+    Indicates that the given bug has already been installed on the server.
+    """
+    def __init__(self, name: str) -> None:
+        self.__name = name
+        super().__init__("bug already built: {}".format(name))
+
+    @property
+    def name(self) -> str:
+        """
+        The name of the bug.
+        """
+        return self.__name
+
+
 class BugNotFound(BaseException):
     """
     Indicates that no bug was found that matches the provided identifier.
