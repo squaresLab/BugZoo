@@ -37,7 +37,7 @@ class BuildInstructions(object):
         """
         if 'docker' in yml:
             yml = yml['docker']
-            print("WARNING: use `build` property rather than `docker` to provide build instructions.")
+            # print("WARNING: use `build` property rather than `docker` to provide build instructions.")
         elif 'build' in yml:
             yml = yml['build']
         else:
