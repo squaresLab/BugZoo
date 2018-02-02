@@ -237,6 +237,7 @@ class Container(object):
         if block:
             start_time = timer()
             out = client.api.exec_start(response['Id'], stream=False)
+            out = out.decode('utf-8')
             end_time = timer()
             duration = end_time - start_time
             code = client.api.exec_inspect(response['Id'])['ExitCode']
