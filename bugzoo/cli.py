@@ -278,21 +278,21 @@ def build_parser():
     # [tool uninstall (--force) :tool]
     cmd = g_subparsers.add_parser('uninstall')
     cmd.add_argument('tool')
-    cmd.add_argument('--force',
+    cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: uninstall_tool(rbox, args.tool, force=args.force))
 
     # [tool build (--update) :bug]
     cmd = g_subparsers.add_parser('build')
     cmd.add_argument('tool')
-    cmd.add_argument('--force',
+    cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: build_tool(rbox, args.tool, args.force))
 
     # [tool download (--force) :bug]
     cmd = g_subparsers.add_parser('download')
     cmd.add_argument('tool')
-    cmd.add_argument('--force',
+    cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: download_tool(rbox, args.tool, args.force))
 
@@ -376,14 +376,14 @@ def build_parser():
     # [bug build (--update) :bug]
     cmd = g_subparsers.add_parser('build')
     cmd.add_argument('bug')
-    cmd.add_argument('--force',
+    cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: build_bug(rbox, args.bug, args.force))
 
     # [bug download (--force) :bug]
     cmd = g_subparsers.add_parser('download')
     cmd.add_argument('bug')
-    cmd.add_argument('--force',
+    cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: download_bug(rbox, args.bug, args.force))
 
