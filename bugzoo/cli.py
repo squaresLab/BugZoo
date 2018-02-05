@@ -212,20 +212,38 @@ def list_tools(rbox: 'BugZoo', show_installed=None) -> None:
 # [container] group
 ###############################################################################
 
-
 def launch(rbox: 'BugZoo',
            name: str,
-           tools: List[str] = None
+           tools: List[str] = None,
+           volumes: List[str] = None
            ) -> None:
     if not tools:
         tools = []
+
+    if not volumes:
+        volumes = []
+
+    # transform the list of volumes into a dictionary
+    volume_map = {}
+    for v in volumes:
+        parts = v.split(':')
+        if len(parts) < 2 or len(parts) > 3:
+            raise Exception("Illegal or ambiguous volume argument: {}".format(v))
+        frm, to = parts[0:2]
+        mode = parts[2] if len(parts) == 3 else 'rw'
+        volume_map[frm] = {
+            'bind': to,
+            'mode': mode
+        }
 
     bug = rbox.bugs[name]
     bug.install()
     tools = [rbox.tools[t] for t in tools]
     try:
         c = None
-        c = bug.provision(tty=True, tools=tools)
+        c = bug.provision(tty=True,
+                          tools=tools,
+                          volumes=volume_map)
         c.interact()
     finally:
         if c: # ensure the container is destroyed
@@ -339,13 +357,17 @@ def build_parser():
     # [container launch :bug]
     cmd = g_subparsers.add_parser('launch')
     cmd.add_argument('bug')
-    # TODO: add volumes
     cmd.add_argument('--with',
                      help='name of a tool',
                      dest='tools',
                      action='append',
                      default=[])
-    cmd.set_defaults(func=lambda args: launch(rbox, args.bug, args.tools))
+    cmd.add_argument('-v', '--volume',
+                     help='a host-container volume mapping',
+                     dest='volumes',
+                     action='append',
+                     default=[])
+    cmd.set_defaults(func=lambda args: launch(rbox, args.bug, args.tools, args.volumes))
 
     # [container run :bug]
 
