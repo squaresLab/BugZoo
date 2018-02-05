@@ -213,7 +213,13 @@ def list_tools(rbox: 'BugZoo', show_installed=None) -> None:
 ###############################################################################
 
 
-def launch(rbox: 'BugZoo', name: str, tools: List[str] = []) -> None:
+def launch(rbox: 'BugZoo',
+           name: str,
+           tools: List[str] = None
+           ) -> None:
+    if not tools:
+        tools = []
+
     bug = rbox.bugs[name]
     bug.install()
     tools = [rbox.tools[t] for t in tools]
