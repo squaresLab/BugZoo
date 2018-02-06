@@ -18,8 +18,8 @@ Produces a pretty-printed list of all sources registered with BugZoo.
 
   Source                                      Version
   ------------------------------------------  ---------
-  https://github.com/ChrisTimperley/ManyBugs  597b917f
-  https://bitbucket.org/ChrisTimperley/GP3    0c5d9255
+  https://github.com/squaresLab/ManyBugs      597b917f
+  https://github.com/squaresLab/genprog-code  0c5d9255
   ...
 
 
@@ -28,9 +28,9 @@ to be piped to other commands.
 
 .. code-block:: bash
 
-  $ bugzoo source list
-  https://github.com/ChrisTimperley/ManyBugs
-  https://bitbucket.org/ChrisTimperley/GP3
+  $ bugzoo source list -q
+  https://github.com/squaresLab/ManyBugs
+  https://github.com/squaresLab/genprog-code
   ...
 
 
@@ -69,7 +69,7 @@ This command can be used to update the files used to specify and construct the
 the bugs or tool, provided by their associated sources, as shown below.
 Note that this command does not attempt to install/rebuild the bugs
 or tool associated with each source -- it is the user's responsibility to call
-`tool install` or `artefact install` where appropriate.
+`tool install` or `bug install` where appropriate.
 
 .. code-block:: bash
 
