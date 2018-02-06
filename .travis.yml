@@ -27,7 +27,7 @@ deploy:
     github_token: "$GITHUB_TOKEN"
     on:
       branch: docs
-      python: 3.6
+      python: 3.5
   - provider: pypi
     user: ChrisTimperley
     password:
