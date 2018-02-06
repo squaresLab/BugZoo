@@ -79,7 +79,7 @@ class Hunk(object):
         last_insertion_at = old_start_at
 
 
-        hunk_lines: List[HunkLine] = []
+        hunk_lines = []
         while True:
             # discarding the previous line ensures that we only consume lines
             # from the line buffer that belong to the hunk
@@ -203,7 +203,7 @@ class Patch(object):
         Constructs a Patch from a provided unified format diff.
         """
         lines = diff.split('\n')
-        file_patches: List[FilePatch] = []
+        file_patches = []
         while lines:
             if lines[0] == '' or lines[0].isspace():
                 lines.pop(0)
