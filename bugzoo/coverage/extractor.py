@@ -39,7 +39,7 @@ class CoverageExtractor(object):
         """
         assert tests != []
 
-        cov: Dict[Testcase, ProjectLineCoverage] = {}
+        cov = {}
 
         self._prepare(container)
 
@@ -99,7 +99,7 @@ class CCoverageExtractor(CoverageExtractor):
         description produced by 'gcovr'.
         """
         root = ET.fromstring(s)
-        reports: Dict[str, FileLineCoverage] = {}
+        reports = {}
         packages = root.find('packages')
 
         for package in packages.findall('package'):
