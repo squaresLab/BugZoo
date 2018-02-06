@@ -24,8 +24,8 @@ if __name__ == "__main__":
     bgz = BugZoo()
 
     # ensure the ManyBugs dataset has been registered with BugZoo
-    if not bgz.sources.exists('https://github.com/ChrisTimperley/ManyBugs'):
-        bgz.sources.add('https://github.com/ChrisTimperley/ManyBugs')
+    if not bgz.sources.exists('https://github.com/squaresLab/ManyBugs'):
+        bgz.sources.add('https://github.com/squaresLab/ManyBugs')
 
     # build the Docker image for one of the bugs within the ManyBugs dataset
     bug = bgz.bugs['manybugs:lighttpd:1794-1795']
