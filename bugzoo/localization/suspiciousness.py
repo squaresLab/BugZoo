@@ -3,7 +3,7 @@ from typing import Dict, Callable
 
 # a registry of suspiciousness metrics
 SuspiciousnessMetric = Callable[[int, int, int, int], float]
-__metrics: Dict[str, SuspiciousnessMetric]  = {}
+__metrics = {}
 
 
 def metric(name: str) -> Callable[[], SuspiciousnessMetric]:
