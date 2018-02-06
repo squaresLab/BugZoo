@@ -36,41 +36,7 @@ list of bugs (:code:`-q`).
   ardubugs:copter:9f59f27
 
 
-`bug install [--upgrade] [-q] {identifier}`
-------------------------------------------------
-
-Installs a given bug, specified by its identifier.
-Internally, this command installs the Docker image for the given bug,
-along with any of its dependencies.
-
-To install the bug, this command will attempt to download a
-prebuilt Docker for the bug, if one is publicly available on DockerHub; if
-no such image is available, the command will build the image (and its
-dependencies) locally.
-
-If the bug has already been installed to the machine, this command will
-simply do nothing. To force the installation of the latest version of the
-bug, either supply the :code:`--upgrade` flag or use the
-:code:`bug upgrade` command.
-
-By default, this command produces detailed information when downloading or
-building the bug, as shown below. This behaviour can be disabled by
-supplying the :code:`-q` flag.
-
-.. code-block:: bash
-
-  $ bugzoo bug install manybugs:python:69934-69935
-  installing bug: manybugs:python:69934-69935
-  Building image: squareslab/manybugs:python-69934-69935
-  Step 1/9 : FROM squareslab/manybugs:python
-   ---> 9f2dd23f670c
-  Step 2/9 : ARG scenario
-   ---> Using cache
-   ---> 98c9fcf95b1c
-  Step 3/9 : ENV SCENARIO_NAME ${scenario}
-  ...
-
-`bug uninstall [-f] {identifier}`
+`bug uninstall [-f|--force] {identifier}`
 --------------------------------------
 
 Uninstalls the Docker image for a given identifier from the local machine.
@@ -85,7 +51,7 @@ regardless of whether or not it is running, causing any containers using
 that bug to abruptly terminate -- **use at your own risk**.
 
 
-`bug build [-f] {identifier}`
+`bug build [-f|--force] {identifier}`
 ----------------------------------
 
 Attempts to locally build the Docker image for a given bug.
@@ -101,7 +67,7 @@ this behaviour, forcing RepairBox to rebuild the image for the bug
 and to overwrite the existing image.
 
 
-`bug download [-f] {identifier}`
+`bug download [-f|--force] {identifier}`
 -------------------------------------
 
 Downloads a prebuilt Docker image from DockerHub for a given bug if such
