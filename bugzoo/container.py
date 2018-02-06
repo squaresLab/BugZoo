@@ -246,7 +246,6 @@ class Container(object):
         # non-blocking mode
         else:
             out = client.api.exec_start(response['Id'], stream=True)
-            out = out.decode(sys.stdout.encoding)
             return PendingExecResponse(response, out)
 
     def coverage(self,
