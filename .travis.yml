@@ -21,7 +21,6 @@ script:
 before_deploy:
 - "(cd docs && make html && cd _build/html && touch .nojekyll)"
 deploy:
-  matrix:
   - provider: pages
     skip_cleanup: true
     local_dir: docs/_build/html
