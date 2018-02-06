@@ -17,7 +17,7 @@ class CLITestCase(unittest.TestCase):
 class ManyBugsTestCase(CLITestCase):
     def test_add_source(self):
         bz = bugzoo.BugZoo()
-        manybugs_url = 'https://github.com/ChrisTimperley/ManyBugs'
+        manybugs_url = 'https://github.com/squaresLab/ManyBugs'
 
         # attempt to install ManyBugs
         self.run_command(['source', 'add', manybugs_url])
