@@ -6,11 +6,11 @@ services:
   - docker
 
 python:
-  - "3.6"
+  - "3.5"
 
 install:
   - pip install sphinx
-  - python setup.py install
+  - pip install .
 
 # TODO: replace this with a bonafide test suite
 script:
