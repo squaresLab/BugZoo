@@ -2,6 +2,7 @@ import sys
 import argparse
 import tabulate
 import bugzoo.errors
+import bugzoo.version
 
 from typing import List
 from operator import itemgetter
@@ -259,7 +260,13 @@ def build_parser():
     parser = argparse.ArgumentParser(description=desc,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     subparsers = parser.add_subparsers()
-    parser.add_argument('--version', action='version', version='2.0.0')
+
+    ###########################################################################
+    # [version] option
+    ###########################################################################
+    parser.add_argument('-v', '--version',
+                        action='version',
+                        version=bugzoo.version.__version__)
 
     ###########################################################################
     # [source] group

@@ -1,3 +1,5 @@
+from bugzoo.version import __version__
+
 from bugzoo.manager import BugZoo
 import bugzoo.cli
 import bugzoo.tool
