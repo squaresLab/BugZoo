@@ -18,7 +18,7 @@ class FileLine(object):
         assert isinstance(d, dict)
         assert all(isinstance(x, FileLine) for x in d)
 
-        out: Dict[str, Dict[int, Any]] = {}
+        out = {}
         for (line, val) in d.items():
             if not line.filename in out:
                 out[line.filename] = {}
@@ -127,7 +127,7 @@ class ProjectLineCoverage(object):
     def from_dict(test: TestCase,
                   d: dict,
                   ) -> 'ProjectLineCoverage':
-        cov: T = {}
+        cov = {}
         outcome = TestOutcome.from_dict(d['outcome'])
         for (fn, fcov) in d['coverage'].items():
             cov[fn] = FileLineCoverage(fn, fcov)
