@@ -2,14 +2,14 @@ import os
 from setuptools import setup
 
 
-def get_version():
-    path = os.path.join(os.path.dirname(__file__), 'bugzoo/version.py')
-    with open(path, 'r') as f:
-        return f.read()
+path = os.path.join(os.path.dirname(__file__), 'bugzoo/version.py')
+with open(path, 'r') as f:
+    exec(f.read())
+
 
 setup(
     name='bugzoo',
-    version=get_version(),
+    version=__version__,
     python_requires='>=3.5',
     description='TBA',
     long_description='TBA',
