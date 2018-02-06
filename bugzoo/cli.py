@@ -493,10 +493,13 @@ def build_parser():
 
 
 def main():
-    parser = build_parser()
-    args = parser.parse_args()
-    if 'func' in vars(args):
-        args.func(args)
+    try:
+        parser = build_parser()
+        args = parser.parse_args()
+        if 'func' in vars(args):
+            args.func(args)
+    except KeyboardInterrupt:
+        pass
 
 
 if __name__ == "__main__":
