@@ -32,11 +32,12 @@ $ pip3 install bugzoo
 ```
 
 To install the latest development version of BugZoo, first produce a shallow
-clone of this repository before executing `setup.py`, as shown below.
+clone of this repository before executing `pip3` as shown below.
 
 ```
-$ git clone git://github.com/squaresLab/BugZoo --depth 1
-$ python3 setup.py install --user
+$ git clone git://github.com/squaresLab/BugZoo --depth 1 bugzoo
+$ cd bugzoo
+$ pip3 install . --upgrade
 ```
 
 ## Known Sources
@@ -44,8 +45,8 @@ $ python3 setup.py install --user
 Below is a list of sources that are known to provide datasets or tools that
 are compatible with the BugZoo platform.
 
-* [ManyBugs](https://github.com/ChrisTimperley/ManyBugs)
-* [GenProg*](https://bitbucket.org/ChrisTimperley/GP3)
+* [ManyBugs](https://github.com/squaresLab/ManyBugs)
+* [GenProg*](https://bitbucket.org/squaresLab/genprog-code)
 
 To add one of these sources, simply execute the following from the command line:
 
