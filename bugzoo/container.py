@@ -218,7 +218,7 @@ class Container(object):
 
     def command(self,
                 cmd: str,
-                context: str = '/',
+                context: Optional[str] = None,
                 stdout: bool = True,
                 stderr: bool = False,
                 block: bool = True):
@@ -227,6 +227,10 @@ class Container(object):
         Returns a tuple containing the exit code, execution duration, and
         output, respectively.
         """
+        # TODO: we need a better long-term alternative
+        if context is None:
+            context = os.path.join(self.bug.source_dir, '..')
+
         cmd = '/bin/bash -c "cd {} && {}"'.format(context, cmd)
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
