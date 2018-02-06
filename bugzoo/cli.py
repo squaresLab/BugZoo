@@ -4,9 +4,10 @@ import tabulate
 import bugzoo.errors
 import bugzoo.version
 
-from typing import List
+from typing import List, Optional, Dict
 from operator import itemgetter
 from bugzoo.manager import BugZoo
+from bugzoo.tool import Tool
 
 
 def error(msg: str) -> None:
@@ -213,16 +214,13 @@ def list_tools(rbox: 'BugZoo', show_installed=None) -> None:
 # [container] group
 ###############################################################################
 
-def launch(rbox: 'BugZoo',
-           name: str,
-           tools: List[str] = None,
-           volumes: List[str] = None
-           ) -> None:
-    if not tools:
-        tools = []
-
+def __prepare_volumes(volumes: List[str] = None) -> Dict[str, Dict[str, str]]:
+    """
+    Produces a volume-mapping dictionary, ready for use with Docker's Python
+    API, from a list of volume commands.
+    """
     if not volumes:
-        volumes = []
+        return {}
 
     # transform the list of volumes into a dictionary
     volume_map = {}
@@ -237,17 +235,47 @@ def launch(rbox: 'BugZoo',
             'mode': mode
         }
 
-    bug = rbox.bugs[name]
+    return volume_map
+
+
+def __prepare_tools(bz: 'BugZoo', tools: List[str] = None) -> List[Tool]:
+    """
+    Fetches the corresponding tool objects for a list of tools given by
+    their names.
+    """
+    if not tools:
+        return []
+    return [bz.tools[t] for t in tools]
+
+
+def launch(bz: 'BugZoo',
+           name: str,
+           interactive: bool,
+           tools: Optional[List[str]] = None,
+           volumes: Optional[List[str]] = None,
+           command: Optional[str] = None,
+           ) -> None:
+    volumes = __prepare_volumes(volumes)
+    tools = __prepare_tools(bz, tools)
+    bug = bz.bugs[name]
     bug.install()
-    tools = [rbox.tools[t] for t in tools]
+
     try:
         c = None
         c = bug.provision(tty=True,
                           tools=tools,
-                          volumes=volume_map)
-        c.interact()
+                          volumes=volumes)
+        if command is not None:
+            stream = c.command(command, stderr=True, stdout=True, block=False)
+            for s in stream.output:
+                print(s.decode('utf8').strip())
+
+        if interactive:
+            c.interact()
+
+    # ensure that the container is always destroyed
     finally:
-        if c: # ensure the container is destroyed
+        if c:
             c.destroy()
 
 
@@ -306,28 +334,28 @@ def build_parser():
                      action='store_true')
     cmd.set_defaults(func=lambda args: install_tool(rbox, args.tool, args.update))
 
-    # [tool uninstall (--force) :tool]
+    # [tool uninstall (-f|--force) :tool]
     cmd = g_subparsers.add_parser('uninstall')
     cmd.add_argument('tool')
     cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: uninstall_tool(rbox, args.tool, force=args.force))
 
-    # [tool build (--update) :bug]
+    # [tool build (-f|--force) :tool]
     cmd = g_subparsers.add_parser('build')
     cmd.add_argument('tool')
     cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: build_tool(rbox, args.tool, args.force))
 
-    # [tool download (--force) :bug]
+    # [tool download (-f|--force) :tool]
     cmd = g_subparsers.add_parser('download')
     cmd.add_argument('tool')
     cmd.add_argument('-f', '--force',
                      action='store_true')
     cmd.set_defaults(func=lambda args: download_tool(rbox, args.tool, args.force))
 
-    # [tool upload :bug]
+    # [tool upload :tool]
     cmd = g_subparsers.add_parser('upload')
     cmd.add_argument('tool')
     cmd.set_defaults(func=lambda args: upload_tool(rbox, args.tool))
@@ -350,7 +378,7 @@ def build_parser():
     g_dataset = subparsers.add_parser('dataset')
     g_subparsers = g_dataset.add_subparsers()
 
-    # [datasetlaunch :bug]
+    # [dataset list]
     cmd = g_subparsers.add_parser('list')
     cmd.set_defaults(func=lambda args: list_datasets(rbox))
 
@@ -374,9 +402,32 @@ def build_parser():
                      dest='volumes',
                      action='append',
                      default=[])
-    cmd.set_defaults(func=lambda args: launch(rbox, args.bug, args.tools, args.volumes))
+    cmd.set_defaults(func=lambda args: launch(rbox,
+                                              args.bug,
+                                              interactive=True,
+                                              tools=args.tools,
+                                              volumes=args.volumes))
 
-    # [container run :bug]
+    # [container run :bug :command]
+    cmd = g_subparsers.add_parser('run')
+    cmd.add_argument('bug')
+    cmd.add_argument('--with',
+                     help='name of a tool',
+                     dest='tools',
+                     action='append',
+                     default=[])
+    cmd.add_argument('-v', '--volume',
+                     help='a host-container volume mapping',
+                     dest='volumes',
+                     action='append',
+                     default=[])
+    cmd.add_argument('command')
+    cmd.set_defaults(func=lambda args: launch(rbox,
+                                              args.bug,
+                                              interactive=False,
+                                              command=args.command,
+                                              tools=args.tools,
+                                              volumes=args.volumes))
 
     # [container connect :bug]
 
