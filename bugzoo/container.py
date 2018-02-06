@@ -231,7 +231,7 @@ class Container(object):
         if context is None:
             context = os.path.join(self.bug.source_dir, '..')
 
-        cmd = '/bin/bash -c "cd {} && {}"'.format(context, cmd)
+        cmd = '/bin/bash -c "source /.environment && cd {} && {}"'.format(context, cmd)
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
         client = docker.from_env()
