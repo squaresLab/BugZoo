@@ -28,7 +28,7 @@ deploy:
     local_dir: docs/_build/html
     github_token: "$GITHUB_TOKEN"
     on:
-      branch: docs
+      branch: master
       python: 3.5
   - provider: pypi
     user: ChrisTimperley
