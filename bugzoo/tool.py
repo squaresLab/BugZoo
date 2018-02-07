@@ -24,7 +24,6 @@ class Tool(Source):
 
         return Tool(manager, url, name, environment, build)
 
-
     def __init__(self,
                  manager: 'SourceManager',
                  url: str,
@@ -36,7 +35,6 @@ class Tool(Source):
         self.__build_instructions = \
             BuildInstructions.from_dict(self, self.abs_path, build_instructions)
 
-
     def provision(self):
         # TODO: use custom error
         if not self.installed:
@@ -45,11 +43,9 @@ class Tool(Source):
         client = docker.from_env()
         return client.containers.create(self.__build_instructions.tag)
 
-
     @property
     def environment(self) -> Dict[str, str]:
         return copy.copy(self.__environment)
-
 
     @property
     def installed(self) -> bool:
@@ -59,13 +55,11 @@ class Tool(Source):
         """
         return self.__build_instructions.installed
 
-
     def uninstall(self, force=False, noprune=False) -> None:
         """
         Uninstalls all Docker images associated with this tool.
         """
         self.__build_instructions.uninstall(force=force, noprune=noprune)
-
 
     def build(self, force=False) -> None:
         """
@@ -77,27 +71,12 @@ class Tool(Source):
         """
         return self.__build_instructions.build(force=force)
 
-
-    def install(self, upgrade=False) -> None:
-        """
-        Installs this tool by first trying to download it, and if that is
-        not possible, by building it locally.
-
-        Args:
-            upgrade:    a flag indicating whether this tool should be
-                upgraded if it is already installed.
-        """
-        # TODO: attempt to download before trying to build
-        self.build(force=upgrade)
-
-
     def upload(self) -> bool:
         """
         Attempts to upload the image for this tool to
         `DockerHub <https://hub.docker.com>`_.
         """
         return self.__build_instructions.upload()
-
 
     def download(self, force=False) -> bool:
         """

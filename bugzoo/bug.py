@@ -332,18 +332,6 @@ class Bug(object):
         """
         return self.__build_instructions.upload()
 
-    def install(self, upgrade=False) -> None:
-        """
-        Installs this bug by first trying to download it, and if that is
-        not possible, by building it locally.
-
-        Args:
-            upgrade:    a flag indicating whether this bug should be
-                upgraded if it is already installed.
-        """
-        # TODO: attempt to download before trying to build
-        self.build(force=upgrade)
-
     def provision(self,
                   volumes : Dict[str, str] = {},
                   tools : List[Tool] = [],
