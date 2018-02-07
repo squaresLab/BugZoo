@@ -139,15 +139,6 @@ def list_bugs(rbox: 'BugZoo', show_installed=None) -> None:
 # [tool] group
 ###############################################################################
 
-def install_tool(rbox: 'BugZoo', name: str, update: bool) -> None:
-    print('installing tool: {}'.format(name))
-    try:
-        t = rbox.tools[name]
-    except IndexError:
-        error("no tool found with the given name: {}".format(name))
-    t.install(upgrade=update)
-
-
 def uninstall_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling tool: {}'.format(name))
     try:
@@ -320,13 +311,6 @@ def build_parser():
     ###########################################################################
     g_tool = subparsers.add_parser('tool')
     g_subparsers = g_tool.add_subparsers()
-
-    # [tool install (--update) :tool]
-    cmd = g_subparsers.add_parser('install')
-    cmd.add_argument('tool')
-    cmd.add_argument('--update',
-                     action='store_true')
-    cmd.set_defaults(func=lambda args: install_tool(rbox, args.tool, args.update))
 
     # [tool uninstall (-f|--force) :tool]
     cmd = g_subparsers.add_parser('uninstall')
