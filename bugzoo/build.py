@@ -1,4 +1,5 @@
 import docker
+import warnings
 import yaml
 import os
 import shutil
@@ -37,7 +38,7 @@ class BuildInstructions(object):
         """
         if 'docker' in yml:
             yml = yml['docker']
-            # print("WARNING: use `build` property rather than `docker` to provide build instructions.")
+            warnings.warn("'docker' property is deprecated; use 'build' instead.", DeprecationWarning)
         elif 'build' in yml:
             yml = yml['build']
         else:
@@ -46,7 +47,15 @@ class BuildInstructions(object):
         tag = yml['tag']
         context = yml.get('context', '.')
         filename = yml.get('file', 'Dockerfile')
-        arguments = yml.get('build-arguments', {})
+
+        if 'build-arguments' in yml:
+            arguments = yml['build-arguments']
+            warnings.warn("'build.build-arguments' property is deprecated; use 'build.arguments' instead.", DeprecationWarning)
+        elif 'arguments' in yml:
+            arguments = yml['arguments']
+        else:
+            arguments = {}
+
         depends_on = yml.get('depends-on', None)
 
         return BuildInstructions(source, root, tag, context, filename, arguments, depends_on)
