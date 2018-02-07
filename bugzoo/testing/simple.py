@@ -30,8 +30,12 @@ class SimpleTestSuite(TestSuite):
 
         return SimpleTestSuite(cmd, ctx, time_limit, tests)
 
-
-    def __init__(self, command: str, context: str, time_limit: float, tests: List[str]) -> None:
+    def __init__(self,
+                 command: str,
+                 context: str,
+                 time_limit: float,
+                 tests: List[str]
+                 ) -> None:
         assert tests != []
         assert command != ""
         assert context != ""
@@ -43,7 +47,6 @@ class SimpleTestSuite(TestSuite):
 
         tests = [TestCase(t) for t in tests]
         super().__init__(tests)
-
 
     def command(self, test : TestCase) -> str:
         """
@@ -63,8 +66,13 @@ class GenProgTestSuite(SimpleTestSuite):
         context = yml.get('context', '/experiment')
         return GenProgTestSuite(passing, failing, time_limit, command, context)
 
-
-    def __init__(self, passing: int, failing: int, time_limit: float, command: str, context: str) -> None:
+    def __init__(self,
+                 passing: int,
+                 failing: int,
+                 time_limit: float,
+                 command: str,
+                 context: str
+                 ) -> None:
         assert time_limit > 0
         assert passing >= 0
         assert failing > 0
@@ -83,7 +91,6 @@ class GenProgTestSuite(SimpleTestSuite):
             else:
                 self.__failing.append(t)
 
-
     @property
     def passing(self) -> Iterator[TestCase]:
         """
@@ -91,7 +98,6 @@ class GenProgTestSuite(SimpleTestSuite):
         """
         for t in self.__passing:
             yield t
-
 
     @property
     def failing(self) -> Iterator[TestCase]:
@@ -101,7 +107,6 @@ class GenProgTestSuite(SimpleTestSuite):
         for t in self.__failing:
             yield t
 
-
     @property
     def num_passing(self):
         """
@@ -109,14 +114,12 @@ class GenProgTestSuite(SimpleTestSuite):
         """
         return len(self.__passing)
 
-
     @property
     def num_failing(self):
         """
         The number of failing tests in the test suite.
         """
         return len(self.__failing)
-
 
     @property
     def time_limit(self):
