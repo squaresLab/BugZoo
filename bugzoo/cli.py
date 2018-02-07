@@ -234,7 +234,7 @@ def __prepare_tools(bz: 'BugZoo', tools: List[str] = None) -> List[Tool]:
 
 
 def launch(bz: 'BugZoo',
-           name: str,
+           bug_name: str,
            interactive: bool,
            tools: Optional[List[str]] = None,
            volumes: Optional[List[str]] = None,
@@ -242,8 +242,7 @@ def launch(bz: 'BugZoo',
            ) -> None:
     volumes = __prepare_volumes(volumes)
     tools = __prepare_tools(bz, tools)
-    bug = bz.bugs[name]
-    bug.install()
+    bug = bz.bugs[bug_name]
 
     try:
         c = None
@@ -257,6 +256,9 @@ def launch(bz: 'BugZoo',
 
         if interactive:
             c.interact()
+
+    except bugzoo.errors.BugNotInstalledError:
+        error("bug not installed: {}".format(bug_name))
 
     # ensure that the container is always destroyed
     finally:
