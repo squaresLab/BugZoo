@@ -58,7 +58,6 @@ class SourceNotFoundWithURL(BaseException):
         self.__url = url
         super().__init__("no source registered with URL: {}".format(url))
 
-
     @property
     def url(self) -> str:
         return self.__url
@@ -72,7 +71,6 @@ class SourceNotFoundWithName(BaseException):
         self.__name = name
         super().__init__("no source registered with name: {}".format(name))
 
-
     @property
     def name(self) -> str:
         return self.__name
@@ -83,14 +81,29 @@ class SourceAlreadyRegisteredWithURL(BaseException):
     Indicates that there exists a source that is already registered with a
     given URL.
     """
-    def __init__(self, url: str):
+    def __init__(self, url: str) -> None:
         self.__url = url
         super().__init__("source already registered with URL: {}".format(url))
-
 
     @property
     def url(self) -> str:
         return self.__url
+
+
+class BugNotInstalledError(BaseException):
+    """
+    Indicates that a given bug hasn't been installed.
+    """
+    def __init__(self, name: str) -> None:
+        self.__name = name
+        super().__init__("bug not installed: {}".format(bug))
+
+    @property
+    def name(self) -> str:
+        """
+        The name of the bug that is not installed.
+        """
+        return self.__name
 
 
 class ImageBuildFailed(BaseException):

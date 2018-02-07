@@ -88,12 +88,6 @@ def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
         print('FAIL')
 
 
-def install_bug(rbox: 'BugZoo', name: str, update: bool) -> None:
-    print('installing bug: {}'.format(name))
-    bug = rbox.bugs[name]
-    bug.install(upgrade=update)
-
-
 def build_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building bug: {}'.format(name))
     bug = rbox.bugs[name]
@@ -144,15 +138,6 @@ def list_bugs(rbox: 'BugZoo', show_installed=None) -> None:
 ###############################################################################
 # [tool] group
 ###############################################################################
-
-def install_tool(rbox: 'BugZoo', name: str, update: bool) -> None:
-    print('installing tool: {}'.format(name))
-    try:
-        t = rbox.tools[name]
-    except IndexError:
-        error("no tool found with the given name: {}".format(name))
-    t.install(upgrade=update)
-
 
 def uninstall_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling tool: {}'.format(name))
@@ -249,7 +234,7 @@ def __prepare_tools(bz: 'BugZoo', tools: List[str] = None) -> List[Tool]:
 
 
 def launch(bz: 'BugZoo',
-           name: str,
+           bug_name: str,
            interactive: bool,
            tools: Optional[List[str]] = None,
            volumes: Optional[List[str]] = None,
@@ -257,8 +242,7 @@ def launch(bz: 'BugZoo',
            ) -> None:
     volumes = __prepare_volumes(volumes)
     tools = __prepare_tools(bz, tools)
-    bug = bz.bugs[name]
-    bug.install()
+    bug = bz.bugs[bug_name]
 
     try:
         c = None
@@ -272,6 +256,9 @@ def launch(bz: 'BugZoo',
 
         if interactive:
             c.interact()
+
+    except bugzoo.errors.BugNotInstalledError:
+        error("bug not installed: {}".format(bug_name))
 
     # ensure that the container is always destroyed
     finally:
@@ -326,13 +313,6 @@ def build_parser():
     ###########################################################################
     g_tool = subparsers.add_parser('tool')
     g_subparsers = g_tool.add_subparsers()
-
-    # [tool install (--update) :tool]
-    cmd = g_subparsers.add_parser('install')
-    cmd.add_argument('tool')
-    cmd.add_argument('--update',
-                     action='store_true')
-    cmd.set_defaults(func=lambda args: install_tool(rbox, args.tool, args.update))
 
     # [tool uninstall (-f|--force) :tool]
     cmd = g_subparsers.add_parser('uninstall')
@@ -444,13 +424,6 @@ def build_parser():
     cmd.add_argument('-v', '--verbose',
                      action='store_true')
     cmd.set_defaults(func=lambda args: validate_bug(rbox, args.bug, args.verbose))
-
-    # [bug install (--update) :bug]
-    cmd = g_subparsers.add_parser('install')
-    cmd.add_argument('bug')
-    cmd.add_argument('--update',
-                     action='store_true')
-    cmd.set_defaults(func=lambda args: install_bug(rbox, args.bug, args.update))
 
     # [bug uninstall (--force) :bug]
     cmd = g_subparsers.add_parser('uninstall')
