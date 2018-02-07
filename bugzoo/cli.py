@@ -88,12 +88,6 @@ def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
         print('FAIL')
 
 
-def install_bug(rbox: 'BugZoo', name: str, update: bool) -> None:
-    print('installing bug: {}'.format(name))
-    bug = rbox.bugs[name]
-    bug.install(upgrade=update)
-
-
 def build_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building bug: {}'.format(name))
     bug = rbox.bugs[name]
@@ -444,13 +438,6 @@ def build_parser():
     cmd.add_argument('-v', '--verbose',
                      action='store_true')
     cmd.set_defaults(func=lambda args: validate_bug(rbox, args.bug, args.verbose))
-
-    # [bug install (--update) :bug]
-    cmd = g_subparsers.add_parser('install')
-    cmd.add_argument('bug')
-    cmd.add_argument('--update',
-                     action='store_true')
-    cmd.set_defaults(func=lambda args: install_bug(rbox, args.bug, args.update))
 
     # [bug uninstall (--force) :bug]
     cmd = g_subparsers.add_parser('uninstall')
