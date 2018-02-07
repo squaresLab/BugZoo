@@ -18,35 +18,12 @@ unannotated list of artefacts (:code:`-q`).
   $ bugzoo tool list
 
 
-  Tool     Source                                    Installed?
-  -------  ----------------------------------------  ------------
-  genprog  https://bitbucket.org/ChrisTimperley/GP3  Yes
+  Tool     Source                                      Installed?
+  -------  ------------------------------------------  ------------
+  genprog  https://github.com/squaresLab/genprog-code  Yes
 
 
-`tool install [-q] {name}`
---------------------------
-
-Installs a given tool to the local machine by installing its Docker image
-and the Docker images for its dependencies, if any. This command will
-attempt to install the tool by downloading a prebuilt image from DockerHub;
-if no such image is available, the image will be built locally instead.
-
-If the tool has already been installed to the machine, this command will
-simply do nothing and exit with code :code:`0`. Newer versions of the tool
-can be installed using :code:`tool build -f` or :code:`tool download -f`.
-**(TODO: versioning is still a bit tricky -- it's not super important for now.)**
-
-.. code-block:: bash
-
-  $ bugzoo tool install genprog
-  ...
-
-By default, this command produces detailed information when downloading or
-building the tool; this behaviour can be disabled by supplying the :code:`-q`
-flag.
-
-
-`tool uninstall [-f] {name}`
+`tool uninstall [-f|--force] {name}`
 ----------------------------
 
 Uninstalls the Docker image associated with a given tool.
@@ -61,7 +38,7 @@ regardless of whether or not it is running, causing any containers using
 that artefact to abruptly terminate -- **use at your own risk**.
 
 
-`tool build [-f] {name}`
+`tool build [-f|--force] {name}`
 ------------------------
 
 Attempts to build the Docker image associated with a given tool. If an image
@@ -75,7 +52,7 @@ rebuilt.
   ...
 
 
-`tool download [-f] {name}`
+`tool download [-f|--force] {name}`
 ---------------------------
 
 Attempts to download a prebuilt Docker image from DockerHub for a given tool.
