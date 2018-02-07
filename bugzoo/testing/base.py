@@ -92,19 +92,24 @@ class TestOutcome(object):
                 'response': self.response.to_dict()
                }
 
+
 class TestSuite(object):
     @staticmethod
     def from_dict(yml: dict) -> 'TestSuite':
         """
         Constructs a test harness from a dictionary-based description.
         """
-        from bugzoo.testing.simple import SimpleTestSuite, GenProgTestSuite
+        from bugzoo.testing.simple import SimpleTestSuite, \
+                                          GenProgTestSuite, \
+                                          EmptyTestSuite
         typ = yml['type']
         # route based on type
         if typ == 'genprog':
             return GenProgTestSuite.from_yaml(yml)
-        elif typ == 'simple':
+        if typ == 'simple':
             return SimpleTestSuite.from_yaml(yml)
+        if typ == 'empty':
+            return EmptyTestSuite()
 
         raise Exception("unexpected test harness type: {}".format(typ))
 
