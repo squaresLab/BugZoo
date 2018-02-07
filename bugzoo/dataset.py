@@ -19,28 +19,26 @@ class Dataset(Source):
         name = d['name']
         return Dataset(manager, url, name)
 
-
     def __init__(self, manager: 'DatasetManager', url: str, name: str) -> None:
         super().__init__(manager, url, name)
         self.__bugs = {}
         self.__dependencies = {}
         self.scan()
 
-
     def scan(self) -> None:
         # find all dependencies
-        fns = '{}/**/*.dependency.yaml'.format(self.abs_path)
+        fns = '{}/**/*.dependency.y*ml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            dep = BuildInstructions.from_file(self, fn)
-            self.__dependencies[dep.tag] = dep
-
+            if fn.endswith('.yml') or fn.endswith('.yaml'):
+                dep = BuildInstructions.from_file(self, fn)
+                self.__dependencies[dep.tag] = dep
 
         # find all bugs
-        fns = '{}/**/*.bug.yml'.format(self.abs_path)
+        fns = '{}/**/*.bug.y*ml'.format(self.abs_path)
         for fn in glob.iglob(fns, recursive=True):
-            bug = Bug.from_file(self, fn)
-            self.__bugs[bug.identifier] = bug
-
+            if fn.endswith('.yml') or fn.endswith('.yaml'):
+                bug = Bug.from_file(self, fn)
+                self.__bugs[bug.identifier] = bug
 
     def update(self) -> None:
         """
@@ -48,7 +46,6 @@ class Dataset(Source):
         """
         super().update()
         self.scan()
-
 
     def remove(self) -> None:
         """
@@ -63,7 +60,6 @@ class Dataset(Source):
 
         super().remove()
 
-
     def contains(self, identifier: str) -> None:
         """
         Checks whether an bug with a given identifier is provided by this
@@ -71,10 +67,8 @@ class Dataset(Source):
         """
         return identifier in self.__bugs
 
-
     def __getitem__(self, key):
         return self.__bugs[key]
-
 
     @property
     def size(self) -> int:
@@ -83,12 +77,10 @@ class Dataset(Source):
         """
         return len(self.__bugs)
 
-
     # TODO: return iterator
     @property
     def bugs(self) -> List[Bug]:
         return list(self.__bugs.values())
-
 
     # TODO: return iterator
     @property
