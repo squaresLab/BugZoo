@@ -112,7 +112,15 @@ def uninstall_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     bug.uninstall(force=force)
 
 
-def list_bugs(rbox: 'BugZoo', show_installed=None) -> None:
+def list_bugs_quiet(rbox: 'BugZoo') -> None:
+    for bug in rbox.bugs:
+        print(bug.identifier)
+
+
+def list_bugs(rbox: 'BugZoo', quiet=False, show_installed=None) -> None:
+    if quiet:
+        return list_bugs_quiet(rbox)
+
     tbl = []
     hdrs = ['Bug', 'Source', 'Installed?']
     for bug in rbox.bugs:
@@ -453,6 +461,9 @@ def build_parser():
 
     # [bug list]
     cmd = g_subparsers.add_parser('list')
+    cmd.add_argument('-q', '--quiet',
+                     dest='quiet',
+                     action='store_true')
     cmd.add_argument('--installed',
                      dest='installed',
                      action='store_true')
@@ -460,7 +471,9 @@ def build_parser():
                      dest='installed',
                      action='store_false')
     cmd.set_defaults(installed=None)
-    cmd.set_defaults(func=lambda args: list_bugs(rbox, args.installed))
+    cmd.set_defaults(func=lambda args: list_bugs(rbox,
+                                                 quiet=args.quiet,
+                                                 show_installed=args.installed))
 
     return parser
 
