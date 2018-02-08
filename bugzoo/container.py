@@ -64,10 +64,15 @@ class Container(object):
 
         # mount the environment file
         volumes[self.__env_file.name] = \
-            {'bind': '/.environment', 'mode': 'rw'}
+            {'bind': '/.environment.host', 'mode': 'ro'}
 
         # construct a Docker container for this bug
-        cmd = '/bin/bash -v -c "sudo chown $(whoami) /.environment && source /.environment && /bin/bash"'
+        cmd_cp = 'sudo cp /.enviromment.host /.environment'
+        cmd_chown = 'sudo chown $(whoami) /.environment'
+        cmd_source = 'source /.environment'
+        cmd = '/bin/bash -v -c "{} && {} && {} /bin/bash"'.format(cmd_cp,
+                                                                  cmd_chown,
+                                                                  cmd_source)
         client = docker.from_env() # nooooooooo
         self.__container = \
             client.containers.create(bug.image,
