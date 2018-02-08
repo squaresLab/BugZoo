@@ -117,7 +117,10 @@ def list_bugs_quiet(rbox: 'BugZoo') -> None:
         print(bug.identifier)
 
 
-def list_bugs(rbox: 'BugZoo', quiet=False, show_installed=None) -> None:
+def list_bugs(rbox: 'BugZoo',
+              quiet: bool = False,
+              show_installed: Optional[bool] = None
+              ) -> None:
     if quiet:
         return list_bugs_quiet(rbox)
 
@@ -179,8 +182,19 @@ def upload_tool(rbox: 'BugZoo', name: str) -> None:
         error("no tool found with the given name: {}".format(name))
 
 
+def list_tools_quiet(rbox: 'BugZoo') -> None:
+    for tool in rbox.tools:
+        print(tool.name)
+
+
 # TODO: tidy up copypasta
-def list_tools(rbox: 'BugZoo', show_installed=None) -> None:
+def list_tools(rbox: 'BugZoo',
+               quiet: bool = False,
+               show_installed: Optional[bool] = None
+               ) -> None:
+    if quiet:
+        return list_tools_quiet(rbox)
+
     tbl = []
     hdrs = ['Tool', 'Source', 'Installed?']
     for tool in rbox.tools:
@@ -350,6 +364,9 @@ def build_parser():
 
     # [tool list]
     cmd = g_subparsers.add_parser('list')
+    cmd.add_argument('-q', '--quiet',
+                     dest='quiet',
+                     action='store_true')
     cmd.add_argument('--installed',
                      dest='installed',
                      action='store_true')
@@ -357,7 +374,9 @@ def build_parser():
                      dest='installed',
                      action='store_false')
     cmd.set_defaults(installed=None)
-    cmd.set_defaults(func=lambda args: list_tools(rbox, args.installed))
+    cmd.set_defaults(func=lambda args: list_tools(rbox,
+                                                  quiet=args.quiet,
+                                                  show_installed=args.installed))
 
 
     ###########################################################################
