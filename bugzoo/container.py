@@ -55,7 +55,7 @@ class Container(object):
         env = [(k, v) for t in tools for (k, v) in t.environment.items()]
         env = ["{}=\"{}\"".format(k, v) for (k, v) in env]
         env = "\n".join(env)
-        self.__env_file = tempfile.NamedTemporaryFile(mode='w')
+        self.__env_file = tempfile.NamedTemporaryFile(mode='w', suffix='.bugzoo.env')
         self.__env_file.write(env)
         self.__env_file.flush()
 
