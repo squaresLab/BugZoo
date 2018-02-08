@@ -67,10 +67,10 @@ class Container(object):
             {'bind': '/.environment.host', 'mode': 'ro'}
 
         # construct a Docker container for this bug
-        cmd_cp = 'sudo cp /.enviromment.host /.environment'
+        cmd_cp = 'sudo cp /.environment.host /.environment'
         cmd_chown = 'sudo chown $(whoami) /.environment'
         cmd_source = 'source /.environment'
-        cmd = '/bin/bash -v -c "{} && {} && {} /bin/bash"'.format(cmd_cp,
+        cmd = '/bin/bash -v -c "{} && {} && {} && /bin/bash"'.format(cmd_cp,
                                                                   cmd_chown,
                                                                   cmd_source)
         client = docker.from_env() # nooooooooo
