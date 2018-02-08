@@ -55,7 +55,7 @@ class Container(object):
         env = [(k, v) for t in tools for (k, v) in t.environment.items()]
         env = ["{}=\"{}\"".format(k, v) for (k, v) in env]
         env = "\n".join(env)
-        self.__env_file = tempfile.NamedTemporaryFile(mode='w')
+        self.__env_file = tempfile.NamedTemporaryFile(mode='w', suffix='.bugzoo.env')
         self.__env_file.write(env)
         self.__env_file.flush()
 
@@ -67,10 +67,11 @@ class Container(object):
             {'bind': '/.environment', 'mode': 'rw'}
 
         # construct a Docker container for this bug
+        cmd = '/bin/bash -v -c "sudo chown $(whoami) ./environment && source /.environment && /bin/bash"'
         client = docker.from_env() # nooooooooo
         self.__container = \
             client.containers.create(bug.image,
-                                     '/bin/bash -v -c "source /.environment && /bin/bash"',
+                                     cmd,
                                      volumes=volumes,
                                      volumes_from=tool_container_ids,
                                      ports=ports,
