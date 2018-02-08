@@ -67,7 +67,7 @@ class Container(object):
             {'bind': '/.environment', 'mode': 'rw'}
 
         # construct a Docker container for this bug
-        cmd = '/bin/bash -v -c "sudo chown $(whoami) ./environment && source /.environment && /bin/bash"'
+        cmd = '/bin/bash -v -c "sudo chown $(whoami) /.environment && source /.environment && /bin/bash"'
         client = docker.from_env() # nooooooooo
         self.__container = \
             client.containers.create(bug.image,
