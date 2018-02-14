@@ -269,14 +269,13 @@ def launch(bz: 'BugZoo',
 
     if network is None:
         network = 'bridge'
-    else:
-        print("Using network: {}".format(network))
 
     try:
         c = None
         c = bug.provision(tty=True,
                           tools=tools,
-                          volumes=volumes)
+                          volumes=volumes,
+                          network_mode=network)
         if command is not None:
             stream = c.command(command, stderr=True, stdout=True, block=False)
             for s in stream.output:
