@@ -258,6 +258,7 @@ def __prepare_tools(bz: 'BugZoo', tools: List[str] = None) -> List[Tool]:
 def launch(bz: 'BugZoo',
            bug_name: str,
            interactive: bool,
+           network: Optional[str] = None,
            tools: Optional[List[str]] = None,
            volumes: Optional[List[str]] = None,
            command: Optional[str] = None,
@@ -265,6 +266,11 @@ def launch(bz: 'BugZoo',
     volumes = __prepare_volumes(volumes)
     tools = __prepare_tools(bz, tools)
     bug = bz.bugs[bug_name]
+
+    if network is None:
+        network = 'bridge'
+    else:
+        print("Using network: {}".format(network))
 
     try:
         c = None
@@ -399,20 +405,27 @@ def build_parser():
     # [container launch :bug]
     cmd = g_subparsers.add_parser('launch')
     cmd.add_argument('bug')
-    cmd.add_argument('--with',
-                     help='name of a tool',
-                     dest='tools',
-                     action='append',
-                     default=[])
     cmd.add_argument('-v', '--volume',
                      help='a host-container volume mapping',
                      dest='volumes',
                      action='append',
                      default=[])
+    cmd.add_argument('--with',
+                     help='name of a tool',
+                     dest='tools',
+                     action='append',
+                     default=[])
+    cmd.add_argument('--net',
+                     help='which network should the container use?',
+                     dest='net',
+                     type=str,
+                     choices=['bridge', 'host'],
+                     default='bridge')
     cmd.set_defaults(func=lambda args: launch(rbox,
                                               args.bug,
                                               interactive=True,
                                               tools=args.tools,
+                                              network=args.net,
                                               volumes=args.volumes))
 
     # [container run :bug :command]
@@ -428,12 +441,19 @@ def build_parser():
                      dest='volumes',
                      action='append',
                      default=[])
+    cmd.add_argument('--net',
+                     help='which network should the container use?',
+                     dest='net',
+                     type=str,
+                     choices=['bridge', 'host'],
+                     default='bridge')
     cmd.add_argument('command')
     cmd.set_defaults(func=lambda args: launch(rbox,
                                               args.bug,
                                               interactive=False,
                                               command=args.command,
                                               tools=args.tools,
+                                              network=args.net,
                                               volumes=args.volumes))
 
     # [container connect :bug]
