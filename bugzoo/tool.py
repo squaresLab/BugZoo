@@ -40,7 +40,7 @@ class Tool(Source):
         if not self.installed:
             raise Exception("tool is not installed: {}".format(self.name))
 
-        client = docker.from_env()
+        client = docker.from_env(timeout=120)
         return client.containers.create(self.__build_instructions.tag)
 
     @property
