@@ -8,8 +8,9 @@ import bugzoo
 import time
 
 from tempfile import NamedTemporaryFile
-from typing import List, Iterator, Dict, Optional
+from typing import List, Iterator, Dict, Optional, Union
 from timeit import default_timer as timer
+from ipaddress import IPv4Address, IPv6Address
 
 from bugzoo.core import Language
 from bugzoo.cmd import ExecResponse, PendingExecResponse
@@ -117,6 +118,27 @@ class Container(object):
         container is no longer running.
         """
         return self.__container
+
+    @property
+    def ip_address(self,
+                   raise_error: bool = False
+                   ) -> Optional[Union[IPv4Address, IPv6Address]]:
+        """
+        The IP address used by this container, or None if no IP address.
+        """
+         # TODO: refactor!
+        api_client = docker.APIClient(base_url='unix://var/run/docker.sock')
+        container_info = api_client.inspect_container(container.id)
+        address = container_info['NetworkSettings']['IPAddress']
+        try:
+            return IPv4Address(address)
+        except ipaddress.AddressValueError:
+            try:
+                return IPv6Address(address)
+            except ipaddress.AddressValueError:
+                if raise_error:
+                    raise
+                return None
 
     @property
     def alive(self) -> bool:
