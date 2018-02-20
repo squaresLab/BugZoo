@@ -128,7 +128,7 @@ class Container(object):
         """
          # TODO: refactor!
         api_client = docker.APIClient(base_url='unix://var/run/docker.sock')
-        container_info = api_client.inspect_container(container.id)
+        container_info = api_client.inspect_container(self.container.id)
         address = container_info['NetworkSettings']['IPAddress']
         try:
             return IPv4Address(address)
