@@ -124,4 +124,4 @@ class BuildInstructions(object):
         A dictionary of build-time arguments provided during the construction
         of the Docker image associated with these instructions.
         """
-        return copy.copy(self.__arguments)
+        return dict(self.__arguments)
