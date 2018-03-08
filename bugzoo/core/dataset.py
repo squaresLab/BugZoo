@@ -54,10 +54,10 @@ class Dataset(Source):
         associated Docker images. This should only be called by DatasetManager.
         """
         for bug in self.bugs:
-            bug.uninstall(force=True)
+            self.manager.bugs.uninstall(bug, force=True)
 
         for dep in self.__dependencies.values():
-            dep.uninstall(force=True)
+            self.manager.build.uninstall(dep, force=True)
 
         super().remove()
 
