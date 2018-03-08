@@ -133,11 +133,12 @@ class BuildManager(object):
         Returns:
             `True` if successfully downloaded, otherwise `False`.
         """
+        tag = instructions.tag
         try:
-            self.__docker.images.pull(self.tag)
+            self.__docker.images.pull(tag)
             return True
         except docker.errors.NotFound:
-            print("Failed to locate image on DockerHub: {}".format(self.tag))
+            print("Failed to locate image on DockerHub: {}".format(tag))
             return False
 
     def upload(self, instructions: BuildInstructions) -> bool:
