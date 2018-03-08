@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
 import unittest
 import bugzoo.cli
 import bugzoo
-import bugzoo.core.errors
+from bugzoo.core.errors import SourceNotFoundWithURL
 
 
 class CLITestCase(unittest.TestCase):
@@ -34,7 +33,7 @@ class ManyBugsTestCase(CLITestCase):
         self.run_command(['source', 'remove', manybugs_url])
 
         bz.rescan()
-        with self.assertRaises(bugzoo.core.errors.SourceNotFoundWithURL):
+        with self.assertRaises(SourceNotFoundWithURL):
             bz.sources.get_by_url(manybugs_url)
 
         # re-add ManyBugs!
