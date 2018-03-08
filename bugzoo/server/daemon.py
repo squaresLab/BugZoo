@@ -83,7 +83,7 @@ class Daemon(object):
         return self.__containers
 
     @property
-    def bugs(self) -> Bugs:
+    def bugs(self) -> BugManager:
         """
         The collection of bugs that are registered with this server.
         """
