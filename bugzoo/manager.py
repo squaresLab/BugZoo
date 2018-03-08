@@ -1,10 +1,10 @@
+from typing import Iterator
 import os
 
-from typing import Iterator
-from bugzoo.source import SourceManager
-from bugzoo.bug import Bug
-from bugzoo.dataset import Dataset
-from bugzoo.tool import Tool
+from .source import SourceManager
+from .bug import Bug
+from .dataset import Dataset
+from .tool import Tool
 
 
 class BugZoo(object):
@@ -34,9 +34,9 @@ class BugZoo(object):
             os.makedirs(self.coverage_path)
 
         self.__sources = SourceManager(self)
-        self.__datasets = Datasets(self)
-        self.__bugs = Bugs(self)
-        self.__tools = Tools(self)
+        self.__datasets = DatasetManager(self)
+        self.__bugs = BugManager(self)
+        self.__tools = ToolManager(self)
 
     @property
     def path(self) -> str:
@@ -85,16 +85,14 @@ class BugZoo(object):
         return self.__bugs
 
 
-class Tools(object):
-    def __init__(self, installation: 'BugZoo') -> None:
+class ToolManager(object):
+    def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
-
 
     def __iter__(self) -> Iterator[Tool]:
         for src in self.__installation.sources:
             if isinstance(src, Tool):
                 yield src
-
 
     def __getitem__(self, name_or_url: str) -> Dataset:
         for tool in self.__iter__():
@@ -103,16 +101,14 @@ class Tools(object):
         raise IndexError
 
 
-class Datasets(object):
-    def __init__(self, installation: 'BugZoo') -> None:
+class DatasetManager(object):
+    def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
-
 
     def __iter__(self) -> Iterator[Dataset]:
         for src in self.__installation.sources:
             if isinstance(src, Dataset):
                 yield src
-
 
     def __getitem__(self, name_or_url: str) -> Dataset:
         for dataset in self.__iter__():
@@ -121,7 +117,7 @@ class Datasets(object):
         raise IndexError
 
 
-class Bugs(object):
+class BugManager(object):
     """
     Used to access and manage all bugs registered with a local BugZoo
     installation.
@@ -130,7 +126,6 @@ class Bugs(object):
         def __init__(self, datasets):
             self.__datasets = [d for d in datasets]
             self.__bugs = []
-
 
         def __next__(self):
             if not self.__bugs:
@@ -141,10 +136,8 @@ class Bugs(object):
                 return self.__next__()
             return self.__bugs.pop()
 
-
-    def __init__(self, installation: 'BugZoo') -> None:
+    def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
-
 
     def __getitem__(self, name: str) -> Bug:
         for src in self.__installation.datasets:
@@ -152,6 +145,5 @@ class Bugs(object):
                 return src[name]
         raise IndexError('bug not found: {}'.format(name))
 
-
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Bug]:
         return Bugs.BugIterator(self.__installation.datasets)
