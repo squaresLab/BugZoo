@@ -7,16 +7,16 @@ import yaml
 import docker
 
 import bugzoo
-from .core import Language
-from .util import print_task_start, print_task_end
-from .build import BuildInstructions
-from .container import Container
-from .core.tool import Tool
-from .testing import TestCase, TestOutcome, TestSuite
-from .coverage import ProjectLineCoverage, \
-                      ProjectCoverageMap, \
-                      Spectra
-from .compiler import Compiler
+from .language import Language
+from .tool import Tool
+from ..util import print_task_start, print_task_end
+from ..build import BuildInstructions
+from ..container import Container
+from ..compiler import Compiler
+from ..testing import TestCase, TestOutcome, TestSuite
+from ..coverage import ProjectLineCoverage, \
+                       ProjectCoverageMap, \
+                       Spectra
 
 
 class Bug(object):

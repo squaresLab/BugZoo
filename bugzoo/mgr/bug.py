@@ -1,6 +1,6 @@
 from typing import Iterator
 
-from ..bug import Bug
+from ..core.bug import Bug
 
 
 class BugManager(object):
