@@ -1,14 +1,15 @@
-import docker
 import warnings
-import yaml
 import os
 import shutil
 import typing
 import json
-import bugzoo
-
 from pprint import pprint as pp
-from bugzoo.errors import ImageBuildFailed
+
+import docker
+import yaml
+
+import bugzoo
+from bugzoo.core.errors import ImageBuildFailed
 
 
 class BuildInstructions(object):

@@ -1,11 +1,12 @@
+from typing import List, Optional, Dict
+
 import sys
 import argparse
 import tabulate
-import bugzoo.errors
-import bugzoo.version
-
-from typing import List, Optional, Dict
 from operator import itemgetter
+
+import bugzoo.core.errors
+import bugzoo.version
 from bugzoo.manager import BugZoo
 from bugzoo.tool import Tool
 
@@ -37,7 +38,7 @@ def add_source(rbox: 'BugZoo', url: str) -> None:
     try:
         rbox.sources.add(url)
         print('added source: {}'.format(url))
-    except bugzoo.errors.SourceAlreadyRegisteredWithURL:
+    except bugzoo.core.errors.SourceAlreadyRegisteredWithURL:
         print('source already registered with URL: {}'.format(url))
 
 
@@ -45,7 +46,7 @@ def remove_source(rbox: 'BugZoo', url: str) -> None:
     try:
         rbox.sources.remove_by_url(url)
         print('removed source: {}'.format(url))
-    except bugzoo.errors.SourceNotFoundWithURL as err:
+    except bugzoo.core.errors.SourceNotFoundWithURL as err:
         print("no source registered with URL: {}".format(err.url))
 
 
@@ -284,7 +285,7 @@ def launch(bz: 'BugZoo',
         if interactive:
             c.interact()
 
-    except bugzoo.errors.BugNotInstalledError:
+    except bugzoo.core.errors.BugNotInstalledError:
         error("bug not installed: {}".format(bug_name))
 
     # ensure that the container is always destroyed

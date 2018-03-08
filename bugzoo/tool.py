@@ -1,9 +1,10 @@
+from typing import Dict
 import copy
-import yaml
-import docker
 import os
 
-from typing import Dict
+import yaml
+import docker
+
 from bugzoo.source import Source
 from bugzoo.build import BuildInstructions
 

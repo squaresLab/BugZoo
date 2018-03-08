@@ -1,10 +1,12 @@
 from typing import Iterator
-import bugzoo.errors
-import git
-import json
-import yaml
 import os
 import shutil
+import json
+
+import git
+import yaml
+
+import bugzoo.core.errors
 
 
 class Source(object):
@@ -141,7 +143,7 @@ class SourceManager(object):
         assert url != ""
         # TODO: new exception
         if url in self.__sources:
-            raise bugzoo.errors.SourceAlreadyRegisteredWithURL(url)
+            raise bugzoo.core.errors.SourceAlreadyRegisteredWithURL(url)
 
         src = self.__download(url)
         self.__sources[src.url] = src
@@ -180,7 +182,7 @@ class SourceManager(object):
             if s.name == name:
                 return s
 
-        raise bugzoo.errors.SourceNotFoundWithName(name)
+        raise bugzoo.core.errors.SourceNotFoundWithName(name)
 
     def get_by_url(self, url: str) -> Source:
         """
@@ -192,7 +194,7 @@ class SourceManager(object):
         if url in self.__sources:
             return self.__sources[url]
 
-        raise bugzoo.errors.SourceNotFoundWithURL(url)
+        raise bugzoo.core.errors.SourceNotFoundWithURL(url)
 
     def __iter__(self) -> Iterator[Source]:
         for src in self.__sources.values():
