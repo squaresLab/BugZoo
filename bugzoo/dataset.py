@@ -1,13 +1,14 @@
+from typing import List
 import os
-import yaml
 import json
 import glob
 import copy
 
-from typing import List
-from bugzoo.bug import Bug
-from bugzoo.build import BuildInstructions
-from bugzoo.source import Source, SourceManager
+import yaml
+
+from .bug import Bug
+from .build import BuildInstructions
+from .source import Source
 
 
 class Dataset(Source):

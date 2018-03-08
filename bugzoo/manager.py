@@ -1,7 +1,7 @@
 from typing import Iterator
 import os
 
-from .source import SourceManager
+from .mgr.source import SourceManager
 from .mgr.dataset import DatasetManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
