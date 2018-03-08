@@ -53,11 +53,13 @@ class Dataset(Source):
         Removes the files for this dataset from disk, and uninstalls all
         associated Docker images. This should only be called by DatasetManager.
         """
+        manager_bug = self.manager.manager.bugs
+        manager_build = self.manager.manager.build
         for bug in self.bugs:
-            self.manager.bugs.uninstall(bug, force=True)
+            manager_bug.uninstall(bug, force=True)
 
         for dep in self.__dependencies.values():
-            self.manager.build.uninstall(dep, force=True)
+            manager_build.uninstall(dep, force=True)
 
         super().remove()
 
