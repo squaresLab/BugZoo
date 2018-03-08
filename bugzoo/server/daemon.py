@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+from typing import Iterator
 import flask
 import os
+
 from bugzoo.container import Container
-from bugzoo.bug import Bug
-from bugzoo.manager import BugZoo, Bugs
-from typing import Iterator
+from ..bug import Bug
+from ..mgr.bug import BugManager
+from ..manager import BugZoo
 
 
 class ContainerManager(object):

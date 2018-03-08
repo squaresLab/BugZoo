@@ -4,7 +4,7 @@ import os
 from .source import SourceManager
 from .bug import Bug
 from .dataset import Dataset
-from .tool import Tool
+from .mgr.tool import ToolManager
 
 
 class BugZoo(object):
@@ -83,22 +83,6 @@ class BugZoo(object):
         The bugs registered with this BugZoo installation.
         """
         return self.__bugs
-
-
-class ToolManager(object):
-    def __init__(self, installation: 'BugZoo'):
-        self.__installation = installation
-
-    def __iter__(self) -> Iterator[Tool]:
-        for src in self.__installation.sources:
-            if isinstance(src, Tool):
-                yield src
-
-    def __getitem__(self, name_or_url: str) -> Dataset:
-        for tool in self.__iter__():
-            if tool.name == name_or_url or tool.url == name_or_url:
-                return tool
-        raise IndexError
 
 
 class DatasetManager(object):

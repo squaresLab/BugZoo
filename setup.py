@@ -32,6 +32,7 @@ setup(
         'bugzoo.localization',
         'bugzoo.compiler',
         'bugzoo.server',
+        'bugzoo.mgr',
         'bugzoo.core',
         'bugzoo.cli'
     ],
