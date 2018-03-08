@@ -55,7 +55,7 @@ class BuildManager(object):
 
         # TODO use logger
         if not quiet:
-            print("Building image: {}".format(self.tag))
+            print("Building image: {}".format(instructions.tag))
 
         tf = os.path.join(instructions.abs_context, '.Dockerfile')
         try:
@@ -80,10 +80,10 @@ class BuildManager(object):
                         success = True
 
             if not success:
-                raise ImageBuildFailed(self.tag, log)
+                raise ImageBuildFailed(instructions.tag, log)
 
             if success and not quiet:
-                print("Built image: {}".format(self.tag))
+                print("Built image: {}".format(instructions.tag))
                 return
         finally:
             os.remove(tf)
