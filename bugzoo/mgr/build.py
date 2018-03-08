@@ -23,7 +23,7 @@ class BuildManager(object):
             `True` if installed; `False` if not.
         """
         try:
-            self.__docker.images.get(instructions.name)
+            self.__docker.images.get(instructions.tag)
             return True
         except docker.errors.ImageNotFound:
             return False
