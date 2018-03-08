@@ -2,6 +2,7 @@
 import unittest
 import bugzoo.cli
 import bugzoo
+import bugzoo.core.errors
 
 
 class CLITestCase(unittest.TestCase):
