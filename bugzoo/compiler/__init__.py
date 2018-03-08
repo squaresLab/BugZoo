@@ -40,6 +40,7 @@ class Compiler(object):
             cls = ({
                 'simple': SimpleCompiler,
                 'waf': WafCompiler,
+                'catkin': CatkinCompiler,
                 'configure-and-make': ConfigureMakeCompiler
             })[typ]
 
@@ -144,6 +145,24 @@ class SimpleCompiler(Compiler):
             cmd = self.__command
 
         return self.__compile(container, cmd, verbose)
+
+
+class CatkinCompiler(SimpleCompiler):
+    @staticmethod
+    def from_dict(d: dict) -> 'CatkinCompiler':
+        return CatkinCompiler(workspace=d['workspace'],
+                              time_limit=d['time-limit'])
+
+    def __init__(self,
+                 workspace: str,
+                 time_limit: float
+                 ) -> None:
+        cmd = 'catkin build'
+        cmdi = 'exit 1'
+        super().__init__(command=cmd,
+                         command_with_instrumentation=cmdi,
+                         context=workspace,
+                         time_limit=time_limit)
 
 
 class WafCompiler(SimpleCompiler):
