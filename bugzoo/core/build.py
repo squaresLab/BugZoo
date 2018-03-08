@@ -8,8 +8,6 @@ from pprint import pprint as pp
 import docker
 import yaml
 
-from .errors import ImageBuildFailed
-
 
 class BuildInstructions(object):
     """
@@ -67,7 +65,7 @@ class BuildInstructions(object):
                  context: str,
                  filename: str,
                  arguments: dict,
-                 depends_on: str) -> None:
+                 depends_on: str):
         self.__source = source
         self.__root = root
         self.__tag = tag
@@ -77,11 +75,11 @@ class BuildInstructions(object):
         self.__depends_on = depends_on
 
     @property
-    def root(self):
+    def root(self) -> str:
         return self.__root
 
     @property
-    def depends_on(self):
+    def depends_on(self) -> str:
         """
         The name of the Docker image that the construction of the image
         associated with these build instructions depends on. If no such
@@ -127,110 +125,3 @@ class BuildInstructions(object):
         of the Docker image associated with these instructions.
         """
         return copy.copy(self.__arguments)
-
-    @property
-    def installed(self) -> bool:
-        """
-        Indicates whether this image is installed to the local machine.
-        """
-        client = docker.from_env()
-        try:
-            client.images.get(self.tag)
-            return True
-        except docker.errors.ImageNotFound:
-            return False
-
-    def uninstall(self, force=False, noprune=False) -> None:
-        """
-        Attempts to uninstall the Docker image associated with these instructions.
-        """
-        client = docker.from_env()
-
-        try:
-            client.images.remove(image=self.tag, force=force, noprune=noprune)
-        except docker.errors.ImageNotFound as e:
-            if force:
-                return
-            raise e
-
-    def download(self, force=False) -> bool:
-        """
-        Attempts to download the Docker image described by these instructions,
-        from DockerHub. If `force=True`, then any previously installed version
-        of the image (described by these instructions) will be replaced by the
-        image on DockerHub.
-
-        Returns:
-            `True` if successfully downloaded, otherwise `False`.
-        """
-        client = docker.from_env()
-        try:
-            client.images.pull(self.tag)
-            return True
-        except docker.errors.NotFound:
-            print("Failed to locate image on DockerHub: {}".format(self.tag))
-            return False
-
-    def upload(self) -> bool:
-        client = docker.from_env()
-        try:
-            out = client.images.push(self.tag, stream=True)
-            for line in out:
-                line = line.strip().decode('utf-8')
-                jsn = json.loads(line)
-                if 'progress' in jsn:
-                    line = "{}. {}.".format(jsn['status'], jsn['progress'])
-                    print(line, end='\r')
-                elif 'status' in jsn:
-                    print(jsn['status'])
-            print('uploaded image to DockerHub: {}'.format(self.tag))
-            return True
-        except docker.errors.NotFound:
-            print("Failed to push image ({}): not installed.".format(self.tag))
-            return False
-
-    def build(self, force=False, quiet=False) -> None:
-        """
-        Constructs the Docker image described by these instructions.
-        """
-        if self.depends_on:
-            dep = self.source.dependencies[self.depends_on]
-            dep.build(force=force, quiet=quiet)
-
-        if self.installed and not force:
-            return
-
-        if not quiet:
-            print("Building image: {}".format(self.tag))
-
-        tf = os.path.join(self.abs_context, '.Dockerfile')
-        try:
-            success = False
-            shutil.copy(self.file_abs, tf)
-            client = docker.from_env()
-            response = client.api.build(path=self.abs_context,
-                                        dockerfile='.Dockerfile',
-                                        tag=self.tag,
-                                        # pull=force,
-                                        buildargs=self.__arguments,
-                                        decode=True,
-                                        rm=True)
-
-            # TODO: flatten to list of strings
-            log = []
-            for line in response:
-                if 'stream' in line:
-                    log.append(line)
-                    if not quiet:
-                        print(line['stream'].rstrip())
-                    if line['stream'].startswith('Successfully built'):
-                        success = True
-
-            if not success:
-                raise ImageBuildFailed(self.tag, log)
-
-            if success and not quiet:
-                print("Built image: {}".format(self.tag))
-                return
-        finally:
-            os.remove(tf)

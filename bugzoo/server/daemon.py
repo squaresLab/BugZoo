@@ -4,7 +4,7 @@ import flask
 import os
 
 from bugzoo.container import Container
-from ..bug import Bug
+from ..core.bug import Bug
 from ..mgr.bug import BugManager
 from ..manager import BugZoo
 

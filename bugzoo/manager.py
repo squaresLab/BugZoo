@@ -1,10 +1,14 @@
 from typing import Iterator
 import os
 
+import docker
+
+from .mgr.build import BuildManager
 from .mgr.source import SourceManager
 from .mgr.dataset import DatasetManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
+
 
 
 class BugZoo(object):
@@ -33,9 +37,12 @@ class BugZoo(object):
         if not os.path.exists(self.coverage_path):
             os.makedirs(self.coverage_path)
 
+        client_docker = docker.from_env()
+
+        self.__mgr_build = BuildManager(client_docker)
         self.__sources = SourceManager(self)
         self.__datasets = DatasetManager(self)
-        self.__bugs = BugManager(self)
+        self.__bugs = BugManager(self, self.__mgr_build)
         self.__tools = ToolManager(self)
 
     @property
@@ -55,6 +62,10 @@ class BugZoo(object):
 
     def rescan(self):
         self.__sources.scan()
+
+    @property
+    def build(self) -> BuildManager:
+        return self.__mgr_build
 
     @property
     def sources(self) -> SourceManager:
