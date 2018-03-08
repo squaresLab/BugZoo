@@ -131,7 +131,7 @@ def list_bugs(rbox: 'BugZoo',
             if show_installed != is_installed:
                 continue
 
-        installed = 'Yes' if bug.is_installed else 'No'
+        installed = 'Yes' if is_installed else 'No'
         row = [bug.identifier, bug.dataset.name, installed]
         tbl.append(row)
 
