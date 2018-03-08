@@ -2,7 +2,7 @@ from typing import Iterator
 import os
 
 from .source import SourceManager
-from .dataset import Dataset
+from .mgr.dataset import DatasetManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
 
@@ -64,7 +64,7 @@ class BugZoo(object):
         return self.__sources
 
     @property
-    def datasets(self):
+    def datasets(self) -> DatasetManager:
         """
         The datasets registered with this BugZoo installation.
         """
@@ -83,19 +83,3 @@ class BugZoo(object):
         The bugs registered with this BugZoo installation.
         """
         return self.__bugs
-
-
-class DatasetManager(object):
-    def __init__(self, installation: 'BugZoo'):
-        self.__installation = installation
-
-    def __iter__(self) -> Iterator[Dataset]:
-        for src in self.__installation.sources:
-            if isinstance(src, Dataset):
-                yield src
-
-    def __getitem__(self, name_or_url: str) -> Dataset:
-        for dataset in self.__iter__():
-            if dataset.name == name_or_url or dataset.url == name_or_url:
-                return dataset
-        raise IndexError
