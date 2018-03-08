@@ -8,7 +8,7 @@ import yaml
 
 from .bug import Bug
 from .build import BuildInstructions
-from .source import Source
+from .core.source import Source
 
 
 class Dataset(Source):

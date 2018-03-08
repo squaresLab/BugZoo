@@ -5,8 +5,8 @@ import os
 import yaml
 import docker
 
-from bugzoo.source import Source
-from bugzoo.build import BuildInstructions
+from .core.source import Source
+from .build import BuildInstructions
 
 
 class Tool(Source):

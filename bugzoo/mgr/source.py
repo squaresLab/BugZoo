@@ -6,7 +6,7 @@ import git
 import yaml
 import shutil
 
-from ..source import Source
+from ..core.source import Source
 from ..core.errors import SourceAlreadyRegisteredWithURL, \
                           SourceNotFoundWithURL, \
                           SourceNotFoundWithName
