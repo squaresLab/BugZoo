@@ -58,8 +58,6 @@ def update_sources(rbox: 'BugZoo', ) -> None:
 ###############################################################################
 # [dataset] group
 ###############################################################################
-
-
 def list_datasets(rbox: 'BugZoo') -> None:
     tbl = []
     hdrs = ['Dataset', 'Source', '# Bugs']
@@ -78,8 +76,6 @@ def list_datasets(rbox: 'BugZoo') -> None:
 ###############################################################################
 # [bug] group
 ###############################################################################
-
-
 def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
     print('validating bug: {}'.format(name))
     bug = rbox.bugs[name]
@@ -98,19 +94,19 @@ def build_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
 def download_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('downloading bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.download(force=force)
+    rbox.bugs.download(bug, force=force)
 
 
 def upload_bug(rbox: 'BugZoo', name: str) -> None:
     print('uploading bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.upload()
+    rbox.bugs.upload(bug)
 
 
 def uninstall_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.uninstall(force=force)
+    rbox.bugs.uninstall(bug, force=force)
 
 
 def list_bugs_quiet(rbox: 'BugZoo') -> None:
@@ -128,13 +124,14 @@ def list_bugs(rbox: 'BugZoo',
     tbl = []
     hdrs = ['Bug', 'Source', 'Installed?']
     for bug in rbox.bugs:
+        is_installed = rbox.bugs.is_installed(bug)
 
         # apply filtering based on installation status
         if show_installed is not None:
-            if show_installed != bug.installed:
+            if show_installed != is_installed:
                 continue
 
-        installed = 'Yes' if bug.installed else 'No'
+        installed = 'Yes' if bug.is_installed else 'No'
         row = [bug.identifier, bug.dataset.name, installed]
         tbl.append(row)
 
