@@ -1,6 +1,6 @@
 from typing import Iterator
 
-from ..dataset import Dataset
+from ..core.dataset import Dataset
 
 
 class DatasetManager(object):

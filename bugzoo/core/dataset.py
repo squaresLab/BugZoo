@@ -6,9 +6,9 @@ import copy
 
 import yaml
 
-from .bug import Bug
-from .build import BuildInstructions
-from .core.source import Source
+from ..bug import Bug
+from ..build import BuildInstructions
+from .source import Source
 
 
 class Dataset(Source):

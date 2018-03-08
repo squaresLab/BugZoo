@@ -13,8 +13,8 @@ class Source(object):
                   url: str,
                   d: dict) -> 'Source':
         if d['type'] == 'dataset':
-            import bugzoo.dataset
-            return bugzoo.dataset.Dataset.from_dict(manager, url, d)
+            from .dataset import Dataset
+            return Dataset.from_dict(manager, url, d)
         if d['type'] == 'tool':
             from .tool import Tool
             return Tool.from_dict(manager, url, d)
