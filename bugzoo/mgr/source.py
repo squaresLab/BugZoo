@@ -67,9 +67,8 @@ class SourceManager(object):
 
     def add(self, url: str) -> Source:
         assert url != ""
-        # TODO: new exception
         if url in self.__sources:
-            raise bugzoo.core.errors.SourceAlreadyRegisteredWithURL(url)
+            raise SourceAlreadyRegisteredWithURL(url)
 
         src = self.__download(url)
         self.__sources[src.url] = src
@@ -108,7 +107,7 @@ class SourceManager(object):
             if s.name == name:
                 return s
 
-        raise bugzoo.core.errors.SourceNotFoundWithName(name)
+        raise SourceNotFoundWithName(name)
 
     def get_by_url(self, url: str) -> Source:
         """
@@ -120,7 +119,7 @@ class SourceManager(object):
         if url in self.__sources:
             return self.__sources[url]
 
-        raise bugzoo.core.errors.SourceNotFoundWithURL(url)
+        raise SourceNotFoundWithURL(url)
 
     def __iter__(self) -> Iterator[Source]:
         for src in self.__sources.values():
