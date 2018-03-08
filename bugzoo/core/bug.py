@@ -9,8 +9,8 @@ import docker
 import bugzoo
 from .language import Language
 from .tool import Tool
+from .build import BuildInstructions
 from ..util import print_task_start, print_task_end
-from ..build import BuildInstructions
 from ..container import Container
 from ..compiler import Compiler
 from ..testing import TestCase, TestOutcome, TestSuite

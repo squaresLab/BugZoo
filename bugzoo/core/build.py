@@ -8,8 +8,7 @@ from pprint import pprint as pp
 import docker
 import yaml
 
-import bugzoo
-from bugzoo.core.errors import ImageBuildFailed
+from .errors import ImageBuildFailed
 
 
 class BuildInstructions(object):
@@ -24,8 +23,8 @@ class BuildInstructions(object):
         Loads a set of build instructions belonging to a given source from a
         specified YAML file.
 
-        Args:
-            fn (str): the name of the file.
+        Parameters:
+            fn: the name of the file.
         """
         with open(fn, 'r') as f:
             yml = yaml.load(f)

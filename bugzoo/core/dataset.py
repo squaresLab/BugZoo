@@ -7,7 +7,7 @@ import copy
 import yaml
 
 from .bug import Bug
-from ..build import BuildInstructions
+from .build import BuildInstructions
 from .source import Source
 
 
