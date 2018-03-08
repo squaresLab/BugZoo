@@ -79,7 +79,7 @@ def list_datasets(rbox: 'BugZoo') -> None:
 def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
     print('validating bug: {}'.format(name))
     bug = rbox.bugs[name]
-    if bug.validate(verbose=verbose):
+    if rbox.bugs.validate(bug, verbose=verbose):
         print('OK')
     else:
         print('FAIL')
@@ -88,7 +88,7 @@ def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
 def build_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.build(force=force)
+    rbox.bugs.build(bug, force=force)
 
 
 def download_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
