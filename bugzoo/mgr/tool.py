@@ -1,5 +1,5 @@
 from typing import Iterator
-from ..tool import Tool
+from ..core.tool import Tool
 
 
 class ToolManager(object):

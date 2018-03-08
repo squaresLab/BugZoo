@@ -16,8 +16,8 @@ class Source(object):
             import bugzoo.dataset
             return bugzoo.dataset.Dataset.from_dict(manager, url, d)
         if d['type'] == 'tool':
-            import bugzoo.tool
-            return bugzoo.tool.Tool.from_dict(manager, url, d)
+            from .tool import Tool
+            return Tool.from_dict(manager, url, d)
 
         # TODO
         raise "UNEXPECTED SOURCE TYPE"

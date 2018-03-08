@@ -1,14 +1,14 @@
 from typing import List, Optional, Dict
-
 import sys
 import argparse
-import tabulate
 from operator import itemgetter
+
+import tabulate
 
 import bugzoo.core.errors
 import bugzoo.version
-from bugzoo.manager import BugZoo
-from bugzoo.tool import Tool
+from ..manager import BugZoo
+from ..core.tool import Tool
 
 
 def error(msg: str) -> None:

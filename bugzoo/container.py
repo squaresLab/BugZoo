@@ -1,26 +1,26 @@
-import docker
+from typing import List, Iterator, Dict, Optional, Union
+from ipaddress import IPv4Address, IPv6Address
+from tempfile import NamedTemporaryFile
+from timeit import default_timer as timer
 import copy
 import sys
 import os
 import subprocess
 import tempfile
-import bugzoo
 import time
 
-from tempfile import NamedTemporaryFile
-from typing import List, Iterator, Dict, Optional, Union
-from timeit import default_timer as timer
-from ipaddress import IPv4Address, IPv6Address
+import docker
 
-from bugzoo.core import Language
-from bugzoo.cmd import ExecResponse, PendingExecResponse
-from bugzoo.testing import TestOutcome, TestCase
-from bugzoo.core import Patch
-from bugzoo.tool import Tool
-from bugzoo.coverage.base import ProjectLineCoverage, \
-                                 ProjectCoverageMap
-from bugzoo.coverage.spectra import Spectra
-from bugzoo.compiler import Compiler, CompilationOutcome
+import bugzoo
+from .core import Language
+from .cmd import ExecResponse, PendingExecResponse
+from .testing import TestOutcome, TestCase
+from .core import Patch
+from .core.tool import Tool
+from .coverage.base import ProjectLineCoverage, \
+                           ProjectCoverageMap
+from .coverage.spectra import Spectra
+from .compiler import Compiler, CompilationOutcome
 
 
 class Container(object):

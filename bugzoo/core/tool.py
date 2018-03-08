@@ -5,8 +5,8 @@ import os
 import yaml
 import docker
 
-from .core.source import Source
-from .build import BuildInstructions
+from .source import Source
+from ..build import BuildInstructions
 
 
 class Tool(Source):

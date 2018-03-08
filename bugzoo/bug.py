@@ -1,21 +1,22 @@
+from typing import List, Iterator, Dict, Optional
 import os
-import yaml
-import docker
 import copy
 import textwrap
-import bugzoo
 
-from typing import List, Iterator, Dict, Optional
-from bugzoo.core import Language
-from bugzoo.util import print_task_start, print_task_end
-from bugzoo.build import BuildInstructions
-from bugzoo.container import Container
-from bugzoo.tool import Tool
-from bugzoo.testing import TestCase, TestOutcome, TestSuite
-from bugzoo.coverage import ProjectLineCoverage, \
-                            ProjectCoverageMap, \
-                            Spectra
-from bugzoo.compiler import Compiler
+import yaml
+import docker
+
+import bugzoo
+from .core import Language
+from .util import print_task_start, print_task_end
+from .build import BuildInstructions
+from .container import Container
+from .core.tool import Tool
+from .testing import TestCase, TestOutcome, TestSuite
+from .coverage import ProjectLineCoverage, \
+                      ProjectCoverageMap, \
+                      Spectra
+from .compiler import Compiler
 
 
 class Bug(object):
