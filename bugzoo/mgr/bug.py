@@ -32,4 +32,4 @@ class BugManager(object):
         raise IndexError('bug not found: {}'.format(name))
 
     def __iter__(self) -> Iterator[Bug]:
-        return Bugs.BugIterator(self.__installation.datasets)
+        return BugManager.BugIterator(self.__installation.datasets)
