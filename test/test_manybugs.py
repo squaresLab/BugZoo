@@ -33,7 +33,7 @@ class ManyBugsTestCase(CLITestCase):
         self.run_command(['source', 'remove', manybugs_url])
 
         bz.rescan()
-        with self.assertRaises(bugzoo.errors.SourceNotFoundWithURL):
+        with self.assertRaises(bugzoo.core.errors.SourceNotFoundWithURL):
             bz.sources.get_by_url(manybugs_url)
 
         # re-add ManyBugs!
