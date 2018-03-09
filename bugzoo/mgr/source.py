@@ -200,7 +200,12 @@ class SourceManager(object):
 
         if is_url:
             url = url_or_path
-            path = url_to_local_path(path_or_url)
+
+            # convert url to a local path
+            path = url.replace('https://', '')
+            path = path.replace('/', '_')
+            path = path.replace('.', '_')
+            path = os.path.join(self.path, path)
 
             # download from remote to local
             shutil.rmtree(path, ignore_errors=True)

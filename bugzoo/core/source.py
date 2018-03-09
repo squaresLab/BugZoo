@@ -44,29 +44,34 @@ class SourceContents(object):
 
 class Source(object):
     @staticmethod
-    def url_to_rel_path(url: str) -> str:
-        rel_path = url.replace('https://', '')
-        rel_path = rel_path.replace('/', '_')
-        rel_path = rel_path.replace('.', '_')
-        return rel_path
-
-    @staticmethod
-    def url_to_abs_path(manager: 'SourceManager', url: str) -> str:
-        rel_path = Source.url_to_rel_path(url)
-        return os.path.join(manager.path, rel_path)
+    def from_dict(d: dict) -> 'Source':
+        if d['type'] == 'local':
+            return LocalSource.from_dict(d)
+        if d['type'] == 'remote':
+            return RemoteSource.from_dict(d)
+        raise Exception("unsupported source type: {}".format(d['type']))
 
     def __init__(self,
-                 manager: 'SourceManager',
+                 name: str,
                  url: str,
-                 name: str):
-        self.__manager = manager
+                 location: str):
         self.__url = url
         self.__name = name
         self.__repo = git.Repo(self.abs_path)
 
     @property
     def name(self) -> str:
+        """
+        The name of this source.
+        """
         return self.__name
+
+    @property
+    def location(self) -> str:
+        """
+        The location of this source on disk.
+        """
+        return self.__location
 
     @property
     def version(self) -> str:
@@ -84,23 +89,14 @@ class Source(object):
     def remove(self) -> None:
         shutil.rmtree(self.abs_path)
 
-    # FIXME temporary method to ease refactoring
-    @property
-    def installation(self) -> 'BugZoo':
-        return self.manager.installation
-
-    @property
-    def manager(self):
-        return self.__manager
-
     @property
     def url(self) -> str:
         return self.__url
 
-    @property
-    def rel_path(self) -> str:
-        return Source.url_to_rel_path(self.url)
 
-    @property
-    def abs_path(self) -> str:
-        return Source.url_to_abs_path(self.manager, self.url)
+class RemoteSource(Source):
+    pass
+
+
+class LocalSource(Source):
+    pass
