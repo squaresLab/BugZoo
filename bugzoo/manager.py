@@ -5,7 +5,6 @@ import docker
 
 from .mgr.build import BuildManager
 from .mgr.source import SourceManager
-from .mgr.dataset import DatasetManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
 
@@ -40,9 +39,8 @@ class BugZoo(object):
         client_docker = docker.from_env()
 
         self.__mgr_build = BuildManager(client_docker)
-        self.__sources = SourceManager(self)
-        self.__datasets = DatasetManager(self)
-        self.__bugs = BugManager(self, self.__mgr_build)
+        self.__sources = SourceManager(self, self.__mgr_build)
+        self.__bugs = BugManager(self)
         self.__tools = ToolManager(self, self.__mgr_build)
 
     @property
@@ -73,13 +71,6 @@ class BugZoo(object):
         The sources registered with this BugZoo installation.
         """
         return self.__sources
-
-    @property
-    def datasets(self) -> DatasetManager:
-        """
-        The datasets registered with this BugZoo installation.
-        """
-        return self.__datasets
 
     @property
     def tools(self) -> ToolManager:
