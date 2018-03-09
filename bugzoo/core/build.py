@@ -1,9 +1,9 @@
+from typing import Optional
+from pprint import pprint as pp
 import warnings
 import os
 import shutil
-import typing
 import json
-from pprint import pprint as pp
 
 import docker
 import yaml
@@ -43,8 +43,6 @@ class BuildInstructions(object):
             raise Exception("Illegal build instructions: missing `build` or `docker` property")
 
         tag = yml['tag']
-        context = yml.get('context', '.')
-        filename = yml.get('file', 'Dockerfile')
 
         if 'build-arguments' in yml:
             arguments = yml['build-arguments']
@@ -65,7 +63,7 @@ class BuildInstructions(object):
                  context: str,
                  filename: str,
                  arguments: dict,
-                 depends_on: str):
+                 depends_on: Optional[str]):
         self.__source = source
         self.__root = root
         self.__tag = tag
