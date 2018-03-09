@@ -1,126 +1,241 @@
-from typing import Iterator
+from typing import Iterator, Tuple
 import os
 import json
+import urllib
+import urllib.parse
 
 import git
 import yaml
 import shutil
 
-from ..core.source import Source
+from .build import BuildManager
+from ..core.build import BuildInstructions
+from ..core.tool import Tool
+from ..core.source import Source, SourceContents
 from ..core.errors import SourceAlreadyRegisteredWithURL, \
                           SourceNotFoundWithURL, \
-                          SourceNotFoundWithName
+                          SourceNotFoundWithName, \
+                          SourceAlreadyLoaded
 
 
 class SourceManager(object):
-    def __init__(self, installation: 'BugZoo'):
+    """
+    TODO: we *could* cache the contents of all of the sources to disk, avoiding
+        the need to scan for them at startup. Although that might be cool, it
+        seems like overengineering and may create compatibility headaches in
+        the future.
+    """
+    def __init__(self,
+                 installation: 'BugZoo'):
         self.__installation = installation
         self.__path = os.path.join(installation.path, 'sources')
-        self.__registry_fn = os.path.join(self.__path, 'registry.json')
+        # TODO
+        self.__registry_fn = os.path.join(self.__path, '.bugzoo.yml')
+        self.refresh()
+
+    def refresh(self) -> None:
+        """
+        Reloads all sources that are registered with this server.
+        """
+        self.__installation.bugs.clear()
+        self.__installation.tools.clear()
+        self.__installation.build.clear()
         self.__sources = {}
-        self.scan()
+        self.__contents = {}
 
-    @property
-    def path(self) -> str:
-        return self.__path
-
-    @property
-    def installation(self) -> 'BugZoo':
-        return self.__installation
-
-    def scan(self) -> None:
         if not os.path.exists(self.__registry_fn):
-            self.__sources = {}
             return
 
+        # TODO add version
         with open(self.__registry_fn, 'r') as f:
-            srcs = json.load(f)
-        assert isinstance(srcs, list)
+            registry = json.load(f)
+        assert isinstance(registry, list)
 
-        self.__sources = {s: self.load(s) for s in srcs}
+        for source_description in registry:
+            source = Source.from_dict(source_description)
+            self.load(source)
 
-    def __write(self) -> None:
+    def save(self) -> None:
+        """
+        Saves the contents of the source manager to disk.
+        """
+        d = [s.to_dict() for s in self.__sources]
         with open(self.__registry_fn, 'w') as f:
-            srcs = list(self.__sources.keys())
-            json.dump(srcs, f, indent=2)
+            json.dump(d, f, indent=2)
 
-    def exists(self, url: str) -> bool:
-        return url in self.__sources
-
-    def __download(self, url: str) -> None:
-        abs_path = Source.url_to_abs_path(self, url)
-        # TODO: throw appropriate exception
-        assert not os.path.exists(abs_path)
+    def unload(self, source: Source) -> None:
+        """
+        Unloads a registered source, causing all of its associated bugs, tools,
+        and blueprints to also be unloaded. If the given source is not loaded,
+        this function will do nothing.
+        """
         try:
-            git.Repo.clone_from(url, abs_path)
-        except:
-            shutil.rmtree(abs_path, ignore_errors=True)
-        return self.load(url)
+            contents = self.contents(source)
+            del self.__contents[source.name]
+            del self.__sources[source.name]
 
-    def load(self, url: str) -> Source:
-        rel_path = Source.url_to_rel_path(url)
-        abs_path = Source.url_to_abs_path(self, url)
-        manifest_path = os.path.join(abs_path, '.bugzoo.yml')
-        with open(manifest_path, 'r') as f:
-            yml = yaml.load(f)
-        return Source.from_dict(self, url, yml)
+            for bug in contents.bugs:
+                self.__installation.bugs.remove(bug)
+            for blueprint in contents.blueprints:
+                self.__installation.build.remove(blueprint)
+            for tool in contents.tools:
+                self.__installation.tools.remove(tool)
+        except KeyError:
+            pass
 
-    def add(self, url: str) -> Source:
-        assert url != ""
-        if url in self.__sources:
-            raise SourceAlreadyRegisteredWithURL(url)
-
-        src = self.__download(url)
-        self.__sources[src.url] = src
-        self.__write()
-        return src
-
-    def __remove(self, src: Source) -> None:
-        src.remove()
-        del self.__sources[src.url]
-        self.__write()
-
-    def remove_by_url(self, url: str) -> None:
-        assert url != ""
-        src = self.get_by_url(url)
-        assert isinstance(src, Source)
-        self.__remove(src)
-
-    def remove_by_name(self, name: str) -> None:
-        assert name != ""
-        src = self.get_by_name(name)
-        assert isinstance(src, Source)
-        self.__remove(src)
-
-    def update(self) -> None:
-        for src in self.__sources.values():
-            src.update()
-
-    def get_by_name(self, name: str) -> Source:
+    def load(source: Source) -> None:
         """
-        Retrieves the source associated with a given name.
+        Attempts to load all resources (i.e., bugs, tools, and blueprints)
+        provided by a given source. If the given source has already been
+        loaded, then that resources for that source are unloaded and
+        reloaded.
+        """
+        self.unload(source)
+
+        tools = []
+        bugs = []
+        blueprints = []
+
+        def parse_blueprint(manifest_path: str, d: dict) -> BuildInstructions:
+            root_dir = os.path.dirname(manifest_path)
+            return BuildInstructions(os.path.dirname(manifest_path),
+                                     d['tag'],
+                                     d.get('context', '.'),
+                                     d.get('arguments', {}),
+                                     d.get('file', 'Dockerfile'),
+                                     d.get('depends-on', None))
+
+        def read_blueprint_file(manifest_path: str) -> BuildInstructions:
+            with open(manifest_path, 'r') as f:
+                return parse_blueprint(manifest_path, yaml.load(f))
+
+        def read_bug_file(manifest_path: str
+                          ) -> Tuple[Bug, BuildInstructions]:
+            with open(manifest_path, 'r') as f:
+                d = yaml.load(f)
+                blueprint = parse_blueprint(manifest_path, d['build'])
+                bug = Bug(yml['bug'],
+                          yml.get('dataset', None),
+                          yml.get('program', None),
+                          source.name,
+                          yml['source-location'],
+                          [Language[lang] for lang in yml['languages']],
+                          TestSuite.from_dict(yml['test-harness']),
+                          Compiler.from_dict(yml['compiler']))
+                return (bug, blueprint)
+
+        # find all tools
+        manifest_fn = os.path.join(source.location, '.bugzoo.yml')
+        if os.path.exists(manifest_fn):
+            with open(manifest_fn, 'r') as f:
+                manifest = yaml.load(f)
+                # TODO we actually ignore dataset manifests :-)
+                if d['type'] == 'tool':
+                    blueprint = parse_blueprint(d['build-instructions'])
+                    tool = Tool(d['name'],
+                                d.get('environment', {}),
+                                blueprint.tag)
+                    tools[tool.name] = tool
+                    blueprints[blueprint.tag] = blueprint
+
+        # find all blueprints
+        glob_pattern = '{}/**/*.dependency.y*ml'.format(source.location)
+        for fn in glob.iglob(glob_pattern, recursive=True):
+            if fn.endswith('.yml') or fn.endswith('.yaml'):
+                blueprint = read_blueprint_file(fn)
+                blueprints[blueprint.tag] = blueprint
+
+        # find all bugs
+        glob_pattern = '{}/**/*.bug.y*ml'.format(ABS_PATH_TODO_ADD)
+        for fn in glob.iglob(glob_pattern, recursive=True):
+            if fn.endswith('.yml') or fn.endswith('.yaml'):
+                bug, blueprint = read_bug_file(fn)
+                bug[bug.tag] = bug
+                blueprints[blueprint.tag] = blueprint
+
+        # register contents
+        for bug in bugs:
+            self.__installation.bugs.add(bug)
+        for tool in tools:
+            self.__installation.tools.add(tool)
+        for blueprints in blueprints:
+            self.__installation.build.add(blueprint)
+
+        # record contents of source
+        contents = SourceContents([b.name for b in blueprints],
+                                  [b.name for b in bugs],
+                                  [t.name for t in tools])
+        self.__contents[source.name] = contents
+
+    def contents(source: Source) -> SourceContents:
+        """
+        Returns a summary of the bugs, tools, and blueprints provided by a
+        given source.
+        """
+        return self.__contents[source.name]
+
+    def add(self, name: str, path_or_url: str) -> Source:
+        """
+        Attempts to register a source provided by a given URL or local path
+        under a given name.
+
+        Returns:
+            a description of the registered source.
 
         Raises:
-            SourceNotFoundWithName: if no source is associated with that name.
+            NameInUseError: if an existing source is already registered under
+                the given name.
+            IOError: if no directory exists at the given path.
+            IOError: if downloading the remote source failed. (FIXME)
         """
-        for s in self:
-            if s.name == name:
-                return s
+        if name in self.__sources:
+            raise NameInUseError(name)
 
-        raise SourceNotFoundWithName(name)
+        is_url = False
+        try:
+            scheme = urllib.parse.urlparse(path_or_url).scheme
+            is_url = scheme in ['http', 'https']
+        except ValueError:
+            pass
 
-    def get_by_url(self, url: str) -> Source:
+        if is_url:
+            url = url_or_path
+            path = url_to_local_path(path_or_url)
+
+            # download from remote to local
+            shutil.rmtree(path, ignore_errors=True)
+            try:
+                # TODO shallow clone
+                git.Repo.clone_from(url, path)
+            except: # TODO determine error type
+                shutil.rmtree(path, ignore_errors=True)
+                raise IOError("failed to download remote source to local installation: '{}' -> '{}'".format(url, path))
+            source = RemoteSource(name, url, path)
+
+        else:
+            path = os.path.abspath(path_or_url)
+            if not os.path.isdir(path):
+                raise IOError("no directory found at path: {}".format(path))
+            source = LocalSource(name, path)
+
+        self.load(source)
+        self.save()
+
+    def remove(self, source: Source) -> None:
         """
-        Retrieves the source provided by a given URL.
+        Unregisters a given source with this server. If the given source is a
+        remote source, then its local copy will be removed from disk.
 
         Raises:
-            IndexError: if no source is associated with that URL.
+            KeyError: if the given source is not registered with this server.
         """
-        if url in self.__sources:
-            return self.__sources[url]
-
-        raise SourceNotFoundWithURL(url)
+        self.unload(source)
+        if isinstance(source, RemoteSource):
+            shutil.rmtree(source.location, ignore_errors=True)
+        self.save()
 
     def __iter__(self) -> Iterator[Source]:
-        for src in self.__sources.values():
-            yield src
+        """
+        Returns an iterator over the sources registered with this server.
+        """
+        return self.__sources.values().__iter__()
