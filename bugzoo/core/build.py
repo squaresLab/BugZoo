@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict
 from pprint import pprint as pp
 import warnings
 import os
@@ -15,56 +15,12 @@ class BuildInstructions(object):
 
     TODO: only allow relative, forward roots
     """
-    @staticmethod
-    def from_file(source: 'Source', fn: str) -> 'BuildInstructions':
-        """
-        Loads a set of build instructions belonging to a given source from a
-        specified YAML file.
-
-        Parameters:
-            fn: the name of the file.
-        """
-        with open(fn, 'r') as f:
-            yml = yaml.load(f)
-        root = os.path.dirname(fn)
-        return BuildInstructions.from_dict(source, root, yml)
-
-    @staticmethod
-    def from_dict(source: 'Source', root: str, yml: dict) -> 'BuildInstructions':
-        """
-        Loads a set of build instructions from a dictionary.
-        """
-        if 'docker' in yml:
-            yml = yml['docker']
-            warnings.warn("'docker' property is deprecated; use 'build' instead.", DeprecationWarning)
-        elif 'build' in yml:
-            yml = yml['build']
-        else:
-            raise Exception("Illegal build instructions: missing `build` or `docker` property")
-
-        tag = yml['tag']
-
-        if 'build-arguments' in yml:
-            arguments = yml['build-arguments']
-            warnings.warn("'build.build-arguments' property is deprecated; use 'build.arguments' instead.", DeprecationWarning)
-        elif 'arguments' in yml:
-            arguments = yml['arguments']
-        else:
-            arguments = {}
-
-        depends_on = yml.get('depends-on', None)
-
-        return BuildInstructions(source, root, tag, context, filename, arguments, depends_on)
-
-    def __init__(self,
-                 source: 'Source',
-                 root: str,
+    def __init__(root: str,
                  tag: str,
                  context: str,
                  filename: str,
-                 arguments: dict,
+                 arguments: Dict[str, str],
                  depends_on: Optional[str]):
-        self.__source = source
         self.__root = root
         self.__tag = tag
         self.__context = context
@@ -95,10 +51,6 @@ class BuildInstructions(object):
         return self.__context
 
     @property
-    def source(self) -> 'Source':
-        return self.__source
-
-    @property
     def abs_context(self) -> str:
         path = os.path.join(self.root, self.context)
         path = os.path.normpath(path)
@@ -118,7 +70,7 @@ class BuildInstructions(object):
         return os.path.join(self.root, self.file)
 
     @property
-    def arguments(self):
+    def arguments(self) -> Dict[str, str]:
         """
         A dictionary of build-time arguments provided during the construction
         of the Docker image associated with these instructions.
