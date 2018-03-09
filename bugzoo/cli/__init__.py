@@ -1,13 +1,14 @@
+from typing import List, Optional, Dict
 import sys
 import argparse
-import tabulate
-import bugzoo.errors
-import bugzoo.version
-
-from typing import List, Optional, Dict
 from operator import itemgetter
-from bugzoo.manager import BugZoo
-from bugzoo.tool import Tool
+
+import tabulate
+
+import bugzoo.core.errors
+import bugzoo.version
+from ..manager import BugZoo
+from ..core.tool import Tool
 
 
 def error(msg: str) -> None:
@@ -37,7 +38,7 @@ def add_source(rbox: 'BugZoo', url: str) -> None:
     try:
         rbox.sources.add(url)
         print('added source: {}'.format(url))
-    except bugzoo.errors.SourceAlreadyRegisteredWithURL:
+    except bugzoo.core.errors.SourceAlreadyRegisteredWithURL:
         print('source already registered with URL: {}'.format(url))
 
 
@@ -45,7 +46,7 @@ def remove_source(rbox: 'BugZoo', url: str) -> None:
     try:
         rbox.sources.remove_by_url(url)
         print('removed source: {}'.format(url))
-    except bugzoo.errors.SourceNotFoundWithURL as err:
+    except bugzoo.core.errors.SourceNotFoundWithURL as err:
         print("no source registered with URL: {}".format(err.url))
 
 
@@ -57,8 +58,6 @@ def update_sources(rbox: 'BugZoo', ) -> None:
 ###############################################################################
 # [dataset] group
 ###############################################################################
-
-
 def list_datasets(rbox: 'BugZoo') -> None:
     tbl = []
     hdrs = ['Dataset', 'Source', '# Bugs']
@@ -77,12 +76,10 @@ def list_datasets(rbox: 'BugZoo') -> None:
 ###############################################################################
 # [bug] group
 ###############################################################################
-
-
 def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
     print('validating bug: {}'.format(name))
     bug = rbox.bugs[name]
-    if bug.validate(verbose=verbose):
+    if rbox.bugs.validate(bug, verbose=verbose):
         print('OK')
     else:
         print('FAIL')
@@ -91,25 +88,25 @@ def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
 def build_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.build(force=force)
+    rbox.bugs.build(bug, force=force)
 
 
 def download_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('downloading bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.download(force=force)
+    rbox.bugs.download(bug, force=force)
 
 
 def upload_bug(rbox: 'BugZoo', name: str) -> None:
     print('uploading bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.upload()
+    rbox.bugs.upload(bug)
 
 
 def uninstall_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling bug: {}'.format(name))
     bug = rbox.bugs[name]
-    bug.uninstall(force=force)
+    rbox.bugs.uninstall(bug, force=force)
 
 
 def list_bugs_quiet(rbox: 'BugZoo') -> None:
@@ -127,13 +124,14 @@ def list_bugs(rbox: 'BugZoo',
     tbl = []
     hdrs = ['Bug', 'Source', 'Installed?']
     for bug in rbox.bugs:
+        is_installed = rbox.bugs.is_installed(bug)
 
         # apply filtering based on installation status
         if show_installed is not None:
-            if show_installed != bug.installed:
+            if show_installed != is_installed:
                 continue
 
-        installed = 'Yes' if bug.installed else 'No'
+        installed = 'Yes' if is_installed else 'No'
         row = [bug.identifier, bug.dataset.name, installed]
         tbl.append(row)
 
@@ -149,36 +147,39 @@ def list_bugs(rbox: 'BugZoo',
 ###############################################################################
 # [tool] group
 ###############################################################################
-
 def uninstall_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling tool: {}'.format(name))
     try:
-        rbox.tools[name].uninstall(force=force)
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.uninstall(tool, force=force)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
 def build_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building tool: {}'.format(name))
     try:
-        rbox.tools[name].build(force=force)
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.build(tool, force=force)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
 def download_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('downloading tool: {}'.format(name))
     try:
-        rbox.tools[name].download(force=force)
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.download(tool, force=force)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
 def upload_tool(rbox: 'BugZoo', name: str) -> None:
     print('uploading tool: {}'.format(name))
     try:
-        rbox.tools[name].upload()
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.upload(tool)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
@@ -198,13 +199,14 @@ def list_tools(rbox: 'BugZoo',
     tbl = []
     hdrs = ['Tool', 'Source', 'Installed?']
     for tool in rbox.tools:
+        is_installed = rbox.tools.is_installed(tool)
 
         # apply filtering based on installation status
         if show_installed is not None:
-            if show_installed != tool.installed:
+            if show_installed != is_installed:
                 continue
 
-        installed = 'Yes' if tool.installed else 'No'
+        installed = 'Yes' if is_installed else 'No'
         row = [tool.name, tool.url, installed]
         tbl.append(row)
 
@@ -284,7 +286,7 @@ def launch(bz: 'BugZoo',
         if interactive:
             c.interact()
 
-    except bugzoo.errors.BugNotInstalledError:
+    except bugzoo.core.errors.BugNotInstalledError:
         error("bug not installed: {}".format(bug_name))
 
     # ensure that the container is always destroyed

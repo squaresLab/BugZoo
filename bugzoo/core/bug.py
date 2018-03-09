@@ -1,21 +1,21 @@
+from typing import List, Iterator, Dict, Optional
 import os
-import yaml
-import docker
 import copy
 import textwrap
-import bugzoo
 
-from typing import List, Iterator, Dict, Optional
-from bugzoo.core import Language
-from bugzoo.util import print_task_start, print_task_end
-from bugzoo.build import BuildInstructions
-from bugzoo.container import Container
-from bugzoo.tool import Tool
-from bugzoo.testing import TestCase, TestOutcome, TestSuite
-from bugzoo.coverage import ProjectLineCoverage, \
-                            ProjectCoverageMap, \
-                            Spectra
-from bugzoo.compiler import Compiler
+import yaml
+import docker
+
+import bugzoo
+from .language import Language
+from .tool import Tool
+from .build import BuildInstructions
+from ..container import Container
+from ..compiler import Compiler
+from ..testing import TestCase, TestOutcome, TestSuite
+from ..coverage import ProjectLineCoverage, \
+                       ProjectCoverageMap, \
+                       Spectra
 
 
 class Bug(object):
@@ -116,8 +116,7 @@ class Bug(object):
             'uid': self.uid,
             'program': self.program,
             'dataset': self.dataset.name if self.dataset else None,
-            'languages': [l.name for l in self.__languages],
-            'installed': self.installed
+            'languages': [l.name for l in self.__languages]
         }
         return jsn
 
@@ -141,6 +140,10 @@ class Bug(object):
         no program is specified for this bug, None will be returned instead.
         """
         return self.__program
+
+    @property
+    def build_instructions(self) -> BuildInstructions:
+        return self.__build_instructions
 
     @property
     def compiler(self) -> Compiler:
@@ -211,14 +214,6 @@ class Bug(object):
         return Spectra.from_coverage(self.coverage)
 
     @property
-    def installed(self) -> bool:
-        """
-        Indicates whether the Docker image for this bug is installed on the
-        local machine.
-        """
-        return self.__build_instructions.installed
-
-    @property
     def image(self) -> str:
         """
         The name of the Docker image for this bug.
@@ -234,103 +229,6 @@ class Bug(object):
             return "{}:{}:{}".format(self.__dataset.name, self.__program, self.__name)
         return "{}:{}".format(self.__dataset.name, self.__name)
     uid = identifier
-
-    def validate(self, verbose: bool = True) -> bool:
-        """
-        Checks that this bug successfully builds and that it produces an
-        expected set of test suite outcomes.
-
-        :param verbose: toggles verbosity of output. If set to `True`, the
-            outcomes of each test suite will be printed to the standard output.
-
-        :returns `True` if bug builds and produces expected outcomes, else
-            `False`.
-        """
-
-        # attempt to rebuild -- don't worry, Docker's layer caching prevents us
-        # from actually having to rebuild everything from scratch :-)
-        try:
-            self.build(force=True, quiet=True)
-        except docker.errors.BuildError:
-            print("failed to build bug: {}".format(self.identifier))
-            return False
-
-        # provision a container
-        validated = True
-        try:
-            c = None
-            c = self.provision()
-
-            # ensure we can compile the bug
-            # TODO: check compilation status!
-            print_task_start('Compiling')
-            c.compile()
-            print_task_end('Compiling', 'OK')
-
-            if isinstance(self.harness, bugzoo.testing.GenProgTestSuite):
-
-                for t in self.harness.passing:
-                    task = 'Running test: {}'.format(t.identifier)
-                    print_task_start(task)
-
-                    outcome = c.execute(t)
-                    if not outcome.passed:
-                        validated = False
-                        print_task_end(task, 'UNEXPECTED: FAIL')
-                        response = textwrap.indent(outcome.response.output, ' ' * 4)
-                        print('\n' + response)
-                    else:
-                        print_task_end(task, 'OK')
-
-                for t in self.harness.failing:
-                    task = 'Running test: {}'.format(t.identifier)
-                    print_task_start(task)
-
-                    outcome = c.execute(t)
-                    if outcome.passed:
-                        validated = False
-                        print_task_end(task, 'UNEXPECTED: PASS')
-                        response = textwrap.indent(outcome.response.output, ' ' * 4)
-                        print('\n' + response)
-                    else:
-                        print_task_end(task, 'OK')
-
-        # ensure that the container is destroyed!
-        finally:
-            if c:
-                c.destroy()
-
-        return validated
-
-    def build(self, force=False, quiet=False) -> None:
-        """
-        Builds the Docker image for this bug.
-        """
-        self.__build_instructions.build(force=force, quiet=quiet)
-
-    def uninstall(self, force=False, noprune=False) -> None:
-        """
-        Uninstalls all Docker images associated with this bug.
-        """
-        self.__build_instructions.uninstall(force=force, noprune=noprune)
-
-    def download(self, force=False) -> bool:
-        """
-        Attempts to download the image for this bug from
-        `DockerHub <https://hub.docker.com>`_. If the force parameter is set to
-        True, any existing image will be overwritten.
-
-        Returns:
-            `True` if successfully downloaded, else `False`.
-        """
-        return self.__build_instructions.download(force=force)
-
-    def upload(self) -> bool:
-        """
-        Attempts to upload the image for this bug to
-        `DockerHub <https://hub.docker.com>`_.
-        """
-        return self.__build_instructions.upload()
 
     def provision(self,
                   volumes : Dict[str, str] = {},

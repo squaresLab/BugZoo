@@ -1,13 +1,14 @@
+from typing import List
 import os
-import yaml
 import json
 import glob
 import copy
 
-from typing import List
-from bugzoo.bug import Bug
-from bugzoo.build import BuildInstructions
-from bugzoo.source import Source, SourceManager
+import yaml
+
+from .bug import Bug
+from .build import BuildInstructions
+from .source import Source
 
 
 class Dataset(Source):
@@ -52,11 +53,13 @@ class Dataset(Source):
         Removes the files for this dataset from disk, and uninstalls all
         associated Docker images. This should only be called by DatasetManager.
         """
+        manager_bug = self.manager.installation.bugs
+        manager_build = self.manager.installation.build
         for bug in self.bugs:
-            bug.uninstall(force=True)
+            manager_bug.uninstall(bug, force=True)
 
         for dep in self.__dependencies.values():
-            dep.uninstall(force=True)
+            manager_build.uninstall(dep, force=True)
 
         super().remove()
 

@@ -14,7 +14,7 @@ setup(
     description='TBA',
     long_description='TBA',
     author='Chris Timperley',
-    author_email='christimperley@gmail.com',
+    author_email='ctimperley@cmu.edu',
     url='https://github.com/squaresLab/BugZoo',
     license='mit',
     install_requires=[
@@ -32,7 +32,9 @@ setup(
         'bugzoo.localization',
         'bugzoo.compiler',
         'bugzoo.server',
-        'bugzoo.core'
+        'bugzoo.mgr',
+        'bugzoo.core',
+        'bugzoo.cli'
     ],
     entry_points = {
         'console_scripts': [

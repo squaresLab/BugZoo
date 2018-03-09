@@ -1,10 +1,14 @@
+from typing import Iterator
 import os
 
-from typing import Iterator
-from bugzoo.source import SourceManager
-from bugzoo.bug import Bug
-from bugzoo.dataset import Dataset
-from bugzoo.tool import Tool
+import docker
+
+from .mgr.build import BuildManager
+from .mgr.source import SourceManager
+from .mgr.dataset import DatasetManager
+from .mgr.tool import ToolManager
+from .mgr.bug import BugManager
+
 
 
 class BugZoo(object):
@@ -33,10 +37,13 @@ class BugZoo(object):
         if not os.path.exists(self.coverage_path):
             os.makedirs(self.coverage_path)
 
+        client_docker = docker.from_env()
+
+        self.__mgr_build = BuildManager(client_docker)
         self.__sources = SourceManager(self)
-        self.__datasets = Datasets(self)
-        self.__bugs = Bugs(self)
-        self.__tools = Tools(self)
+        self.__datasets = DatasetManager(self)
+        self.__bugs = BugManager(self, self.__mgr_build)
+        self.__tools = ToolManager(self, self.__mgr_build)
 
     @property
     def path(self) -> str:
@@ -57,101 +64,33 @@ class BugZoo(object):
         self.__sources.scan()
 
     @property
-    def sources(self):
+    def build(self) -> BuildManager:
+        return self.__mgr_build
+
+    @property
+    def sources(self) -> SourceManager:
         """
         The sources registered with this BugZoo installation.
         """
         return self.__sources
 
     @property
-    def datasets(self):
+    def datasets(self) -> DatasetManager:
         """
         The datasets registered with this BugZoo installation.
         """
         return self.__datasets
 
     @property
-    def tools(self):
+    def tools(self) -> ToolManager:
         """
         The tools registered with this BugZoo installation.
         """
         return self.__tools
 
     @property
-    def bugs(self):
+    def bugs(self) -> BugManager:
         """
         The bugs registered with this BugZoo installation.
         """
         return self.__bugs
-
-
-class Tools(object):
-    def __init__(self, installation: 'BugZoo') -> None:
-        self.__installation = installation
-
-
-    def __iter__(self) -> Iterator[Tool]:
-        for src in self.__installation.sources:
-            if isinstance(src, Tool):
-                yield src
-
-
-    def __getitem__(self, name_or_url: str) -> Dataset:
-        for tool in self.__iter__():
-            if tool.name == name_or_url or tool.url == name_or_url:
-                return tool
-        raise IndexError
-
-
-class Datasets(object):
-    def __init__(self, installation: 'BugZoo') -> None:
-        self.__installation = installation
-
-
-    def __iter__(self) -> Iterator[Dataset]:
-        for src in self.__installation.sources:
-            if isinstance(src, Dataset):
-                yield src
-
-
-    def __getitem__(self, name_or_url: str) -> Dataset:
-        for dataset in self.__iter__():
-            if dataset.name == name_or_url or dataset.url == name_or_url:
-                return dataset
-        raise IndexError
-
-
-class Bugs(object):
-    """
-    Used to access and manage all bugs registered with a local BugZoo
-    installation.
-    """
-    class BugIterator(object):
-        def __init__(self, datasets):
-            self.__datasets = [d for d in datasets]
-            self.__bugs = []
-
-
-        def __next__(self):
-            if not self.__bugs:
-                if not self.__datasets:
-                    raise StopIteration
-                src = self.__datasets.pop()
-                self.__bugs += src.bugs
-                return self.__next__()
-            return self.__bugs.pop()
-
-
-    def __init__(self, installation: 'BugZoo') -> None:
-        self.__installation = installation
-
-
-    def __getitem__(self, name: str) -> Bug:
-        for src in self.__installation.datasets:
-            if src.contains(name):
-                return src[name]
-        raise IndexError('bug not found: {}'.format(name))
-
-
-    def __iter__(self):
-        return Bugs.BugIterator(self.__installation.datasets)

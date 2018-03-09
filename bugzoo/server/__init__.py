@@ -1,4 +1,5 @@
 import flask
+
 from bugzoo.server.daemon import Daemon
 from bugzoo.server.code import ErrorCode
 

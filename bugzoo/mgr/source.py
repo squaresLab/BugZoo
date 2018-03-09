@@ -1,91 +1,19 @@
 from typing import Iterator
-import bugzoo.errors
-import git
-import json
-import yaml
 import os
+import json
+
+import git
+import yaml
 import shutil
 
-
-class Source(object):
-    @staticmethod
-    def from_dict(manager: 'SourceManager',
-                  url: str,
-                  d: dict) -> 'Source':
-        if d['type'] == 'dataset':
-            import bugzoo.dataset
-            return bugzoo.dataset.Dataset.from_dict(manager, url, d)
-        if d['type'] == 'tool':
-            import bugzoo.tool
-            return bugzoo.tool.Tool.from_dict(manager, url, d)
-
-        # TODO
-        raise "UNEXPECTED SOURCE TYPE"
-
-    @staticmethod
-    def url_to_rel_path(url: str) -> str:
-        rel_path = url.replace('https://', '')
-        rel_path = rel_path.replace('/', '_')
-        rel_path = rel_path.replace('.', '_')
-        return rel_path
-
-    @staticmethod
-    def url_to_abs_path(manager: 'SourceManager', url: str) -> str:
-        rel_path = Source.url_to_rel_path(url)
-        return os.path.join(manager.path, rel_path)
-
-    def __init__(self,
-                 manager: 'SourceManager',
-                 url: str,
-                 name: str) -> None:
-        self.__manager = manager
-        self.__url = url
-        self.__name = name
-        self.__repo = git.Repo(self.abs_path)
-
-    @property
-    def manifest_fn(self) -> str:
-        return os.path.join(self.abs_path, '.bugzoo.yml')
-
-    @property
-    def name(self) -> str:
-        return self.__name
-
-    @property
-    def version(self) -> str:
-        """
-        The current version of this source, given as the first eight characters
-        of its current revision.
-        """
-        sha = self.__repo.head.object.hexsha
-        return self.__repo.git.rev_parse(sha, short=8)
-
-    def update(self) -> None:
-        origin = self.__repo.remotes.origin
-        origin.pull()
-
-    def remove(self) -> None:
-        shutil.rmtree(self.abs_path)
-
-    @property
-    def manager(self):
-        return self.__manager
-
-    @property
-    def url(self) -> str:
-        return self.__url
-
-    @property
-    def rel_path(self) -> str:
-        return Source.url_to_rel_path(self.url)
-
-    @property
-    def abs_path(self) -> str:
-        return Source.url_to_abs_path(self.manager, self.url)
+from ..core.source import Source
+from ..core.errors import SourceAlreadyRegisteredWithURL, \
+                          SourceNotFoundWithURL, \
+                          SourceNotFoundWithName
 
 
 class SourceManager(object):
-    def __init__(self, installation: 'BugZoo') -> None:
+    def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
         self.__path = os.path.join(installation.path, 'sources')
         self.__registry_fn = os.path.join(self.__path, 'registry.json')
@@ -139,9 +67,8 @@ class SourceManager(object):
 
     def add(self, url: str) -> Source:
         assert url != ""
-        # TODO: new exception
         if url in self.__sources:
-            raise bugzoo.errors.SourceAlreadyRegisteredWithURL(url)
+            raise SourceAlreadyRegisteredWithURL(url)
 
         src = self.__download(url)
         self.__sources[src.url] = src
@@ -180,7 +107,7 @@ class SourceManager(object):
             if s.name == name:
                 return s
 
-        raise bugzoo.errors.SourceNotFoundWithName(name)
+        raise SourceNotFoundWithName(name)
 
     def get_by_url(self, url: str) -> Source:
         """
@@ -192,7 +119,7 @@ class SourceManager(object):
         if url in self.__sources:
             return self.__sources[url]
 
-        raise bugzoo.errors.SourceNotFoundWithURL(url)
+        raise SourceNotFoundWithURL(url)
 
     def __iter__(self) -> Iterator[Source]:
         for src in self.__sources.values():
