@@ -43,7 +43,7 @@ class BugZoo(object):
         self.__sources = SourceManager(self)
         self.__datasets = DatasetManager(self)
         self.__bugs = BugManager(self, self.__mgr_build)
-        self.__tools = ToolManager(self)
+        self.__tools = ToolManager(self, self.__mgr_build)
 
     @property
     def path(self) -> str:

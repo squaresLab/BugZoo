@@ -147,36 +147,39 @@ def list_bugs(rbox: 'BugZoo',
 ###############################################################################
 # [tool] group
 ###############################################################################
-
 def uninstall_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('uninstalling tool: {}'.format(name))
     try:
-        rbox.tools[name].uninstall(force=force)
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.uninstall(tool, force=force)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
 def build_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building tool: {}'.format(name))
     try:
-        rbox.tools[name].build(force=force)
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.build(tool, force=force)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
 def download_tool(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('downloading tool: {}'.format(name))
     try:
-        rbox.tools[name].download(force=force)
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.download(tool, force=force)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
 def upload_tool(rbox: 'BugZoo', name: str) -> None:
     print('uploading tool: {}'.format(name))
     try:
-        rbox.tools[name].upload()
-    except IndexError:
+        tool = rbox.tools[name]
+        rbox.tools.upload(tool)
+    except KeyError:
         error("no tool found with the given name: {}".format(name))
 
 
@@ -196,13 +199,14 @@ def list_tools(rbox: 'BugZoo',
     tbl = []
     hdrs = ['Tool', 'Source', 'Installed?']
     for tool in rbox.tools:
+        is_installed = rbox.tools.is_installed(tool)
 
         # apply filtering based on installation status
         if show_installed is not None:
-            if show_installed != tool.installed:
+            if show_installed != is_installed:
                 continue
 
-        installed = 'Yes' if tool.installed else 'No'
+        installed = 'Yes' if is_installed else 'No'
         row = [tool.name, tool.url, installed]
         tbl.append(row)
 
