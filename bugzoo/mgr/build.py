@@ -26,6 +26,13 @@ class BuildManager(object):
         """
         return self.__instructions[name]
 
+    def __iter__(self) -> Iterator[BuildInstructions]:
+        """
+        Returns an iterator over all of the build instructions that are
+        registered with this server.
+        """
+        return self.__instructions.values().__iter__()
+
     def is_installed(self, name: str) -> bool:
         """
         Indicates a given Docker image is installed on this server.
