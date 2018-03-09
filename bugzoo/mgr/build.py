@@ -11,35 +11,48 @@ from ..core.errors import ImageBuildFailed
 class BuildManager(object):
     def __init__(self, client_docker: docker.DockerClient):
         self.__docker = client_docker
+        self.__instructions = {}
 
-    def is_installed(self, instructions: BuildInstructions) -> bool:
+    def __getitem__(self, name: str) -> BuildInstructions:
         """
-        Indicates whether the image associated with a given set of build
-        instructions is installed on this server.
+        Retrieves the build instructions associated for a named Docker image.
+
+        Parameter:
+            name: the name of the Docker image.
+
+        Raises:
+            KeyError: if no build instructions for the named image have been
+                registered with this manager.
+        """
+        return self.__instructions[name]
+
+    def is_installed(self, name: str) -> bool:
+        """
+        Indicates a given Docker image is installed on this server.
 
         Parameters:
-            instructions: The build instructions for the image.
+            name: the name of the Docker image.
 
         Returns:
             `True` if installed; `False` if not.
         """
         try:
-            self.__docker.images.get(instructions.tag)
+            self.__docker.images.get(name)
             return True
         except docker.errors.ImageNotFound:
             return False
 
     def build(self,
-              instructions: BuildInstructions,
+              name: str,
               force: bool = False,
               quiet: bool = False
               ) -> None:
         """
-        Constructs the Docker image described by a given set of build
-        instructions.
+        Constructs a Docker image, given by its name, using the set of build
+        instructions associated with that image.
 
         Parameters:
-            instructions: the build instructions for the image.
+            name: the name of the Docker image.
             force: if `True`, the image will be rebuilt, regardless of whether
                 or not it is already installed on the server. If `False` and
                 a (possibly outdated) version of the image has already been
@@ -47,16 +60,17 @@ class BuildManager(object):
             quiet: used to enable and disable output from the Docker build
                 process.
         """
+        instructions = self[name]
+
         if instructions.depends_on:
-            dep = instructions.source.dependencies[instructions.depends_on]
-            self.build(dep, force=force, quiet=quiet)
+            self.build(instructions.depends_on, force=force, quiet=quiet)
 
         if not force and self.is_installed(instructions):
             return
 
         # TODO use logger
         if not quiet:
-            print("Building image: {}".format(instructions.tag))
+            print("Building image: {}".format(name))
 
         tf = os.path.join(instructions.abs_context, '.Dockerfile')
         try:
@@ -64,7 +78,7 @@ class BuildManager(object):
             shutil.copy(instructions.file_abs, tf)
             response = self.__docker.api.build(path=instructions.abs_context,
                                                dockerfile='.Dockerfile',
-                                               tag=instructions.tag,
+                                               tag=name,
                                                # pull=force,
                                                buildargs=instructions.arguments,
                                                decode=True,
@@ -81,38 +95,37 @@ class BuildManager(object):
                         success = True
 
             if not success:
-                raise ImageBuildFailed(instructions.tag, log)
+                raise ImageBuildFailed(name, log)
 
             if success and not quiet:
-                print("Built image: {}".format(instructions.tag))
+                print("Built image: {}".format(name))
                 return
         finally:
             os.remove(tf)
 
     def uninstall(self,
-                  instructions: BuildInstructions,
+                  name: str,
                   force: bool = False,
                   noprune: bool = False
                   ) -> None:
         """
-        Attempts to uninstall the Docker image associated with a given set of
-        build instructions.
+        Attempts to uninstall a given Docker image.
 
         Parameters:
-            build:      The build instructions for the image.
-            force:      A flag indicating whether or not an exception should be
-                        thrown if the image associated with the given build
-                        instructions is not installed. If `True`, no exception
-                        will be thrown; if `False`, exception will be thrown.
-            noprune:    A flag indicating whether or not dangling image layers
-                        should also be removed.
+            name: the name of the Docker image.
+            force: a flag indicating whether or not an exception should be
+                thrown if the image associated with the given build
+                instructions is not installed. If `True`, no exception
+                will be thrown; if `False`, exception will be thrown.
+            noprune: a flag indicating whether or not dangling image layers
+                should also be removed.
 
         Raises:
             docker.errors.ImageNotFound: if the image associated with the given
                 instructions can't be found.
         """
         try:
-            self.__docker.images.remove(image=instructions.tag,
+            self.__docker.images.remove(image=name,
                                         force=force,
                                         noprune=noprune)
         except docker.errors.ImageNotFound as e:
@@ -121,30 +134,39 @@ class BuildManager(object):
             raise e
 
     def download(self,
-                 instructions: BuildInstructions,
+                 name: str,
                  force: bool = False
                  ) -> bool:
         """
-        Attempts to download the Docker image described by a given set of
-        instructions. If `force=True`, then any previously installed version
-        of the image (described by the instructions) will be replaced by the
-        image on DockerHub.
+        Attempts to download a given Docker image. If `force=True`, then any
+        previously installed version of the image (described by the
+        instructions) will be replaced by the image on DockerHub.
+
+        Parameters:
+            name: the name of the Docker image.
 
         Returns:
             `True` if successfully downloaded, otherwise `False`.
         """
-        tag = instructions.tag
         try:
-            self.__docker.images.pull(tag)
+            self.__docker.images.pull(name)
             return True
         except docker.errors.NotFound:
-            print("Failed to locate image on DockerHub: {}".format(tag))
+            print("Failed to locate image on DockerHub: {}".format(name))
             return False
 
-    def upload(self, instructions: BuildInstructions) -> bool:
-        tag = instructions.tag
+    def upload(self, name: str) -> bool:
+        """
+        Attempts to upload a given Docker image from this server to DockerHub.
+
+        Parameters:
+            name: the name of the Docker image.
+
+        Returns:
+            `True` if successfully uploaded, otherwise `False`.
+        """
         try:
-            out = self.__docker.images.push(tag, stream=True)
+            out = self.__docker.images.push(name, stream=True)
             for line in out:
                 line = line.strip().decode('utf-8')
                 jsn = json.loads(line)
@@ -153,8 +175,8 @@ class BuildManager(object):
                     print(line, end='\r')
                 elif 'status' in jsn:
                     print(jsn['status'])
-            print('uploaded image to DockerHub: {}'.format(tag))
+            print('uploaded image to DockerHub: {}'.format(name))
             return True
         except docker.errors.NotFound:
-            print("Failed to push image ({}): not installed.".format(tag))
+            print("Failed to push image ({}): not installed.".format(name))
             return False
