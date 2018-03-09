@@ -1,3 +1,4 @@
+from typing import List, Dict
 import os
 import shutil
 import json
@@ -43,6 +44,11 @@ class SourceContents(object):
 
 
 class Source(object):
+    """
+    Sources are used to provide access to blueprints for constructing bugs
+    and tools. Sources can be provided by either local directories or remote
+    Git repositories.
+    """
     @staticmethod
     def from_dict(d: dict) -> 'Source':
         if d['type'] == 'local':
@@ -51,13 +57,9 @@ class Source(object):
             return RemoteSource.from_dict(d)
         raise Exception("unsupported source type: {}".format(d['type']))
 
-    def __init__(self,
-                 name: str,
-                 url: str,
-                 location: str):
+    def __init__(self, name: str, location: str):
         self.__url = url
         self.__name = name
-        self.__repo = git.Repo(self.abs_path)
 
     @property
     def name(self) -> str:
@@ -73,30 +75,73 @@ class Source(object):
         """
         return self.__location
 
+
+class LocalSource(Source):
+    """
+    Local sources rely on a local directory to serve as a source of resources.
+
+    See: `Source`
+    """
+    @staticmethod
+    def from_dict(d: dict) -> 'LocalSource':
+        """
+        Constructs a local source from a dictionary-based description.
+        """
+        return LocalSource(d['name'], d['location'])
+
+    def to_dict(self) -> Dict[str, str]:
+        """
+        Produces a dictionary-based description of this source.
+        """
+        return {
+            'type': 'local',
+            'name': self.name,
+            'location': self.location
+        }
+
+
+class RemoteSource(Source):
+    """
+    Remote sources rely on a publicly accessible, remote Git repository to
+    provide a set of resources.
+
+    See: `Source`
+    """
+    @staticmethod
+    def from_dict(d: dict) -> 'RemoteSource':
+        """
+        Constructs a remote source from a dictionary-based description.
+        """
+        return RemoteSource(d['name'], d['location'], d['url'], d['version'])
+
+    def __init__(self, name: str, location: str, url: str, version: str):
+        super().__init__(name, location)
+        self.__url = url
+        self.__version = version
+
+    @property
+    def url(self) -> str:
+        """
+        The URL of the remote that provides this source.
+        """
+        return self.__url
+
     @property
     def version(self) -> str:
         """
         The current version of this source, given as the first eight characters
-        of its current revision.
+        of the SHA for the commit at the head of its associated Git repository.
         """
-        sha = self.__repo.head.object.hexsha
-        return self.__repo.git.rev_parse(sha, short=8)
+        return self.__version
 
-    def update(self) -> None:
-        origin = self.__repo.remotes.origin
-        origin.pull()
-
-    def remove(self) -> None:
-        shutil.rmtree(self.abs_path)
-
-    @property
-    def url(self) -> str:
-        return self.__url
-
-
-class RemoteSource(Source):
-    pass
-
-
-class LocalSource(Source):
-    pass
+    def to_dict(self) -> Dict[str, str]:
+        """
+        Produces a dictionary-based description of this source.
+        """
+        return {
+            'type': 'remote',
+            'name': self.name,
+            'location': self.location,
+            'url': self.url,
+            'version': self.version
+        }
