@@ -83,6 +83,13 @@ class SourceManager(object):
         except KeyError:
             pass
 
+    # TODO: reimplement
+    def update(self, source: Source) -> None:
+        raise NotImplementedError
+
+        #origin = self.__repo.remotes.origin
+        #origin.pull()
+
     def load(source: Source) -> None:
         """
         Attempts to load all resources (i.e., bugs, tools, and blueprints)
@@ -211,11 +218,13 @@ class SourceManager(object):
             shutil.rmtree(path, ignore_errors=True)
             try:
                 # TODO shallow clone
-                git.Repo.clone_from(url, path)
+                repo = git.Repo.clone_from(url, path)
+                sha = repo.head.object.hexsha
+                version = repo.git.rev_parse(sha, short=8)
             except: # TODO determine error type
                 shutil.rmtree(path, ignore_errors=True)
                 raise IOError("failed to download remote source to local installation: '{}' -> '{}'".format(url, path))
-            source = RemoteSource(name, url, path)
+            source = RemoteSource(name, url, path, version)
 
         else:
             path = os.path.abspath(path_or_url)
