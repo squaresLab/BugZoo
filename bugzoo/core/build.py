@@ -90,6 +90,7 @@ class BuildInstructions(object):
     @property
     def tag(self) -> str:
         return self.__tag
+    name = tag
 
     @property
     def context(self) -> str:
