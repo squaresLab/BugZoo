@@ -7,21 +7,42 @@ import git
 import bugzoo.core.errors
 
 
+class SourceContents(object):
+    """
+    Used to record the names of blueprints, bugs, and tools that are provided
+    by a source.
+    """
+    def __init__(self,
+                 blueprints: List[str],
+                 bugs: List[str],
+                 tools: List[str]):
+        self.__blueprints = blueprints[:]
+        self.__bugs = bugs[:]
+        self.__tools = tools[:]
+
+    @property
+    def blueprints(self) -> Iterator[str]:
+        """
+        The names of the blueprints that are provided by the source.
+        """
+        return self.__blueprints.__iter__()
+
+    @property
+    def bugs(self) -> Iterator[str]:
+        """
+        The names of the bugs that are provided by the source.
+        """
+        return self.__bugs.__iter__()
+
+    @property
+    def tools(self) -> Iterator[str]:
+        """
+        The names of the tools that are provided by the source.
+        """
+        return self.__tools.__iter__()
+
+
 class Source(object):
-    @staticmethod
-    def from_dict(manager: 'SourceManager',
-                  url: str,
-                  d: dict) -> 'Source':
-        if d['type'] == 'dataset':
-            from .dataset import Dataset
-            return Dataset.from_dict(manager, url, d)
-        if d['type'] == 'tool':
-            from .tool import Tool
-            return Tool.from_dict(manager, url, d)
-
-        # TODO
-        raise "UNEXPECTED SOURCE TYPE"
-
     @staticmethod
     def url_to_rel_path(url: str) -> str:
         rel_path = url.replace('https://', '')
@@ -44,10 +65,6 @@ class Source(object):
         self.__repo = git.Repo(self.abs_path)
 
     @property
-    def manifest_fn(self) -> str:
-        return os.path.join(self.abs_path, '.bugzoo.yml')
-
-    @property
     def name(self) -> str:
         return self.__name
 
@@ -66,6 +83,11 @@ class Source(object):
 
     def remove(self) -> None:
         shutil.rmtree(self.abs_path)
+
+    # FIXME temporary method to ease refactoring
+    @property
+    def installation(self) -> 'BugZoo':
+        return self.manager.installation
 
     @property
     def manager(self):
