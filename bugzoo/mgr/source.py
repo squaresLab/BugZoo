@@ -170,7 +170,7 @@ class SourceManager(object):
                                   [t.name for t in tools])
         self.__contents[source.name] = contents
 
-    def contents(source: Source) -> SourceContents:
+    def contents(self, source: Source) -> SourceContents:
         """
         Returns a summary of the bugs, tools, and blueprints provided by a
         given source.
