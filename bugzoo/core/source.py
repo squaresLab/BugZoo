@@ -58,7 +58,7 @@ class Source(object):
         raise Exception("unsupported source type: {}".format(d['type']))
 
     def __init__(self, name: str, location: str):
-        self.__url = url
+        self.__location = location
         self.__name = name
 
     @property
