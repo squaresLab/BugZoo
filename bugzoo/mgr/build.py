@@ -43,6 +43,14 @@ class BuildManager(object):
 
     add = register
 
+    def deregister(self, blueprint: BuildInstructions) -> None:
+        """
+        Attempts to deregister a given blueprint from this manager.
+        """
+        del self.__instructions[blueprint.name]
+
+    remove = deregister
+
     def is_installed(self, name: str) -> bool:
         """
         Indicates a given Docker image is installed on this server.
