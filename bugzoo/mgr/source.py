@@ -7,6 +7,7 @@ import urllib.parse
 import git
 import yaml
 import shutil
+import glob
 
 from .build import BuildManager
 from ..core.bug import Bug
