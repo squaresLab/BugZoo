@@ -12,10 +12,7 @@ from .build import BuildManager
 from ..core.build import BuildInstructions
 from ..core.tool import Tool
 from ..core.source import Source, SourceContents
-from ..core.errors import SourceAlreadyRegisteredWithURL, \
-                          SourceNotFoundWithURL, \
-                          SourceNotFoundWithName, \
-                          SourceAlreadyLoaded
+from ..core.errors import NameInUseError
 
 
 class SourceManager(object):

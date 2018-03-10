@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Iterator
 import os
 import shutil
 import json
