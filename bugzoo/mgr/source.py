@@ -27,6 +27,7 @@ class SourceManager(object):
     """
     def __init__(self,
                  installation: 'BugZoo'):
+        self.__logger = logging.getLogger('bugzoo.source')
         self.__installation = installation
         self.__path = os.path.join(installation.path, 'sources')
         # TODO
@@ -39,6 +40,7 @@ class SourceManager(object):
         """
         Reloads all sources that are registered with this server.
         """
+        self.__logger.info('refreshing sources')
         for source in self:
             self.unload(source)
 
@@ -54,13 +56,17 @@ class SourceManager(object):
             source = Source.from_dict(source_description)
             self.load(source)
 
+        self.__logger.info('refreshed sources')
+
     def save(self) -> None:
         """
         Saves the contents of the source manager to disk.
         """
+        self.__logger.info('saving registry to: %s', self.__registry_fn)
         d = [s.to_dict() for s in self.__sources]
         with open(self.__registry_fn, 'w') as f:
             yaml.dump(d, f, indent=2, default_flow_style=False)
+        self.__logger.info('saved registry to: %s', self.__registry_fn)
 
     def unload(self, source: Source) -> None:
         """
@@ -68,6 +74,7 @@ class SourceManager(object):
         and blueprints to also be unloaded. If the given source is not loaded,
         this function will do nothing.
         """
+        self.__logger.info('unloading source: %s', source.name)
         try:
             contents = self.contents(source)
             del self.__contents[source.name]
@@ -81,6 +88,7 @@ class SourceManager(object):
                 self.__installation.tools.remove(tool)
         except KeyError:
             pass
+        self.__logger.info('unloaded source: %s', source.name)
 
     # TODO: reimplement
     def update(self, source: Source) -> None:
