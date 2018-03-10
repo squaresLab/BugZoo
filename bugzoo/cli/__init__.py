@@ -110,7 +110,7 @@ def list_bugs(rbox: 'BugZoo',
         return list_bugs_quiet(rbox)
 
     tbl = []
-    hdrs = ['Bug', 'Program', 'Dataset', 'Installed?']
+    hdrs = ['Bug', 'Program', 'Dataset', 'Source', 'Installed?']
     for bug in rbox.bugs:
         is_installed = rbox.bugs.is_installed(bug)
 
@@ -122,10 +122,11 @@ def list_bugs(rbox: 'BugZoo',
         installed = 'Yes' if is_installed else 'No'
         dataset = bug.dataset if bug.dataset else '-'
         program = bug.program if bug.program else '-'
-        row = [bug.name, program, dataset, installed]
+        source = bug.source if bug.source else '-'
+        row = [bug.name, program, dataset, source, installed]
         tbl.append(row)
 
-    tbl = sorted(tbl, key=itemgetter(2, 1, 0))
+    tbl = sorted(tbl, key=itemgetter(3, 2, 1, 0))
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
@@ -184,7 +185,7 @@ def list_tools(rbox: 'BugZoo',
         return list_tools_quiet(rbox)
 
     tbl = []
-    hdrs = ['Tool', 'Installed?']
+    hdrs = ['Tool', 'Source', 'Installed?']
     for tool in rbox.tools:
         is_installed = rbox.tools.is_installed(tool)
 
@@ -194,12 +195,11 @@ def list_tools(rbox: 'BugZoo',
                 continue
 
         installed = 'Yes' if is_installed else 'No'
-        row = [tool.name, installed]
+        source = tool.source if tool.source else '-'
+        row = [tool.name, source, installed]
         tbl.append(row)
 
-    tbl = sorted(tbl, key=itemgetter(1,))
-
-    # transform into a pretty table
+    tbl = sorted(tbl, key=itemgetter(1, 0))
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
