@@ -208,7 +208,7 @@ class SourceManager(object):
             path = url.replace('https://', '')
             path = path.replace('/', '_')
             path = path.replace('.', '_')
-            path = os.path.join(self.path, path)
+            path = os.path.join(self.__path, path)
 
             # download from remote to local
             shutil.rmtree(path, ignore_errors=True)
