@@ -151,7 +151,7 @@ class SourceManager(object):
                 blueprints[blueprint.tag] = blueprint
 
         # find all bugs
-        glob_pattern = '{}/**/*.bug.y*ml'.format(ABS_PATH_TODO_ADD)
+        glob_pattern = '{}/**/*.bug.y*ml'.format(source.location)
         for fn in glob.iglob(glob_pattern, recursive=True):
             if fn.endswith('.yml') or fn.endswith('.yaml'):
                 bug, blueprint = read_bug_file(fn)
