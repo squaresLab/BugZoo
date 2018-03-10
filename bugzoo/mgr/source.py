@@ -171,7 +171,8 @@ class SourceManager(object):
                         blueprint = parse_blueprint(manifest_fn, d['build'])
                         tool = Tool(d['name'],
                                     d.get('environment', {}),
-                                    blueprint.name)
+                                    blueprint.name,
+                                    source.name)
                         tools.append(tool)
                         blueprints.append(blueprint)
                 except BadManifestFile as e:

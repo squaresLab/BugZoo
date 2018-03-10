@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 
 import yaml
 import docker
@@ -8,7 +8,8 @@ class Tool(object):
     def __init__(self,
                  name: str,
                  image: str,
-                 environment: Dict[str, str]):
+                 environment: Dict[str, str],
+                 source: Optional[str]):
         """
         Constructs a new Tool description.
 
@@ -21,6 +22,7 @@ class Tool(object):
         self.__name = name
         self.__environment = environment
         self.__image = image
+        self.__source = source
 
     #
     # TODO move to ToolManager
@@ -33,6 +35,13 @@ class Tool(object):
 
         client = docker.from_env(timeout=120)
         return client.containers.create(self.__build_instructions.tag)
+
+    @property
+    def source(self) -> Optional[str]:
+        """
+        The name of the source that provides this tool, if any.
+        """
+        return self.__source
 
     @property
     def name(self) -> str:
