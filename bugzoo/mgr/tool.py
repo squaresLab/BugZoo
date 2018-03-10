@@ -60,9 +60,9 @@ class ToolManager(object):
 
         See: `BuildManager.build`
         """
-        self.__manager_build.build(tool.image,
-                                   force=force,
-                                   quiet=quiet)
+        self.__installation.build.build(tool.image,
+                                        force=force,
+                                        quiet=quiet)
 
     def uninstall(self,
                   tool: Tool,
@@ -74,9 +74,9 @@ class ToolManager(object):
 
         See: `BuildManager.uninstall`
         """
-        self.__manager_build.uninstall(tool.image,
-                                       force=force,
-                                       noprune=noprune)
+        self.__installation.build.uninstall(tool.image,
+                                            force=force,
+                                            noprune=noprune)
 
     def download(self,
                  tool: Tool,
@@ -89,12 +89,12 @@ class ToolManager(object):
         Returns:
             `True` if successfully downloaded, else `False`.
         """
-        return self.__manager_build.download(tool.image,
-                                             force=force)
+        return self.__installation.build.download(tool.image,
+                                                  force=force)
 
     def upload(self, tool: Tool) -> bool:
         """
         Attempts to upload the Docker image for a given tool to
         `DockerHub <https://hub.docker.com>`_.
         """
-        return self.__manager_build.upload(tool.image)
+        return self.__installation.build.upload(tool.image)
