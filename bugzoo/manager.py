@@ -36,12 +36,11 @@ class BugZoo(object):
         if not os.path.exists(self.coverage_path):
             os.makedirs(self.coverage_path)
 
-        client_docker = docker.from_env()
-
-        self.__mgr_build = BuildManager(client_docker)
-        self.__sources = SourceManager(self, self.__mgr_build)
+        self.__docker = docker.from_env()
+        self.__mgr_build = BuildManager(self.__docker)
+        self.__sources = SourceManager(self)
         self.__bugs = BugManager(self)
-        self.__tools = ToolManager(self, self.__mgr_build)
+        self.__tools = ToolManager(self)
 
     @property
     def path(self) -> str:
