@@ -34,20 +34,21 @@ def list_sources(rbox: 'BugZoo') -> None:
     print(tbl)
 
 
-def add_source(rbox: 'BugZoo', url: str) -> None:
+def add_source(rbox: 'BugZoo', name: str, url_or_path: str) -> None:
     try:
-        rbox.sources.add(url)
-        print('added source: {}'.format(url))
-    except bugzoo.core.errors.SourceAlreadyRegisteredWithURL:
-        print('source already registered with URL: {}'.format(url))
+        rbox.sources.add(name, url_or_path)
+        print('added source: {} -> {}'.format(name, url_or_path))
+    except bugzoo.core.errors.NameInUseError:
+        print('source already registered with name: {}'.format(name))
 
 
-def remove_source(rbox: 'BugZoo', url: str) -> None:
+def remove_source(rbox: 'BugZoo', name: str) -> None:
     try:
-        rbox.sources.remove_by_url(url)
-        print('removed source: {}'.format(url))
-    except bugzoo.core.errors.SourceNotFoundWithURL as err:
-        print("no source registered with URL: {}".format(err.url))
+        source = rbox.sources[name]
+        rbox.sources.remove(source)
+        print('removed source: {}'.format(source.name))
+    except KeyError:
+        print("no source registered with name: {}".format(name))
 
 
 def update_sources(rbox: 'BugZoo', ) -> None:
@@ -304,15 +305,16 @@ def build_parser():
     cmd = g_subparsers.add_parser('list')
     cmd.set_defaults(func=lambda args: list_sources(rbox))
 
-    # [source add :url]
+    # [source add :name :url_or_path]
     cmd = g_subparsers.add_parser('add')
-    cmd.add_argument('source')
-    cmd.set_defaults(func=lambda args: add_source(rbox, args.source))
+    cmd.add_argument('name', type=str)
+    cmd.add_argument('url_or_path', type=str)
+    cmd.set_defaults(func=lambda args: add_source(rbox, args.name, args.url_or_path))
 
-    # [source remove :url]
+    # [source remove :name]
     cmd = g_subparsers.add_parser('remove')
-    cmd.add_argument('source')
-    cmd.set_defaults(func=lambda args: remove_source(rbox, args.source))
+    cmd.add_argument('name', type=str)
+    cmd.set_defaults(func=lambda args: remove_source(rbox, args.name))
 
     # [source update]
     cmd = g_subparsers.add_parser('update')
