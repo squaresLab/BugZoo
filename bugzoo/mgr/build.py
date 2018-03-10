@@ -12,7 +12,7 @@ from ..core.errors import ImageBuildFailed
 class BuildManager(object):
     def __init__(self, client_docker: docker.DockerClient):
         self.__docker = client_docker
-        self.__instructions = {}
+        self.__blueprints = {}
 
     def __getitem__(self, name: str) -> BuildInstructions:
         """
@@ -25,21 +25,21 @@ class BuildManager(object):
             KeyError: if no build instructions for the named image have been
                 registered with this manager.
         """
-        return self.__instructions[name]
+        return self.__blueprints[name]
 
     def __iter__(self) -> Iterator[BuildInstructions]:
         """
         Returns an iterator over all of the build instructions that are
         registered with this server.
         """
-        return self.__instructions.values().__iter__()
+        return self.__blueprints.values().__iter__()
 
     def register(self, blueprint: BuildInstructions) -> None:
         """
         Attempts to register a blueprint for a given Docker image with this
         manager.
         """
-        self.__instructions[blueprint.name] = blueprint
+        self.__blueprints[blueprint.name] = blueprint
 
     add = register
 
@@ -47,7 +47,7 @@ class BuildManager(object):
         """
         Attempts to deregister a given blueprint from this manager.
         """
-        del self.__instructions[blueprint.name]
+        del self.__blueprints[blueprint.name]
 
     remove = deregister
 
