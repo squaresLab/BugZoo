@@ -9,6 +9,7 @@ import yaml
 import shutil
 
 from .build import BuildManager
+from ..core.bug import Bug
 from ..core.build import BuildInstructions
 from ..core.tool import Tool
 from ..core.source import Source, SourceContents, RemoteSource, LocalSource
