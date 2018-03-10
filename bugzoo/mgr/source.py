@@ -35,7 +35,7 @@ class SourceManager(object):
         self.__logger = installation.logger.getChild('source')
         self.__path = os.path.join(installation.path, 'sources')
         # TODO
-        self.__registry_fn = os.path.join(self.__path, 'bugzoo.yml')
+        self.__registry_fn = os.path.join(self.__path, 'registry.yml')
         self.__sources = {}
         self.__contents = {}
         self.refresh()
