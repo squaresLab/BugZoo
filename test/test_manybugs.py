@@ -20,7 +20,7 @@ class ManyBugsTestCase(CLITestCase):
         manybugs_url = 'https://github.com/squaresLab/ManyBugs'
 
         # attempt to install ManyBugs
-        self.run_command(['source', 'add', manybugs_url])
+        self.run_command(['source', 'add','manybugs',  manybugs_url])
 
         # check that the source has been registered
         try:
