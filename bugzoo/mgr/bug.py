@@ -39,7 +39,7 @@ class BugManager(object):
         """
         Attempts to register a given bug with this manager.
         """
-        self.__bugs[bug.name] = name
+        self.__bugs[bug.name] = bug
 
     add = register
 
