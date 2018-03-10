@@ -4,6 +4,7 @@ import json
 import urllib
 import urllib.parse
 import logging
+import warnings
 
 import git
 import yaml
@@ -11,11 +12,14 @@ import shutil
 import glob
 
 from .build import BuildManager
+from ..compiler import Compiler
+from ..testing.base import TestSuite
+from ..core.language import Language
 from ..core.bug import Bug
 from ..core.build import BuildInstructions
 from ..core.tool import Tool
 from ..core.source import Source, SourceContents, RemoteSource, LocalSource
-from ..core.errors import NameInUseError
+from ..core.errors import NameInUseError, BadManifestFile
 
 
 class SourceManager(object):
@@ -114,11 +118,26 @@ class SourceManager(object):
 
         def parse_blueprint(manifest_path: str, d: dict) -> BuildInstructions:
             root_dir = os.path.dirname(manifest_path)
+            print(d)
+            if 'build-arguments' in d:
+                warnings.warn("'build-arguments' property is deprecated; use 'arguments' instead.",
+                              DeprecationWarning)
+                args = d['build-arguments']
+            elif 'arguments' in d:
+                args = d['arguments']
+            else:
+                args = {}
+
+            try:
+                tag = d['tag']
+            except KeyError:
+                raise BadManifestFile("missing 'tag' property")
+
             return BuildInstructions(os.path.dirname(manifest_path),
-                                     d['tag'],
+                                     tag,
                                      d.get('context', '.'),
-                                     d.get('arguments', {}),
                                      d.get('file', 'Dockerfile'),
+                                     args,
                                      d.get('depends-on', None))
 
         def read_blueprint_file(manifest_path: str) -> BuildInstructions:
@@ -130,54 +149,64 @@ class SourceManager(object):
             with open(manifest_path, 'r') as f:
                 d = yaml.load(f)
                 blueprint = parse_blueprint(manifest_path, d['build'])
-                bug = Bug(yml['bug'],
-                          yml.get('dataset', None),
-                          yml.get('program', None),
+                bug = Bug(d['bug'],
+                          blueprint.name,
+                          d.get('dataset', None),
+                          d.get('program', None),
                           source.name,
-                          yml['source-location'],
-                          [Language[lang] for lang in yml['languages']],
-                          TestSuite.from_dict(yml['test-harness']),
-                          Compiler.from_dict(yml['compiler']))
+                          d['source-location'],
+                          [Language[lang] for lang in d['languages']],
+                          TestSuite.from_dict(d['test-harness']),
+                          Compiler.from_dict(d['compiler']))
                 return (bug, blueprint)
 
         # find all tools
         manifest_fn = os.path.join(source.location, '.bugzoo.yml')
         if os.path.exists(manifest_fn):
             with open(manifest_fn, 'r') as f:
-                logger.debug('found generic manifest at %s', fn)
-                manifest = yaml.load(f)
-                # TODO we actually ignore dataset manifests :-)
-                if d['type'] == 'tool':
-                    blueprint = parse_blueprint(d['build-instructions'])
-                    tool = Tool(d['name'],
-                                d.get('environment', {}),
-                                blueprint.tag)
-                    tools[tool.name] = tool
-                    blueprints[blueprint.tag] = blueprint
+                self.__logger.debug('found generic manifest at %s', manifest_fn)
+                try:
+                    d = yaml.load(f)
+                    # TODO we actually ignore dataset manifests :-)
+                    if d['type'] == 'tool':
+                        blueprint = parse_blueprint(d['build-instructions'])
+                        tool = Tool(d['name'],
+                                    d.get('environment', {}),
+                                    blueprint.name)
+                        tools.append(tool)
+                        blueprints.append(blueprint)
+                except BadManifestFile as e:
+                    self.__logger.warning("failed to load generic manifest: %s [%s]", fn, e)
 
         # find all blueprints
         glob_pattern = '{}/**/*.dependency.y*ml'.format(source.location)
         for fn in glob.iglob(glob_pattern, recursive=True):
             if fn.endswith('.yml') or fn.endswith('.yaml'):
-                logger.debug('found blueprint manifest at %s', fn)
-                blueprint = read_blueprint_file(fn)
-                blueprints[blueprint.tag] = blueprint
+                self.__logger.debug('found blueprint manifest at %s', fn)
+                try:
+                    blueprint = read_blueprint_file(fn)
+                    blueprints.append(blueprint)
+                except BadManifestFile as e:
+                    self.__logger.warning("failed to load blueprint manifest: %s [%s]", fn, e)
 
         # find all bugs
         glob_pattern = '{}/**/*.bug.y*ml'.format(source.location)
         for fn in glob.iglob(glob_pattern, recursive=True):
             if fn.endswith('.yml') or fn.endswith('.yaml'):
-                logger.debug('found bug manifest at %s', fn)
-                bug, blueprint = read_bug_file(fn)
-                bug[bug.tag] = bug
-                blueprints[blueprint.tag] = blueprint
+                self.__logger.debug('found bug manifest at %s', fn)
+                try:
+                    bug, blueprint = read_bug_file(fn)
+                    bugs.append(bug)
+                    blueprints.append(blueprint)
+                except BadManifestFile as e:
+                    self.__logger.warning("failed to load bug manifest: %s [%s]", fn, e)
 
         # register contents
         for bug in bugs:
             self.__installation.bugs.add(bug)
         for tool in tools:
             self.__installation.tools.add(tool)
-        for blueprints in blueprints:
+        for blueprint in blueprints:
             self.__installation.build.add(blueprint)
 
         # record contents of source
@@ -245,7 +274,7 @@ class SourceManager(object):
                 shutil.rmtree(path, ignore_errors=True)
                 self.__logger.error("failed to download remote source to local: %s -> %s", url, path)
                 raise IOError("failed to download remote source to local installation: '{}' -> '{}'".format(url, path))
-            source = RemoteSource(name, url, path, version)
+            source = RemoteSource(name, path, url, version)
 
         else:
             path = os.path.abspath(path_or_url)
