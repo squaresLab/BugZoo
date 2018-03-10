@@ -23,7 +23,8 @@ class Bug(object):
     point in time, allowing it to be empirically studied and inspected in a
     transparent and reproducible manner.
     """
-    def __init__(name: str,
+    def __init__(self,
+                 name: str,
                  image: str,
                  dataset: Optional[str],
                  program: Optional[str],
