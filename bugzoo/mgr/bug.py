@@ -12,7 +12,7 @@ class BugManager(object):
     def __init__(self,
                  installation: 'BugZoo'):
         self.__installation = installation
-        self.__contents = {}
+        self.__bugs = {}
 
     def __getitem__(self, name: str) -> Bug:
         """
@@ -27,13 +27,13 @@ class BugManager(object):
         Raises:
             KeyError: if no bug is found with the given name.
         """
-        return self.__contents[name]
+        return self.__bugs[name]
 
     def __iter__(self) -> Iterator[Bug]:
         """
         Returns an iterator over the bugs that are registered with this server.
         """
-        return self.__contents.values().__iter__()
+        return self.__bugs.values().__iter__()
 
     def register(self, bug: Bug) -> None:
         """
