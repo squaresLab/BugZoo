@@ -137,7 +137,8 @@ class SourceManager(object):
                                      d.get('context', '.'),
                                      d.get('file', 'Dockerfile'),
                                      args,
-                                     d.get('depends-on', None))
+                                     d.get('depends-on', None),
+                                     source.name)
 
         def read_blueprint_file(manifest_path: str) -> BuildInstructions:
             with open(manifest_path, 'r') as f:

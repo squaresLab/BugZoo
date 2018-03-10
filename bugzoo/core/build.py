@@ -21,17 +21,26 @@ class BuildInstructions(object):
                  context: str,
                  filename: str,
                  arguments: Dict[str, str],
-                 depends_on: Optional[str]):
+                 depends_on: Optional[str],
+                 source: Optional[str]):
         self.__root = root
         self.__tag = tag
         self.__context = context
         self.__filename = filename
         self.__arguments = {k: str(v) for (k, v) in arguments.items()}
         self.__depends_on = depends_on
+        self.__source = source
 
     @property
     def root(self) -> str:
         return self.__root
+
+    @property
+    def source(self) -> Optional[str]:
+        """
+        The name of the source that provides this blueprint, if any.
+        """
+        return self.__source
 
     @property
     def depends_on(self) -> str:
