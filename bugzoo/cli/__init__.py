@@ -110,7 +110,7 @@ def list_bugs(rbox: 'BugZoo',
         return list_bugs_quiet(rbox)
 
     tbl = []
-    hdrs = ['Bug', 'Dataset', 'Installed?']
+    hdrs = ['Bug', 'Program', 'Dataset', 'Installed?']
     for bug in rbox.bugs:
         is_installed = rbox.bugs.is_installed(bug)
 
@@ -120,14 +120,12 @@ def list_bugs(rbox: 'BugZoo',
                 continue
 
         installed = 'Yes' if is_installed else 'No'
-        dataset = bug.dataset.name if bug.dataset else '-'
-        row = [bug.name, dataset, installed]
+        dataset = bug.dataset if bug.dataset else '-'
+        program = bug.program if bug.program else '-'
+        row = [bug.name, program, dataset, installed]
         tbl.append(row)
 
-    # sort by source then by bug
-    tbl = sorted(tbl, key=itemgetter(2, 1))
-
-    # transform into a pretty table
+    tbl = sorted(tbl, key=itemgetter(2, 1, 0))
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
