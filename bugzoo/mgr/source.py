@@ -118,7 +118,6 @@ class SourceManager(object):
 
         def parse_blueprint(manifest_path: str, d: dict) -> BuildInstructions:
             root_dir = os.path.dirname(manifest_path)
-            print(d)
             if 'build-arguments' in d:
                 warnings.warn("'build-arguments' property is deprecated; use 'arguments' instead.",
                               DeprecationWarning)
