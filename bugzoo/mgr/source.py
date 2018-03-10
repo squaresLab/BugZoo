@@ -27,8 +27,8 @@ class SourceManager(object):
     """
     def __init__(self,
                  installation: 'BugZoo'):
-        self.__logger = logging.getLogger('bugzoo.source')
         self.__installation = installation
+        self.__logger = installation.logger.getChild('source')
         self.__path = os.path.join(installation.path, 'sources')
         # TODO
         self.__registry_fn = os.path.join(self.__path, 'bugzoo.yml')
@@ -104,7 +104,9 @@ class SourceManager(object):
         loaded, then that resources for that source are unloaded and
         reloaded.
         """
-        self.unload(source)
+        self.__logger.info('loading source %s at %s', source.name, source.location)
+        if source.name in self.__sources:
+            self.unload(source)
 
         tools = []
         bugs = []
@@ -142,6 +144,7 @@ class SourceManager(object):
         manifest_fn = os.path.join(source.location, '.bugzoo.yml')
         if os.path.exists(manifest_fn):
             with open(manifest_fn, 'r') as f:
+                logger.debug('found generic manifest at %s', fn)
                 manifest = yaml.load(f)
                 # TODO we actually ignore dataset manifests :-)
                 if d['type'] == 'tool':
@@ -156,6 +159,7 @@ class SourceManager(object):
         glob_pattern = '{}/**/*.dependency.y*ml'.format(source.location)
         for fn in glob.iglob(glob_pattern, recursive=True):
             if fn.endswith('.yml') or fn.endswith('.yaml'):
+                logger.debug('found blueprint manifest at %s', fn)
                 blueprint = read_blueprint_file(fn)
                 blueprints[blueprint.tag] = blueprint
 
@@ -163,6 +167,7 @@ class SourceManager(object):
         glob_pattern = '{}/**/*.bug.y*ml'.format(source.location)
         for fn in glob.iglob(glob_pattern, recursive=True):
             if fn.endswith('.yml') or fn.endswith('.yaml'):
+                logger.debug('found bug manifest at %s', fn)
                 bug, blueprint = read_bug_file(fn)
                 bug[bug.tag] = bug
                 blueprints[blueprint.tag] = blueprint
@@ -180,6 +185,7 @@ class SourceManager(object):
                                   [b.name for b in bugs],
                                   [t.name for t in tools])
         self.__contents[source.name] = contents
+        self.__logger.info("loaded source: %s", source.name)
 
     def contents(self, source: Source) -> SourceContents:
         """
@@ -202,7 +208,7 @@ class SourceManager(object):
             IOError: if no directory exists at the given path.
             IOError: if downloading the remote source failed. (FIXME)
         """
-        self.__logger.info("adding source: %s -> '%s'", name, path_or_url)
+        self.__logger.info("adding source: %s -> %s", name, path_or_url)
         if name in self.__sources:
             self.__logger.info("name already used by existing source: %s", name)
             raise NameInUseError(name)
@@ -210,9 +216,12 @@ class SourceManager(object):
         is_url = False
         try:
             scheme = urllib.parse.urlparse(path_or_url).scheme
+            print(scheme)
             is_url = scheme in ['http', 'https']
+            print("is url? {}".format(is_url))
+            self.__logger.debug("source determined to be remote: %s", path_or_url)
         except ValueError:
-            pass
+            self.__logger.debug("source determined to be local: %s", path_or_url)
 
         if is_url:
             url = path_or_url
@@ -227,11 +236,15 @@ class SourceManager(object):
             shutil.rmtree(path, ignore_errors=True)
             try:
                 # TODO shallow clone
+                self.__logger.debug("cloning repository %s to %s", url, path)
                 repo = git.Repo.clone_from(url, path)
+                self.__logger.debug("cloned repository %s to %s", url, path)
+
                 sha = repo.head.object.hexsha
                 version = repo.git.rev_parse(sha, short=8)
             except: # TODO determine error type
                 shutil.rmtree(path, ignore_errors=True)
+                self.__logger.error("failed to download remote source to local: %s -> %s", url, path)
                 raise IOError("failed to download remote source to local installation: '{}' -> '{}'".format(url, path))
             source = RemoteSource(name, url, path, version)
 
@@ -243,6 +256,7 @@ class SourceManager(object):
 
         self.load(source)
         self.save()
+        self.__logger.info('added source: %s', name)
 
     def remove(self, source: Source) -> None:
         """

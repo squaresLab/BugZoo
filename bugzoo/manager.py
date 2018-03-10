@@ -50,6 +50,7 @@ class BugZoo(object):
                             filemode='w',
                             level=logging.INFO)
         self.__logger = logging.getLogger('bugzoo')
+        self.__logger.setLevel(logging.DEBUG)
         self.__logger.info('Logging to: %s', log_fn)
 
         self.__docker = docker.from_env()
@@ -57,6 +58,13 @@ class BugZoo(object):
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)
         self.__sources = SourceManager(self)
+
+    @property
+    def logger(self) -> logging.Logger:
+        """
+        The root logging mechanism for BugZoo.
+        """
+        return self.__logger
 
     @property
     def path(self) -> str:
