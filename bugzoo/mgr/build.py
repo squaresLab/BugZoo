@@ -91,7 +91,7 @@ class BuildManager(object):
         if instructions.depends_on:
             self.build(instructions.depends_on, force=force, quiet=quiet)
 
-        if not force and self.is_installed(instructions):
+        if not force and self.is_installed(instructions.name):
             return
 
         # TODO use logger
