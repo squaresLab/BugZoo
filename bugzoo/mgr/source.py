@@ -63,7 +63,7 @@ class SourceManager(object):
         Saves the contents of the source manager to disk.
         """
         self.__logger.info('saving registry to: %s', self.__registry_fn)
-        d = [s.to_dict() for s in self.__sources]
+        d = [s.to_dict() for s in self]
         with open(self.__registry_fn, 'w') as f:
             yaml.dump(d, f, indent=2, default_flow_style=False)
         self.__logger.info('saved registry to: %s', self.__registry_fn)
@@ -184,6 +184,7 @@ class SourceManager(object):
         contents = SourceContents([b.name for b in blueprints],
                                   [b.name for b in bugs],
                                   [t.name for t in tools])
+        self.__sources[source.name] = source
         self.__contents[source.name] = contents
         self.__logger.info("loaded source: %s", source.name)
 
@@ -216,9 +217,7 @@ class SourceManager(object):
         is_url = False
         try:
             scheme = urllib.parse.urlparse(path_or_url).scheme
-            print(scheme)
             is_url = scheme in ['http', 'https']
-            print("is url? {}".format(is_url))
             self.__logger.debug("source determined to be remote: %s", path_or_url)
         except ValueError:
             self.__logger.debug("source determined to be local: %s", path_or_url)
