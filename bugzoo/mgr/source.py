@@ -202,7 +202,9 @@ class SourceManager(object):
             IOError: if no directory exists at the given path.
             IOError: if downloading the remote source failed. (FIXME)
         """
+        self.__logger.info("adding source: %s -> '%s'", name, path_or_url)
         if name in self.__sources:
+            self.__logger.info("name already used by existing source: %s", name)
             raise NameInUseError(name)
 
         is_url = False
