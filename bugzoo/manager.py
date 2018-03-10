@@ -1,5 +1,7 @@
 from typing import Iterator
 import os
+import logging
+import time
 
 import docker
 
@@ -29,12 +31,26 @@ class BugZoo(object):
             default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
             path = os.environ.get('BUGZOO_PATH', default_path)
         self.__path = path
+        path_logs = os.path.join(path, 'logs')
 
         # ensure dirs exist
         if not os.path.exists(self.path):
             os.makedirs(self.path)
+        if not os.path.exists(path_logs):
+            os.makedirs(path_logs)
         if not os.path.exists(self.coverage_path):
             os.makedirs(self.coverage_path)
+
+        # enable logging
+        # TODO allow users to control output and verbosity
+        timestamp = time.strftime('%Y%m%d-%H%M%S', time.gmtime())
+        log_fn = 'logs/{}.bugzoo.log'.format(timestamp)
+        log_fn = os.path.join(self.__path, log_fn)
+        logging.basicConfig(filename=log_fn,
+                            filemode='w',
+                            level=logging.INFO)
+        self.__logger = logging.getLogger('bugzoo')
+        self.__logger.info('Logging to: %s', log_fn)
 
         self.__docker = docker.from_env()
         self.__mgr_build = BuildManager(self.__docker)
