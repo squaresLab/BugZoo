@@ -2,6 +2,14 @@ from typing import Dict, List, Iterator
 from copy import copy
 
 
+class BadManifestFile(BaseException):
+    """
+    Thrown when the server fails to parse a manifest file.
+    """
+    def __init__(self, reason: str):
+        msg = "bad manifest file: {}".format(reason)
+        super().__init__(msg)
+
 class UnexpectedStatusCode(BaseException):
     """
     Indicates that the API request produced an unexpected status code.
