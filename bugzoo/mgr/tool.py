@@ -6,31 +6,24 @@ from ..core.tool import Tool
 
 class ToolManager(object):
     def __init__(self,
-                 installation: 'BugZoo',
-                 manager_build: BuildManager):
+                 installation: 'BugZoo'):
         self.__installation = installation
-        self.__manager_build = manager_build
+        self.__contents = {}
 
     def __iter__(self) -> Iterator[Tool]:
         """
         Returns an iterator over the tools registered with this server.
         """
-        for src in self.__installation.sources:
-            if isinstance(src, Tool):
-                yield src
+        return self.__contents.values().__iter__()
 
-    def __getitem__(self, name_or_url: str) -> Tool:
+    def __getitem__(self, name: str) -> Tool:
         """
-        Attempts to fetch a tool registered with this server by its name or
-        URL.
+        Attempts to fetch a tool registered with this server by its name.
 
         Raises:
-            KeyError: if no tool is registered with the given name or URL.
+            KeyError: if no tool is registered with the given name.
         """
-        for tool in self.__iter__():
-            if tool.name == name_or_url or tool.url == name_or_url:
-                return tool
-        raise KeyError
+        return self.__contents[name]
 
     def is_installed(self, tool: Tool) -> bool:
         """
@@ -39,7 +32,7 @@ class ToolManager(object):
 
         See: `BuildManager.is_installed`
         """
-        return self.__manager_build.is_installed(tool.build_instructions)
+        return self.__installation.build.is_installed(tool.image)
 
     def build(self,
               tool: Tool,
@@ -51,7 +44,7 @@ class ToolManager(object):
 
         See: `BuildManager.build`
         """
-        self.__manager_build.build(tool.build_instructions,
+        self.__manager_build.build(tool.image,
                                    force=force,
                                    quiet=quiet)
 
@@ -65,7 +58,7 @@ class ToolManager(object):
 
         See: `BuildManager.uninstall`
         """
-        self.__manager_build.uninstall(tool.build_instructions,
+        self.__manager_build.uninstall(tool.image,
                                        force=force,
                                        noprune=noprune)
 
@@ -80,7 +73,7 @@ class ToolManager(object):
         Returns:
             `True` if successfully downloaded, else `False`.
         """
-        return self.__manager_build.download(tool.build_instructions,
+        return self.__manager_build.download(tool.image,
                                              force=force)
 
     def upload(self, tool: Tool) -> bool:
@@ -88,4 +81,4 @@ class ToolManager(object):
         Attempts to upload the Docker image for a given tool to
         `DockerHub <https://hub.docker.com>`_.
         """
-        return self.__manager_build.upload(tool.build_instructions)
+        return self.__manager_build.upload(tool.image)
