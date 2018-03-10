@@ -33,6 +33,14 @@ class ToolManager(object):
 
     add = register
 
+    def deregister(self, tool: Tool) -> None:
+        """
+        Attempts to deregister a given tool from this manager.
+        """
+        del self.__tools[tool.name]
+
+    remove = deregister
+
     def is_installed(self, tool: Tool) -> bool:
         """
         Determines whether or not the Docker image for a given tool has been
