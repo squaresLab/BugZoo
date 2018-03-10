@@ -61,6 +61,7 @@ class Bug(object):
         self.__image = image
         self.__dataset = dataset
         self.__program = program
+        self.__source = source
         self.__source_dir = source_dir
         self.__languages = languages[:]
         self.__test_harness = harness
