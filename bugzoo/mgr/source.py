@@ -40,6 +40,27 @@ class SourceManager(object):
         self.__contents = {}
         self.refresh()
 
+    def __iter__(self) -> Iterator[Source]:
+        """
+        Returns an iterator over the sources registered with this server.
+        """
+        return self.__sources.values().__iter__()
+
+    def __getitem__(self, name: str) -> Source:
+        """
+        Attempts to fetch the description of a given source.
+
+        Parameters:
+            name: the name of the source.
+
+        Returns:
+            a description of the source.
+
+        Raises:
+            KeyError: if no source is found with the given name.
+        """
+        return self.__sources[name]
+
     def refresh(self) -> None:
         """
         Reloads all sources that are registered with this server.
@@ -303,9 +324,3 @@ class SourceManager(object):
         if isinstance(source, RemoteSource):
             shutil.rmtree(source.location, ignore_errors=True)
         self.save()
-
-    def __iter__(self) -> Iterator[Source]:
-        """
-        Returns an iterator over the sources registered with this server.
-        """
-        return self.__sources.values().__iter__()
