@@ -34,6 +34,15 @@ class BuildManager(object):
         """
         return self.__instructions.values().__iter__()
 
+    def register(self, blueprint: BuildInstructions) -> None:
+        """
+        Attempts to register a blueprint for a given Docker image with this
+        manager.
+        """
+        self.__instructions[blueprint.name] = blueprint
+
+    add = register
+
     def is_installed(self, name: str) -> bool:
         """
         Indicates a given Docker image is installed on this server.
