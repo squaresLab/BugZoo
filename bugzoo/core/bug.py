@@ -87,6 +87,13 @@ class Bug(object):
         return self.__name
 
     @property
+    def source(self) -> Optional[str]:
+        """
+        The name of the source that provides this bug, if any.
+        """
+        return self.__source
+
+    @property
     def source_dir(self) -> str:
         """
         The absolute path of the dataset directory (within the container) for
