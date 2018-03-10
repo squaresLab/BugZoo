@@ -11,7 +11,7 @@ import shutil
 from .build import BuildManager
 from ..core.build import BuildInstructions
 from ..core.tool import Tool
-from ..core.source import Source, SourceContents
+from ..core.source import Source, SourceContents, RemoteSource, LocalSource
 from ..core.errors import NameInUseError
 
 
