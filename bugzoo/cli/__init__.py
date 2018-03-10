@@ -56,24 +56,6 @@ def update_sources(rbox: 'BugZoo', ) -> None:
 
 
 ###############################################################################
-# [dataset] group
-###############################################################################
-def list_datasets(rbox: 'BugZoo') -> None:
-    tbl = []
-    hdrs = ['Dataset', 'Source', '# Bugs']
-    for ds in rbox.datasets:
-        row = [ds.name, ds.url, ds.size]
-        tbl.append(row)
-
-    tbl = sorted(tbl, key=itemgetter(0))
-
-    # transform into a pretty table
-    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
-    print('')
-    print(tbl)
-
-
-###############################################################################
 # [bug] group
 ###############################################################################
 def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
@@ -111,7 +93,7 @@ def uninstall_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
 
 def list_bugs_quiet(rbox: 'BugZoo') -> None:
     for bug in rbox.bugs:
-        print(bug.identifier)
+        print(bug.name)
 
 
 def list_bugs(rbox: 'BugZoo',
@@ -122,7 +104,7 @@ def list_bugs(rbox: 'BugZoo',
         return list_bugs_quiet(rbox)
 
     tbl = []
-    hdrs = ['Bug', 'Source', 'Installed?']
+    hdrs = ['Bug', 'Dataset', 'Installed?']
     for bug in rbox.bugs:
         is_installed = rbox.bugs.is_installed(bug)
 
@@ -132,11 +114,12 @@ def list_bugs(rbox: 'BugZoo',
                 continue
 
         installed = 'Yes' if is_installed else 'No'
-        row = [bug.identifier, bug.dataset.name, installed]
+        dataset = bug.dataset.name if bug.dataset else '-'
+        row = [bug.name, dataset, installed]
         tbl.append(row)
 
-    # sort by dataset then by bug
-    tbl = sorted(tbl, key=itemgetter(1,2))
+    # sort by source then by bug
+    tbl = sorted(tbl, key=itemgetter(2, 1))
 
     # transform into a pretty table
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
@@ -197,7 +180,7 @@ def list_tools(rbox: 'BugZoo',
         return list_tools_quiet(rbox)
 
     tbl = []
-    hdrs = ['Tool', 'Source', 'Installed?']
+    hdrs = ['Tool', 'Installed?']
     for tool in rbox.tools:
         is_installed = rbox.tools.is_installed(tool)
 
@@ -207,11 +190,10 @@ def list_tools(rbox: 'BugZoo',
                 continue
 
         installed = 'Yes' if is_installed else 'No'
-        row = [tool.name, tool.url, installed]
+        row = [tool.name, installed]
         tbl.append(row)
 
-    # sort by dataset then by bug
-    tbl = sorted(tbl, key=itemgetter(1,2))
+    tbl = sorted(tbl, key=itemgetter(1,))
 
     # transform into a pretty table
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
@@ -384,17 +366,6 @@ def build_parser():
     cmd.set_defaults(func=lambda args: list_tools(rbox,
                                                   quiet=args.quiet,
                                                   show_installed=args.installed))
-
-
-    ###########################################################################
-    # [dataset] group
-    ###########################################################################
-    g_dataset = subparsers.add_parser('dataset')
-    g_subparsers = g_dataset.add_subparsers()
-
-    # [dataset list]
-    cmd = g_subparsers.add_parser('list')
-    cmd.set_defaults(func=lambda args: list_datasets(rbox))
 
 
     ###########################################################################
