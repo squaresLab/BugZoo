@@ -38,9 +38,9 @@ class BugZoo(object):
 
         self.__docker = docker.from_env()
         self.__mgr_build = BuildManager(self.__docker)
-        self.__sources = SourceManager(self)
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)
+        self.__sources = SourceManager(self)
 
     @property
     def path(self) -> str:
