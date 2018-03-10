@@ -28,17 +28,16 @@ class SourceManager(object):
         self.__path = os.path.join(installation.path, 'sources')
         # TODO
         self.__registry_fn = os.path.join(self.__path, '.bugzoo.yml')
+        self.__sources = {}
+        self.__contents = {}
         self.refresh()
 
     def refresh(self) -> None:
         """
         Reloads all sources that are registered with this server.
         """
-        self.__installation.bugs.clear()
-        self.__installation.tools.clear()
-        self.__installation.build.clear()
-        self.__sources = {}
-        self.__contents = {}
+        for source in self:
+            self.unload(source)
 
         if not os.path.exists(self.__registry_fn):
             return
