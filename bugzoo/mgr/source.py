@@ -3,6 +3,7 @@ import os
 import json
 import urllib
 import urllib.parse
+import logging
 
 import git
 import yaml
@@ -46,7 +47,7 @@ class SourceManager(object):
 
         # TODO add version
         with open(self.__registry_fn, 'r') as f:
-            registry = json.load(f)
+            registry = yaml.load(f)
         assert isinstance(registry, list)
 
         for source_description in registry:
@@ -59,7 +60,7 @@ class SourceManager(object):
         """
         d = [s.to_dict() for s in self.__sources]
         with open(self.__registry_fn, 'w') as f:
-            json.dump(d, f, indent=2)
+            yaml.dump(d, f, indent=2, default_flow_style=False)
 
     def unload(self, source: Source) -> None:
         """
