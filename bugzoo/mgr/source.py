@@ -83,6 +83,38 @@ class SourceManager(object):
 
         self.__logger.info('refreshed sources')
 
+    def update(self) -> None:
+        """
+        Ensures that all remote sources are up-to-date.
+        """
+        for source_old in self:
+            if isinstance(source_old, RemoteSource):
+                repo = git.Repo(source_old.location)
+                origin = repo.remotes.origin
+                origin.pull()
+
+                sha = repo.head.object.hexsha
+                version = repo.git.rev_parse(sha, short=8)
+
+                if version != source_old.version:
+                    source_new  = RemoteSource(source_old.name,
+                                               source_old.location,
+                                               source_old.url,
+                                               version)
+                    self.__logger.info("updated source: %s [%s -> %s]", source_old.name,
+                                                                        source_old.version,
+                                                                        source_new.version)
+                    self.load(source_new)
+
+                else:
+                    self.__logger.debug("no updates for source: %s", source_old.name)
+
+        # write to disk
+        # TODO local directory may be corrupted if program terminates between
+        #   repo being updated and registry being saved; could add a "fix"
+        #   command to recalculate versions for remote sources
+        self.save()
+
     def save(self) -> None:
         """
         Saves the contents of the source manager to disk.
@@ -117,13 +149,6 @@ class SourceManager(object):
         except KeyError:
             pass
         self.__logger.info('unloaded source: %s', source.name)
-
-    # TODO: reimplement
-    def update(self, source: Source) -> None:
-        raise NotImplementedError
-
-        #origin = self.__repo.remotes.origin
-        #origin.pull()
 
     def load(self, source: Source) -> None:
         """
