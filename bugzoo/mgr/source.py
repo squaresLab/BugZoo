@@ -202,7 +202,7 @@ class SourceManager(object):
             pass
 
         if is_url:
-            url = url_or_path
+            url = path_or_url
 
             # convert url to a local path
             path = url.replace('https://', '')
