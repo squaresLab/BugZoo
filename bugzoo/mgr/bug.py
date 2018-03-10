@@ -49,7 +49,7 @@ class BugManager(object):
         """
         del self.__bugs[bug.name]
 
-    remove = register
+    remove = deregister
 
     def is_installed(self, bug: Bug) -> bool:
         """
