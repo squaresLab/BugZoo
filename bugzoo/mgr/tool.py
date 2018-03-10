@@ -8,13 +8,13 @@ class ToolManager(object):
     def __init__(self,
                  installation: 'BugZoo'):
         self.__installation = installation
-        self.__contents = {}
+        self.__tools = {}
 
     def __iter__(self) -> Iterator[Tool]:
         """
         Returns an iterator over the tools registered with this server.
         """
-        return self.__contents.values().__iter__()
+        return self.__tools.values().__iter__()
 
     def __getitem__(self, name: str) -> Tool:
         """
@@ -23,7 +23,15 @@ class ToolManager(object):
         Raises:
             KeyError: if no tool is registered with the given name.
         """
-        return self.__contents[name]
+        return self.__tools[name]
+
+    def register(self, tool: Tool) -> None:
+        """
+        Attempts to register a given tool with this manager.
+        """
+        self.__tools[tool.name] = tool
+
+    add = register
 
     def is_installed(self, tool: Tool) -> bool:
         """
