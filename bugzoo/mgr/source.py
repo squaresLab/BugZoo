@@ -105,11 +105,14 @@ class SourceManager(object):
             del self.__contents[source.name]
             del self.__sources[source.name]
 
-            for bug in contents.bugs:
+            for name in contents.bugs:
+                bug = self.__installation.bugs[name]
                 self.__installation.bugs.remove(bug)
-            for blueprint in contents.blueprints:
+            for name in contents.blueprints:
+                blueprint = self.__installation.build[name]
                 self.__installation.build.remove(blueprint)
-            for tool in contents.tools:
+            for name in contents.tools:
+                tool = self.__installation.tools[name]
                 self.__installation.tools.remove(tool)
         except KeyError:
             pass
