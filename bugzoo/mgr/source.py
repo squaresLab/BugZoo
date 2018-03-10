@@ -168,14 +168,18 @@ class SourceManager(object):
                     d = yaml.load(f)
                     # TODO we actually ignore dataset manifests :-)
                     if d['type'] == 'tool':
-                        blueprint = parse_blueprint(d['build-instructions'])
+                        blueprint = parse_blueprint(manifest_fn, d['build'])
                         tool = Tool(d['name'],
                                     d.get('environment', {}),
                                     blueprint.name)
                         tools.append(tool)
                         blueprints.append(blueprint)
                 except BadManifestFile as e:
-                    self.__logger.warning("failed to load generic manifest: %s [%s]", fn, e)
+                    self.__logger.warning("failed to load generic manifest: %s [%s]",
+                                          fn, e)
+                except KeyError as e:
+                    self.__logger.warning("failed to load generic manifest: %s [missing: %s]",
+                                          fn, e.args[0])
 
         # find all blueprints
         glob_pattern = '{}/**/*.dependency.y*ml'.format(source.location)
