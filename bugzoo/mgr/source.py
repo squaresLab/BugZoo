@@ -86,7 +86,7 @@ class SourceManager(object):
         #origin = self.__repo.remotes.origin
         #origin.pull()
 
-    def load(source: Source) -> None:
+    def load(self, source: Source) -> None:
         """
         Attempts to load all resources (i.e., bugs, tools, and blueprints)
         provided by a given source. If the given source has already been
