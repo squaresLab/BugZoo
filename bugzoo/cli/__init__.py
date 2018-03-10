@@ -7,6 +7,7 @@ import tabulate
 
 import bugzoo.core.errors
 import bugzoo.version
+from ..core.source import RemoteSource
 from ..manager import BugZoo
 from ..core.tool import Tool
 
@@ -23,12 +24,16 @@ def list_sources(rbox: 'BugZoo') -> None:
     """
     Produces a list of all the sources known to BugZoo.
     """
-    hdrs = ['Source', 'URL', 'Version']
+    hdrs = ['Source', 'Type', 'URL', 'Location', 'Version']
     tbl = []
     for src in rbox.sources:
-        tbl.append([src.name, src.url, src.version])
+        typ = 'Remote' if isinstance(src, RemoteSource) else 'Local'
+        version = src.version if isinstance(src, RemoteSource) else '-'
+        url = src.url if isinstance(src, RemoteSource) else '-'
+        tbl.append([src.name, typ, url, src.location, version])
 
     # transform into a pretty table
+    tbl = sorted(tbl, key=itemgetter(1,))
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
