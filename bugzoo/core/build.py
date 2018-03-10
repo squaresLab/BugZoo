@@ -15,7 +15,8 @@ class BuildInstructions(object):
 
     TODO: only allow relative, forward roots
     """
-    def __init__(root: str,
+    def __init__(self,
+                 root: str,
                  tag: str,
                  context: str,
                  filename: str,
