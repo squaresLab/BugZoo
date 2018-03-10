@@ -80,6 +80,13 @@ class Bug(object):
         return jsn
 
     @property
+    def name(self) -> str:
+        """
+        The name of this bug.
+        """
+        return self.__name
+
+    @property
     def source_dir(self) -> str:
         """
         The absolute path of the dataset directory (within the container) for
