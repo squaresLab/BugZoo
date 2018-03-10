@@ -53,6 +53,7 @@ class BuildManager(object):
         Returns:
             `True` if installed; `False` if not.
         """
+        assert name is not None
         try:
             self.__docker.images.get(name)
             return True

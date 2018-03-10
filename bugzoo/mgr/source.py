@@ -170,8 +170,8 @@ class SourceManager(object):
                     if d['type'] == 'tool':
                         blueprint = parse_blueprint(manifest_fn, d['build'])
                         tool = Tool(d['name'],
-                                    d.get('environment', {}),
                                     blueprint.name,
+                                    d.get('environment', {}),
                                     source.name)
                         tools.append(tool)
                         blueprints.append(blueprint)

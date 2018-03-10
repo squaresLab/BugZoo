@@ -20,8 +20,8 @@ class Tool(object):
                 injected upon loading the tool inside the container.
         """
         self.__name = name
-        self.__environment = environment
         self.__image = image
+        self.__environment = environment
         self.__source = source
 
     #
