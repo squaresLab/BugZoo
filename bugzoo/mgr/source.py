@@ -66,7 +66,7 @@ class SourceManager(object):
         Reloads all sources that are registered with this server.
         """
         self.__logger.info('refreshing sources')
-        for source in self:
+        for source in list(self):
             self.unload(source)
 
         if not os.path.exists(self.__registry_fn):
