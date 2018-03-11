@@ -51,6 +51,6 @@ are compatible with the BugZoo platform.
 To add one of these sources, simply execute the following from the command line:
 
 ```
-$ bugzoo source add https://github.com/squaresLab/ManyBugs
-$ bugzoo source add https://github.com/squaresLab/genprog-code
+$ bugzoo source add manybugs https://github.com/squaresLab/ManyBugs
+$ bugzoo source add genprog https://github.com/squaresLab/genprog-code
 ```
