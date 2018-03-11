@@ -1,4 +1,4 @@
-from typing import Iterator, Tuple
+from typing import Iterator, Tuple, List
 import os
 import json
 import urllib
@@ -150,6 +150,74 @@ class SourceManager(object):
             pass
         self.__logger.info('unloaded source: %s', source.name)
 
+    def __parse_blueprint(self, source: Source, fn: str, d: dict) -> BuildInstructions:
+        return BuildInstructions(os.path.dirname(fn),
+                                 d['tag'],
+                                 d.get('context', '.'),
+                                 d.get('file', 'Dockerfile'),
+                                 d.get('arguments', {}),
+                                 d.get('depends-on', None),
+                                 source.name)
+
+    def __parse_bug(self, source: Source, fn: str, d: dict) -> Bug:
+        return Bug(d['name'],
+                   d['image'],
+                   d.get('dataset', None),
+                   d.get('program', None),
+                   source.name,
+                   d['source-location'],
+                   [Language[lang] for lang in d['languages']],
+                   TestSuite.from_dict(d['test-harness']),
+                   Compiler.from_dict(d['compiler']))
+
+    def __parse_tool(self, source: Source, fn: str, d: dict) -> Tool:
+        return Tool(d['name'],
+                    d['image'],
+                    d.get('environment', {}),
+                    source.name)
+
+    def __parse_file(self,
+                     source: Source,
+                     fn: str,
+                     bugs: List[Bug],
+                     blueprints: List[BuildInstructions],
+                     tools: List[Tool]
+                     ) -> None:
+        with open(fn, 'r') as f:
+            yml = yaml.load(f)
+
+        # TODO check version
+        if 'version' not in yml:
+            self.__logger.warning("no version specified in manifest file: %s", fn)
+
+        for description in yml.get('bugs', []):
+            self.__logger.debug("parsing bug: %s", json.dumps(description))
+            try:
+                bug = self.__parse_bug(source, fn, description)
+                self.__logger.debug("parsed bug: %s", bug.name)
+                bugs.append(bug)
+            except KeyError as e:
+                self.__logger.error("missing property in bug description: %s", str(e))
+
+        for description in yml.get('blueprints', []):
+            self.__logger.debug("parsing blueprint: %s", json.dumps(description))
+            try:
+                blueprint = self.__parse_blueprint(source, fn, description)
+                self.__logger.debug("parsed blueprint for image: %s",
+                                    blueprint.name)
+                blueprints.append(blueprint)
+            except KeyError as e:
+                self.__logger.error("missing property in blueprint description: %s", str(e))
+
+        for description in yml.get('tools', []):
+            self.__logger.debug("parsing tool: %s", json.dumps(description))
+            try:
+                tool = self.__parse_tool(source, fn, description)
+                self.__logger.debug("parsed tool: %s", tool.name)
+                tools.append(tool)
+            except KeyError as e:
+                self.__logger.error("missing property in tool description: %s", str(e))
+
     def load(self, source: Source) -> None:
         """
         Attempts to load all resources (i.e., bugs, tools, and blueprints)
@@ -161,107 +229,25 @@ class SourceManager(object):
         if source.name in self.__sources:
             self.unload(source)
 
-        tools = []
         bugs = []
         blueprints = []
+        tools = []
 
-        def parse_blueprint(manifest_path: str, d: dict) -> BuildInstructions:
-            root_dir = os.path.dirname(manifest_path)
-            if 'build-arguments' in d:
-                warnings.warn("'build-arguments' property is deprecated; use 'arguments' instead.",
-                              DeprecationWarning)
-                args = d['build-arguments']
-            elif 'arguments' in d:
-                args = d['arguments']
-            else:
-                args = {}
-
-            try:
-                tag = d['tag']
-            except KeyError:
-                raise BadManifestFile("missing 'tag' property")
-
-            return BuildInstructions(os.path.dirname(manifest_path),
-                                     tag,
-                                     d.get('context', '.'),
-                                     d.get('file', 'Dockerfile'),
-                                     args,
-                                     d.get('depends-on', None),
-                                     source.name)
-
-        def read_blueprint_file(manifest_path: str) -> BuildInstructions:
-            with open(manifest_path, 'r') as f:
-                return parse_blueprint(manifest_path, yaml.load(f))
-
-        def read_bug_file(manifest_path: str
-                          ) -> Tuple[Bug, BuildInstructions]:
-            with open(manifest_path, 'r') as f:
-                d = yaml.load(f)
-                blueprint = parse_blueprint(manifest_path, d['build'])
-                bug = Bug(d['bug'],
-                          blueprint.name,
-                          d.get('dataset', None),
-                          d.get('program', None),
-                          source.name,
-                          d['source-location'],
-                          [Language[lang] for lang in d['languages']],
-                          TestSuite.from_dict(d['test-harness']),
-                          Compiler.from_dict(d['compiler']))
-                return (bug, blueprint)
-
-        # find all tools
-        manifest_fn = os.path.join(source.location, '.bugzoo.yml')
-        if os.path.exists(manifest_fn):
-            with open(manifest_fn, 'r') as f:
-                self.__logger.debug('found generic manifest at %s', manifest_fn)
-                try:
-                    d = yaml.load(f)
-                    # TODO we actually ignore dataset manifests :-)
-                    if d['type'] == 'tool':
-                        blueprint = parse_blueprint(manifest_fn, d['build'])
-                        tool = Tool(d['name'],
-                                    blueprint.name,
-                                    d.get('environment', {}),
-                                    source.name)
-                        tools.append(tool)
-                        blueprints.append(blueprint)
-                except BadManifestFile as e:
-                    self.__logger.warning("failed to load generic manifest: %s [%s]",
-                                          fn, e)
-                except KeyError as e:
-                    self.__logger.warning("failed to load generic manifest: %s [missing: %s]",
-                                          fn, e.args[0])
-
-        # find all blueprints
-        glob_pattern = '{}/**/*.dependency.y*ml'.format(source.location)
+        # find and parse all bugzoo files
+        glob_pattern = '{}/**/*.bugzoo.y*ml'.format(source.location)
         for fn in glob.iglob(glob_pattern, recursive=True):
             if fn.endswith('.yml') or fn.endswith('.yaml'):
-                self.__logger.debug('found blueprint manifest at %s', fn)
-                try:
-                    blueprint = read_blueprint_file(fn)
-                    blueprints.append(blueprint)
-                except BadManifestFile as e:
-                    self.__logger.warning("failed to load blueprint manifest: %s [%s]", fn, e)
-
-        # find all bugs
-        glob_pattern = '{}/**/*.bug.y*ml'.format(source.location)
-        for fn in glob.iglob(glob_pattern, recursive=True):
-            if fn.endswith('.yml') or fn.endswith('.yaml'):
-                self.__logger.debug('found bug manifest at %s', fn)
-                try:
-                    bug, blueprint = read_bug_file(fn)
-                    bugs.append(bug)
-                    blueprints.append(blueprint)
-                except BadManifestFile as e:
-                    self.__logger.warning("failed to load bug manifest: %s [%s]", fn, e)
+                self.__logger.debug('found manifest file: %s', fn)
+                self.__parse_file(source, fn, bugs, blueprints, tools)
+                self.__logger.debug('parsed manifest file: %s', fn)
 
         # register contents
         for bug in bugs:
             self.__installation.bugs.add(bug)
-        for tool in tools:
-            self.__installation.tools.add(tool)
         for blueprint in blueprints:
             self.__installation.build.add(blueprint)
+        for tool in tools:
+            self.__installation.tools.add(tool)
 
         # record contents of source
         contents = SourceContents([b.name for b in blueprints],
