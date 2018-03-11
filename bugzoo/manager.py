@@ -1,11 +1,12 @@
 from typing import Iterator
 import os
+import logging
+import time
 
 import docker
 
 from .mgr.build import BuildManager
 from .mgr.source import SourceManager
-from .mgr.dataset import DatasetManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
 
@@ -30,20 +31,40 @@ class BugZoo(object):
             default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
             path = os.environ.get('BUGZOO_PATH', default_path)
         self.__path = path
+        path_logs = os.path.join(path, 'logs')
 
         # ensure dirs exist
         if not os.path.exists(self.path):
             os.makedirs(self.path)
+        if not os.path.exists(path_logs):
+            os.makedirs(path_logs)
         if not os.path.exists(self.coverage_path):
             os.makedirs(self.coverage_path)
 
-        client_docker = docker.from_env()
+        # enable logging
+        # TODO allow users to control output and verbosity
+        timestamp = time.strftime('%Y%m%d-%H%M%S', time.gmtime())
+        log_fn = 'logs/{}.bugzoo.log'.format(timestamp)
+        log_fn = os.path.join(self.__path, log_fn)
+        logging.basicConfig(filename=log_fn,
+                            filemode='w',
+                            level=logging.INFO)
+        self.__logger = logging.getLogger('bugzoo')
+        self.__logger.setLevel(logging.DEBUG)
+        self.__logger.info('Logging to: %s', log_fn)
 
-        self.__mgr_build = BuildManager(client_docker)
+        self.__docker = docker.from_env()
+        self.__mgr_build = BuildManager(self.__docker)
+        self.__bugs = BugManager(self)
+        self.__tools = ToolManager(self)
         self.__sources = SourceManager(self)
-        self.__datasets = DatasetManager(self)
-        self.__bugs = BugManager(self, self.__mgr_build)
-        self.__tools = ToolManager(self, self.__mgr_build)
+
+    @property
+    def logger(self) -> logging.Logger:
+        """
+        The root logging mechanism for BugZoo.
+        """
+        return self.__logger
 
     @property
     def path(self) -> str:
@@ -73,13 +94,6 @@ class BugZoo(object):
         The sources registered with this BugZoo installation.
         """
         return self.__sources
-
-    @property
-    def datasets(self) -> DatasetManager:
-        """
-        The datasets registered with this BugZoo installation.
-        """
-        return self.__datasets
 
     @property
     def tools(self) -> ToolManager:

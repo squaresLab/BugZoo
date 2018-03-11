@@ -7,6 +7,7 @@ import tabulate
 
 import bugzoo.core.errors
 import bugzoo.version
+from ..core.source import RemoteSource
 from ..manager import BugZoo
 from ..core.tool import Tool
 
@@ -23,54 +24,41 @@ def list_sources(rbox: 'BugZoo') -> None:
     """
     Produces a list of all the sources known to BugZoo.
     """
-    hdrs = ['Source', 'URL', 'Version']
+    hdrs = ['Source', 'Type', 'URL', 'Location', 'Version']
     tbl = []
     for src in rbox.sources:
-        tbl.append([src.name, src.url, src.version])
+        typ = 'Remote' if isinstance(src, RemoteSource) else 'Local'
+        version = src.version if isinstance(src, RemoteSource) else '-'
+        url = src.url if isinstance(src, RemoteSource) else '-'
+        tbl.append([src.name, typ, url, src.location, version])
 
     # transform into a pretty table
+    tbl = sorted(tbl, key=itemgetter(1,))
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
 
 
-def add_source(rbox: 'BugZoo', url: str) -> None:
+def add_source(rbox: 'BugZoo', name: str, url_or_path: str) -> None:
     try:
-        rbox.sources.add(url)
-        print('added source: {}'.format(url))
-    except bugzoo.core.errors.SourceAlreadyRegisteredWithURL:
-        print('source already registered with URL: {}'.format(url))
+        rbox.sources.add(name, url_or_path)
+        print('added source: {} -> {}'.format(name, url_or_path))
+    except bugzoo.core.errors.NameInUseError:
+        print('source already registered with name: {}'.format(name))
 
 
-def remove_source(rbox: 'BugZoo', url: str) -> None:
+def remove_source(rbox: 'BugZoo', name: str) -> None:
     try:
-        rbox.sources.remove_by_url(url)
-        print('removed source: {}'.format(url))
-    except bugzoo.core.errors.SourceNotFoundWithURL as err:
-        print("no source registered with URL: {}".format(err.url))
+        source = rbox.sources[name]
+        rbox.sources.remove(source)
+        print('removed source: {}'.format(source.name))
+    except KeyError:
+        print("no source registered with name: {}".format(name))
 
 
 def update_sources(rbox: 'BugZoo', ) -> None:
     print('updating sources...')
     rbox.sources.update()
-
-
-###############################################################################
-# [dataset] group
-###############################################################################
-def list_datasets(rbox: 'BugZoo') -> None:
-    tbl = []
-    hdrs = ['Dataset', 'Source', '# Bugs']
-    for ds in rbox.datasets:
-        row = [ds.name, ds.url, ds.size]
-        tbl.append(row)
-
-    tbl = sorted(tbl, key=itemgetter(0))
-
-    # transform into a pretty table
-    tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
-    print('')
-    print(tbl)
 
 
 ###############################################################################
@@ -111,7 +99,7 @@ def uninstall_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
 
 def list_bugs_quiet(rbox: 'BugZoo') -> None:
     for bug in rbox.bugs:
-        print(bug.identifier)
+        print(bug.name)
 
 
 def list_bugs(rbox: 'BugZoo',
@@ -122,7 +110,7 @@ def list_bugs(rbox: 'BugZoo',
         return list_bugs_quiet(rbox)
 
     tbl = []
-    hdrs = ['Bug', 'Source', 'Installed?']
+    hdrs = ['Bug', 'Program', 'Dataset', 'Source', 'Installed?']
     for bug in rbox.bugs:
         is_installed = rbox.bugs.is_installed(bug)
 
@@ -132,13 +120,13 @@ def list_bugs(rbox: 'BugZoo',
                 continue
 
         installed = 'Yes' if is_installed else 'No'
-        row = [bug.identifier, bug.dataset.name, installed]
+        dataset = bug.dataset if bug.dataset else '-'
+        program = bug.program if bug.program else '-'
+        source = bug.source if bug.source else '-'
+        row = [bug.name, program, dataset, source, installed]
         tbl.append(row)
 
-    # sort by dataset then by bug
-    tbl = sorted(tbl, key=itemgetter(1,2))
-
-    # transform into a pretty table
+    tbl = sorted(tbl, key=itemgetter(3, 2, 1, 0))
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
@@ -207,13 +195,11 @@ def list_tools(rbox: 'BugZoo',
                 continue
 
         installed = 'Yes' if is_installed else 'No'
-        row = [tool.name, tool.url, installed]
+        source = tool.source if tool.source else '-'
+        row = [tool.name, source, installed]
         tbl.append(row)
 
-    # sort by dataset then by bug
-    tbl = sorted(tbl, key=itemgetter(1,2))
-
-    # transform into a pretty table
+    tbl = sorted(tbl, key=itemgetter(1, 0))
     tbl = tabulate.tabulate(tbl, headers=hdrs, tablefmt='simple')
     print('')
     print(tbl)
@@ -322,15 +308,16 @@ def build_parser():
     cmd = g_subparsers.add_parser('list')
     cmd.set_defaults(func=lambda args: list_sources(rbox))
 
-    # [source add :url]
+    # [source add :name :url_or_path]
     cmd = g_subparsers.add_parser('add')
-    cmd.add_argument('source')
-    cmd.set_defaults(func=lambda args: add_source(rbox, args.source))
+    cmd.add_argument('name', type=str)
+    cmd.add_argument('url_or_path', type=str)
+    cmd.set_defaults(func=lambda args: add_source(rbox, args.name, args.url_or_path))
 
-    # [source remove :url]
+    # [source remove :name]
     cmd = g_subparsers.add_parser('remove')
-    cmd.add_argument('source')
-    cmd.set_defaults(func=lambda args: remove_source(rbox, args.source))
+    cmd.add_argument('name', type=str)
+    cmd.set_defaults(func=lambda args: remove_source(rbox, args.name))
 
     # [source update]
     cmd = g_subparsers.add_parser('update')
@@ -384,17 +371,6 @@ def build_parser():
     cmd.set_defaults(func=lambda args: list_tools(rbox,
                                                   quiet=args.quiet,
                                                   show_installed=args.installed))
-
-
-    ###########################################################################
-    # [dataset] group
-    ###########################################################################
-    g_dataset = subparsers.add_parser('dataset')
-    g_subparsers = g_dataset.add_subparsers()
-
-    # [dataset list]
-    cmd = g_subparsers.add_parser('list')
-    cmd.set_defaults(func=lambda args: list_datasets(rbox))
 
 
     ###########################################################################

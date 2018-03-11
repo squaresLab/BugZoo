@@ -2,11 +2,19 @@ from typing import Dict, List, Iterator
 from copy import copy
 
 
+class BadManifestFile(BaseException):
+    """
+    Thrown when the server fails to parse a manifest file.
+    """
+    def __init__(self, reason: str):
+        msg = "bad manifest file: {}".format(reason)
+        super().__init__(msg)
+
 class UnexpectedStatusCode(BaseException):
     """
     Indicates that the API request produced an unexpected status code.
     """
-    def __init__(self, code: int) -> None:
+    def __init__(self, code: int):
         self.__code = code
         super().__init__("API request produced unexpected status code: {}".format(code))
 
@@ -22,7 +30,7 @@ class BugAlreadyBuilt(BaseException):
     """
     Indicates that the given bug has already been installed on the server.
     """
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str):
         self.__name = name
         super().__init__("bug already built: {}".format(name))
 
@@ -38,7 +46,7 @@ class BugNotFound(BaseException):
     """
     Indicates that no bug was found that matches the provided identifier.
     """
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str):
         self.__name = name
         super().__init__("no bug found with name: {}".format(name))
 
@@ -54,7 +62,7 @@ class SourceNotFoundWithURL(BaseException):
     """
     Indicates that no source has been found that matches a provided URL.
     """
-    def __init__(self, url: str) -> None:
+    def __init__(self, url: str):
         self.__url = url
         super().__init__("no source registered with URL: {}".format(url))
 
@@ -81,7 +89,7 @@ class SourceAlreadyRegisteredWithURL(BaseException):
     Indicates that there exists a source that is already registered with a
     given URL.
     """
-    def __init__(self, url: str) -> None:
+    def __init__(self, url: str):
         self.__url = url
         super().__init__("source already registered with URL: {}".format(url))
 
@@ -90,11 +98,24 @@ class SourceAlreadyRegisteredWithURL(BaseException):
         return self.__url
 
 
+class NameInUseError(BaseException):
+    """
+    Indicates that a given name is already in use by another resource.
+    """
+    def __init__(self, name: str):
+        self.__name = name
+        super().__init__("name already in use: {}".format(name))
+
+    @property
+    def name(self) -> str:
+        return self.__name
+
+
 class BugNotInstalledError(BaseException):
     """
     Indicates that a given bug hasn't been installed.
     """
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str):
         self.__name = name
         super().__init__("bug not installed: {}".format(bug))
 
@@ -112,8 +133,7 @@ class ImageBuildFailed(BaseException):
     """
     def __init__(self,
                  image_name: str,
-                 log: List[Dict[str, str]]
-                 ) -> None:
+                 log: List[Dict[str, str]]):
         self.__image_name = image_name
         self.__log = copy(log)
         msg = "failed to build image: {}".format(image_name)

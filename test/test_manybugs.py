@@ -20,28 +20,28 @@ class ManyBugsTestCase(CLITestCase):
         manybugs_url = 'https://github.com/squaresLab/ManyBugs'
 
         # attempt to install ManyBugs
-        self.run_command(['source', 'add', manybugs_url])
+        self.run_command(['source', 'add', 'manybugs', manybugs_url])
 
         # check that the source has been registered
         try:
-            bz.rescan()
-            bz.sources.get_by_url(manybugs_url)
-        except:
+            bz.sources.refresh()
+            bz.sources['manybugs']
+        except KeyError:
             self.fail("Failed to find registered source.")
 
         # remove the source
-        self.run_command(['source', 'remove', manybugs_url])
+        self.run_command(['source', 'remove', 'manybugs'])
+        bz.sources.refresh()
 
-        bz.rescan()
-        with self.assertRaises(SourceNotFoundWithURL):
-            bz.sources.get_by_url(manybugs_url)
+        with self.assertRaises(KeyError):
+            bz.sources['manybugs']
 
         # re-add ManyBugs!
-        self.run_command(['source', 'add', manybugs_url])
+        self.run_command(['source', 'add', 'manybugs', manybugs_url])
         try:
-            bz.rescan()
-            bz.sources.get_by_url(manybugs_url)
-        except:
+            bz.sources.refresh()
+            bz.sources['manybugs']
+        except KeyError:
             self.fail("Failed to find registered source.")
 
 

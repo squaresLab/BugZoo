@@ -1,6 +1,5 @@
 from typing import Iterator
 
-from .build import BuildManager
 from ..core.bug import Bug
 from ..util import print_task_start, print_task_end
 
@@ -10,34 +9,47 @@ class BugManager(object):
     Used to access and manage all bugs registered with a local BugZoo
     installation.
     """
-    class BugIterator(object):
-        def __init__(self, datasets):
-            self.__datasets = [d for d in datasets]
-            self.__bugs = []
-
-        def __next__(self):
-            if not self.__bugs:
-                if not self.__datasets:
-                    raise StopIteration
-                src = self.__datasets.pop()
-                self.__bugs += src.bugs
-                return self.__next__()
-            return self.__bugs.pop()
-
     def __init__(self,
-                 installation: 'BugZoo',
-                 manager_build: BuildManager):
+                 installation: 'BugZoo'):
         self.__installation = installation
-        self.__manager_build = manager_build
+        self.__bugs = {}
 
     def __getitem__(self, name: str) -> Bug:
-        for src in self.__installation.datasets:
-            if src.contains(name):
-                return src[name]
-        raise IndexError('bug not found: {}'.format(name))
+        """
+        Attempts to fetch the description of a named bug.
+
+        Parameters:
+            name: the name of the bug.
+
+        Returns:
+            a description of the bug.
+
+        Raises:
+            KeyError: if no bug is found with the given name.
+        """
+        return self.__bugs[name]
 
     def __iter__(self) -> Iterator[Bug]:
-        return BugManager.BugIterator(self.__installation.datasets)
+        """
+        Returns an iterator over the bugs that are registered with this server.
+        """
+        return self.__bugs.values().__iter__()
+
+    def register(self, bug: Bug) -> None:
+        """
+        Attempts to register a given bug with this manager.
+        """
+        self.__bugs[bug.name] = bug
+
+    add = register
+
+    def deregister(self, bug: Bug) -> None:
+        """
+        Attempts to deregister a given bug from this manager.
+        """
+        del self.__bugs[bug.name]
+
+    remove = deregister
 
     def is_installed(self, bug: Bug) -> bool:
         """
@@ -46,7 +58,7 @@ class BugManager(object):
 
         See: `BuildManager.is_installed`
         """
-        return self.__manager_build.is_installed(bug.build_instructions)
+        return self.__installation.build.is_installed(bug.image)
 
     def build(self,
               bug: Bug,
@@ -58,9 +70,9 @@ class BugManager(object):
 
         See: `BuildManager.build`
         """
-        self.__manager_build.build(bug.build_instructions,
-                                   force=force,
-                                   quiet=quiet)
+        self.__installation.build.build(bug.image,
+                                        force=force,
+                                        quiet=quiet)
 
     def uninstall(self,
                   bug: Bug,
@@ -72,9 +84,9 @@ class BugManager(object):
 
         See: `BuildManager.uninstall`
         """
-        self.__manager_build.uninstall(bug.build_instructions,
-                                       force=force,
-                                       noprune=noprune)
+        self.__installation.build.uninstall(bug.image,
+                                            force=force,
+                                            noprune=noprune)
 
     def download(self,
                  bug: Bug,
@@ -87,15 +99,15 @@ class BugManager(object):
         Returns:
             `True` if successfully downloaded, else `False`.
         """
-        return self.__manager_build.download(bug.build_instructions,
-                                             force=force)
+        return self.__installation.build.download(bug.image,
+                                                  force=force)
 
     def upload(self, bug: Bug) -> bool:
         """
         Attempts to upload the Docker image for a given bug to
         `DockerHub <https://hub.docker.com>`_.
         """
-        return self.__manager_build.upload(bug.build_instructions)
+        return self.__installation.build.upload(bug.image)
 
     def validate(self, bug: Bug, verbose: bool = True) -> bool:
         """
