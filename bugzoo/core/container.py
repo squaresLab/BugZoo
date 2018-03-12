@@ -19,7 +19,7 @@ from .coverage import ProjectLineCoverage, \
                       ProjectCoverageMap, \
                       Spectra
 from ..testing import TestOutcome, TestCase
-from ..compiler import Compiler, CompilationOutcome
+from ..compiler import Compiler
 from ..cmd import ExecResponse, PendingExecResponse
 
 
@@ -273,30 +273,3 @@ class Container(object):
         else:
             out = client.api.exec_start(response['Id'], stream=True)
             return PendingExecResponse(response, out)
-
-    def compile(self,
-                verbose: bool = False
-                ) -> CompilationOutcome:
-        """
-        Attempts to compile the program inside this container.
-
-        Params:
-            verbose: Specifies whether to print the stdout and stderr produced
-                by the compilation command to the stdout. If `True`, then the
-                stdout and stderr will be printed.
-
-        Returns:
-            A summary of the outcome of the compilation attempt.
-        """
-        return self.bug.compiler.compile(self, verbose=verbose)
-
-    def compile_with_instrumentation(self,
-                                     verbose: bool = False
-                                     ) -> CompilationOutcome:
-        """
-        Attempts to compile the program inside this container with
-        instrumentation enabled.
-
-        See: `Container.compile`
-        """
-        return self.bug.compiler.compile_with_coverage_instrumentation(self, verbose=verbose)

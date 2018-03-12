@@ -5,6 +5,7 @@ from ..core.bug import Bug
 from ..core.coverage import ProjectLineCoverage, \
                             ProjectCoverageMap, \
                             Spectra
+from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
 
 
@@ -102,3 +103,36 @@ class ContainerManager(object):
         language = container.bug.languages[0]
         extractor = language.coverage_extractor
         return extractor.coverage(self, container, tests)
+
+    def compile(self,
+                container: Container,
+                verbose: bool = False
+                ) -> CompilationOutcome:
+        """
+        Attempts to compile the program inside a given container.
+
+        Params:
+            verbose: specifies whether to print the stdout and stderr produced
+                by the compilation command to the stdout. If `True`, then the
+                stdout and stderr will be printed.
+
+        Returns:
+            a summary of the outcome of the compilation attempt.
+        """
+        # TODO use container name
+        bug = container.bug # self.__installation.bugs[container.bug]
+        return bug.compiler.compile(container, verbose=verbose)
+
+    def compile_with_instrumentation(self,
+                                     container: Container,
+                                     verbose: bool = False
+                                     ) -> CompilationOutcome:
+        """
+        Attempts to compile the program inside a given container with
+        instrumentation enabled.
+
+        See: `Container.compile`
+        """
+        bug = self.__installation.bugs[container.bug]
+        return bug.compiler.compile_with_coverage_instrumentation(container,
+                                                                  verbose=verbose)

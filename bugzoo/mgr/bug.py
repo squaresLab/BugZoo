@@ -141,7 +141,7 @@ class BugManager(object):
             # ensure we can compile the bug
             # TODO: check compilation status!
             print_task_start('Compiling')
-            c.compile()
+            self.__installation.containers.compile(c)
             print_task_end('Compiling', 'OK')
 
             if isinstance(bug.harness, bugzoo.testing.GenProgTestSuite):
