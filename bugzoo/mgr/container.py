@@ -1,6 +1,7 @@
 from typing import Iterator, List
 import subprocess
 import ipaddress
+import tempfile
 
 import docker
 
@@ -118,7 +119,7 @@ class ContainerManager(object):
             # copy contents to a temporary file on the container
             file_container = \
                 container.exec_run('mktemp').decode(sys.stdout.encoding).strip()
-            container.copy_to(file_host.name, file_container)
+            self.copy_to(container, file_host.name, file_container)
 
             # run patch command inside the source directory
             # cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
@@ -204,3 +205,29 @@ class ContainerManager(object):
         bug = self.__installation.bugs[container.bug]
         return bug.compiler.compile_with_coverage_instrumentation(container,
                                                                   verbose=verbose)
+
+    def copy_to(self,
+                container: Container,
+                fn_host: str,
+                fn_container: str
+                ) -> None:
+        """
+        Copies a file from the host machine to a specified location inside a
+        container.
+        """
+        cmd = "docker cp '{}' '{}:{}'".format(fn_host, container.id, fn_container)
+        # TODO implement error handling
+        subprocess.check_output(cmd, shell=True)
+
+    def copy_from(self,
+                  container: Container,
+                  fn_container: str,
+                  fn_host: str
+                  ) -> None:
+        """
+        Copies a given file from the container to a specified location on the
+        host machine.
+        """
+        cmd = "docker cp '{}:{}' '{}'".format(container.id, fn_container, fn_host)
+        # TODO implement error handling
+        subprocess.check_output(cmd, shell=True)

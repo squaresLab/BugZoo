@@ -6,7 +6,6 @@ import copy
 import sys
 import os
 import subprocess
-import tempfile
 import time
 
 import docker
@@ -141,24 +140,6 @@ class Container(object):
         if self.__env_file:
             self.__env_file.close()
             self.__env_file = None
-
-    def copy_to(self, source_fn: str, dest_fn: str) -> None:
-        """
-        Copies a given file from the host machine to a specified location
-        inside this container.
-        """
-        ctr_id = self.container.id
-        cmd = "docker cp '{}' '{}:{}'".format(source_fn, ctr_id, dest_fn)
-        subprocess.check_output(cmd, shell=True)
-
-    def copy_from(self, source_fn: str, dest_fn: str) -> None:
-        """
-        Copies a given file from the container to a specified location on the
-        host machine.
-        """
-        ctr_id = self.container.id
-        cmd = "docker cp '{}:{}' '{}'".format(ctr_id, source_fn, dest_fn)
-        subprocess.check_output(cmd, shell=True)
 
     def command(self,
                 cmd: str,
