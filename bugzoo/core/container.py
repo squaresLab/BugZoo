@@ -13,11 +13,7 @@ import docker
 
 import bugzoo
 from .language import Language
-from .patch import Patch
 from .tool import Tool
-from .coverage import ProjectLineCoverage, \
-                      ProjectCoverageMap, \
-                      Spectra
 from ..testing import TestOutcome, TestCase
 from ..compiler import Compiler
 from ..cmd import ExecResponse, PendingExecResponse
@@ -94,6 +90,7 @@ class Container(object):
         """
         assert self.alive
         return self.__container.id
+
     uid = id
 
     @property
@@ -174,40 +171,6 @@ class Container(object):
         if self.__env_file:
             self.__env_file.close()
             self.__env_file = None
-
-    def patch(self, p: Patch) -> bool:
-        """
-        Attempts to apply a given patch to the source code. All patch
-        applications are guaranteed to be atomic; if the patch fails to
-        apply, no changes will be made to the relevant source code files.
-
-        Returns true if the patch application was successful, and false if
-        the attempt was unsuccessful.
-        """
-        assert isinstance(p, Patch)
-        host_file = container_file = None
-
-        try:
-            # write the patch to a temporary file on the host
-            host_file = NamedTemporaryFile(mode='w', suffix='bugzoo')
-            host_file.write(str(p))
-            host_file.flush()
-
-            # copy contents to a temporary file on the container
-            container_file = \
-                self.container.exec_run('mktemp').decode(sys.stdout.encoding).strip()
-            self.copy_to(host_file.name, container_file)
-
-            # run patch command inside the source directory
-            # cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
-            cmd = 'git apply -p0 "{}"'.format(container_file)
-            outcome = self.command(cmd, context=self.bug.source_dir)
-            return outcome.code == 0
-
-        # destroy temporary files on container
-        finally:
-            if container_file:
-                self.container.exec_run('rm "{}"'.format(container_file))
 
     def copy_to(self, source_fn: str, dest_fn: str) -> None:
         """
