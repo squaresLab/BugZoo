@@ -75,7 +75,7 @@ class ContainerManager(object):
         Returns:
             the outcome of the test execution.
         """
-        bug = self.__installation.bugs[container.bug]
+        bug = self.__installation.bugs[container.bug.name]
         cmd, context = bug.harness.command(test)
         response = container.command(cmd, context, stderr=True)
         passed = response.code == 0

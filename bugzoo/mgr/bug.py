@@ -1,4 +1,5 @@
 from typing import Iterator
+import bugzoo.testing
 
 from ..core.bug import Bug
 from ..util import print_task_start, print_task_end
@@ -141,9 +142,9 @@ class BugManager(object):
             c.compile()
             print_task_end('Compiling', 'OK')
 
-            if isinstance(self.harness, bugzoo.testing.GenProgTestSuite):
+            if isinstance(bug.harness, bugzoo.testing.GenProgTestSuite):
 
-                for t in self.harness.passing:
+                for t in bug.harness.passing:
                     task = 'Running test: {}'.format(t.identifier)
                     print_task_start(task)
 
@@ -156,7 +157,7 @@ class BugManager(object):
                     else:
                         print_task_end(task, 'OK')
 
-                for t in self.harness.failing:
+                for t in bug.harness.failing:
                     task = 'Running test: {}'.format(t.identifier)
                     print_task_start(task)
 
