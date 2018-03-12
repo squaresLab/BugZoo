@@ -6,7 +6,9 @@ from ..core.bug import Bug
 
 class ContainerManager(object):
     def __init__(self, installation: 'BugZoo'):
+        self.__installation = installation
         self.__containers = {}
+        self.__logger = installation.logger.getChild('container')
 
     def __iter__(self) -> Iterator[Container]:
         """
@@ -23,7 +25,7 @@ class ContainerManager(object):
         """
         return self.__containers[uid]
 
-    def __delitem__(self, uid: str) -> Container:
+    def __delitem__(self, uid: str) -> None:
         """
         Deletes a running container with a given UID.
 
@@ -33,11 +35,14 @@ class ContainerManager(object):
         Raises:
             KeyError: if no container was found with the given UID.
         """
-        # TODO use logging
-        print("Deleting container: {}".format(uid))
-        self.__containers[uid].destroy()
-        del self.__containers[uid]
-        print("Deleted container: {}".format(uid))
+        self.__logger.info("deleting container: %s", uid)
+        try:
+            container = self.__containers[uid]
+            container.destroy()
+            del self.__containers[uid]
+        except KeyError:
+            self.__logger.error("failed to delete container: %s [not found]", uid)
+        self.__logger.info("deleted container: %s", uid)
 
     delete = __delitem__
 
