@@ -68,6 +68,38 @@ class FileLine(object):
     __repr__ = __str__
 
 
+class FileLineSet(object):
+    T = Dict[str, Set[int]]
+
+    @staticmethod
+    def from_dict(d: Dict[str, List[int]]) -> 'FileLineSet':
+        contents = {fn: frozenset(lines) for (fn, lines) in d.items()}
+        return FileLineSet(contents)
+
+    def __init__(self, contents: T):
+        self.__contents = dict(contents)
+
+    def __iter__(self) -> Iterator[FileLine]:
+        """
+        Returns an iterator over the lines contained in this set.
+        """
+        for fn in self.__contents:
+            for num in self.__contents[fn]:
+                yield FileLine(fn, num)
+
+    def __contains__(self, file_line: FileLine) -> bool:
+        return file_line.fn in self.__contents and \
+               file_line.num in self.__contents[file_line.fn]
+
+    def to_dict(self) -> Dict[str, List[int]]:
+        """
+        Returns the contents of this set as a JSON/YAML-ready dictionary.
+        """
+        contents = {fn: list(lines)
+                    for (fn, lines) in self.__contents.items()}
+        return contents
+
+
 class FileLineCoverage(object):
     """
     Provides line-level coverage information for a given file.
