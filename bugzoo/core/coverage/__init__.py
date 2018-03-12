@@ -1,4 +1,5 @@
 from .base import FileLine, \
+                  FileLineSet, \
                   FileLineCoverage, \
                   ProjectLineCoverage, \
                   ProjectCoverageMap
