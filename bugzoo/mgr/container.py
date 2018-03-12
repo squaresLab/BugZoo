@@ -1,7 +1,11 @@
-from typing import Iterator
+from typing import Iterator, List
 
-from ..container import Container
+from ..core.container import Container
 from ..core.bug import Bug
+from ..core.coverage import ProjectLineCoverage, \
+                            ProjectCoverageMap, \
+                            Spectra
+from ..testing import TestCase, TestOutcome
 
 
 class ContainerManager(object):
@@ -63,3 +67,38 @@ class ContainerManager(object):
         c = Container(bug, uid=uid)
         self.__containers[c.id] = c
         return c
+
+    def execute(self, container: Container, test: TestCase) -> TestOutcome:
+        """
+        Runs a specified test inside a given container.
+
+        Returns:
+            the outcome of the test execution.
+        """
+        bug = self.__installation.bugs[container.bug]
+        cmd, context = bug.harness.command(test)
+        response = container.command(cmd, context, stderr=True)
+        passed = response.code == 0
+        return TestOutcome(response, passed)
+
+    def coverage(self,
+                 container: Container,
+                 tests: List[TestCase] = None
+                 ) -> ProjectCoverageMap:
+        """
+        Computes line coverage information for an optionally provided list of
+        tests. If no list of tests is provided, then coverage will be computed
+        for all tests within the test suite associated with the program inside
+        the given container.
+        """
+        assert container.alive # TODO port
+        assert tests != []
+
+        if tests is None:
+            tests = container.bug.tests
+
+        # fetch the extractor for this language
+        # TODO: assumes a single language
+        language = container.bug.languages[0]
+        extractor = language.coverage_extractor
+        return extractor.coverage(self, container, tests)

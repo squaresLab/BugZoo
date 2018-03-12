@@ -147,7 +147,7 @@ class BugManager(object):
                     task = 'Running test: {}'.format(t.identifier)
                     print_task_start(task)
 
-                    outcome = c.execute(t)
+                    outcome = self.__installation.containers.execute(c, t)
                     if not outcome.passed:
                         validated = False
                         print_task_end(task, 'UNEXPECTED: FAIL')
@@ -160,7 +160,7 @@ class BugManager(object):
                     task = 'Running test: {}'.format(t.identifier)
                     print_task_start(task)
 
-                    outcome = c.execute(t)
+                    outcome = self.__installation.containers.execute(c, t)
                     if outcome.passed:
                         validated = False
                         print_task_end(task, 'UNEXPECTED: PASS')

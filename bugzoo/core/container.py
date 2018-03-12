@@ -13,12 +13,12 @@ import docker
 
 import bugzoo
 from .language import Language
-from .testing import TestOutcome, TestCase
 from .patch import Patch
 from .tool import Tool
 from .coverage import ProjectLineCoverage, \
                       ProjectCoverageMap, \
                       Spectra
+from ..testing import TestOutcome, TestCase
 from ..compiler import Compiler, CompilationOutcome
 from ..cmd import ExecResponse, PendingExecResponse
 
@@ -186,12 +186,6 @@ class Container(object):
         assert os.path.exists(src)
         assert mode in ['ro', 'rw']
 
-    def reset(self) -> None:
-        """
-        Resets the state of this container.
-        """
-        raise NotImplementedError
-
     def patch(self, p: Patch) -> bool:
         """
         Attempts to apply a given patch to the source code. All patch
@@ -280,27 +274,6 @@ class Container(object):
             out = client.api.exec_start(response['Id'], stream=True)
             return PendingExecResponse(response, out)
 
-    def coverage(self,
-                 tests: List[TestCase] = None
-                 ) -> ProjectCoverageMap:
-        """
-        Computes line coverage information for an optionally provided list of
-        tests. If no list of tests is provided, then coverage will be computed
-        for all tests within the test suite associated with the program inside
-        this container.
-        """
-        assert self.alive
-        assert tests != []
-
-        if tests is None:
-            tests = self.bug.tests
-
-        # fetch the extractor for this language
-        # TODO: assumes a single language
-        language = self.bug.languages[0]
-        extractor = language.coverage_extractor
-        return extractor.coverage(self, tests)
-
     def compile(self,
                 verbose: bool = False
                 ) -> CompilationOutcome:
@@ -327,13 +300,3 @@ class Container(object):
         See: `Container.compile`
         """
         return self.bug.compiler.compile_with_coverage_instrumentation(self, verbose=verbose)
-
-    def execute(self, test: TestCase) -> TestOutcome:
-        """
-        Executes a given test inside this container and returns the outcome of
-        the execution.
-        """
-        (cmd, ctx) = self.bug.harness.command(test)
-        response = self.command(cmd, ctx, stderr=True)
-        passed = response.code == 0
-        return TestOutcome(response, passed)
