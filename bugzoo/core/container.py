@@ -175,17 +175,6 @@ class Container(object):
             self.__env_file.close()
             self.__env_file = None
 
-    def mount_file(self, src: str, dest: str, mode: str) -> None:
-        """
-        Dynamically mounts a given file (or directory) inside this container.
-
-        https://jpetazzo.github.io/2015/01/13/docker-mount-dynamic-volumes/
-        """
-        assert isinstance(src, str)
-        assert isinstance(dest, str)
-        assert os.path.exists(src)
-        assert mode in ['ro', 'rw']
-
     def patch(self, p: Patch) -> bool:
         """
         Attempts to apply a given patch to the source code. All patch
