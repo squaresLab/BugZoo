@@ -17,9 +17,9 @@ from .cmd import ExecResponse, PendingExecResponse
 from .testing import TestOutcome, TestCase
 from .core import Patch
 from .core.tool import Tool
-from .coverage.base import ProjectLineCoverage, \
-                           ProjectCoverageMap
-from .coverage.spectra import Spectra
+from .core.coverage import ProjectLineCoverage, \
+                           ProjectCoverageMap, \
+                           Spectra
 from .compiler import Compiler, CompilationOutcome
 
 

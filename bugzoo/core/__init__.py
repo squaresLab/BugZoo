@@ -1,2 +1,2 @@
-from bugzoo.core.language import Language
-from bugzoo.core.patch import Patch
+from .language import Language
+from .patch import Patch

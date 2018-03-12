@@ -28,12 +28,13 @@ setup(
     packages=[
         'bugzoo',
         'bugzoo.testing',
-        'bugzoo.coverage',
         'bugzoo.localization',
         'bugzoo.compiler',
         'bugzoo.server',
         'bugzoo.mgr',
+        'bugzoo.mgr.coverage',
         'bugzoo.core',
+        'bugzoo.core.coverage',
         'bugzoo.cli'
     ],
     entry_points = {

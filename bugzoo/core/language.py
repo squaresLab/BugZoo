@@ -1,6 +1,7 @@
-from bugzoo.coverage import CoverageExtractor, \
-                            CCoverageExtractor
 import enum
+
+from ..mgr.coverage import CoverageExtractor, \
+                           CCoverageExtractor
 
 
 class LanguageEnumMeta(enum.EnumMeta):
@@ -27,6 +28,7 @@ class Language(enum.Enum, metaclass=LanguageEnumMeta):
         The canonical name of this language.
         """
         return self.__name
+
     __str__ = name
 
     @property

@@ -1,6 +1,7 @@
-import yaml
-from copy import copy
 from typing import Dict, List, Set, Iterator, Any
+
+import yaml
+
 from bugzoo.testing import TestCase, TestSuite, TestOutcome
 
 
@@ -33,7 +34,7 @@ class FileLine(object):
                 lines[FileLine(fn, num)] = d[fn][num]
         return lines
 
-    def __init__(self, fn: str, num: int) -> None:
+    def __init__(self, fn: str, num: int):
         self.__fn = fn
         self.__num = num
 
@@ -73,18 +74,10 @@ class FileLineCoverage(object):
     """
     T = Dict[int, int]
 
-    def __init__(self, filename: str, lines: T) -> None:
+    def __init__(self, filename: str, lines: T):
         self.__filename = filename
         self.__lines = \
             {num: hits for (num, hits) in lines.items() if hits > 0}
-
-#    @property
-#    def lines(self) -> List[int]:
-#        """
-#        A list of the one-indexed numbers of the lines that are included in
-#        this report.
-#        """
-#        return list(self.__lines.keys())
 
     def was_hit(self, num: int) -> bool:
         """
@@ -112,8 +105,10 @@ class FileLineCoverage(object):
         for num in self.__lines:
             yield FileLine(self.__filename, num)
 
-    def to_dict(self) -> dict:
-        return copy(self.__lines)
+    __iter__ = lines
+
+    def to_dict(self) -> T:
+        return dict(self.__lines)
 
 
 class ProjectLineCoverage(object):
@@ -136,7 +131,7 @@ class ProjectLineCoverage(object):
     def __init__(self,
                  test: TestCase,
                  outcome: TestOutcome,
-                 files: Dict[str, FileLineCoverage]) -> None:
+                 files: Dict[str, FileLineCoverage]):
         self.__test = test
         self.__outcome = outcome
         self.__files = files
