@@ -1,9 +1,10 @@
-import xml.etree.ElementTree as ET
 from typing import List, Dict
-from bugzoo.testing import TestCase
-from bugzoo.coverage.base import ProjectLineCoverage, \
-                                 ProjectCoverageMap, \
-                                 FileLineCoverage
+import xml.etree.ElementTree as ET
+
+from ...testing import TestCase
+from ...core.coverage import ProjectLineCoverage, \
+                             ProjectCoverageMap, \
+                             FileLineCoverage
 
 
 class CoverageExtractor(object):

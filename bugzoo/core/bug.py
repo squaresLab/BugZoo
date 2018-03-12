@@ -9,13 +9,12 @@ import docker
 import bugzoo
 from .language import Language
 from .tool import Tool
+from .coverage import ProjectLineCoverage, \
+                      ProjectCoverageMap, \
+                      Spectra
 from ..container import Container
 from ..compiler import Compiler
 from ..testing import TestCase, TestOutcome, TestSuite
-from ..coverage import ProjectLineCoverage, \
-                       ProjectCoverageMap, \
-                       Spectra
-
 
 class Bug(object):
     """
