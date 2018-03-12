@@ -117,27 +117,6 @@ class Container(object):
         return self.__container
 
     @property
-    def ip_address(self,
-                   raise_error: bool = False
-                   ) -> Optional[Union[IPv4Address, IPv6Address]]:
-        """
-        The IP address used by this container, or None if no IP address.
-        """
-         # TODO: refactor!
-        api_client = docker.APIClient(base_url='unix://var/run/docker.sock')
-        container_info = api_client.inspect_container(self.container.id)
-        address = container_info['NetworkSettings']['IPAddress']
-        try:
-            return IPv4Address(address)
-        except ipaddress.AddressValueError:
-            try:
-                return IPv6Address(address)
-            except ipaddress.AddressValueError:
-                if raise_error:
-                    raise
-                return None
-
-    @property
     def alive(self) -> bool:
         """
         Indicates whether or not the container is still running.

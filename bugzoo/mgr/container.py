@@ -1,5 +1,8 @@
 from typing import Iterator, List
 import subprocess
+import ipaddress
+
+import docker
 
 from ..core.patch import Patch
 from ..core.container import Container
@@ -70,6 +73,28 @@ class ContainerManager(object):
         c = Container(bug, uid=uid)
         self.__containers[c.id] = c
         return c
+
+    def ip_address(self,
+                   container: Container,
+                   raise_error: bool = False
+                   ) -> Optional[Union[IPv4Address, IPv6Address]]:
+        """
+        The IP address used by a given container, or None if no IP address has
+        been assigned to that container.
+        """
+         # TODO: refactor!
+        api_client = docker.APIClient(base_url='unix://var/run/docker.sock')
+        docker_info = api_client.inspect_container(container.id)
+        address = docker_info['NetworkSettings']['IPAddress']
+        try:
+            return IPv4Address(address)
+        except ipaddress.AddressValueError:
+            try:
+                return IPv6Address(address)
+            except ipaddress.AddressValueError:
+                if raise_error:
+                    raise
+                return None
 
     def patch(self, container: Container, p: Patch) -> bool:
         """
