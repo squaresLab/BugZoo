@@ -1,6 +1,8 @@
 from typing import Iterator
-import bugzoo.testing
 
+import textwrap
+
+import bugzoo.testing
 from ..core.bug import Bug
 from ..util import print_task_start, print_task_end
 
