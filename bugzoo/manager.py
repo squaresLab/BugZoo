@@ -9,7 +9,7 @@ from .mgr.build import BuildManager
 from .mgr.source import SourceManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
-
+from .mgr.container import ContainerManager
 
 
 class BugZoo(object):
@@ -58,6 +58,7 @@ class BugZoo(object):
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)
         self.__sources = SourceManager(self)
+        self.__containers = ContainerManager(self)
 
     @property
     def logger(self) -> logging.Logger:
@@ -108,3 +109,10 @@ class BugZoo(object):
         The bugs registered with this BugZoo installation.
         """
         return self.__bugs
+
+    @property
+    def containers(self) -> ContainerManager:
+        """
+        The containers that are running on this server.
+        """
+        return self.__containers
