@@ -1,6 +1,7 @@
 from typing import List, Dict, Iterator
-from bugzoo.coverage.base import ProjectCoverageMap, \
-                                 FileLine
+
+from .base import ProjectCoverageMap, \
+                  FileLine
 
 
 class LineSpectra(object):
@@ -9,7 +10,7 @@ class LineSpectra(object):
     terms of the number of passing and failing tests that do and do not
     cover it, respectively.
     """
-    def __init__(self, ep: int, ef: int, np: int, nf: int) -> None:
+    def __init__(self, ep: int, ef: int, np: int, nf: int):
         assert ep >= 0
         assert ef >= 0
         assert np >= 0
@@ -50,6 +51,10 @@ class LineSpectra(object):
 
 
 class Spectra(object):
+    """
+    Contains a summary of the number of passing and failing tests that cover
+    each line in a given project.
+    """
     @staticmethod
     def from_coverage(coverage: ProjectCoverageMap) -> 'Spectra':
         # tally the number of times that each line is touched by a passing
@@ -75,7 +80,7 @@ class Spectra(object):
                  num_failing: int,
                  tally_passing: Dict[str, Dict[int, int]],
                  tally_failing: Dict[str, Dict[int, int]]
-                 ) -> None:
+                 ):
         self.__num_passing = num_passing
         self.__num_failing = num_failing
         self.__tally_passing = tally_passing
@@ -101,6 +106,10 @@ class Spectra(object):
         return LineSpectra(ep, ef, np, nf)
 
     def __iter__(self) -> Iterator[FileLine]:
+        """
+        Returns an iterator over the source code lines that are represented
+        in this spectra.
+        """
         passing_lines = \
             set(FileLine.decompactify(self.__tally_passing).keys())
         failing_lines = \
