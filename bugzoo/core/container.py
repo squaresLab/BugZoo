@@ -1,12 +1,7 @@
 from typing import List, Iterator, Dict, Optional, Union
-from ipaddress import IPv4Address, IPv6Address
-from tempfile import NamedTemporaryFile
-from timeit import default_timer as timer
 import copy
-import sys
 import os
-import subprocess
-import time
+import tempfile
 
 import docker
 
@@ -15,7 +10,6 @@ from .language import Language
 from .tool import Tool
 from ..testing import TestOutcome, TestCase
 from ..compiler import Compiler
-from ..cmd import ExecResponse, PendingExecResponse
 
 
 class Container(object):
@@ -140,39 +134,3 @@ class Container(object):
         if self.__env_file:
             self.__env_file.close()
             self.__env_file = None
-
-    def command(self,
-                cmd: str,
-                context: Optional[str] = None,
-                stdout: bool = True,
-                stderr: bool = False,
-                block: bool = True):
-        """
-
-        Returns a tuple containing the exit code, execution duration, and
-        output, respectively.
-        """
-        # TODO: we need a better long-term alternative
-        if context is None:
-            context = os.path.join(self.bug.source_dir, '..')
-
-        cmd = '/bin/bash -c "source /.environment && cd {} && {}"'.format(context, cmd)
-
-        # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
-        client = docker.from_env()
-        response = client.api.exec_create(self.__container.id, cmd, stdout=stdout, stderr=stderr)
-
-        # blocking mode
-        if block:
-            start_time = timer()
-            out = client.api.exec_start(response['Id'], stream=False)
-            out = out.decode('utf-8')
-            end_time = timer()
-            duration = end_time - start_time
-            code = client.api.exec_inspect(response['Id'])['ExitCode']
-            return ExecResponse(code, duration, out)
-
-        # non-blocking mode
-        else:
-            out = client.api.exec_start(response['Id'], stream=True)
-            return PendingExecResponse(response, out)

@@ -1,7 +1,11 @@
-from typing import Iterator, List
+from typing import Iterator, List, Optional, Dict, Union
+from ipaddress import IPv4Address, IPv6Address
+from tempfile import NamedTemporaryFile
+from timeit import default_timer as timer
 import subprocess
 import ipaddress
 import tempfile
+import os
 
 import docker
 
@@ -13,11 +17,14 @@ from ..core.coverage import ProjectLineCoverage, \
                             Spectra
 from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
+from ..cmd import ExecResponse, PendingExecResponse
 
 
 class ContainerManager(object):
     def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
+        self.__client_docker = docker.from_env()
+        self.__api_docker = self.__client_docker.api
         self.__containers = {}
         self.__logger = installation.logger.getChild('container')
 
@@ -124,7 +131,7 @@ class ContainerManager(object):
             # run patch command inside the source directory
             # cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
             cmd = 'git apply -p0 "{}"'.format(file_container)
-            outcome = container.command(cmd, context=bug.source_dir)
+            outcome = self.command(container, cmd, context=bug.source_dir)
             return outcome.code == 0
 
         finally:
@@ -147,7 +154,7 @@ class ContainerManager(object):
         """
         bug = self.__installation.bugs[container.bug.name]
         cmd, context = bug.harness.command(test)
-        response = container.command(cmd, context, stderr=True)
+        response = self.command(container, cmd, context, stderr=True)
         passed = response.code == 0
         return TestOutcome(response, passed)
 
@@ -231,3 +238,49 @@ class ContainerManager(object):
         cmd = "docker cp '{}:{}' '{}'".format(container.id, fn_container, fn_host)
         # TODO implement error handling
         subprocess.check_output(cmd, shell=True)
+
+    def command(self,
+                container: Container,
+                cmd: str,
+                context: Optional[str] = None,
+                stdout: bool = True,
+                stderr: bool = False,
+                block: bool = True
+                ) -> Union[ExecResponse, PendingExecResponse]:
+        """
+        Executes a provided shell command inside a given container.
+
+        Returns:
+            a description of the response.
+        """
+        bug = container.bug # TODO migrate
+
+        # TODO: we need a better long-term alternative
+        if context is None:
+            context = os.path.join(bug.source_dir, '..')
+
+        template_cmd = '/bin/bash -c "source /.environment && cd {} && {}"'
+        cmd = template_cmd.format(context, cmd)
+
+        # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
+        response = self.__docker_client.api.exec_create(container.id,
+                                                        cmd,
+                                                        stdout=stdout,
+                                                        stderr=stderr)
+
+        # blocking mode
+        if block:
+            start_time = timer()
+            out = self.__api_docker.exec_start(response['Id'],
+                                               stream=False)
+            out = out.decode('utf-8')
+            end_time = timer()
+            duration = end_time - start_time
+            code = self.__api_docker.exec_inspect(response['Id'])['ExitCode']
+            return ExecResponse(code, duration, out)
+
+        # non-blocking mode
+        else:
+            out = self.__api_docker.exec_start(response['Id'],
+                                               stream=True)
+            return PendingExecResponse(response, out)
