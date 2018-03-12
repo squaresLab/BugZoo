@@ -1,4 +1,5 @@
 from typing import Iterator, List
+import subprocess
 
 from ..core.patch import Patch
 from ..core.container import Container
@@ -103,6 +104,13 @@ class ContainerManager(object):
         finally:
             if file_container:
                 container.exec_run('rm "{}"'.format(file_container))
+
+    def interact(self, container: Container) -> None:
+        """
+        Connects to the PTY (pseudo-TTY) for a given container.
+        Blocks until the user exits the PTY.
+        """
+        subprocess.call(['docker', 'attach', container.id])
 
     def execute(self, container: Container, test: TestCase) -> TestOutcome:
         """

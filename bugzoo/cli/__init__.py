@@ -270,7 +270,7 @@ def launch(bz: 'BugZoo',
                 print(s.decode('utf8').strip())
 
         if interactive:
-            c.interact()
+            bz.containers.interact(c)
 
     except bugzoo.core.errors.BugNotInstalledError:
         error("bug not installed: {}".format(bug_name))

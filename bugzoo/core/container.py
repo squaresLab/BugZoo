@@ -144,15 +144,6 @@ class Container(object):
         """
         return self.__container is not None
 
-    def interact(self) -> None:
-        """
-        Connects to the PTY (pseudo-TTY) for this container.
-        Blocks until the user exits the PTY. Does not handle destruction of
-        the container; user should call `destroy` once finished with the
-        container.
-        """
-        subprocess.call(['docker', 'attach', self.__container.id])
-
     def destroy(self) -> None:
         """
         Deallocates all resources associated with this container. If this
