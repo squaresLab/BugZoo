@@ -12,15 +12,15 @@ import time
 import docker
 
 import bugzoo
-from .core import Language
-from .cmd import ExecResponse, PendingExecResponse
+from .language import Language
 from .testing import TestOutcome, TestCase
-from .core import Patch
-from .core.tool import Tool
-from .core.coverage import ProjectLineCoverage, \
-                           ProjectCoverageMap, \
-                           Spectra
-from .compiler import Compiler, CompilationOutcome
+from .patch import Patch
+from .tool import Tool
+from .coverage import ProjectLineCoverage, \
+                      ProjectCoverageMap, \
+                      Spectra
+from ..compiler import Compiler, CompilationOutcome
+from ..cmd import ExecResponse, PendingExecResponse
 
 
 class Container(object):
