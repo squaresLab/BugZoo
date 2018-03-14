@@ -24,18 +24,6 @@ class Tool(object):
         self.__environment = environment
         self.__source = source
 
-    #
-    # TODO move to ToolManager
-    #
-    def provision(self):
-        # TODO: use custom error
-        manager_tool = self.manager.installation.tools
-        if not manager_tool.is_installed(self):
-            raise Exception("tool is not installed: {}".format(self.name))
-
-        client = docker.from_env(timeout=120)
-        return client.containers.create(self.__build_instructions.tag)
-
     @property
     def source(self) -> Optional[str]:
         """

@@ -111,8 +111,7 @@ class ContainerManager(object):
         if uid is None:
             uid = str(uuid.uuid4())
 
-        # TODO implement 'provision' in tools manager
-        tool_containers = [t.provision() for t in tools]
+        tool_containers = [self.__installation.tools.provision(t) for t in tools]
         self.__dockerc_tools[uid] = tool_containers
         tool_container_ids = [c.id for c in tool_containers]
 
