@@ -53,12 +53,19 @@ class BugZoo(object):
         self.__logger.setLevel(logging.DEBUG)
         self.__logger.info('Logging to: %s', log_fn)
 
-        self.__docker = docker.from_env()
+        self.__docker = docker.from_env(timeout=120)
         self.__mgr_build = BuildManager(self.__docker)
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)
         self.__sources = SourceManager(self)
         self.__containers = ContainerManager(self)
+
+    @property
+    def docker(self):
+        """
+        The Docker client used by this server.
+        """
+        return self.__docker
 
     @property
     def logger(self) -> logging.Logger:

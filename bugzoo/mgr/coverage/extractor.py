@@ -31,6 +31,7 @@ class CoverageExtractor(object):
         raise NotImplementedError
 
     def coverage(self,
+                 manager_container: 'ContainerManager',
                  container: 'Container',
                  tests: List[TestCase]
                  ) -> ProjectCoverageMap:
@@ -46,7 +47,7 @@ class CoverageExtractor(object):
 
         for test in tests:
             print("generating coverage: {}".format(test))
-            outcome = container.execute(test)
+            outcome = manager_container.execute(container, test)
             file_reports = self._extract(container)
             cov[test] = ProjectLineCoverage(test, outcome, file_reports)
 

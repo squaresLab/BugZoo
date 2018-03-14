@@ -1,5 +1,7 @@
 from typing import Iterator
 
+import docker
+
 from .build import BuildManager
 from ..core.tool import Tool
 
@@ -24,6 +26,16 @@ class ToolManager(object):
             KeyError: if no tool is registered with the given name.
         """
         return self.__tools[name]
+
+    def provision(self, tool: Tool) -> docker.models.containers.Container:
+        """
+        Provisions a mountable Docker container for a given tool.
+        """
+        if not self.is_installed(tool):
+            raise Exception("tool is not installed: {}".format(tool.name))
+
+        client = self.__installation.docker
+        return client.containers.create(tool.image)
 
     def register(self, tool: Tool) -> None:
         """

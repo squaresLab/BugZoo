@@ -1,5 +1,8 @@
 from typing import Iterator
 
+import textwrap
+
+import bugzoo.testing
 from ..core.bug import Bug
 from ..util import print_task_start, print_task_end
 
@@ -138,16 +141,16 @@ class BugManager(object):
             # ensure we can compile the bug
             # TODO: check compilation status!
             print_task_start('Compiling')
-            c.compile()
+            self.__installation.containers.compile(c)
             print_task_end('Compiling', 'OK')
 
-            if isinstance(self.harness, bugzoo.testing.GenProgTestSuite):
+            if isinstance(bug.harness, bugzoo.testing.GenProgTestSuite):
 
-                for t in self.harness.passing:
+                for t in bug.harness.passing:
                     task = 'Running test: {}'.format(t.identifier)
                     print_task_start(task)
 
-                    outcome = c.execute(t)
+                    outcome = self.__installation.containers.execute(c, t)
                     if not outcome.passed:
                         validated = False
                         print_task_end(task, 'UNEXPECTED: FAIL')
@@ -156,11 +159,11 @@ class BugManager(object):
                     else:
                         print_task_end(task, 'OK')
 
-                for t in self.harness.failing:
+                for t in bug.harness.failing:
                     task = 'Running test: {}'.format(t.identifier)
                     print_task_start(task)
 
-                    outcome = c.execute(t)
+                    outcome = self.__installation.containers.execute(c, t)
                     if outcome.passed:
                         validated = False
                         print_task_end(task, 'UNEXPECTED: PASS')
