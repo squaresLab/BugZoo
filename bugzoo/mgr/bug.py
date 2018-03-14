@@ -136,7 +136,7 @@ class BugManager(object):
         validated = True
         try:
             c = None
-            c = bug.provision()
+            c = self.__installation.containers.provision(bug)
 
             # ensure we can compile the bug
             # TODO: check compilation status!
@@ -175,6 +175,6 @@ class BugManager(object):
         # ensure that the container is destroyed!
         finally:
             if c:
-                c.destroy()
+                del self.__installation.containers[c.uid]
 
         return validated

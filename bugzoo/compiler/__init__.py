@@ -112,27 +112,32 @@ class SimpleCompiler(Compiler):
         self.__time_limit = time_limit
 
     def __compile(self,
+                  manager_container,
                   container: 'Container',
                   command: str,
                   verbose: bool
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
         context = self.__context if self.__context else container.bug.source_dir
-        cmd_outcome = container.command(command,
-                                        context=context,
-                                        stderr=True)
+        cmd_outcome = manager_container.command(container,
+                                                command,
+                                                context=context,
+                                                stderr=True)
         return CompilationOutcome(cmd_outcome)
 
+    # TODO decouple!
     def compile(self,
+                manager_container,
                 container: 'Container',
                 verbose: bool = False
                 ) -> CompilationOutcome:
         """
         See `Compiler.compile`
         """
-        return self.__compile(container, self.__command, verbose)
+        return self.__compile(manager_container, container, self.__command, verbose)
 
     def compile_with_coverage_instrumentation(self,
+                                              manager_container,
                                               container: 'Container',
                                               verbose: bool = False
                                               ) -> CompilationOutcome:
@@ -144,7 +149,7 @@ class SimpleCompiler(Compiler):
         else:
             cmd = self.__command
 
-        return self.__compile(container, cmd, verbose)
+        return self.__compile(manager_container, container, cmd, verbose)
 
 
 class CatkinCompiler(SimpleCompiler):
