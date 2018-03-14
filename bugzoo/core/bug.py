@@ -9,7 +9,6 @@ import docker
 import bugzoo
 from .language import Language
 from .tool import Tool
-from .container import Container
 from .coverage import ProjectLineCoverage, \
                       ProjectCoverageMap, \
                       Spectra
@@ -192,28 +191,3 @@ class Bug(object):
         The name of the Docker image for this bug.
         """
         return self.__image
-
-    # TODO move to ContainerManager
-    def provision(self,
-                  volumes : Dict[str, str] = {},
-                  tools : List[Tool] = [],
-                  network_mode : str = 'bridge',
-                  ports : dict = {},
-                  tty : bool = False
-                  ) -> 'Container':
-        """
-        Provisions a container for this bug.
-
-        Parameters:
-            network_mode:   the network mode that should be used by the
-                provisioned container. Defaults to `bridge`. For more
-                information, see the `documentation for Docker <https://docker-py.readthedocs.io/en/stable/containers.html>`_.
-            tty:    a flag indicating whether a pseudo-TTY should be created
-                for this container. By default, a pseudo-TTY is not created.
-        """
-        return Container(self,
-                         volumes=volumes,
-                         network_mode=network_mode,
-                         ports=ports,
-                         interactive=tty,
-                         tools=tools)
