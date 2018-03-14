@@ -61,6 +61,13 @@ class BugZoo(object):
         self.__containers = ContainerManager(self)
 
     @property
+    def docker(self):
+        """
+        The Docker client used by this server.
+        """
+        return self.__docker
+
+    @property
     def logger(self) -> logging.Logger:
         """
         The root logging mechanism for BugZoo.

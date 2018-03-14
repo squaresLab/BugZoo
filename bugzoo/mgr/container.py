@@ -26,7 +26,7 @@ from ..cmd import ExecResponse, PendingExecResponse
 class ContainerManager(object):
     def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
-        self.__client_docker = docker.from_env()
+        self.__client_docker = installation.docker
         self.__api_docker = self.__client_docker.api
         self.__containers = {}
         self.__logger = installation.logger.getChild('container')
