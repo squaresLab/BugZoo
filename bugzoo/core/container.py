@@ -5,6 +5,11 @@ import tempfile
 
 import docker
 
+from .bug import Bug
+
+
+__all__ = ["Container"]
+
 
 class Container(object):
     """
@@ -14,7 +19,7 @@ class Container(object):
     """
     def __init__(self,
                  uid: str,
-                 bug: 'bugzoo.bug.Bug',
+                 bug: Bug,
                  tools: List[str]):
         """
         Constructs a container for a given bug.
@@ -28,7 +33,7 @@ class Container(object):
         """
         self.__uid = uid
         self.__bug = bug
-        self.__tools = tools
+        self.__tools = tools[:]
 
     @property
     def id(self) -> str:
@@ -48,7 +53,7 @@ class Container(object):
         return self.__tools.__iter__()
 
     @property
-    def bug(self) -> 'bugzoo.bug.Bug':
+    def bug(self) -> Bug:
         """
         The bug that was used to provision this container.
         """
