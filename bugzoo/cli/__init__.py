@@ -260,12 +260,13 @@ def launch(bz: 'BugZoo',
 
     try:
         c = None
-        c = bug.provision(tty=True,
-                          tools=tools,
-                          volumes=volumes,
-                          network_mode=network)
+        c = bz.containers.provision(bug=bug,
+                                    interactive=True,
+                                    tools=tools,
+                                    volumes=volumes,
+                                    network_mode=network)
         if command is not None:
-            stream = c.command(command, stderr=True, stdout=True, block=False)
+            stream = bz.containers.command(c, command, stderr=True, stdout=True, block=False)
             for s in stream.output:
                 print(s.decode('utf8').strip())
 
@@ -278,7 +279,7 @@ def launch(bz: 'BugZoo',
     # ensure that the container is always destroyed
     finally:
         if c:
-            c.destroy()
+            del bz.containers[c.uid]
 
 
 def build_parser():

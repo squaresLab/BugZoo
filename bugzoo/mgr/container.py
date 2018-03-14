@@ -6,9 +6,12 @@ import subprocess
 import ipaddress
 import tempfile
 import os
+import uuid
+import copy
 
 import docker
 
+from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
 from ..core.bug import Bug
@@ -27,6 +30,9 @@ class ContainerManager(object):
         self.__api_docker = self.__client_docker.api
         self.__containers = {}
         self.__logger = installation.logger.getChild('container')
+        self.__dockerc = {}
+        self.__env_files = {}
+        self.__dockerc_tools = {}
 
     def __iter__(self) -> Iterator[Container]:
         """
@@ -56,8 +62,19 @@ class ContainerManager(object):
         self.__logger.info("deleting container: %s", uid)
         try:
             container = self.__containers[uid]
-            container.destroy()
+            self.__dockerc[uid].remove(force=True)
+
+            for container_tool in self.__dockerc_tools[uid]:
+                container_tool.remove(force=True)
+
+            if uid in self.__env_files:
+                self.__env_files[uid].close()
+                del self.__env_files[uid]
+
+            del self.__dockerc[uid]
+            del self.__dockerc_tools[uid]
             del self.__containers[uid]
+
         except KeyError:
             self.__logger.error("failed to delete container: %s [not found]", uid)
         self.__logger.info("deleted container: %s", uid)
@@ -66,7 +83,13 @@ class ContainerManager(object):
 
     def provision(self,
                   bug: Bug,
-                  uid: str = None) -> Container:
+                  uid: str = None,
+                  tools: Optional[List[Tool]] = None,
+                  volumes: Optional[Dict[str, str]] = None,
+                  network_mode: str = 'bridge',
+                  ports: Optional[Dict[int, int]] = None,
+                  interactive: bool = False
+                  ) -> Container:
         """
         Provisions and returns a container for a given bug.
 
@@ -78,9 +101,59 @@ class ContainerManager(object):
         Returns:
             a descroption of the provisioned container.
         """
-        c = Container(bug, uid=uid)
-        self.__containers[c.id] = c
-        return c
+        if tools is None:
+            tools = []
+        if volumes is None:
+            volumes = {}
+        if ports is None:
+            ports = {}
+
+        if uid is None:
+            uid = str(uuid.uuid4())
+
+        # TODO implement 'provision' in tools manager
+        tool_containers = [t.provision() for t in tools]
+        self.__dockerc_tools[uid] = tool_containers
+        tool_container_ids = [c.id for c in tool_containers]
+
+        # prepare the environment for the container
+        env = [(k, v) for t in tools for (k, v) in t.environment.items()]
+        env = ["{}=\"{}\"".format(k, v) for (k, v) in env]
+        env = "\n".join(env)
+        env_file = tempfile.NamedTemporaryFile(mode='w', suffix='.bugzoo.env')
+        env_file.write(env)
+        env_file.flush()
+        self.__env_files[uid] = env_file
+
+        volumes = copy.deepcopy(volumes)
+        volumes[env_file.name] = \
+            {'bind': '/.environment.host', 'mode': 'ro'}
+
+        cmd_cp = 'sudo cp /.environment.host /.environment'
+        cmd_chown = 'sudo chown $(whoami) /.environment'
+        cmd_source = 'source /.environment'
+        cmd = '/bin/bash -v -c "{} && {} && {} && /bin/bash"'.format(cmd_cp,
+                                                                  cmd_chown,
+                                                                  cmd_source)
+        dockerc = \
+            self.__client_docker.containers.create(bug.image,
+                                                   cmd,
+                                                   name=uid,
+                                                   volumes=volumes,
+                                                   volumes_from=tool_container_ids,
+                                                   ports=ports,
+                                                   network_mode=network_mode,
+                                                   stdin_open=True,
+                                                   tty=interactive,
+                                                   detach=True)
+        self.__dockerc[uid] = dockerc
+        dockerc.start()
+
+        container = Container(bug=bug,
+                              uid=uid,
+                              tools=[t.name for t in tools])
+        self.__containers[uid] = container
+        return container
 
     def ip_address(self,
                    container: Container,
