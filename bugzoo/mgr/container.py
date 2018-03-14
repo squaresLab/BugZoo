@@ -252,6 +252,7 @@ class ContainerManager(object):
         extractor = language.coverage_extractor
         return extractor.coverage(self, container, tests)
 
+    # TODO decouple
     def compile(self,
                 container: Container,
                 verbose: bool = False
@@ -269,8 +270,9 @@ class ContainerManager(object):
         """
         # TODO use container name
         bug = container.bug # self.__installation.bugs[container.bug]
-        return bug.compiler.compile(container, verbose=verbose)
+        return bug.compiler.compile(self, container, verbose=verbose)
 
+    # TODO decouple
     def compile_with_instrumentation(self,
                                      container: Container,
                                      verbose: bool = False
@@ -282,7 +284,8 @@ class ContainerManager(object):
         See: `Container.compile`
         """
         bug = self.__installation.bugs[container.bug]
-        return bug.compiler.compile_with_coverage_instrumentation(container,
+        return bug.compiler.compile_with_coverage_instrumentation(self,
+                                                                  container,
                                                                   verbose=verbose)
 
     def copy_to(self,
@@ -335,10 +338,11 @@ class ContainerManager(object):
         cmd = template_cmd.format(context, cmd)
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
-        response = self.__docker_client.api.exec_create(container.id,
-                                                        cmd,
-                                                        stdout=stdout,
-                                                        stderr=stderr)
+        docker_client = self.__installation.docker
+        response = docker_client.api.exec_create(container.id,
+                                                 cmd,
+                                                 stdout=stdout,
+                                                 stderr=stderr)
 
         # blocking mode
         if block:
