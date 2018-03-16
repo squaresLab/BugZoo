@@ -1,7 +1,8 @@
-from copy import copy
 from typing import List, Dict, Iterable
-from bugzoo.coverage import FileLine, \
-                            Spectra
+from copy import copy
+
+from bugzoo.core.coverage import FileLine, \
+                                 Spectra
 from bugzoo.localization.suspiciousness import SuspiciousnessMetric
 
 
