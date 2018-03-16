@@ -2,6 +2,7 @@ from typing import Iterator, List, Optional, Dict, Union
 from ipaddress import IPv4Address, IPv6Address
 from tempfile import NamedTemporaryFile
 from timeit import default_timer as timer
+import sys
 import subprocess
 import ipaddress
 import tempfile
@@ -188,6 +189,7 @@ class ContainerManager(object):
         """
         assert isinstance(p, Patch)
         file_container = None
+        dockerc = self.__dockerc[container.uid]
         bug = container.bug # TODO migrate
 
         try:
@@ -196,8 +198,9 @@ class ContainerManager(object):
             file_host.flush()
 
             # copy contents to a temporary file on the container
-            file_container = \
-                container.exec_run('mktemp').decode(sys.stdout.encoding).strip()
+            (retcode, file_container) = dockerc.exec_run('mktemp')
+            assert retcode == 0
+            file_container = file_container.decode(sys.stdout.encoding).strip()
             self.copy_to(container, file_host.name, file_container)
 
             # run patch command inside the source directory
@@ -208,7 +211,7 @@ class ContainerManager(object):
 
         finally:
             if file_container:
-                container.exec_run('rm "{}"'.format(file_container))
+                dockerc.exec_run('rm "{}"'.format(file_container))
 
     def interact(self, container: Container) -> None:
         """
