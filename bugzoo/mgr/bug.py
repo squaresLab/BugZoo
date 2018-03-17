@@ -1,6 +1,7 @@
 from typing import Iterator
 
 import textwrap
+import docker
 
 import bugzoo.testing
 from ..core.bug import Bug
