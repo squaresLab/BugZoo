@@ -27,6 +27,7 @@ from ..cmd import ExecResponse, PendingExecResponse
 class ContainerManager(object):
     def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
+        self.__logger = installation.logger.getChild('container')
         self.__client_docker = installation.docker
         self.__api_docker = self.__client_docker.api
         self.__containers = {}
@@ -220,7 +221,11 @@ class ContainerManager(object):
         """
         subprocess.call(['docker', 'attach', container.id])
 
-    def execute(self, container: Container, test: TestCase) -> TestOutcome:
+    def execute(self,
+                container: Container,
+                test: TestCase,
+                verbose: bool = False
+                ) -> TestOutcome:
         """
         Runs a specified test inside a given container.
 
@@ -229,7 +234,7 @@ class ContainerManager(object):
         """
         bug = self.__installation.bugs[container.bug.name]
         cmd, context = bug.harness.command(test)
-        response = self.command(container, cmd, context, stderr=True)
+        response = self.command(container, cmd, context, stderr=True, verbose=verbose)
         passed = response.code == 0
         return TestOutcome(response, passed)
 
@@ -324,6 +329,7 @@ class ContainerManager(object):
                 stdout: bool = True,
                 stderr: bool = False,
                 block: bool = True,
+                verbose: bool = False,
                 time_limit: Optional[int] = None
                 ) -> Union[ExecResponse, PendingExecResponse]:
         """
@@ -342,6 +348,7 @@ class ContainerManager(object):
             TimeLimitExceeded: if a time limit is given and the command fails
                 to complete within that time. Only supported by blocking calls.
         """
+        logger = self.__logger.getChild(container.uid)
         bug = container.bug # TODO migrate
 
         # TODO: we need a better long-term alternative
@@ -352,9 +359,11 @@ class ContainerManager(object):
         cmd = template_cmd.format(context, cmd)
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
+        logger.debug("executing command: %s", cmd)
         docker_client = self.__installation.docker
         response = docker_client.api.exec_create(container.id,
                                                  cmd,
+                                                 tty=True,
                                                  stdout=stdout,
                                                  stderr=stderr)
 
@@ -366,10 +375,12 @@ class ContainerManager(object):
 
         output = []
         for line in out:
-            line = line.decode('utf-8')
+            line = line.decode('utf-8').rstrip('\n')
+            if verbose:
+                print(line, flush=True)
             output.append(line)
         time_end = timer()
-        output = ''.join(output)
+        output = '\n'.join(output)
 
         duration = time_end - time_start
         code = self.__api_docker.exec_inspect(response['Id'])['ExitCode']
