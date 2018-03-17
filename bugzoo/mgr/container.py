@@ -323,13 +323,24 @@ class ContainerManager(object):
                 context: Optional[str] = None,
                 stdout: bool = True,
                 stderr: bool = False,
-                block: bool = True
+                block: bool = True,
+                time_limit: Optional[int] = None
                 ) -> Union[ExecResponse, PendingExecResponse]:
         """
         Executes a provided shell command inside a given container.
 
+        Parameters:
+            time_limit: an optional parameter that is used to specify the
+                number of seconds that the command should be allowed to run
+                without completing before it is aborted. Only supported by
+                blocking calls.
+
         Returns:
             a description of the response.
+
+        Raises:
+            TimeLimitExceeded: if a time limit is given and the command fails
+                to complete within that time. Only supported by blocking calls.
         """
         bug = container.bug # TODO migrate
 
@@ -347,19 +358,19 @@ class ContainerManager(object):
                                                  stdout=stdout,
                                                  stderr=stderr)
 
-        # blocking mode
-        if block:
-            start_time = timer()
-            out = self.__api_docker.exec_start(response['Id'],
-                                               stream=False)
-            out = out.decode('utf-8')
-            end_time = timer()
-            duration = end_time - start_time
-            code = self.__api_docker.exec_inspect(response['Id'])['ExitCode']
-            return ExecResponse(code, duration, out)
+        time_start = timer()
+        out = self.__api_docker.exec_start(response['Id'], stream=True)
 
-        # non-blocking mode
-        else:
-            out = self.__api_docker.exec_start(response['Id'],
-                                               stream=True)
+        if not block:
             return PendingExecResponse(response, out)
+
+        output = []
+        for line in out:
+            line = line.decode('utf-8')
+            output.append(line)
+        time_end = timer()
+        output = ''.join(output)
+
+        duration = time_end - time_start
+        code = self.__api_docker.exec_inspect(response['Id'])['ExitCode']
+        return ExecResponse(code, duration, output)
