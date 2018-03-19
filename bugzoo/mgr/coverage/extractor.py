@@ -60,6 +60,27 @@ class CCoverageExtractor(CoverageExtractor):
     Responsible for collecting coverage information from programs written in C
     and C++.
     """
+    INSTRUMENTATION = (
+        "// BUGZOO :: INSTRUMENTATION :: START"
+        "#include <stdio.h>"
+        "#include <stdlib.h>"
+        "#include <signal.h>"
+        "  printf('received signal\n');"
+        "  exit(1);"
+        "}"
+        "void bugzoo_ctor (void) __attribute__ ((constructor));"
+        "void bugzoo_ctor (void) {"
+        "  struct sigaction new_action;"
+        "  new_action.sa_handler = bugzoo_sighandler;"
+        "  sigemptyset(&new_action.sa_mask);"
+        "  new_action.sa_flags = 0;"
+        "  sigaction(SIGTERM, &new_action, NULL);"
+        "  sigaction(SIGINT, &new_action, NULL);"
+        "  sigaction(SIGKILL, &new_action, NULL);"
+        "}"
+        "// BUGZOO :: INSTRUMENTATION :: END"
+    )
+
     def _prepare(self,
                  container: 'Container'
                  ) -> None:
@@ -71,6 +92,15 @@ class CCoverageExtractor(CoverageExtractor):
         # ensure that gcovr is mounted within the container
         # TODO: mount binaries
         container.command('sudo apt-get update && sudo apt-get install -y gcovr')
+
+        # instrument the code
+        # 1. find all files that should be instrumented
+        files_to_instrument = set()
+        cmd = "find . -name *.cpp"
+
+        # 2. add instrumentation to each file
+        for fn in files_to_instrument:
+            pass
 
         outcome = container.compile_with_instrumentation()
         if not outcome.successful:
