@@ -16,7 +16,7 @@ class CoverageManager(object):
         "#include <stdio.h>\n"
         "#include <stdlib.h>\n"
         "#include <signal.h>\n"
-        "  printf('received signal');\n"
+        "void bugzoo_sighandler(int sig){\n"
         "  exit(1);\n"
         "}\n"
         "void bugzoo_ctor (void) __attribute__ ((constructor));\n"
@@ -129,6 +129,7 @@ class CoverageManager(object):
         if not outcome.successful:
             msg = "failed to generate coverage for container ({}) due to compilation failure."
             msg = msg.format(container.id)
+            print(outcome.response.output)
             raise Exception(msg)
 
     def deinstrument(self,
