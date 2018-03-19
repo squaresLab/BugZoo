@@ -7,8 +7,8 @@ class LanguageEnumMeta(enum.EnumMeta):
 
 
 class Language(enum.Enum, metaclass=LanguageEnumMeta):
-    C = ("c", CCoverageExtractor())
-    CPP = ("cpp", CCoverageExtractor())
+    C = ("c",)
+    CPP = ("cpp",)
     # JAVA = None
     # PYTHON = None
 
