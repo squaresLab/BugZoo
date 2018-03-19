@@ -10,6 +10,7 @@ from .mgr.source import SourceManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
 from .mgr.container import ContainerManager
+from .mgr.coverage import CoverageManager
 
 
 class BugZoo(object):
@@ -59,6 +60,7 @@ class BugZoo(object):
         self.__tools = ToolManager(self)
         self.__sources = SourceManager(self)
         self.__containers = ContainerManager(self)
+        self.__coverage = CoverageManager(self)
 
     @property
     def docker(self):
@@ -95,6 +97,13 @@ class BugZoo(object):
     @property
     def build(self) -> BuildManager:
         return self.__mgr_build
+
+    @property
+    def coverage(self) -> CoverageManager:
+        """
+        The coverage manager is used to compute line coverage information.
+        """
+        return self.__coverage
 
     @property
     def sources(self) -> SourceManager:
