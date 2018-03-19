@@ -1,8 +1,5 @@
 import enum
 
-from ..mgr.coverage import CoverageExtractor, \
-                           CCoverageExtractor
-
 
 class LanguageEnumMeta(enum.EnumMeta):
     def __getitem__(self, name):
@@ -15,12 +12,8 @@ class Language(enum.Enum, metaclass=LanguageEnumMeta):
     # JAVA = None
     # PYTHON = None
 
-    def __init__(self,
-                 name: str,
-                 coverage_extractor: CoverageExtractor
-                 ) -> None:
+    def __init__(self, name: str):
         self.__name = name
-        self.__coverage_extractor = coverage_extractor
 
     @property
     def name(self) -> str:
@@ -30,11 +23,3 @@ class Language(enum.Enum, metaclass=LanguageEnumMeta):
         return self.__name
 
     __str__ = name
-
-    @property
-    def coverage_extractor(self) -> CoverageExtractor:
-        """
-        The default coverage extractor used to obtain coverage information
-        for programs written in this language.
-        """
-        return self.__coverage_extractor
