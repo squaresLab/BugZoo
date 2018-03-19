@@ -345,7 +345,7 @@ class ContainerManager(object):
             a description of the response.
 
         Raises:
-            TimeLimitExceeded: if a time limit is given and the command fails
+            TimeoutError: if a time limit is given and the command fails
                 to complete within that time. Only supported by blocking calls.
         """
         logger = self.__logger.getChild(container.uid)
@@ -366,12 +366,19 @@ class ContainerManager(object):
                                                  tty=True,
                                                  stdout=stdout,
                                                  stderr=stderr)
+        exec_id = response['Id']
 
         time_start = timer()
-        out = self.__api_docker.exec_start(response['Id'], stream=True)
+        out = self.__api_docker.exec_start(exec_id, stream=True)
 
         if not block:
             return PendingExecResponse(response, out)
+
+        while self.__api_docker.exec_inspect(exec_id)['Running']:
+            time_running = timer() - time_start
+            if time_limit and time_running > time_limit:
+                # TODO kill exec
+                raise TimeoutError()
 
         output = []
         for line in out:
@@ -382,6 +389,5 @@ class ContainerManager(object):
         time_end = timer()
         output = '\n'.join(output)
 
-        duration = time_end - time_start
-        code = self.__api_docker.exec_inspect(response['Id'])['ExitCode']
-        return ExecResponse(code, duration, output)
+        code = self.__api_docker.exec_inspect(exec_id)['ExitCode']
+        return ExecResponse(code, time_running, output)
