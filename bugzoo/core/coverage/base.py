@@ -92,7 +92,7 @@ class FileLineSet(object):
     def __repr__(self) -> str:
         output = []
         for (fn, lines) in self.__contents.items():
-            lines = sorted(lines)
+            lines = [str(line) for line in sorted(lines)]
             lines = ', '.join(lines)
             output.append("{}: {}".format(fn, lines))
         return '\n'.join(output)
