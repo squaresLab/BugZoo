@@ -47,7 +47,8 @@ class CoverageManager(object):
                 lines = cls.find('lines').findall('line')
                 lines = [l.attrib['number'] for l in lines \
                          if int(l.attrib['hits']) > 0]
-                files_to_lines[cls.attrib['filename']] = lines
+                if lines != []:
+                    files_to_lines[cls.attrib['filename']] = lines
 
         return FileLineSet(files_to_lines)
 
