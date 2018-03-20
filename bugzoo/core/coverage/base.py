@@ -2,6 +2,7 @@ from typing import Dict, List, Set, Iterator, Any
 
 import yaml
 
+import bugzoo.util
 from bugzoo.testing import TestSuite, TestOutcome
 
 
@@ -88,6 +89,11 @@ class FileLineSet(object):
             for num in self.__contents[fn]:
                 yield FileLine(fn, num)
 
+    def __repr__(self) -> str:
+        lines = ["{}: {}".format(fn, ', '.join(lines)) \
+                 for (fn, lines) in self.__contents.items()]
+        return '\n'.join(lines)
+
     def __getitem__(self, fn: str) -> Iterator[FileLine]:
         """
         Returns an iterator over all lines contained in this set that belong
@@ -150,6 +156,13 @@ class TestCoverage(object):
         self.__test = test
         self.__outcome = outcome
         self.__coverage = coverage
+
+    def __repr__(self) -> str:
+        coverage = repr(self.__coverage)
+        coverage = bugzoo.util.indent(coverage, 2)
+        status = 'PASSED' if self.__outcome.passed else 'FAILED'
+        s = "[{}: {}]\n{}".format(self.__test, status, coverage)
+        return s
 
     @property
     def test(self) -> str:
