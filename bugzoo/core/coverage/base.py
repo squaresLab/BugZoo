@@ -90,9 +90,12 @@ class FileLineSet(object):
                 yield FileLine(fn, num)
 
     def __repr__(self) -> str:
-        lines = ["{}: {}".format(fn, ', '.join(lines)) \
-                 for (fn, lines) in self.__contents.items()]
-        return '\n'.join(lines)
+        output = []
+        for (fn, lines) in self.__contents.items():
+            lines = sorted(lines)
+            lines = ', '.join(lines)
+            output.append("{}: {}".format(fn, lines))
+        return '\n'.join(output)
 
     def __getitem__(self, fn: str) -> Iterator[FileLine]:
         """
