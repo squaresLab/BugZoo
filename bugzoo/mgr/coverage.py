@@ -45,7 +45,7 @@ class CoverageManager(object):
             for cls in package.find('classes').findall('class'):
                 # normalise path
                 lines = cls.find('lines').findall('line')
-                lines = [l.attrib['number'] for l in lines \
+                lines = [int(l.attrib['number']) for l in lines \
                          if int(l.attrib['hits']) > 0]
                 if lines != []:
                     files_to_lines[cls.attrib['filename']] = lines
