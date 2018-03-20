@@ -224,6 +224,10 @@ class TestSuiteCoverage(object):
     def __init__(self, test_coverage: Dict[str, TestCoverage]):
         self.__test_coverage = test_coverage
 
+    def __repr__(self) -> str:
+        output = [repr(self[name_test]) for name_test in self]
+        return '\n'.join(output)
+
     def covering_tests(self, line: FileLine) -> Set[str]:
         """
         Returns the names of all test cases that cover a given line.
