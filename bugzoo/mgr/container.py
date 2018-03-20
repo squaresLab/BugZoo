@@ -262,6 +262,7 @@ class ContainerManager(object):
         See: `Container.compile`
         """
         bug = self.__installation.bugs[container.bug.name] # TODO port
+        bug.compiler.clean(self, container, verbose=verbose) # TODO port
         return bug.compiler.compile_with_coverage_instrumentation(self,
                                                                   container,
                                                                   verbose=verbose)
