@@ -2,7 +2,7 @@ from typing import Dict, List, Set, Iterator, Any
 
 import yaml
 
-from bugzoo.testing import TestCase, TestSuite, TestOutcome
+from bugzoo.testing import TestSuite, TestOutcome
 
 
 class FileLine(object):
@@ -77,7 +77,8 @@ class FileLineSet(object):
         return FileLineSet(contents)
 
     def __init__(self, contents: T):
-        self.__contents = dict(contents)
+        self.__contents = \
+            {fn: set(line_nums) for (fn, line_nums) in contents.items()}
 
     def __iter__(self) -> Iterator[FileLine]:
         """
@@ -87,7 +88,20 @@ class FileLineSet(object):
             for num in self.__contents[fn]:
                 yield FileLine(fn, num)
 
+    def __getitem__(self, fn: str) -> Iterator[FileLine]:
+        """
+        Returns an iterator over all lines contained in this set that belong
+        to a given file.
+        """
+        if not fn in self.__contents:
+            raise StopIteration
+        for num in self.__contents[fn]:
+            yield FileLine(fn, num)
+
     def __contains__(self, file_line: FileLine) -> bool:
+        """
+        Determines whether a given file-line is contained within this set.
+        """
         return file_line.fn in self.__contents and \
                file_line.num in self.__contents[file_line.fn]
 
@@ -95,93 +109,52 @@ class FileLineSet(object):
         """
         Returns the contents of this set as a JSON/YAML-ready dictionary.
         """
-        contents = {fn: list(lines)
-                    for (fn, lines) in self.__contents.items()}
-        return contents
+        return {fn: list(lines)
+                for (fn, lines) in self.__contents.items()}
 
 
-class FileLineCoverage(object):
-    """
-    Provides line-level coverage information for a given file.
-    """
-    T = Dict[int, int]
-
-    def __init__(self, filename: str, lines: T):
-        self.__filename = filename
-        self.__lines = \
-            {num: hits for (num, hits) in lines.items() if hits > 0}
-
-    def was_hit(self, num: int) -> bool:
-        """
-        Determines whether a line with a given number was executed at least
-        once during the execution(s).
-        """
-        return self.hits(num) > 0
-
-    def hits(self, num: int) -> int:
-        """
-        Returns the number of times that a line with a given number was
-        executed.
-        """
-        assert num > 0
-        return self.__lines[num] if num in self.__lines else 0
-
-    __getitem__ = hits
-
-    @property
-    def lines(self) -> Iterator[FileLine]:
-        """
-        Returns an iterator over the set of all lines within this file
-        that were covered.
-        """
-        for num in self.__lines:
-            yield FileLine(self.__filename, num)
-
-    __iter__ = lines
-
-    def to_dict(self) -> T:
-        return dict(self.__lines)
-
-
-class ProjectLineCoverage(object):
+class TestCoverage(object):
     """
     Provides complete line coverage information for all files and across all
     tests within a given project.
     """
-    T = Dict[str, FileLineCoverage.T]
-
     @staticmethod
-    def from_dict(test: TestCase,
-                  d: dict,
-                  ) -> 'ProjectLineCoverage':
-        cov = {}
+    def from_dict(d: dict) -> 'TestCoverage':
+        """
+
+        Example Input:
+
+            {
+                "test": "p1",
+                "outcome": {
+
+                },
+                "coverage": {
+                    "foo.c": [1, 2, 6, 10]
+                }
+            }
+        """
+        assert 'test' in d
+        assert 'outcome' in d
+        assert 'coverage' in d
+
+        test = d['test']
         outcome = TestOutcome.from_dict(d['outcome'])
-        for (fn, fcov) in d['coverage'].items():
-            cov[fn] = FileLineCoverage(fn, fcov)
-        return ProjectLineCoverage(test, outcome, cov)
+        coverage = FileLineSet.from_dict(d['coverage'])
+        return TestCoverage(test, outcome, coverage)
 
     def __init__(self,
-                 test: TestCase,
+                 test: str,
                  outcome: TestOutcome,
-                 files: Dict[str, FileLineCoverage]):
+                 coverage: FileLineSet):
         self.__test = test
         self.__outcome = outcome
-        self.__files = files
-
-    def covers(self, line: FileLine) -> bool:
-        """
-        Returns `True` if given line was covered, or `False` if not.
-        """
-        if not line.filename in self.__files:
-            return False
-
-        f = self[line.filename]
-        return f.was_hit(line.num)
+        self.__coverage = coverage
 
     @property
-    def test(self) -> TestCase:
+    def test(self) -> str:
         """
-        The test case used to generate this coverage.
+        The name of the test case used to generate this coverage.
         """
         return self.__test
 
@@ -193,107 +166,88 @@ class ProjectLineCoverage(object):
         return self.__outcome
 
     @property
-    def files(self) -> List[str]:
+    def lines(self) -> FileLineSet:
         """
-        A list of the names of the files that are included in this report.
+        The set of file-lines that were covered.
         """
-        return list(self.__files.keys())
+        return self.__coverage
 
-    def file(self, name: str) -> FileLineCoverage:
-        """
-        Returns the coverage information for a given file within the project
-        associated with this report.
-        """
-        assert name != ""
-        return self.__files[name]
+    coverage = lines
 
-    __getitem__ = file
-
-    @property
-    def lines(self) -> Iterator[FileLine]:
-        """
-        Returns an iterator over the set of all lines that were covered.
-        """
-        for report in self.__files.values():
-            for line in report.lines:
-                yield line
-
-    def restricted_to_files(self,
-                            filenames: List[str]
-                            ) -> 'ProjectLineCoverage':
+    def restricted_to_files(self, filenames: List[str]) -> 'TestCoverage':
         """
         Returns a variant of this coverage that is restricted to a given list
         of files.
         """
-        cov = {fn: c for (fn, c) in self.__files.items() \
-               if fn in filenames}
-        return ProjectLineCoverage(self.test, self.outcome, cov)
+        return TestCoverage(test,
+                            outcome,
+                            self.__coverage.restricted_to_files(filenames))
 
     def to_dict(self) -> dict:
-        f_dict = {fn: cov.to_dict() for (fn, cov) in self.__files.items()}
-        return {'coverage': f_dict,
-                'outcome': self.outcome.to_dict()}
+        return {'test': self.test,
+                'outcome': self.outcome.to_dict(),
+                'coverage': self.coverage.to_dict()}
 
 
-class ProjectCoverageMap(object):
+class TestSuiteCoverage(object):
     """
     Holds coverage information for all tests belonging to a particular program
     version.
     """
-    T = Dict[TestCase, ProjectLineCoverage.T]
+    @staticmethod
+    def from_dict(d: dict) -> 'TestSuiteCoverage':
+        coverage_by_test = {}
+        for test_coverage_dict in d:
+            test_coverage = TestCoverage.from_dict(test_coverage_dict)
+            coverage_by_test[test_coverage.test] = test_coverage
+        return ProjectCoverageMap(coverage_by_test)
 
     @staticmethod
-    def from_dict(d: T, tests) -> 'ProjectCoverageMap':
-        coverage = {}
-        for (test_name, test_coverage) in d.items():
-            test = tests[test_name]
-            test_coverage = ProjectLineCoverage.from_dict(test, test_coverage)
-            coverage[test] = test_coverage
-        return ProjectCoverageMap(coverage)
-
-    @staticmethod
-    def from_file(fn: str, tests: TestSuite) -> 'ProjectCoverageMap':
+    def from_file(fn: str) -> 'TestSuiteCoverage':
         with open(fn, 'r') as f:
-            yml = yaml.load(f)
-            return ProjectCoverageMap.from_dict(yml, tests)
+            d = yaml.load(f)
+            return TestSuiteCoverage.from_dict(d)
 
-    def __init__(self, contents: T):
-        self.__contents = contents
+    def __init__(self, test_coverage: Dict[str, TestCoverage]):
+        self.__test_coverage = test_coverage
 
-    def covering_tests(self, line: FileLine) -> Set[TestCase]:
+    def covering_tests(self, line: FileLine) -> Set[str]:
         """
-        Returns the set of test cases that cover a given line.
+        Returns the names of all test cases that cover a given line.
         """
-        return set(test for (test, cov) in self.__contents.items() \
-                   if cov.covers(line))
+        return set(test for (test, cov) in self.__test_coverage.items() \
+                   if line in cov)
 
-    def __iter__(self) -> Iterator[TestCase]:
+    def __iter__(self) -> Iterator[str]:
         """
-        Returns an iterator over the test cases within this test suite.
+        Returns an iterator over the names of the test cases that are
+        represented by this coverage report.
         """
-        for test in self.__contents.keys():
-            yield test
+        return self.__test_coverage.keys().__iter__()
 
-    def __getitem__(self, test: TestCase) -> ProjectLineCoverage:
+    def __getitem__(self, name: str) -> TestCoverage:
         """
         Retrieves coverage information for a given test case.
+
+        Parameters:
+            name: the name of the test case.
 
         Raises:
             KeyError: if there is no coverage information for the given test
                 case.
         """
-        return self.__contents[test]
+        return self.__test_coverage[name]
 
-    def __contains__(self, test: TestCase) -> bool:
+    def __contains__(self, name: str) -> bool:
         """
-        Determines whether this map contains coverage information for a given
+        Determines whether this report contains coverage information for a given
         test case.
         """
-        return test in self.__contents
+        return name in self.__test_coverage
 
     def to_dict(self) -> dict:
-        return {test.name: cov.to_dict() \
-                for (test, cov) in self.__contents.items()}
+        return {test: cov.to_dict() \
+                for (test, cov) in self.__test_coverage.items()}
 
     def restricted_to_files(self,
                             filenames: List[str]
@@ -302,34 +256,34 @@ class ProjectCoverageMap(object):
         Returns a variant of this coverage that is restricted to a given list
         of files.
         """
-        cov = {}
+        cov_suite = {}
         for test in self:
-            cov[test] = self[test].restricted_to_files(filenames)
-        return ProjectCoverageMap(cov)
+            cov_suite[test] = self[test].restricted_to_files(filenames)
+        return TestSuiteCoverage(cov_suite)
 
     @property
-    def failing(self) -> 'ProjectCoverageMap':
+    def failing(self) -> 'TestSuiteCoverage':
+        """
+        Returns a variant of this coverage report that only contains coverage
+        for failing test executions.
+        """
+        return TestSuiteCoverage({t: cov \
+                                  for (t, cov) in self.__test_coverage.items() \
+                                  if not cov.outcome.passed})
+
+    @property
+    def passing(self) -> 'TestSuiteCoverage':
         """
         Returns a variant of this coverage report that only contains coverage
         for failing test executions.
         """
         return ProjectCoverageMap({t: cov \
-                                   for (t, cov) in self.__contents.items() \
-                                   if not cov.outcome.passed})
-
-    @property
-    def passing(self) -> 'ProjectCoverageMap':
-        """
-        Returns a variant of this coverage report that only contains coverage
-        for failing test executions.
-        """
-        return ProjectCoverageMap({t: cov \
-                                   for (t, cov) in self.__contents.items() \
+                                   for (t, cov) in self.__test_coverage.items() \
                                    if cov.outcome.passed})
 
-    def __len__(self) -> 'ProjectCoverageMap':
+    def __len__(self) -> int:
         """
         Returns a count of the number of test executions that are included
         within this coverage report.
         """
-        return len(self.__contents)
+        return len(self.__test_coverage)

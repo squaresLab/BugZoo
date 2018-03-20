@@ -8,12 +8,12 @@ import docker
 
 import bugzoo
 from .language import Language
-from .tool import Tool
-from .coverage import ProjectLineCoverage, \
-                      ProjectCoverageMap, \
+from .coverage import TestSuiteCoverage, \
+                      TestCoverage, \
                       Spectra
 from ..compiler import Compiler
 from ..testing import TestCase, TestOutcome, TestSuite
+
 
 class Bug(object):
     """
@@ -148,20 +148,22 @@ class Bug(object):
         """
         return self.__dataset
 
-    # TODO: move to BugManager
     @property
-    def coverage(self) -> 'ProjectCoverageMap':
+    def coverage(self) -> TestSuiteCoverage:
         """
         Provides coverage information for each test within the test suite
         for the program associated with this bug.
         """
+        # TODO move to BugManager
+        raise NotImplementedError
+
         # determine the location of the coverage map on disk
         fn = os.path.join(self.installation.coverage_path,
                           "{}.coverage.yml".format(self.identifier))
 
         # is the coverage already cached? if so, load.
         if os.path.exists(fn):
-            return ProjectCoverageMap.from_file(fn, self.harness)
+            return TestSuiteCoverage.from_file(fn, self.harness)
 
         # if we don't have coverage information, compute it
         try:

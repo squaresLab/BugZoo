@@ -1,6 +1,5 @@
 from .base import FileLine, \
                   FileLineSet, \
-                  FileLineCoverage, \
-                  ProjectLineCoverage, \
-                  ProjectCoverageMap
+                  TestCoverage, \
+                  TestSuiteCoverage
 from .spectra import Spectra

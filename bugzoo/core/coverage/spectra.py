@@ -1,6 +1,6 @@
 from typing import List, Dict, Iterator
 
-from .base import ProjectCoverageMap, \
+from .base import TestSuiteCoverage, \
                   FileLine
 
 
@@ -56,7 +56,7 @@ class Spectra(object):
     each line in a given project.
     """
     @staticmethod
-    def from_coverage(coverage: ProjectCoverageMap) -> 'Spectra':
+    def from_coverage(coverage: TestSuiteCoverage) -> 'Spectra':
         # tally the number of times that each line is touched by a passing
         # or failing test
         tally_failing = {}

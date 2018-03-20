@@ -4,9 +4,9 @@ import os
 import xml.etree.ElementTree as ET
 
 from ..core.container import Container
-from ..core.coverage import ProjectLineCoverage, \
-                            ProjectCoverageMap, \
-                            FileLineCoverage
+from ..core.coverage import TestSuiteCoverage, \
+                            TestCoverage, \
+                            FileLineSet
 from ..testing.base import TestCase
 
 
@@ -33,26 +33,23 @@ class CoverageManager(object):
     )
 
     @staticmethod
-    def _from_gcovr_xml_string(s: str
-                               ) -> Dict[str, FileLineCoverage]:
+    def _from_gcovr_xml_string(s: str) -> FileLineSet:
         """
-        Prases a project line-coverage report from a string-based XML
-        description produced by 'gcovr'.
+        Determines the set of files that are covered in a gcovr report.
         """
         root = ET.fromstring(s)
-        reports = {}
+        files_to_lines = {}
         packages = root.find('packages')
 
         for package in packages.findall('package'):
             for cls in package.find('classes').findall('class'):
-                fn = cls.attrib['filename']
                 # normalise path
                 lines = cls.find('lines').findall('line')
-                lines = \
-                    {int(l.attrib['number']): int(l.attrib['hits']) for l in lines}
-                reports[fn] = FileLineCoverage(fn, lines)
+                lines = [l.attrib['number'] for l in lines \
+                         if l.attributes['hits'] > 0]
+                files_to_lines = {cls.attrib['filename']: lines}
 
-        return reports
+        return FileLineSet(files_to_lines)
 
     def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
@@ -61,7 +58,7 @@ class CoverageManager(object):
     def coverage(self,
                  container: Container,
                  tests: List[TestCase]
-                 ) -> ProjectCoverageMap:
+                 ) -> TestSuiteCoverage:
         """
         Uses a provided container to compute line coverage information for a
         given list of tests.
@@ -82,14 +79,14 @@ class CoverageManager(object):
         for test in tests:
             print("generating coverage: {}".format(test))
             outcome = self.__installation.containers.execute(container, test)
-            file_reports = self.extract(container,
-                                        instrumented_files=files_to_instrument)
-            cov[test] = ProjectLineCoverage(test, outcome, file_reports)
+            filelines = self.extract(container,
+                                     instrumented_files=files_to_instrument)
+            cov[test] = TestCoverage(test.name, outcome, filelines)
 
         self.deinstrument(container,
                           instrumented_files=instrumented_files)
 
-        return ProjectCoverageMap(cov)
+        return TestSuiteCoverage(cov)
 
     def instrument(self,
                    container: Container,
@@ -155,7 +152,7 @@ class CoverageManager(object):
     def extract(self,
                 container: Container,
                 instrumented_files: Optional[List[str]] = None
-                ) -> ProjectLineCoverage:
+                ) -> FileLineSet:
         """
         Uses gcovr to extract coverage information for all of the C/C++ source
         code files within the project. Destroys '.gcda' files upon computing
@@ -172,5 +169,4 @@ class CoverageManager(object):
         assert response.code == 0
         response = response.output
 
-        # parse XML to Python data structures
         return CoverageManager._from_gcovr_xml_string(response)
