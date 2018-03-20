@@ -16,9 +16,6 @@ from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
 from ..core.bug import Bug
-from ..core.coverage import ProjectLineCoverage, \
-                            ProjectCoverageMap, \
-                            Spectra
 from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse, PendingExecResponse
