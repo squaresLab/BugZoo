@@ -57,20 +57,15 @@ class CoverageManager(object):
 
     def coverage(self,
                  container: Container,
-                 tests: List[TestCase]
+                 tests: List[TestCase],
+                 files_to_instrument: List[str],
                  ) -> TestSuiteCoverage:
         """
         Uses a provided container to compute line coverage information for a
         given list of tests.
         """
         assert tests != []
-
-        # FIXME for now, we use a fixed set of files
-        files_to_instrument = [
-            '/experiment/source/APMrover2/APMrover2.cpp',
-            '/experiment/source/ArduCopter/ArduCopter.cpp',
-            '/experiment/source/ArduPlane/ArduPlane.cpp'
-        ]
+        assert files_to_instrument != []
 
         self.instrument(container,
                         files_to_instrument=files_to_instrument)
@@ -81,10 +76,10 @@ class CoverageManager(object):
             outcome = self.__installation.containers.execute(container, test)
             filelines = self.extract(container,
                                      instrumented_files=files_to_instrument)
-            cov[test] = TestCoverage(test.name, outcome, filelines)
+            cov[test.name] = TestCoverage(test.name, outcome, filelines)
 
         self.deinstrument(container,
-                          instrumented_files=instrumented_files)
+                          instrumented_files=files_to_instrument)
 
         return TestSuiteCoverage(cov)
 
