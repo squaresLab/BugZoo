@@ -92,9 +92,25 @@ class FileLineSet(object):
     def __repr__(self) -> str:
         output = []
         for (fn, lines) in self.__contents.items():
-            lines = [str(line) for line in sorted(lines)]
-            lines = ', '.join(lines)
-            output.append("{}: {}".format(fn, lines))
+            lines = sorted(lines)
+            if lines == []:
+                continue
+
+            ranges = [[lines[0], lines[0]]]
+            for num in lines[1:]:
+                if num == ranges[-1][1] + 1:
+                    ranges[-1][1] = num
+                else:
+                    ranges.append([num, num])
+
+            range_strs = []
+            for (start, stop) in ranges:
+                if start == stop:
+                    range_strs.append(str(start))
+                else:
+                    range_strs.append("{}..{}".format(start, stop))
+
+            output.append("{}: {}".format(fn, '; '.join(range_strs)))
         return '\n'.join(output)
 
     def __getitem__(self, fn: str) -> Iterator[FileLine]:
