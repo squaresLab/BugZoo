@@ -92,17 +92,19 @@ class CoverageManager(object):
                     files_to_lines[path] = lines
 
         # modify coverage information for all of the instrumented files
-        lines_to_remove = set(range(1, len(CoverageManager.INSTRUMENTATION)))
+        num_instrumentation_lines = CoverageManager.INSTRUMENTATION.count('\n')
+        lines_to_remove = set(range(1, num_instrumentation_lines))
         for path in instrumented_files:
             if not path in files_to_lines:
                 continue
 
-            print("Removing coverage lines due to instrumentation: {}".format(path))
-
+            logger.debug("Removing coverage lines due to instrumentation: {}".format(path))
             lines = files_to_lines[path]
             lines -= lines_to_remove
-
-            files_to_lines[path] = lines
+            tmp = set()
+            for line in lines:
+                tmp.add(line - num_instrumentation_lines)
+            files_to_lines[path] = tmp
 
         return FileLineSet(files_to_lines)
 
