@@ -1,9 +1,13 @@
 from typing import Iterator
 
+import docker
 import textwrap
+import yaml
 
 import bugzoo.testing
+from ..core.coverage import TestSuiteCoverage
 from ..core.bug import Bug
+from ..core.spectra import Spectra
 from ..util import print_task_start, print_task_end
 
 
@@ -178,3 +182,38 @@ class BugManager(object):
                 del self.__installation.containers[c.uid]
 
         return validated
+
+    def coverage(self, bug: Bug) -> TestSuiteCoverage:
+        """
+        Provides coverage information for each test within the test suite
+        for the program associated with this bug.
+        """
+        # determine the location of the coverage map on disk
+        fn = os.path.join(self.__installation.coverage_path,
+                          "{}.coverage.yml".format(bug.name))
+
+        # is the coverage already cached? if so, load.
+        if os.path.exists(fn):
+            return TestSuiteCoverage.from_file(fn)
+
+        # if we don't have coverage information, compute it
+        try:
+            mgr_ctr = self.__installation.containers
+            container = None
+            container = mgr_ctr.provision(bug)
+            coverage = mgr_ctr.coverage(container)
+
+            # save to disk
+            with open(fn, 'w') as f:
+                yaml.dump(coverage.to_dict(), f, default_flow_style=False)
+        finally:
+            if container:
+                del mgr_ctr[container.id]
+
+        return coverage
+
+    def spectra(self, bug: Bug) -> Spectra:
+        """
+        Computes and returns the fault spectra for a given bug.
+        """
+        return Spectra.from_coverage(self.coverage)
