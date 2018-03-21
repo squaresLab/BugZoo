@@ -77,6 +77,17 @@ class FileLineSet(object):
         contents = {fn: frozenset(lines) for (fn, lines) in d.items()}
         return FileLineSet(contents)
 
+    def from_list(lst: List[FileLine]) -> 'FileLineSet':
+        """
+        Converts a list of file lines into a FileLineSet.
+        """
+        d = {}
+        for line in lst:
+            if not line.filename in d:
+                d[line.filename] = set()
+            d[line.filename].add(line.num)
+        return FileLineSet(d)
+
     def __init__(self, contents: T):
         self.__contents = \
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
