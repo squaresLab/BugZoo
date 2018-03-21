@@ -141,6 +141,19 @@ class FileLineSet(object):
         return file_line.fn in self.__contents and \
                file_line.num in self.__contents[file_line.fn]
 
+    def union(self, other: 'FileLineSet') -> 'FileLineSet':
+        """
+        Returns a set of file lines that contains the union of the lines within
+        this set and a given set.
+        """
+        # this isn't the most efficient implementation, but frankly, it doesn't
+        # need to be.
+        assert isinstance(other, FileLineSet)
+        l_self = list(self)
+        l_other = list(other)
+        l_union = l_self + l_other
+        return FileLineSet.from_list(l_union)
+
     def to_dict(self) -> Dict[str, List[int]]:
         """
         Returns the contents of this set as a JSON/YAML-ready dictionary.
