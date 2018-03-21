@@ -4,10 +4,10 @@ import os
 import warnings
 import xml.etree.ElementTree as ET
 
+from ..core.fileline import FileLineSet
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage, \
-                            TestCoverage, \
-                            FileLineSet
+                            TestCoverage
 from ..testing.base import TestCase
 
 

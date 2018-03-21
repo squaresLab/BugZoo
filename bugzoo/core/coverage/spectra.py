@@ -1,7 +1,7 @@
 from typing import List, Dict, Iterator
 
-from .base import TestSuiteCoverage, \
-                  FileLine
+from .base import TestSuiteCoverage
+from ..fileline import FileLine
 
 
 class LineSpectra(object):

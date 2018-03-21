@@ -1,5 +1,3 @@
-from .base import FileLine, \
-                  FileLineSet, \
-                  TestCoverage, \
+from .base import TestCoverage, \
                   TestSuiteCoverage
 from .spectra import Spectra
