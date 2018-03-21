@@ -3,7 +3,7 @@ from typing import Dict, List, Set, Iterator, Any
 import yaml
 
 import bugzoo.util
-from ..fileline import FileLine, FileLineSet
+from .fileline import FileLine, FileLineSet
 from bugzoo.testing import TestSuite, TestOutcome
 
 

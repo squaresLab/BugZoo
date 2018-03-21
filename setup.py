@@ -33,7 +33,6 @@ setup(
         'bugzoo.server',
         'bugzoo.mgr',
         'bugzoo.core',
-        'bugzoo.core.coverage',
         'bugzoo.cli'
     ],
     entry_points = {
