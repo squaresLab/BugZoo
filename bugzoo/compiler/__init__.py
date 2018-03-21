@@ -49,6 +49,13 @@ class Compiler(object):
 
         return cls.from_dict(d)
 
+    def clean(self,
+              manager_container,
+              container: 'Container',
+              verbose: bool = False
+              ) -> None:
+        raise NotImplementedError
+
     def compile(self,
                 container: 'Container',
                 verbose: bool = False,
@@ -83,6 +90,7 @@ class SimpleCompiler(Compiler):
 
     def __init__(self,
                  command: str,
+                 command_clean: str,
                  time_limit: float,
                  context: Optional[str] = None,
                  command_with_instrumentation: Optional[str] = None,
@@ -107,6 +115,7 @@ class SimpleCompiler(Compiler):
         """
         super().__init__()
         self.__command = command
+        self.__command_clean = command_clean
         self.__command_with_instrumentation = command_with_instrumentation
         self.__context = context
         self.__time_limit = time_limit
@@ -124,6 +133,18 @@ class SimpleCompiler(Compiler):
                                                 context=context,
                                                 stderr=True)
         return CompilationOutcome(cmd_outcome)
+
+    def clean(self,
+              manager_container,
+              container: 'Container',
+              verbose: bool = False
+              ) -> None:
+        # if a context isn't given, use the source directory of the bug
+        context = self.__context if self.__context else container.bug.source_dir
+        response = manager_container.command(container,
+                                             self.__command_clean,
+                                             context=context,
+                                             stderr=True)
 
     # TODO decouple!
     def compile(self,
@@ -165,6 +186,7 @@ class CatkinCompiler(SimpleCompiler):
         cmd = 'catkin build'
         cmdi = 'exit 1'
         super().__init__(command=cmd,
+                         command_clean='catkin clean',
                          command_with_instrumentation=cmdi,
                          context=workspace,
                          time_limit=time_limit)
@@ -183,6 +205,7 @@ class WafCompiler(SimpleCompiler):
                                                                        cxxflags,
                                                                        cmd)
         super().__init__(command=cmd,
+                         command_clean='./waf clean',
                          command_with_instrumentation=cmdi,
                          context=None,
                          time_limit=time_limit)
@@ -195,14 +218,14 @@ class ConfigureMakeCompiler(SimpleCompiler):
 
     def __init__(self, time_limit: float) -> None:
         cmd = 'make -j$(nproc)'
-        cflags = "--coverage save-temps=obj"
+        cflags = "--coverage" # save-temps=obj"
         ldflags = "--coverage"
-        flags = "LDFLAGS='{}' CXXFLAGS='{}' CFLAGS='{}'".format(ldflags,
-                                                                cflags,
-                                                                cflags)
+        flags = "LDFLAGS='{}' CXXFLAGS='{}' CFLAGS='{}'"
+        flags = flags.format(ldflags, cflags, cflags)
         cmdi = "make clean; ./configure {}; {}".format(flags, cmd)
 
         super().__init__(command=cmd,
+                         command_clean='make clean',
                          command_with_instrumentation=cmdi,
                          context=None,
                          time_limit=time_limit)
