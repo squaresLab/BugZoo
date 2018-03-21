@@ -1,3 +1,5 @@
+*.pyc
+
 .eggs
 share
 pip-selfcheck.json
