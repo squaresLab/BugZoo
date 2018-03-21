@@ -79,7 +79,7 @@ class FileLineSet(object):
 
     def __init__(self, contents: T):
         self.__contents = \
-            {fn: set(line_nums) for (fn, line_nums) in contents.items()}
+            {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
 
     def __iter__(self) -> Iterator[FileLine]:
         """

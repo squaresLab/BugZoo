@@ -1,6 +1,7 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Set
 import tempfile
 import os
+import warnings
 import xml.etree.ElementTree as ET
 
 from ..core.container import Container
@@ -32,23 +33,76 @@ class CoverageManager(object):
         "// BUGZOO :: INSTRUMENTATION :: END\n"
     )
 
-    @staticmethod
-    def _from_gcovr_xml_string(s: str) -> FileLineSet:
+    def _from_gcovr_xml_string(self,
+                               s: str,
+                               instrumented_files: Set[str],
+                               container: Container
+                               ) -> FileLineSet:
         """
         Determines the set of files that are covered in a gcovr report.
+
+        Parameters:
+            s: a string-encoding of an XML document containing a gcovr report.
+            instrumented_files: the paths (relative to the source code
+                directory) to all files that were instrumented.
+
+        Returns:
+            the set of file-lines that are stated as covered by the given
+            report.
         """
+        logger = self.__logger.getChild(container.id)
+        mgr_ctr = self.__installation.containers
+        dir_source = container.bug.source_dir # TODO port
+
+        def has_file(fn_rel: str) -> bool:
+            fn_abs = os.path.join(dir_source, fn_rel)
+            cmd = 'test -f "{}"'.format(fn_abs)
+            resp = mgr_ctr.command(container, cmd)
+            return resp.code == 0
+
+        # FIXME is this a general solution?
+        def resolve_path(fn_rel: str) -> str:
+            assert fn_rel != '', "failed to resolve path"
+            if has_file(fn_rel):
+                return fn_rel
+
+            fn_rel_child = '/'.join(fn_rel.split('/')[1:])
+            return resolve_path(fn_rel_child)
+
+        assert isinstance(instrumented_files, set)
+        for path in instrumented_files:
+            assert not os.path.isabs(path), "expected relative file paths"
+
         root = ET.fromstring(s)
         files_to_lines = {}
         packages = root.find('packages')
 
         for package in packages.findall('package'):
             for cls in package.find('classes').findall('class'):
-                # normalise path
+                try:
+                    path = resolve_path(cls.attrib['filename'])
+                except AssertionError:
+                    logger.warning("failed to resolve file: %s", path)
+                    continue
+
                 lines = cls.find('lines').findall('line')
-                lines = [int(l.attrib['number']) for l in lines \
-                         if int(l.attrib['hits']) > 0]
+                lines = set(int(l.attrib['number']) for l in lines \
+                            if int(l.attrib['hits']) > 0)
                 if lines != []:
-                    files_to_lines[cls.attrib['filename']] = lines
+                    files_to_lines[path] = lines
+
+        # modify coverage information for all of the instrumented files
+        lines_to_remove = set(range(1, len(CoverageManager.INSTRUMENTATION)))
+        for path in instrumented_files:
+            if not path in files_to_lines:
+                continue
+
+            print("Removing coverage lines due to instrumentation: {}".format(path))
+
+            lines = files_to_lines[path]
+            lines -= lines_to_remove
+
+            files_to_lines[path] = lines
 
         return FileLineSet(files_to_lines)
 
@@ -59,14 +113,16 @@ class CoverageManager(object):
     def coverage(self,
                  container: Container,
                  tests: List[TestCase],
-                 files_to_instrument: List[str],
+                 files_to_instrument: List[str] = None,
                  ) -> TestSuiteCoverage:
         """
         Uses a provided container to compute line coverage information for a
         given list of tests.
         """
         assert tests != []
-        assert files_to_instrument != []
+
+        if files_to_instrument is None:
+            files_to_instrument = []
 
         self.instrument(container,
                         files_to_instrument=files_to_instrument)
@@ -92,11 +148,22 @@ class CoverageManager(object):
         Adds source code instrumentation and recompiles the program inside
         a container using the appropriate GCC options. Also ensures that
         gcovr is installed inside the container.
+
+        Parameters:
+            container: the container whose contents should be instrumented.
+            files_to_instrument: the paths to the source code files that
+                should be instrumented (relative to the source code directory).
+
+        Raises:
+            Exception: if an absolute file path is provided.
         """
         mgr_ctr = self.__installation.containers
 
         if not files_to_instrument:
             files_to_instrument = []
+
+        for path in files_to_instrument:
+            assert not os.path.isabs(path), "expected relative file paths"
 
         # ensure that gcovr is mounted within the container
         # TODO: mount binaries
@@ -104,7 +171,9 @@ class CoverageManager(object):
                         'sudo apt-get update && sudo apt-get install -y gcovr')
 
         # add instrumentation to each file
+        dir_source = container.bug.source_dir # TODO port
         for fn_src in files_to_instrument:
+            fn_src = os.path.join(dir_source, fn_src)
             (_, fn_temp) = tempfile.mkstemp(suffix='.bugzoo')
             try:
                 mgr_ctr.copy_from(container, fn_src, fn_temp)
@@ -157,12 +226,17 @@ class CoverageManager(object):
         mgr_ctr = self.__installation.containers
 
         if not instrumented_files:
-            instrumented_files = []
+            instrumented_files = set()
+        else:
+            instrumented_files = set(instrumented_files)
 
+        dir_source = container.bug.source_dir # TODO port
         response = mgr_ctr.command(container,
                                    'gcovr -x -d -r .',
-                                   context=container.bug.source_dir) # TODO port
+                                   context=dir_source)
         assert response.code == 0
         response = response.output
 
-        return CoverageManager._from_gcovr_xml_string(response)
+        return self._from_gcovr_xml_string(response,
+                                           instrumented_files,
+                                           container)
