@@ -1,17 +1,9 @@
 from typing import List, Iterator, Dict, Optional
-import os
-import copy
-import textwrap
-
-import yaml
-import docker
 
 import bugzoo
 from .language import Language
-from .coverage import TestSuiteCoverage, TestCoverage
-from .spectra import Spectra
 from ..compiler import Compiler
-from ..testing import TestCase, TestOutcome, TestSuite
+from ..testing import TestSuite
 
 
 class Bug(object):
@@ -146,45 +138,6 @@ class Bug(object):
         The name of the dataset to which this bug belongs, if any.
         """
         return self.__dataset
-
-    @property
-    def coverage(self) -> TestSuiteCoverage:
-        """
-        Provides coverage information for each test within the test suite
-        for the program associated with this bug.
-        """
-        # TODO move to BugManager
-        raise NotImplementedError
-
-        # determine the location of the coverage map on disk
-        fn = os.path.join(self.installation.coverage_path,
-                          "{}.coverage.yml".format(self.identifier))
-
-        # is the coverage already cached? if so, load.
-        if os.path.exists(fn):
-            return TestSuiteCoverage.from_file(fn, self.harness)
-
-        # if we don't have coverage information, compute it
-        try:
-            container = None
-            container = self.provision()
-            coverage = container.coverage()
-
-            # save to disk
-            with open(fn, 'w') as f:
-                yaml.dump(coverage.to_dict(), f, default_flow_style=False)
-        finally:
-            if container:
-                container.destroy()
-
-        return coverage
-
-    @property
-    def spectra(self) -> Spectra:
-        """
-        Computes and returns the fault spectra for this bug.
-        """
-        return Spectra.from_coverage(self.coverage)
 
     @property
     def image(self) -> str:
