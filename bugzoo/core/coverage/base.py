@@ -154,6 +154,19 @@ class FileLineSet(object):
         l_union = l_self + l_other
         return FileLineSet.from_list(l_union)
 
+    def intersection(self, other: 'FileLineSet') -> 'FileLineSet':
+        """
+        Returns a set of file lines that contains the intersection of the lines
+        within this set and a given set.
+        """
+        # this isn't the most efficient implementation, but frankly, it doesn't
+        # need to be.
+        assert isinstance(other, FileLineSet)
+        set_self = set(self)
+        set_other = set(other)
+        set_union = l_self & l_other
+        return FileLineSet.from_list(list(set_union))
+
     def to_dict(self) -> Dict[str, List[int]]:
         """
         Returns the contents of this set as a JSON/YAML-ready dictionary.
