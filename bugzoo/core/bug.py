@@ -2,8 +2,14 @@ from typing import List, Iterator, Dict, Optional
 
 import bugzoo
 from .language import Language
+<<<<<<< HEAD
+=======
+from .coverage import TestSuiteCoverage, TestCoverage
+from .spectra import Spectra
+>>>>>>> origin/master
 from ..compiler import Compiler
 from ..testing import TestSuite
+
 
 
 class Bug(object):
