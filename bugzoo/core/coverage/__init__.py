@@ -1,3 +1,1 @@
-from .base import TestCoverage, \
-                  TestSuiteCoverage
-from .spectra import Spectra
+from .base import TestCoverage, TestSuiteCoverage

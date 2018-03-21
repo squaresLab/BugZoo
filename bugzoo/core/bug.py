@@ -8,9 +8,8 @@ import docker
 
 import bugzoo
 from .language import Language
-from .coverage import TestSuiteCoverage, \
-                      TestCoverage, \
-                      Spectra
+from .coverage import TestSuiteCoverage, TestCoverage
+from .spectra import Spectra
 from ..compiler import Compiler
 from ..testing import TestCase, TestOutcome, TestSuite
 
