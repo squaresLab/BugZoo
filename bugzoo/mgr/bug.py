@@ -1,5 +1,6 @@
 from typing import Iterator
 
+import docker
 import textwrap
 import yaml
 
