@@ -33,3 +33,11 @@ def dedent(s: str) -> str:
     spaces = min(num_leading_spaces(ss) for ss in lines[offset:])
     dedented = '\n'.join(l[spaces:] for l in lines)
     return dedented
+
+
+def indent(string: str, num_spaces: int) -> str:
+    prefix = " " * num_spaces
+    output = []
+    for line in string.splitlines():
+        output.append(prefix + line)
+    return '\n'.join(output)

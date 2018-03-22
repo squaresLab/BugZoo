@@ -16,9 +16,6 @@ from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
 from ..core.bug import Bug
-from ..core.coverage import ProjectLineCoverage, \
-                            ProjectCoverageMap, \
-                            Spectra
 from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse, PendingExecResponse
@@ -238,28 +235,6 @@ class ContainerManager(object):
         passed = response.code == 0
         return TestOutcome(response, passed)
 
-    def coverage(self,
-                 container: Container,
-                 tests: List[TestCase] = None
-                 ) -> ProjectCoverageMap:
-        """
-        Computes line coverage information for an optionally provided list of
-        tests. If no list of tests is provided, then coverage will be computed
-        for all tests within the test suite associated with the program inside
-        the given container.
-        """
-        assert container.alive # TODO port
-        assert tests != []
-
-        if tests is None:
-            tests = container.bug.tests
-
-        # fetch the extractor for this language
-        # TODO: assumes a single language
-        language = container.bug.languages[0]
-        extractor = language.coverage_extractor
-        return extractor.coverage(self, container, tests)
-
     # TODO decouple
     def compile(self,
                 container: Container,
@@ -291,7 +266,8 @@ class ContainerManager(object):
 
         See: `Container.compile`
         """
-        bug = self.__installation.bugs[container.bug]
+        bug = self.__installation.bugs[container.bug.name] # TODO port
+        bug.compiler.clean(self, container, verbose=verbose) # TODO port
         return bug.compiler.compile_with_coverage_instrumentation(self,
                                                                   container,
                                                                   verbose=verbose)
