@@ -1,3 +1,4 @@
+from timeit import default_timer as timer
 from typing import List, Dict, Optional, Set
 import tempfile
 import os
@@ -53,12 +54,14 @@ class CoverageManager(object):
         logger = self.__logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
         dir_source = container.bug.source_dir # TODO port
+        resp = mgr_ctr.command(container, "find {}".format(dir_source))
+        all_files = resp.output.split('\n')
+
+        t_start = timer()
 
         def has_file(fn_rel: str) -> bool:
             fn_abs = os.path.join(dir_source, fn_rel)
-            cmd = 'test -f "{}"'.format(fn_abs)
-            resp = mgr_ctr.command(container, cmd)
-            return resp.code == 0
+            return (fn_abs in all_files)
 
         # FIXME is this a general solution?
         def resolve_path(fn_rel: str) -> str:
@@ -77,6 +80,7 @@ class CoverageManager(object):
         files_to_lines = {}
         packages = root.find('packages')
 
+        logger.debug("Starting to traverse all files reported by gcovr. Seconds passed: {}".format(timer() - t_start))
         for package in packages.findall('package'):
             for cls in package.find('classes').findall('class'):
                 try:
@@ -91,6 +95,7 @@ class CoverageManager(object):
                 if lines != []:
                     files_to_lines[path] = lines
 
+        logger.debug("Traversing all files finished. Seconds passed: {}".format(timer() - t_start))
         # modify coverage information for all of the instrumented files
         num_instrumentation_lines = CoverageManager.INSTRUMENTATION.count('\n')
         lines_to_remove = set(range(1, num_instrumentation_lines))
@@ -225,7 +230,10 @@ class CoverageManager(object):
         code files within the project. Destroys '.gcda' files upon computing
         coverage.
         """
+        logger = self.__logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
+        t_start = timer()
+        logger.debug("Starting to extract coverage info")
 
         if not instrumented_files:
             instrumented_files = set()
@@ -233,12 +241,17 @@ class CoverageManager(object):
             instrumented_files = set(instrumented_files)
 
         dir_source = container.bug.source_dir # TODO port
+        logger.debug("Running gcovr. Seconds passed: {}".format(timer() - t_start))
         response = mgr_ctr.command(container,
                                    'gcovr -x -d -r .',
                                    context=dir_source)
+        logger.debug("gcovr returned. Seconds passed: {}".format(timer() - t_start))
         assert response.code == 0
         response = response.output
 
-        return self._from_gcovr_xml_string(response,
+        logger.debug("Parsing gcovr xml. Seconds passed: {}".format(timer() - t_start))
+        res = self._from_gcovr_xml_string(response,
                                            instrumented_files,
                                            container)
+        logger.debug("Finished parsing gcovr xml. Seconds passed: {}".format(timer() - t_start))
+        return res
