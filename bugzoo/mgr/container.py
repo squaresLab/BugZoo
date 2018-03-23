@@ -350,11 +350,11 @@ class ContainerManager(object):
         if not block:
             return PendingExecResponse(response, out)
 
-        while self.__api_docker.exec_inspect(exec_id)['Running']:
-            time_running = timer() - time_start
-            if time_limit and time_running > time_limit:
-                # TODO kill exec
-                raise TimeoutError()
+        # while self.__api_docker.exec_inspect(exec_id)['Running']:
+        #    time_running = timer() - time_start
+        #    if time_limit and time_running > time_limit:
+        #        # TODO kill exec
+        #        raise TimeoutError()
 
         output = []
         for line in out:
@@ -362,7 +362,7 @@ class ContainerManager(object):
             if verbose:
                 print(line, flush=True)
             output.append(line)
-        time_end = timer()
+        time_running = timer() - time_start
         output = '\n'.join(output)
 
         code = self.__api_docker.exec_inspect(exec_id)['ExitCode']
