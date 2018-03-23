@@ -233,7 +233,6 @@ class CoverageManager(object):
         """
         logger = self.__logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
-        t_start = timer()
         logger.debug("Starting to extract coverage info")
 
         if not instrumented_files:
@@ -242,7 +241,8 @@ class CoverageManager(object):
             instrumented_files = set(instrumented_files)
 
         dir_source = container.bug.source_dir # TODO port
-        logger.debug("Running gcovr. Seconds passed: %.2f", timer() - t_start)
+        t_start = timer()
+        logger.debug("Running gcovr.")
         response = mgr_ctr.command(container,
                                    'gcovr -x -d -r .',
                                    context=dir_source)
@@ -250,7 +250,8 @@ class CoverageManager(object):
         assert response.code == 0
         response = response.output
 
-        logger.debug("Parsing gcovr xml. Seconds passed: %.2f", timer() - t_start)
+        t_start = timer()
+        logger.debug("Parsing gcovr xml.")
         res = self._from_gcovr_xml_string(response,
                                            instrumented_files,
                                            container)
