@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Optional, List
 import os
 
 import docker
