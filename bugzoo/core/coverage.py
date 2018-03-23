@@ -98,10 +98,10 @@ class TestSuiteCoverage(object):
     @staticmethod
     def from_dict(d: dict) -> 'TestSuiteCoverage':
         coverage_by_test = {}
-        for test_coverage_dict in d:
+        for test_coverage_dict in d.values():
             test_coverage = TestCoverage.from_dict(test_coverage_dict)
             coverage_by_test[test_coverage.test] = test_coverage
-        return ProjectCoverageMap(coverage_by_test)
+        return TestSuiteCoverage(coverage_by_test)
 
     @staticmethod
     def from_file(fn: str) -> 'TestSuiteCoverage':

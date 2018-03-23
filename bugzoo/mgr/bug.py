@@ -1,4 +1,5 @@
 from typing import Iterator
+import os
 
 import docker
 import textwrap
@@ -201,9 +202,10 @@ class BugManager(object):
         # if we don't have coverage information, compute it
         try:
             mgr_ctr = self.__installation.containers
+            mgr_cov = self.__installation.coverage
             container = None
             container = mgr_ctr.provision(bug)
-            coverage = mgr_ctr.coverage(container)
+            coverage = mgr_cov.coverage(container, bug.tests)
 
             # save to disk
             with open(fn, 'w') as f:
