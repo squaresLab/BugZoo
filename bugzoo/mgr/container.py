@@ -24,6 +24,7 @@ from ..cmd import ExecResponse, PendingExecResponse
 class ContainerManager(object):
     def __init__(self, installation: 'BugZoo'):
         self.__installation = installation
+        self.__logger = installation.logger.getChild('container')
         self.__client_docker = installation.docker
         self.__api_docker = self.__client_docker.api
         self.__containers = {}
@@ -217,7 +218,11 @@ class ContainerManager(object):
         """
         subprocess.call(['docker', 'attach', container.id])
 
-    def execute(self, container: Container, test: TestCase) -> TestOutcome:
+    def execute(self,
+                container: Container,
+                test: TestCase,
+                verbose: bool = False
+                ) -> TestOutcome:
         """
         Runs a specified test inside a given container.
 
@@ -226,7 +231,7 @@ class ContainerManager(object):
         """
         bug = self.__installation.bugs[container.bug.name]
         cmd, context = bug.harness.command(test)
-        response = self.command(container, cmd, context, stderr=True)
+        response = self.command(container, cmd, context, stderr=True, verbose=verbose)
         passed = response.code == 0
         return TestOutcome(response, passed)
 
@@ -299,14 +304,27 @@ class ContainerManager(object):
                 context: Optional[str] = None,
                 stdout: bool = True,
                 stderr: bool = False,
-                block: bool = True
+                block: bool = True,
+                verbose: bool = False,
+                time_limit: Optional[int] = None
                 ) -> Union[ExecResponse, PendingExecResponse]:
         """
         Executes a provided shell command inside a given container.
 
+        Parameters:
+            time_limit: an optional parameter that is used to specify the
+                number of seconds that the command should be allowed to run
+                without completing before it is aborted. Only supported by
+                blocking calls.
+
         Returns:
             a description of the response.
+
+        Raises:
+            TimeoutError: if a time limit is given and the command fails
+                to complete within that time. Only supported by blocking calls.
         """
+        logger = self.__logger.getChild(container.uid)
         bug = container.bug # TODO migrate
 
         # TODO: we need a better long-term alternative
@@ -317,25 +335,35 @@ class ContainerManager(object):
         cmd = template_cmd.format(context, cmd)
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
+        logger.debug("executing command: %s", cmd)
         docker_client = self.__installation.docker
         response = docker_client.api.exec_create(container.id,
                                                  cmd,
+                                                 tty=True,
                                                  stdout=stdout,
                                                  stderr=stderr)
+        exec_id = response['Id']
 
-        # blocking mode
-        if block:
-            start_time = timer()
-            out = self.__api_docker.exec_start(response['Id'],
-                                               stream=False)
-            out = out.decode('utf-8')
-            end_time = timer()
-            duration = end_time - start_time
-            code = self.__api_docker.exec_inspect(response['Id'])['ExitCode']
-            return ExecResponse(code, duration, out)
+        time_start = timer()
+        out = self.__api_docker.exec_start(exec_id, stream=True)
 
-        # non-blocking mode
-        else:
-            out = self.__api_docker.exec_start(response['Id'],
-                                               stream=True)
+        if not block:
             return PendingExecResponse(response, out)
+
+        # while self.__api_docker.exec_inspect(exec_id)['Running']:
+        #    time_running = timer() - time_start
+        #    if time_limit and time_running > time_limit:
+        #        # TODO kill exec
+        #        raise TimeoutError()
+
+        output = []
+        for line in out:
+            line = line.decode('utf-8').rstrip('\n')
+            if verbose:
+                print(line, flush=True)
+            output.append(line)
+        time_running = timer() - time_start
+        output = '\n'.join(output)
+
+        code = self.__api_docker.exec_inspect(exec_id)['ExitCode']
+        return ExecResponse(code, time_running, output)
