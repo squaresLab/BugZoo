@@ -57,7 +57,7 @@ class SimpleTestSuite(TestSuite):
             the `command` that should be executed, and `content` specifies the
             directory from which the command should be executed.
         """
-        cmd = self.__command.replace('__ID__', test.identifier, 1)
+        cmd = self.__command.replace('__ID__', test.name, 1)
         return (cmd, self.__context)
 
 
@@ -91,7 +91,7 @@ class GenProgTestSuite(SimpleTestSuite):
         self.__failing: List[TestCase] = []
 
         for t in self.tests:
-            if t.identifier.startswith('p'):
+            if t.name.startswith('p'):
                 self.__passing.append(t)
             else:
                 self.__failing.append(t)
@@ -101,16 +101,14 @@ class GenProgTestSuite(SimpleTestSuite):
         """
         The test cases that were passed by the original, unmodified bug.
         """
-        for t in self.__passing:
-            yield t
+        return self.__passing.__iter__()
 
     @property
     def failing(self) -> Iterator[TestCase]:
         """
         The test cases that were failed by the original, unmodified bug.
         """
-        for t in self.__failing:
-            yield t
+        return self.__failing.__iter__()
 
     @property
     def num_passing(self):
