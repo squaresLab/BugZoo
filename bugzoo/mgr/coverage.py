@@ -56,8 +56,7 @@ class CoverageManager(object):
         dir_source = container.bug.source_dir # TODO port
         # getting a list of all files in source directory to later use for resolving path
         resp = mgr_ctr.command(container, "find {} -type f".format(dir_source))
-        all_files = resp.output.split('\n')
-
+        all_files = [fn.strip() for fn in resp.output.split('\n')]
 
         def has_file(fn_rel: str) -> bool:
             fn_abs = os.path.join(dir_source, fn_rel)
@@ -233,7 +232,7 @@ class CoverageManager(object):
         """
         logger = self.__logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
-        logger.debug("Starting to extract coverage info")
+        logger.debug("Extracting coverage information")
 
         if not instrumented_files:
             instrumented_files = set()
@@ -243,17 +242,29 @@ class CoverageManager(object):
         dir_source = container.bug.source_dir # TODO port
         t_start = timer()
         logger.debug("Running gcovr.")
+        fn_temp_ctr = mgr_ctr.mktemp(container)
+        cmd = 'gcovr -o "{}" -x -d -r .'.format(fn_temp_ctr)
         response = mgr_ctr.command(container,
-                                   'gcovr -x -d -r .',
-                                   context=dir_source)
-        logger.debug("gcovr returned. Seconds passed: %.2f", timer() - t_start)
-        assert response.code == 0
-        response = response.output
+                                   cmd,
+                                   context=dir_source,
+                                   verbose=True)
+        logger.debug("Finished running gcovr (took %.2f seconds).", timer() - t_start)
+        assert response.code == 0, "failed to run gcovr"
+
+        # copy the contents of the temporary file to the host machine
+        (_, fn_temp_host) = tempfile.mkstemp(suffix='.bugzoo')
+        try:
+            mgr_ctr.copy_from(container, fn_temp_ctr, fn_temp_host)
+            with open(fn_temp_host, 'r') as fh:
+                report = fh.read()
+        finally:
+            os.remove(fn_temp_host)
 
         t_start = timer()
-        logger.debug("Parsing gcovr xml.")
-        res = self._from_gcovr_xml_string(response,
-                                           instrumented_files,
-                                           container)
-        logger.debug("Finished parsing gcovr xml. Seconds passed: %.2f", timer() - t_start)
+        logger.debug("Parsing gcovr XML report.")
+        res = self._from_gcovr_xml_string(report,
+                                          instrumented_files,
+                                          container)
+        logger.debug("Finished parsing gcovr XML report (took %.2f seconds).", timer() - t_start)
+        logger.debug("Finished extracting coverage information")
         return res
