@@ -1,4 +1,4 @@
-from typing import List, Iterator
+from typing import List, Iterator, Tuple
 from bugzoo.testing.base import TestSuite, TestCase
 
 
@@ -26,17 +26,17 @@ class SimpleTestSuite(TestSuite):
         cmd = yml['command']
         ctx = yml['context']
         time_limit = yml['time-limit']
-        tests = yml['tests']
+        test_names = yml['tests']
 
-        return SimpleTestSuite(cmd, ctx, time_limit, tests)
+        return SimpleTestSuite(cmd, ctx, time_limit, test_names)
 
     def __init__(self,
                  command: str,
                  context: str,
                  time_limit: float,
-                 tests: List[str]
+                 test_names: List[str]
                  ) -> None:
-        assert tests != []
+        assert test_names != []
         assert command != ""
         assert context != ""
         assert time_limit > 0
@@ -45,12 +45,17 @@ class SimpleTestSuite(TestSuite):
         self.__context = context
         self.__time_limit = time_limit
 
-        tests = [TestCase(t) for t in tests]
+        tests = [TestCase(t) for t in test_names]
         super().__init__(tests)
 
-    def command(self, test : TestCase) -> str:
+    def command(self, test : TestCase) -> Tuple[str, str]:
         """
         Computes the bash command that should be used to execute a given test.
+
+        Returns:
+            A tuple of the form `(command, context)`, where `command` describes
+            the `command` that should be executed, and `content` specifies the
+            directory from which the command should be executed.
         """
         cmd = self.__command.replace('__ID__', test.identifier, 1)
         return (cmd, self.__context)
