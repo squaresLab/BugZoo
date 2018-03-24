@@ -1,4 +1,4 @@
-from typing import Dict, List, Set, Iterator, Any
+from typing import Dict, List, Set, Iterator, Iterable, Any
 
 
 class FileLine(object):
@@ -65,25 +65,31 @@ class FileLine(object):
 
 
 class FileLineSet(object):
-    T = Dict[str, Set[int]]
-
+    """
+    Used to describe a set of file lines.
+    """
     @staticmethod
     def from_dict(d: Dict[str, List[int]]) -> 'FileLineSet':
-        contents = {fn: frozenset(lines) for (fn, lines) in d.items()}
+        contents = {fn: set(lines) for (fn, lines) in d.items()}
         return FileLineSet(contents)
 
+    @staticmethod
     def from_list(lst: List[FileLine]) -> 'FileLineSet':
         """
         Converts a list of file lines into a FileLineSet.
         """
+        return FileLineSet.from_iter(lst)
+
+    @staticmethod
+    def from_iter(itr: Iterable[FileLine]) -> 'FileLineSet':
         d: Dict[str, Set[int]] = {}
-        for line in lst:
+        for line in itr:
             if not line.filename in d:
                 d[line.filename] = set()
             d[line.filename].add(line.num)
         return FileLineSet(d)
 
-    def __init__(self, contents: T) -> None:
+    def __init__(self, contents: Dict[str, Set[int]]) -> None:
         self.__contents = \
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
 
@@ -97,8 +103,8 @@ class FileLineSet(object):
 
     def __repr__(self) -> str:
         output = []
-        for (fn, lines) in self.__contents.items():
-            lines = sorted(lines)
+        for (fn, set_lines) in self.__contents.items():
+            lines = sorted(set_lines)
             if lines == []:
                 continue
 
@@ -133,8 +139,8 @@ class FileLineSet(object):
         """
         Determines whether a given file-line is contained within this set.
         """
-        return file_line.fn in self.__contents and \
-               file_line.num in self.__contents[file_line.fn]
+        return file_line.filename in self.__contents and \
+               file_line.num in self.__contents[file_line.filename]
 
     def union(self, other: 'FileLineSet') -> 'FileLineSet':
         """
