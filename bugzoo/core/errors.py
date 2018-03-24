@@ -118,7 +118,7 @@ class BugNotInstalledError(BaseException):
     """
     def __init__(self, name: str) -> None:
         self.__name = name
-        super().__init__("bug not installed: {}".format(bug))
+        super().__init__("bug not installed: {}".format(name))
 
     @property
     def name(self) -> str:
