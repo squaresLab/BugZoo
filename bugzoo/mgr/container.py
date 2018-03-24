@@ -153,6 +153,20 @@ class ContainerManager(object):
         self.__containers[uid] = container
         return container
 
+    def mktemp(self,
+               container: Container
+               ) -> str:
+        """
+        Creates a named temporary file within a given container.
+
+        Returns:
+            the absolute path to the created temporary file.
+        """
+        response = self.command(container, "mktemp")
+        assert response.code == 0, "failed to create temporary file"
+        fn = response.output.strip()
+        return fn
+
     def ip_address(self,
                    container: Container,
                    raise_error: bool = False
