@@ -9,7 +9,8 @@ class Tool(object):
                  name: str,
                  image: str,
                  environment: Dict[str, str],
-                 source: Optional[str]):
+                 source: Optional[str]
+                 ) -> None:
         """
         Constructs a new Tool description.
 

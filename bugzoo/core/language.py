@@ -12,7 +12,7 @@ class Language(enum.Enum, metaclass=LanguageEnumMeta):
     # JAVA = None
     # PYTHON = None
 
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         self.__name = name
 
     @property

@@ -10,7 +10,7 @@ class LineSpectra(object):
     terms of the number of passing and failing tests that do and do not
     cover it, respectively.
     """
-    def __init__(self, ep: int, ef: int, np: int, nf: int):
+    def __init__(self, ep: int, ef: int, np: int, nf: int) -> None:
         assert ep >= 0
         assert ef >= 0
         assert np >= 0
@@ -80,7 +80,7 @@ class Spectra(object):
                  num_failing: int,
                  tally_passing: Dict[str, Dict[int, int]],
                  tally_failing: Dict[str, Dict[int, int]]
-                 ):
+                 ) -> None:
         self.__num_passing = num_passing
         self.__num_failing = num_failing
         self.__tally_passing = tally_passing

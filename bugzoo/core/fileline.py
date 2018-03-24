@@ -30,7 +30,7 @@ class FileLine(object):
                 lines[FileLine(fn, num)] = d[fn][num]
         return lines
 
-    def __init__(self, fn: str, num: int):
+    def __init__(self, fn: str, num: int) -> None:
         self.__fn = fn
         self.__num = num
 
@@ -83,7 +83,7 @@ class FileLineSet(object):
             d[line.filename].add(line.num)
         return FileLineSet(d)
 
-    def __init__(self, contents: T):
+    def __init__(self, contents: T) -> None:
         self.__contents = \
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
 

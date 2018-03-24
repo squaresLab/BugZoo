@@ -22,7 +22,8 @@ class BuildInstructions(object):
                  filename: str,
                  arguments: Dict[str, str],
                  depends_on: Optional[str],
-                 source: Optional[str]):
+                 source: Optional[str]
+                 ) -> None:
         self.__root = root
         self.__tag = tag
         self.__context = context

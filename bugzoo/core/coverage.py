@@ -40,7 +40,8 @@ class TestCoverage(object):
     def __init__(self,
                  test: str,
                  outcome: TestOutcome,
-                 coverage: FileLineSet):
+                 coverage: FileLineSet
+                 ) -> None:
         self.__test = test
         self.__outcome = outcome
         self.__coverage = coverage
@@ -109,7 +110,7 @@ class TestSuiteCoverage(object):
             d = yaml.load(f)
             return TestSuiteCoverage.from_dict(d)
 
-    def __init__(self, test_coverage: Dict[str, TestCoverage]):
+    def __init__(self, test_coverage: Dict[str, TestCoverage]) -> None:
         self.__test_coverage = test_coverage
 
     def __repr__(self) -> str:
