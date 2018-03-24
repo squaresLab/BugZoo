@@ -5,7 +5,7 @@ services:
 python:
 - '3.5'
 install:
-- pip install sphinx
+- pip install sphinx mypy
 - pip install .
 script:
 - bugzoo -h
@@ -17,6 +17,7 @@ script:
 - bugzoo source list
 - bugzoo bug list
 - python3 test/test_manybugs.py
+- mypy bugzoo
 before_deploy:
 - "(cd docs && make html && cd _build/html && touch .nojekyll)"
 notifications:
