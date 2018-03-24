@@ -53,6 +53,9 @@ class TestCoverage(object):
         s = "[{}: {}]\n{}".format(self.__test, status, coverage)
         return s
 
+    def __contains__(self, fileline: FileLine) -> bool:
+        return fileline in self.__coverage
+
     @property
     def test(self) -> str:
         """
@@ -81,14 +84,14 @@ class TestCoverage(object):
         Returns a variant of this coverage that is restricted to a given list
         of files.
         """
-        return TestCoverage(self.test,
-                            self.outcome,
+        return TestCoverage(self.__test,
+                            self.__outcome,
                             self.__coverage.restricted_to_files(filenames))
 
     def to_dict(self) -> dict:
-        return {'test': self.test,
-                'outcome': self.outcome.to_dict(),
-                'coverage': self.coverage.to_dict()}
+        return {'test': self.__test,
+                'outcome': self.__outcome.to_dict(),
+                'coverage': self.__coverage.to_dict()}
 
 
 class TestSuiteCoverage(object):
