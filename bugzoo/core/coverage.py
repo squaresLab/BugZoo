@@ -81,8 +81,8 @@ class TestCoverage(object):
         Returns a variant of this coverage that is restricted to a given list
         of files.
         """
-        return TestCoverage(test,
-                            outcome,
+        return TestCoverage(self.test,
+                            self.outcome,
                             self.__coverage.restricted_to_files(filenames))
 
     def to_dict(self) -> dict:
