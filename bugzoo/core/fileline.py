@@ -1,4 +1,4 @@
-from typing import Dict, List, Set, Iterator, Iterable, Any
+from typing import Dict, List, Set, Iterator, Iterable, Any, FrozenSet
 
 
 class FileLine(object):
@@ -90,7 +90,7 @@ class FileLineSet(object):
         return FileLineSet(d)
 
     def __init__(self, contents: Dict[str, Set[int]]) -> None:
-        self.__contents = \
+        self.__contents: Dict[str, FrozenSet[int]] = \
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
 
     def __iter__(self) -> Iterator[FileLine]:
@@ -165,6 +165,17 @@ class FileLineSet(object):
         set_other = set(other)
         set_union = set_self & set_other
         return FileLineSet.from_list(list(set_union))
+
+    def restricted_to_files(self, filenames: List[str]) -> 'FileLineSet':
+        """
+        Returns a variant of this set that only contains lines that occur in
+        any one of the given files. (I.e., returns the intersection of this set
+        and the set of all lines from a given set of files.)
+        """
+        restricted: Dict[str, Set[int]] = {}
+        for fn in filenames:
+            restricted[fn] = set(self.__contents[fn])
+        return FileLineSet(restricted)
 
     def to_dict(self) -> Dict[str, List[int]]:
         """
