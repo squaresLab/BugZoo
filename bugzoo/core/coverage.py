@@ -156,7 +156,7 @@ class TestSuiteCoverage(object):
 
     def restricted_to_files(self,
                             filenames: List[str]
-                            ) -> 'ProjectCoverageMap':
+                            ) -> 'TestSuiteCoverage':
         """
         Returns a variant of this coverage that is restricted to a given list
         of files.
@@ -182,9 +182,9 @@ class TestSuiteCoverage(object):
         Returns a variant of this coverage report that only contains coverage
         for failing test executions.
         """
-        return ProjectCoverageMap({t: cov \
-                                   for (t, cov) in self.__test_coverage.items() \
-                                   if cov.outcome.passed})
+        return TestSuiteCoverage({t: cov \
+                                  for (t, cov) in self.__test_coverage.items() \
+                                  if cov.outcome.passed})
 
     def __len__(self) -> int:
         """
