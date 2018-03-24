@@ -1,4 +1,4 @@
-from typing import List, Dict, Iterable
+from typing import List, Dict, Iterable, Iterator
 from copy import copy
 
 from bugzoo.core.fileline import FileLine
@@ -52,13 +52,12 @@ class Localization(object):
 
     __getitem__ = score
 
-    def __iter__(self) -> List[FileLine]:
+    def __iter__(self) -> Iterator[FileLine]:
         """
         Returns an iterator over all lines within this localization with a
         suspiciousness above zero.
         """
-        for line in self.__scores:
-            yield line
+        return self.__scores.__iter__()
 
     # TODO: restricted_to_files(loc, fns) -> Localization
     # TODO: restricted_to_functions(loc) -> Localization
