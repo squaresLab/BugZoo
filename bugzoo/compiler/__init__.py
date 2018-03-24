@@ -79,7 +79,7 @@ class Compiler(object):
 
 class SimpleCompiler(Compiler):
     @staticmethod
-    def from_dict(d: dict) -> SimpleCompiler:
+    def from_dict(d: dict) -> 'SimpleCompiler':
         """
         Loads a SimpleCompiler from its dictionary-based description.
         """
