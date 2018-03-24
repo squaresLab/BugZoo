@@ -15,7 +15,7 @@ class FileLine(object):
         assert isinstance(d, dict)
         assert all(isinstance(x, FileLine) for x in d)
 
-        out = {}
+        out: Dict[str, Dict[int, Any]] = {}
         for (line, val) in d.items():
             if not line.filename in out:
                 out[line.filename] = {}
@@ -24,7 +24,7 @@ class FileLine(object):
 
     @staticmethod
     def decompactify(d: Dict[str, Dict[int, Any]]) -> 'Dict[FileLine, Any]':
-        lines = {}
+        lines: Dict['FileLine', Any] = {}
         for fn in d:
             for num in d[fn]:
                 lines[FileLine(fn, num)] = d[fn][num]
@@ -76,7 +76,7 @@ class FileLineSet(object):
         """
         Converts a list of file lines into a FileLineSet.
         """
-        d = {}
+        d: Dict[str, Set[int]] = {}
         for line in lst:
             if not line.filename in d:
                 d[line.filename] = set()

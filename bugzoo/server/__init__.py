@@ -1,3 +1,4 @@
+from typing import Dict, Any
 import flask
 
 from bugzoo.server.daemon import Daemon
@@ -17,7 +18,7 @@ def list_bugs():
 
 @app.route('/bugs/<uid>', methods=['GET'])
 def show_bug(uid: str):
-    jsn = {}
+    jsn: Dict[Any, Any] = {}
     try:
         bug = daemon.bugs[uid]
         jsn = bug.to_dict()

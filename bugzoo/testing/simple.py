@@ -82,8 +82,8 @@ class GenProgTestSuite(SimpleTestSuite):
         super().__init__(command, context, time_limit, tests)
 
         # extract the passing and failing test cases
-        self.__passing = []
-        self.__failing = []
+        self.__passing: List[TestCase] = []
+        self.__failing: List[TestCase] = []
 
         for t in self.tests:
             if t.identifier.startswith('p'):
