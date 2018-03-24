@@ -247,12 +247,12 @@ def launch(bz: 'BugZoo',
            bug_name: str,
            interactive: bool,
            network: Optional[str] = None,
-           tools: Optional[List[str]] = None,
-           volumes: Optional[List[str]] = None,
+           tool_names: Optional[List[str]] = None,
+           volume_args: Optional[List[str]] = None,
            command: Optional[str] = None,
            ) -> None:
-    volumes = __prepare_volumes(volumes)
-    tools = __prepare_tools(bz, tools)
+    volumes = __prepare_volumes(volume_args)
+    tools = __prepare_tools(bz, tool_names)
     bug = bz.bugs[bug_name]
 
     if network is None:

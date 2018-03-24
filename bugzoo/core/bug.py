@@ -63,9 +63,10 @@ class Bug(object):
         serialised in a JSON or YAML format.
         """
         jsn = {
-            'uid': self.uid,
+            'name': self.name,
+            'image': self.image,
             'program': self.program,
-            'dataset': self.dataset.name if self.dataset else None,
+            'dataset': self.dataset,
             'languages': [l.name for l in self.__languages]
         }
         return jsn

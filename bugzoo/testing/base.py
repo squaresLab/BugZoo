@@ -6,19 +6,18 @@ class TestCase(object):
     """
     Represents an individual test within a test suite.
     """
-    def __init__(self, identifier: str) -> None:
-        self.__identifier = identifier
+    def __init__(self, name: str) -> None:
+        self.__name = name
 
     @property
-    def identifier(self) -> str:
+    def name(self) -> str:
         """
         A unique identifier assigned to this test case.
         """
-        return self.__identifier
-    name = identifier
+        return self.__name
 
     def __hash__(self) -> int:
-        return hash(self.identifier)
+        return hash(self.name)
 
     def __repr__(self) -> str:
         """
@@ -35,14 +34,14 @@ class TestCase(object):
             for test in bug.tests:
                 print(test)
         """
-        return "Test[{}]".format(self.__identifier)
+        return "Test[{}]".format(self.__name)
 
     def __eq__(self, other) -> bool:
         """
         Checks this test case against another for equality.
         """
         return  isinstance(other, TestCase) and \
-                other.identifier == self.__identifier
+                other.name == self.__name
 
 
 class TestOutcome(object):
@@ -114,7 +113,7 @@ class TestSuite(object):
         raise Exception("unexpected test harness type: {}".format(typ))
 
     def __init__(self, tests: List[TestCase]) -> None:
-        self.__tests = \
+        self.__tests: Dict[str, TestCase] = \
             {test.name: test for test in tests}
 
     def __getitem__(self, name: str) -> TestCase:

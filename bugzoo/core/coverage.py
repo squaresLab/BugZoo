@@ -40,7 +40,8 @@ class TestCoverage(object):
     def __init__(self,
                  test: str,
                  outcome: TestOutcome,
-                 coverage: FileLineSet):
+                 coverage: FileLineSet
+                 ) -> None:
         self.__test = test
         self.__outcome = outcome
         self.__coverage = coverage
@@ -51,6 +52,9 @@ class TestCoverage(object):
         status = 'PASSED' if self.__outcome.passed else 'FAILED'
         s = "[{}: {}]\n{}".format(self.__test, status, coverage)
         return s
+
+    def __contains__(self, fileline: FileLine) -> bool:
+        return fileline in self.__coverage
 
     @property
     def test(self) -> str:
@@ -80,14 +84,14 @@ class TestCoverage(object):
         Returns a variant of this coverage that is restricted to a given list
         of files.
         """
-        return TestCoverage(test,
-                            outcome,
+        return TestCoverage(self.__test,
+                            self.__outcome,
                             self.__coverage.restricted_to_files(filenames))
 
     def to_dict(self) -> dict:
-        return {'test': self.test,
-                'outcome': self.outcome.to_dict(),
-                'coverage': self.coverage.to_dict()}
+        return {'test': self.__test,
+                'outcome': self.__outcome.to_dict(),
+                'coverage': self.__coverage.to_dict()}
 
 
 class TestSuiteCoverage(object):
@@ -109,7 +113,7 @@ class TestSuiteCoverage(object):
             d = yaml.load(f)
             return TestSuiteCoverage.from_dict(d)
 
-    def __init__(self, test_coverage: Dict[str, TestCoverage]):
+    def __init__(self, test_coverage: Dict[str, TestCoverage]) -> None:
         self.__test_coverage = test_coverage
 
     def __repr__(self) -> str:
@@ -156,7 +160,7 @@ class TestSuiteCoverage(object):
 
     def restricted_to_files(self,
                             filenames: List[str]
-                            ) -> 'ProjectCoverageMap':
+                            ) -> 'TestSuiteCoverage':
         """
         Returns a variant of this coverage that is restricted to a given list
         of files.
@@ -182,9 +186,9 @@ class TestSuiteCoverage(object):
         Returns a variant of this coverage report that only contains coverage
         for failing test executions.
         """
-        return ProjectCoverageMap({t: cov \
-                                   for (t, cov) in self.__test_coverage.items() \
-                                   if cov.outcome.passed})
+        return TestSuiteCoverage({t: cov \
+                                  for (t, cov) in self.__test_coverage.items() \
+                                  if cov.outcome.passed})
 
     def __len__(self) -> int:
         """

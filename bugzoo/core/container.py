@@ -20,7 +20,8 @@ class Container(object):
     def __init__(self,
                  uid: str,
                  bug: Bug,
-                 tools: List[str]):
+                 tools: List[str]
+                 ) -> None:
         """
         Constructs a container for a given bug.
 

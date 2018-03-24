@@ -79,7 +79,7 @@ class Hunk(object):
         last_insertion_at = old_start_at
 
 
-        hunk_lines = []
+        hunk_lines: List[HunkLine] = []
         while True:
             # discarding the previous line ensures that we only consume lines
             # from the line buffer that belong to the hunk

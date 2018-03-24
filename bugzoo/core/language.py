@@ -12,14 +12,14 @@ class Language(enum.Enum, metaclass=LanguageEnumMeta):
     # JAVA = None
     # PYTHON = None
 
-    def __init__(self, name: str):
-        self.__name = name
+    def __init__(self, canonical_name: str) -> None:
+        self.__canonical_name = canonical_name
 
     @property
-    def name(self) -> str:
+    def canonical_name(self) -> str:
         """
         The canonical name of this language.
         """
-        return self.__name
+        return self.__canonical_name
 
-    __str__ = name
+    __str__ = canonical_name

@@ -1,4 +1,4 @@
-from typing import Dict, List, Set, Iterator, Any
+from typing import Dict, List, Set, Iterator, Iterable, Any, FrozenSet
 
 
 class FileLine(object):
@@ -15,7 +15,7 @@ class FileLine(object):
         assert isinstance(d, dict)
         assert all(isinstance(x, FileLine) for x in d)
 
-        out = {}
+        out: Dict[str, Dict[int, Any]] = {}
         for (line, val) in d.items():
             if not line.filename in out:
                 out[line.filename] = {}
@@ -24,13 +24,13 @@ class FileLine(object):
 
     @staticmethod
     def decompactify(d: Dict[str, Dict[int, Any]]) -> 'Dict[FileLine, Any]':
-        lines = {}
+        lines: Dict['FileLine', Any] = {}
         for fn in d:
             for num in d[fn]:
                 lines[FileLine(fn, num)] = d[fn][num]
         return lines
 
-    def __init__(self, fn: str, num: int):
+    def __init__(self, fn: str, num: int) -> None:
         self.__fn = fn
         self.__num = num
 
@@ -65,26 +65,32 @@ class FileLine(object):
 
 
 class FileLineSet(object):
-    T = Dict[str, Set[int]]
-
+    """
+    Used to describe a set of file lines.
+    """
     @staticmethod
     def from_dict(d: Dict[str, List[int]]) -> 'FileLineSet':
-        contents = {fn: frozenset(lines) for (fn, lines) in d.items()}
+        contents = {fn: set(lines) for (fn, lines) in d.items()}
         return FileLineSet(contents)
 
+    @staticmethod
     def from_list(lst: List[FileLine]) -> 'FileLineSet':
         """
         Converts a list of file lines into a FileLineSet.
         """
-        d = {}
-        for line in lst:
+        return FileLineSet.from_iter(lst)
+
+    @staticmethod
+    def from_iter(itr: Iterable[FileLine]) -> 'FileLineSet':
+        d: Dict[str, Set[int]] = {}
+        for line in itr:
             if not line.filename in d:
                 d[line.filename] = set()
             d[line.filename].add(line.num)
         return FileLineSet(d)
 
-    def __init__(self, contents: T):
-        self.__contents = \
+    def __init__(self, contents: Dict[str, Set[int]]) -> None:
+        self.__contents: Dict[str, FrozenSet[int]] = \
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
 
     def __iter__(self) -> Iterator[FileLine]:
@@ -97,8 +103,8 @@ class FileLineSet(object):
 
     def __repr__(self) -> str:
         output = []
-        for (fn, lines) in self.__contents.items():
-            lines = sorted(lines)
+        for (fn, set_lines) in self.__contents.items():
+            lines = sorted(set_lines)
             if lines == []:
                 continue
 
@@ -133,8 +139,8 @@ class FileLineSet(object):
         """
         Determines whether a given file-line is contained within this set.
         """
-        return file_line.fn in self.__contents and \
-               file_line.num in self.__contents[file_line.fn]
+        return file_line.filename in self.__contents and \
+               file_line.num in self.__contents[file_line.filename]
 
     def union(self, other: 'FileLineSet') -> 'FileLineSet':
         """
@@ -154,13 +160,22 @@ class FileLineSet(object):
         Returns a set of file lines that contains the intersection of the lines
         within this set and a given set.
         """
-        # this isn't the most efficient implementation, but frankly, it doesn't
-        # need to be.
         assert isinstance(other, FileLineSet)
         set_self = set(self)
         set_other = set(other)
-        set_union = l_self & l_other
+        set_union = set_self & set_other
         return FileLineSet.from_list(list(set_union))
+
+    def restricted_to_files(self, filenames: List[str]) -> 'FileLineSet':
+        """
+        Returns a variant of this set that only contains lines that occur in
+        any one of the given files. (I.e., returns the intersection of this set
+        and the set of all lines from a given set of files.)
+        """
+        restricted: Dict[str, Set[int]] = {}
+        for fn in filenames:
+            restricted[fn] = set(self.__contents[fn])
+        return FileLineSet(restricted)
 
     def to_dict(self) -> Dict[str, List[int]]:
         """

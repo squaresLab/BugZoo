@@ -47,17 +47,17 @@ class Compiler(object):
         except KeyError:
             raise Exception("unsupported compiler type: {}".format(typ))
 
-        return cls.from_dict(d)
+        return cls.from_dict(d) # type: ignore
 
     def clean(self,
               manager_container,
-              container: 'Container',
+              container: 'Container', # type: ignore
               verbose: bool = False
               ) -> None:
         raise NotImplementedError
 
     def compile(self,
-                container: 'Container',
+                container: 'Container', # type: ignore
                 verbose: bool = False,
                 ) -> CompilationOutcome:
         """
@@ -67,7 +67,7 @@ class Compiler(object):
         raise NotImplementedError
 
     def compile_with_coverage_instrumentation(self,
-                                              container: 'Container',
+                                              container: 'Container', # type: ignore
                                               verbose: bool = False
                                               ) -> CompilationOutcome:
         """
@@ -122,7 +122,7 @@ class SimpleCompiler(Compiler):
 
     def __compile(self,
                   manager_container,
-                  container: 'Container',
+                  container: 'Container', # type: ignore
                   command: str,
                   verbose: bool
                   ) -> CompilationOutcome:
@@ -136,7 +136,7 @@ class SimpleCompiler(Compiler):
 
     def clean(self,
               manager_container,
-              container: 'Container',
+              container: 'Container', # type: ignore
               verbose: bool = False
               ) -> None:
         # if a context isn't given, use the source directory of the bug
@@ -147,9 +147,9 @@ class SimpleCompiler(Compiler):
                                              stderr=True)
 
     # TODO decouple!
-    def compile(self,
+    def compile(self, # type: ignore
                 manager_container,
-                container: 'Container',
+                container: 'Container', # type: ignore
                 verbose: bool = False
                 ) -> CompilationOutcome:
         """
@@ -157,9 +157,10 @@ class SimpleCompiler(Compiler):
         """
         return self.__compile(manager_container, container, self.__command, verbose)
 
-    def compile_with_coverage_instrumentation(self,
+    def compile_with_coverage_instrumentation(self, # type: ignore
                                               manager_container,
-                                              container: 'Container',
+                                              container: 'Container', # type: ignore
+
                                               verbose: bool = False
                                               ) -> CompilationOutcome:
         """

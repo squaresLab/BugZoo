@@ -16,7 +16,8 @@ class SourceContents(object):
     def __init__(self,
                  blueprints: List[str],
                  bugs: List[str],
-                 tools: List[str]):
+                 tools: List[str]
+                 ) -> None:
         self.__blueprints = blueprints[:]
         self.__bugs = bugs[:]
         self.__tools = tools[:]
@@ -57,7 +58,7 @@ class Source(object):
             return RemoteSource.from_dict(d)
         raise Exception("unsupported source type: {}".format(d['type']))
 
-    def __init__(self, name: str, location: str):
+    def __init__(self, name: str, location: str) -> None:
         self.__location = location
         self.__name = name
 
@@ -114,7 +115,12 @@ class RemoteSource(Source):
         """
         return RemoteSource(d['name'], d['location'], d['url'], d['version'])
 
-    def __init__(self, name: str, location: str, url: str, version: str):
+    def __init__(self,
+                 name: str,
+                 location: str,
+                 url: str,
+                 version: str
+                 ) -> None:
         super().__init__(name, location)
         self.__url = url
         self.__version = version
