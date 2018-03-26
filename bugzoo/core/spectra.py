@@ -59,7 +59,7 @@ class Spectra(object):
     def from_coverage(coverage: TestSuiteCoverage) -> 'Spectra':
         # tally the number of times that each line is touched by a passing
         # or failing test
-        tally_failing: Dict[FileLine, int] = {}
+        tally_failing = {} # type: Dict[FileLine, int]
         tally_passing: Dict[FileLine, int] = {}
 
         for test in coverage.passing:
