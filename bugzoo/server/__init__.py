@@ -4,7 +4,7 @@ import flask
 from bugzoo.server.daemon import Daemon
 from bugzoo.server.code import ErrorCode
 
-daemon: Daemon = None
+daemon = None # type: Daemon
 app = flask.Flask(__name__)
 
 
@@ -18,7 +18,7 @@ def list_bugs():
 
 @app.route('/bugs/<uid>', methods=['GET'])
 def show_bug(uid: str):
-    jsn: Dict[Any, Any] = {}
+    jsn = {} # type: Dict[Any, Any]
     try:
         bug = daemon.bugs[uid]
         jsn = bug.to_dict()

@@ -15,7 +15,7 @@ class FileLine(object):
         assert isinstance(d, dict)
         assert all(isinstance(x, FileLine) for x in d)
 
-        out: Dict[str, Dict[int, Any]] = {}
+        out = {} # type: Dict[str, Dict[int, Any]]
         for (line, val) in d.items():
             if not line.filename in out:
                 out[line.filename] = {}
@@ -24,7 +24,7 @@ class FileLine(object):
 
     @staticmethod
     def decompactify(d: Dict[str, Dict[int, Any]]) -> 'Dict[FileLine, Any]':
-        lines: Dict['FileLine', Any] = {}
+        lines = {} # type: Dict['FileLine', Any]
         for fn in d:
             for num in d[fn]:
                 lines[FileLine(fn, num)] = d[fn][num]
@@ -82,7 +82,7 @@ class FileLineSet(object):
 
     @staticmethod
     def from_iter(itr: Iterable[FileLine]) -> 'FileLineSet':
-        d: Dict[str, Set[int]] = {}
+        d = {} # type: Dict[str, Set[int]]
         for line in itr:
             if not line.filename in d:
                 d[line.filename] = set()
@@ -90,8 +90,8 @@ class FileLineSet(object):
         return FileLineSet(d)
 
     def __init__(self, contents: Dict[str, Set[int]]) -> None:
-        self.__contents: Dict[str, FrozenSet[int]] = \
-            {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
+        self.__contents = \
+            {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()} # type: Dict[str, FrozenSet[int]]
 
     def __iter__(self) -> Iterator[FileLine]:
         """
@@ -172,7 +172,7 @@ class FileLineSet(object):
         any one of the given files. (I.e., returns the intersection of this set
         and the set of all lines from a given set of files.)
         """
-        restricted: Dict[str, Set[int]] = {}
+        restricted = {} # type: Dict[str, Set[int]]
         for fn in filenames:
             restricted[fn] = set(self.__contents[fn])
         return FileLineSet(restricted)
