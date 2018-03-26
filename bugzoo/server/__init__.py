@@ -18,7 +18,7 @@ def list_bugs():
 
 @app.route('/bugs/<uid>', methods=['GET'])
 def show_bug(uid: str):
-    jsn: Dict[Any, Any] = {}
+    jsn = {} # type: Dict[Any, Any]
     try:
         bug = daemon.bugs[uid]
         jsn = bug.to_dict()
