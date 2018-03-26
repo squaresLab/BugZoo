@@ -113,8 +113,8 @@ class TestSuite(object):
         raise Exception("unexpected test harness type: {}".format(typ))
 
     def __init__(self, tests: List[TestCase]) -> None:
-        self.__tests: Dict[str, TestCase] = \
-            {test.name: test for test in tests}
+        self.__tests = \
+            {test.name: test for test in tests} # type: Dict[str, TestCase]
 
     def __getitem__(self, name: str) -> TestCase:
         """
