@@ -60,7 +60,7 @@ class Spectra(object):
         # tally the number of times that each line is touched by a passing
         # or failing test
         tally_failing = {} # type: Dict[FileLine, int]
-        tally_passing: Dict[FileLine, int] = {}
+        tally_passing = {} # type: Dict[FileLine, int]
 
         for test in coverage.passing:
             for line in coverage[test].lines:
