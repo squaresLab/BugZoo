@@ -4,7 +4,7 @@ import flask
 from bugzoo.server.daemon import Daemon
 from bugzoo.server.code import ErrorCode
 
-daemon: Daemon = None
+daemon = None # type: Daemon
 app = flask.Flask(__name__)
 
 
