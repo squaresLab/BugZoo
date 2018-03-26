@@ -90,8 +90,8 @@ class FileLineSet(object):
         return FileLineSet(d)
 
     def __init__(self, contents: Dict[str, Set[int]]) -> None:
-        self.__contents: Dict[str, FrozenSet[int]] = \
-            {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()}
+        self.__contents = \
+            {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()} # type: Dict[str, FrozenSet[int]]
 
     def __iter__(self) -> Iterator[FileLine]:
         """
