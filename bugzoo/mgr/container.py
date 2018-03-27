@@ -137,7 +137,7 @@ class ContainerManager(object):
             "sudo chown $(whoami):$(whoami) /.environment && "
             "source /.environment && "
             "sudo rm /.environment && "
-            "export | sudo tee /.environment && "
+            "export | sudo tee /.environment > /dev/null && "
             "sudo chmod 444 /.environment && "
             "/bin/bash"
         )
