@@ -127,12 +127,22 @@ class ContainerManager(object):
         volumes[env_file.name] = \
             {'bind': '/.environment.host', 'mode': 'ro'}
 
-        cmd_cp = 'sudo cp /.environment.host /.environment'
-        cmd_chown = 'sudo chown $(whoami) /.environment'
-        cmd_source = 'source /.environment'
-        cmd = '/bin/bash -v -c "{} && {} && {} && /bin/bash"'.format(cmd_cp,
-                                                                  cmd_chown,
-                                                                  cmd_source)
+        # we copy the environment variables from the host machine, load them,
+        # and save the complete set of environment variables to /.environment.
+        # all future calls to the container will source the variables in
+        # /.environment.
+        cmd = (
+            "echo $(whoami) && "
+            "sudo cp /.environment.host /.environment && "
+            "sudo chown $(whoami):$(whoami) /.environment && "
+            "source /.environment && "
+            "sudo rm /.environment && "
+            "export | sudo tee /.environment && "
+            "sudo chmod 444 /.environment && "
+            "/bin/bash"
+        )
+        cmd = '/bin/bash -c "{}"'.format(cmd)
+
         dockerc = \
             self.__client_docker.containers.create(bug.image,
                                                    cmd,
@@ -230,6 +240,7 @@ class ContainerManager(object):
         Connects to the PTY (pseudo-TTY) for a given container.
         Blocks until the user exits the PTY.
         """
+        # FIXME need to start a new interactive session
         subprocess.call(['docker', 'attach', container.id])
 
     def execute(self,
