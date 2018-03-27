@@ -402,9 +402,9 @@ def build_parser():
     cmd.set_defaults(func=lambda args: launch(rbox,
                                               args.bug,
                                               interactive=True,
-                                              tools=args.tools,
+                                              tool_names=args.tools,
                                               network=args.net,
-                                              volumes=args.volumes))
+                                              volume_args=args.volumes))
 
     # [container run :bug :command]
     cmd = g_subparsers.add_parser('run')
@@ -432,7 +432,7 @@ def build_parser():
                                               command=args.command,
                                               tools=args.tools,
                                               network=args.net,
-                                              volumes=args.volumes))
+                                              volume_args=args.volumes))
 
     # [container connect :bug]
 
