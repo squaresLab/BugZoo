@@ -121,6 +121,8 @@ class SourceManager(object):
         """
         self.__logger.info('saving registry to: %s', self.__registry_fn)
         d = [s.to_dict() for s in self]
+
+        os.makedirs(self.__path, exist_ok=True)
         with open(self.__registry_fn, 'w') as f:
             yaml.dump(d, f, indent=2, default_flow_style=False)
         self.__logger.info('saved registry to: %s', self.__registry_fn)
