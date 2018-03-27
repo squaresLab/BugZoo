@@ -132,7 +132,6 @@ class ContainerManager(object):
         # all future calls to the container will source the variables in
         # /.environment.
         cmd = (
-            "echo $(whoami) && "
             "sudo cp /.environment.host /.environment && "
             "sudo chown $(whoami):$(whoami) /.environment && "
             "source /.environment && "
