@@ -152,15 +152,16 @@ class ContainerManager(object):
                                                    ports=ports,
                                                    network_mode=network_mode,
                                                    stdin_open=True,
-                                                   tty=interactive,
+                                                   tty=False,
+                                                   # tty=interactive,
                                                    detach=True)
         self.__dockerc[uid] = dockerc
         dockerc.start()
 
         # block until /.environment is ready
-        for output in dockerc.logs(stream=True):
-            output = output.strip().decode('utf-8')
-            if output == "BUGZOO IS READY TO GO!":
+        for line in self.__api_docker.logs(dockerc.id, stream=True):
+            line = line.decode('utf-8').strip()
+            if line == "BUGZOO IS READY TO GO!":
                 break
 
         container = Container(bug=bug,
@@ -246,8 +247,9 @@ class ContainerManager(object):
         Connects to the PTY (pseudo-TTY) for a given container.
         Blocks until the user exits the PTY.
         """
-        # FIXME need to start a new interactive session
-        subprocess.call(['docker', 'attach', container.id])
+        cmd = "/bin/bash -c 'source /.environment && /bin/bash'"
+        cmd = "docker exec -it {} {}".format(container.id, cmd)
+        subprocess.call(cmd, shell=True)
 
     def execute(self,
                 container: Container,
