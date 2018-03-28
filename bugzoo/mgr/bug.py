@@ -186,18 +186,13 @@ class BugManager(object):
 
         return validated
 
-    def coverage(self,
-                 bug: Bug,
-                 files_to_instrument: Optional[List[str]] = None
-                 ) -> TestSuiteCoverage:
+    def coverage(self, bug: Bug) -> TestSuiteCoverage:
         """
         Provides coverage information for each test within the test suite
         for the program associated with this bug.
 
         Parameters:
             bug: the bug for which to compute coverage.
-            files_to_instrument: an optional list of files that should be
-                instrumented before generating the coverage report.
 
         Returns:
             a test suite coverage report for the given bug.
@@ -217,8 +212,7 @@ class BugManager(object):
             container = None
             container = mgr_ctr.provision(bug)
             coverage = mgr_cov.coverage(container,
-                                        bug.tests,
-                                        files_to_instrument=files_to_instrument)
+                                        bug.tests)
 
             # save to disk
             with open(fn, 'w') as f:
