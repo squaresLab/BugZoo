@@ -127,12 +127,22 @@ class ContainerManager(object):
         volumes[env_file.name] = \
             {'bind': '/.environment.host', 'mode': 'ro'}
 
-        cmd_cp = 'sudo cp /.environment.host /.environment'
-        cmd_chown = 'sudo chown $(whoami) /.environment'
-        cmd_source = 'source /.environment'
-        cmd = '/bin/bash -v -c "{} && {} && {} && /bin/bash"'.format(cmd_cp,
-                                                                  cmd_chown,
-                                                                  cmd_source)
+        # we copy the environment variables from the host machine, load them,
+        # and save the complete set of environment variables to /.environment.
+        # all future calls to the container will source the variables in
+        # /.environment.
+        cmd = (
+            "sudo cp /.environment.host /.environment && "
+            "sudo chown $(whoami):$(whoami) /.environment && "
+            "source /.environment && "
+            "sudo rm /.environment && "
+            "export | sudo tee /.environment > /dev/null && "
+            "sudo chmod 444 /.environment && "
+            "echo 'BUGZOO IS READY TO GO!' && "
+            "/bin/bash"
+        )
+        cmd = '/bin/bash -c "{}"'.format(cmd)
+
         dockerc = \
             self.__client_docker.containers.create(bug.image,
                                                    cmd,
@@ -142,10 +152,17 @@ class ContainerManager(object):
                                                    ports=ports,
                                                    network_mode=network_mode,
                                                    stdin_open=True,
-                                                   tty=interactive,
+                                                   tty=False,
+                                                   # tty=interactive,
                                                    detach=True)
         self.__dockerc[uid] = dockerc
         dockerc.start()
+
+        # block until /.environment is ready
+        for line in self.__api_docker.logs(dockerc.id, stream=True):
+            line = line.decode('utf-8').strip()
+            if line == "BUGZOO IS READY TO GO!":
+                break
 
         container = Container(bug=bug,
                               uid=uid,
@@ -230,7 +247,9 @@ class ContainerManager(object):
         Connects to the PTY (pseudo-TTY) for a given container.
         Blocks until the user exits the PTY.
         """
-        subprocess.call(['docker', 'attach', container.id])
+        cmd = "/bin/bash -c 'source /.environment && /bin/bash'"
+        cmd = "docker exec -it {} {}".format(container.id, cmd)
+        subprocess.call(cmd, shell=True)
 
     def execute(self,
                 container: Container,

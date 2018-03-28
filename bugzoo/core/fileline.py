@@ -1,4 +1,5 @@
-from typing import Dict, List, Set, Iterator, Iterable, Any, FrozenSet
+from typing import  Dict, List, Set, Iterator, Iterable, Any, FrozenSet, \
+                    Callable
 
 
 class FileLine(object):
@@ -147,6 +148,16 @@ class FileLineSet(object):
         """
         return file_line.filename in self.__contents and \
                file_line.num in self.__contents[file_line.filename]
+
+    def filter(self,
+               predicate: Callable[[FileLine], 'FileLineSet']
+               ) -> 'FileLineSet':
+        """
+        Returns a subset of the file lines within this set that satisfy a given
+        filtering criterion.
+        """
+        filtered = [fileline for fileline in self if predicate(fileline)]
+        return FileLineSet.from_list(filtered)
 
     def union(self, other: 'FileLineSet') -> 'FileLineSet':
         """

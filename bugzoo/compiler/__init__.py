@@ -191,7 +191,7 @@ class CatkinCompiler(SimpleCompiler):
             'catkin build'
         )
         super().__init__(command=cmd,
-                         command_clean='catkin clean',
+                         command_clean='catkin clean -y',
                          command_with_instrumentation=cmdi,
                          context=workspace,
                          time_limit=time_limit)
