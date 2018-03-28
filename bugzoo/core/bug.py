@@ -1,4 +1,5 @@
-from typing import List, Iterator, Dict, Optional
+from typing import List, Dict, Optional
+import os
 
 import bugzoo
 from .language import Language
@@ -22,7 +23,8 @@ class Bug(object):
                  source_dir: str,
                  languages: List[Language],
                  harness: TestSuite,
-                 compiler: Compiler
+                 compiler: Compiler,
+                 files_to_instrument: Optional[List[str]]
                  ) -> None:
         """
         Constructs a new bug description.
@@ -39,6 +41,7 @@ class Bug(object):
             image: the name of the Docker image that provides a reproducible
                 execution environment for this bug.
             compiler: instructions for compiling the bug.
+            files_to_instrument: a list of the 
         """
         assert name != ""
         assert program != ""
@@ -46,6 +49,12 @@ class Bug(object):
         assert source != ""
         assert image != ""
         assert languages != []
+
+        if files_to_instrument is None:
+            files_to_instrument = []
+        else:
+            files_to_instrument = files_to_instrument.copy()
+        assert all(not os.path.isabs(fn) for fn in files_to_instrument)
 
         self.__name = name
         self.__image = image
@@ -56,6 +65,7 @@ class Bug(object):
         self.__languages = languages[:]
         self.__test_harness = harness
         self.__compiler = compiler
+        self.__files_to_instrument = files_to_instrument
 
     def to_dict(self) -> dict:
         """
@@ -147,3 +157,11 @@ class Bug(object):
         The name of the Docker image for this bug.
         """
         return self.__image
+
+    @property
+    def files_to_instrument(self) -> List[str]:
+        """
+        Returns the names of the source code files that should be
+        instrumented when computing coverage.
+        """
+        return self.__files_to_instrument.copy()

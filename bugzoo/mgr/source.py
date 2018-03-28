@@ -162,7 +162,17 @@ class SourceManager(object):
                                  source.name)
 
     def __parse_bug(self, source: Source, fn: str, d: dict) -> Bug:
-        return Bug(d['name'],
+        name = d['name']
+
+        if 'coverage' in d and 'files-to-instrument' in d['coverage']:
+            files_to_instrument = d['coverage']['files-to-instrument']
+        else:
+            files_to_instrument = []
+        self.__logger.info('"coverage.files-to-instrument" for %s: %s',
+                           name,
+                           files_to_instrument)
+
+        return Bug(name,
                    d['image'],
                    d.get('dataset', None),
                    d.get('program', None),
@@ -170,7 +180,8 @@ class SourceManager(object):
                    d['source-location'],
                    [Language[lang] for lang in d['languages']],
                    TestSuite.from_dict(d['test-harness']),
-                   Compiler.from_dict(d['compiler']))
+                   Compiler.from_dict(d['compiler']),
+                   files_to_instrument=files_to_instrument)
 
     def __parse_tool(self, source: Source, fn: str, d: dict) -> Tool:
         return Tool(d['name'],

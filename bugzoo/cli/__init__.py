@@ -73,6 +73,12 @@ def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
         print('FAIL')
 
 
+def coverage_bug(bz: 'BugZoo', name: str) -> None:
+    print('computing coverage for bug: {}'.format(name))
+    bug = bz.bugs[name]
+    cov = bz.bugs.coverage(bug)
+    print(cov)
+
 def build_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building bug: {}'.format(name))
     bug = rbox.bugs[name]
@@ -475,6 +481,11 @@ def build_parser():
     cmd = g_subparsers.add_parser('upload')
     cmd.add_argument('bug')
     cmd.set_defaults(func=lambda args: upload_bug(rbox, args.bug))
+
+    # [bug coverage :bug]
+    cmd = g_subparsers.add_parser('coverage')
+    cmd.add_argument('bug')
+    cmd.set_defaults(func=lambda args: coverage_bug(rbox, args.bug))
 
     # [bug list]
     cmd = g_subparsers.add_parser('list')
