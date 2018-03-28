@@ -211,8 +211,7 @@ class BugManager(object):
             mgr_cov = self.__installation.coverage
             container = None
             container = mgr_ctr.provision(bug)
-            coverage = mgr_cov.coverage(container,
-                                        bug.tests)
+            coverage = mgr_cov.coverage(container, bug.tests)
 
             # save to disk
             with open(fn, 'w') as f:
