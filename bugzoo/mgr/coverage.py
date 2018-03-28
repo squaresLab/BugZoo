@@ -128,9 +128,6 @@ class CoverageManager(object):
         """
         assert tests != []
 
-        if files_to_instrument is None:
-            files_to_instrument = []
-
         self.instrument(container,
                         files_to_instrument=files_to_instrument)
 
@@ -166,8 +163,8 @@ class CoverageManager(object):
         """
         mgr_ctr = self.__installation.containers
 
-        if not files_to_instrument:
-            files_to_instrument = []
+        if files_to_instrument is None:
+            files_to_instrument = container.bug.files_to_instrument
 
         for path in files_to_instrument:
             assert not os.path.isabs(path), "expected relative file paths"
@@ -212,6 +209,9 @@ class CoverageManager(object):
         mgr = self.__installation.containers
         num_lines_to_remove = CoverageManager.INSTRUMENTATION.count('\n')
 
+        if instrumented_files is None:
+            instrumented_files = container.bug.files_to_instrument
+
         # remove source code instrumentation
         for fn_instrumented in instrumented_files:
             cmd = "sed -i '1,{}d' '{}'"
@@ -234,8 +234,8 @@ class CoverageManager(object):
         mgr_ctr = self.__installation.containers
         logger.debug("Extracting coverage information")
 
-        if not instrumented_files:
-            instrumented_files = set()
+        if instrumented_files is None:
+            instrumented_files = set(container.bug.files_to_instrument)
         else:
             instrumented_files = set(instrumented_files)
 
