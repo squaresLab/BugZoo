@@ -125,6 +125,12 @@ class FileLineSet(object):
             output.append("{}: {}".format(fn, '; '.join(range_strs)))
         return '\n'.join(output)
 
+    def __len__(self) -> int:
+        """
+        Returns a count of the number of file lines in the set.
+        """
+        return sum(len(lines) for lines in self.__contents.values())
+
     def __getitem__(self, fn: str) -> Iterator[FileLine]:
         """
         Returns an iterator over all lines contained in this set that belong
