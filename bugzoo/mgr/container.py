@@ -184,6 +184,20 @@ class ContainerManager(object):
         fn = response.output.strip()
         return fn
 
+    def is_alive(self,
+                 container: Container
+                 ) -> bool:
+        """
+        Determines whether a given container is still alive.
+
+        Returns:
+            `True` if the underlying Docker container for the given BugZoo
+            container is still alive, otherwise `False`.
+        """
+        uid = container.uid
+        return uid in self.__dockerc and \
+               self.__dockerc[uid].status == 'running'
+
     def ip_address(self,
                    container: Container,
                    raise_error: bool = False
