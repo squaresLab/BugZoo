@@ -73,11 +73,27 @@ def validate_bug(rbox: 'BugZoo', name: str, verbose: bool = True) -> None:
         print('FAIL')
 
 
-def coverage_bug(bz: 'BugZoo', name: str) -> None:
+def coverage_bug(bz: 'BugZoo',
+                 name: str,
+                 use_cache: bool = True
+                 ) -> None:
     print('computing coverage for bug: {}'.format(name))
     bug = bz.bugs[name]
-    cov = bz.bugs.coverage(bug)
+    if use_cache:
+        cov = bz.bugs.coverage(bug)
+    else:
+        container = bz.containers.provision(bug)
+        try:
+            cov = bz.coverage.coverage(container, bug.tests)
+        except Exception as e:
+            print("Encountered error when producing coverage:")
+            print(e)
+            sys.exit(1)
+        finally:
+            del bz.containers[container.uid]
+
     print(cov)
+
 
 def build_bug(rbox: 'BugZoo', name: str, force: bool) -> None:
     print('building bug: {}'.format(name))
@@ -485,7 +501,9 @@ def build_parser():
     # [bug coverage :bug]
     cmd = g_subparsers.add_parser('coverage')
     cmd.add_argument('bug')
-    cmd.set_defaults(func=lambda args: coverage_bug(rbox, args.bug))
+    cmd.add_argument('--no-cache',
+                     action='store_true')
+    cmd.set_defaults(func=lambda args: coverage_bug(rbox, args.bug, not args.no_cache))
 
     # [bug list]
     cmd = g_subparsers.add_parser('list')
