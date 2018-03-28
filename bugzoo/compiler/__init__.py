@@ -185,9 +185,11 @@ class CatkinCompiler(SimpleCompiler):
                  time_limit: float
                  ) -> None:
         cmd = 'catkin build'
-        cmdi = 'exit 1'
+        cmdi = \
+            ('catkin config --cmake-args '
+             '-DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_LD_FLAGS="--coverage"')
         super().__init__(command=cmd,
-                         command_clean='catkin clean',
+                         command_clean='catkin clean -y',
                          command_with_instrumentation=cmdi,
                          context=workspace,
                          time_limit=time_limit)
