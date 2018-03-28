@@ -160,7 +160,6 @@ class ContainerManager(object):
         # block until /.environment is ready
         for output in dockerc.logs(stream=True):
             output = output.strip().decode('utf-8')
-            print("'{}'".format(output))
             if output == "BUGZOO IS READY TO GO!":
                 break
 
