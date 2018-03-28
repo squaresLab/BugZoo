@@ -138,6 +138,7 @@ class ContainerManager(object):
             "sudo rm /.environment && "
             "export | sudo tee /.environment > /dev/null && "
             "sudo chmod 444 /.environment && "
+            "echo 'BUGZOO IS READY TO GO!' && "
             "/bin/bash"
         )
         cmd = '/bin/bash -c "{}"'.format(cmd)
@@ -155,6 +156,13 @@ class ContainerManager(object):
                                                    detach=True)
         self.__dockerc[uid] = dockerc
         dockerc.start()
+
+        # block until /.environment is ready
+        for output in dockerc.logs(stream=True):
+            output = output.strip().decode('utf-8')
+            print("'{}'".format(output))
+            if output == "BUGZOO IS READY TO GO!":
+                break
 
         container = Container(bug=bug,
                               uid=uid,
