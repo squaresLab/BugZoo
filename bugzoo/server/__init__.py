@@ -30,6 +30,7 @@ def show_bug(uid: str):
     return flask.jsonify(jsn)
 
 
+# TODO return a job ID
 @app.route('/bugs/<uid>/build', methods=['POST'])
 def build_bug(uid: str):
     try:
@@ -48,6 +49,17 @@ def build_bug(uid: str):
         return ErrorCode.IMAGE_BUILD_FAILED.to_response()
 
     return ('', 204)
+
+
+@app.route('/bugs/<uid>/installed', methods=['GET'])
+def is_installed_bug(uid: str):
+    try:
+        bug = daemon.bugs[uid]
+    except KeyError:
+        return ErrorCode.BUG_NOT_FOUND.to_response()
+
+    status = daemon.bugs.is_installed(bug)
+    return (flask.jsonify(status), 200)
 
 
 @app.route('/containers', methods=['GET'])
