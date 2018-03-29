@@ -6,7 +6,7 @@ info:
   title: BugZoo - API Specification
   contact:
     name: Christopher Timperley
-    url: https://github.com/ChrisTimperley/bugzoo-api-docs
+    url: https://github.com/squaresLab/BugZoo
 host: localhost
 basePath: /bugzoo
 
@@ -88,10 +88,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Bug'
+        404:
+          description: Bug not found.
 
   /bugs/${id}/build:
     post:
-      summary: Builds a bug.
+      summary: Builds the Docker image for a bug from its blueprint.
       description: Builds the Docker image for a given bug.
       tags:
         - bug
@@ -110,6 +112,29 @@ paths:
           description: Bug already built.
         404:
           description: Bug not found.
+
+  /bugs/${id}/download:
+    post:
+      summary: Downloads the Docker image for a bug.
+      description: Downloads the Docker image for a bug from DockerHub.
+      tags:
+        - bug
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the bug.
+          required: true
+      responses:
+        204:
+          description: Successfully downloaded Docker image.
+        200:
+          description: Docker image already installed.
+        404:
+          description: Bug not found.
+
 
 ###############################################################################
 #
