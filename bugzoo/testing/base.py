@@ -1,5 +1,5 @@
 from bugzoo.cmd import ExecResponse
-from typing import List, Iterator, Dict
+from typing import List, Iterator, Dict, Any
 
 
 class TestCase(object):
@@ -132,3 +132,6 @@ class TestSuite(object):
         The list of tests associated with this test harness.
         """
         return list(self.__tests.values())
+
+    def to_dict(self) -> Dict[str, Any]:
+        raise NotImplementedError
