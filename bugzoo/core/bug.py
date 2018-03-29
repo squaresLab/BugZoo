@@ -16,9 +16,7 @@ class Bug(object):
     """
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'Bug':
-        # FIXME implement
         # TODO refactor
-        print(d)
         languages = [Language[lang] for lang in d['languages']]
         harness = TestSuite.from_dict(d['test-harness'])
         compiler = Compiler.from_dict(d['compiler'])
