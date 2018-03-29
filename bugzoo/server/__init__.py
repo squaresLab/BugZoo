@@ -2,6 +2,7 @@ from typing import Dict, Any
 import flask
 
 from ..manager import BugZoo
+from ..core.errors import ImageBuildFailed
 from bugzoo.server.code import ErrorCode
 
 daemon = None # type: BugZoo
@@ -37,10 +38,15 @@ def build_bug(uid: str):
         return ErrorCode.BUG_NOT_FOUND.to_response()
 
     # is the bug already installed?
-    if bug.installed:
+    # TODO add ability to force rebuild
+    if daemon.bugs.is_installed(bug):
         return ErrorCode.BUG_ALREADY_INSTALLED.to_response()
 
-    bug.install()
+    try:
+        daemon.bugs.build(bug)
+    except ImageBuildFailed as e:
+        return ErrorCode.IMAGE_BUILD_FAILED.to_response()
+
     return ('', 204)
 
 

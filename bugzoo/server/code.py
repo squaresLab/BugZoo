@@ -8,6 +8,7 @@ class ErrorCode(Enum):
     BUG_NOT_SPECIFIED = ("No bug ID was specified.", 400)
     BUG_ALREADY_INSTALLED = ("Bug has already been installed.", 200)
     CONTAINER_NOT_FOUND = ("No (running) container was found with the given UID.", 404)
+    IMAGE_BUILD_FAILED = ("Failed to build image.", 500)
 
     def __init__(self, message: str, status_code: int) -> None:
         self.__message = message
