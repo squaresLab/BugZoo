@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 import os
 
 import bugzoo
@@ -14,6 +14,31 @@ class Bug(object):
     point in time, allowing it to be empirically studied and inspected in a
     transparent and reproducible manner.
     """
+    @staticmethod
+    def from_dict(d: Dict[str, Any]) -> 'Bug':
+        # FIXME implement
+        # TODO refactor
+        print(d)
+        languages = [Language[lang] for lang in d['languages']]
+        harness = TestSuite.from_dict(d['test-harness'])
+        compiler = Compiler.from_dict(d['compiler'])
+
+        if 'coverage' in d and 'files-to-instrument' in d['coverage']:
+            files_to_instrument = d['coverage']['files-to-instrument']
+        else:
+            files_to_instrument = None
+
+        return Bug(name=d['name'],
+                   image=d['image'],
+                   dataset=d['dataset'],
+                   program=d['program'],
+                   source=d['source'],
+                   source_dir=d['source-location'],
+                   languages=languages,
+                   harness=harness,
+                   compiler=compiler,
+                   files_to_instrument=files_to_instrument)
+
     def __init__(self,
                  name: str,
                  image: str,
@@ -77,7 +102,14 @@ class Bug(object):
             'image': self.image,
             'program': self.program,
             'dataset': self.dataset,
-            'languages': [l.name for l in self.__languages]
+            'source': self.source,
+            'source-location': self.source_dir,
+            'languages': [l.name for l in self.__languages],
+            'compiler': self.compiler.to_dict(),
+            'test-harness': self.harness.to_dict(),
+            'coverage': {
+                'files-to-instrument': self.files_to_instrument.copy()
+            }
         }
         return jsn
 
