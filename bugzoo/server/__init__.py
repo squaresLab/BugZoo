@@ -51,6 +51,25 @@ def build_bug(uid: str):
     return ('', 204)
 
 
+@app.route('/bugs/<uid>/coverage', methods=['POST'])
+def coverage_bug(uid: str):
+    try:
+        bug = daemon.bugs[uid]
+    except KeyError:
+        return ErrorCode.BUG_NOT_FOUND.to_response()
+
+    if not daemon.bugs.is_installed(bug):
+        return ErrorCode.IMAGE_NOT_INSTALLED.to_response()
+
+    try:
+        coverage = daemon.bugs.coverage(bug)
+    except:
+        return ErrorCode.FAILED_TO_COMPUTE_COVERAGE.to_response()
+
+    jsn = flask.jsonify(coverage.to_dict())
+    return (jsn, 200)
+
+
 @app.route('/bugs/<uid>/installed', methods=['GET'])
 def is_installed_bug(uid: str):
     try:
