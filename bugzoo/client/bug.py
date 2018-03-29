@@ -46,6 +46,17 @@ class BugManager(object):
         """
         r = self.__api.get('bugs/{}/installed'.format(bug.name))
 
+        if r.status_code == 200:
+            answer = r.json()
+            assert isinstance(answer, bool)
+            return answer
+
+        # TODO bug not registered on server
+        if r.status_code == 404:
+            raise KeyError("no bug found with given name: {}".format(bug.name))
+
+        raise UnexpectedAPIResponse(r)
+
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
 
