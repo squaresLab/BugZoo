@@ -31,3 +31,20 @@ class ContainerManager(object):
             return ids.__iter__()
 
         raise UnexpectedAPIResponse(r)
+
+    def provision(self, bug: Bug) -> Container:
+        self.__logger("provisioning container for bug: %s", bug.name)
+        r = self.__api.get('bugs/{}/provision'.format(bug.name))
+
+        if r.status_code == 204:
+            container = Container.from_dict(r.json())
+            self.__logger("provisioned container (id: %s) for bug: %s",
+                          container.uid,
+                          bug.name)
+            return container
+
+        if r.status_code == 404:
+            raise KeyError("no bug registered with given name: {}".format(bug.name))
+
+        # TODO catch bug not built error
+        raise UnexpectedAPIResponse(r)
