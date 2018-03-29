@@ -16,6 +16,8 @@ tags:
     description: All operations related to containers
   - name: bug
     description: All operations related to bugs
+  - name: image
+    description: All operations related to Docker images
 
 
 definitions:
