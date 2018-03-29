@@ -1,18 +1,18 @@
 from typing import Dict, Any
 import flask
 
-from bugzoo.server.daemon import Daemon
+from ..manager import BugZoo
 from bugzoo.server.code import ErrorCode
 
-daemon = None # type: Daemon
+daemon = None # type: BugZoo
 app = flask.Flask(__name__)
 
 
 @app.route('/bugs', methods=['GET'])
 def list_bugs():
-    jsn = []
+    jsn = [] # type: List[str]
     for bug in daemon.bugs:
-        jsn.append(bug.uid)
+        jsn.append(bug.name)
     return flask.jsonify(jsn)
 
 
@@ -81,7 +81,7 @@ def provision_container():
 
 def run(port: int = 6060) -> None:
     global daemon
-    daemon = Daemon()
+    daemon = BugZoo()
     app.run(port=port)
 
 
