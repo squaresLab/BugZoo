@@ -19,7 +19,7 @@ class Container(object):
     """
     def __init__(self,
                  uid: str,
-                 bug: Bug,
+                 bug: str,
                  tools: List[str]
                  ) -> None:
         """
@@ -28,7 +28,7 @@ class Container(object):
         Parameters:
             uid: the unique identifier for this container, which is alos used
                 as the name of its underlying Docker container.
-            bug: the bug that is inside this container.
+            bug: the name of the bug that is inside this container.
             tools: a list of the names of the tools that are mounted inside
                 this container.
         """
@@ -54,8 +54,8 @@ class Container(object):
         return self.__tools.__iter__()
 
     @property
-    def bug(self) -> Bug:
+    def bug(self) -> str:
         """
-        The bug that was used to provision this container.
+        The name of the bug that was used to provision this container.
         """
         return self.__bug
