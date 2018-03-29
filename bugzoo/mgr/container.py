@@ -164,7 +164,7 @@ class ContainerManager(object):
             if line == "BUGZOO IS READY TO GO!":
                 break
 
-        container = Container(bug=bug,
+        container = Container(bug=bug.name,
                               uid=uid,
                               tools=[t.name for t in tools])
         self.__containers[uid] = container
@@ -233,7 +233,7 @@ class ContainerManager(object):
         assert isinstance(p, Patch)
         file_container = None
         dockerc = self.__dockerc[container.uid]
-        bug = container.bug # TODO migrate
+        bug = self.__installation.bugs[container.bug]
 
         try:
             file_host = NamedTemporaryFile(mode='w', suffix='bugzoo')
@@ -276,7 +276,7 @@ class ContainerManager(object):
         Returns:
             the outcome of the test execution.
         """
-        bug = self.__installation.bugs[container.bug.name]
+        bug = self.__installation.bugs[container.bug]
         cmd, context = bug.harness.command(test)
         response = self.command(container, cmd, context, stderr=True, verbose=verbose)
         passed = response.code == 0
@@ -299,7 +299,7 @@ class ContainerManager(object):
             a summary of the outcome of the compilation attempt.
         """
         # TODO use container name
-        bug = container.bug # self.__installation.bugs[container.bug]
+        bug = self.__installation.bugs[container.bug]
         return bug.compiler.compile(self, container, verbose=verbose)
 
     # TODO decouple
@@ -313,7 +313,7 @@ class ContainerManager(object):
 
         See: `Container.compile`
         """
-        bug = self.__installation.bugs[container.bug.name] # TODO port
+        bug = self.__installation.bugs[container.bug]
         bug.compiler.clean(self, container, verbose=verbose) # TODO port
         return bug.compiler.compile_with_coverage_instrumentation(self,
                                                                   container,
@@ -372,7 +372,7 @@ class ContainerManager(object):
                 to complete within that time. Only supported by blocking calls.
         """
         logger = self.__logger.getChild(container.uid)
-        bug = container.bug # TODO migrate
+        bug = self.__installation.bugs[container.bug]
 
         # TODO: we need a better long-term alternative
         if context is None:

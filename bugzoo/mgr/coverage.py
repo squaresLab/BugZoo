@@ -53,7 +53,9 @@ class CoverageManager(object):
         """
         logger = self.__logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
-        dir_source = container.bug.source_dir # TODO port
+        mgr_bug = self.__installation.bugs
+        bug = mgr_bug[container.bug]
+        dir_source = bug.source_dir
         # getting a list of all files in source directory to later use for resolving path
         resp = mgr_ctr.command(container, "find {} -type f".format(dir_source))
         all_files = [fn.strip() for fn in resp.output.split('\n')]
@@ -114,7 +116,7 @@ class CoverageManager(object):
         return FileLineSet(files_to_lines)
 
     def __init__(self, installation: 'BugZoo'):
-        self.__installation = installation
+        self.__installation = installation # type: BugZoo
         self.__logger = installation.logger.getChild('coverage')
 
     def coverage(self,
@@ -162,9 +164,11 @@ class CoverageManager(object):
             Exception: if an absolute file path is provided.
         """
         mgr_ctr = self.__installation.containers
+        mgr_bug = self.__installation.bugs
+        bug = mgr_bug[container.bug]
 
         if files_to_instrument is None:
-            files_to_instrument = container.bug.files_to_instrument
+            files_to_instrument = bug.files_to_instrument
 
         for path in files_to_instrument:
             assert not os.path.isabs(path), "expected relative file paths"
@@ -175,7 +179,7 @@ class CoverageManager(object):
                         'sudo apt-get update && sudo apt-get install -y gcovr')
 
         # add instrumentation to each file
-        dir_source = container.bug.source_dir # TODO port
+        dir_source = bug.source_dir
         for fn_src in files_to_instrument:
             fn_src = os.path.join(dir_source, fn_src)
             (_, fn_temp) = tempfile.mkstemp(suffix='.bugzoo')
@@ -206,11 +210,13 @@ class CoverageManager(object):
         Strips instrumentation from the source code inside a given container,
         and reconfigures its program to no longer use coverage options.
         """
-        mgr = self.__installation.containers
+        mgr_ctr = self.__installation.containers
+        mgr_bug = self.__installation.bugs
+        bug = mgr_bug[container.bug]
         num_lines_to_remove = CoverageManager.INSTRUMENTATION.count('\n')
 
         if instrumented_files is None:
-            instrumented_files = container.bug.files_to_instrument
+            instrumented_files = bug.files_to_instrument
 
         # remove source code instrumentation
         for fn_instrumented in instrumented_files:
@@ -232,14 +238,17 @@ class CoverageManager(object):
         """
         logger = self.__logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
+        mgr_bug = self.__installation.bugs
         logger.debug("Extracting coverage information")
 
+        bug = mgr_ctr[container.bug]
+
         if instrumented_files is None:
-            instrumented_files = set(container.bug.files_to_instrument)
+            instrumented_files = set(bug.files_to_instrument)
         else:
             instrumented_files = set(instrumented_files)
 
-        dir_source = container.bug.source_dir # TODO port
+        dir_source = bug.source_dir
         t_start = timer()
         logger.debug("Running gcovr.")
         fn_temp_ctr = mgr_ctr.mktemp(container)
