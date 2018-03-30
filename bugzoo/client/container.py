@@ -33,14 +33,14 @@ class ContainerManager(object):
         raise UnexpectedAPIResponse(r)
 
     def provision(self, bug: Bug) -> Container:
-        self.__logger("provisioning container for bug: %s", bug.name)
-        r = self.__api.get('bugs/{}/provision'.format(bug.name))
+        self.__logger.info("provisioning container for bug: %s", bug.name)
+        r = self.__api.post('bugs/{}/provision'.format(bug.name))
 
-        if r.status_code == 204:
+        if r.status_code == 200:
             container = Container.from_dict(r.json())
-            self.__logger("provisioned container (id: %s) for bug: %s",
-                          container.uid,
-                          bug.name)
+            self.__logger.info("provisioned container (id: %s) for bug: %s",
+                               container.uid,
+                               bug.name)
             return container
 
         if r.status_code == 404:
