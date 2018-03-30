@@ -55,7 +55,7 @@ class TestOutcome(object):
         return TestOutcome(response, passed)
 
     def __init__(self,
-                 response,
+                 response: ExecResponse,
                  passed: bool
                  ) -> None:
         self.__response = response
