@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Optional
 import logging
 
 from .api import APIClient
