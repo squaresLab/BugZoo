@@ -194,6 +194,14 @@ class FileLineSet(object):
             restricted[fn] = set(self.__contents[fn])
         return FileLineSet(restricted)
 
+    @property
+    def files(self) -> List[str]:
+        """
+        A list of the names of the files that are represented by the file lines
+        in this set.
+        """
+        return list(self.__contents.keys())
+
     def to_dict(self) -> Dict[str, List[int]]:
         """
         Returns the contents of this set as a JSON/YAML-ready dictionary.
