@@ -86,6 +86,29 @@ def coverage_bug(uid: str):
     return (jsn, 200)
 
 
+@app.route('/containers/<id_container>/test/<id_test>', methods=['POST'])
+def test_container(id_container: str, id_test: str):
+    try:
+        container = daemon.containers[id_container]
+    except KeyError:
+        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+
+    try:
+        bug = daemon.bugs[container.bug]
+    except KeyError:
+        return ErrorCode.BUG_NOT_FOUND.to_response()
+
+    try:
+        test = bug.harness[id_test]
+    except KeyError:
+        return ErrorCode.TEST_NOT_FOUND.to_response()
+
+    outcome = daemon.containers.test(container, test)
+
+    jsn = flask.jsonify(outcome.to_dict())
+    return (jsn, 200)
+
+
 @app.route('/bugs/<uid>/installed', methods=['GET'])
 def is_installed_bug(uid: str):
     try:
