@@ -127,7 +127,8 @@ class SimpleCompiler(Compiler):
                   verbose: bool
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
-        context = self.__context if self.__context else container.bug.source_dir
+        bug = manager_container.bug(container)
+        context = self.__context if self.__context else bug.source_dir
         cmd_outcome = manager_container.command(container,
                                                 command,
                                                 context=context,
@@ -140,7 +141,8 @@ class SimpleCompiler(Compiler):
               verbose: bool = False
               ) -> None:
         # if a context isn't given, use the source directory of the bug
-        context = self.__context if self.__context else container.bug.source_dir
+        bug = manager_container.bug(container)
+        context = self.__context if self.__context else bug.source_dir
         response = manager_container.command(container,
                                              self.__command_clean,
                                              context=context,
