@@ -241,7 +241,7 @@ class CoverageManager(object):
         mgr_bug = self.__installation.bugs
         logger.debug("Extracting coverage information")
 
-        bug = mgr_ctr[container.bug]
+        bug = mgr_bug[container.bug]
 
         if instrumented_files is None:
             instrumented_files = set(bug.files_to_instrument)
