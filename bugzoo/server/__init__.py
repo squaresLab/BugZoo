@@ -52,7 +52,7 @@ def build_bug(uid: str):
 
 
 @app.route('/bugs/<uid>/provision', methods=['POST'])
-def build_bug(uid: str):
+def provision_bug(uid: str):
     try:
         bug = daemon.bugs[uid]
     except KeyError:
