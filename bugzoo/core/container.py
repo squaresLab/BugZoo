@@ -1,4 +1,4 @@
-from typing import List, Iterator, Dict, Optional, Union
+from typing import List, Iterator, Dict, Optional, Union, Any
 import copy
 import os
 import tempfile
@@ -59,3 +59,14 @@ class Container(object):
         The name of the bug that was used to provision this container.
         """
         return self.__bug
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Produces a dictionary-based description of this container, ready to be
+        serialised as YAML or JSON.
+        """
+        return {
+            'uid': self.uid,
+            'bug': self.bug,
+            'tools': self.tools.copy()
+        }
