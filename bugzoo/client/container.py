@@ -74,3 +74,17 @@ class ContainerManager(object):
 
         # TODO catch bug not built error
         raise UnexpectedAPIResponse(r)
+
+    def is_alive(self, container: Container) -> bool:
+        """
+        Determines whether or not a given container is still alive.
+        """
+        r = self.__api.get('containers/{}/alive'.format(uid))
+
+        if r.status_code == 200:
+            return r.json()
+
+        if r.status_code == 404:
+            raise KeyError("no container found with given UID: {}".format(uid))
+
+        raise UnexpectedAPIResponse(r)
