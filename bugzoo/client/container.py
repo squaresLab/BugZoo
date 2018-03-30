@@ -6,6 +6,7 @@ from .errors import UnexpectedAPIResponse
 from ..core.bug import Bug
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
+from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse
 
 
@@ -88,6 +89,26 @@ class ContainerManager(object):
 
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
+
+        raise UnexpectedAPIResponse(r)
+
+    def test(self,
+             container: Container,
+             test: TestCase
+             ) -> TestOutcome:
+        """
+        Executes a given test inside a container.
+        """
+        path = "containers/{}/test/{}".format(container.uid, test.name)
+        r = self.__api.post(path)
+
+        if r.status_code == 200:
+            return TestOutcome.from_dict(r.json())
+
+        # FIXME does 404 imply that the container doesn't exist or that the
+        #   test doesn't exist? we need to examine the body of the response.
+        if r.status_code == 404:
+            raise KeyError("container or test case not found")
 
         raise UnexpectedAPIResponse(r)
 
