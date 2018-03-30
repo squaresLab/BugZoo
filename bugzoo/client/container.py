@@ -15,7 +15,15 @@ class ContainerManager(object):
         self.__api = api
 
     def __getitem__(self, uid: str) -> Container:
-        return
+        r = self.__api.get('containers/{}'.format(uid))
+
+        if r.status_code == 200:
+            return Container.from_dict(r.json())
+
+        if r.status_code == 404:
+            raise KeyError("no container found with given UID: {}".format(uid))
+
+        raise UnexpectedAPIResponse(r)
 
     def __iter__(self) -> Iterator[str]:
         """
