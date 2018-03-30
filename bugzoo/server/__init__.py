@@ -105,6 +105,17 @@ def list_containers():
     return flask.jsonify(jsn)
 
 
+@app.route('/containers/<uid>', methods=['GET'])
+def show_container(uid: str):
+    try:
+        container = daemon.containers[uid]
+    except KeyError:
+        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+
+    jsn = flask.jsonify(container.to_dict())
+    return (jsn, 200)
+
+
 # TODO: deal with race condition
 @app.route('/containers/<uid>', methods=['DELETE'])
 def delete_container(uid: str):
