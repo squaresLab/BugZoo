@@ -126,6 +126,46 @@ def is_alive_container(uid: str):
     jsn = flask.jsonify(daemon.containers.is_alive(container))
     return (jsn, 200)
 
+@app.route('/containers/<uid>/exec', methods=['POST'])
+def exec_container(uid: str):
+    try:
+        container = daemon.containers[uid]
+    except KeyError:
+        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+
+    # TODO: generic bad request error
+    args = flask.request.get_json() # type: Dict[str, Any]
+    if 'command' not in args:
+        return ErrorCode.COMMAND_NOT_SPECIFIED.to_response()
+
+    cmd = args['command']
+    context = args.get('context')
+    stdout = args.get('stdout', True)
+    stderr = args.get('stderr', False)
+    time_limit = args.get('time-limit')
+    if isinstance(time_limit, int):
+        time_limit = float(time_limit)
+
+    assert isinstance(cmd, str)
+    assert context is None or isinstance(context, str)
+    assert isinstance(stdout, bool)
+    assert isinstance(stderr, bool)
+    assert time_limit is None or \
+        isinstance(time_limit, int) or \
+        isinstance(time_limit, float)
+
+    response = daemon.containers.command(container,
+                                         cmd=cmd,
+                                         context=context,
+                                         stdout=stdout,
+                                         stderr=stderr,
+                                         block=True,
+                                         verbose=False,
+                                         time_limit=time_limit)
+
+    jsn = flask.jsonify(response.to_dict())
+    return (jsn, 200)
+
 
 # TODO: deal with race condition
 @app.route('/containers/<uid>', methods=['DELETE'])
