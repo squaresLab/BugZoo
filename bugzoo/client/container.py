@@ -6,6 +6,7 @@ from .errors import UnexpectedAPIResponse
 from ..core.bug import Bug
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
+from ..cmd import ExecResponse
 
 
 class ContainerManager(object):
@@ -79,6 +80,7 @@ class ContainerManager(object):
         """
         Determines whether or not a given container is still alive.
         """
+        uid = container.uid
         r = self.__api.get('containers/{}/alive'.format(uid))
 
         if r.status_code == 200:
@@ -88,3 +90,34 @@ class ContainerManager(object):
             raise KeyError("no container found with given UID: {}".format(uid))
 
         raise UnexpectedAPIResponse(r)
+
+    def exec(self,
+             container: Container,
+             command: str,
+             context: Optional[str] = None,
+             stdout: bool = True,
+             stderr: bool = False,
+             time_limit: Optional[int] = None
+             ) -> ExecResponse:
+        """
+        Executes a given command inside a provided container.
+        """
+        payload = {
+            'command': command,
+            'context': context,
+            'stdout': stdout,
+            'stderr': stderr,
+            'time-limit': time_limit
+        }
+        path = "containers/{}/exec".format(container.uid)
+        r = self.__api.post(path, json=payload)
+
+        if r.status_code == 200:
+            return ExecResponse.from_dict(r.json())
+
+        if r.status_code == 404:
+            raise KeyError("no container found with given UID: {}".format(uid))
+
+        raise UnexpectedAPIResponse(r)
+
+    command = exec
