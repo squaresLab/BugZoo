@@ -282,6 +282,8 @@ class ContainerManager(object):
         passed = response.code == 0
         return TestOutcome(response, passed)
 
+    test = execute
+
     # TODO decouple
     def compile(self,
                 container: Container,
@@ -415,4 +417,4 @@ class ContainerManager(object):
         code = self.__api_docker.exec_inspect(exec_id)['ExitCode']
         return ExecResponse(code, time_running, output)
 
-    test = command
+    exec = command
