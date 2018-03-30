@@ -64,7 +64,7 @@ def provision_bug(uid: str):
     container = daemon.containers.provision(bug)
     jsn = flask.jsonify(container.to_dict())
 
-    return (jsn, 204)
+    return (jsn, 200)
 
 
 @app.route('/bugs/<uid>/coverage', methods=['POST'])
