@@ -273,6 +273,32 @@ paths:
         404:
           description: Container not found.
 
+  /containers/${container-id}/alive:
+    get:
+      summary: Checks whether container is alive.
+      description: >-
+        Checks whether the underlying Docker container for a given BugZoo
+        container is alive.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: container-id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: boolean
+            description: >-
+              A flag indicating whether or not the container is alive.
+        404:
+          description: Container not found.
+
   /containers/${container-id}/patch:
     patch:
       summary: Patches source code inside container.
