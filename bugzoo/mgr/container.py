@@ -80,6 +80,13 @@ class ContainerManager(object):
 
     delete = __delitem__
 
+    def bug(self, container: Container) -> Bug:
+        """
+        Returns a description of the bug inside a given container.
+        """
+        name = container.bug
+        return self.__installation.bugs[name]
+
     def provision(self,
                   bug: Bug,
                   uid: str = None,
