@@ -222,7 +222,7 @@ class CoverageManager(object):
         for fn_instrumented in instrumented_files:
             cmd = "sed -i '1,{}d' '{}'"
             cmd.format(num_lines_to_remove, fn_instrumented)
-            mgr.command(container, cmd)
+            mgr_ctr.command(container, cmd)
 
         # TODO recompile with standard flags
         pass
