@@ -414,3 +414,5 @@ class ContainerManager(object):
 
         code = self.__api_docker.exec_inspect(exec_id)['ExitCode']
         return ExecResponse(code, time_running, output)
+
+    test = command
