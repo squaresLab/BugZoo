@@ -25,6 +25,17 @@ class ContainerManager(object):
 
         raise UnexpectedAPIResponse(r)
 
+    def __delitem__(self, uid: str) -> Container:
+        r = self.__api.delete('containers/{}'.format(uid))
+
+        if r.status_code == 204:
+            return
+
+        if r.status_code == 404:
+            raise KeyError("no container found with given UID: {}".format(uid))
+
+        raise UnexpectedAPIResponse(r)
+
     def __iter__(self) -> Iterator[str]:
         """
         Returns an iterator over the identifiers of all of the containers that
@@ -56,3 +67,5 @@ class ContainerManager(object):
 
         # TODO catch bug not built error
         raise UnexpectedAPIResponse(r)
+
+    def 
