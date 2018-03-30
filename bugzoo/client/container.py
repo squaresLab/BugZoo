@@ -36,6 +36,13 @@ class ContainerManager(object):
 
         raise UnexpectedAPIResponse(r)
 
+    def __contains__(self, uid: str) -> bool:
+        try:
+            self[uid]
+            return True
+        except KeyError:
+            return False
+
     def __iter__(self) -> Iterator[str]:
         """
         Returns an iterator over the identifiers of all of the containers that
@@ -67,5 +74,3 @@ class ContainerManager(object):
 
         # TODO catch bug not built error
         raise UnexpectedAPIResponse(r)
-
-    def 
