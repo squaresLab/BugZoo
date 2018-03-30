@@ -55,12 +55,12 @@ class Container(object):
     uid = id
 
     @property
-    def tools(self) -> Iterator[str]:
+    def tools(self) -> List[str]:
         """
-        Returns an iterator over the list of the names of the tools that are
-        mounted inside this container.
+        Returns the list of the names of the tools that are mounted inside
+        this container.
         """
-        return self.__tools.__iter__()
+        return self.__tools.copy()
 
     @property
     def bug(self) -> str:
