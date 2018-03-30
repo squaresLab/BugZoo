@@ -43,6 +43,28 @@ definitions:
           the user upon the creation of the container, an ID will automatically
           be generated instead.
 
+  ExecResponse:
+    type: object
+    required:
+      - code
+      - duration
+      - output
+    properties:
+      code:
+        type: number
+        format: int
+        description: >-
+          The exit code produced by the command.
+      duration:
+        type: number
+        format: float
+        description: >-
+          The number of seconds taken to execute the command.
+      output:
+        type: string
+        description: >-
+          The output produced by the command.
+
 
 paths:
 ###############################################################################
@@ -270,6 +292,29 @@ paths:
           description: Compilation failure.
         212:
           description: Compilation timeout.
+        404:
+          description: Container not found.
+
+  /containers/${id}/exec:
+    post:
+      summary: Executes a command inside the container.
+      description: >-
+        Executes a given command inside the container.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: '#/definitions/ExecResponse'
         404:
           description: Container not found.
 
