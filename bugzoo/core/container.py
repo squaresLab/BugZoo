@@ -17,6 +17,15 @@ class Container(object):
     and are used to conduct studies of software bugs. Behind the scenes,
     containers are implemented as `Docker containers <https://docker.com>`_.
     """
+    @staticmethod
+    def from_dict(d: Dict[str, Any]) -> 'Container':
+        """
+        Loads a container from a dictionary-based description.
+        """
+        return Container(uid=d['uid'],
+                         bug=d['bug'],
+                         tools=d['tools'])
+
     def __init__(self,
                  uid: str,
                  bug: str,
