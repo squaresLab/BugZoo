@@ -73,6 +73,3 @@ class Localization(object):
         suspiciousness above zero.
         """
         return self.__scores.__iter__()
-
-    # TODO: restricted_to_files(loc, fns) -> Localization
-    # TODO: restricted_to_functions(loc) -> Localization
