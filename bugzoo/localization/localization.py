@@ -32,7 +32,7 @@ class Localization(object):
             {line: s/sum_scores for (line, s) in self.__scores.items()}
 
     def restricted_to_files(self,
-                            filenames: List[str]
+                            filenames: Iterable[str]
                             ) -> 'Localization':
         """
         Returns a variant of this fault localization that only contains entries
@@ -41,6 +41,21 @@ class Localization(object):
         scores = {l: s for (l, s) in self.__scores.items() \
                   if l.filename in filenames}
         return Localization(scores)
+
+    def restricted_to_lines(self,
+                            lines: Iterable[FileLine]
+                            ) -> 'Localization':
+        """
+        Returns a variant of this fault localization that only contains entries
+        for lines that belong to a provided set of lines.
+        """
+        restricted = {} # type: Dict[FileLine, float]
+        for line in lines:
+            try:
+                restricted[line] = self.__scores[line]
+            except KeyError:
+                pass
+        return Localization(restricted)
 
     def score(self, line: FileLine) -> float:
         """
