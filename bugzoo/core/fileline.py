@@ -195,7 +195,8 @@ class FileLineSet(object):
         """
         restricted = {} # type: Dict[str, Set[int]]
         for fn in filenames:
-            restricted[fn] = set(self.__contents[fn])
+            if fn in self.__contents:
+                restricted[fn] = set(self.__contents[fn])
         return FileLineSet(restricted)
 
     @property
