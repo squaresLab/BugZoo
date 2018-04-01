@@ -57,6 +57,21 @@ class Localization(object):
                 pass
         return Localization(restricted)
 
+    def sample(self) -> FileLine:
+        """
+        Samples a line from this fault localization according to the
+        probability distribution that is implicitly defined by the
+        suspiciousness values in this localization.
+
+        Returns:
+            a line sampled from this localization.
+
+        Raises:
+            ValueError: if there are no suspicious lines within this fault
+                localization.
+        """
+        raise NotImplementedError
+
     def without_line(self,
                      line: FileLine,
                      error_if_absent: bool = False
