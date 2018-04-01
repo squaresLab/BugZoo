@@ -1,5 +1,5 @@
 from typing import List, Dict, Iterable, Iterator
-from copy import copy
+import numpy.random
 
 from bugzoo.core.fileline import FileLine
 from bugzoo.core.spectra import Spectra
@@ -88,7 +88,8 @@ class Localization(object):
         Returns:
             a variant of this fault localization without the given line.
         """
-        raise NotImplementedError
+        scores = {l: s for (l, s) in self.__scores.items() if l != line}
+        return Localization(scores)
 
     def score(self, line: FileLine) -> float:
         """
