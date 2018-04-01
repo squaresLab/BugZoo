@@ -23,7 +23,8 @@ setup(
         'GitPython',
         'pyyaml',
         'tabulate',
-        'flask'
+        'flask',
+        'numpy'
     ],
     packages=[
         'bugzoo',
