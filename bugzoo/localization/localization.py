@@ -70,7 +70,12 @@ class Localization(object):
             ValueError: if there are no suspicious lines within this fault
                 localization.
         """
-        raise NotImplementedError
+        lines = list(self.__normalized.keys())
+        dist = [self.__normalized[line] for line in lines]
+        try:
+            return numpy.random.choice(lines, p=dist)
+        except ValueError:
+            raise ValueError
 
     def without_line(self,
                      line: FileLine,
