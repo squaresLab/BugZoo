@@ -57,6 +57,24 @@ class Localization(object):
                 pass
         return Localization(restricted)
 
+    def without_line(self,
+                     line: FileLine,
+                     error_if_absent: bool = False
+                     ) -> 'Localization':
+        """
+        Returns a variant of this fault localization with a given line removed.
+
+        Parameters:
+            line: the line to remove.
+            error_if_absent: an optional flag that, if set to True, will raise
+                an error if the given line isn't represented by this
+                localization.
+
+        Returns:
+            a variant of this fault localization without the given line.
+        """
+        raise NotImplementedError
+
     def score(self, line: FileLine) -> float:
         """
         Returns the suspiciousness score for a given line. If no suspiciousness
