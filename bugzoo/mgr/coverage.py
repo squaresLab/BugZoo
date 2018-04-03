@@ -30,6 +30,7 @@ class CoverageManager(object):
         "  sigaction(SIGTERM, &new_action, NULL);\n"
         "  sigaction(SIGINT, &new_action, NULL);\n"
         "  sigaction(SIGKILL, &new_action, NULL);\n"
+        "  sigaction(SIGSEGV, &new_action, NULL);\n"
         "}\n"
         "// BUGZOO :: INSTRUMENTATION :: END\n"
     )
