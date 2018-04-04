@@ -74,7 +74,7 @@ class GenProgTestSuite(SimpleTestSuite):
     def __init__(self,
                  passing: int,
                  failing: int,
-                 time_limit: float,
+                 time_limit: int,
                  command: str,
                  context: str
                  ) -> None:
