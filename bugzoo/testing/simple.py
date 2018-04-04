@@ -33,7 +33,7 @@ class SimpleTestSuite(TestSuite):
     def __init__(self,
                  command: str,
                  context: str,
-                 time_limit: float,
+                 time_limit: int,
                  test_names: List[str]
                  ) -> None:
         assert test_names != []
@@ -59,6 +59,13 @@ class SimpleTestSuite(TestSuite):
         """
         cmd = self.__command.replace('__ID__', test.name, 1)
         return (cmd, self.__context)
+
+    @property
+    def time_limit(self) -> int:
+        """
+        The time limit on individual test case executions, measured in seconds.
+        """
+        return self.__time_limit
 
 
 class GenProgTestSuite(SimpleTestSuite):
@@ -111,22 +118,15 @@ class GenProgTestSuite(SimpleTestSuite):
         return self.__failing.__iter__()
 
     @property
-    def num_passing(self):
+    def num_passing(self) -> int:
         """
         The number of passing tests in the test suite.
         """
         return len(self.__passing)
 
     @property
-    def num_failing(self):
+    def num_failing(self) -> int:
         """
         The number of failing tests in the test suite.
         """
         return len(self.__failing)
-
-    @property
-    def time_limit(self):
-        """
-        The time limit on individual test case executions, measured in seconds.
-        """
-        return self.__time_limit
