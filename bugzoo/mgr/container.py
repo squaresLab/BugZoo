@@ -283,9 +283,14 @@ class ContainerManager(object):
         Returns:
             the outcome of the test execution.
         """
-        bug = self.__installation.bugs[container.bug]
+        bug = self.__installation.bugs[container.bug] # type: Bug
         cmd, context = bug.harness.command(test)
-        response = self.command(container, cmd, context, stderr=True, verbose=verbose)
+        response = self.command(container,
+                                cmd=cmd,
+                                context=context,
+                                stderr=True,
+                                time_limit=bug.harness.time_limit, # TODO migrate
+                                verbose=verbose)
         passed = response.code == 0
         return TestOutcome(response, passed)
 
@@ -388,7 +393,7 @@ class ContainerManager(object):
         cmd = 'source /.environment && cd {} && {}'.format(context, cmd)
         cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
         if time_limit is not None and time_limit > 0:
-            print("running command with time limit: {} seconds".format(time_limit))
+            logger.debug("running command with time limit: {} seconds".format(time_limit))
             cmd_wrapped = "timeout {} {}".format(time_limit, cmd_wrapped)
         cmd = cmd_wrapped
 
