@@ -205,10 +205,10 @@ class WafCompiler(SimpleCompiler):
         return WafCompiler(d['time-limit'])
 
     def __init__(self, time_limit: float) -> None:
-        cmd = "./waf build -j$(nproc)"
-        cxxflags = "--coverage -Wno-error=maybe-uninitialized -save-temps=obj"
-        ldflags = "--coverage"
-        cmdi = "./waf configure LDFLAGS='{}' CXXFLAGS='{}'; {}".format(ldflags,
+        cmd = './waf build -j$(nproc)'
+        cxxflags = '--coverage -Wno-error=maybe-uninitialized -save-temps=obj'
+        ldflags = '--coverage'
+        cmdi = './waf configure LDFLAGS="{}" CXXFLAGS="{}"; {}'.format(ldflags,
                                                                        cxxflags,
                                                                        cmd)
         super().__init__(command=cmd,
@@ -227,7 +227,7 @@ class ConfigureMakeCompiler(SimpleCompiler):
         cmd = 'make -j$(nproc)'
         cflags = "--coverage" # save-temps=obj"
         ldflags = "--coverage"
-        flags = "LDFLAGS='{}' CXXFLAGS='{}' CFLAGS='{}'"
+        flags = 'LDFLAGS="{}" CXXFLAGS="{}" CFLAGS="{}"'
         flags = flags.format(ldflags, cflags, cflags)
         cmdi = "make clean; ./configure {}; {}".format(flags, cmd)
 
