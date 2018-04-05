@@ -180,8 +180,8 @@ class CoverageManager(object):
 
         # ensure that gcovr is mounted within the container
         # TODO: mount binaries
-        mgr_ctr.command(container,
-                        'sudo apt-get update && sudo apt-get install -y gcovr')
+        # mgr_ctr.command(container,
+        #                 'sudo apt-get update && sudo apt-get install -y gcovr')
 
         # add instrumentation to each file
         dir_source = bug.source_dir
@@ -225,8 +225,8 @@ class CoverageManager(object):
 
         # remove source code instrumentation
         for fn_instrumented in instrumented_files:
-            cmd = "sed -i '1,{}d' '{}'"
-            cmd.format(num_lines_to_remove, fn_instrumented)
+            cmd = 'sed -i "1,{}d" "{}"'
+            cmd = cmd.format(num_lines_to_remove, fn_instrumented)
             mgr_ctr.command(container, cmd)
 
         # TODO recompile with standard flags
