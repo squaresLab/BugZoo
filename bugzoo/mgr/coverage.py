@@ -146,8 +146,9 @@ class CoverageManager(object):
                                      instrumented_files=files_to_instrument)
             cov[test.name] = TestCoverage(test.name, outcome, filelines)
 
-        self.deinstrument(container,
-                          instrumented_files=files_to_instrument)
+        # FIXME deinstrument
+        # self.deinstrument(container,
+        #                   instrumented_files=files_to_instrument)
 
         return TestSuiteCoverage(cov)
 
@@ -180,8 +181,8 @@ class CoverageManager(object):
 
         # ensure that gcovr is mounted within the container
         # TODO: mount binaries
-        mgr_ctr.command(container,
-                        'sudo apt-get update && sudo apt-get install -y gcovr')
+        # mgr_ctr.command(container,
+        #                 'sudo apt-get update && sudo apt-get install -y gcovr')
 
         # add instrumentation to each file
         dir_source = bug.source_dir
@@ -215,6 +216,8 @@ class CoverageManager(object):
         Strips instrumentation from the source code inside a given container,
         and reconfigures its program to no longer use coverage options.
         """
+        raise Exception("contains bug in sed command -- avoid use for now.")
+
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -225,8 +228,8 @@ class CoverageManager(object):
 
         # remove source code instrumentation
         for fn_instrumented in instrumented_files:
-            cmd = "sed -i '1,{}d' '{}'"
-            cmd.format(num_lines_to_remove, fn_instrumented)
+            cmd = 'sed -i "1,{}d" "{}"'
+            cmd = cmd.format(num_lines_to_remove, fn_instrumented)
             mgr_ctr.command(container, cmd)
 
         # TODO recompile with standard flags
