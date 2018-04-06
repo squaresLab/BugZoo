@@ -241,6 +241,9 @@ class ContainerManager(object):
         file_container = None
         dockerc = self.__dockerc[container.uid]
         bug = self.__installation.bugs[container.bug]
+        self.__logger.debug("Applying patch to container [%s]:\n%s",
+                            container.uid,
+                            str(p))
 
         try:
             file_host = NamedTemporaryFile(mode='w', suffix='bugzoo')
@@ -251,12 +254,18 @@ class ContainerManager(object):
             (retcode, file_container) = dockerc.exec_run('mktemp')
             assert retcode == 0
             file_container = file_container.decode(sys.stdout.encoding).strip()
+
             self.copy_to(container, file_host.name, file_container)
 
             # run patch command inside the source directory
             # cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
-            cmd = 'git apply -p0 "{}"'.format(file_container)
+            cmd = 'sudo chown $(whoami) {} && git apply -p0 "{}"'
+            cmd = cmd.format(file_container, file_container)
             outcome = self.command(container, cmd, context=bug.source_dir)
+            self.__logger.debug("Patch application outcome [%s]: (retcode=%d)\n%s",
+                                container.uid,
+                                outcome.code,
+                                outcome.output)
             return outcome.code == 0
 
         finally:
