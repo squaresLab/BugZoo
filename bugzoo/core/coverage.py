@@ -196,3 +196,14 @@ class TestSuiteCoverage(object):
         within this coverage report.
         """
         return len(self.__test_coverage)
+
+    @property
+    def lines(self) -> FileLineSet:
+        """
+        Returns the set of all file lines that were covered.
+        """
+        assert len(self) > 0
+        output = FileLineSet()
+        for coverage in self.__test_coverage.values():
+            output = output.union(coverage.lines)
+        return output

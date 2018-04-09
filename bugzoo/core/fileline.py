@@ -1,5 +1,5 @@
 from typing import  Dict, List, Set, Iterator, Iterable, Any, FrozenSet, \
-                    Callable
+                    Callable, Optional
 
 
 class FileLine(object):
@@ -90,7 +90,11 @@ class FileLineSet(object):
             d[line.filename].add(line.num)
         return FileLineSet(d)
 
-    def __init__(self, contents: Dict[str, Set[int]]) -> None:
+    def __init__(self,
+                 contents: Optional[Dict[str, Set[int]]] = None
+                 ) -> None:
+        if contents is None:
+            contents = {}
         self.__contents = \
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()} # type: Dict[str, FrozenSet[int]]
 
@@ -191,8 +195,17 @@ class FileLineSet(object):
         """
         restricted = {} # type: Dict[str, Set[int]]
         for fn in filenames:
-            restricted[fn] = set(self.__contents[fn])
+            if fn in self.__contents:
+                restricted[fn] = set(self.__contents[fn])
         return FileLineSet(restricted)
+
+    @property
+    def files(self) -> List[str]:
+        """
+        A list of the names of the files that are represented by the file lines
+        in this set.
+        """
+        return list(self.__contents.keys())
 
     def to_dict(self) -> Dict[str, List[int]]:
         """

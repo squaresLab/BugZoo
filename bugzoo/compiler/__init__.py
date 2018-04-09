@@ -142,7 +142,8 @@ class SimpleCompiler(Compiler):
                   verbose: bool
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
-        context = self.__context if self.__context else container.bug.source_dir
+        bug = manager_container.bug(container)
+        context = self.__context if self.__context else bug.source_dir
         cmd_outcome = manager_container.command(container,
                                                 command,
                                                 context=context,
@@ -155,7 +156,8 @@ class SimpleCompiler(Compiler):
               verbose: bool = False
               ) -> None:
         # if a context isn't given, use the source directory of the bug
-        context = self.__context if self.__context else container.bug.source_dir
+        bug = manager_container.bug(container)
+        context = self.__context if self.__context else bug.source_dir
         response = manager_container.command(container,
                                              self.__command_clean,
                                              context=context,
@@ -239,10 +241,10 @@ class WafCompiler(SimpleCompiler):
         return WafCompiler(d['time-limit'])
 
     def __init__(self, time_limit: float) -> None:
-        cmd = "./waf build -j$(nproc)"
-        cxxflags = "--coverage -Wno-error=maybe-uninitialized -save-temps=obj"
-        ldflags = "--coverage"
-        cmdi = "./waf configure LDFLAGS='{}' CXXFLAGS='{}'; {}".format(ldflags,
+        cmd = './waf build -j$(nproc)'
+        cxxflags = '--coverage -Wno-error=maybe-uninitialized -save-temps=obj'
+        ldflags = '--coverage'
+        cmdi = './waf configure LDFLAGS="{}" CXXFLAGS="{}"; {}'.format(ldflags,
                                                                        cxxflags,
                                                                        cmd)
         super().__init__(command=cmd,
@@ -267,7 +269,7 @@ class ConfigureMakeCompiler(SimpleCompiler):
         cmd = 'make -j$(nproc)'
         cflags = "--coverage" # save-temps=obj"
         ldflags = "--coverage"
-        flags = "LDFLAGS='{}' CXXFLAGS='{}' CFLAGS='{}'"
+        flags = 'LDFLAGS="{}" CXXFLAGS="{}" CFLAGS="{}"'
         flags = flags.format(ldflags, cflags, cflags)
         cmdi = "make clean; ./configure {}; {}".format(flags, cmd)
 

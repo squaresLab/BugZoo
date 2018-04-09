@@ -16,6 +16,8 @@ class TestCase(object):
         """
         return self.__name
 
+    identifier = name
+
     def __hash__(self) -> int:
         return hash(self.name)
 

@@ -80,6 +80,13 @@ class ContainerManager(object):
 
     delete = __delitem__
 
+    def bug(self, container: Container) -> Bug:
+        """
+        Returns a description of the bug inside a given container.
+        """
+        name = container.bug
+        return self.__installation.bugs[name]
+
     def provision(self,
                   bug: Bug,
                   uid: str = None,
@@ -234,6 +241,9 @@ class ContainerManager(object):
         file_container = None
         dockerc = self.__dockerc[container.uid]
         bug = self.__installation.bugs[container.bug]
+        self.__logger.debug("Applying patch to container [%s]:\n%s",
+                            container.uid,
+                            str(p))
 
         try:
             file_host = NamedTemporaryFile(mode='w', suffix='bugzoo')
@@ -244,12 +254,18 @@ class ContainerManager(object):
             (retcode, file_container) = dockerc.exec_run('mktemp')
             assert retcode == 0
             file_container = file_container.decode(sys.stdout.encoding).strip()
+
             self.copy_to(container, file_host.name, file_container)
 
             # run patch command inside the source directory
             # cmd = 'patch --no-backup-if-mismatch -p0 -u -i "{}"'.format(container_file, stderr=True)
-            cmd = 'git apply -p0 "{}"'.format(file_container)
+            cmd = 'sudo chown $(whoami) {} && git apply -p0 "{}"'
+            cmd = cmd.format(file_container, file_container)
             outcome = self.command(container, cmd, context=bug.source_dir)
+            self.__logger.debug("Patch application outcome [%s]: (retcode=%d)\n%s",
+                                container.uid,
+                                outcome.code,
+                                outcome.output)
             return outcome.code == 0
 
         finally:
@@ -276,9 +292,14 @@ class ContainerManager(object):
         Returns:
             the outcome of the test execution.
         """
-        bug = self.__installation.bugs[container.bug]
+        bug = self.__installation.bugs[container.bug] # type: Bug
         cmd, context = bug.harness.command(test)
-        response = self.command(container, cmd, context, stderr=True, verbose=verbose)
+        response = self.command(container,
+                                cmd=cmd,
+                                context=context,
+                                stderr=True,
+                                time_limit=bug.harness.time_limit, # TODO migrate
+                                verbose=verbose)
         passed = response.code == 0
         return TestOutcome(response, passed)
 
@@ -380,8 +401,12 @@ class ContainerManager(object):
         if context is None:
             context = os.path.join(bug.source_dir, '..')
 
-        template_cmd = '/bin/bash -c "source /.environment && cd {} && {}"'
-        cmd = template_cmd.format(context, cmd)
+        cmd = 'source /.environment && cd {} && {}'.format(context, cmd)
+        cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
+        if time_limit is not None and time_limit > 0:
+            logger.debug("running command with time limit: {} seconds".format(time_limit))
+            cmd_wrapped = "timeout {} {}".format(time_limit, cmd_wrapped)
+        cmd = cmd_wrapped
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
         logger.debug("executing command: %s", cmd)
@@ -398,12 +423,6 @@ class ContainerManager(object):
 
         if not block:
             return PendingExecResponse(response, out)
-
-        # while self.__api_docker.exec_inspect(exec_id)['Running']:
-        #    time_running = timer() - time_start
-        #    if time_limit and time_running > time_limit:
-        #        # TODO kill exec
-        #        raise TimeoutError()
 
         output = []
         for line in out:

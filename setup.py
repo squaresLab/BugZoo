@@ -18,12 +18,13 @@ setup(
     url='https://github.com/squaresLab/BugZoo',
     license='mit',
     install_requires=[
-        'docker',
+        'docker==3.1.4',
         'dockerpty',
         'GitPython',
         'pyyaml',
         'tabulate',
-        'flask'
+        'flask',
+        'numpy'
     ],
     packages=[
         'bugzoo',
