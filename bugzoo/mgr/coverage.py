@@ -189,6 +189,8 @@ class CoverageManager(object):
         dir_source = bug.source_dir
         for fn_src in files_to_instrument:
             fn_src = os.path.join(dir_source, fn_src)
+            self.__logger.debug("instrumenting file [%s] in container [%s]",
+                                fn_src, container.uid)
             (_, fn_temp) = tempfile.mkstemp(suffix='.bugzoo')
             try:
                 mgr_ctr.copy_from(container, fn_src, fn_temp)
