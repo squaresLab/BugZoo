@@ -169,6 +169,7 @@ class CoverageManager(object):
         Raises:
             Exception: if an absolute file path is provided.
         """
+        self.__logger.info("instrumenting container: %s", container.uid)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -207,6 +208,8 @@ class CoverageManager(object):
             msg = msg.format(container.id)
             print(outcome.response.output)
             raise Exception(msg)
+
+        self.__logger.info("instrumented container: %s", container.uid)
 
     def deinstrument(self,
                      container: Container,

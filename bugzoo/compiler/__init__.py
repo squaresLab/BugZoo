@@ -86,7 +86,13 @@ class SimpleCompiler(Compiler):
         cmd = d['command']
         cmd_with_instrumentation = d.get('command_with_instrumentation', None)
         time_limit = d['time-limit']
-        return SimpleCompiler(cmd, cmd_with_instrumentation, time_limit)
+        context = d['context']
+        cmd_clean = d.get('command_clean', 'exit 0')
+        return SimpleCompiler(command=cmd,
+                              command_clean=cmd_clean,
+                              command_with_instrumentation=cmd_with_instrumentation,
+                              context=context,
+                              time_limit=time_limit)
 
     def __init__(self,
                  command: str,
