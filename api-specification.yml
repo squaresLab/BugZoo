@@ -208,19 +208,6 @@ paths:
         404:
           description: Container not found.
 
-    post:
-      summary: Provisions a container.
-      description: Provisions a new container for a given bug.
-      tags:
-        - container
-      produces:
-        - application/json
-      responses:
-        204:
-          description: OK
-        404:
-          description: No bug exists with specified UID.
-
     delete:
       summary: Destroy container.
       description: Destroys a given container.
