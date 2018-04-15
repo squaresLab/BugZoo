@@ -17,6 +17,18 @@ class ContainerManager(object):
         self.__api = api
 
     def __getitem__(self, uid: str) -> Container:
+        """
+        Fetches a container by its ID.
+
+        Parameters:
+            uid: the ID of the container.
+
+        Returns:
+            the container with the given ID.
+
+        Raises:
+            KeyError: if no container is found with the given ID.
+        """
         r = self.__api.get('containers/{}'.format(uid))
 
         if r.status_code == 200:
@@ -28,6 +40,16 @@ class ContainerManager(object):
         raise UnexpectedAPIResponse(r)
 
     def __delitem__(self, uid: str) -> Container:
+        """
+        Deletes a given container.
+
+        Parameters:
+            uid: the ID of the container.
+
+        Raises:
+            KeyError: if no container is found with the given ID, or the
+                container has already been destroyed.
+        """
         r = self.__api.delete('containers/{}'.format(uid))
 
         if r.status_code == 204:
@@ -39,6 +61,15 @@ class ContainerManager(object):
         raise UnexpectedAPIResponse(r)
 
     def __contains__(self, uid: str) -> bool:
+        """
+        Checks whether a container with a given ID exists.
+
+        Parameter:
+            uid:    the ID of the container.
+
+        Returns:
+            True if the container exists; false if not.
+        """
         try:
             self[uid]
             return True
@@ -64,6 +95,7 @@ class ContainerManager(object):
         self.__logger.info("provisioning container for bug: %s", bug.name)
         r = self.__api.post('bugs/{}/provision'.format(bug.name))
 
+        # FIXME bad code
         if r.status_code == 200:
             container = Container.from_dict(r.json())
             self.__logger.info("provisioned container (id: %s) for bug: %s",
@@ -98,6 +130,17 @@ class ContainerManager(object):
              ) -> TestOutcome:
         """
         Executes a given test inside a container.
+
+        Parameters:
+            container: the container in which the test should be conducted.
+            test: the test that should be executed.
+
+        Returns:
+            a summary of the outcome of the test execution.
+
+        Raises:
+            KeyError: if the container no longer exists, or the given test
+                doesn't exist.
         """
         path = "containers/{}/test/{}".format(container.uid, test.name)
         r = self.__api.post(path)
