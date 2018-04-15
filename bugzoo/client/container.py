@@ -165,7 +165,28 @@ class ContainerManager(object):
              ) -> ExecResponse:
         """
         Executes a given command inside a provided container.
+
+        Parameters:
+            container: the container to which the command should be issued.
+            command: the command that should be executed.
+            context: the working directory that should be used to perform the
+                execution. If no context is provided, then the command will be
+                executed at the root of the container.
+            stdout: specifies whether or not output to the stdout should be
+                included in the execution summary.
+            stderr: specifies whether or not output to the stderr should be
+                included in the execution summary.
+            time_limit: an optional time limit that is applied to the
+                execution. If the command fails to execute within the time
+                limit, the command will be aborted and treated as a failure.
+
+        Returns:
+            a summary of the outcome of the execution.
+
+        Raises:
+            KeyError: if the container no longer exists on the server.
         """
+        # FIXME perhaps these should be encoded as path variables?
         payload = {
             'command': command,
             'context': context,
