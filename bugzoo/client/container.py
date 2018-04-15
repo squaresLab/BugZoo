@@ -3,6 +3,7 @@ import logging
 
 from .api import APIClient
 from .errors import UnexpectedAPIResponse
+from ..compiler import CompilationOutcome
 from ..core.bug import Bug
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
@@ -92,6 +93,7 @@ class ContainerManager(object):
         raise UnexpectedAPIResponse(r)
 
     def provision(self, bug: Bug) -> Container:
+        # FIXME bad URI
         self.__logger.info("provisioning container for bug: %s", bug.name)
         r = self.__api.post('bugs/{}/provision'.format(bug.name))
 
@@ -121,6 +123,36 @@ class ContainerManager(object):
 
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
+
+        raise UnexpectedAPIResponse(r)
+
+    def compile(self,
+                container: Container,
+                verbose: bool = False
+                ) -> CompilationOutcome:
+        """
+        Attempts to compile the program inside a given container.
+
+        Params:
+            container: the container whose program should be compiled.
+            verbose: specifies whether to print the stdout and stderr produced
+                by the compilation command to the stdout. If `True`, then the
+                stdout and stderr will be printed.
+
+        Returns:
+            a summary of the outcome of the attempted compilation.
+
+        Raises:
+            KeyError: if the container no longer exists.
+        """
+        path = "containers/{}/compile".format(container.uid)
+        r = self.__api.post(path)
+
+        if r.status_code == 200:
+            return CompilationOutcome.from_dict(r.json())
+
+        if r.status_code == 404:
+            raise KeyError("container or test case not found")
 
         raise UnexpectedAPIResponse(r)
 
