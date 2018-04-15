@@ -405,7 +405,7 @@ class ContainerManager(object):
         cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
         if time_limit is not None and time_limit > 0:
             logger.debug("running command with time limit: {} seconds".format(time_limit))
-            cmd_wrapped = "timeout {} {}".format(time_limit, cmd_wrapped)
+            cmd_wrapped = "timeout --kill-after=1 --signal=SIGTERM {} {}".format(time_limit, cmd_wrapped)
         cmd = cmd_wrapped
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5

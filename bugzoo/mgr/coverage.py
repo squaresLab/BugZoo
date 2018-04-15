@@ -169,6 +169,7 @@ class CoverageManager(object):
         Raises:
             Exception: if an absolute file path is provided.
         """
+        self.__logger.info("instrumenting container: %s", container.uid)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -188,6 +189,8 @@ class CoverageManager(object):
         dir_source = bug.source_dir
         for fn_src in files_to_instrument:
             fn_src = os.path.join(dir_source, fn_src)
+            self.__logger.debug("instrumenting file [%s] in container [%s]",
+                                fn_src, container.uid)
             (_, fn_temp) = tempfile.mkstemp(suffix='.bugzoo')
             try:
                 mgr_ctr.copy_from(container, fn_src, fn_temp)
@@ -207,6 +210,8 @@ class CoverageManager(object):
             msg = msg.format(container.id)
             print(outcome.response.output)
             raise Exception(msg)
+
+        self.__logger.info("instrumented container: %s", container.uid)
 
     def deinstrument(self,
                      container: Container,
