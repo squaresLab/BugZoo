@@ -9,6 +9,9 @@ class FileChar(object):
         self.__filename = filename
         self.__offset = offset
 
+    def __str__(self) -> str:
+        return "{}[{}]".format(self.filename, self.offset)
+
     @property
     def filename(self) -> str:
         """
@@ -34,6 +37,11 @@ class FileCharRange(object):
                  ) -> None:
         self.__start = start
         self.__stop = stop
+
+    def __str__(self) -> str:
+        return "{}[{}..{}]".format(self.filename,
+                                   self.start.offset,
+                                   self.stop.offset)
 
     @property
     def filename(self) -> str:
