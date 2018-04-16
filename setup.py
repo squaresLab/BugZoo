@@ -18,7 +18,7 @@ setup(
     url='https://github.com/squaresLab/BugZoo',
     license='mit',
     install_requires=[
-        'docker==3.1.4',
+        'docker>=3.1.4',
         'dockerpty',
         'GitPython',
         'pyyaml',
