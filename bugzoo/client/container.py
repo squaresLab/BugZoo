@@ -40,7 +40,7 @@ class ContainerManager(object):
 
         raise UnexpectedAPIResponse(r)
 
-    def __delitem__(self, uid: str) -> Container:
+    def __delitem__(self, uid: str) -> None:
         """
         Deletes a given container.
 
