@@ -59,15 +59,19 @@ class BugManager(object):
 
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
+        raise NotImplementedError
 
     def uninstall(self, bug: Bug) -> bool:
         r = self.__api.post('bugs/{}/uninstall'.format(bug.name))
+        raise NotImplementedError
 
     def upload(self, bug: Bug) -> bool:
         r = self.__api.post('bugs/{}/upload'.format(bug.name))
+        raise NotImplementedError
 
     def download(self, bug: Bug) -> bool:
         r = self.__api.post('bugs/{}/download'.format(bug.name))
+        raise NotImplementedError
 
     def build(self, bug: Bug):
         r = self.__api.post('bugs/{}/build'.format(bug.name))
