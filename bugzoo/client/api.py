@@ -6,7 +6,7 @@ import logging
 
 
 class APIClient(object):
-    def __init__(self, base_url: str):
+    def __init__(self, base_url: str) -> None:
         logging.basicConfig(level=logging.DEBUG)
         self.__logger = logging.getLogger('api')
         self.__base_url = base_url
