@@ -76,6 +76,9 @@ class Compiler(object):
         """
         raise NotImplementedError
 
+    def to_dict(self) -> dict:
+        raise NotImplementedError
+
 
 class SimpleCompiler(Compiler):
     @staticmethod
