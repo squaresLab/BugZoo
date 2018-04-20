@@ -13,6 +13,7 @@ class ErrorCode(Enum):
     IMAGE_NOT_INSTALLED = ("Image not installed.", 500)
     FAILED_TO_COMPUTE_COVERAGE = ("Failed to compute coverage.", 500)
     COMMAND_NOT_SPECIFIED = ("No command was specified.", 422)
+    FILE_NOT_FOUND = ("File was not found.", 404)
 
     def __init__(self, message: str, status_code: int) -> None:
         self.__message = message
