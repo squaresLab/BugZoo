@@ -2,7 +2,13 @@ from typing import Dict, List, Iterator
 from copy import copy
 
 
-class BadManifestFile(BaseException):
+class BugZooException(Exception):
+    """
+    Base class for all BugZoo exceptions.
+    """
+
+
+class BadManifestFile(BugZooException):
     """
     Thrown when the server fails to parse a manifest file.
     """
@@ -11,7 +17,7 @@ class BadManifestFile(BaseException):
         super().__init__(msg)
 
 
-class UnexpectedStatusCode(BaseException):
+class UnexpectedStatusCode(BugZooException):
     """
     Indicates that the API request produced an unexpected status code.
     """
@@ -27,7 +33,7 @@ class UnexpectedStatusCode(BaseException):
         return self.__code
 
 
-class BugAlreadyBuilt(BaseException):
+class BugAlreadyBuilt(BugZooException):
     """
     Indicates that the given bug has already been installed on the server.
     """
@@ -43,7 +49,7 @@ class BugAlreadyBuilt(BaseException):
         return self.__name
 
 
-class BugNotFound(BaseException):
+class BugNotFound(BugZooException):
     """
     Indicates that no bug was found that matches the provided identifier.
     """
@@ -59,7 +65,7 @@ class BugNotFound(BaseException):
         return self.__name
 
 
-class SourceNotFoundWithURL(BaseException):
+class SourceNotFoundWithURL(BugZooException):
     """
     Indicates that no source has been found that matches a provided URL.
     """
@@ -72,7 +78,7 @@ class SourceNotFoundWithURL(BaseException):
         return self.__url
 
 
-class SourceNotFoundWithName(BaseException):
+class SourceNotFoundWithName(BugZooException):
     """
     Indicates that there exists no source registered with a given name.
     """
@@ -85,7 +91,7 @@ class SourceNotFoundWithName(BaseException):
         return self.__name
 
 
-class SourceAlreadyRegisteredWithURL(BaseException):
+class SourceAlreadyRegisteredWithURL(BugZooException):
     """
     Indicates that there exists a source that is already registered with a
     given URL.
@@ -99,7 +105,7 @@ class SourceAlreadyRegisteredWithURL(BaseException):
         return self.__url
 
 
-class NameInUseError(BaseException):
+class NameInUseError(BugZooException):
     """
     Indicates that a given name is already in use by another resource.
     """
@@ -112,7 +118,7 @@ class NameInUseError(BaseException):
         return self.__name
 
 
-class BugNotInstalledError(BaseException):
+class BugNotInstalledError(BugZooException):
     """
     Indicates that a given bug hasn't been installed.
     """
@@ -128,7 +134,7 @@ class BugNotInstalledError(BaseException):
         return self.__name
 
 
-class ImageBuildFailed(BaseException):
+class ImageBuildFailed(BugZooException):
     """
     Indicates that an attempt to build a given Docker image has failed.
     """
