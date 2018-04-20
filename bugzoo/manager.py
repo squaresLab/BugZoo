@@ -61,8 +61,8 @@ class BugZoo(object):
         self.__tools = ToolManager(self)
         self.__sources = SourceManager(self)
         self.__containers = ContainerManager(self)
+        self.__files = FileManager(self.__bugs, self.__containers)
         self.__coverage = CoverageManager(self)
-        self.__files = FileManager(self.__bugs)
 
     @property
     def docker(self):
