@@ -120,6 +120,19 @@ def is_installed_bug(uid: str):
     return (flask.jsonify(status), 200)
 
 
+@app.route('/files/<id_container>/<filepath>', methods=['GET'])
+def interact_with_file(id_container: str, filepath: str):
+    try:
+        container = daemon.containers[id_container]
+    except KeyError:
+        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+
+    try:
+        return daemon.files.read(container, filepath)
+    except KeyError:
+        return ErrorCode.FILE_NOT_FOUND.to_response()
+
+
 @app.route('/containers', methods=['GET'])
 def list_containers():
     jsn = []
@@ -148,6 +161,7 @@ def is_alive_container(uid: str):
 
     jsn = flask.jsonify(daemon.containers.is_alive(container))
     return (jsn, 200)
+
 
 @app.route('/containers/<uid>/exec', methods=['POST'])
 def exec_container(uid: str):
