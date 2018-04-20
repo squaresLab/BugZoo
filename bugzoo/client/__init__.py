@@ -1,7 +1,7 @@
 from .api import APIClient
 from .bug import BugManager
 from .container import ContainerManager
-from .files import FileManager
+from .file import FileManager
 
 
 class Client(object):
@@ -13,7 +13,7 @@ class Client(object):
         self.__api = APIClient(base_url)
         self.__bugs = BugManager(self.__api)
         self.__containers = ContainerManager(self.__api)
-        self.__files = FileManager(self.__api)
+        self.__files = FileManager(self.__api, self.__bugs)
 
     @property
     def bugs(self) -> BugManager:
