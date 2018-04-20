@@ -1,15 +1,21 @@
 from typing import Iterator, Optional
 import logging
+import os
 
 from .api import APIClient
+from .bug import BugManager
 from ..core.container import Container
 
 
 class FileManager(object):
-    def __init__(self, api: APIClient) -> None:
+    def __init__(self,
+                 api: APIClient,
+                 mgr_bug: BugManager
+                 ) -> None:
         logging.basicConfig(level=logging.DEBUG)
         self.__logger = logging.getLogger('files')
         self.__api = api
+        self.__mgr_bug = mgr_bug
 
     def read(self, container: Container, filepath: str) -> str:
         """
@@ -28,4 +34,8 @@ class FileManager(object):
         Raises:
             KeyError: if the given file was not found.
         """
-        raise NotImplementedError
+        path = "files/{}/{}".format(container.uid, filepath)
+        response = self.__api.get(path)
+        if response.status_code == 200:
+            return response.text
+        raise Exception("something bad happened!")
