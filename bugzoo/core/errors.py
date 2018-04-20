@@ -67,7 +67,7 @@ class BugZooException(Exception):
         jsn = {
             'kind': self.__class__.__name__,
             'message': self.message
-        }
+        } # type: Dict[str, Any]
         if data:
             jsn['data'] = data
         jsn = {'error': jsn}
