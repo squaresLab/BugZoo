@@ -1,3 +1,4 @@
+import sys
 from typing import Dict, List, Iterator, Any, Optional
 from copy import copy
 
@@ -6,6 +7,19 @@ class BugZooException(Exception):
     """
     Base class for all BugZoo exceptions.
     """
+    @staticmethod
+    def from_dict(d: Dict[str, Any]) -> 'BugZooException':
+        """
+        Reconstructs a BugZoo exception from a dictionary-based description.
+        """
+        assert 'error' in d
+        d = d['error']
+
+        cls = getattr(sys.modules[__name__], d['kind'])
+        assert issubclass(cls, BugZooException)
+        return cls.from_message_and_data(d['message'],
+                                         d.get('data', {}))
+
     def __init__(self, message: str) -> None:
         self.__message = message
         super().__init__(message)
@@ -16,6 +30,16 @@ class BugZooException(Exception):
         A short summary of the exception.
         """
         return self.__message
+
+    def from_message_and_data(self,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'BugZooException':
+        """
+        Reproduces an exception from the message and data contained in its
+        dictionary-based description.
+        """
+        return self.__class__(message)
 
     def to_dict(self,
                 data: Optional[Dict[str, Any]] = None
