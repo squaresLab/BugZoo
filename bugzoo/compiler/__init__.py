@@ -6,6 +6,11 @@ class CompilationOutcome(object):
     """
     Records the outcome of a compilation attempt.
     """
+    @property
+    def from_dict(jsn) -> dict:
+        command_outcome = ExecResponse.from_dict(command_outcome)
+        return CompilationOutcome(command_outcome)
+
     def __init__(self, command_outcome: ExecResponse) -> None:
         self.__command_outcome = command_outcome
 
@@ -24,6 +29,11 @@ class CompilationOutcome(object):
         False if not.
         """
         return self.__command_outcome.code == 0
+
+    def to_dict(self) -> dict:
+        return {
+            'command-outcome': self.__command_outcome.to_dict()
+        }
 
 
 class Compiler(object):
