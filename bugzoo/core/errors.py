@@ -63,32 +63,38 @@ class BugAlreadyBuilt(BugZooException):
     """
     Indicates that the given bug has already been installed on the server.
     """
-    def __init__(self, name: str) -> None:
-        self.__name = name
-        super().__init__("bug already built: {}".format(name))
+    def __init__(self, bug: str) -> None:
+        self.__bug = bug
+        super().__init__("bug already built: {}".format(bug))
 
     @property
-    def name(self) -> str:
+    def bug(self) -> str:
         """
         The name of the bug.
         """
-        return self.__name
+        return self.__bug
+
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'name': self.name})
 
 
 class BugNotFound(BugZooException):
     """
     Indicates that no bug was found that matches the provided identifier.
     """
-    def __init__(self, name: str) -> None:
-        self.__name = name
-        super().__init__("no bug found with name: {}".format(name))
+    def __init__(self, bug: str) -> None:
+        self.__bug = bug
+        super().__init__("no bug found with name: {}".format(bug))
 
     @property
-    def name(self) -> str:
+    def bug(self) -> str:
         """
         The name of the requested bug.
         """
-        return self.__name
+        return self.__bug
+
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'name': self.name})
 
 
 class SourceNotFoundWithURL(BugZooException):
@@ -103,6 +109,9 @@ class SourceNotFoundWithURL(BugZooException):
     def url(self) -> str:
         return self.__url
 
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'url': self.url})
+
 
 class SourceNotFoundWithName(BugZooException):
     """
@@ -115,6 +124,9 @@ class SourceNotFoundWithName(BugZooException):
     @property
     def name(self) -> str:
         return self.__name
+
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'name': self.name})
 
 
 class SourceAlreadyRegisteredWithURL(BugZooException):
@@ -130,6 +142,9 @@ class SourceAlreadyRegisteredWithURL(BugZooException):
     def url(self) -> str:
         return self.__url
 
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'url': self.url})
+
 
 class NameInUseError(BugZooException):
     """
@@ -142,6 +157,9 @@ class NameInUseError(BugZooException):
     @property
     def name(self) -> str:
         return self.__name
+
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'name': self.name})
 
 
 class BugNotInstalledError(BugZooException):
@@ -158,6 +176,9 @@ class BugNotInstalledError(BugZooException):
         The name of the bug that is not installed.
         """
         return self.__name
+
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'name': self.name})
 
 
 class ImageBuildFailed(BugZooException):
