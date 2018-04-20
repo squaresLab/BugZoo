@@ -49,7 +49,7 @@ class BugZooException(Exception):
     @classmethod
     def from_message_and_data(cls,
                               message: str,
-                              data: Dict[str, Any] = None
+                              data: Dict[str, Any]
                               ) -> 'BugZooException':
         """
         Reproduces an exception from the message and data contained in its
@@ -57,9 +57,11 @@ class BugZooException(Exception):
         """
         return cls(message)
 
-    def to_dict(self,
-                data: Optional[Dict[str, Any]] = None
-                ) -> Dict[str, Any]:
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {}
+
+    def to_dict(self) -> Dict[str, Any]:
         """
         Creates a dictionary-based description of this exception, ready to be
         serialised as JSON or YAML.
@@ -68,6 +70,7 @@ class BugZooException(Exception):
             'kind': self.__class__.__name__,
             'message': self.message
         } # type: Dict[str, Any]
+        data = self.data
         if data:
             jsn['data'] = data
         jsn = {'error': jsn}
@@ -88,7 +91,7 @@ class UnexpectedStatusCode(BugZooException):
     Indicates that the API request produced an unexpected status code.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'UnexpectedStatusCode':
@@ -105,8 +108,9 @@ class UnexpectedStatusCode(BugZooException):
         """
         return self.__code
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'code': self.code})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'code': self.code}
 
 
 class BugAlreadyBuilt(BugZooException):
@@ -114,7 +118,7 @@ class BugAlreadyBuilt(BugZooException):
     Indicates that the given bug has already been installed on the server.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'BugAlreadyBuilt':
@@ -131,8 +135,9 @@ class BugAlreadyBuilt(BugZooException):
         """
         return self.__bug
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'bug': self.bug})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'bug': self.bug}
 
 
 class BugNotFound(BugZooException):
@@ -140,7 +145,7 @@ class BugNotFound(BugZooException):
     Indicates that no bug was found that matches the provided identifier.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'BugNotFound':
@@ -157,8 +162,9 @@ class BugNotFound(BugZooException):
         """
         return self.__bug
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'bug': self.bug})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'bug': self.bug}
 
 
 class SourceNotFoundWithURL(BugZooException):
@@ -166,7 +172,7 @@ class SourceNotFoundWithURL(BugZooException):
     Indicates that no source has been found that matches a provided URL.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'SourceNotFoundWithURL':
@@ -180,8 +186,9 @@ class SourceNotFoundWithURL(BugZooException):
     def url(self) -> str:
         return self.__url
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'url': self.url})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'url': self.url}
 
 
 class SourceNotFoundWithName(BugZooException):
@@ -189,11 +196,11 @@ class SourceNotFoundWithName(BugZooException):
     Indicates that there exists no source registered with a given name.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'SourceNotFoundWithName':
-        return SourceNotFoundWithURL(data['name'])
+        return SourceNotFoundWithName(data['name'])
 
     def __init__(self, name: str) -> None:
         self.__name = name
@@ -203,8 +210,9 @@ class SourceNotFoundWithName(BugZooException):
     def name(self) -> str:
         return self.__name
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'name': self.name})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'name': self.name}
 
 
 class SourceAlreadyRegisteredWithURL(BugZooException):
@@ -213,7 +221,7 @@ class SourceAlreadyRegisteredWithURL(BugZooException):
     given URL.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'SourceAlreadyRegisteredWithURL':
@@ -227,8 +235,9 @@ class SourceAlreadyRegisteredWithURL(BugZooException):
     def url(self) -> str:
         return self.__url
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'url': self.url})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'url': self.url}
 
 
 class NameInUseError(BugZooException):
@@ -236,7 +245,7 @@ class NameInUseError(BugZooException):
     Indicates that a given name is already in use by another resource.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'NameInUseError':
@@ -250,8 +259,9 @@ class NameInUseError(BugZooException):
     def name(self) -> str:
         return self.__name
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'name': self.name})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'name': self.name}
 
 
 class BugNotInstalledError(BugZooException):
@@ -259,7 +269,7 @@ class BugNotInstalledError(BugZooException):
     Indicates that a given bug hasn't been installed.
     """
     @classmethod
-    def from_message_and_data(self,
+    def from_message_and_data(cls,
                               message: str,
                               data: Dict[str, Any]
                               ) -> 'BugNotInstalledError':
@@ -276,8 +286,9 @@ class BugNotInstalledError(BugZooException):
         """
         return self.__bug
 
-    def to_dict(self) -> Dict[str, Any]:
-        return super().to_dict({'bug': self.bug})
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'bug': self.bug}
 
 
 class ImageBuildFailed(BugZooException):
