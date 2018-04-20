@@ -79,7 +79,7 @@ class BugManager(object):
         if r.status_code == 204:
             return
         if r.status_code == 200:
-            raise errors.BugAlreadyBuilt(bug_id)
+            raise Exception("bug already built: {}".format(bug.name))
         # TODO: implement ImageBuildFailed.from_dict
         if r.status_code == 400:
             raise Exception("build failure")
