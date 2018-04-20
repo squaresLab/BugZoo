@@ -233,7 +233,7 @@ class ContainerManager(object):
             return ExecResponse.from_dict(r.json())
 
         if r.status_code == 404:
-            raise KeyError("no container found with given UID: {}".format(uid))
+            raise KeyError("no container found with given UID: {}".format(container.uid))
 
         raise UnexpectedAPIResponse(r)
 
