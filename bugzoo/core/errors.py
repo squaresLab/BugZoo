@@ -97,6 +97,15 @@ class UnexpectedStatusCode(BugZooException):
         """
         return self.__code
 
+    def from_message_and_data(self,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'UnexpectedStatusCode':
+        return UnexpectedStatusCode(data['code'])
+
+    def to_dict(self) -> Dict[str, Any]:
+        return super().to_dict({'code': self.code})
+
 
 class BugAlreadyBuilt(BugZooException):
     """
