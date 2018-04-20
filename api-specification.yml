@@ -6,7 +6,7 @@ info:
   title: BugZoo - API Specification
   contact:
     name: Christopher Timperley
-    url: https://github.com/ChrisTimperley/bugzoo-api-docs
+    url: https://github.com/squaresLab/BugZoo
 host: localhost
 basePath: /bugzoo
 
@@ -16,6 +16,8 @@ tags:
     description: All operations related to containers
   - name: bug
     description: All operations related to bugs
+  - name: image
+    description: All operations related to Docker images
 
 
 definitions:
@@ -40,6 +42,28 @@ definitions:
           A unique identifier for the container. If an ID was not provided by
           the user upon the creation of the container, an ID will automatically
           be generated instead.
+
+  ExecResponse:
+    type: object
+    required:
+      - code
+      - duration
+      - output
+    properties:
+      code:
+        type: number
+        format: int
+        description: >-
+          The exit code produced by the command.
+      duration:
+        type: number
+        format: float
+        description: >-
+          The number of seconds taken to execute the command.
+      output:
+        type: string
+        description: >-
+          The output produced by the command.
 
 
 paths:
@@ -88,10 +112,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Bug'
+        404:
+          description: Bug not found.
 
   /bugs/${id}/build:
     post:
-      summary: Builds a bug.
+      summary: Builds the Docker image for a bug from its blueprint.
       description: Builds the Docker image for a given bug.
       tags:
         - bug
@@ -110,6 +136,29 @@ paths:
           description: Bug already built.
         404:
           description: Bug not found.
+
+  /bugs/${id}/download:
+    post:
+      summary: Downloads the Docker image for a bug.
+      description: Downloads the Docker image for a bug from DockerHub.
+      tags:
+        - bug
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the bug.
+          required: true
+      responses:
+        204:
+          description: Successfully downloaded Docker image.
+        200:
+          description: Docker image already installed.
+        404:
+          description: Bug not found.
+
 
 ###############################################################################
 #
@@ -158,19 +207,6 @@ paths:
             $ref: '#/definitions/Container'
         404:
           description: Container not found.
-
-    post:
-      summary: Provisions a container.
-      description: Provisions a new container for a given bug.
-      tags:
-        - container
-      produces:
-        - application/json
-      responses:
-        204:
-          description: OK
-        404:
-          description: No bug exists with specified UID.
 
     delete:
       summary: Destroy container.
@@ -243,6 +279,55 @@ paths:
           description: Compilation failure.
         212:
           description: Compilation timeout.
+        404:
+          description: Container not found.
+
+  /containers/${id}/exec:
+    post:
+      summary: Executes a command inside the container.
+      description: >-
+        Executes a given command inside the container.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: '#/definitions/ExecResponse'
+        404:
+          description: Container not found.
+
+  /containers/${container-id}/alive:
+    get:
+      summary: Checks whether container is alive.
+      description: >-
+        Checks whether the underlying Docker container for a given BugZoo
+        container is alive.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: container-id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: boolean
+            description: >-
+              A flag indicating whether or not the container is alive.
         404:
           description: Container not found.
 

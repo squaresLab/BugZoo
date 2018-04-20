@@ -1,4 +1,4 @@
-from typing import List, Iterator, Tuple
+from typing import List, Iterator, Tuple, Dict, Any
 from bugzoo.testing.base import TestSuite, TestCase
 
 
@@ -61,11 +61,30 @@ class SimpleTestSuite(TestSuite):
         return (cmd, self.__context)
 
     @property
+    def command_template(self) -> str:
+        return self.__command
+
+    @property
     def time_limit(self) -> int:
         """
-        The time limit on individual test case executions, measured in seconds.
+        The maximum number of seconds that a test execution may run before
+        being terminated.
         """
         return self.__time_limit
+
+    @property
+    def context(self) -> str:
+        return self.__context
+
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'type': 'simple',
+            'command': self.command_template,
+            'context': self.context,
+            'time-limit': self.time_limit,
+            'tests': [t.name for t in self.tests]
+        }
 
 
 class GenProgTestSuite(SimpleTestSuite):
@@ -130,3 +149,13 @@ class GenProgTestSuite(SimpleTestSuite):
         The number of failing tests in the test suite.
         """
         return len(self.__failing)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'type': 'genprog',
+            'command': self.command_template,
+            'context': self.context,
+            'time-limit': self.time_limit,
+            'passing': len(self.__passing),
+            'failing': len(self.__failing)
+        }

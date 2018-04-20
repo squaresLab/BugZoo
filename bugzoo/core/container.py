@@ -1,4 +1,4 @@
-from typing import List, Iterator, Dict, Optional, Union
+from typing import List, Iterator, Dict, Optional, Union, Any
 import copy
 import os
 import tempfile
@@ -17,6 +17,15 @@ class Container(object):
     and are used to conduct studies of software bugs. Behind the scenes,
     containers are implemented as `Docker containers <https://docker.com>`_.
     """
+    @staticmethod
+    def from_dict(d: Dict[str, Any]) -> 'Container':
+        """
+        Loads a container from a dictionary-based description.
+        """
+        return Container(uid=d['uid'],
+                         bug=d['bug'],
+                         tools=d['tools'])
+
     def __init__(self,
                  uid: str,
                  bug: str,
@@ -46,12 +55,12 @@ class Container(object):
     uid = id
 
     @property
-    def tools(self) -> Iterator[str]:
+    def tools(self) -> List[str]:
         """
-        Returns an iterator over the list of the names of the tools that are
-        mounted inside this container.
+        Returns the list of the names of the tools that are mounted inside
+        this container.
         """
-        return self.__tools.__iter__()
+        return self.__tools.copy()
 
     @property
     def bug(self) -> str:
@@ -59,3 +68,14 @@ class Container(object):
         The name of the bug that was used to provision this container.
         """
         return self.__bug
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Produces a dictionary-based description of this container, ready to be
+        serialised as YAML or JSON.
+        """
+        return {
+            'uid': self.uid,
+            'bug': self.bug,
+            'tools': self.tools.copy()
+        }

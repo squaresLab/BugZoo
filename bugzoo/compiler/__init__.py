@@ -6,6 +6,11 @@ class CompilationOutcome(object):
     """
     Records the outcome of a compilation attempt.
     """
+    @property
+    def from_dict(jsn) -> 'CompilationOutcome':
+        command_outcome = ExecResponse.from_dict(command_outcome)
+        return CompilationOutcome(command_outcome)
+
     def __init__(self, command_outcome: ExecResponse) -> None:
         self.__command_outcome = command_outcome
 
@@ -24,6 +29,11 @@ class CompilationOutcome(object):
         False if not.
         """
         return self.__command_outcome.code == 0
+
+    def to_dict(self) -> dict:
+        return {
+            'command-outcome': self.__command_outcome.to_dict()
+        }
 
 
 class Compiler(object):
@@ -76,6 +86,9 @@ class Compiler(object):
         """
         raise NotImplementedError
 
+    def to_dict(self) -> dict:
+        raise NotImplementedError
+
 
 class SimpleCompiler(Compiler):
     @staticmethod
@@ -125,6 +138,21 @@ class SimpleCompiler(Compiler):
         self.__command_with_instrumentation = command_with_instrumentation
         self.__context = context
         self.__time_limit = time_limit
+
+    @property
+    def context(self) -> str:
+        """
+        The directory from which the compilation command is called.
+        """
+        return self.__context
+
+    @property
+    def time_limit(self) -> float:
+        """
+        The maximum number of seconds that the compilation allowed to run
+        before being terminated.
+        """
+        return self.__time_limit
 
     def __compile(self,
                   manager_container,
@@ -181,6 +209,16 @@ class SimpleCompiler(Compiler):
 
         return self.__compile(manager_container, container, cmd, verbose)
 
+    def to_dict(self):
+        return {
+            'type': 'simple',
+            'command': self.__command,
+            'command_clean': self.__command_clean,
+            'command_with_instrumentation': self.__command_with_instrumentation,
+            'context': self.__context,
+            'time-limit': self.time_limit
+        }
+
 
 class CatkinCompiler(SimpleCompiler):
     @staticmethod
@@ -204,6 +242,17 @@ class CatkinCompiler(SimpleCompiler):
                          context=workspace,
                          time_limit=time_limit)
 
+    @property
+    def workspace(self) -> str:
+        return self.context
+
+    def to_dict(self):
+        return {
+            'type': 'catkin',
+            'workspace': self.workspace,
+            'time-limit': self.time_limit
+        }
+
 
 class WafCompiler(SimpleCompiler):
     @staticmethod
@@ -222,6 +271,12 @@ class WafCompiler(SimpleCompiler):
                          command_with_instrumentation=cmdi,
                          context=None,
                          time_limit=time_limit)
+
+    def to_dict(self):
+        return {
+            'type': 'waf',
+            'time-limit': self.time_limit
+        }
 
 
 class ConfigureMakeCompiler(SimpleCompiler):
@@ -242,3 +297,9 @@ class ConfigureMakeCompiler(SimpleCompiler):
                          command_with_instrumentation=cmdi,
                          context=None,
                          time_limit=time_limit)
+
+    def to_dict(self):
+        return {
+            'type': 'configure-and-make',
+            'time-limit': self.time_limit
+        }
