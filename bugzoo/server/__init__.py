@@ -88,7 +88,7 @@ def provision_bug(uid: str):
         return BugNotFound(uid), 404
 
     if not daemon.bugs.is_installed(bug):
-        return ErrorCode.IMAGE_NOT_INSTALLED.to_response()
+        return ImageNotInstalled(bug.image), 400
 
     container = daemon.containers.provision(bug)
     jsn = flask.jsonify(container.to_dict())
@@ -105,7 +105,7 @@ def coverage_bug(uid: str):
         return BugNotFound(uid), 404
 
     if not daemon.bugs.is_installed(bug):
-        return ErrorCode.IMAGE_NOT_INSTALLED.to_response()
+        return ImageNotInstalled(bug.image), 400
 
     try:
         coverage = daemon.bugs.coverage(bug)
