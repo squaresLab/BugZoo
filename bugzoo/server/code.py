@@ -4,7 +4,6 @@ from enum import Enum
 
 
 class ErrorCode(Enum):
-    BUG_NOT_FOUND = ("No bug was found with the given UID.", 404)
     BUG_NOT_SPECIFIED = ("No bug ID was specified.", 400)
     BUG_ALREADY_INSTALLED = ("Bug has already been installed.", 200)
     CONTAINER_NOT_FOUND = ("No (running) container was found with the given UID.", 404)
