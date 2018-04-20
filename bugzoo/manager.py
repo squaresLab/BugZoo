@@ -11,6 +11,7 @@ from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
 from .mgr.container import ContainerManager
 from .mgr.coverage import CoverageManager
+from .mgr.file import FileManager
 
 
 class BugZoo(object):
@@ -61,6 +62,7 @@ class BugZoo(object):
         self.__sources = SourceManager(self)
         self.__containers = ContainerManager(self)
         self.__coverage = CoverageManager(self)
+        self.__files = FileManager(self.__bugs)
 
     @property
     def docker(self):
@@ -104,6 +106,13 @@ class BugZoo(object):
         The coverage manager is used to compute line coverage information.
         """
         return self.__coverage
+
+    @property
+    def files(self) -> FileManager:
+        """
+        Provides access to the file system within running containers.
+        """
+        return self.__files
 
     @property
     def sources(self) -> SourceManager:
