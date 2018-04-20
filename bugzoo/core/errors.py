@@ -1,4 +1,4 @@
-from typing import Dict, List, Iterator
+from typing import Dict, List, Iterator, Any, Optional
 from copy import copy
 
 
@@ -6,6 +6,32 @@ class BugZooException(Exception):
     """
     Base class for all BugZoo exceptions.
     """
+    def __init__(self, message: str) -> None:
+        self.__message = message
+        super().__init__(message)
+
+    @property
+    def message(self) -> str:
+        """
+        A short summary of the exception.
+        """
+        return self.__message
+
+    def to_dict(self,
+                data: Optional[Dict[str, Any]] = None
+                ) -> Dict[str, Any]:
+        """
+        Creates a dictionary-based description of this exception, ready to be
+        serialised as JSON or YAML.
+        """
+        jsn = {
+            'kind': self.__class__.__name__,
+            'message': self.message
+        }
+        if data:
+            jsn['data'] = data
+        jsn = {'error': jsn}
+        return jsn
 
 
 class BadManifestFile(BugZooException):
