@@ -7,7 +7,7 @@ class CompilationOutcome(object):
     Records the outcome of a compilation attempt.
     """
     @property
-    def from_dict(jsn) -> dict:
+    def from_dict(jsn) -> 'CompilationOutcome':
         command_outcome = ExecResponse.from_dict(command_outcome)
         return CompilationOutcome(command_outcome)
 
