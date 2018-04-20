@@ -35,3 +35,10 @@ class FileManager(object):
                 return fh.read()
         finally:
             os.remove(fn_host)
+
+    def delete(self,
+               container: Container,
+               filepath: str,
+               force: bool = False
+               ) -> None:
+        raise NotImplementedError
