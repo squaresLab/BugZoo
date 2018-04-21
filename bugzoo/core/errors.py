@@ -429,3 +429,18 @@ class FileNotFound(BugZooException):
     @property
     def data(self) -> Dict[str, Any]:
         return {'path': self.path}
+
+
+class BugNotSpecified(BugZooException):
+    """
+    A bug was expected but none was specified.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'BugNotSpecified':
+        return BugNotSpecified()
+
+    def __init__(self) -> None:
+        super().__init__("no bug was specified.")

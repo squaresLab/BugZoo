@@ -257,7 +257,7 @@ def provision_container():
     args = flask.request.get_json()
 
     if 'bug-uid' not in args:
-        return ErrorCode.BUG_NOT_SPECIFIED.to_response()
+        return BugNotSpecified(), 400
     bug_uid = args['bug-uid']
 
     try:
