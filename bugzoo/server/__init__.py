@@ -209,7 +209,7 @@ def exec_container(uid: str):
     # TODO: generic bad request error
     args = flask.request.get_json() # type: Dict[str, Any]
     if 'command' not in args:
-        return ErrorCode.COMMAND_NOT_SPECIFIED.to_response()
+        return ArgumentNotSpecified("command"), 400
 
     cmd = args['command']
     context = args.get('context')
@@ -257,7 +257,7 @@ def provision_container():
     args = flask.request.get_json()
 
     if 'bug-uid' not in args:
-        return BugNotSpecified(), 400
+        return ArgumentNotSpecified("bug"), 400
     bug_uid = args['bug-uid']
 
     try:

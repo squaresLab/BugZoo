@@ -5,7 +5,6 @@ from enum import Enum
 
 class ErrorCode(Enum):
     FAILED_TO_COMPUTE_COVERAGE = ("Failed to compute coverage.", 500)
-    COMMAND_NOT_SPECIFIED = ("No command was specified.", 422)
 
     def __init__(self, message: str, status_code: int) -> None:
         self.__message = message
