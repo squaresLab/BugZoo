@@ -69,7 +69,7 @@ def build_bug(uid: str):
     # is the bug already installed?
     # TODO add ability to force rebuild
     if daemon.bugs.is_installed(bug):
-        return ErrorCode.BUG_ALREADY_INSTALLED.to_response()
+        return BugAlreadyBuilt(uid), 409
 
     try:
         daemon.bugs.build(bug)
