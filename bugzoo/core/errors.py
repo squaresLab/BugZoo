@@ -167,6 +167,33 @@ class BugNotFound(BugZooException):
         return {'bug': self.bug}
 
 
+class ContainerNotFound(BugZooException):
+    """
+    Indicates that no running container was found with a given identifier.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'ContainerNotFound':
+        return ContainerNotFound(data['uid'])
+
+    def __init__(self, uid: str) -> None:
+        self.__uid = uid
+        super().__init__("no container found with uid: {}".format(uid))
+
+    @property
+    def uid(self) -> str:
+        """
+        The uid of the container.
+        """
+        return self.__uid
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'uid': self.uid}
+
+
 class SourceNotFoundWithURL(BugZooException):
     """
     Indicates that no source has been found that matches a provided URL.
@@ -304,7 +331,7 @@ class ImageNotInstalled(BugZooException):
 
     def __init__(self, image: str) -> None:
         self.__image = image
-        super().__init__(image)
+        super().__init__("Docker image is not installed: {}".format(image))
 
     @property
     def image(self) -> str:

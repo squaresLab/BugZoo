@@ -122,7 +122,7 @@ def test_container(id_container: str, id_test: str):
     try:
         container = daemon.containers[id_container]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(id_container), 404
 
     try:
         bug = daemon.bugs[container.bug]
@@ -158,7 +158,7 @@ def interact_with_file(id_container: str, filepath: str):
     try:
         container = daemon.containers[id_container]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(id_container), 404
 
     try:
         return daemon.files.read(container, filepath)
@@ -180,7 +180,7 @@ def show_container(uid: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
     jsn = flask.jsonify(container.to_dict())
     return (jsn, 200)
@@ -192,7 +192,7 @@ def is_alive_container(uid: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
     jsn = flask.jsonify(daemon.containers.is_alive(container))
     return (jsn, 200)
@@ -204,7 +204,7 @@ def exec_container(uid: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
     # TODO: generic bad request error
     args = flask.request.get_json() # type: Dict[str, Any]
@@ -248,7 +248,7 @@ def delete_container(uid: str):
         daemon.containers.delete(uid)
         return ('', 204)
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
 
 @app.route('/containers', methods=['POST'])
