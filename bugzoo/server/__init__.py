@@ -163,7 +163,7 @@ def interact_with_file(id_container: str, filepath: str):
     try:
         return daemon.files.read(container, filepath)
     except KeyError:
-        return ErrorCode.FILE_NOT_FOUND.to_response()
+        return FileNotFound(filepath), 404
 
 
 @app.route('/containers', methods=['GET'])

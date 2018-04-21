@@ -402,3 +402,30 @@ class TestNotFound(BugZooException):
     @property
     def data(self) -> Dict[str, Any]:
         return {'uid': self.uid}
+
+
+class FileNotFound(BugZooException):
+    """
+    Indicates that no file was found at the given path.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'FileNotFound':
+        return FileNotFound(data['path'])
+
+    def __init__(self, path: str) -> None:
+        self.__path = path
+        super().__init__("no file found at path: {}".format(path))
+
+    @property
+    def path(self) -> str:
+        """
+        The path of the missing file.
+        """
+        return self.__path
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'path': self.path}
