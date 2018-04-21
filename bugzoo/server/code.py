@@ -4,7 +4,6 @@ from enum import Enum
 
 
 class ErrorCode(Enum):
-    IMAGE_NOT_INSTALLED = ("Image not installed.", 500)
     FAILED_TO_COMPUTE_COVERAGE = ("Failed to compute coverage.", 500)
     COMMAND_NOT_SPECIFIED = ("No command was specified.", 422)
 
