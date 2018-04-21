@@ -375,3 +375,30 @@ class ImageBuildFailed(BugZooException):
     def data(self) -> Dict[str, Any]:
         return {'image': self.image,
                 'log': list(self.log)}
+
+
+class TestNotFound(BugZooException):
+    """
+    Indicates that no test was found with the given identifier.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'TestNotFound':
+        return TestNotFound(data['uid'])
+
+    def __init__(self, uid: str) -> None:
+        self.__uid = uid
+        super().__init__("no test found with uid: {}".format(uid))
+
+    @property
+    def uid(self) -> str:
+        """
+        The uid of the test.
+        """
+        return self.__uid
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'uid': self.uid}

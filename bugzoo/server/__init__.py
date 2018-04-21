@@ -132,7 +132,7 @@ def test_container(id_container: str, id_test: str):
     try:
         test = bug.harness[id_test]
     except KeyError:
-        return ErrorCode.TEST_NOT_FOUND.to_response()
+        return TestNotFound(id_test), 404
 
     outcome = daemon.containers.test(container, test)
 
