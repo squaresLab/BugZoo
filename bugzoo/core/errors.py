@@ -1,6 +1,5 @@
 import sys
 from typing import Dict, List, Iterator, Any, Optional
-from copy import copy
 
 
 __ALL__ = [
@@ -350,25 +349,29 @@ class ImageBuildFailed(BugZooException):
     Indicates that an attempt to build a given Docker image has failed.
     """
     def __init__(self,
-                 image_name: str,
-                 log: List[Dict[str, str]]
+                 image: str,
+                 log: List[str]
                  ) -> None:
-        self.__image_name = image_name
-        self.__log = copy(log)
-        msg = "failed to build image: {}".format(image_name)
-        super().__init__(image_name)
+        self.__image = image
+        self.__log = log.copy()
+        msg = "failed to build Docker image: {}".format(image)
+        super().__init__(msg)
 
     @property
-    def image_name(self) -> str:
+    def image(self) -> str:
         """
         The name of the image that failed to build.
         """
-        return self.__image_name
+        return self.__image
 
     @property
-    def log(self) -> Iterator[Dict[str, str]]:
+    def log(self) -> Iterator[str]:
         """
         A log of the failed build attempt.
         """
-        for entry in self.__log:
-            yield entry
+        return self.__log.__iter__()
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'image': self.image,
+                'log': list(self.log)}

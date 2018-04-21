@@ -73,8 +73,8 @@ def build_bug(uid: str):
 
     try:
         daemon.bugs.build(bug)
-    except ImageBuildFailed as e:
-        return ErrorCode.IMAGE_BUILD_FAILED.to_response()
+    except ImageBuildFailed as err:
+        return err, 500
 
     return ('', 204)
 

@@ -110,14 +110,14 @@ class BuildManager(object):
                                                decode=True,
                                                rm=True)
 
-            # TODO: flatten to list of strings
-            log = []
+            log = [] # type: List[str]
             for line in response:
                 if 'stream' in line:
-                    log.append(line)
+                    line_msg = line['stream'].rstrip()
+                    log.append(line_msg)
                     if not quiet:
-                        print(line['stream'].rstrip())
-                    if line['stream'].startswith('Successfully built'):
+                        print(line_msg)
+                    if line_msg.startswith('Successfully built'):
                         success = True
 
             if not success:
