@@ -6,7 +6,7 @@ import json
 import docker
 
 from ..core.build import BuildInstructions
-from ..core.errors import ImageBuildFailed
+from ..exceptions import ImageBuildFailed
 
 
 class BuildManager(object):

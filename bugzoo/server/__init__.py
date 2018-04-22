@@ -3,7 +3,7 @@ from functools import wraps
 import flask
 
 from ..manager import BugZoo
-from ..core.errors import *
+from ..exceptions import *
 
 daemon = None # type: BugZoo
 app = flask.Flask(__name__)

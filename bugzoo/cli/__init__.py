@@ -5,7 +5,7 @@ from operator import itemgetter
 
 import tabulate
 
-import bugzoo.core.errors
+import bugzoo.exceptions
 import bugzoo.version
 from ..core.source import RemoteSource
 from ..manager import BugZoo
@@ -43,7 +43,7 @@ def add_source(rbox: 'BugZoo', name: str, url_or_path: str) -> None:
     try:
         rbox.sources.add(name, url_or_path)
         print('added source: {} -> {}'.format(name, url_or_path))
-    except bugzoo.core.errors.NameInUseError:
+    except bugzoo.exceptions.NameInUseError:
         print('source already registered with name: {}'.format(name))
 
 
@@ -295,7 +295,7 @@ def launch(bz: 'BugZoo',
         if interactive:
             bz.containers.interact(c)
 
-    except bugzoo.core.errors.BugNotInstalledError:
+    except bugzoo.exceptions.BugNotInstalledError:
         error("bug not installed: {}".format(bug_name))
 
     # ensure that the container is always destroyed

@@ -12,6 +12,7 @@ import shutil
 import glob
 
 from .build import BuildManager
+from ..exceptions import NameInUseError, BadManifestFile
 from ..compiler import Compiler
 from ..testing.base import TestSuite
 from ..core.language import Language
@@ -19,7 +20,6 @@ from ..core.bug import Bug
 from ..core.build import BuildInstructions
 from ..core.tool import Tool
 from ..core.source import Source, SourceContents, RemoteSource, LocalSource
-from ..core.errors import NameInUseError, BadManifestFile
 
 
 class SourceManager(object):
