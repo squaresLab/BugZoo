@@ -1,12 +1,38 @@
 from typing import Dict, Any
+from functools import wraps
 import flask
 
 from ..manager import BugZoo
-from ..core.errors import ImageBuildFailed
-from bugzoo.server.code import ErrorCode
+from ..exceptions import *
 
 daemon = None # type: BugZoo
 app = flask.Flask(__name__)
+
+
+def throws_errors(func):
+    """
+    Wraps a function responsible for implementing an API endpoint such that
+    any server errors that are thrown are automatically transformed into
+    appropriate HTTP responses.
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        response = func(*args, **kwargs)
+
+        # if no status code is provided, assume 400
+        if isinstance(response, BugZooException):
+            err_jsn = flask.jsonify(response.to_dict())
+            return err_jsn, 400
+
+        if isinstance(response, tuple) \
+           and isinstance(response[0], BugZooException):
+            err = response[0] # type: BugZooException
+            err_jsn = flask.jsonify(err.to_dict())
+            return (err_jsn, response[1:])
+
+        return response
+
+    return wrapper
 
 
 @app.route('/bugs', methods=['GET'])
@@ -32,34 +58,36 @@ def show_bug(uid: str):
 
 # TODO return a job ID
 @app.route('/bugs/<uid>/build', methods=['POST'])
+@throws_errors
 def build_bug(uid: str):
     try:
         bug = daemon.bugs[uid]
     except KeyError:
-        return ErrorCode.BUG_NOT_FOUND.to_response()
+        return BugNotFound(uid), 404
 
     # is the bug already installed?
     # TODO add ability to force rebuild
     if daemon.bugs.is_installed(bug):
-        return ErrorCode.BUG_ALREADY_INSTALLED.to_response()
+        return BugAlreadyBuilt(uid), 409
 
     try:
         daemon.bugs.build(bug)
-    except ImageBuildFailed as e:
-        return ErrorCode.IMAGE_BUILD_FAILED.to_response()
+    except ImageBuildFailed as err:
+        return err, 500
 
     return ('', 204)
 
 
 @app.route('/bugs/<uid>/provision', methods=['POST'])
+@throws_errors
 def provision_bug(uid: str):
     try:
         bug = daemon.bugs[uid]
     except KeyError:
-        return ErrorCode.BUG_NOT_FOUND.to_response()
+        return BugNotFound(uid), 404
 
     if not daemon.bugs.is_installed(bug):
-        return ErrorCode.IMAGE_NOT_INSTALLED.to_response()
+        return ImageNotInstalled(bug.image), 400
 
     container = daemon.containers.provision(bug)
     jsn = flask.jsonify(container.to_dict())
@@ -68,40 +96,43 @@ def provision_bug(uid: str):
 
 
 @app.route('/bugs/<uid>/coverage', methods=['POST'])
+@throws_errors
 def coverage_bug(uid: str):
     try:
         bug = daemon.bugs[uid]
     except KeyError:
-        return ErrorCode.BUG_NOT_FOUND.to_response()
+        return BugNotFound(uid), 404
 
     if not daemon.bugs.is_installed(bug):
-        return ErrorCode.IMAGE_NOT_INSTALLED.to_response()
+        return ImageNotInstalled(bug.image), 400
 
     try:
         coverage = daemon.bugs.coverage(bug)
+    # TODO: work on this
     except:
-        return ErrorCode.FAILED_TO_COMPUTE_COVERAGE.to_response()
+        return FailedToComputeCoverage("unknown reason"), 500
 
     jsn = flask.jsonify(coverage.to_dict())
     return (jsn, 200)
 
 
 @app.route('/containers/<id_container>/test/<id_test>', methods=['POST'])
+@throws_errors
 def test_container(id_container: str, id_test: str):
     try:
         container = daemon.containers[id_container]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(id_container), 404
 
     try:
         bug = daemon.bugs[container.bug]
     except KeyError:
-        return ErrorCode.BUG_NOT_FOUND.to_response()
+        return BugNotFound(container.bug), 500
 
     try:
         test = bug.harness[id_test]
     except KeyError:
-        return ErrorCode.TEST_NOT_FOUND.to_response()
+        return TestNotFound(id_test), 404
 
     outcome = daemon.containers.test(container, test)
 
@@ -110,14 +141,30 @@ def test_container(id_container: str, id_test: str):
 
 
 @app.route('/bugs/<uid>/installed', methods=['GET'])
+@throws_errors
 def is_installed_bug(uid: str):
     try:
         bug = daemon.bugs[uid]
     except KeyError:
-        return ErrorCode.BUG_NOT_FOUND.to_response()
+        return BugNotFound(uid), 404
 
     status = daemon.bugs.is_installed(bug)
     return (flask.jsonify(status), 200)
+
+
+@app.route('/files/<id_container>/<filepath>', methods=['GET'])
+@throws_errors
+def interact_with_file(id_container: str, filepath: str):
+    try:
+        container = daemon.containers[id_container]
+    except KeyError:
+        return ContainerNotFound(id_container), 404
+
+    if flask.request.method == 'GET':
+        try:
+            return daemon.files.read(container, filepath)
+        except KeyError:
+            return FileNotFound(filepath), 404
 
 
 @app.route('/containers', methods=['GET'])
@@ -129,37 +176,41 @@ def list_containers():
 
 
 @app.route('/containers/<uid>', methods=['GET'])
+@throws_errors
 def show_container(uid: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
     jsn = flask.jsonify(container.to_dict())
     return (jsn, 200)
 
 
 @app.route('/containers/<uid>/alive', methods=['GET'])
+@throws_errors
 def is_alive_container(uid: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
     jsn = flask.jsonify(daemon.containers.is_alive(container))
     return (jsn, 200)
 
+
 @app.route('/containers/<uid>/exec', methods=['POST'])
+@throws_errors
 def exec_container(uid: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
     # TODO: generic bad request error
     args = flask.request.get_json() # type: Dict[str, Any]
     if 'command' not in args:
-        return ErrorCode.COMMAND_NOT_SPECIFIED.to_response()
+        return ArgumentNotSpecified("command"), 400
 
     cmd = args['command']
     context = args.get('context')
@@ -192,29 +243,31 @@ def exec_container(uid: str):
 
 # TODO: deal with race condition
 @app.route('/containers/<uid>', methods=['DELETE'])
+@throws_errors
 def delete_container(uid: str):
     try:
         daemon.containers.delete(uid)
         return ('', 204)
     except KeyError:
-        return ErrorCode.CONTAINER_NOT_FOUND.to_response()
+        return ContainerNotFound(uid), 404
 
 
 @app.route('/containers', methods=['POST'])
+@throws_errors
 def provision_container():
     args = flask.request.get_json()
 
     if 'bug-uid' not in args:
-        return ErrorCode.BUG_NOT_SPECIFIED.to_response()
+        return ArgumentNotSpecified("bug"), 400
     bug_uid = args['bug-uid']
 
     try:
         bug = daemon.bugs[bug_uid]
-        c = daemon.containers.provision(bug)
-        return (flask.jsonify(c.uid), 201)
-
     except KeyError:
-        return ErrorCode.BUG_NOT_FOUND.to_response()
+        return BugNotFound(bug_uid), 404
+
+    c = daemon.containers.provision(bug)
+    return (flask.jsonify(c.uid), 201)
 
 
 def run(port: int = 6060) -> None:
