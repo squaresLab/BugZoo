@@ -14,7 +14,11 @@ __all__ = [
     'NameInUseError',
     'BugNotInstalledError',
     'ImageBuildFailed',
-    'FailedToComputeCoverage'
+    'FailedToComputeCoverage',
+    'ContainedNotFound',
+    'FileNotFound',
+    'ArgumentNotSpecified',
+    'ImageNotInstalled'
 ]
 
 
