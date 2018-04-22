@@ -1,7 +1,8 @@
 import unittest
-import bugzoo.cli
+
 import bugzoo
-from bugzoo.core.errors import SourceNotFoundWithURL
+import bugzoo.cli
+from bugzoo.exceptions import *
 
 
 class CLITestCase(unittest.TestCase):
