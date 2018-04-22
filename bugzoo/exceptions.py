@@ -2,7 +2,7 @@ import sys
 from typing import Dict, List, Iterator, Any, Optional
 
 
-__ALL__ = [
+__all__ = [
     'BugZooException',
     'BadManifestFile',
     'UnexpectedStatusCode',
