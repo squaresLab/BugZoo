@@ -160,10 +160,11 @@ def interact_with_file(id_container: str, filepath: str):
     except KeyError:
         return ContainerNotFound(id_container), 404
 
-    try:
-        return daemon.files.read(container, filepath)
-    except KeyError:
-        return FileNotFound(filepath), 404
+    if flask.request.method == 'GET':
+        try:
+            return daemon.files.read(container, filepath)
+        except KeyError:
+            return FileNotFound(filepath), 404
 
 
 @app.route('/containers', methods=['GET'])
