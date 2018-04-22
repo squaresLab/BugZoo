@@ -4,7 +4,6 @@ import flask
 
 from ..manager import BugZoo
 from ..core.errors import *
-from bugzoo.server.code import ErrorCode
 
 daemon = None # type: BugZoo
 app = flask.Flask(__name__)
@@ -109,8 +108,9 @@ def coverage_bug(uid: str):
 
     try:
         coverage = daemon.bugs.coverage(bug)
+    # TODO: work on this
     except:
-        return ErrorCode.FAILED_TO_COMPUTE_COVERAGE.to_response()
+        return FailedToComputeCoverage("unknown reason"), 500
 
     jsn = flask.jsonify(coverage.to_dict())
     return (jsn, 200)

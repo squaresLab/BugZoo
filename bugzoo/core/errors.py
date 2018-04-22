@@ -13,7 +13,8 @@ __ALL__ = [
     'SourceAlreadyRegisteredWithURL',
     'NameInUseError',
     'BugNotInstalledError',
-    'ImageBuildFailed'
+    'ImageBuildFailed',
+    'FailedToComputeCoverage'
 ]
 
 
@@ -456,3 +457,31 @@ class ArgumentNotSpecified(BugZooException):
     @property
     def data(self) -> Dict[str, Any]:
         return {'argument': self.argument}
+
+
+class FailedToComputeCoverage(BugZooException):
+    """
+    An error was encountered inside the container whilst attempting to collect
+    its coverage information.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'FailedToComputeCoverage':
+        return FailedToComputeCoverage(data['reason'])
+
+    def __init__(self, reason: str) -> None:
+        self.__reason = reason
+        super().__init__("failed to compute coverage: {}.".format(reason))
+
+    @property
+    def reason(self) -> str:
+        """
+        The reason, if any, that BugZoo failed to compute coverage information.
+        """
+        return self.__reason
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'reason': self.reason}
