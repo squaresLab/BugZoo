@@ -15,7 +15,7 @@ __all__ = [
     'BugNotInstalledError',
     'ImageBuildFailed',
     'FailedToComputeCoverage',
-    'ContainedNotFound',
+    'ContainerNotFound',
     'FileNotFound',
     'ArgumentNotSpecified',
     'ImageNotInstalled'
