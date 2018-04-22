@@ -18,7 +18,8 @@ __all__ = [
     'ContainerNotFound',
     'FileNotFound',
     'ArgumentNotSpecified',
-    'ImageNotInstalled'
+    'ImageNotInstalled',
+    'TestNotFound'
 ]
 
 
