@@ -5,7 +5,7 @@ import json
 
 import git
 
-import bugzoo.core.errors
+from ..exceptions import *
 
 
 class SourceContents(object):
