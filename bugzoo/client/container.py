@@ -256,3 +256,18 @@ class ContainerManager(object):
         r = self.__api.patch(path, payload)
 
         return r.status_code == 204
+
+    def persist(self, container: Container, image_name: str) -> None:
+        """
+        Persists the state of a given container as a Docker image on the
+        server.
+
+        Parameters:
+            container: the container that should be persisted.
+            image_name: the name of the Docker image that should be created.
+
+        Raises:
+            ContainerNotFound: if the given container does not exist on the
+                server.
+        """
+        raise NotImplementedError
