@@ -3,6 +3,8 @@ from .bug import BugManager
 from .container import ContainerManager
 from .file import FileManager
 
+__all__ = ['Client']
+
 
 class Client(object):
     def __init__(self,
