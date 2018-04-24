@@ -12,6 +12,7 @@ __all__ = [
     'UnexpectedServerError',
     'UnexpectedStatusCode',
     'BugAlreadyBuilt',
+    'BugAlreadyExists',
     'BugNotFound',
     'SourceNotFoundWithURL',
     'SourceNotFoundWithName',
@@ -89,6 +90,13 @@ class BugZooException(Exception):
 
 
 class UnexpectedServerError(BugZooException):
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'UnexpectedServerError':
+        return UnexpectedServerError(data['kind'], data['message'])
+
     @staticmethod
     def from_exception(exception: Exception) -> 'UnexpectedServerError':
         cls_name = exception.__class__.__name__
@@ -163,9 +171,36 @@ class UnexpectedStatusCode(BugZooException):
         return {'code': self.code}
 
 
-class BugAlreadyBuilt(BugZooException):
+class BugAlreadyExists(BugZooException):
     """
     Indicates that the given bug has already been installed on the server.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'BugAlreadyExists':
+        return BugAlreadyExists(data['bug'])
+
+    def __init__(self, bug: str) -> None:
+        self.__bug = bug
+        super().__init__("bug already exists: {}".format(bug))
+
+    @property
+    def bug(self) -> str:
+        """
+        The name of the bug.
+        """
+        return self.__bug
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'bug': self.bug}
+
+
+class BugAlreadyBuilt(BugZooException):
+    """
+    Indicates that there already exists a bug with a given name.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -188,8 +223,6 @@ class BugAlreadyBuilt(BugZooException):
     @property
     def data(self) -> Dict[str, Any]:
         return {'bug': self.bug}
-
-
 class BugNotFound(BugZooException):
     """
     Indicates that no bug was found that matches the provided identifier.
