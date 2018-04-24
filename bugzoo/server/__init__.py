@@ -206,9 +206,16 @@ def persist(uid: str, name_image: str):
     except KeyError:
         return ContainerNotFound(uid), 404
 
-    return '', 501
-    # ensure the image name isn't already being used
-    # TODO throw 409
+    try:
+        daemon.containers.persist(container, name_image)
+        return '', 204
+    except ImageAlreadyExists as err:
+        return err, 409
+    except BugZooException as err:
+        return err, 400
+    # TODO handle unexpected exceptions
+    except Exception as err:
+        return '', 501
 
 
 @app.route('/containers/<uid>/alive', methods=['GET'])
