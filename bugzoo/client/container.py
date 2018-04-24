@@ -4,6 +4,7 @@ import logging
 from .api import APIClient
 from .errors import UnexpectedAPIResponse
 from ..compiler import CompilationOutcome
+from ..core.patch import Patch
 from ..core.bug import Bug
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
@@ -238,3 +239,17 @@ class ContainerManager(object):
         raise UnexpectedAPIResponse(r)
 
     command = exec
+
+    def patch(self, container: Container, patch: Patch) -> bool:
+        """
+        Attempts to apply a given patch to the source code for a program inside
+        a given container. All patch applications are guaranteed to be atomic;
+        if the patch fails to apply, no changes will be made to the relevant
+        source code files.
+
+        Returns:
+            true if patch application was successful, and false if the attempt
+            was unsuccessful.
+        """
+        path = "containers/{}".format(container.uid)
+        raise NotImplementedError
