@@ -200,7 +200,7 @@ def interact_with_container(uid: str):
 
 @app.route('/containers/<uid>/persist/<name_image>', methods=['GET'])
 @throws_errors
-def is_alive_container(uid: str, name_image: str):
+def persist(uid: str, name_image: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
