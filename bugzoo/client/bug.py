@@ -67,7 +67,11 @@ class BugManager(object):
             BugAlreadyExists: if there is already a bug registered on the
                 server under the same name as this bug.
         """
-        raise NotImplementedError
+        path = "bugs/{}".format(bug.name)
+        payload = bug.to_dict()
+        r = self.__api.put(path, json=payload)
+        if r.status_code != 204:
+            self.__api.handle_erroneous_response(r)
 
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
