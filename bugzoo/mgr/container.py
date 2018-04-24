@@ -452,4 +452,6 @@ class ContainerManager(object):
             ImageAlreadyExists: if the image name is already in use by another
                 Docker image on this server.
         """
-        raise NotImplementedError
+        docker_container = self.__dockerc[container.uid]
+        # TODO check if image already exists
+        docker_container.commit(tag=image)
