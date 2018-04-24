@@ -262,4 +262,7 @@ class ContainerManager(object):
             ImageAlreadyExists: if the given image name is already in use by
                 another Docker image on the server.
         """
-        raise NotImplementedError
+        path = "containers/{}/persist/{}".format(container.uid, image_name)
+        r = self.__api.post(path)
+        if r.status_code != 204:
+            self.__api.handle_erroneous_response()
