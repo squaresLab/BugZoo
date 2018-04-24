@@ -39,7 +39,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def __delitem__(self, uid: str) -> None:
         """
@@ -60,7 +60,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def __contains__(self, uid: str) -> bool:
         """
@@ -91,14 +91,12 @@ class ContainerManager(object):
             assert all(isinstance(n, str) for n in ids)
             return ids.__iter__()
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def provision(self, bug: Bug) -> Container:
-        # FIXME bad URI
         self.__logger.info("provisioning container for bug: %s", bug.name)
         r = self.__api.post('bugs/{}/provision'.format(bug.name))
 
-        # FIXME bad code
         if r.status_code == 200:
             container = Container.from_dict(r.json())
             self.__logger.info("provisioned container (id: %s) for bug: %s",
@@ -109,8 +107,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no bug registered with given name: {}".format(bug.name))
 
-        # TODO catch bug not built error
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def is_alive(self, container: Container) -> bool:
         """
@@ -125,7 +122,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def compile(self,
                 container: Container,
@@ -155,7 +152,8 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("container or test case not found")
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
+
 
     def test(self,
              container: Container,
@@ -180,13 +178,7 @@ class ContainerManager(object):
 
         if r.status_code == 200:
             return TestOutcome.from_dict(r.json())
-
-        # FIXME does 404 imply that the container doesn't exist or that the
-        #   test doesn't exist? we need to examine the body of the response.
-        if r.status_code == 404:
-            raise KeyError("container or test case not found")
-
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def exec(self,
              container: Container,
@@ -232,11 +224,10 @@ class ContainerManager(object):
 
         if r.status_code == 200:
             return ExecResponse.from_dict(r.json())
-
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(container.uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     command = exec
 

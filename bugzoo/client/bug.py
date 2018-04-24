@@ -2,7 +2,6 @@ from typing import Iterator
 import logging
 
 from .api import APIClient
-from .errors import UnexpectedAPIResponse
 from ..core.bug import Bug
 from ..core.coverage import TestSuiteCoverage
 
@@ -24,7 +23,7 @@ class BugManager(object):
             raise KeyError("no bug found with given name: {}".format(name))
 
         self.__logger.info("Unexpected API response when retrieving bug: %s", name)
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def __iter__(self) -> Iterator[str]:
         """
@@ -39,7 +38,7 @@ class BugManager(object):
             assert all(isinstance(n, str) for n in names)
             return names.__iter__()
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def is_installed(self, bug: Bug) -> bool:
         """
@@ -55,7 +54,7 @@ class BugManager(object):
         if r.status_code == 404:
             raise KeyError("no bug found with given name: {}".format(bug.name))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
@@ -86,4 +85,4 @@ class BugManager(object):
         if r.status_code == 404:
           raise KeyError("no bug found with given name: {}".format(bug.name))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
