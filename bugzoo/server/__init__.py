@@ -53,6 +53,7 @@ def interact_with_bug(uid: str):
         try:
             bug = daemon.bugs[uid]
             jsn = bug.to_dict()
+            return flask.jsonify(jsn), 200
         except KeyError:
             return BugNotFound(uid), 404
 
