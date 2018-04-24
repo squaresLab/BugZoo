@@ -2,6 +2,7 @@ from typing import Dict, Any
 from functools import wraps
 import flask
 
+from ..core.bug import Bug
 from ..core.patch import Patch
 from ..manager import BugZoo
 from ..exceptions import *
@@ -44,17 +45,27 @@ def list_bugs():
     return flask.jsonify(jsn)
 
 
-@app.route('/bugs/<uid>', methods=['GET'])
-def show_bug(uid: str):
-    jsn = {} # type: Dict[Any, Any]
-    try:
-        bug = daemon.bugs[uid]
-        jsn = bug.to_dict()
-    except KeyError:
-        # not found
-        jsn = {'error': {'code': 'BLAH',
-                         'message': 'No bug found with given UID.'}}
-    return flask.jsonify(jsn)
+@app.route('/bugs/<uid>', methods=['GET', 'PUT'])
+@throws_errors
+def interact_with_bug(uid: str):
+    if flask.request.method == 'GET':
+        jsn = {} # type: Dict[Any, Any]
+        try:
+            bug = daemon.bugs[uid]
+            jsn = bug.to_dict()
+            return flask.jsonify(jsn), 200
+        except KeyError:
+            return BugNotFound(uid), 404
+
+    if flask.request.method == 'PUT':
+        try:
+            bug = Bug.from_dict(flask.request.json)
+        # FIXME improve error handling
+        except Exception as ex:
+            return UnexpectedServerError.from_exception(ex), 500
+
+        daemon.bugs.register(bug)
+        return '', 204
 
 
 # TODO return a job ID
@@ -301,7 +312,7 @@ def provision_container():
     return (flask.jsonify(c.uid), 201)
 
 
-@app.route('/docker/images/<name>', methods=['DELETE'])
+@app.route('/docker/images/<path:name>', methods=['DELETE'])
 @throws_errors
 def docker_images(name: str):
     try:
