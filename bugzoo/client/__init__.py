@@ -2,7 +2,7 @@ from .api import APIClient
 from .bug import BugManager
 from .container import ContainerManager
 from .file import FileManager
-from .docker import DockerManager
+from .dockerm import DockerManager
 
 __all__ = ['Client']
 
