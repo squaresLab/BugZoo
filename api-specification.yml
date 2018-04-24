@@ -135,6 +135,30 @@ paths:
         404:
           description: Bug not found.
 
+    put:
+      summary: Registers a bug with the server.
+      description: Registers a given bug with this server.
+      tags:
+        - bug
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the bug.
+          required: true
+        - in: body
+          name: Parameters
+          required: true
+          schema:
+            $ref: '#/definitions/Bug'
+      responses:
+        204:
+          description: The bug was successfully registered.
+        400:
+          description: The bug description is invalid.
+
   /bugs/${id}/build:
     post:
       summary: Builds the Docker image for a bug from its blueprint.
