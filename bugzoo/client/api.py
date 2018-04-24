@@ -1,8 +1,8 @@
 from typing import Optional, Any
+import logging
 
 import requests
 import urllib.parse
-import logging
 
 
 class APIClient(object):
@@ -34,6 +34,15 @@ class APIClient(object):
         url = self._url(path)
         self.__logger.info('POST: %s', url)
         return requests.post(url, json=json)
+
+    def patch(self,
+              path: str,
+              data,
+              **kwargs
+              ) -> requests.Response:
+        url = self._url(path)
+        self.__logger.info('PATCH: %s', url)
+        return requests.patch(url, data=data, **kwargs)
 
     def delete(self,
                path: str,
