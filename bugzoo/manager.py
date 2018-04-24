@@ -3,7 +3,8 @@ import os
 import logging
 import time
 
-import docker
+from docker import DocketClient
+from docker import from_env as docker_client_from_env
 
 from .mgr.build import BuildManager
 from .mgr.source import SourceManager
@@ -55,7 +56,7 @@ class BugZoo(object):
         self.__logger.setLevel(logging.DEBUG)
         self.__logger.info('Logging to: %s', log_fn)
 
-        self.__docker = docker.from_env(timeout=120)
+        self.__docker = docker_client_from_env(timeout=120)
         self.__mgr_build = BuildManager(self.__docker)
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)
@@ -65,7 +66,7 @@ class BugZoo(object):
         self.__coverage = CoverageManager(self)
 
     @property
-    def docker(self) -> docker.DockerClient:
+    def docker(self) -> DockerClient:
         """
         The Docker client used by this server.
         """
