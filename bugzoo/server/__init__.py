@@ -2,6 +2,7 @@ from typing import Dict, Any
 from functools import wraps
 import flask
 
+from ..core.patch import Patch
 from ..manager import BugZoo
 from ..exceptions import *
 
@@ -175,16 +176,26 @@ def list_containers():
     return flask.jsonify(jsn)
 
 
-@app.route('/containers/<uid>', methods=['GET'])
+@app.route('/containers/<uid>', methods=['GET', 'PATCH'])
 @throws_errors
-def show_container(uid: str):
+def interact_with_container(uid: str):
     try:
         container = daemon.containers[uid]
     except KeyError:
         return ContainerNotFound(uid), 404
 
-    jsn = flask.jsonify(container.to_dict())
-    return (jsn, 200)
+    if flask.request.method == 'GET':
+        jsn = flask.jsonify(container.to_dict())
+        return (jsn, 200)
+    if flask.request.method == 'PATCH':
+        # TODO send character encoding in headers
+        s = flask.request.data.decode('utf-8')
+        patch = Patch.from_unidiff(s)
+        outcome = daemon.containers.patch(container, patch)
+        if outcome:
+            return '', 204
+        else:
+            return '', 400
 
 
 @app.route('/containers/<uid>/alive', methods=['GET'])
