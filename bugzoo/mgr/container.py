@@ -454,4 +454,4 @@ class ContainerManager(object):
         """
         docker_container = self.__dockerc[container.uid]
         # TODO check if image already exists
-        docker_container.commit(tag=image)
+        docker_container.commit(repository=image)

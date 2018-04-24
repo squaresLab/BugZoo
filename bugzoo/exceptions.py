@@ -91,7 +91,7 @@ class UnexpectedResponse(BugZooException):
     Thrown when the server fails to parse a manifest file.
     """
     def __init__(self, response: requests.Response) -> None:
-        msg = "unexpected response from server []: {}"
+        msg = "unexpected response from server [{}]: {}"
         msg = msg.format(response.status_code, response.text)
         super().__init__(msg)
         self.__response = response
