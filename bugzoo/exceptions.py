@@ -1,5 +1,6 @@
-import sys
 from typing import Dict, List, Iterator, Any, Optional
+import sys
+import textwrap
 
 import requests
 
@@ -91,8 +92,9 @@ class UnexpectedResponse(BugZooException):
     Thrown when the server fails to parse a manifest file.
     """
     def __init__(self, response: requests.Response) -> None:
-        msg = "unexpected response from server [{}]: {}"
-        msg = msg.format(response.status_code, response.text)
+        response_text = textwrap.indent(response.text, ' ' * 4)
+        msg = "unexpected response from server [{}]:\n{}"
+        msg = msg.format(response.status_code, response_text)
         super().__init__(msg)
         self.__response = response
 
