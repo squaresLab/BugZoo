@@ -20,4 +20,4 @@ class DockerManager(object):
         path = "/docker/images/{}".format(name)
         response = self.__api.delete(path)
         if response.status_code != 204:
-            self.__api.handle_erroneous_response()
+            self.__api.handle_erroneous_response(response)
