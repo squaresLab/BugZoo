@@ -263,6 +263,6 @@ class ContainerManager(object):
                 another Docker image on the server.
         """
         path = "containers/{}/persist/{}".format(container.uid, image_name)
-        r = self.__api.post(path)
+        r = self.__api.put(path)
         if r.status_code != 204:
             self.__api.handle_erroneous_response(r)
