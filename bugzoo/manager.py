@@ -12,6 +12,7 @@ from .mgr.bug import BugManager
 from .mgr.container import ContainerManager
 from .mgr.coverage import CoverageManager
 from .mgr.file import FileManager
+from .mgr.docker import DockerManager
 
 
 class BugZoo(object):
@@ -56,6 +57,7 @@ class BugZoo(object):
         self.__logger.info('Logging to: %s', log_fn)
 
         self.__docker = docker.from_env(timeout=120)
+        self.__mgr_docker = DockerManager(self.__docker)
         self.__mgr_build = BuildManager(self.__docker)
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)
@@ -65,11 +67,20 @@ class BugZoo(object):
         self.__coverage = CoverageManager(self)
 
     @property
-    def docker(self):
+    def docker(self) -> docker.DockerClient:
         """
         The Docker client used by this server.
         """
+        # TODO funnel communications via Docker manager
         return self.__docker
+
+    @property
+    def docker_manager(self) -> DockerManager:
+        """
+        Used to manage the Docker server to which this BugZoo server is
+        connected.
+        """
+        return self.__mgr_docker
 
     @property
     def logger(self) -> logging.Logger:
