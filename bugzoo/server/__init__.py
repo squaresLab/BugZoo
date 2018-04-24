@@ -198,6 +198,19 @@ def interact_with_container(uid: str):
             return '', 400
 
 
+@app.route('/containers/<uid>/persist/<name_image>', methods=['GET'])
+@throws_errors
+def is_alive_container(uid: str, name_image: str):
+    try:
+        container = daemon.containers[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    return '', 501
+    # ensure the image name isn't already being used
+    # TODO throw 409
+
+
 @app.route('/containers/<uid>/alive', methods=['GET'])
 @throws_errors
 def is_alive_container(uid: str):
