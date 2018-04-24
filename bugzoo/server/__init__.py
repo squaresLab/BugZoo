@@ -44,17 +44,16 @@ def list_bugs():
     return flask.jsonify(jsn)
 
 
-@app.route('/bugs/<uid>', methods=['GET'])
-def show_bug(uid: str):
-    jsn = {} # type: Dict[Any, Any]
-    try:
-        bug = daemon.bugs[uid]
-        jsn = bug.to_dict()
-    except KeyError:
-        # not found
-        jsn = {'error': {'code': 'BLAH',
-                         'message': 'No bug found with given UID.'}}
-    return flask.jsonify(jsn)
+@app.route('/bugs/<uid>', methods=['GET', 'POST'])
+@throws_errors
+def interact_with_bug(uid: str):
+    if flask.request.method == 'GET':
+        jsn = {} # type: Dict[Any, Any]
+        try:
+            bug = daemon.bugs[uid]
+            jsn = bug.to_dict()
+        except KeyError:
+            return BugNotFound(uid), 404
 
 
 # TODO return a job ID
