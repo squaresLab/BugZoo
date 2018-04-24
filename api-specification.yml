@@ -16,8 +16,8 @@ tags:
     description: All operations related to containers
   - name: bug
     description: All operations related to bugs
-  - name: image
-    description: All operations related to Docker images
+  - name: docker
+    description: All operations related to the underlying Docker installation
 
 
 definitions:
@@ -68,9 +68,29 @@ definitions:
 
 paths:
 ###############################################################################
-#
+# Docker
+###############################################################################
+
+  /docker/images/${name}:
+    delete:
+      summary: Destroys a given Docker image.
+      description: Destroys a given Docker image.
+      parameters:
+        - in: path
+          name: name
+          type: string
+          description: The name of the Docker image.
+          required: true
+      tags:
+        - docker
+      responses:
+        204:
+          description: Docker image was successfully destroyed.
+        404:
+          description: Docker image was not found or has already been destroyed.
+
+###############################################################################
 # Bugs
-#
 ###############################################################################
 
   /bugs:
