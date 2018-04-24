@@ -56,6 +56,19 @@ class BugManager(object):
 
         self.__api.handle_erroneous_response(r)
 
+    def register(self, bug: Bug) -> None:
+        """
+        Registers a given bug with the server.
+
+        Parameters:
+            bug: the bug that should be registered.
+
+        Raises:
+            BugAlreadyExists: if there is already a bug registered on the
+                server under the same name as this bug.
+        """
+        raise NotImplementedError
+
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
         raise NotImplementedError
