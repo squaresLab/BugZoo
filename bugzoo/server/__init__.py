@@ -153,7 +153,7 @@ def is_installed_bug(uid: str):
     return (flask.jsonify(status), 200)
 
 
-@app.route('/files/<id_container>/<filepath>', methods=['GET'])
+@app.route('/files/<id_container>/<path:filepath>', methods=['GET'])
 @throws_errors
 def interact_with_file(id_container: str, filepath: str):
     try:
@@ -198,7 +198,7 @@ def interact_with_container(uid: str):
             return '', 400
 
 
-@app.route('/containers/<uid>/persist/<name_image>', methods=['PUT'])
+@app.route('/containers/<uid>/persist/<path:name_image>', methods=['PUT'])
 @throws_errors
 def persist(uid: str, name_image: str):
     try:
