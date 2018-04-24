@@ -269,5 +269,7 @@ class ContainerManager(object):
         Raises:
             ContainerNotFound: if the given container does not exist on the
                 server.
+            ImageAlreadyExists: if the given image name is already in use by
+                another Docker image on the server.
         """
         raise NotImplementedError

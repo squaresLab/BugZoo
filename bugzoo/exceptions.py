@@ -19,6 +19,7 @@ __all__ = [
     'FileNotFound',
     'ArgumentNotSpecified',
     'ImageNotInstalled',
+    'ImageAlreadyExists',
     'TestNotFound'
 ]
 
@@ -342,6 +343,33 @@ class ImageNotInstalled(BugZooException):
     def image(self) -> str:
         """
         The name of the Docker image that is not installed.
+        """
+        return self.__image
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'image': self.image}
+
+
+class ImageAlreadyExists(BugZooException):
+    """
+    Indicates that a given Docker image is already installed on the server.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'ImageAlreadyExists':
+        return ImageAlreadyExists(data['image'])
+
+    def __init__(self, image: str) -> None:
+        self.__image = image
+        super().__init__("Docker image already exists: {}".format(image))
+
+    @property
+    def image(self) -> str:
+        """
+        The name of the Docker image.
         """
         return self.__image
 
