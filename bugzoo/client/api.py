@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Optional, Any, NoReturn
 import logging
 
 import requests
@@ -19,7 +19,9 @@ class APIClient(object):
         """
         return urllib.parse.urljoin(self.__base_url, path)
 
-    def handle_erroneous_response(self, response: requests.Response) -> None:
+    def handle_erroneous_response(self,
+                                  response: requests.Response
+                                  ) -> NoReturn:
         """
         Attempts to decode an erroneous response into an exception, and to
         subsequently throw that exception.
