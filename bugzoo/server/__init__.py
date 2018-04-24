@@ -301,6 +301,16 @@ def provision_container():
     return (flask.jsonify(c.uid), 201)
 
 
+@app.route('/docker/images/<name>', methods=['DELETE'])
+@throws_errors
+def docker_images(name: str):
+    try:
+        daemon.docker.images.remove(name)
+        return '', 204
+    except Exception as ex:
+        return UnexpectedServerError.from_exception(ex), 500
+
+
 def run(port: int = 6060) -> None:
     global daemon
     daemon = BugZoo()

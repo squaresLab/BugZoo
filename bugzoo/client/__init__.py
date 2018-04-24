@@ -2,6 +2,7 @@ from .api import APIClient
 from .bug import BugManager
 from .container import ContainerManager
 from .file import FileManager
+from .dockerm import DockerManager
 
 __all__ = ['Client']
 
@@ -16,6 +17,7 @@ class Client(object):
         self.__bugs = BugManager(self.__api)
         self.__containers = ContainerManager(self.__api)
         self.__files = FileManager(self.__api, self.__bugs)
+        self.__docker = DockerManager(self.__api)
 
     @property
     def bugs(self) -> BugManager:
@@ -28,3 +30,7 @@ class Client(object):
     @property
     def files(self) -> FileManager:
         return self.__files
+
+    @property
+    def docker(self) -> DockerManager:
+        return self.__docker
