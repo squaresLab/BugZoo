@@ -208,6 +208,34 @@ paths:
         404:
           description: Container not found.
 
+    patch:
+      summary: Patches source code inside container.
+      description: >-
+        Attempts to apply a given patch to the source code for the program
+        inside the container.
+      tags:
+        - container
+      consumes:
+        - text/plain
+      parameters:
+        - in: path
+          name: container-id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+        - in: body
+          name: patch
+          type: string
+          required: true
+          description: >-
+            The patch that should be applied to the source code, given as a
+            unified diff.
+      responses:
+        204:
+          description: OK.
+        400:
+          description: Failed to apply patch.
+
     delete:
       summary: Destroy container.
       description: Destroys a given container.
@@ -331,26 +359,4 @@ paths:
         404:
           description: Container not found.
 
-  /containers/${container-id}/patch:
-    patch:
-      summary: Patches source code inside container.
-      description: >-
-        Attempts to apply a given patch to the source code for the program
-        inside the container.
-      tags:
-        - container
-      consumes:
-        - text/plain
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: container-id
-          type: string
-          description: The unique identifier of the container.
-          required: true
-      responses:
-        204:
-          description: OK.
-        400:
-          description: Failed to apply patch.
+
