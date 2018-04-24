@@ -2,6 +2,7 @@ from typing import Dict, Any
 from functools import wraps
 import flask
 
+from ..core.bug import Bug
 from ..core.patch import Patch
 from ..manager import BugZoo
 from ..exceptions import *
@@ -44,7 +45,7 @@ def list_bugs():
     return flask.jsonify(jsn)
 
 
-@app.route('/bugs/<uid>', methods=['GET', 'POST'])
+@app.route('/bugs/<uid>', methods=['GET', 'PUT'])
 @throws_errors
 def interact_with_bug(uid: str):
     if flask.request.method == 'GET':
@@ -54,6 +55,16 @@ def interact_with_bug(uid: str):
             jsn = bug.to_dict()
         except KeyError:
             return BugNotFound(uid), 404
+
+    if flask.request.method == 'PUT':
+        try:
+            bug = Bug.from_dict(flask.request.json)
+        # FIXME improve error handling
+        except Exception as ex:
+            return UnexpectedServerError.from_exception(ex), 500
+
+        daemon.bugs.register(bug)
+        return '', 204
 
 
 # TODO return a job ID
