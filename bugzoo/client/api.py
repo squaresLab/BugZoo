@@ -58,7 +58,7 @@ class APIClient(object):
     def put(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
         self.__logger.info('PUT: %s', url)
-        return requests.post(url, **kwargs)
+        return requests.put(url, **kwargs)
 
     def patch(self,
               path: str,
