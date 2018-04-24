@@ -42,5 +42,11 @@ try:
     # get the contents of the patched file
     contents = client.files.read(container, "LICENSE")
     print(contents)
+
+    # persist the container
+    client.containers.persist(container, "hulk/foobarblah")
+
+    # delete the newly persisted Docker image
+    client.docker.delete_image("hulk/foobarblah")
 finally:
     del client.containers[container.uid]
