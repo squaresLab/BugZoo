@@ -38,4 +38,4 @@ class FileManager(object):
         response = self.__api.get(path)
         if response.status_code == 200:
             return response.text
-        self.__api.handle_erroneous_response(r)
+        self.__api.handle_erroneous_response(response)
