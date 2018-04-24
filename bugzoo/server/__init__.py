@@ -312,7 +312,7 @@ def provision_container():
     return (flask.jsonify(c.uid), 201)
 
 
-@app.route('/docker/images/<name>', methods=['DELETE'])
+@app.route('/docker/images/<path:name>', methods=['DELETE'])
 @throws_errors
 def docker_images(name: str):
     try:
