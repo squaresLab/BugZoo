@@ -1,10 +1,13 @@
 import sys
 from typing import Dict, List, Iterator, Any, Optional
 
+import requests
+
 
 __all__ = [
     'BugZooException',
     'BadManifestFile',
+    'UnexpectedResponse',
     'UnexpectedStatusCode',
     'BugAlreadyBuilt',
     'BugNotFound',
@@ -81,6 +84,21 @@ class BugZooException(Exception):
             jsn['data'] = data
         jsn = {'error': jsn}
         return jsn
+
+
+class UnexpectedResponse(BugZooException):
+    """
+    Thrown when the server fails to parse a manifest file.
+    """
+    def __init__(self, response: requests.Response) -> None:
+        msg = "unexpected response from server []: {}"
+        msg = msg.format(response.status_code, response.text)
+        super().__init__(msg)
+        self.__response = response
+
+    @property
+    def response(self) -> requests.Response:
+        return self.__response
 
 
 class BadManifestFile(BugZooException):
