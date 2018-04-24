@@ -92,7 +92,7 @@ class UnexpectedServerError(BugZooException):
     @staticmethod
     def from_exception(exception: Exception) -> 'UnexpectedServerError':
         cls_name = exception.__class__.__name__
-        msg = exception.message
+        msg = str(exception)
         return UnexpectedServerError(cls_name, msg)
 
     def __init__(self, kind: str, message: str) -> None:
