@@ -219,7 +219,7 @@ paths:
         - text/plain
       parameters:
         - in: path
-          name: container-id
+          name: id
           type: string
           description: The unique identifier of the container.
           required: true
@@ -391,5 +391,3 @@ paths:
               A flag indicating whether or not the container is alive.
         404:
           description: Container not found.
-
-
