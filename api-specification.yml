@@ -310,6 +310,39 @@ paths:
         404:
           description: Container not found.
 
+  /containers/${id}/persist/${image}:
+    post:
+      summary: Persists container to a Docker image.
+      description: >-
+        Persists the state of a container to a Docker image on the server.
+      tags:
+        - container
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: The unique identifier of the container.
+          required: true
+        - in: path
+          name: image
+          type: string
+          required: true
+          description: >-
+            The name of the Docker image to which the state of the container
+            should be persisted.
+      responses:
+        204:
+          description: The container was persisted as a Docker image.
+        400:
+          description: >-
+            An error occurred whilst attempting to persist the container.
+        404:
+          description: Container not found.
+        409:
+          description: There already exists a Docker image with the given name.
+
   /containers/${id}/exec:
     post:
       summary: Executes a command inside the container.
