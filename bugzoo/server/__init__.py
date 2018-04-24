@@ -198,7 +198,7 @@ def interact_with_container(uid: str):
             return '', 400
 
 
-@app.route('/containers/<uid>/persist/<name_image>', methods=['POST'])
+@app.route('/containers/<uid>/persist/<name_image>', methods=['PUT'])
 @throws_errors
 def persist(uid: str, name_image: str):
     try:
