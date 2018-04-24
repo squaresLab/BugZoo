@@ -12,7 +12,7 @@ from .mgr.bug import BugManager
 from .mgr.container import ContainerManager
 from .mgr.coverage import CoverageManager
 from .mgr.file import FileManager
-from .mgr.docker import DockerManager
+from .mgr.dockerm import DockerManager
 
 
 class BugZoo(object):
