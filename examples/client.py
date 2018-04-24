@@ -1,6 +1,7 @@
 import time
 
 import bugzoo.client
+from bugzoo.core.bug import Bug
 from bugzoo.core.patch import Patch
 
 
@@ -48,5 +49,20 @@ try:
 
     # delete the newly persisted Docker image
     client.docker.delete_image("hulk/foobarblah")
+
+    # register a mutant
+    mutant = Bug("an-example-bug",
+                 "hulk/foobarblah",
+                 dataset=None,
+                 source=None,
+                 program=bug.program,
+                 source_dir=bug.source_dir,
+                 languages=bug.languages,
+                 harness=bug.harness,
+                 compiler=bug.compiler,
+                 files_to_instrument=bug.files_to_instrument)
+    client.bugs.register(mutant)
+    print("registered mutant")
+
 finally:
     del client.containers[container.uid]
