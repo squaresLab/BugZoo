@@ -2,7 +2,6 @@ from typing import Iterator, Optional
 import logging
 
 from .api import APIClient
-from .errors import UnexpectedAPIResponse
 from ..compiler import CompilationOutcome
 from ..core.patch import Patch
 from ..core.bug import Bug
