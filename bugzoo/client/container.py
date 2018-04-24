@@ -2,7 +2,6 @@ from typing import Iterator, Optional
 import logging
 
 from .api import APIClient
-from .errors import UnexpectedAPIResponse
 from ..compiler import CompilationOutcome
 from ..core.patch import Patch
 from ..core.bug import Bug
@@ -39,7 +38,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def __delitem__(self, uid: str) -> None:
         """
@@ -60,7 +59,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def __contains__(self, uid: str) -> bool:
         """
@@ -91,14 +90,12 @@ class ContainerManager(object):
             assert all(isinstance(n, str) for n in ids)
             return ids.__iter__()
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def provision(self, bug: Bug) -> Container:
-        # FIXME bad URI
         self.__logger.info("provisioning container for bug: %s", bug.name)
         r = self.__api.post('bugs/{}/provision'.format(bug.name))
 
-        # FIXME bad code
         if r.status_code == 200:
             container = Container.from_dict(r.json())
             self.__logger.info("provisioned container (id: %s) for bug: %s",
@@ -109,8 +106,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no bug registered with given name: {}".format(bug.name))
 
-        # TODO catch bug not built error
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def is_alive(self, container: Container) -> bool:
         """
@@ -125,7 +121,7 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def compile(self,
                 container: Container,
@@ -155,7 +151,8 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("container or test case not found")
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
+
 
     def test(self,
              container: Container,
@@ -180,13 +177,7 @@ class ContainerManager(object):
 
         if r.status_code == 200:
             return TestOutcome.from_dict(r.json())
-
-        # FIXME does 404 imply that the container doesn't exist or that the
-        #   test doesn't exist? we need to examine the body of the response.
-        if r.status_code == 404:
-            raise KeyError("container or test case not found")
-
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     def exec(self,
              container: Container,
@@ -232,11 +223,10 @@ class ContainerManager(object):
 
         if r.status_code == 200:
             return ExecResponse.from_dict(r.json())
-
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(container.uid))
 
-        raise UnexpectedAPIResponse(r)
+        self.__api.handle_erroneous_response(r)
 
     command = exec
 
@@ -256,3 +246,23 @@ class ContainerManager(object):
         r = self.__api.patch(path, payload)
 
         return r.status_code == 204
+
+    def persist(self, container: Container, image_name: str) -> None:
+        """
+        Persists the state of a given container as a Docker image on the
+        server.
+
+        Parameters:
+            container: the container that should be persisted.
+            image_name: the name of the Docker image that should be created.
+
+        Raises:
+            ContainerNotFound: if the given container does not exist on the
+                server.
+            ImageAlreadyExists: if the given image name is already in use by
+                another Docker image on the server.
+        """
+        path = "containers/{}/persist/{}".format(container.uid, image_name)
+        r = self.__api.put(path)
+        if r.status_code != 204:
+            self.__api.handle_erroneous_response(r)

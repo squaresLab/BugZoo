@@ -1,10 +1,14 @@
-import sys
 from typing import Dict, List, Iterator, Any, Optional
+import sys
+import textwrap
+
+import requests
 
 
 __all__ = [
     'BugZooException',
     'BadManifestFile',
+    'UnexpectedResponse',
     'UnexpectedStatusCode',
     'BugAlreadyBuilt',
     'BugNotFound',
@@ -19,6 +23,7 @@ __all__ = [
     'FileNotFound',
     'ArgumentNotSpecified',
     'ImageNotInstalled',
+    'ImageAlreadyExists',
     'TestNotFound'
 ]
 
@@ -80,6 +85,22 @@ class BugZooException(Exception):
             jsn['data'] = data
         jsn = {'error': jsn}
         return jsn
+
+
+class UnexpectedResponse(BugZooException):
+    """
+    Thrown when the server fails to parse a manifest file.
+    """
+    def __init__(self, response: requests.Response) -> None:
+        response_text = textwrap.indent(response.text, ' ' * 4)
+        msg = "unexpected response from server [{}]:\n{}"
+        msg = msg.format(response.status_code, response_text)
+        super().__init__(msg)
+        self.__response = response
+
+    @property
+    def response(self) -> requests.Response:
+        return self.__response
 
 
 class BadManifestFile(BugZooException):
@@ -342,6 +363,33 @@ class ImageNotInstalled(BugZooException):
     def image(self) -> str:
         """
         The name of the Docker image that is not installed.
+        """
+        return self.__image
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'image': self.image}
+
+
+class ImageAlreadyExists(BugZooException):
+    """
+    Indicates that a given Docker image is already installed on the server.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'ImageAlreadyExists':
+        return ImageAlreadyExists(data['image'])
+
+    def __init__(self, image: str) -> None:
+        self.__image = image
+        super().__init__("Docker image already exists: {}".format(image))
+
+    @property
+    def image(self) -> str:
+        """
+        The name of the Docker image.
         """
         return self.__image
 

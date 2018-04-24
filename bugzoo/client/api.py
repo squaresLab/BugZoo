@@ -1,8 +1,10 @@
-from typing import Optional, Any
+from typing import Optional, Any, NoReturn
 import logging
 
 import requests
 import urllib.parse
+
+from ..exceptions import *
 
 
 class APIClient(object):
@@ -16,6 +18,24 @@ class APIClient(object):
         Computes the URL for a resource located at a given path on the server.
         """
         return urllib.parse.urljoin(self.__base_url, path)
+
+    def handle_erroneous_response(self,
+                                  response: requests.Response
+                                  ) -> NoReturn:
+        """
+        Attempts to decode an erroneous response into an exception, and to
+        subsequently throw that exception.
+
+        Raises:
+            BugZooException: the exception described by the error response.
+            UnexpectedResponse: if the response cannot be decoded to an
+                exception.
+        """
+        try:
+            err = BugZooException.from_dict(response.json())
+        except Exception:
+            err = UnexpectedResponse(response)
+        raise err
 
     def get(self,
             path: str,
@@ -34,6 +54,11 @@ class APIClient(object):
         url = self._url(path)
         self.__logger.info('POST: %s', url)
         return requests.post(url, json=json)
+
+    def put(self, path: str, **kwargs) -> requests.Response:
+        url = self._url(path)
+        self.__logger.info('PUT: %s', url)
+        return requests.put(url, **kwargs)
 
     def patch(self,
               path: str,

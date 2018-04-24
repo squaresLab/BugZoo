@@ -12,6 +12,7 @@ import copy
 
 import docker
 
+from ..exceptions import *
 from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
@@ -437,3 +438,20 @@ class ContainerManager(object):
         return ExecResponse(code, time_running, output)
 
     exec = command
+
+    def persist(self, container: Container, image: str) -> None:
+        """
+        Persists the state of a given container to a BugZoo image on this
+        server.
+
+        Parameters:
+            container: the container to persist.
+            image: the name of the Docker image that should be created.
+
+        Raises:
+            ImageAlreadyExists: if the image name is already in use by another
+                Docker image on this server.
+        """
+        docker_container = self.__dockerc[container.uid]
+        # TODO check if image already exists
+        docker_container.commit(repository=image)

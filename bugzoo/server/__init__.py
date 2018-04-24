@@ -153,7 +153,7 @@ def is_installed_bug(uid: str):
     return (flask.jsonify(status), 200)
 
 
-@app.route('/files/<id_container>/<filepath>', methods=['GET'])
+@app.route('/files/<id_container>/<path:filepath>', methods=['GET'])
 @throws_errors
 def interact_with_file(id_container: str, filepath: str):
     try:
@@ -196,6 +196,26 @@ def interact_with_container(uid: str):
             return '', 204
         else:
             return '', 400
+
+
+@app.route('/containers/<uid>/persist/<path:name_image>', methods=['PUT'])
+@throws_errors
+def persist(uid: str, name_image: str):
+    try:
+        container = daemon.containers[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    try:
+        daemon.containers.persist(container, name_image)
+        return '', 204
+    except ImageAlreadyExists as err:
+        return err, 409
+    except BugZooException as err:
+        return err, 400
+    # TODO handle unexpected exceptions
+    except Exception as err:
+        return '', 501
 
 
 @app.route('/containers/<uid>/alive', methods=['GET'])

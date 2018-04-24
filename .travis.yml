@@ -6,7 +6,7 @@ python:
 - '3.5'
 - '3.6'
 install:
-- pip install sphinx mypy
+- pip install sphinx mypy mypy-extensions
 - pip install .
 script:
 - bugzoo -h
