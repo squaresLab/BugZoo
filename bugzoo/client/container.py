@@ -252,4 +252,7 @@ class ContainerManager(object):
             was unsuccessful.
         """
         path = "containers/{}".format(container.uid)
-        raise NotImplementedError
+        payload = str(patch)
+        r = self.__api.patch(path, payload)
+
+        return r.status_code == 204
