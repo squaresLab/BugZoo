@@ -9,6 +9,7 @@ __all__ = [
     'BugZooException',
     'BadManifestFile',
     'UnexpectedResponse',
+    'UnexpectedServerError',
     'UnexpectedStatusCode',
     'BugAlreadyBuilt',
     'BugNotFound',
@@ -85,6 +86,29 @@ class BugZooException(Exception):
             jsn['data'] = data
         jsn = {'error': jsn}
         return jsn
+
+
+class UnexpectedServerError(BugZooException):
+    @staticmethod
+    def from_exception(exception: Exception) -> 'UnexpectedServerError':
+        cls_name = exception.__class__.__name__
+        msg = exception.exception.message
+        return UnexpectedServerError(cls_name, msg)
+
+    def __init__(self, kind: str, message: str) -> None:
+        super().__init__(message)
+        self.__kind = kind
+
+    @property
+    def kind(self) -> str:
+        return self.__kind
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {
+            'kind': self.kind,
+            'message': self.message
+        }
 
 
 class UnexpectedResponse(BugZooException):
