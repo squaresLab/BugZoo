@@ -3,7 +3,7 @@ import os
 import logging
 import time
 
-from docker import DocketClient
+from docker import DockerClient
 from docker import from_env as docker_client_from_env
 
 from .mgr.build import BuildManager
