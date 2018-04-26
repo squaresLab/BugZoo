@@ -89,7 +89,12 @@ class BugZooException(Exception):
         return jsn
 
 
-class UnexpectedServerError(BugZooException):
+class ConnectionFailure(BugZooException):
+    def __init__(self) -> None:
+        super().__init__("failed to connect to BugZoo server within timeout window.")
+
+c
+lass UnexpectedServerError(BugZooException):
     @classmethod
     def from_message_and_data(cls,
                               message: str,
