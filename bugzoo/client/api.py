@@ -8,10 +8,30 @@ from ..exceptions import *
 
 
 class APIClient(object):
-    def __init__(self, base_url: str) -> None:
+    def __init__(self,
+                 base_url: str,
+                 *,
+                 timeout_connection: int = 60
+                 ) -> None:
+        """
+        Constructs a new client for low-level API communications with a BugZoo
+        server.
+
+        Parameters:
+            base_url: the base URL of the BugZoo server.
+            timeout_connection: the maximum number of seconds to wait whilst
+                attempting to connect to the server before declaring the
+                connection to have failed.
+
+        Raises:
+            ConnectionFailure: if a connection to the server could not be
+                established within the timeout window.
+        """
         logging.basicConfig(level=logging.DEBUG)
         self.__logger = logging.getLogger('api')
         self.__base_url = base_url
+
+        # FIXME attempt to establish a connection
 
     def _url(self, path: str) -> str:
         """
