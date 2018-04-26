@@ -6,7 +6,7 @@ import time
 import requests
 import urllib.parse
 
-from ..exceptions import *
+from ..exceptions import ConnectionFailure
 
 
 class APIClient(object):
