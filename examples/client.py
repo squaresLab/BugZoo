@@ -22,7 +22,7 @@ patch = Patch.from_unidiff("""
  BeOpen.com to form the BeOpen PythonLabs team.  In October of the same
 """.lstrip())
 
-client = bugzoo.client.Client()
+client = bugzoo.client.Client(timeout_connection = 90)
 bug = client.bugs['manybugs:python:69223-69224']
 test = bug.harness['p1']
 container = client.containers.provision(bug)

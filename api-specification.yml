@@ -18,6 +18,8 @@ tags:
     description: All operations related to bugs
   - name: docker
     description: All operations related to the underlying Docker installation
+  - name: configuration
+    description: All operations related to the server configuration
 
 
 definitions:
@@ -67,6 +69,23 @@ definitions:
 
 
 paths:
+###############################################################################
+# Configuration
+###############################################################################
+
+  /status:
+    get:
+      summary: Status of the server.
+      description: >-
+        Produces a diagnostic summary of the health of the server.
+      tags:
+        - configuration
+      produces:
+        - application/json
+      responses:
+        204:
+          description: Server is running.
+
 ###############################################################################
 # Docker
 ###############################################################################

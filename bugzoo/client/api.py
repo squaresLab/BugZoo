@@ -1,17 +1,58 @@
 from typing import Optional, Any, NoReturn
+from timeit import default_timer as timer
 import logging
+import time
 
 import requests
+import urllib3.exceptions
 import urllib.parse
 
-from ..exceptions import *
+from ..exceptions import ConnectionFailure, UnexpectedResponse, BugZooException
 
 
 class APIClient(object):
-    def __init__(self, base_url: str) -> None:
+    def __init__(self,
+                 base_url: str,
+                 *,
+                 timeout_connection: int = 60
+                 ) -> None:
+        """
+        Constructs a new client for low-level API communications with a BugZoo
+        server.
+
+        Parameters:
+            base_url: the base URL of the BugZoo server.
+            timeout_connection: the maximum number of seconds to wait whilst
+                attempting to connect to the server before declaring the
+                connection to have failed.
+
+        Raises:
+            ConnectionFailure: if a connection to the server could not be
+                established within the timeout window.
+        """
+        assert timeout_connection > 0
+
         logging.basicConfig(level=logging.DEBUG)
         self.__logger = logging.getLogger('api')
         self.__base_url = base_url
+
+        # attempt to establish a connection
+        url = self._url("status")
+        time_left = float(timeout_connection)
+        time_started = timer()
+        connected = False
+        while time_left > 0.0 and not connected:
+            try:
+                r = requests.get(url, timeout=time_left)
+                connected = r.status_code == 204
+            except requests.exceptions.ConnectionError:
+                time.sleep(1.0)
+            except requests.exceptions.Timeout:
+                raise ConnectionFailure
+            time.sleep(0.05)
+            time_left -= timer() - time_started
+        if not connected:
+            raise ConnectionFailure
 
     def _url(self, path: str) -> str:
         """
