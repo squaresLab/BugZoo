@@ -1,5 +1,7 @@
 from typing import Optional, Any, NoReturn
+from timeit import default_timer as timer
 import logging
+import time
 
 import requests
 import urllib.parse
@@ -27,11 +29,27 @@ class APIClient(object):
             ConnectionFailure: if a connection to the server could not be
                 established within the timeout window.
         """
+        assert timeout_connection > 0
+
         logging.basicConfig(level=logging.DEBUG)
         self.__logger = logging.getLogger('api')
         self.__base_url = base_url
 
-        # FIXME attempt to establish a connection
+        # attempt to establish a connection
+        url = self._url("status")
+        time_left = float(timeout_connection)
+        time_started = timer()
+        connected = False
+        while time_left > 0.0 and not connected:
+            try:
+                r = requests.get(url, timeout=time_left)
+            except requests.exceptions.Timeout:
+                raise ConnectionFailure
+            connected = r.status_code == 204
+            time.sleep(0.05)
+            time_left = timer() - time_started
+        if not connected:
+            raise ConnectionFailure
 
     def _url(self, path: str) -> str:
         """
