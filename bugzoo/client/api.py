@@ -7,7 +7,7 @@ import requests
 import urllib3.exceptions
 import urllib.parse
 
-from ..exceptions import ConnectionFailure
+from ..exceptions import ConnectionFailure, UnexpectedResponse, BugZooException
 
 
 class APIClient(object):
