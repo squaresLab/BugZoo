@@ -37,6 +37,14 @@ def throws_errors(func):
     return wrapper
 
 
+@app.route('/status', methods=['GET'])
+def get_status():
+    """
+    Used to indicate that the server is healthy and ready to go.
+    """
+    return '', 204
+
+
 @app.route('/bugs', methods=['GET'])
 def list_bugs():
     jsn = [] # type: List[str]
