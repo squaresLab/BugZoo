@@ -12,7 +12,7 @@ class Client(object):
     def __init__(self,
                  base_url: str = None,
                  *,
-                 timeout_connection: int = 60
+                 timeout_connection: int = 30
                  ) -> None:
         """
         Constructs a new client for communicating with a BugZoo server.

@@ -4,6 +4,7 @@ import logging
 import time
 
 import requests
+import urllib3.exceptions
 import urllib.parse
 
 from ..exceptions import ConnectionFailure
@@ -43,11 +44,13 @@ class APIClient(object):
         while time_left > 0.0 and not connected:
             try:
                 r = requests.get(url, timeout=time_left)
+                connected = r.status_code == 204
+            except requests.exceptions.ConnectionError:
+                time.sleep(1.0)
             except requests.exceptions.Timeout:
                 raise ConnectionFailure
-            connected = r.status_code == 204
             time.sleep(0.05)
-            time_left = timer() - time_started
+            time_left -= timer() - time_started
         if not connected:
             raise ConnectionFailure
 
