@@ -76,7 +76,8 @@ class BugManager(object):
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
         if r.status_code == 200:
-            return TestSuiteCoverage.from_dict(r.json)
+            jsn = dict(r.json)
+            return TestSuiteCoverage.from_dict(jsn)
         self.__api.handle_erroneous_response(r)
 
     def uninstall(self, bug: Bug) -> bool:
