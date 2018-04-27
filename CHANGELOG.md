@@ -1,3 +1,16 @@
+## 2.1.1 (2018-04-27)
+
+### Features
+
+* Added `--debug`, `-p|--port`, and `--host` to `bugzood` executable.
+* Implemented `GET /bugs/:id/coverage` endpoint on client and server.
+
+### Bug Fixes
+
+* Fixed bug in server module that was caused by incorrectly handling parameters
+  in the construction of error responses.
+
+
 ## 2.1.0 (2018-04-26)
 
 ### Features
