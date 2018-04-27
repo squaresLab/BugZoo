@@ -1,5 +1,7 @@
 from typing import Dict, Any
 from functools import wraps
+import argparse
+
 import flask
 
 from ..core.bug import Bug
@@ -30,7 +32,7 @@ def throws_errors(func):
            and isinstance(response[0], BugZooException):
             err = response[0] # type: BugZooException
             err_jsn = flask.jsonify(err.to_dict())
-            return (err_jsn, response[1:])
+            return (err_jsn, *response[1:])
 
         return response
 
@@ -330,11 +332,31 @@ def docker_images(name: str):
         return UnexpectedServerError.from_exception(ex), 500
 
 
-def run(port: int = 6060) -> None:
+def run(*,
+        port: int = 6060,
+        host: str = '0.0.0.0',
+        debug: bool = True
+        ) -> None:
     global daemon
     daemon = BugZoo()
-    app.run(port=port)
+    app.run(port=port, host=host, debug=debug)
 
 
 def main() -> None:
-    run()
+    desc = 'bugzood: a RESTful HTTP server for BugZoo'
+    parser = argparse.ArgumentParser(description=desc)
+    parser.add_argument('-p', '--port',
+                        type=int,
+                        default=6060,
+                        help='the port that should be used by this server.')
+    parser.add_argument('--host',
+                        type=str,
+                        default='0.0.0.0',
+                        help='the IP address of the host.')
+    parser.add_argument('--debug',
+                        action='store_true',
+                        help='enables debugging mode.')
+    args = parser.parse_args()
+    run(port=args.port,
+        host=args.host,
+        debug=args.debug)
