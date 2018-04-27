@@ -330,11 +330,16 @@ def docker_images(name: str):
         return UnexpectedServerError.from_exception(ex), 500
 
 
-def run(port: int = 6060) -> None:
+def run(*,
+        port: int = 6060,
+        host: str = '0.0.0.0',
+        debug: bool = True
+        ) -> None:
     global daemon
     daemon = BugZoo()
-    app.run(port=port)
+    app.run(port=port, host=host, debug=debug)
 
 
 def main() -> None:
+    # FIXME accept args
     run()
