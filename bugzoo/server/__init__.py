@@ -32,7 +32,7 @@ def throws_errors(func):
            and isinstance(response[0], BugZooException):
             err = response[0] # type: BugZooException
             err_jsn = flask.jsonify(err.to_dict())
-            return (err_jsn, response[1:])
+            return (err_jsn, *response[1:])
 
         return response
 
