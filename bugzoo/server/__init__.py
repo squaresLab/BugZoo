@@ -100,6 +100,21 @@ def build_bug(uid: str):
     return ('', 204)
 
 
+@app.route('/bugs/<uid>/coverage', methods=['GET'])
+@throws_errors
+def bug_coverage(uid: str):
+    try:
+        bug = daemon.bugs[uid]
+    except KeyError:
+        return BugNotFound(uid), 404
+
+    if not daemon.bugs.is_installed(bug):
+        return ImageNotInstalled(bug.image), 400
+
+    coverage = daemon.bugs.coverage(bug)
+    return (coverage.to_dict(), 200)
+
+
 @app.route('/bugs/<uid>/provision', methods=['POST'])
 @throws_errors
 def provision_bug(uid: str):
