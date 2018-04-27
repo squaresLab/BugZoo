@@ -75,7 +75,9 @@ class BugManager(object):
 
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
-        raise NotImplementedError
+        if r.status_code == 200:
+            return TestSuiteCoverage.from_dict(r.json) # type: ignore
+        self.__api.handle_erroneous_response(r)
 
     def uninstall(self, bug: Bug) -> bool:
         r = self.__api.post('bugs/{}/uninstall'.format(bug.name))
