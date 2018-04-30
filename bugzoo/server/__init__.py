@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Any, Iterator
 from functools import wraps
 from contextlib import contextmanager
 import argparse
@@ -45,7 +45,10 @@ def throws_errors(func):
 
 
 @contextmanager
-def ephemeral(*, port: int = 6060, verbose: bool = False) -> Client:
+def ephemeral(*,
+              port: int = 6060,
+              verbose: bool = False
+              ) -> Iterator[Client]:
     """
     Launches an ephemeral server instance that will be immediately
     close when no longer in context.
