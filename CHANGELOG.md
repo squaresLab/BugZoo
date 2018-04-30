@@ -1,3 +1,18 @@
+## 2.1.2 (2018-04-30)
+
+### Features
+
+* Added method `bugzoo.server.ephemeral` to allow ephemeral servers to be
+  provisioned. Launches a server and returns a context-bound client that is
+  connected to that server. As soon as the context is closed, the server is
+  safely destroyed.
+
+### Bug Fixes
+
+* Fixed a bug in `bugzoo.client.Client` that caused the connection timeout to
+  abort the connection attempt prematurely.
+
+
 ## 2.1.1 (2018-04-27)
 
 ### Features
