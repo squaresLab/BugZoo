@@ -37,7 +37,7 @@ class APIClient(object):
         self.__base_url = base_url
 
         # attempt to establish a connection
-        url = self.url("status")
+        url = self._url("status")
         time_started = timer()
         connected = False
         while not connected:
