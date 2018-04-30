@@ -1,6 +1,10 @@
-from typing import Dict, Any
+from typing import Dict, Any, Iterator
 from functools import wraps
+from contextlib import contextmanager
 import argparse
+import os
+import signal
+import subprocess
 
 import flask
 
@@ -8,6 +12,7 @@ from ..core.bug import Bug
 from ..core.patch import Patch
 from ..manager import BugZoo
 from ..exceptions import *
+from ..client import Client
 
 daemon = None # type: BugZoo
 app = flask.Flask(__name__)
@@ -37,6 +42,37 @@ def throws_errors(func):
         return response
 
     return wrapper
+
+
+@contextmanager
+def ephemeral(*,
+              port: int = 6060,
+              verbose: bool = False
+              ) -> Iterator[Client]:
+    """
+    Launches an ephemeral server instance that will be immediately
+    close when no longer in context.
+
+    Parameters:
+        port: the port that the server should run on.
+        verbose: if set to True, the server will print its output to the
+            stdout, otherwise it will remain silent.
+
+    Returns:
+        a client for communicating with the server.
+    """
+    url = "http://127.0.0.1:{}".format(port)
+    cmd = ["bugzood", "-p", str(port)]
+    try:
+        stdout = None if verbose else subprocess.DEVNULL
+        stderr = None if verbose else subprocess.DEVNULL
+        proc = subprocess.Popen(cmd,
+                                preexec_fn=os.setsid,
+                                stdout=stdout,
+                                stderr=stderr)
+        yield Client(url)
+    finally:
+        os.killpg(proc.pid, signal.SIGTERM)
 
 
 @app.route('/status', methods=['GET'])

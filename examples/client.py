@@ -1,6 +1,6 @@
 import time
 
-import bugzoo.client
+import bugzoo.server
 from bugzoo.core.bug import Bug
 from bugzoo.core.patch import Patch
 
@@ -22,47 +22,47 @@ patch = Patch.from_unidiff("""
  BeOpen.com to form the BeOpen PythonLabs team.  In October of the same
 """.lstrip())
 
-client = bugzoo.client.Client(timeout_connection = 90)
-bug = client.bugs['manybugs:python:69223-69224']
-test = bug.harness['p1']
-container = client.containers.provision(bug)
-try:
-    r = client.containers.exec(container, "echo 'hello world'")
-    outcome = client.containers.test(container, test)
-    print(outcome)
+with bugzoo.server.ephemeral() as client:
+    bug = client.bugs['manybugs:python:69223-69224']
+    test = bug.harness['p1']
+    container = client.containers.provision(bug)
+    try:
+        r = client.containers.exec(container, "echo 'hello world'")
+        outcome = client.containers.test(container, test)
+        print(outcome)
 
-    # read a file
-    contents = client.files.read(container, "setup.py")
-    print(contents)
+        # read a file
+        contents = client.files.read(container, "setup.py")
+        print(contents)
 
-    # patch a file
-    outcome = client.containers.patch(container, patch)
-    outcome_text = "yes" if outcome else "no"
-    print("applied patch? {}".format(outcome_text))
+        # patch a file
+        outcome = client.containers.patch(container, patch)
+        outcome_text = "yes" if outcome else "no"
+        print("applied patch? {}".format(outcome_text))
 
-    # get the contents of the patched file
-    contents = client.files.read(container, "LICENSE")
-    print(contents)
+        # get the contents of the patched file
+        contents = client.files.read(container, "LICENSE")
+        print(contents)
 
-    # persist the container
-    client.containers.persist(container, "hulk/foobarblah")
+        # persist the container
+        client.containers.persist(container, "hulk/foobarblah")
 
-    # delete the newly persisted Docker image
-    client.docker.delete_image("hulk/foobarblah")
+        # delete the newly persisted Docker image
+        client.docker.delete_image("hulk/foobarblah")
 
-    # register a mutant
-    mutant = Bug("an-example-bug",
-                 "hulk/foobarblah",
-                 dataset=None,
-                 source=None,
-                 program=bug.program,
-                 source_dir=bug.source_dir,
-                 languages=bug.languages,
-                 harness=bug.harness,
-                 compiler=bug.compiler,
-                 files_to_instrument=bug.files_to_instrument)
-    client.bugs.register(mutant)
-    print("registered mutant")
+        # register a mutant
+        mutant = Bug("an-example-bug",
+                     "hulk/foobarblah",
+                     dataset=None,
+                     source=None,
+                     program=bug.program,
+                     source_dir=bug.source_dir,
+                     languages=bug.languages,
+                     harness=bug.harness,
+                     compiler=bug.compiler,
+                     files_to_instrument=bug.files_to_instrument)
+        client.bugs.register(mutant)
+        print("registered mutant")
 
-finally:
-    del client.containers[container.uid]
+    finally:
+        del client.containers[container.uid]
