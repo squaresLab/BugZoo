@@ -9,6 +9,10 @@ import urllib.parse
 
 from ..exceptions import ConnectionFailure, UnexpectedResponse, BugZooException
 
+logger = logging.getLogger(__name__)  # type: logging.Logger
+
+__all__ = ['APIClient']
+
 
 class APIClient(object):
     def __init__(self,
@@ -32,11 +36,12 @@ class APIClient(object):
         """
         assert timeout_connection > 0
 
-        logging.basicConfig(level=logging.DEBUG)
-        self.__logger = logging.getLogger('api')
         self.__base_url = base_url
 
         # attempt to establish a connection
+        logging.info("Attempting to establish connection to %s within %d seconds",  # noqa: pycodestyle
+                     base_url,
+                     timeout_connection)
         url = self._url("status")
         time_started = timer()
         connected = False
@@ -44,6 +49,8 @@ class APIClient(object):
             time_running = timer() - time_started
             time_left = timeout_connection - time_running
             if time_left <= 0.0:
+                logger.error("Failed to establish connection to server: %s",
+                             base_url)
                 raise ConnectionFailure
             try:
                 r = requests.get(url, timeout=time_left)
@@ -51,8 +58,11 @@ class APIClient(object):
             except requests.exceptions.ConnectionError:
                 time.sleep(1.0)
             except requests.exceptions.Timeout:
+                logger.error("Failed to establish connection to server: %s",
+                             base_url)
                 raise ConnectionFailure
             time.sleep(0.05)
+        logging.info("Established connection to server: %s", base_url)
 
     def _url(self, path: str) -> str:
         """
@@ -84,7 +94,7 @@ class APIClient(object):
             json: Optional[Any] = None
             ) -> requests.Response:
         url = self._url(path)
-        self.__logger.info('GET: %s', url)
+        logger.info('GET: %s', url)
         return requests.get(url, json=json)
 
     def post(self,
@@ -93,12 +103,12 @@ class APIClient(object):
              json: Optional[Any] = None
              ) -> requests.Response:
         url = self._url(path)
-        self.__logger.info('POST: %s', url)
+        logger.info('POST: %s', url)
         return requests.post(url, json=json)
 
     def put(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
-        self.__logger.info('PUT: %s', url)
+        logger.info('PUT: %s', url)
         return requests.put(url, **kwargs)
 
     def patch(self,
@@ -107,7 +117,7 @@ class APIClient(object):
               **kwargs
               ) -> requests.Response:
         url = self._url(path)
-        self.__logger.info('PATCH: %s', url)
+        logger.info('PATCH: %s', url)
         return requests.patch(url, data=data, **kwargs)
 
     def delete(self,
@@ -116,5 +126,5 @@ class APIClient(object):
                json: Optional[Any] = None
                ) -> requests.Response:
         url = self._url(path)
-        self.__logger.info('DELETE: %s', url)
+        logger.info('DELETE: %s', url)
         return requests.delete(url, json=json)
