@@ -1,4 +1,8 @@
+import logging
+
 from .api import APIClient
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
 
 __all__ = ['DockerManager']
 
@@ -17,7 +21,14 @@ class DockerManager(object):
         Parameters:
             name: the name of the Docker image.
         """
+        logger.info("Deleting Docker image: %s", name)
         path = "/docker/images/{}".format(name)
         response = self.__api.delete(path)
         if response.status_code != 204:
-            self.__api.handle_erroneous_response(response)
+            try:
+                self.__api.handle_erroneous_response(response)
+            except Exception:
+                logger.exception("Failed to delete Docker image: %s", name)
+                raise
+        else:
+            logger.info("Deleted Docker image: %s", name)
