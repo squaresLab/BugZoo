@@ -1,3 +1,13 @@
+## 2.1.3 (2018-05-06)
+
+### Bug Fixes
+
+* Fixed bug that caused BugZoo to interfere with logging of other packages by
+  removing all calls to `logging.basicConfig`. Also, refactored loggers to use
+  `logging.getLogger(__name__)` for each module, rather than passing `Logger`
+  instances between components.
+
+
 ## 2.1.2 (2018-04-30)
 
 ### Features
