@@ -144,7 +144,7 @@ class SimpleCompiler(Compiler):
         """
         The directory from which the compilation command is called.
         """
-        return self.__context
+        return self.__context if self.__context else bug.source_dir
 
     @property
     def time_limit(self) -> float:
@@ -162,10 +162,9 @@ class SimpleCompiler(Compiler):
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
         bug = manager_container.bug(container)
-        context = self.__context if self.__context else bug.source_dir
         cmd_outcome = manager_container.command(container,
                                                 command,
-                                                context=context,
+                                                context=self.context,
                                                 stderr=True)
         return CompilationOutcome(cmd_outcome)
 
@@ -176,10 +175,9 @@ class SimpleCompiler(Compiler):
               ) -> None:
         # if a context isn't given, use the source directory of the bug
         bug = manager_container.bug(container)
-        context = self.__context if self.__context else bug.source_dir
         response = manager_container.command(container,
                                              self.__command_clean,
-                                             context=context,
+                                             context=self.context,
                                              stderr=True)
 
     # TODO decouple!
@@ -191,7 +189,10 @@ class SimpleCompiler(Compiler):
         """
         See `Compiler.compile`
         """
-        return self.__compile(manager_container, container, self.__command, verbose)
+        return self.__compile(manager_container,
+                              container,
+                              self.__command,
+                              verbose)
 
     def compile_with_coverage_instrumentation(self, # type: ignore
                                               manager_container,
