@@ -1,9 +1,13 @@
+import logging
+
 from .api import APIClient
 from .bug import BugManager
 from .container import ContainerManager
 from .file import FileManager
 from .dockerm import DockerManager
 from ..exceptions import ConnectionFailure
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
 
 __all__ = ['Client']
 
