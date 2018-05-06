@@ -1,5 +1,6 @@
 from typing import Optional
-from bugzoo.cmd import ExecResponse
+
+from ..cmd import ExecResponse
 
 
 class CompilationOutcome(object):
@@ -140,11 +141,11 @@ class SimpleCompiler(Compiler):
         self.__time_limit = time_limit
 
     @property
-    def context(self) -> str:
+    def context(self) -> Optional[str]:
         """
         The directory from which the compilation command is called.
         """
-        return self.__context if self.__context else bug.source_dir
+        return self.__context
 
     @property
     def time_limit(self) -> float:
@@ -162,9 +163,10 @@ class SimpleCompiler(Compiler):
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
         bug = manager_container.bug(container)
+        context = self.__context if self.__context else bug.source_dir
         cmd_outcome = manager_container.command(container,
                                                 command,
-                                                context=self.context,
+                                                context=context,
                                                 stderr=True)
         return CompilationOutcome(cmd_outcome)
 
@@ -175,9 +177,10 @@ class SimpleCompiler(Compiler):
               ) -> None:
         # if a context isn't given, use the source directory of the bug
         bug = manager_container.bug(container)
+        context = self.__context if self.__context else bug.source_dir
         response = manager_container.command(container,
                                              self.__command_clean,
-                                             context=self.context,
+                                             context=context,
                                              stderr=True)
 
     # TODO decouple!
@@ -244,7 +247,7 @@ class CatkinCompiler(SimpleCompiler):
                          time_limit=time_limit)
 
     @property
-    def workspace(self) -> str:
+    def workspace(self) -> Optional[str]:
         return self.context
 
     def to_dict(self):

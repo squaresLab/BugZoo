@@ -14,7 +14,8 @@ from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
 
-daemon = None # type: BugZoo
+# FIXME let's avoid storing the actual server in a global var
+daemon = None  # type: Any
 app = flask.Flask(__name__)
 
 

@@ -36,7 +36,7 @@ class BugZoo(object):
         """
         # TODO support windows
         if path is None:
-            default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
+            default_path = os.path.join(os.environ['HOME'], '.bugzoo')
             path = os.environ.get('BUGZOO_PATH', default_path)
         self.__path = path
         path_logs = os.path.join(path, 'logs')
