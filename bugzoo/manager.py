@@ -1,6 +1,7 @@
 from typing import Iterator
 import os
 import logging
+import logging.handlers
 import time
 
 from docker import DockerClient
