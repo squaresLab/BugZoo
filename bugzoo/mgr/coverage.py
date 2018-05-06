@@ -3,6 +3,7 @@ from typing import List, Dict, Optional, Set
 import tempfile
 import os
 import warnings
+import logging
 import xml.etree.ElementTree as ET
 
 from ..core.fileline import FileLineSet
@@ -10,6 +11,10 @@ from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage, \
                             TestCoverage
 from ..testing.base import TestCase
+
+logger = logging.getLogger(__name__)
+
+__all__ = ['CoverageManager']
 
 
 class CoverageManager(object):
@@ -56,7 +61,7 @@ class CoverageManager(object):
             the set of file-lines that are stated as covered by the given
             report.
         """
-        logger = self.__logger.getChild(container.id)
+        logger = logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -120,9 +125,8 @@ class CoverageManager(object):
 
         return FileLineSet(files_to_lines)
 
-    def __init__(self, installation: 'BugZoo'):
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation # type: BugZoo
-        self.__logger = installation.logger.getChild('coverage')
 
     def coverage(self,
                  container: Container,
@@ -169,7 +173,7 @@ class CoverageManager(object):
         Raises:
             Exception: if an absolute file path is provided.
         """
-        self.__logger.info("instrumenting container: %s", container.uid)
+        logger.info("instrumenting container: %s", container.uid)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -189,7 +193,7 @@ class CoverageManager(object):
         dir_source = bug.source_dir
         for fn_src in files_to_instrument:
             fn_src = os.path.join(dir_source, fn_src)
-            self.__logger.debug("instrumenting file [%s] in container [%s]",
+            logger.debug("instrumenting file [%s] in container [%s]",
                                 fn_src, container.uid)
             (_, fn_temp) = tempfile.mkstemp(suffix='.bugzoo')
             try:
@@ -211,7 +215,7 @@ class CoverageManager(object):
             print(outcome.response.output)
             raise Exception(msg)
 
-        self.__logger.info("instrumented container: %s", container.uid)
+        logger.info("instrumented container: %s", container.uid)
 
     def deinstrument(self,
                      container: Container,
@@ -249,7 +253,7 @@ class CoverageManager(object):
         code files within the project. Destroys '.gcda' files upon computing
         coverage.
         """
-        logger = self.__logger.getChild(container.id)
+        logger = logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         logger.debug("Extracting coverage information")

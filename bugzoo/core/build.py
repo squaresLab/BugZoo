@@ -44,7 +44,7 @@ class BuildInstructions(object):
         return self.__source
 
     @property
-    def depends_on(self) -> str:
+    def depends_on(self) -> Optional[str]:
         """
         The name of the Docker image that the construction of the image
         associated with these build instructions depends on. If no such

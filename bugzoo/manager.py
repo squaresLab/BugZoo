@@ -1,6 +1,7 @@
 from typing import Iterator
 import os
 import logging
+import logging.handlers
 import time
 
 from docker import DockerClient
@@ -13,6 +14,10 @@ from .mgr.bug import BugManager
 from .mgr.container import ContainerManager
 from .mgr.coverage import CoverageManager
 from .mgr.file import FileManager
+
+logger = logging.getLogger(__name__)
+
+__all__ = ['BugZoo']
 
 
 class BugZoo(object):
@@ -31,7 +36,7 @@ class BugZoo(object):
         """
         # TODO support windows
         if path is None:
-            default_path = os.path.join(os.environ.get('HOME'), '.bugzoo')
+            default_path = os.path.join(os.environ['HOME'], '.bugzoo')
             path = os.environ.get('BUGZOO_PATH', default_path)
         self.__path = path
         path_logs = os.path.join(path, 'logs')
@@ -46,15 +51,14 @@ class BugZoo(object):
 
         # enable logging
         # TODO allow users to control output and verbosity
+        # TODO move to server?
         timestamp = time.strftime('%Y%m%d-%H%M%S', time.gmtime())
         log_fn = 'logs/{}.bugzoo.log'.format(timestamp)
         log_fn = os.path.join(self.__path, log_fn)
-        logging.basicConfig(filename=log_fn,
-                            filemode='w',
-                            level=logging.INFO)
-        self.__logger = logging.getLogger('bugzoo')
-        self.__logger.setLevel(logging.DEBUG)
-        self.__logger.info('Logging to: %s', log_fn)
+        log_fn_handler = logging.handlers.WatchedFileHandler(log_fn)
+
+        bz_log = logging.getLogger('bugzoo')  # type: logging.Logger
+        bz_log.addHandler(log_fn_handler)
 
         self.__docker = docker_client_from_env(timeout=120)
         self.__mgr_build = BuildManager(self.__docker)
@@ -71,13 +75,6 @@ class BugZoo(object):
         The Docker client used by this server.
         """
         return self.__docker
-
-    @property
-    def logger(self) -> logging.Logger:
-        """
-        The root logging mechanism for BugZoo.
-        """
-        return self.__logger
 
     @property
     def path(self) -> str:

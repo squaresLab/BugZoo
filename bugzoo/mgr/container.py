@@ -9,6 +9,7 @@ import tempfile
 import os
 import uuid
 import copy
+import logging
 
 import docker
 
@@ -21,15 +22,17 @@ from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse, PendingExecResponse
 
+logger = logging.getLogger(__name__)
+
+__all__ = ['ContainerManager']
+
 
 class ContainerManager(object):
-    def __init__(self, installation: 'BugZoo'):
+    def __init__(self, installation: 'BugZoo') -> None:
         self.__installation = installation
-        self.__logger = installation.logger.getChild('container')
-        self.__client_docker = installation.docker
-        self.__api_docker = self.__client_docker.api
+        self.__client_docker = installation.docker  # type: docker.Client
+        self.__api_docker = self.__client_docker.api  # type: docker.APIClient
         self.__containers = {}
-        self.__logger = installation.logger.getChild('container')
         self.__dockerc = {}
         self.__env_files = {}
         self.__dockerc_tools = {}
@@ -59,7 +62,7 @@ class ContainerManager(object):
         Raises:
             KeyError: if no container was found with the given UID.
         """
-        self.__logger.info("deleting container: %s", uid)
+        logger.info("deleting container: %s", uid)
         try:
             container = self.__containers[uid]
             self.__dockerc[uid].remove(force=True)
@@ -76,8 +79,8 @@ class ContainerManager(object):
             del self.__containers[uid]
 
         except KeyError:
-            self.__logger.error("failed to delete container: %s [not found]", uid)
-        self.__logger.info("deleted container: %s", uid)
+            logger.error("failed to delete container: %s [not found]", uid)
+        logger.info("deleted container: %s", uid)
 
     delete = __delitem__
 
@@ -242,7 +245,7 @@ class ContainerManager(object):
         file_container = None
         dockerc = self.__dockerc[container.uid]
         bug = self.__installation.bugs[container.bug]
-        self.__logger.debug("Applying patch to container [%s]:\n%s",
+        logger.debug("Applying patch to container [%s]:\n%s",
                             container.uid,
                             str(p))
 
@@ -263,7 +266,7 @@ class ContainerManager(object):
             cmd = 'sudo chown $(whoami) {} && git apply -p0 "{}"'
             cmd = cmd.format(file_container, file_container)
             outcome = self.command(container, cmd, context=bug.source_dir)
-            self.__logger.debug("Patch application outcome [%s]: (retcode=%d)\n%s",
+            logger.debug("Patch application outcome [%s]: (retcode=%d)\n%s",
                                 container.uid,
                                 outcome.code,
                                 outcome.output)
@@ -395,7 +398,7 @@ class ContainerManager(object):
             TimeoutError: if a time limit is given and the command fails
                 to complete within that time. Only supported by blocking calls.
         """
-        logger = self.__logger.getChild(container.uid)
+        logger = logger.getChild(container.uid)
         bug = self.__installation.bugs[container.bug]
 
         # TODO: we need a better long-term alternative
@@ -452,6 +455,18 @@ class ContainerManager(object):
             ImageAlreadyExists: if the image name is already in use by another
                 Docker image on this server.
         """
-        docker_container = self.__dockerc[container.uid]
-        # TODO check if image already exists
-        docker_container.commit(repository=image)
+        logger = logger.getChild(container.uid)
+        logger.info("Persisting container as a Docker image: %s", image)
+        try:
+            docker_container = self.__dockerc[container.uid]
+        except KeyError:
+            logger.exception("Failed to persist container: container no longer exists.")  # noqa: pycodestyle
+            raise
+        try:
+            _ = self.__client_docker.images.get(image)
+            logger.error("Failed to persist container: image, '%s', already exists.",  # noqa: pycodestyle
+                         image)
+            raise ImageAlreadyExists(image)
+        except docker.errors.ImageNotFound:
+            docker_container.commit(repository=image)
+        logger.info("Persisted container as a Docker image: %s", image)

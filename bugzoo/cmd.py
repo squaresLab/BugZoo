@@ -1,5 +1,9 @@
-import docker
+from typing import Optional
 import sys
+
+import docker
+
+__all__ = ['PendingExecResponse', 'ExecResponse']
 
 
 class PendingExecResponse(object):
@@ -21,7 +25,7 @@ class PendingExecResponse(object):
         return self.__output
 
     @property
-    def exit_code(self) -> int:
+    def exit_code(self) -> Optional[int]:
         if self.running:
             return None
         client = docker.from_env()

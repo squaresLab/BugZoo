@@ -6,14 +6,16 @@ from .api import APIClient
 from .bug import BugManager
 from ..core.container import Container
 
+logger = logging.getLogger(__name__)  # type: logging.Logger
+
+__all__ = ['FileManager']
+
 
 class FileManager(object):
     def __init__(self,
                  api: APIClient,
                  mgr_bug: BugManager
                  ) -> None:
-        logging.basicConfig(level=logging.DEBUG)
-        self.__logger = logging.getLogger('files')
         self.__api = api
         self.__mgr_bug = mgr_bug
 

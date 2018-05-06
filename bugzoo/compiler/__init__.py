@@ -1,5 +1,6 @@
 from typing import Optional
-from bugzoo.cmd import ExecResponse
+
+from ..cmd import ExecResponse
 
 
 class CompilationOutcome(object):
@@ -140,7 +141,7 @@ class SimpleCompiler(Compiler):
         self.__time_limit = time_limit
 
     @property
-    def context(self) -> str:
+    def context(self) -> Optional[str]:
         """
         The directory from which the compilation command is called.
         """
@@ -191,7 +192,10 @@ class SimpleCompiler(Compiler):
         """
         See `Compiler.compile`
         """
-        return self.__compile(manager_container, container, self.__command, verbose)
+        return self.__compile(manager_container,
+                              container,
+                              self.__command,
+                              verbose)
 
     def compile_with_coverage_instrumentation(self, # type: ignore
                                               manager_container,
@@ -243,7 +247,7 @@ class CatkinCompiler(SimpleCompiler):
                          time_limit=time_limit)
 
     @property
-    def workspace(self) -> str:
+    def workspace(self) -> Optional[str]:
         return self.context
 
     def to_dict(self):

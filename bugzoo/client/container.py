@@ -10,11 +10,13 @@ from ..core.coverage import TestSuiteCoverage
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse
 
+logger = logging.getLogger(__name__)  # type: logging.Logger
+
+__all__ = ['ContainerManager']
+
 
 class ContainerManager(object):
     def __init__(self, api: APIClient) -> None:
-        logging.basicConfig(level=logging.DEBUG)
-        self.__logger = logging.getLogger('container')
         self.__api = api
 
     def __getitem__(self, uid: str) -> Container:
@@ -93,12 +95,12 @@ class ContainerManager(object):
         self.__api.handle_erroneous_response(r)
 
     def provision(self, bug: Bug) -> Container:
-        self.__logger.info("provisioning container for bug: %s", bug.name)
+        logger.info("provisioning container for bug: %s", bug.name)
         r = self.__api.post('bugs/{}/provision'.format(bug.name))
 
         if r.status_code == 200:
             container = Container.from_dict(r.json())
-            self.__logger.info("provisioned container (id: %s) for bug: %s",
+            logger.info("provisioned container (id: %s) for bug: %s",
                                container.uid,
                                bug.name)
             return container

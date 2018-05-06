@@ -5,24 +5,26 @@ from .api import APIClient
 from ..core.bug import Bug
 from ..core.coverage import TestSuiteCoverage
 
+logger = logging.getLogger(__name__)  # type: logging.Logger
+
+__all__ = ['BugManager']
+
 
 class BugManager(object):
     def __init__(self, api: APIClient) -> None:
-        logging.basicConfig(level=logging.DEBUG)
-        self.__logger = logging.getLogger('bug')
         self.__api = api
 
     def __getitem__(self, name: str) -> Bug:
-        self.__logger.info("Fetching information for bug: %s", name)
+        logger.info("Fetching information for bug: %s", name)
         r = self.__api.get('bugs/{}'.format(name))
 
         if r.status_code == 200:
             return Bug.from_dict(r.json())
         if r.status_code == 404:
-            self.__logger.info("Bug not found: %s", name)
+            logger.info("Bug not found: %s", name)
             raise KeyError("no bug found with given name: {}".format(name))
 
-        self.__logger.info("Unexpected API response when retrieving bug: %s", name)
+        logger.info("Unexpected API response when retrieving bug: %s", name)
         self.__api.handle_erroneous_response(r)
 
     def __iter__(self) -> Iterator[str]:
