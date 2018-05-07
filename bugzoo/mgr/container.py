@@ -455,18 +455,18 @@ class ContainerManager(object):
             ImageAlreadyExists: if the image name is already in use by another
                 Docker image on this server.
         """
-        logger = logger.getChild(container.uid)
-        logger.info("Persisting container as a Docker image: %s", image)
+        logger_c = logger.getChild(container.uid)
+        logger_c.info("Persisting container as a Docker image: %s", image)
         try:
             docker_container = self.__dockerc[container.uid]
         except KeyError:
-            logger.exception("Failed to persist container: container no longer exists.")  # noqa: pycodestyle
+            logger_c.exception("Failed to persist container: container no longer exists.")  # noqa: pycodestyle
             raise
         try:
             _ = self.__client_docker.images.get(image)
-            logger.error("Failed to persist container: image, '%s', already exists.",  # noqa: pycodestyle
+            logger_c.error("Failed to persist container: image, '%s', already exists.",  # noqa: pycodestyle
                          image)
             raise ImageAlreadyExists(image)
         except docker.errors.ImageNotFound:
             docker_container.commit(repository=image)
-        logger.info("Persisted container as a Docker image: %s", image)
+        logger_c.info("Persisted container as a Docker image: %s", image)
