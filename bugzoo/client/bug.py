@@ -78,10 +78,9 @@ class BugManager(object):
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
         logger.info("Fetching coverage information for snapshot: %s",
                     bug.name)
-        r = self.__api.post('bugs/{}/coverage'.format(bug.name))
+        r = self.__api.get('bugs/{}/coverage'.format(bug.name))
         if r.status_code == 200:
             jsn = r.json()
-            print(jsn)
             coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
             logger.info("Fetched coverage information for snapshot: %s",
                         bug.name)
