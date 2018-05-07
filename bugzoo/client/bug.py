@@ -76,9 +76,18 @@ class BugManager(object):
             self.__api.handle_erroneous_response(r)
 
     def coverage(self, bug: Bug) -> TestSuiteCoverage:
+        logger.info("Fetching coverage information for snapshot: %s",
+                    bug.name)
         r = self.__api.post('bugs/{}/coverage'.format(bug.name))
         if r.status_code == 200:
-            return TestSuiteCoverage.from_dict(r.json) # type: ignore
+            jsn = r.json()
+            print(jsn)
+            coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
+            logger.info("Fetched coverage information for snapshot: %s",
+                        bug.name)
+            return coverage
+        logger.error("Failed to fetch coverage information for snapshot: %s",
+                     bug.name)
         self.__api.handle_erroneous_response(r)
 
     def uninstall(self, bug: Bug) -> bool:

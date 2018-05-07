@@ -5,6 +5,8 @@ import argparse
 import os
 import signal
 import subprocess
+import logging
+import sys
 
 import flask
 
@@ -13,6 +15,8 @@ from ..core.patch import Patch
 from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
 
 # FIXME let's avoid storing the actual server in a global var
 daemon = None  # type: Any
@@ -92,7 +96,7 @@ def list_bugs():
     return flask.jsonify(jsn)
 
 
-@app.route('/bugs/<uid>', methods=['GET', 'PUT'])
+@app.route('/bugs/<path:uid>', methods=['GET', 'PUT'])
 @throws_errors
 def interact_with_bug(uid: str):
     if flask.request.method == 'GET':
@@ -116,7 +120,7 @@ def interact_with_bug(uid: str):
 
 
 # TODO return a job ID
-@app.route('/bugs/<uid>/build', methods=['POST'])
+@app.route('/bugs/<path:uid>/build', methods=['POST'])
 @throws_errors
 def build_bug(uid: str):
     try:
@@ -137,22 +141,7 @@ def build_bug(uid: str):
     return ('', 204)
 
 
-@app.route('/bugs/<uid>/coverage', methods=['GET'])
-@throws_errors
-def bug_coverage(uid: str):
-    try:
-        bug = daemon.bugs[uid]
-    except KeyError:
-        return BugNotFound(uid), 404
-
-    if not daemon.bugs.is_installed(bug):
-        return ImageNotInstalled(bug.image), 400
-
-    coverage = daemon.bugs.coverage(bug)
-    return (coverage.to_dict(), 200)
-
-
-@app.route('/bugs/<uid>/provision', methods=['POST'])
+@app.route('/bugs/<path:uid>/provision', methods=['POST'])
 @throws_errors
 def provision_bug(uid: str):
     try:
@@ -169,24 +158,33 @@ def provision_bug(uid: str):
     return (jsn, 200)
 
 
-@app.route('/bugs/<uid>/coverage', methods=['POST'])
+@app.route('/bugs/<uid>/coverage', methods=['GET'])
 @throws_errors
 def coverage_bug(uid: str):
+    msg_prefix_fail = "Failed to fetch coverage information for snapshot, %s"
+    msg_prefix_fail = msg_prefix_fail.format(uid)
+    logger.info("Fetching coverage information for snapshot: %s",
+                uid)
     try:
         bug = daemon.bugs[uid]
     except KeyError:
+        logger.exception("%s: snapshot not found.",  msg_prefix_fail)
         return BugNotFound(uid), 404
 
     if not daemon.bugs.is_installed(bug):
+        logger.error("%s: snapshot not installed.", msg_prefix_fail)
         return ImageNotInstalled(bug.image), 400
 
     try:
         coverage = daemon.bugs.coverage(bug)
     # TODO: work on this
     except:
+        logger.error("%s: failed to compute coverage.", msg_prefix_fail)
         return FailedToComputeCoverage("unknown reason"), 500
 
+    logger.debug("Converting coverage information to JSON.")
     jsn = flask.jsonify(coverage.to_dict())
+    logger.debug("Converted coverage information to JSON.")
     return (jsn, 200)
 
 
@@ -391,6 +389,16 @@ def run(*,
         ) -> None:
     global daemon
     daemon = BugZoo()
+
+    # FIXME setup logging
+    log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')  # noqa: pycodestyle
+
+    log_to_stdout = logging.StreamHandler(sys.stdout)
+    log_to_stdout.setLevel(logging.DEBUG)
+    log_to_stdout.setFormatter(log_formatter)
+
+    logging.getLogger("bugzoo").addHandler(log_to_stdout)
+
     app.run(port=port, host=host, debug=debug)
 
 
