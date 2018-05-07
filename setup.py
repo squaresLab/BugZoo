@@ -11,8 +11,7 @@ setup(
     name='bugzoo',
     version=__version__,
     python_requires='>=3.5',
-    description='TBA',
-    long_description='TBA',
+    description='A platform for safely studying historical software versions.',
     author='Chris Timperley',
     author_email='ctimperley@cmu.edu',
     url='https://github.com/squaresLab/BugZoo',
@@ -24,7 +23,8 @@ setup(
         'pyyaml',
         'tabulate',
         'flask',
-        'numpy'
+        'numpy',
+        'mypy-extensions>=0.3.0'
     ],
     packages=[
         'bugzoo',
