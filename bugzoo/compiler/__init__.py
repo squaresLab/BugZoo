@@ -267,9 +267,8 @@ class WafCompiler(SimpleCompiler):
         cmd = './waf build -j$(nproc)'
         cxxflags = '--coverage -Wno-error=maybe-uninitialized -save-temps=obj'
         ldflags = '--coverage'
-        cmdi = './waf configure LDFLAGS="{}" CXXFLAGS="{}"; {}'.format(ldflags,
-                                                                       cxxflags,
-                                                                       cmd)
+        cmdi = './waf configure --no-submodule-update LDFLAGS="{}" CXXFLAGS="{}"; {}'  # noqa: pycodestyle
+        cmdi = cmdi.format(ldflags, cxxflags, cmd)
         super().__init__(command=cmd,
                          command_clean='./waf clean',
                          command_with_instrumentation=cmdi,
