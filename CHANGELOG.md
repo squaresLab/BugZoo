@@ -1,3 +1,14 @@
+## 2.1.4 (2018-05-07)
+
+### Bug Fixes
+
+* Removed duplicate route in HTTP server for bug coverage.
+* Fixed HTTP endpoint for bug coverage to use GET rather than POST.
+* Added missing package, mypy-extensions, to setup.py.
+* Fixed misuses of logger in various server-side managers.
+* Updated waf compiler to use `--no-submodule-update` argument.
+
+
 ## 2.1.3 (2018-05-06)
 
 ### Bug Fixes
