@@ -398,7 +398,7 @@ class ContainerManager(object):
             TimeoutError: if a time limit is given and the command fails
                 to complete within that time. Only supported by blocking calls.
         """
-        logger = logger.getChild(container.uid)
+        logger_c = logger.getChild(container.uid)
         bug = self.__installation.bugs[container.bug]
 
         # TODO: we need a better long-term alternative
@@ -408,12 +408,13 @@ class ContainerManager(object):
         cmd = 'source /.environment && cd {} && {}'.format(context, cmd)
         cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
         if time_limit is not None and time_limit > 0:
-            logger.debug("running command with time limit: {} seconds".format(time_limit))
-            cmd_wrapped = "timeout --kill-after=1 --signal=SIGTERM {} {}".format(time_limit, cmd_wrapped)
+            logger_c.debug("running command with time limit: %d seconds", time_limit)  # noqa: pycodestyle
+            cmd_wrapped = "timeout --kill-after=1 --signal=SIGTERM {} {}"
+            cmd_wrapped = cmd_wrapped.format(time_limit, cmd_wrapped)
         cmd = cmd_wrapped
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
-        logger.debug("executing command: %s", cmd)
+        logger_c.debug("executing command: %s", cmd)
         docker_client = self.__installation.docker
         response = docker_client.api.exec_create(container.id,
                                                  cmd,
