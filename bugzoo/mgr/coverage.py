@@ -61,7 +61,7 @@ class CoverageManager(object):
             the set of file-lines that are stated as covered by the given
             report.
         """
-        logger = logger.getChild(container.id)
+        logger_c = logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -92,13 +92,13 @@ class CoverageManager(object):
         packages = root.find('packages')
 
         t_start = timer()
-        logger.debug("Starting to traverse all files reported by gcovr.")
+        logger_c.debug("Starting to traverse all files reported by gcovr.")
         for package in packages.findall('package'):
             for cls in package.find('classes').findall('class'):
                 try:
                     path = resolve_path(cls.attrib['filename'])
                 except AssertionError:
-                    logger.warning("failed to resolve file: %s", path)
+                    logger_c.warning("failed to resolve file: %s", path)
                     continue
 
                 lines = cls.find('lines').findall('line')
@@ -107,7 +107,7 @@ class CoverageManager(object):
                 if lines != []:
                     files_to_lines[path] = lines
 
-        logger.debug("Traversing all files finished. Seconds passed: %.2f", timer() - t_start)
+        logger_c.debug("Traversing all files finished. Seconds passed: %.2f", timer() - t_start)
         # modify coverage information for all of the instrumented files
         num_instrumentation_lines = CoverageManager.INSTRUMENTATION.count('\n')
         lines_to_remove = set(range(1, num_instrumentation_lines))
@@ -115,7 +115,7 @@ class CoverageManager(object):
             if not path in files_to_lines:
                 continue
 
-            logger.debug("Removing coverage lines due to instrumentation: {}".format(path))
+            logger_c.debug("Removing coverage lines due to instrumentation: %s", path)
             lines = files_to_lines[path]
             lines -= lines_to_remove
             tmp = set()
@@ -253,10 +253,10 @@ class CoverageManager(object):
         code files within the project. Destroys '.gcda' files upon computing
         coverage.
         """
-        logger = logger.getChild(container.id)
+        logger_c = logger.getChild(container.id)  # type: logging.Logger
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
-        logger.debug("Extracting coverage information")
+        logger_c.debug("Extracting coverage information")
 
         bug = mgr_bug[container.bug]
 
@@ -267,14 +267,14 @@ class CoverageManager(object):
 
         dir_source = bug.source_dir
         t_start = timer()
-        logger.debug("Running gcovr.")
+        logger_c.debug("Running gcovr.")
         fn_temp_ctr = mgr_ctr.mktemp(container)
         cmd = 'gcovr -o "{}" -x -d -r .'.format(fn_temp_ctr)
         response = mgr_ctr.command(container,
                                    cmd,
                                    context=dir_source,
                                    verbose=True)
-        logger.debug("Finished running gcovr (took %.2f seconds).", timer() - t_start)
+        logger_c.debug("Finished running gcovr (took %.2f seconds).", timer() - t_start)  # noqa: pycodestyle
         assert response.code == 0, "failed to run gcovr"
 
         # copy the contents of the temporary file to the host machine
@@ -287,10 +287,10 @@ class CoverageManager(object):
             os.remove(fn_temp_host)
 
         t_start = timer()
-        logger.debug("Parsing gcovr XML report.")
+        logger_c.debug("Parsing gcovr XML report.")
         res = self._from_gcovr_xml_string(report,
                                           instrumented_files,
                                           container)
-        logger.debug("Finished parsing gcovr XML report (took %.2f seconds).", timer() - t_start)
-        logger.debug("Finished extracting coverage information")
+        logger_c.debug("Finished parsing gcovr XML report (took %.2f seconds).", timer() - t_start)  # noqa: pycodestyle
+        logger_c.debug("Finished extracting coverage information")
         return res
