@@ -1,3 +1,11 @@
+## 2.1.5 (2018-05-07)
+
+### Bug Fixes
+
+* Fixed a regression introduced in 2.1.4 that caused BugZoo to crash when
+  executing a command with a given time limit.
+
+
 ## 2.1.4 (2018-05-07)
 
 ### Bug Fixes
