@@ -355,9 +355,18 @@ class ContainerManager(object):
         Copies a file from the host machine to a specified location inside a
         container.
         """
+        logger.info("Copying file to container, %s: %s -> %s",
+                    container.uid, fn_host, fn_container)
         cmd = "docker cp '{}' '{}:{}'".format(fn_host, container.id, fn_container)
+        try:
+            subprocess.check_output(cmd, shell=True)
+            logger.info("Copied file to container, %s: %s -> %s",
+                        container.uid, fn_host, fn_container)
         # TODO implement error handling
-        subprocess.check_output(cmd, shell=True)
+        except subprocess.CalledProcessError:
+            logger.exception("Failed to copy file to container, %s: %s -> %s",
+                             container.uid, fn_host, fn_container)
+            raise
 
     def copy_from(self,
                   container: Container,
@@ -368,9 +377,18 @@ class ContainerManager(object):
         Copies a given file from the container to a specified location on the
         host machine.
         """
+        logger.info("Copying file from container, %s: %s -> %s",
+                    container.uid, fn_container, fn_host)
         cmd = "docker cp '{}:{}' '{}'".format(container.id, fn_container, fn_host)
+        try:
+            subprocess.check_output(cmd, shell=True)
+            logger.info("Copied file from container, %s: %s -> %s",
+                        container.uid, fn_container, fn_host)
         # TODO implement error handling
-        subprocess.check_output(cmd, shell=True)
+        except subprocess.CalledProcessError:
+            logger.exception("Failed to copy file from container, %s: %s -> %s",  # noqa: pycodestyle
+                             container.uid, fn_container, fn_host)
+            raise
 
     def command(self,
                 container: Container,
