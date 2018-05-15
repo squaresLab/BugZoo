@@ -287,7 +287,7 @@ class ContainerManager(object):
 
     def coverage(self,
                  container: Container,
-                 tests: List[TestCase],
+                 tests: Optional[List[TestCase]] = None,
                  files_to_instrument: List[str] = None,
                  ) -> TestSuiteCoverage:
         """
