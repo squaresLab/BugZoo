@@ -130,7 +130,7 @@ class CoverageManager(object):
 
     def coverage(self,
                  container: Container,
-                 tests: List[TestCase] = None,
+                 tests: Optional[List[TestCase]] = None,
                  files_to_instrument: List[str] = None,
                  ) -> TestSuiteCoverage:
         """
@@ -139,14 +139,16 @@ class CoverageManager(object):
         """
         if tests is None:
             bug = self.__installation.bugs[container.bug]
-            tests = bug.tests
-        assert tests is not []
+            _tests = bug.tests
+        else:
+            assert tests is not []
+            _tests = tests
 
         self.instrument(container,
                         files_to_instrument=files_to_instrument)
 
         cov = {}
-        for test in tests:
+        for test in _tests:
             print("generating coverage: {}".format(test))
             outcome = self.__installation.containers.execute(container, test)
             filelines = self.extract(container,
