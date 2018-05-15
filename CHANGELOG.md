@@ -1,3 +1,20 @@
+## 2.1.6 (2018-05-15)
+
+### Features
+
+* Added ability to compute coverage for a given container to the client and
+  server.
+* Added coverage method to container manager: acts as an alias for the
+  coverage method in the coverage manager.
+* Added extra logging statements across the codebase.
+
+### Bug Fixes
+
+* Fixed compatibility breaking bug that was caused by attempting to import
+  NoReturn from the typing module. Added a workaround to attempt to import
+  NoReturn from mypy_extensions if it isn't found in typing.
+
+
 ## 2.1.5 (2018-05-07)
 
 ### Bug Fixes

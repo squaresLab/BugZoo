@@ -17,6 +17,7 @@ from ..exceptions import *
 from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
+from ..core.coverage import TestSuiteCoverage
 from ..core.bug import Bug
 from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
@@ -284,6 +285,20 @@ class ContainerManager(object):
         cmd = "/bin/bash -c 'source /.environment && /bin/bash'"
         cmd = "docker exec -it {} {}".format(container.id, cmd)
         subprocess.call(cmd, shell=True)
+
+    def coverage(self,
+                 container: Container,
+                 tests: Optional[List[TestCase]] = None,
+                 files_to_instrument: List[str] = None,
+                 ) -> TestSuiteCoverage:
+        """
+        Computes line coverage information over a provided set of tests for
+        the program inside a given container.
+        """
+        mgr = self.__installation.coverage
+        return mgr.coverage(container,
+                            tests,
+                            files_to_instrument=files_to_instrument)
 
     def execute(self,
                 container: Container,

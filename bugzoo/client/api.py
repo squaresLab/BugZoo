@@ -1,4 +1,8 @@
-from typing import Optional, Any, NoReturn
+from typing import Optional, Any
+try:
+    from typing import NoReturn
+except ImportError:
+    from mypy_extensions import NoReturn
 from timeit import default_timer as timer
 import logging
 import time
