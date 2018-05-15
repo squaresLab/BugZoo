@@ -17,6 +17,7 @@ from ..exceptions import *
 from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
+from ..core.coverage import TestSuiteCoverage
 from ..core.bug import Bug
 from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
