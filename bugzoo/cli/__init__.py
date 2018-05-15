@@ -1,6 +1,7 @@
 from typing import List, Optional, Dict
 import sys
 import argparse
+import logging
 from operator import itemgetter
 
 import tabulate
@@ -526,6 +527,12 @@ def build_parser():
 
 def main():
     try:
+        log_formatter = logging.Formatter('%(levelname)s:%(name)s:%(asctime)s: %(message)s')  # noqa: pycodestyle
+        log_to_stdout = logging.StreamHandler()
+        log_to_stdout.setFormatter(log_formatter)
+        logging.getLogger('bugzoo').setLevel(logging.INFO)
+        logging.getLogger('bugzoo').addHandler(log_to_stdout)
+
         parser = build_parser()
         args = parser.parse_args()
         if 'func' in vars(args):

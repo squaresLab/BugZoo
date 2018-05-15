@@ -130,14 +130,17 @@ class CoverageManager(object):
 
     def coverage(self,
                  container: Container,
-                 tests: List[TestCase],
+                 tests: List[TestCase] = None,
                  files_to_instrument: List[str] = None,
                  ) -> TestSuiteCoverage:
         """
         Uses a provided container to compute line coverage information for a
         given list of tests.
         """
-        assert tests != []
+        if tests is None:
+            bug = self.__installation.bugs[container.bug]
+            tests = bug.tests
+        assert tests is not []
 
         self.instrument(container,
                         files_to_instrument=files_to_instrument)

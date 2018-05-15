@@ -285,6 +285,20 @@ class ContainerManager(object):
         cmd = "docker exec -it {} {}".format(container.id, cmd)
         subprocess.call(cmd, shell=True)
 
+    def coverage(self,
+                 container: Container,
+                 tests: List[TestCase],
+                 files_to_instrument: List[str] = None,
+                 ) -> TestSuiteCoverage:
+        """
+        Computes line coverage information over a provided set of tests for
+        the program inside a given container.
+        """
+        mgr = self.__installation.coverage
+        return mgr.coverage(container,
+                            tests,
+                            files_to_instrument=files_to_instrument)
+
     def execute(self,
                 container: Container,
                 test: TestCase,

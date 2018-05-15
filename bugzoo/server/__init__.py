@@ -390,14 +390,14 @@ def run(*,
     global daemon
     daemon = BugZoo()
 
-    # FIXME setup logging
-    log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')  # noqa: pycodestyle
-
+    log_formatter = \
+        logging.Formatter('%(asctime)s:%(name)s:%(levelname)s: %(message)s',
+                          '%Y-%m-%d %H:%M:%S')
     log_to_stdout = logging.StreamHandler(sys.stdout)
-    log_to_stdout.setLevel(logging.DEBUG)
     log_to_stdout.setFormatter(log_formatter)
-
     logging.getLogger("bugzoo").addHandler(log_to_stdout)
+    logging.getLogger("bugzoo").setLevel(
+        logging.DEBUG if debug else logging.INFO)
 
     app.run(port=port, host=host, debug=debug)
 
