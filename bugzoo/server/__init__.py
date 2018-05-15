@@ -178,7 +178,7 @@ def coverage_bug(uid: str):
     try:
         coverage = daemon.bugs.coverage(bug)
     # TODO: work on this
-    except:
+    except Exception:
         logger.error("%s: failed to compute coverage.", msg_prefix_fail)
         return FailedToComputeCoverage("unknown reason"), 500
 
@@ -209,6 +209,30 @@ def test_container(id_container: str, id_test: str):
     outcome = daemon.containers.test(container, test)
 
     jsn = flask.jsonify(outcome.to_dict())
+    return (jsn, 200)
+
+
+@app.route('/containers/<id_container>/coverage', methods=['POST'])
+@throws_errors
+def coverage_container(id_container: str):
+    try:
+        container = daemon.containers[id_container]
+    except KeyError:
+        return ContainerNotFound(id_container), 404
+
+    try:
+        bug = daemon.bugs[container.bug]
+    except KeyError:
+        return BugNotFound(container.bug), 500
+
+    try:
+        coverage = daemon.containers.coverage(container)
+    except Exception as err:
+        logger.exception("failed to compute coverage for container [%s]: %s",
+                     id_container, err)
+        return FailedToComputeCoverage("unknown reason"), 500
+
+    jsn = flask.jsonify(coverage.to_dict())
     return (jsn, 200)
 
 
