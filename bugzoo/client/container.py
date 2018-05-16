@@ -9,6 +9,7 @@ from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse
+from ..exceptions import BugZooException
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 
