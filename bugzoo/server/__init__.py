@@ -413,7 +413,6 @@ def run(*,
         log_filename: Optional[str] = None
         ) -> None:
     global daemon
-    daemon = BugZoo()
 
     if not log_filename:
         log_filename = "bugzood.log"
@@ -435,6 +434,8 @@ def run(*,
     log_main.setLevel(logging.DEBUG)
     log_main.addHandler(log_to_stdout)
     log_main.addHandler(log_to_file)
+
+    daemon = BugZoo()
 
     app.run(port=port, host=host, debug=debug)
 
