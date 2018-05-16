@@ -198,7 +198,7 @@ class ContainerManager(object):
         try:
             self.__api.handle_erroneous_response(r)
         except BugZooException as err:
-            logger.exception("Failed to fetch coverage information for container %s: %s", uid, err.msg)  # noqa: pycodestyle
+            logger.exception("Failed to fetch coverage information for container %s: %s", uid, err.message)  # noqa: pycodestyle
             raise
         except Exception as err:
             logger.exception("Failed to fetch coverage information for container %s due to unexpected failure: %s", uid, err)  # noqa: pycodestyle
