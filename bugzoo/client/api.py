@@ -98,7 +98,7 @@ class APIClient(object):
             json: Optional[Any] = None
             ) -> requests.Response:
         url = self._url(path)
-        logger.info('GET: %s', url)
+        logger.debug('GET: %s', url)
         return requests.get(url, json=json)
 
     def post(self,
@@ -107,12 +107,12 @@ class APIClient(object):
              json: Optional[Any] = None
              ) -> requests.Response:
         url = self._url(path)
-        logger.info('POST: %s', url)
+        logger.debug('POST: %s', url)
         return requests.post(url, json=json)
 
     def put(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
-        logger.info('PUT: %s', url)
+        logger.debug('PUT: %s', url)
         return requests.put(url, **kwargs)
 
     def patch(self,
@@ -121,7 +121,7 @@ class APIClient(object):
               **kwargs
               ) -> requests.Response:
         url = self._url(path)
-        logger.info('PATCH: %s', url)
+        logger.debug('PATCH: %s', url)
         return requests.patch(url, data=data, **kwargs)
 
     def delete(self,
@@ -130,5 +130,5 @@ class APIClient(object):
                json: Optional[Any] = None
                ) -> requests.Response:
         url = self._url(path)
-        logger.info('DELETE: %s', url)
+        logger.debug('DELETE: %s', url)
         return requests.delete(url, json=json)
