@@ -187,7 +187,7 @@ class ContainerManager(object):
         uid = container.uid
         logger.info("Fetching coverage information for container: %s",
                     uid)
-        r = self.__api.get('containers/{}/coverage'.format(uid))
+        r = self.__api.post('containers/{}/coverage'.format(uid))
         if r.status_code == 200:
             jsn = r.json()
             coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
