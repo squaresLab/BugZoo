@@ -435,7 +435,9 @@ def run(*,
     log_main.addHandler(log_to_stdout)
     log_main.addHandler(log_to_file)
 
+    logger.info("launching BugZoo daemon")
     daemon = BugZoo()
+    logger.info("launched BugZoo daemon")
 
     app.run(port=port, host=host, debug=debug)
 

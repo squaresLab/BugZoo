@@ -3,6 +3,7 @@ from ipaddress import IPv4Address, IPv6Address
 from tempfile import NamedTemporaryFile
 from timeit import default_timer as timer
 import sys
+import time
 import subprocess
 import ipaddress
 import tempfile
@@ -22,6 +23,7 @@ from ..core.bug import Bug
 from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse, PendingExecResponse
+from ..util import indent
 
 logger = logging.getLogger(__name__)
 
@@ -30,13 +32,20 @@ __all__ = ['ContainerManager']
 
 class ContainerManager(object):
     def __init__(self, installation: 'BugZoo') -> None:
+        logger.debug("initialising container manager")
         self.__installation = installation
+
+        logger.debug("connecting to low-level Docker API")
         self.__client_docker = installation.docker  # type: docker.Client
         self.__api_docker = self.__client_docker.api  # type: docker.APIClient
+        assert self.__api_docker.ping()
+        logger.debug("connected to low-level Docker API")
+
         self.__containers = {}
         self.__dockerc = {}
         self.__env_files = {}
         self.__dockerc_tools = {}
+        logger.debug("initialised container manager")
 
     def __iter__(self) -> Iterator[Container]:
         """
@@ -111,7 +120,7 @@ class ContainerManager(object):
                 provided then one will be automatically generated.
 
         Returns:
-            a descroption of the provisioned container.
+            a description of the provisioned container.
         """
         if tools is None:
             tools = []
@@ -164,17 +173,18 @@ class ContainerManager(object):
 
         logger.debug("creating Docker container for BugZoo container: %s", uid)  # noqa: pycodestyle
         dockerc = \
-            self.__client_docker.containers.create(bug.image,
-                                                   cmd,
-                                                   name=uid,
-                                                   volumes=volumes,
-                                                   volumes_from=tool_container_ids,
-                                                   ports=ports,
-                                                   network_mode=network_mode,
-                                                   stdin_open=True,
-                                                   tty=False,
-                                                   # tty=interactive,
-                                                   detach=True)
+            self.__client_docker.containers.create(
+                bug.image,
+                cmd,
+                name=uid,
+                volumes=volumes,
+                volumes_from=tool_container_ids,
+                ports=ports,
+                network_mode=network_mode,
+                stdin_open=True,
+                tty=False,
+                # tty=interactive,
+                detach=True)  # type: docker.Container # noqa: pycodestyle
         self.__dockerc[uid] = dockerc
         logger.debug("created Docker container for BugZoo container: %s", uid)
         logger.debug("starting Docker container for BugZoo container: %s", uid)  # noqa: pycodestyle
@@ -183,10 +193,20 @@ class ContainerManager(object):
 
         # block until /.environment is ready
         logger.debug("blocking until environment file has been constructed for container: %s", uid)  # noqa: pycodestyle
+        ready = False
+        output_startup = []  # type: List[str]
         for line in self.__api_docker.logs(dockerc.id, stream=True):
             line = line.decode('utf-8').strip()
+            output_startup.append(line)
             if line == "BUGZOO IS READY TO GO!":
+                ready = True
                 break
+        if not ready:
+            msg = "failed to start Docker container, {}:\n[RESPONSE]\n{}\n[/RESPONSE]"  # noqa: pycodestyle
+            output_startup_s = indent(''.join(output_startup), 4)
+            msg = msg.format(uid, output_startup_s)
+            logger.error(msg)
+            raise Exception(msg)  # TODO add exception; DockerException, maybe?
         logger.debug("environment file has been constructed for container: %s", uid)  # noqa: pycodestyle
 
         container = Container(bug=bug.name,
@@ -195,6 +215,9 @@ class ContainerManager(object):
         self.__containers[uid] = container
         logger.debug("provisioned container for bug %s: %s",
                      bug.name, uid)
+
+        time.sleep(10)
+        logger.debug("STATUS OF CONTAINER: %s", dockerc.status)
         return container
 
     def mktemp(self,
