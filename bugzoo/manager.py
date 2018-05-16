@@ -5,7 +5,6 @@ import logging.handlers
 import time
 
 from docker import DockerClient
-from docker import from_env as docker_client_from_env
 
 from .mgr.build import BuildManager
 from .mgr.source import SourceManager
@@ -24,7 +23,10 @@ class BugZoo(object):
     """
     Used to interact with and manage a local BugZoo installation.
     """
-    def __init__(self, path=None) -> None:
+    def __init__(self,
+                 path=None,
+                 base_url_docker='unix://var/run/docker.sock'
+                 ) -> None:
         """
         Creates a new BugZoo installation manager.
 
@@ -60,7 +62,7 @@ class BugZoo(object):
         bz_log = logging.getLogger('bugzoo')  # type: logging.Logger
         bz_log.addHandler(log_fn_handler)
 
-        self.__docker = docker_client_from_env(timeout=120)
+        self.__docker = DockerClient(base_url=base_url_docker, timeout=120)
         self.__mgr_build = BuildManager(self.__docker)
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)
