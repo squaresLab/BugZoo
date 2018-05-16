@@ -162,7 +162,7 @@ class ContainerManager(object):
         )
         cmd = '/bin/bash -c "{}"'.format(cmd)
 
-        logger.debug("creating Docker container for BugZoo container: %s")
+        logger.debug("creating Docker container for BugZoo container: %s", uid)  # noqa: pycodestyle
         dockerc = \
             self.__client_docker.containers.create(bug.image,
                                                    cmd,
@@ -176,25 +176,25 @@ class ContainerManager(object):
                                                    # tty=interactive,
                                                    detach=True)
         self.__dockerc[uid] = dockerc
-        logger.debug("created Docker container for BugZoo container: %s")
-        logger.debug("starting Docker container for BugZoo container: %s")
+        logger.debug("created Docker container for BugZoo container: %s", uid)
+        logger.debug("starting Docker container for BugZoo container: %s", uid)  # noqa: pycodestyle
         dockerc.start()
-        logger.debug("started Docker container for BugZoo container: %s")
+        logger.debug("started Docker container for BugZoo container: %s", uid)
 
         # block until /.environment is ready
-        logger.debug("blocking until environment file has been constructed for container: %s",  # noqa: pycodestyle
-                     uid)
+        logger.debug("blocking until environment file has been constructed for container: %s", uid)  # noqa: pycodestyle
         for line in self.__api_docker.logs(dockerc.id, stream=True):
             line = line.decode('utf-8').strip()
             if line == "BUGZOO IS READY TO GO!":
                 break
-        logger.debug("environment file has been constructed for container: %s",  # noqa: pycodestyle
-                     uid)
+        logger.debug("environment file has been constructed for container: %s", uid)  # noqa: pycodestyle
 
         container = Container(bug=bug.name,
                               uid=uid,
                               tools=[t.name for t in tools])
         self.__containers[uid] = container
+        logger.debug("provisioned container for bug %s: %s",
+                     bug.name, uid)
         return container
 
     def mktemp(self,
@@ -210,7 +210,7 @@ class ContainerManager(object):
                      container.uid)
         response = self.command(container, "mktemp")
 
-        if response.code !== 0:
+        if response.code != 0:
             msg = "failed to create temporary file for container {}: [{}] {}"
             msg = msg.format(uid, response.code, response.output)
             logger.error(msg)
@@ -457,12 +457,15 @@ class ContainerManager(object):
             TimeoutError: if a time limit is given and the command fails
                 to complete within that time. Only supported by blocking calls.
         """
+        cmd_original = cmd
         logger_c = logger.getChild(container.uid)
+        logger_c.debug('executing command "%s"', cmd)
         bug = self.__installation.bugs[container.bug]
 
         # TODO: we need a better long-term alternative
         if context is None:
             context = os.path.join(bug.source_dir, '..')
+        logger_c.debug('using execution context: %s', context)
 
         cmd = 'source /.environment && cd {} && {}'.format(context, cmd)
         cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
@@ -473,13 +476,19 @@ class ContainerManager(object):
         cmd = cmd_wrapped
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
-        logger_c.debug("executing command: %s", cmd)
+        logger_c.debug("executing raw command: %s", cmd)
+        logger_c.debug('creating exec object for command: %s', cmd)
         docker_client = self.__installation.docker
-        response = docker_client.api.exec_create(container.id,
-                                                 cmd,
-                                                 tty=True,
-                                                 stdout=stdout,
-                                                 stderr=stderr)
+        try:
+            response = docker_client.api.exec_create(container.id,
+                                                     cmd,
+                                                     tty=True,
+                                                     stdout=stdout,
+                                                     stderr=stderr)
+        except docker.errors.APIError:
+            logger_c.exception('failed to create exec object for command: %s', cmd)  # noqa: pycodestyle
+            raise
+        logger_c.debug("created exec object for command: %s", cmd)
         exec_id = response['Id']
 
         time_start = timer()
@@ -496,8 +505,10 @@ class ContainerManager(object):
             output.append(line)
         time_running = timer() - time_start
         output = '\n'.join(output)
-
         code = self.__api_docker.exec_inspect(exec_id)['ExitCode']
+        logger_c.debug('finished executing command: %s. (exited with code %d and took %.2f seconds.)\n%s',  # noqa: pycodestyle
+                       cmd_original, code, time_running, output)
+
         return ExecResponse(code, time_running, output)
 
     exec = command
