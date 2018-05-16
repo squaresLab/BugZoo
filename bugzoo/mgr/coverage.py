@@ -11,6 +11,7 @@ from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage, \
                             TestCoverage
 from ..testing.base import TestCase
+from ..exceptions import FailedToComputeCoverage
 
 logger = logging.getLogger(__name__)
 
@@ -137,6 +138,7 @@ class CoverageManager(object):
         Uses a provided container to compute line coverage information for a
         given list of tests.
         """
+        logger.debug("computing coverage for container: %s", container.uid)
         if tests is None:
             bug = self.__installation.bugs[container.bug]
             _tests = bug.tests
@@ -144,22 +146,31 @@ class CoverageManager(object):
             assert tests is not []
             _tests = tests
 
-        self.instrument(container,
-                        files_to_instrument=files_to_instrument)
+        try:
+            self.instrument(container,
+                            files_to_instrument=files_to_instrument)
+        except Exception:
+            raise FailedToComputeCoverage("failed to instrument container.")
 
         cov = {}
         for test in _tests:
-            print("generating coverage: {}".format(test))
+            logger.debug("Generating coverage for test %s in container %s",
+                         test.name, container.uid)
             outcome = self.__installation.containers.execute(container, test)
             filelines = self.extract(container,
                                      instrumented_files=files_to_instrument)
-            cov[test.name] = TestCoverage(test.name, outcome, filelines)
+            test_coverage = TestCoverage(test.name, outcome, filelines)
+            logger.debug("Generated coverage for test %s in container %s",
+                         test.name, container.uid)
+            cov[test.name] = test_coverage
 
         # FIXME deinstrument
         # self.deinstrument(container,
         #                   instrumented_files=files_to_instrument)
 
-        return TestSuiteCoverage(cov)
+        coverage = TestSuiteCoverage(cov)
+        logger.debug("Computed coverage for container: %s", container.uid)
+        return coverage
 
     def instrument(self,
                    container: Container,
@@ -178,7 +189,7 @@ class CoverageManager(object):
         Raises:
             Exception: if an absolute file path is provided.
         """
-        logger.info("instrumenting container: %s", container.uid)
+        logger.debug("instrumenting container: %s", container.uid)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -220,7 +231,7 @@ class CoverageManager(object):
             print(outcome.response.output)
             raise Exception(msg)
 
-        logger.info("instrumented container: %s", container.uid)
+        logger.debug("instrumented container: %s", container.uid)
 
     def deinstrument(self,
                      container: Container,
