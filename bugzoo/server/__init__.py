@@ -161,7 +161,7 @@ def provision_bug(uid: str):
 @app.route('/bugs/<uid>/coverage', methods=['GET'])
 @throws_errors
 def coverage_bug(uid: str):
-    msg_prefix_fail = "Failed to fetch coverage information for snapshot, %s"
+    msg_prefix_fail = "Failed to fetch coverage information for snapshot, {}"
     msg_prefix_fail = msg_prefix_fail.format(uid)
     logger.info("Fetching coverage information for snapshot: %s",
                 uid)
@@ -432,6 +432,7 @@ def run(*,
     log_to_stdout.setFormatter(log_formatter)
 
     log_main = logging.getLogger('bugzoo')  # type: logging.Logger
+    log_main.setLevel(logging.DEBUG)
     log_main.addHandler(log_to_stdout)
     log_main.addHandler(log_to_file)
 
