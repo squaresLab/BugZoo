@@ -202,9 +202,11 @@ class ContainerManager(object):
                 ready = True
                 break
         if not ready:
-            msg = "failed to start Docker container, {}:\n[RESPONSE]\n{}\n[/RESPONSE]"  # noqa: pycodestyle
-            output_startup_s = indent(''.join(output_startup), 4)
-            msg = msg.format(uid, output_startup_s)
+            response = indent(''.join(output_startup), 4)
+            response = "[RESPONSE]\n{}\n[/RESPONSE]".format(response)
+            response = indent(response, 2)
+            msg = "failed to start Docker container, {}:\n{}"
+            msg = msg.format(uid, response)
             logger.error(msg)
             raise Exception(msg)  # TODO add exception; DockerException, maybe?
         logger.debug("environment file has been constructed for container: %s", uid)  # noqa: pycodestyle
