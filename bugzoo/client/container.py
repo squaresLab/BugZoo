@@ -194,9 +194,14 @@ class ContainerManager(object):
             logger.info("Fetched coverage information for container: %s",
                         uid)
             return coverage
-        logger.error("Failed to fetch coverage information for container: %s",
-                     uid)
-        self.__api.handle_erroneous_response(r)
+        try:
+            self.__api.handle_erroneous_response(r)
+        except BugZooException as err:
+            logger.exception("Failed to fetch coverage information for container %s: %s", uid, err.msg)  # noqa: pycodestyle
+            raise
+        except Exception as err:
+            logger.exception("Failed to fetch coverage information for container %s due to unexpected failure: %s", uid, err)  # noqa: pycodestyle
+            raise
 
     def exec(self,
              container: Container,
