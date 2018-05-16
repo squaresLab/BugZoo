@@ -1,4 +1,4 @@
-from typing import Dict, Any, Iterator
+from typing import Dict, Any, Iterator, Optional
 from functools import wraps
 from contextlib import contextmanager
 import argparse
@@ -409,19 +409,31 @@ def docker_images(name: str):
 def run(*,
         port: int = 6060,
         host: str = '0.0.0.0',
-        debug: bool = True
+        debug: bool = True,
+        log_filename: Optional[str] = None
         ) -> None:
     global daemon
     daemon = BugZoo()
 
+    if not log_filename:
+        log_filename = "bugzood.log"
+        log_filename = os.path.join(os.getcwd(), log_filename)
+
     log_formatter = \
         logging.Formatter('%(asctime)s:%(name)s:%(levelname)s: %(message)s',
                           '%Y-%m-%d %H:%M:%S')
-    log_to_stdout = logging.StreamHandler(sys.stdout)
+
+    log_to_file = logging.handlers.WatchedFileHandler(log_filename)
+    log_to_file.setLevel(logging.DEBUG)
+    log_to_file.setFormatter(log_formatter)
+
+    log_to_stdout = logging.StreamHandler()
+    log_to_stdout.setLevel(logging.DEBUG if debug else logging.INFO)
     log_to_stdout.setFormatter(log_formatter)
-    logging.getLogger("bugzoo").addHandler(log_to_stdout)
-    logging.getLogger("bugzoo").setLevel(
-        logging.DEBUG if debug else logging.INFO)
+
+    log_main = logging.getLogger('bugzoo')  # type: logging.Logger
+    log_main.addHandler(log_to_stdout)
+    log_main.addHandler(log_to_file)
 
     app.run(port=port, host=host, debug=debug)
 
@@ -433,6 +445,9 @@ def main() -> None:
                         type=int,
                         default=6060,
                         help='the port that should be used by this server.')
+    parser.add_argument('--log-file',
+                        type=str,
+                        help='the path to the file where logs should be written.')  # noqa: pycodestyle
     parser.add_argument('--host',
                         type=str,
                         default='0.0.0.0',
@@ -443,4 +458,5 @@ def main() -> None:
     args = parser.parse_args()
     run(port=args.port,
         host=args.host,
+        log_filename=args.log_file,
         debug=args.debug)
