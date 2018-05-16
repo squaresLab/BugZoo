@@ -63,7 +63,7 @@ class ContainerManager(object):
         Raises:
             KeyError: if no container was found with the given UID.
         """
-        logger.info("deleting container: %s", uid)
+        logger.debug("deleting container: %s", uid)
         try:
             container = self.__containers[uid]
             self.__dockerc[uid].remove(force=True)
@@ -81,7 +81,8 @@ class ContainerManager(object):
 
         except KeyError:
             logger.error("failed to delete container: %s [not found]", uid)
-        logger.info("deleted container: %s", uid)
+            raise
+        logger.debug("deleted container: %s", uid)
 
     delete = __delitem__
 
@@ -121,12 +122,16 @@ class ContainerManager(object):
 
         if uid is None:
             uid = str(uuid.uuid4())
+        logger.debug("provisioning container for bug %s: %s",
+                     bug.name, uid)
 
         tool_containers = [self.__installation.tools.provision(t) for t in tools]
         self.__dockerc_tools[uid] = tool_containers
         tool_container_ids = [c.id for c in tool_containers]
 
         # prepare the environment for the container
+        logger.debug("creating temporary environment file for container %s",
+                     uid)
         env = [(k, v) for t in tools for (k, v) in t.environment.items()]
         env = ["{}=\"{}\"".format(k, v) for (k, v) in env]
         env = "\n".join(env)
@@ -134,6 +139,8 @@ class ContainerManager(object):
         env_file.write(env)
         env_file.flush()
         self.__env_files[uid] = env_file
+        logger.debug("created temporary environment file for container %s: %s",
+                     uid, env_file.name)
 
         volumes = copy.deepcopy(volumes)
         volumes[env_file.name] = \
@@ -155,6 +162,7 @@ class ContainerManager(object):
         )
         cmd = '/bin/bash -c "{}"'.format(cmd)
 
+        logger.debug("creating Docker container for BugZoo container: %s")
         dockerc = \
             self.__client_docker.containers.create(bug.image,
                                                    cmd,
@@ -168,13 +176,20 @@ class ContainerManager(object):
                                                    # tty=interactive,
                                                    detach=True)
         self.__dockerc[uid] = dockerc
+        logger.debug("created Docker container for BugZoo container: %s")
+        logger.debug("starting Docker container for BugZoo container: %s")
         dockerc.start()
+        logger.debug("started Docker container for BugZoo container: %s")
 
         # block until /.environment is ready
+        logger.debug("blocking until environment file has been constructed for container: %s",  # noqa: pycodestyle
+                     uid)
         for line in self.__api_docker.logs(dockerc.id, stream=True):
             line = line.decode('utf-8').strip()
             if line == "BUGZOO IS READY TO GO!":
                 break
+        logger.debug("environment file has been constructed for container: %s",  # noqa: pycodestyle
+                     uid)
 
         container = Container(bug=bug.name,
                               uid=uid,
@@ -191,9 +206,20 @@ class ContainerManager(object):
         Returns:
             the absolute path to the created temporary file.
         """
+        logger.debug("creating a temporary file inside container %s",
+                     container.uid)
         response = self.command(container, "mktemp")
+
+        if response.code !== 0:
+            msg = "failed to create temporary file for container {}: [{}] {}"
+            msg = msg.format(uid, response.code, response.output)
+            logger.error(msg)
+            raise Exception(msg)  # FIXME add new exception
+
         assert response.code == 0, "failed to create temporary file"
         fn = response.output.strip()
+        logger.debug("created temporary file inside container %s: %s",
+                     container.uid, fn)
         return fn
 
     def is_alive(self,
@@ -370,13 +396,13 @@ class ContainerManager(object):
         Copies a file from the host machine to a specified location inside a
         container.
         """
-        logger.info("Copying file to container, %s: %s -> %s",
-                    container.uid, fn_host, fn_container)
+        logger.debug("Copying file to container, %s: %s -> %s",
+                     container.uid, fn_host, fn_container)
         cmd = "docker cp '{}' '{}:{}'".format(fn_host, container.id, fn_container)
         try:
             subprocess.check_output(cmd, shell=True)
-            logger.info("Copied file to container, %s: %s -> %s",
-                        container.uid, fn_host, fn_container)
+            logger.debug("Copied file to container, %s: %s -> %s",
+                         container.uid, fn_host, fn_container)
         # TODO implement error handling
         except subprocess.CalledProcessError:
             logger.exception("Failed to copy file to container, %s: %s -> %s",
@@ -392,13 +418,13 @@ class ContainerManager(object):
         Copies a given file from the container to a specified location on the
         host machine.
         """
-        logger.info("Copying file from container, %s: %s -> %s",
-                    container.uid, fn_container, fn_host)
+        logger.debug("Copying file from container, %s: %s -> %s",
+                     container.uid, fn_container, fn_host)
         cmd = "docker cp '{}:{}' '{}'".format(container.id, fn_container, fn_host)
         try:
             subprocess.check_output(cmd, shell=True)
-            logger.info("Copied file from container, %s: %s -> %s",
-                        container.uid, fn_container, fn_host)
+            logger.debug("Copied file from container, %s: %s -> %s",
+                         container.uid, fn_container, fn_host)
         # TODO implement error handling
         except subprocess.CalledProcessError:
             logger.exception("Failed to copy file from container, %s: %s -> %s",  # noqa: pycodestyle
@@ -490,7 +516,7 @@ class ContainerManager(object):
                 Docker image on this server.
         """
         logger_c = logger.getChild(container.uid)
-        logger_c.info("Persisting container as a Docker image: %s", image)
+        logger_c.debug("Persisting container as a Docker image: %s", image)
         try:
             docker_container = self.__dockerc[container.uid]
         except KeyError:
@@ -503,4 +529,4 @@ class ContainerManager(object):
             raise ImageAlreadyExists(image)
         except docker.errors.ImageNotFound:
             docker_container.commit(repository=image)
-        logger_c.info("Persisted container as a Docker image: %s", image)
+        logger_c.debug("Persisted container as a Docker image: %s", image)
