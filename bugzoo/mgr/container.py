@@ -420,9 +420,20 @@ class ContainerManager(object):
         """
         Copies a file from the host machine to a specified location inside a
         container.
+
+        Raises:
+            FileNotFound: if the host file wasn't found.
+            subprocess.CalledProcessError: if the file could not be copied to
+                the container.
         """
         logger.debug("Copying file to container, %s: %s -> %s",
                      container.uid, fn_host, fn_container)
+
+        if not os.path.exists(fn_host):
+            logger.error("Failed to copy file [%s] to [%s] in container [%s]: not found.",  # noqa: pycodestyle
+                         fn_host, fn_container, container.uid)
+            raise FileNotFound(fn_host)
+
         cmd = "docker cp '{}' '{}:{}'".format(fn_host, container.id, fn_container)
         try:
             subprocess.check_output(cmd, shell=True)
