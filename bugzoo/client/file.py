@@ -5,6 +5,8 @@ import os
 from .api import APIClient
 from .bug import BugManager
 from ..core.container import Container
+from ..exceptions import BugZooException
+from ..util import indent
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 
@@ -36,8 +38,19 @@ class FileManager(object):
         Raises:
             KeyError: if the given file was not found.
         """
+        logger.debug("reading contents of file [%s] in container [%s].",
+                     filepath, container.uid)
         path = "files/{}/{}".format(container.uid, filepath)
         response = self.__api.get(path)
         if response.status_code == 200:
-            return response.text
-        self.__api.handle_erroneous_response(response)
+            contents = response.text
+            logger.debug("fetched contents of file [%s] in container [%s]:%s"
+                         filepath, container.uid,
+                         indent("\n[CONTENTS]\n{}\n[/CONTENTS]".format(contents), 2))  # noqa: pycodestyle
+            return contents
+        try:
+            self.__api.handle_erroneous_response(response)
+        except BugZooException as err:
+            logger.exception("failed to read contents of file [%s] in container [%s]: %s",  # noqa: pycodestyle
+                             filepath, container.uid, err)
+            raise

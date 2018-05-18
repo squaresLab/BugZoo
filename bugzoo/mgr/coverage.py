@@ -68,7 +68,7 @@ class CoverageManager(object):
         bug = mgr_bug[container.bug]
         dir_source = bug.source_dir
         # getting a list of all files in source directory to later use for resolving path
-        resp = mgr_ctr.command(container, "find {} -type f".format(dir_source))
+        resp = mgr_ctr.command(container, "find {} -type f -name '*.cpp' -name '*.c'".format(dir_source))
         all_files = [fn.strip() for fn in resp.output.split('\n')]
 
         def has_file(fn_rel: str) -> bool:
