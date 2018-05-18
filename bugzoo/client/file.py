@@ -44,7 +44,7 @@ class FileManager(object):
         response = self.__api.get(path)
         if response.status_code == 200:
             contents = response.text
-            logger.debug("fetched contents of file [%s] in container [%s]:%s"
+            logger.debug("fetched contents of file [%s] in container [%s]:%s",
                          filepath, container.uid,
                          indent("\n[CONTENTS]\n{}\n[/CONTENTS]".format(contents), 2))  # noqa: pycodestyle
             return contents
