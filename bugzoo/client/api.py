@@ -71,7 +71,7 @@ class APIClient(object):
         """
         Computes the URL for a resource located at a given path on the server.
         """
-        url = urllib.parse.urljoin(self.__base_url, path)
+        url = "{}/{}".format(self.__base_url, path)
         logger.debug("transformed path [%s] into url: %s", path, url)
         return url
 
