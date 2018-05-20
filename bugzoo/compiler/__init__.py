@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any
 import logging
 
 from ..cmd import ExecResponse
@@ -10,8 +10,8 @@ class CompilationOutcome(object):
     """
     Records the outcome of a compilation attempt.
     """
-    @property
-    def from_dict(jsn) -> 'CompilationOutcome':
+    @staticmethod
+    def from_dict(jsn: Any) -> 'CompilationOutcome':
         command_outcome = ExecResponse.from_dict(command_outcome)
         return CompilationOutcome(command_outcome)
 
