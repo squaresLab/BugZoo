@@ -147,15 +147,11 @@ class ContainerManager(object):
         """
         path = "containers/{}/compile".format(container.uid)
         r = self.__api.post(path)
-
         if r.status_code == 200:
             return CompilationOutcome.from_dict(r.json())
-
-        if r.status_code == 404:
-            raise KeyError("container or test case not found")
-
         self.__api.handle_erroneous_response(r)
 
+    build = compile
 
     def test(self,
              container: Container,
