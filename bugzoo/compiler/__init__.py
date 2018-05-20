@@ -1,6 +1,9 @@
 from typing import Optional
+import logging
 
 from ..cmd import ExecResponse
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
 
 
 class CompilationOutcome(object):
@@ -162,12 +165,15 @@ class SimpleCompiler(Compiler):
                   verbose: bool
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
+        logger.debug("compiling container [%s] via command: %s",
+                     container.uid, command)
         bug = manager_container.bug(container)
         context = self.__context if self.__context else bug.source_dir
         cmd_outcome = manager_container.command(container,
                                                 command,
                                                 context=context,
                                                 stderr=True)
+        logger.debug("compiled container [%s]", container.uid)
         return CompilationOutcome(cmd_outcome)
 
     def clean(self,
