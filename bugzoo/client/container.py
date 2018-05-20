@@ -146,7 +146,10 @@ class ContainerManager(object):
             KeyError: if the container no longer exists.
         """
         path = "containers/{}/build".format(container.uid)
-        r = self.__api.post(path)
+        params = {}
+        if verbose:
+            params['verbose'] = 'yes'
+        r = self.__api.post(path, params=params)
         if r.status_code == 200:
             return CompilationOutcome.from_dict(r.json())
         self.__api.handle_erroneous_response(r)
