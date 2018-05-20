@@ -94,43 +94,27 @@ class APIClient(object):
             err = UnexpectedResponse(response)
         raise err
 
-    def get(self,
-            path: str,
-            *,
-            json: Optional[Any] = None
-            ) -> requests.Response:
+    def get(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
         logger.debug('GET: %s', url)
-        return requests.get(url, json=json)
+        return requests.get(url, **kwargs)
 
-    def post(self,
-             path: str,
-             *,
-             json: Optional[Any] = None
-             ) -> requests.Response:
+    def post(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
         logger.debug('POST: %s', url)
-        return requests.post(url, json=json)
+        return requests.post(url, **kwargs)
 
     def put(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
         logger.debug('PUT: %s', url)
         return requests.put(url, **kwargs)
 
-    def patch(self,
-              path: str,
-              data,
-              **kwargs
-              ) -> requests.Response:
+    def patch(self, path: str, data, **kwargs ) -> requests.Response:
         url = self._url(path)
         logger.debug('PATCH: %s', url)
         return requests.patch(url, data=data, **kwargs)
 
-    def delete(self,
-               path: str,
-               *,
-               json: Optional[Any] = None
-               ) -> requests.Response:
+    def delete(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
         logger.debug('DELETE: %s', url)
-        return requests.delete(url, json=json)
+        return requests.delete(url, **kwargs)

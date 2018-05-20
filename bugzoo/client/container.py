@@ -145,7 +145,7 @@ class ContainerManager(object):
         Raises:
             KeyError: if the container no longer exists.
         """
-        path = "containers/{}/compile".format(container.uid)
+        path = "containers/{}/build".format(container.uid)
         r = self.__api.post(path)
         if r.status_code == 200:
             return CompilationOutcome.from_dict(r.json())
