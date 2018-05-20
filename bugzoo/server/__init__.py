@@ -327,7 +327,7 @@ def is_alive_container(uid: str):
     return (jsn, 200)
 
 
-@app.route('/containers/<uid>/build', methods=['GET'])
+@app.route('/containers/<uid>/build', methods=['POST'])
 @throws_errors
 def build_container(uid: str):
     verbose = \
