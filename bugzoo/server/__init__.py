@@ -12,9 +12,11 @@ import flask
 
 from ..core.bug import Bug
 from ..core.patch import Patch
+from ..compiler import CompilationOutcome
 from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
+from ..mgr.container import ContainerManager
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 
@@ -325,6 +327,24 @@ def is_alive_container(uid: str):
     return (jsn, 200)
 
 
+@app.route('/containers/<uid>/build', methods=['GET'])
+@throws_errors
+def build_container(uid: str):
+    verbose = \
+        flask.request.args.get('verbose', default='no', type=str) == 'yes'
+    mgr_ctr = daemon.containers  # type: ContainerManager
+    try:
+        container = mgr_ctr[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    logger.debug("building project in container: %s", container.uid)
+    outcome = mgr_ctr.compile(container, verbose=verbose)
+    logger.debug("built project in container: %s", container.uid)
+    jsn = flask.jsonify(outcome.to_dict())
+    return (jsn, 200)
+
+
 @app.route('/containers/<uid>/exec', methods=['POST'])
 @throws_errors
 def exec_container(uid: str):
@@ -422,7 +442,7 @@ def run(*,
         logging.Formatter('%(asctime)s:%(name)s:%(levelname)s: %(message)s',
                           '%Y-%m-%d %H:%M:%S')
 
-    log_to_file = logging.handlers.WatchedFileHandler(log_filename)
+    log_to_file = logging.handlers.WatchedFileHandler(log_filename, mode='w')
     log_to_file.setLevel(logging.DEBUG)
     log_to_file.setFormatter(log_formatter)
 
