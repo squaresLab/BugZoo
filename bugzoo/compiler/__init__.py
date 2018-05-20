@@ -12,7 +12,9 @@ class CompilationOutcome(object):
     """
     @staticmethod
     def from_dict(jsn: Any) -> 'CompilationOutcome':
-        command_outcome = ExecResponse.from_dict(command_outcome)
+        assert isinstance(jsn, dict)
+        assert 'command-outcome' in jsn
+        command_outcome = ExecResponse.from_dict(jsn['command-outcome'])
         return CompilationOutcome(command_outcome)
 
     def __init__(self, command_outcome: ExecResponse) -> None:
