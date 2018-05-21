@@ -143,10 +143,7 @@ def list_bugs(rbox: 'BugZoo',
             if show_installed != is_installed:
                 continue
 
-        installed = 'Yes' if is_installed else 'No'
-        dataset = bug.dataset if bug.dataset else '-'
-        program = bug.program if bug.program else '-'
-        source = bug.source if bug.source else '-'
+
         row = [bug.name, program, dataset, source, installed]
         tbl.append(row)
 
