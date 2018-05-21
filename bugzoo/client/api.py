@@ -43,9 +43,8 @@ class APIClient(object):
         self.__base_url = base_url
 
         # attempt to establish a connection
-        logging.info("Attempting to establish connection to %s within %d seconds",  # noqa: pycodestyle
-                     base_url,
-                     timeout_connection)
+        logger.info("Attempting to establish connection to %s within %d seconds",  # noqa: pycodestyle
+                    base_url, timeout_connection)
         url = self._url("status")
         time_started = timer()
         connected = False
@@ -66,13 +65,15 @@ class APIClient(object):
                              base_url)
                 raise ConnectionFailure
             time.sleep(0.05)
-        logging.info("Established connection to server: %s", base_url)
+        logger.info("Established connection to server: %s", base_url)
 
     def _url(self, path: str) -> str:
         """
         Computes the URL for a resource located at a given path on the server.
         """
-        return urllib.parse.urljoin(self.__base_url, path)
+        url = "{}/{}".format(self.__base_url, path)
+        logger.debug("transformed path [%s] into url: %s", path, url)
+        return url
 
     def handle_erroneous_response(self,
                                   response: requests.Response
@@ -86,49 +87,34 @@ class APIClient(object):
             UnexpectedResponse: if the response cannot be decoded to an
                 exception.
         """
+        logger.debug("handling erroneous response: %s", response)
         try:
             err = BugZooException.from_dict(response.json())
         except Exception:
             err = UnexpectedResponse(response)
         raise err
 
-    def get(self,
-            path: str,
-            *,
-            json: Optional[Any] = None
-            ) -> requests.Response:
+    def get(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
-        logger.info('GET: %s', url)
-        return requests.get(url, json=json)
+        logger.debug('GET: %s', url)
+        return requests.get(url, **kwargs)
 
-    def post(self,
-             path: str,
-             *,
-             json: Optional[Any] = None
-             ) -> requests.Response:
+    def post(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
-        logger.info('POST: %s', url)
-        return requests.post(url, json=json)
+        logger.debug('POST: %s', url)
+        return requests.post(url, **kwargs)
 
     def put(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
-        logger.info('PUT: %s', url)
+        logger.debug('PUT: %s', url)
         return requests.put(url, **kwargs)
 
-    def patch(self,
-              path: str,
-              data,
-              **kwargs
-              ) -> requests.Response:
+    def patch(self, path: str, data, **kwargs ) -> requests.Response:
         url = self._url(path)
-        logger.info('PATCH: %s', url)
+        logger.debug('PATCH: %s', url)
         return requests.patch(url, data=data, **kwargs)
 
-    def delete(self,
-               path: str,
-               *,
-               json: Optional[Any] = None
-               ) -> requests.Response:
+    def delete(self, path: str, **kwargs) -> requests.Response:
         url = self._url(path)
-        logger.info('DELETE: %s', url)
-        return requests.delete(url, json=json)
+        logger.debug('DELETE: %s', url)
+        return requests.delete(url, **kwargs)

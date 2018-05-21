@@ -1,4 +1,4 @@
-from typing import Dict, Any, Iterator
+from typing import Dict, Any, Iterator, Optional
 from functools import wraps
 from contextlib import contextmanager
 import argparse
@@ -12,9 +12,11 @@ import flask
 
 from ..core.bug import Bug
 from ..core.patch import Patch
+from ..compiler import CompilationOutcome
 from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
+from ..mgr.container import ContainerManager
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 
@@ -161,7 +163,7 @@ def provision_bug(uid: str):
 @app.route('/bugs/<uid>/coverage', methods=['GET'])
 @throws_errors
 def coverage_bug(uid: str):
-    msg_prefix_fail = "Failed to fetch coverage information for snapshot, %s"
+    msg_prefix_fail = "Failed to fetch coverage information for snapshot, {}"
     msg_prefix_fail = msg_prefix_fail.format(uid)
     logger.info("Fetching coverage information for snapshot: %s",
                 uid)
@@ -325,6 +327,24 @@ def is_alive_container(uid: str):
     return (jsn, 200)
 
 
+@app.route('/containers/<uid>/build', methods=['POST'])
+@throws_errors
+def build_container(uid: str):
+    verbose = \
+        flask.request.args.get('verbose', default='no', type=str) == 'yes'
+    mgr_ctr = daemon.containers  # type: ContainerManager
+    try:
+        container = mgr_ctr[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    logger.debug("building project in container: %s", container.uid)
+    outcome = mgr_ctr.compile(container, verbose=verbose)
+    logger.debug("built project in container: %s", container.uid)
+    jsn = flask.jsonify(outcome.to_dict())
+    return (jsn, 200)
+
+
 @app.route('/containers/<uid>/exec', methods=['POST'])
 @throws_errors
 def exec_container(uid: str):
@@ -409,19 +429,35 @@ def docker_images(name: str):
 def run(*,
         port: int = 6060,
         host: str = '0.0.0.0',
-        debug: bool = True
+        debug: bool = True,
+        log_filename: Optional[str] = None
         ) -> None:
     global daemon
-    daemon = BugZoo()
+
+    if not log_filename:
+        log_filename = "bugzood.log"
+        log_filename = os.path.join(os.getcwd(), log_filename)
 
     log_formatter = \
         logging.Formatter('%(asctime)s:%(name)s:%(levelname)s: %(message)s',
                           '%Y-%m-%d %H:%M:%S')
-    log_to_stdout = logging.StreamHandler(sys.stdout)
+
+    log_to_file = logging.handlers.WatchedFileHandler(log_filename, mode='w')
+    log_to_file.setLevel(logging.DEBUG)
+    log_to_file.setFormatter(log_formatter)
+
+    log_to_stdout = logging.StreamHandler()
+    log_to_stdout.setLevel(logging.DEBUG if debug else logging.INFO)
     log_to_stdout.setFormatter(log_formatter)
-    logging.getLogger("bugzoo").addHandler(log_to_stdout)
-    logging.getLogger("bugzoo").setLevel(
-        logging.DEBUG if debug else logging.INFO)
+
+    log_main = logging.getLogger('bugzoo')  # type: logging.Logger
+    log_main.setLevel(logging.DEBUG)
+    log_main.addHandler(log_to_stdout)
+    log_main.addHandler(log_to_file)
+
+    logger.info("launching BugZoo daemon")
+    daemon = BugZoo()
+    logger.info("launched BugZoo daemon")
 
     app.run(port=port, host=host, debug=debug)
 
@@ -433,6 +469,9 @@ def main() -> None:
                         type=int,
                         default=6060,
                         help='the port that should be used by this server.')
+    parser.add_argument('--log-file',
+                        type=str,
+                        help='the path to the file where logs should be written.')  # noqa: pycodestyle
     parser.add_argument('--host',
                         type=str,
                         default='0.0.0.0',
@@ -443,4 +482,5 @@ def main() -> None:
     args = parser.parse_args()
     run(port=args.port,
         host=args.host,
+        log_filename=args.log_file,
         debug=args.debug)

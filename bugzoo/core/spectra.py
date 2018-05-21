@@ -49,6 +49,9 @@ class LineSpectra(object):
         """
         return self.__nf
 
+    def __repr__(self) -> str:
+        return "({},{}; {},{})".format(self.ep, self.np, self.ef, self.nf)
+
 
 class Spectra(object):
     """
@@ -117,6 +120,10 @@ class Spectra(object):
         lines = passing_lines.union(failing_lines)
         for line in lines:
             yield line
+
+    def __repr__(self) -> str:
+        bfr = ["{}: {}".format(line, repr(self[line])) for line in self]
+        return 'Spectra({})'.format('\n'.join(bfr))
 
     def restricted_to_files(self,
                             filenames: List[str]
