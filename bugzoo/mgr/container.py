@@ -218,7 +218,6 @@ class ContainerManager(object):
         logger.debug("provisioned container for bug %s: %s",
                      bug.name, uid)
 
-        time.sleep(10)
         logger.debug("STATUS OF CONTAINER: %s", dockerc.status)
         return container
 
