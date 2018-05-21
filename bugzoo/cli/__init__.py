@@ -539,7 +539,14 @@ def main():
         args = parser.parse_args()
         if 'func' in vars(args):
             args.func(args)
+    except BugZooException as e:
+        error("ERROR: {}".format(e.message))
+        logging.exception("An error occurred: %s", e)
+    except Exception as e:
+        error("UNEXPECTED ERROR: {}".format(e))
+        logging.exception("An unexpected error occurred: %s", e)
     except KeyboardInterrupt:
+        logging.info("Command cancelled by keyboard interrupt.")
         pass
 
 
