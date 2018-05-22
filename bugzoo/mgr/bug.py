@@ -70,7 +70,7 @@ class BugManager(object):
 
     def build(self,
               bug: Bug,
-              force: bool = False,
+              force: bool = True,
               quiet: bool = False
               ) -> None:
         """
