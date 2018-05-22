@@ -54,3 +54,9 @@ class SourceController(ArgparseController):
             print('added source: {} -> {}'.format(name, url_or_path))
         except NameInUseError:
             print('source already registered with name: {}'.format(name))
+
+    @expose(help='downloads any updates for registered sources')
+    def update(self) -> None:
+        print('updating sources...')
+        bz = self.app.daemon
+        bz.sources.update()
