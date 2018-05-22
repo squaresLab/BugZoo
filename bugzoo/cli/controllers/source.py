@@ -55,6 +55,18 @@ class SourceController(ArgparseController):
         except NameInUseError:
             print('source already registered with name: {}'.format(name))
 
+    @expose(
+        help='removes a given source from this BugZoo installation',
+        arguments=[(['name'], {'help': 'the name of the source', 'type': str})]
+    )
+    def remove(self) -> None:
+        name = self.app.pargs.name
+        try:
+            del self.app.daemon.sources[name]
+            print('removed source: {}'.format(name))
+        except KeyError:
+            print('no source registered with name: {}'.format(name))
+
     @expose(help='downloads any updates for registered sources')
     def update(self) -> None:
         print('updating sources...')
