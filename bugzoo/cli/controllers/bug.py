@@ -93,6 +93,25 @@ class BugController(ArgparseController):
         bugs.uninstall(bug, force=self.app.pargs.force)
 
     @expose(
+        help='validates that a given bug behaves as expected',
+        arguments=[
+            (['bug'], {'help': 'the name of the bug', 'type': str}),
+            (['--verbose'],
+             {'help': 'dumps the output of building and testing to the stdout',  # noqa: pycodestyle
+              'action': 'store_true'})
+        ]
+    )
+    def validate(self) -> None:
+        name_bug = self.app.pargs.bug
+        print('validating bug: {}'.format(name_bug))
+        bz = self.app.daemon
+        bug = bz.bugs[name_bug]
+        if bz.bugs.validate(bug, verbose=self.app.pargs.verbose):
+            print('OK')
+        else:
+            print('FAIL')
+
+    @expose(
         help='computes line coverage information for a given bug',
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str}),
