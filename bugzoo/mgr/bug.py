@@ -96,9 +96,7 @@ class BugManager(object):
                                             force=force,
                                             noprune=noprune)
 
-    def download(self,
-                 bug: Bug,
-                 force=False) -> bool:
+    def download(self, bug: Bug, force=True) -> bool:
         """
         Attempts to download the Docker image for a given bug from
         `DockerHub <https://hub.docker.com>`_. If the force parameter is set to
