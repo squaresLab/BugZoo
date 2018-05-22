@@ -1,3 +1,5 @@
+import operator
+
 from cement.ext.ext_argparse import ArgparseController, expose
 
 
@@ -16,7 +18,15 @@ class BugController(ArgparseController):
         help='produces a list of registered bugs',
         arguments=[
             (['-q'], {'help': 'prints an unannotated list of the names of all registered bugs',  # noqa: pycodestyle
-                      'action': 'store_true'})
+                      'action': 'store_true'}),
+#            (['--installed'],
+#             {'help': 'restricts list of bugs to only those that are installed.',
+#              'action': 'store_true',
+#              'dest': 'installed'}),
+#            (['--uninstalled'],
+#             {'help': 'restricts list of bugs to only those that are not installed.',
+#              'action': 'store_false',
+#              'dest': 'installed'})
         ]
     )
     def list(self) -> None:
@@ -24,6 +34,9 @@ class BugController(ArgparseController):
         data = []
         bugs = self.app.daemon.bugs
         for bug in bugs:
+            # if hasattr(self.app.pargs, 'installed'):
+            #     if bugs.is_installed(bug) != self.app.pargs.installed:
+            #         continue
             row = [
                 bug.name,
                 bug.program if bug.program else '-',
@@ -32,6 +45,7 @@ class BugController(ArgparseController):
                 'Yes' if bugs.is_installed(bug) else 'No'
             ]
             data.append(row)
+        data = sorted(data, key=operator.itemgetter(3, 2, 1, 0))
         if self.app.pargs.q:
             print('\n'.join([r[0] for r in data]))
         else:
