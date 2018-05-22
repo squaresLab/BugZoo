@@ -1,0 +1,125 @@
+from typing import List, Dict, Optional
+import operator
+
+from cement.ext.ext_argparse import ArgparseController, expose
+
+from ...core.bug import Bug
+from ...core.source import RemoteSource
+from ...exceptions import NameInUseError
+
+
+class ContainerController(ArgparseController):
+    class Meta:
+        label = 'container'
+        description = 'provision and manage containers'
+        stacked_on = 'base'
+        stacked_type = 'nested'
+        output_handler = 'tabulate'
+        extensions = ['tabulate']
+
+    @expose(
+        help='launches an interactive container for a given bug',
+        arguments=[
+            (['bug'], {'help': 'the name of the bug that should be used'}),
+            (['-v', '--volume'],
+             {'help': 'adds a Docker host-container volume mapping',
+              'dest': 'volumes',
+              'action': 'append',
+              'type': str,
+              'default': []}),
+            (['--with'],
+             {'help': 'mounts a tool inside the container',
+              'dest': 'tools',
+              'action': 'append',
+              'type': str,
+              'default': []}),
+            (['--net'],
+             {'help': 'the Docker network mode that should be used by the container',
+              'type': str,
+              'choices': ['bridge', 'host'],
+              'default': 'bridge'})
+        ]
+    )
+    def launch(self) -> None:
+        self.__start(self.app.pargs.bug,
+                     arg_volumes=self.app.pargs.volumes,
+                     arg_tools=self.app.pargs.tools,
+                     network=self.app.pargs.net,
+                     interactive=True)
+
+    @expose(
+        help='creates a new container for a given bug and uses it to run a specific command',  # noqa: pycodestyle
+        arguments=[
+            (['bug'], {'help': 'the name of the bug that should be used'}),
+            (['-v', '--volume'],
+             {'help': 'adds a Docker host-container volume mapping',
+              'dest': 'volumes',
+              'action': 'append',
+              'type': str,
+              'default': []}),
+            (['--with'],
+             {'help': 'mounts a tool inside the container',
+              'dest': 'tools',
+              'action': 'append',
+              'type': str,
+              'default': []}),
+            (['--net'],
+             {'help': 'the Docker network mode that should be used by the container',
+              'type': str,
+              'choices': ['bridge', 'host'],
+              'default': 'bridge'}),
+            (['command'], {'help': 'the command that should be run inside the container'})  # noqa: pycodestyle
+        ]
+    )
+    def run(self) -> None:
+        self.__start(self.app.pargs.bug,
+                     arg_volumes=self.app.pargs.volumes,
+                     arg_tools=self.app.pargs.tools,
+                     network=self.app.pargs.net,
+                     command=self.app.pargs.command,
+                     interactive=False)
+
+    def __prepare_volumes(self, arg_volumes: List[str]) -> Dict[str, str]:
+        volume_map = {}
+        for v in arg_volumes:
+            parts = v.split(':')
+            if len(parts) < 2 or len(parts) > 3:
+                raise ValueError("Illegal or ambiguous volume argument: {}".format(v))
+            frm, to = parts[0:2]
+            mode = parts[2] if len(parts) == 3 else 'rw'
+            volume_map[frm] = {
+                'bind': to,
+                'mode': mode
+            }
+        return volume_map
+
+    def __start(self,
+                name_bug: str,
+                arg_volumes: List[str],
+                arg_tools: List[str],
+                network: str,
+                interactive: bool,
+                command: Optional[str] = None
+                ) -> None:
+        bz = self.app.daemon
+        bug = bz.bugs[name_bug]
+        tools = [bz.tools[t] for t in arg_tools]
+        volumes = self.__prepare_volumes(arg_volumes)
+        c = bz.containers.provision(bug=bug,
+                                    interactive=True,
+                                    tools=tools,
+                                    volumes=volumes,
+                                    network_mode=network)
+        try:
+            if command is not None:
+                stream = \
+                    bz.containers.command(c, command,
+                                          stderr=True, stdout=True,
+                                          block=False)
+                for s in stream.output:
+                    print(s.decode('utf8').strip())
+            else:
+                assert interactive
+                bz.containers.interact(c)
+        finally:
+            del bz.containers[c.uid]
