@@ -40,8 +40,7 @@ class BugController(ArgparseController):
     @expose(
         help='downloads the Docker image for a given bug',
         arguments=[
-            (['bug'], {'help': 'the name of the bug',
-                       'type': str})
+            (['bug'], {'help': 'the name of the bug', 'type': str})
         ]
     )
     def download(self) -> None:
@@ -54,8 +53,7 @@ class BugController(ArgparseController):
     @expose(
         help='uploads the Docker image for a given bug',
         arguments=[
-            (['bug'], {'help': 'the name of the bug',
-                       'type': str})
+            (['bug'], {'help': 'the name of the bug', 'type': str})
         ]
     )
     def upload(self) -> None:
@@ -64,3 +62,32 @@ class BugController(ArgparseController):
         bugs = self.app.daemon.bugs
         bug = bugs[name_bug]
         bugs.upload(bug)
+
+    @expose(
+        help='builds the Docker image for a given bug',
+        arguments=[
+            (['bug'], {'help': 'the name of the bug', 'type': str})
+        ]
+    )
+    def build(self) -> None:
+        name_bug = self.app.pargs.bug
+        print('building bug: {}'.format(name_bug))
+        bugs = self.app.daemon.bugs
+        bug = bugs[name_bug]
+        bugs.build(bug)
+
+    @expose(
+        help='uninstalls the Docker image for a given bug',
+        arguments=[
+            (['bug'], {'help': 'the name of the bug', 'type': str}),
+            (['-f', '--force'],
+             {'help': 'does not report an error if image is not installed.',
+              'action': 'store_true'})
+        ]
+    )
+    def uninstall(self) -> None:
+        name_bug = self.app.pargs.bug
+        print('uninstalling bug: {}'.format(name_bug))
+        bugs = self.app.daemon.bugs
+        bug = bugs[name_bug]
+        bugs.uninstall(bug, force=self.app.pargs.force)
