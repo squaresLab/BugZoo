@@ -2,6 +2,7 @@ from cement.core.foundation import CementApp
 
 from .controllers.base import BaseController
 from .controllers.bug import BugController
+from .controllers.source import SourceController
 from ..manager import BugZoo as Daemon
 
 
@@ -11,7 +12,7 @@ class BugZooCLI(CementApp):
         extensions = ['tabulate']
         output_handler = 'tabulate'
         base_controller = BaseController
-        handlers = [BugController]
+        handlers = [BugController, SourceController]
 
     def setup(self) -> None:
         super().setup()
