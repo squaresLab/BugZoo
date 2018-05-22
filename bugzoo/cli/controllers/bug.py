@@ -91,3 +91,27 @@ class BugController(ArgparseController):
         bugs = self.app.daemon.bugs
         bug = bugs[name_bug]
         bugs.uninstall(bug, force=self.app.pargs.force)
+
+    @expose(
+        help='computes line coverage information for a given bug',
+        arguments=[
+            (['bug'], {'help': 'the name of the bug', 'type': str}),
+            (['--no-cache'],
+             {'help': 'forces coverage information to be recomputed by ignoring the cache',  # noqa: pycodestyle
+              'dest': 'use_cache',
+              'action': 'store_false'})
+        ]
+    )
+    def coverage(self) -> None:
+        name_bug = self.app.pargs.bug
+        bz = self.app.daemon
+        bug = bz.bugs[name_bug]
+        if self.app.pargs.use_cache:
+            cov = bz.bugs.coverage(bug)
+        else:
+            container = bz.containers.provision(bug)
+            try:
+                cov = bz.coverage.coverage(container, bug.tests)
+            finally:
+                del bz.containers[container.uid]
+        print(cov)
