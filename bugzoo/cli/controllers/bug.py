@@ -36,3 +36,31 @@ class BugController(ArgparseController):
             print('\n'.join([r[0] for r in data]))
         else:
             self.app.render(data, headers=headers)
+
+    @expose(
+        help='downloads the Docker image for a given bug',
+        arguments=[
+            (['bug'], {'help': 'the name of the bug',
+                       'type': str})
+        ]
+    )
+    def download(self) -> None:
+        name_bug = self.app.pargs.bug
+        print('downloading bug: {}'.format(name_bug))
+        bugs = self.app.daemon.bugs
+        bug = bugs[name_bug]
+        bugs.download(bug)
+
+    @expose(
+        help='uploads the Docker image for a given bug',
+        arguments=[
+            (['bug'], {'help': 'the name of the bug',
+                       'type': str})
+        ]
+    )
+    def upload(self) -> None:
+        name_bug = self.app.pargs.bug
+        print('uploading bug: {}'.format(name_bug))
+        bugs = self.app.daemon.bugs
+        bug = bugs[name_bug]
+        bugs.upload(bug)
