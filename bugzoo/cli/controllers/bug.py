@@ -11,8 +11,6 @@ class BugController(ArgparseController):
         stacked_type = 'nested'
         output_handler = 'tabulate'
         extensions = ['tabulate']
-        arguments = [
-        ]
 
     @expose(
         help='produces a list of registered bugs',
