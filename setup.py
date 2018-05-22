@@ -24,7 +24,8 @@ setup(
         'tabulate',
         'flask',
         'numpy',
-        'mypy-extensions>=0.3.0'
+        'mypy-extensions>=0.3.0',
+        'cement>=2.10.12'
     ],
     packages=[
         'bugzoo',
@@ -35,11 +36,12 @@ setup(
         'bugzoo.server',
         'bugzoo.mgr',
         'bugzoo.core',
-        'bugzoo.cli'
+        'bugzoo.cli',
+        'bugzoo.cli.controllers'
     ],
     entry_points = {
         'console_scripts': [
-            'bugzoo = bugzoo.cli:main',
+            'bugzoo = bugzoo.cli.app:main',
             'bugzood = bugzoo.server:main'
         ]
     }
