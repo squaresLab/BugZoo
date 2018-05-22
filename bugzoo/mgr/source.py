@@ -63,6 +63,12 @@ class SourceManager(object):
         """
         return self.__sources[name]
 
+    def __delitem__(self, name: str) -> None:
+        """
+        See `remove`.
+        """
+        return self.remove(self[name])
+
     def refresh(self) -> None:
         """
         Reloads all sources that are registered with this server.
