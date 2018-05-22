@@ -3,6 +3,7 @@ import operator
 from cement.ext.ext_argparse import ArgparseController, expose
 
 from ...core.source import RemoteSource
+from ...exceptions import NameInUseError
 
 
 class SourceController(ArgparseController):
@@ -35,3 +36,21 @@ class SourceController(ArgparseController):
             print('\n'.join([r[0] for r in data]))
         else:
             self.app.render(data, headers=headers)
+
+    @expose(
+        help='registers a given source with this BugZoo installation',
+        arguments=[
+            (['name'], {'help': 'a unique name for the source',
+                        'type': str}),
+            (['url_or_path'], {'help': 'the URL or path to the source',
+                        'type': str})]
+    )
+    def add(self) -> None:
+        bz = self.app.daemon
+        name = self.app.pargs.name
+        url_or_path = self.app.pargs.url_or_path
+        try:
+            bz.sources.add(name, url_or_path)
+            print('added source: {} -> {}'.format(name, url_or_path))
+        except NameInUseError:
+            print('source already registered with name: {}'.format(name))
