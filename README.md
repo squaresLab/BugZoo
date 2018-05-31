@@ -16,8 +16,8 @@ Using BugZoo to conduct experiments has the following advantages:
 * A Python interface for complex, structured interactions with historical
   bugs: execute specific tests, compute line coverage, apply patches, compile
   with certain flags, and more.
-* A RESTful API that can be used to add BugZoo bindings to your own favourite
-  language.
+* An underlying RESTful API that can be used to add BugZoo bindings to your
+  own favourite language.
 * Download prebuilt software snapshots.
 * A decentralised architecture that lets you share your tools and datasets of
   historical bugs on the BugZoo platform without giving up ownership or control.
