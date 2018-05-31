@@ -4,14 +4,17 @@
 
 BugZoo is a decentralised platform for distributing,
 reproducing, and interacting with historical software bugs. BugZoo is designed
-to support both software engineering researchers as well developers of tools
+to support both software engineering researchers as well as developers of tools
 for program testing, analysis and repair.
 
 Using BugZoo to conduct experiments has the following advantages:
 
 ## Features
 
-* Share and download historical bugs.
+* Share and download datasets of historical bugs.
+* Provides reproducibility, via the use of containers, without sacrificing
+  performance.
+* Add BugZoo support to your dataset or tool by adding a `.bugzoo.yml` file.
 
 ## Installation
 
