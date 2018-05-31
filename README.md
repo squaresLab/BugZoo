@@ -11,9 +11,16 @@ Using BugZoo to conduct experiments has the following advantages:
 
 ## Features
 
+* A simple but powerful command-line interface for building, downloading and
+  interacting with historical bugs.
+* A Python interface for complex, structured interactions with historical
+  bugs: execute specific tests, compute line coverage, apply patches, compile
+  with certain flags, and more.
+* A RESTful API that can be used to add BugZoo bindings to your own favourite
+  language.
 * Download prebuilt software snapshots.
-* A decentralised architecture that allows users to share tools and datasets of
-  historical bugs without giving up ownership or control.
+* A decentralised architecture that lets you share your tools and datasets of
+  historical bugs on the BugZoo platform without giving up ownership or control.
 * Provides reproducibility, via the use of containers, without sacrificing
   performance.
 * Add BugZoo support to your dataset or tool by adding a `.bugzoo.yml` file.
