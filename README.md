@@ -7,6 +7,8 @@ reproducing, and interacting with historical software bugs. BugZoo is designed
 to support both software engineering researchers as well as developers of tools
 for program testing, analysis and repair.
 
+How it works.
+
 Using BugZoo to conduct experiments has the following advantages:
 
 ## Features
@@ -16,7 +18,7 @@ Using BugZoo to conduct experiments has the following advantages:
 * A Python interface for complex, structured interactions with historical
   bugs: execute specific tests, compute line coverage, apply patches, compile
   with certain flags, and more.
-* An underlying RESTful API that can be used to add BugZoo bindings to your
+* A powerful underlying RESTful API that can be used to add BugZoo bindings to your
   own favourite language.
 * Download prebuilt software snapshots.
 * A decentralised architecture that lets you share your tools and datasets of
@@ -27,19 +29,11 @@ Using BugZoo to conduct experiments has the following advantages:
 
 ## Installation
 
-To install the latest stable version of BugZoo:
+We recommend using [pipenv](http://pipenv.org/) to install BugZoo, although you
+may use `pip` instead:
 
 ```
-$ pip3 install bugzoo
-```
-
-To install the latest development version of BugZoo, first produce a shallow
-clone of this repository before executing `pip3` as shown below.
-
-```
-$ git clone git://github.com/squaresLab/BugZoo --depth 1 bugzoo
-$ cd bugzoo
-$ pip3 install . --upgrade
+$ pipenv install bugzoo
 ```
 
 ## Getting Started
