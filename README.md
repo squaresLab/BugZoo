@@ -11,7 +11,9 @@ Using BugZoo to conduct experiments has the following advantages:
 
 ## Features
 
-* Share and download datasets of historical bugs.
+* Download prebuilt software snapshots.
+* A decentralised architecture that allows users to share tools and datasets of
+  historical bugs without giving up ownership or control.
 * Provides reproducibility, via the use of containers, without sacrificing
   performance.
 * Add BugZoo support to your dataset or tool by adding a `.bugzoo.yml` file.
