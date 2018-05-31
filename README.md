@@ -3,12 +3,9 @@
 [![Build Status](https://travis-ci.org/squaresLab/BugZoo.svg?branch=master)](https://travis-ci.org/squaresLab/BugZoo)
 
 BugZoo is a decentralised platform for distributing,
-reproducing, and interacting with historical software bugs.
-BugZoo connects existing datasets and tools to developers and
-researchers, and provides a controlled environment for conducting experiments.
-To ensure reproducibility, extensibility, and usability, BugZoo
-uses Docker containers to package, deliver, and interact with bugs and
-tools.
+reproducing, and interacting with historical software bugs. BugZoo is designed
+to support both software engineering researchers as well developers of tools
+for program testing, analysis and repair.
 
 Using BugZoo to conduct experiments has the following advantages:
 
