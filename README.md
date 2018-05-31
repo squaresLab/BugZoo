@@ -1,7 +1,6 @@
 # BugZoo
 
- [![Join the chat at https://gitter.im/BugZoo/Lobby](https://badges.gitter.im/BugZoo/Lobby.svg)](https://gitter.im/BugZoo/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
- [![Build Status](https://travis-ci.org/squaresLab/BugZoo.svg?branch=master)](https://travis-ci.org/squaresLab/BugZoo)
+[![Build Status](https://travis-ci.org/squaresLab/BugZoo.svg?branch=master)](https://travis-ci.org/squaresLab/BugZoo)
 
 BugZoo is an ongoing effort to provide a series of controlled environments
 for performing experiments on automated program repair of C programs. BugZoo
@@ -23,6 +22,10 @@ For more information on [Docker](https://www.docker.com/), the interested user i
 referred to
 [https://docs.docker.com/learn/](https://docs.docker.com/learn/).
 
+## Features
+
+* Share and download historical bugs.
+
 ## Installation
 
 To install the latest stable version of BugZoo:
@@ -39,6 +42,10 @@ $ git clone git://github.com/squaresLab/BugZoo --depth 1 bugzoo
 $ cd bugzoo
 $ pip3 install . --upgrade
 ```
+
+## Getting Started
+
+Use ManyBugs and GenProg as an example.
 
 ## Known Sources
 
