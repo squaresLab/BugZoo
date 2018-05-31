@@ -7,9 +7,9 @@ reproducing, and interacting with historical software bugs. BugZoo is designed
 to support both software engineering researchers as well as developers of tools
 for program testing, analysis and repair.
 
-How it works.
-
-Using BugZoo to conduct experiments has the following advantages:
+Under the hood, BugZoo uses [Docker](https://www.docker.com/) containers to
+provide a controlled, sterile environment for safely interacting with
+historical software bugs.
 
 ## Features
 
