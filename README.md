@@ -20,12 +20,11 @@ Using BugZoo to conduct experiments has the following advantages:
   with certain flags, and more.
 * A powerful underlying RESTful API that can be used to add BugZoo bindings to your
   own favourite language.
-* Download prebuilt software snapshots.
 * A decentralised architecture that lets you share your tools and datasets of
   historical bugs on the BugZoo platform without giving up ownership or control.
-* Provides reproducibility, via the use of containers, without sacrificing
-  performance.
-* Add BugZoo support to your dataset or tool by adding a `.bugzoo.yml` file.
+  Adding BugZoo support to your dataset of tool is as simple as adding a
+  `.bugzoo.yml` file to your project.
+* Uses Docker to ensure reproducibility without sacrificing performance.
 
 ## Installation
 
