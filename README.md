@@ -9,7 +9,13 @@ for program testing, analysis and repair.
 
 Under the hood, BugZoo uses [Docker](https://www.docker.com/) containers to
 provide a controlled, sterile environment for safely interacting with
-historical software bugs.
+historical software bugs. BugZoo provides a number of distinct advantages over
+the use of monolithic virtual machines
+(e.g., [ManyBugs VM](http://repairbenchmarks.cs.umass.edu/)):
+
+* by using containerisation instead of virtualisation, BugZoo can ensure
+  reproducibility with minimal sacrifice to performance, allowing you to run
+  bigger experiments faster.
 
 ## Features
 
@@ -24,7 +30,6 @@ historical software bugs.
   historical bugs on the BugZoo platform without giving up ownership or control.
   Adding BugZoo support to your dataset of tool is as simple as adding a
   `.bugzoo.yml` file to your project.
-* Uses Docker to ensure reproducibility without sacrificing performance.
 
 ## Installation
 
