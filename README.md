@@ -54,3 +54,18 @@ To add one of these sources, simply execute the following from the command line:
 $ bugzoo source add manybugs https://github.com/squaresLab/ManyBugs
 $ bugzoo source add genprog https://github.com/squaresLab/genprog-code
 ```
+
+## Citation
+
+If you wish to cite BugZoo in your work, please use the citation below.
+
+```
+@inproceedings{bugzoo,
+  author = {Timperley, Christopher and Stepney, Susan and {Le Goues}, Claire}
+  title = {{Poster: BugZoo – A Platform for Studying Software Bugs}},
+  booktitle = {{International Conference on Software Engineering}},
+  series = {{ICSE '18}},
+  year = {2018}
+  note = {{To appear}}
+}
+```
