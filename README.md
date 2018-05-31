@@ -2,25 +2,15 @@
 
 [![Build Status](https://travis-ci.org/squaresLab/BugZoo.svg?branch=master)](https://travis-ci.org/squaresLab/BugZoo)
 
-BugZoo is an ongoing effort to provide a series of controlled environments
-for performing experiments on automated program repair of C programs. BugZoo
-provides a number of bug scenarios, adapted from existing publicly-available
-datasets, including [ManyBugs](http://repairbenchmarks.cs.umass.edu/),
-[GenProg's earlier benchmarks](http://dijkstra.cs.virginia.edu/genprog/), and
-several datasets from the
-[Software Infrastructure Repository](http://sir.unl.edu/).
+BugZoo is a decentralised platform for distributing,
+reproducing, and interacting with historical software bugs.
+BugZoo connects existing datasets and tools to developers and
+researchers, and provides a controlled environment for conducting experiments.
+To ensure reproducibility, extensibility, and usability, BugZoo
+uses Docker containers to package, deliver, and interact with bugs and
+tools.
 
-As well as providing the files necessary to study each bug,
-BugZoo also provides a minimal, isolated environment for execution, in the
-form of an accompanying Docker container. By providing a container for
-each bug, rather than a single, monolithic virtual machine for a group of bugs,
-BugZoo incurs fewer overheads (resulting in a much higher performance, crucial
-for rigorous experimental trials), makes dependencies easier to manage, and
-results in a smaller disk footprint.
-
-For more information on [Docker](https://www.docker.com/), the interested user is
-referred to
-[https://docs.docker.com/learn/](https://docs.docker.com/learn/).
+Using BugZoo to conduct experiments has the following advantages:
 
 ## Features
 
