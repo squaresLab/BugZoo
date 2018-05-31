@@ -30,11 +30,13 @@ Using BugZoo to conduct experiments has the following advantages:
 ## Installation
 
 We recommend using [pipenv](http://pipenv.org/) to install BugZoo, although you
-may use `pip` instead:
+may simply use `pip3` instead:
 
 ```
 $ pipenv install bugzoo
 ```
+
+BugZoo supports Python >= 3.5.
 
 ## Getting Started
 
