@@ -9,7 +9,7 @@ for program testing, analysis and repair.
 
 Under the hood, BugZoo uses [Docker](https://www.docker.com/) containers to
 provide a controlled, sterile environment for safely interacting with
-historical software bugs. BugZoo provides a number of distinct advantages over
+historical software bugs. BugZoo provides several advantages over
 the use of monolithic virtual machines
 (e.g., [ManyBugs VM](http://repairbenchmarks.cs.umass.edu/)):
 
