@@ -114,6 +114,17 @@ manybugs:libtiff:2006-03-03-a72cf60-0a36d7f     libtiff     manybugs   manybugs 
 ...
 ```
 
+To interact with a particular bug or tool, you'll need to install it on your
+machine. There are two ways to do this: (1) you can build the Docker image for
+the bug or tool locally (via `bugzoo bug build` and `bugzoo tool build`), or
+alternatively, you can download a prebuilt image (via `bugzoo bug download`
+or `bugzoo tool download`).
+
+```
+$ bugzoo bug build manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+...
+```
+
 ## Known Sources
 
 Below is a list of sources that are known to provide datasets or tools that
