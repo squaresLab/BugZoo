@@ -77,7 +77,8 @@ $ bugzoo source add genprog https://github.com/squaresLab/genprog-code
 
 ## Citation
 
-If you wish to cite BugZoo in your work, please use the citation below.
+If you use BugZoo in your research work, we would highly appreciate it if you
+cited the following paper:
 
 ```
 @inproceedings{bugzoo,
