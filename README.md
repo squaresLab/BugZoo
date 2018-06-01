@@ -90,6 +90,30 @@ genprog   Remote  https://github.com/squaresLab/genprog-code  /home/chris/.bugzo
 manybugs  Remote  https://github.com/squaresLab/ManyBugs      /home/chris/.bugzoo/sources/github_com_squaresLab_ManyBugs      ad83bd9a
 ```
 
+And `bugzoo bug list` and `bugzoo tool list` can be used to produce a list of
+all bugs and tools that are provided by your registered sources:
+
+```
+$ bugzoo bug list
+
+Bug                                             Program     Dataset    Source    Installed?
+----------------------------------------------  ----------  ---------  --------  ------------
+manybugs:gmp:13420-13421                        gmp         manybugs   manybugs  No
+manybugs:gmp:14166-14167                        gmp         manybugs   manybugs  No
+manybugs:gzip:2009-08-16-3fe0caeada-39a362ae9d  gzip        manybugs   manybugs  No
+manybugs:gzip:2009-09-26-a1d3d4019d-f17cbd13a1  gzip        manybugs   manybugs  No
+manybugs:gzip:2009-10-09-1a085b1446-118a107f2d  gzip        manybugs   manybugs  No
+manybugs:gzip:2010-01-30-fc00329e3d-1204630c96  gzip        manybugs   manybugs  No
+manybugs:gzip:2010-02-19-3eb6091d69-884ef6d16c  gzip        manybugs   manybugs  No
+manybugs:libtiff:2005-12-14-6746b87-0d3d51d     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2005-12-21-3b848a7-3edb9cd     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2005-12-27-6f76e76-5dac30f     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2006-02-23-b2ce5d8-207c78a     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2006-02-27-6074705-e6d0c32     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2006-03-03-a72cf60-0a36d7f     libtiff     manybugs   manybugs  No
+...
+```
+
 ## Known Sources
 
 Below is a list of sources that are known to provide datasets or tools that
