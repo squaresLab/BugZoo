@@ -161,6 +161,14 @@ Publications
 Below is a list of publications that have used BugZoo. If you don't see your
 publication listed, please submit a pull request to add it to the list.
 
+* `Poster: BugZoo – A Platform for Studying Software Bugs. <http://www.cs.cmu.edu/~clegoues/docs/timperley-icse18-poster.pdf>`_
+  CS Timperley, S Stepney, C Le Goues.
+  International Conference on Software Engineering, ICSE '18, Gothenburg, Sweden, May 2018.
+
+* `Crashing simulated planes is cheap: Can simulation detect robotics bugs early?. <http://www.cs.cmu.edu/~afsoona/papers/icst18.pdf>`_
+  CS Timperley, A Afzal, D S Katz, J M Hernandez, C Le Goues.
+  International Conference on Software Testing, ICST '18, Vasteras, Sweden, April 2018.
+
 * `An Investigation into the Use of Mutation Analysis for Automated Program Repair. <http://eprints.whiterose.ac.uk/121297/1/ssbse17.pdf>`_
   CS Timperley, S Stepney, C Le Goues.
-  International Symposium on Search Based Software Engineering, 99-114.
+  International Symposium on Search Based Software Engineering, SSBSE '16, 99-114.
