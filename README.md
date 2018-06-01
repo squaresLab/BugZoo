@@ -25,6 +25,10 @@ the use of monolithic virtual machines
   part of an experiment. BugZoo avoids the inevitable "DLL hell" that arises
   from attempting to mix bugs and tools by transforming tools into portable
   binaries and mounting them in the execution environment at run-time.
+* Thanks to their minimal nature and Docker's layer-based image caching,
+  prebuilt datasets of historical bugs can be downloaded quickly and
+  easily.
+
 
 ## Features
 
