@@ -1,6 +1,7 @@
 # BugZoo
 
 [![Build Status](https://travis-ci.org/squaresLab/BugZoo.svg?branch=master)](https://travis-ci.org/squaresLab/BugZoo)
+[![PyPI version](https://badge.fury.io/py/bugzoo.svg)](https://badge.fury.io/py/bugzoo)
 
 BugZoo is a decentralised platform for distributing,
 reproducing, and interacting with historical software bugs. BugZoo is designed
