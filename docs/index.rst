@@ -69,6 +69,7 @@ cited the `following paper <(http://www.cs.cmu.edu/~clegoues/docs/timperley-icse
     series = {{ICSE '18}},
     year = {2018}
     note = {{To appear}}
+  }
 
 Installation
 ------------
