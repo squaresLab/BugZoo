@@ -7,13 +7,25 @@ Top-level description of BugZoo.
   :hidden:
   :maxdepth: 2
 
-  installation
   api
   cli
   examples
   contributing
   faqs
 
+Installation
+------------
+
+To use BugZoo, you will need Python >= 3.5 installed, along with Docker; we
+also suggest that you install `pipenv` to simplify installation and to isolate
+your BugZoo installation from any other Python packages on your system.
+
+After ensuring that the requirements above are installed on your machine, you
+may install BugZoo using [pipenv](http://pipenv.org/) (preferred) or `pip3`:
+
+```
+$ pipenv install bugzoo
+```
 
 Publications
 ------------
