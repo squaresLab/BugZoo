@@ -58,7 +58,37 @@ BugZoo supports Python >= 3.5.
 
 ## Getting Started
 
-Use ManyBugs and GenProg as an example.
+Since BugZoo is a decentralised platform for sharing and interacting with
+historical bugs (*and not itself a dataset of bugs*), you'll need to add
+several bugs and tools to your installation. Bugs and tools are usually
+provided to BugZoo by remote, public Git repositories. Adding a *source* of
+bugs or tools to your installation can be done via the `bugzoo source add
+[name] [url]` command:
+
+```
+$ bugzoo source add manybugs https://github.com/squaresLab/ManyBugs
+```
+
+Note that sources do not necessarily have to be remote, public Git
+repositories: they can also be provided by local directories.
+
+```
+$ git clone https://github.com/squaresLab/ManyBugs path/to/manybugs
+$ bugzoo source add another-manybugs path/to/manybugs
+```
+
+The `bugzoo source list` command can be used to provide a list of registered
+sources:
+
+```
+$ bugzoo source list
+
+Source    Type    URL                                         Location                                                        Version
+--------  ------  ------------------------------------------  --------------------------------------------------------------  ---------
+robust    Local   -                                           /home/chris/bugs/robust                                         -
+genprog   Remote  https://github.com/squaresLab/genprog-code  /home/chris/.bugzoo/sources/github_com_squaresLab_genprog-code  b4de21d7
+manybugs  Remote  https://github.com/squaresLab/ManyBugs      /home/chris/.bugzoo/sources/github_com_squaresLab_ManyBugs      ad83bd9a
+```
 
 ## Known Sources
 
