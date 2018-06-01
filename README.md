@@ -13,9 +13,18 @@ historical software bugs. BugZoo provides several advantages over
 the use of monolithic virtual machines
 (e.g., [ManyBugs VM](http://repairbenchmarks.cs.umass.edu/)):
 
-* by using containerisation instead of virtualisation, BugZoo can ensure
+* By using containerisation instead of virtualisation, BugZoo can ensure
   reproducibility with minimal sacrifice to performance, allowing you to run
   bigger experiments faster.
+* Since containers can be spawned in under a second, a safe, idempotent
+  execution environment can be realistically provided for every test suite
+  evaluation.
+* Each historical bug is provided as its own minimal Docker container image.
+  There are no assumptions that bug containers should be capable of running
+  other software, such as a testing or repair tool that is being evaluated as
+  part of an experiment. BugZoo avoids the inevitable "DLL hell" that arises
+  from attempting to mix bugs and tools by transforming tools into portable
+  binaries and mounting them in the execution environment at run-time.
 
 ## Features
 
