@@ -1,15 +1,20 @@
-from typing import Optional
+from typing import Optional, Any
+import logging
 
 from ..cmd import ExecResponse
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
 
 
 class CompilationOutcome(object):
     """
     Records the outcome of a compilation attempt.
     """
-    @property
-    def from_dict(jsn) -> 'CompilationOutcome':
-        command_outcome = ExecResponse.from_dict(command_outcome)
+    @staticmethod
+    def from_dict(jsn: Any) -> 'CompilationOutcome':
+        assert isinstance(jsn, dict)
+        assert 'command-outcome' in jsn
+        command_outcome = ExecResponse.from_dict(jsn['command-outcome'])
         return CompilationOutcome(command_outcome)
 
     def __init__(self, command_outcome: ExecResponse) -> None:
@@ -162,12 +167,15 @@ class SimpleCompiler(Compiler):
                   verbose: bool
                   ) -> CompilationOutcome:
         # if a context isn't given, use the source directory of the bug
+        logger.debug("compiling container [%s] via command: %s",
+                     container.uid, command)
         bug = manager_container.bug(container)
         context = self.__context if self.__context else bug.source_dir
         cmd_outcome = manager_container.command(container,
                                                 command,
                                                 context=context,
                                                 stderr=True)
+        logger.debug("compiled container [%s]", container.uid)
         return CompilationOutcome(cmd_outcome)
 
     def clean(self,

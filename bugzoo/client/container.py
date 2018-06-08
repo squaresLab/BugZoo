@@ -9,6 +9,7 @@ from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse
+from ..exceptions import BugZooException
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 
@@ -144,17 +145,16 @@ class ContainerManager(object):
         Raises:
             KeyError: if the container no longer exists.
         """
-        path = "containers/{}/compile".format(container.uid)
-        r = self.__api.post(path)
-
+        path = "containers/{}/build".format(container.uid)
+        params = {}
+        if verbose:
+            params['verbose'] = 'yes'
+        r = self.__api.post(path, params=params)
         if r.status_code == 200:
             return CompilationOutcome.from_dict(r.json())
-
-        if r.status_code == 404:
-            raise KeyError("container or test case not found")
-
         self.__api.handle_erroneous_response(r)
 
+    build = compile
 
     def test(self,
              container: Container,
@@ -187,16 +187,21 @@ class ContainerManager(object):
         uid = container.uid
         logger.info("Fetching coverage information for container: %s",
                     uid)
-        r = self.__api.get('containers/{}/coverage'.format(uid))
+        r = self.__api.post('containers/{}/coverage'.format(uid))
         if r.status_code == 200:
             jsn = r.json()
             coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
             logger.info("Fetched coverage information for container: %s",
                         uid)
             return coverage
-        logger.error("Failed to fetch coverage information for container: %s",
-                     uid)
-        self.__api.handle_erroneous_response(r)
+        try:
+            self.__api.handle_erroneous_response(r)
+        except BugZooException as err:
+            logger.exception("Failed to fetch coverage information for container %s: %s", uid, err.message)  # noqa: pycodestyle
+            raise
+        except Exception as err:
+            logger.exception("Failed to fetch coverage information for container %s due to unexpected failure: %s", uid, err)  # noqa: pycodestyle
+            raise
 
     def exec(self,
              container: Container,

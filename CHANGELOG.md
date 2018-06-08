@@ -1,3 +1,32 @@
+## 2.1.7 (2018-05-20)
+
+### Features
+
+* `bugzood` now allows users to log to a given file.
+* Added `**kwargs` to all HTTP methods in low-level API client; allows more
+  information to be forwarded onto `requests`.
+* Added `build` method as an alias of `compile` in both client- and
+  server-side container managers.
+* Added more detailed logging to client file manager.
+* Added `__repr__` to `Spectra`.
+* Added check to `BugZoo` to ensure that the Docker server is responsive.
+* Added slightly better error handling to `mktemp` in server-side container
+  manager.
+* Added better logging and error reporting to `command` in server-side
+  container manager.
+* Added `POST /containers/<uid>/build` endpoint to server.
+
+### Bug Fixes
+
+* Fixed a bug in logging that prevented `DEBUG` level calls from being written
+  to file or passed to the stdout.
+* Fixed a bug in URL generation method in client module that prevented certain
+  URLs from being reached.
+* Fixed HTTP method used by `coverage` method in `client.container`.
+* Fixed bug in `CompilationOutcome.from_dict` that prevented serialised
+  compilation outcomes from being parsed.
+
+
 ## 2.1.6 (2018-05-15)
 
 ### Features

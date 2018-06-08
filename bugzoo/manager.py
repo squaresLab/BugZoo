@@ -4,8 +4,8 @@ import logging
 import logging.handlers
 import time
 
+import docker
 from docker import DockerClient
-from docker import from_env as docker_client_from_env
 
 from .mgr.build import BuildManager
 from .mgr.source import SourceManager
@@ -24,7 +24,10 @@ class BugZoo(object):
     """
     Used to interact with and manage a local BugZoo installation.
     """
-    def __init__(self, path=None) -> None:
+    def __init__(self,
+                 path=None,
+                 base_url_docker='unix:///var/run/docker.sock'
+                 ) -> None:
         """
         Creates a new BugZoo installation manager.
 
@@ -39,28 +42,26 @@ class BugZoo(object):
             default_path = os.path.join(os.environ['HOME'], '.bugzoo')
             path = os.environ.get('BUGZOO_PATH', default_path)
         self.__path = path
-        path_logs = os.path.join(path, 'logs')
+        logger.debug("using BugZoo directory: %s", path)
 
-        # ensure dirs exist
+        logger.debug("preparing BugZoo directory")
         if not os.path.exists(self.path):
             os.makedirs(self.path)
-        if not os.path.exists(path_logs):
-            os.makedirs(path_logs)
         if not os.path.exists(self.coverage_path):
             os.makedirs(self.coverage_path)
+        logger.debug("prepared BugZoo directory")
 
-        # enable logging
-        # TODO allow users to control output and verbosity
-        # TODO move to server?
-        timestamp = time.strftime('%Y%m%d-%H%M%S', time.gmtime())
-        log_fn = 'logs/{}.bugzoo.log'.format(timestamp)
-        log_fn = os.path.join(self.__path, log_fn)
-        log_fn_handler = logging.handlers.WatchedFileHandler(log_fn)
+        logger.debug("connecting to Docker at %s", base_url_docker)
+        try:
+            self.__docker = DockerClient(base_url=base_url_docker, timeout=120)
+            assert self.__docker.ping()
+        except (docker.errors.APIError, AssertionError):
+            logger.exception("failed to connect to Docker")
+            raise  # FIXME add DockerConnectionFailure
+        logger.debug("connected to Docker")
+        logger.debug("Docker version: %s", self.__docker.version())
+        logger.debug("Docker server info: %s", self.__docker.info())
 
-        bz_log = logging.getLogger('bugzoo')  # type: logging.Logger
-        bz_log.addHandler(log_fn_handler)
-
-        self.__docker = docker_client_from_env(timeout=120)
         self.__mgr_build = BuildManager(self.__docker)
         self.__bugs = BugManager(self)
         self.__tools = ToolManager(self)

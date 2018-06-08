@@ -3,6 +3,7 @@ from ipaddress import IPv4Address, IPv6Address
 from tempfile import NamedTemporaryFile
 from timeit import default_timer as timer
 import sys
+import time
 import subprocess
 import ipaddress
 import tempfile
@@ -22,6 +23,7 @@ from ..core.bug import Bug
 from ..compiler import CompilationOutcome
 from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse, PendingExecResponse
+from ..util import indent
 
 logger = logging.getLogger(__name__)
 
@@ -30,13 +32,20 @@ __all__ = ['ContainerManager']
 
 class ContainerManager(object):
     def __init__(self, installation: 'BugZoo') -> None:
+        logger.debug("initialising container manager")
         self.__installation = installation
+
+        logger.debug("connecting to low-level Docker API")
         self.__client_docker = installation.docker  # type: docker.Client
         self.__api_docker = self.__client_docker.api  # type: docker.APIClient
+        assert self.__api_docker.ping()
+        logger.debug("connected to low-level Docker API")
+
         self.__containers = {}
         self.__dockerc = {}
         self.__env_files = {}
         self.__dockerc_tools = {}
+        logger.debug("initialised container manager")
 
     def __iter__(self) -> Iterator[Container]:
         """
@@ -63,7 +72,7 @@ class ContainerManager(object):
         Raises:
             KeyError: if no container was found with the given UID.
         """
-        logger.info("deleting container: %s", uid)
+        logger.debug("deleting container: %s", uid)
         try:
             container = self.__containers[uid]
             self.__dockerc[uid].remove(force=True)
@@ -81,7 +90,8 @@ class ContainerManager(object):
 
         except KeyError:
             logger.error("failed to delete container: %s [not found]", uid)
-        logger.info("deleted container: %s", uid)
+            raise
+        logger.debug("deleted container: %s", uid)
 
     delete = __delitem__
 
@@ -110,7 +120,7 @@ class ContainerManager(object):
                 provided then one will be automatically generated.
 
         Returns:
-            a descroption of the provisioned container.
+            a description of the provisioned container.
         """
         if tools is None:
             tools = []
@@ -121,12 +131,16 @@ class ContainerManager(object):
 
         if uid is None:
             uid = str(uuid.uuid4())
+        logger.debug("provisioning container for bug %s: %s",
+                     bug.name, uid)
 
         tool_containers = [self.__installation.tools.provision(t) for t in tools]
         self.__dockerc_tools[uid] = tool_containers
         tool_container_ids = [c.id for c in tool_containers]
 
         # prepare the environment for the container
+        logger.debug("creating temporary environment file for container %s",
+                     uid)
         env = [(k, v) for t in tools for (k, v) in t.environment.items()]
         env = ["{}=\"{}\"".format(k, v) for (k, v) in env]
         env = "\n".join(env)
@@ -134,6 +148,8 @@ class ContainerManager(object):
         env_file.write(env)
         env_file.flush()
         self.__env_files[uid] = env_file
+        logger.debug("created temporary environment file for container %s: %s",
+                     uid, env_file.name)
 
         volumes = copy.deepcopy(volumes)
         volumes[env_file.name] = \
@@ -155,31 +171,54 @@ class ContainerManager(object):
         )
         cmd = '/bin/bash -c "{}"'.format(cmd)
 
+        logger.debug("creating Docker container for BugZoo container: %s", uid)  # noqa: pycodestyle
         dockerc = \
-            self.__client_docker.containers.create(bug.image,
-                                                   cmd,
-                                                   name=uid,
-                                                   volumes=volumes,
-                                                   volumes_from=tool_container_ids,
-                                                   ports=ports,
-                                                   network_mode=network_mode,
-                                                   stdin_open=True,
-                                                   tty=False,
-                                                   # tty=interactive,
-                                                   detach=True)
+            self.__client_docker.containers.create(
+                bug.image,
+                cmd,
+                name=uid,
+                volumes=volumes,
+                volumes_from=tool_container_ids,
+                ports=ports,
+                network_mode=network_mode,
+                stdin_open=True,
+                tty=False,
+                # tty=interactive,
+                detach=True)  # type: docker.Container # noqa: pycodestyle
         self.__dockerc[uid] = dockerc
+        logger.debug("created Docker container for BugZoo container: %s", uid)
+        logger.debug("starting Docker container for BugZoo container: %s", uid)  # noqa: pycodestyle
         dockerc.start()
+        logger.debug("started Docker container for BugZoo container: %s", uid)
 
         # block until /.environment is ready
+        logger.debug("blocking until environment file has been constructed for container: %s", uid)  # noqa: pycodestyle
+        ready = False
+        output_startup = []  # type: List[str]
         for line in self.__api_docker.logs(dockerc.id, stream=True):
             line = line.decode('utf-8').strip()
+            output_startup.append(line)
             if line == "BUGZOO IS READY TO GO!":
+                ready = True
                 break
+        if not ready:
+            response = indent(''.join(output_startup), 4)
+            response = "[RESPONSE]\n{}\n[/RESPONSE]".format(response)
+            response = indent(response, 2)
+            msg = "failed to start Docker container, {}:\n{}"
+            msg = msg.format(uid, response)
+            logger.error(msg)
+            raise Exception(msg)  # TODO add exception; DockerException, maybe?
+        logger.debug("environment file has been constructed for container: %s", uid)  # noqa: pycodestyle
 
         container = Container(bug=bug.name,
                               uid=uid,
                               tools=[t.name for t in tools])
         self.__containers[uid] = container
+        logger.debug("provisioned container for bug %s: %s",
+                     bug.name, uid)
+
+        logger.debug("STATUS OF CONTAINER: %s", dockerc.status)
         return container
 
     def mktemp(self,
@@ -191,9 +230,20 @@ class ContainerManager(object):
         Returns:
             the absolute path to the created temporary file.
         """
+        logger.debug("creating a temporary file inside container %s",
+                     container.uid)
         response = self.command(container, "mktemp")
+
+        if response.code != 0:
+            msg = "failed to create temporary file for container {}: [{}] {}"
+            msg = msg.format(uid, response.code, response.output)
+            logger.error(msg)
+            raise Exception(msg)  # FIXME add new exception
+
         assert response.code == 0, "failed to create temporary file"
         fn = response.output.strip()
+        logger.debug("created temporary file inside container %s: %s",
+                     container.uid, fn)
         return fn
 
     def is_alive(self,
@@ -369,14 +419,25 @@ class ContainerManager(object):
         """
         Copies a file from the host machine to a specified location inside a
         container.
+
+        Raises:
+            FileNotFound: if the host file wasn't found.
+            subprocess.CalledProcessError: if the file could not be copied to
+                the container.
         """
-        logger.info("Copying file to container, %s: %s -> %s",
-                    container.uid, fn_host, fn_container)
+        logger.debug("Copying file to container, %s: %s -> %s",
+                     container.uid, fn_host, fn_container)
+
+        if not os.path.exists(fn_host):
+            logger.error("Failed to copy file [%s] to [%s] in container [%s]: not found.",  # noqa: pycodestyle
+                         fn_host, fn_container, container.uid)
+            raise FileNotFound(fn_host)
+
         cmd = "docker cp '{}' '{}:{}'".format(fn_host, container.id, fn_container)
         try:
             subprocess.check_output(cmd, shell=True)
-            logger.info("Copied file to container, %s: %s -> %s",
-                        container.uid, fn_host, fn_container)
+            logger.debug("Copied file to container, %s: %s -> %s",
+                         container.uid, fn_host, fn_container)
         # TODO implement error handling
         except subprocess.CalledProcessError:
             logger.exception("Failed to copy file to container, %s: %s -> %s",
@@ -392,13 +453,13 @@ class ContainerManager(object):
         Copies a given file from the container to a specified location on the
         host machine.
         """
-        logger.info("Copying file from container, %s: %s -> %s",
-                    container.uid, fn_container, fn_host)
+        logger.debug("Copying file from container, %s: %s -> %s",
+                     container.uid, fn_container, fn_host)
         cmd = "docker cp '{}:{}' '{}'".format(container.id, fn_container, fn_host)
         try:
             subprocess.check_output(cmd, shell=True)
-            logger.info("Copied file from container, %s: %s -> %s",
-                        container.uid, fn_container, fn_host)
+            logger.debug("Copied file from container, %s: %s -> %s",
+                         container.uid, fn_container, fn_host)
         # TODO implement error handling
         except subprocess.CalledProcessError:
             logger.exception("Failed to copy file from container, %s: %s -> %s",  # noqa: pycodestyle
@@ -431,12 +492,15 @@ class ContainerManager(object):
             TimeoutError: if a time limit is given and the command fails
                 to complete within that time. Only supported by blocking calls.
         """
+        cmd_original = cmd
         logger_c = logger.getChild(container.uid)
+        logger_c.debug('executing command "%s"', cmd)
         bug = self.__installation.bugs[container.bug]
 
         # TODO: we need a better long-term alternative
         if context is None:
             context = os.path.join(bug.source_dir, '..')
+        logger_c.debug('using execution context: %s', context)
 
         cmd = 'source /.environment && cd {} && {}'.format(context, cmd)
         cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
@@ -447,13 +511,19 @@ class ContainerManager(object):
         cmd = cmd_wrapped
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
-        logger_c.debug("executing command: %s", cmd)
+        logger_c.debug("executing raw command: %s", cmd)
+        logger_c.debug('creating exec object for command: %s', cmd)
         docker_client = self.__installation.docker
-        response = docker_client.api.exec_create(container.id,
-                                                 cmd,
-                                                 tty=True,
-                                                 stdout=stdout,
-                                                 stderr=stderr)
+        try:
+            response = docker_client.api.exec_create(container.id,
+                                                     cmd,
+                                                     tty=True,
+                                                     stdout=stdout,
+                                                     stderr=stderr)
+        except docker.errors.APIError:
+            logger_c.exception('failed to create exec object for command: %s', cmd)  # noqa: pycodestyle
+            raise
+        logger_c.debug("created exec object for command: %s", cmd)
         exec_id = response['Id']
 
         time_start = timer()
@@ -470,8 +540,10 @@ class ContainerManager(object):
             output.append(line)
         time_running = timer() - time_start
         output = '\n'.join(output)
-
         code = self.__api_docker.exec_inspect(exec_id)['ExitCode']
+        logger_c.debug('finished executing command: %s. (exited with code %d and took %.2f seconds.)\n%s',  # noqa: pycodestyle
+                       cmd_original, code, time_running, output)
+
         return ExecResponse(code, time_running, output)
 
     exec = command
@@ -490,7 +562,7 @@ class ContainerManager(object):
                 Docker image on this server.
         """
         logger_c = logger.getChild(container.uid)
-        logger_c.info("Persisting container as a Docker image: %s", image)
+        logger_c.debug("Persisting container as a Docker image: %s", image)
         try:
             docker_container = self.__dockerc[container.uid]
         except KeyError:
@@ -503,4 +575,4 @@ class ContainerManager(object):
             raise ImageAlreadyExists(image)
         except docker.errors.ImageNotFound:
             docker_container.commit(repository=image)
-        logger_c.info("Persisted container as a Docker image: %s", image)
+        logger_c.debug("Persisted container as a Docker image: %s", image)
