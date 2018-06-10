@@ -184,7 +184,7 @@ class ContainerManager(object):
     def coverage(self,
                  container: Container,
                  *,
-                 rebuild: bool = True
+                 instrument: bool = True
                  ) -> TestSuiteCoverage:
         """
         Computes complete test suite coverage for a given container.
@@ -198,7 +198,7 @@ class ContainerManager(object):
         logger.info("Fetching coverage information for container: %s",
                     uid)
         r = self.__api.post('containers/{}/coverage'.format(uid),
-                            params={'rebuild': rebuild})
+                            params={'instrument': instrument})
         if r.status_code == 200:
             jsn = r.json()
             coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore

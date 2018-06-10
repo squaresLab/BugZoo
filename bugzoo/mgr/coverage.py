@@ -135,6 +135,8 @@ class CoverageManager(object):
                  container: Container,
                  tests: Optional[List[TestCase]] = None,
                  files_to_instrument: List[str] = None,
+                 *,
+                 instrument: bool = True
                  ) -> TestSuiteCoverage:
         """
         Uses a provided container to compute line coverage information for a
@@ -149,8 +151,9 @@ class CoverageManager(object):
             _tests = tests
 
         try:
-            self.instrument(container,
-                            files_to_instrument=files_to_instrument)
+            if instrument:
+                self.instrument(container,
+                                files_to_instrument=files_to_instrument)
         except Exception:
             raise FailedToComputeCoverage("failed to instrument container.")
 
