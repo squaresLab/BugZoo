@@ -182,12 +182,23 @@ class ContainerManager(object):
         self.__api.handle_erroneous_response(r)
 
     def coverage(self,
-                 container: Container
+                 container: Container,
+                 *,
+                 rebuild: bool = True
                  ) -> TestSuiteCoverage:
+        """
+        Computes complete test suite coverage for a given container.
+
+        Parameters:
+            container: the container for which coverage should be computed.
+            rebuild: if set to True, the program will be rebuilt before
+                coverage is computed.
+        """
         uid = container.uid
         logger.info("Fetching coverage information for container: %s",
                     uid)
-        r = self.__api.post('containers/{}/coverage'.format(uid))
+        r = self.__api.post('containers/{}/coverage'.format(uid),
+                            params={'rebuild': rebuild})
         if r.status_code == 200:
             jsn = r.json()
             coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
