@@ -227,8 +227,13 @@ def coverage_container(id_container: str):
     except KeyError:
         return BugNotFound(container.bug), 500
 
+    instrument = \
+        flask.request.args.get('instrument', 'True').lower() == 'yes'
+
     try:
-        coverage = daemon.containers.coverage(container)
+        # FIXME implement
+        coverage = daemon.containers.coverage(container,
+                                              instrument=instrument)
     except Exception as err:
         logger.exception("failed to compute coverage for container [%s]: %s",
                      id_container, err)
