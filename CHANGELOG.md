@@ -1,3 +1,12 @@
+## 2.1.8 (2018-06-10)
+
+### Features
+
+* Added Dockerfile for `bugzood`.
+* Updated README and various parts of the documentation.
+* Added `instrument` parameter to container coverage methods.
+
+
 ## 2.1.7 (2018-05-20)
 
 ### Features
