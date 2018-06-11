@@ -126,6 +126,32 @@ class ContainerManager(object):
 
         self.__api.handle_erroneous_response(r)
 
+    def instrument(self,
+                   container: Container,
+                   verbose: bool = False
+                   ) -> CompilationOutcome:
+        """
+        Instruments the program inside the container for computing test suite
+        coverage.
+
+        Params:
+            container: the container that should be instrumented.
+            verbose: specifies whether to print the stdout and stderr produced
+                by the instrumentation command to the stdout. If `True`, then
+                the stdout and stderr will be printed.
+
+        Returns:
+            a summary of the outcome of the instrumentation process.
+        """
+        path = "containers/{}/instrument".format(container.uid)
+        params = {}
+        if verbose:
+            params['verbose'] = 'yes'
+        r = self.__api.post(path, params=params)
+        if r.status_code == 200:
+            return CompilationOutcome.from_dict(r.json())
+        self.__api.handle_erroneous_response(r)
+
     def compile(self,
                 container: Container,
                 verbose: bool = False
