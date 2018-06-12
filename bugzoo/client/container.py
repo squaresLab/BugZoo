@@ -127,30 +127,21 @@ class ContainerManager(object):
         self.__api.handle_erroneous_response(r)
 
     def instrument(self,
-                   container: Container,
-                   verbose: bool = False
-                   ) -> CompilationOutcome:
+                   container: Container
+                   ) -> None:
         """
         Instruments the program inside the container for computing test suite
         coverage.
 
         Params:
             container: the container that should be instrumented.
-            verbose: specifies whether to print the stdout and stderr produced
-                by the instrumentation command to the stdout. If `True`, then
-                the stdout and stderr will be printed.
-
-        Returns:
-            a summary of the outcome of the instrumentation process.
         """
         path = "containers/{}/instrument".format(container.uid)
         params = {}
-        if verbose:
-            params['verbose'] = 'yes'
         r = self.__api.post(path, params=params)
-        if r.status_code == 200:
-            return CompilationOutcome.from_dict(r.json())
-        self.__api.handle_erroneous_response(r)
+        if r.status_code != 204:
+            logger.info("failed to instrument container: %s", container.uid)
+            self.__api.handle_erroneous_response(r)
 
     def compile(self,
                 container: Container,
@@ -223,8 +214,9 @@ class ContainerManager(object):
         uid = container.uid
         logger.info("Fetching coverage information for container: %s",
                     uid)
-        r = self.__api.post('containers/{}/coverage'.format(uid),
-                            params={'instrument': instrument})
+        uri = 'containers/{}/coverage'.format(uid)
+        r = self.__api.post(uri,
+                            params={'instrument': 'yes' if instrument else 'no'})
         if r.status_code == 200:
             jsn = r.json()
             coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
