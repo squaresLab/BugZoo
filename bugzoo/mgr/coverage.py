@@ -152,8 +152,11 @@ class CoverageManager(object):
 
         try:
             if instrument:
+                logger.debug("instrumenting container")
                 self.instrument(container,
                                 files_to_instrument=files_to_instrument)
+            else:
+                logger.debug("not instrumenting container")
         except Exception:
             raise FailedToComputeCoverage("failed to instrument container.")
 

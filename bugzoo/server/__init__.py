@@ -17,6 +17,7 @@ from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
 from ..mgr.container import ContainerManager
+from ..mgr.coverage import CoverageManager
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 
@@ -69,7 +70,7 @@ def ephemeral(*,
         a client for communicating with the server.
     """
     url = "http://127.0.0.1:{}".format(port)
-    cmd = ["bugzood", "-p", str(port)]
+    cmd = ["bugzood", "--debug", "-p", str(port)]
     try:
         stdout = None if verbose else subprocess.DEVNULL
         stderr = None if verbose else subprocess.DEVNULL
@@ -214,6 +215,22 @@ def test_container(id_container: str, id_test: str):
     return (jsn, 200)
 
 
+@app.route('/containers/<uid>/instrument', methods=['POST'])
+@throws_errors
+def instrument_container(uid: str):
+    mgr_ctr = daemon.containers  # type: ContainerManager
+    mgr_cov = daemon.coverage  # type: CoverageManager
+    try:
+        container = mgr_ctr[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    logger.debug("instrumenting container: %s", container.uid)
+    mgr_cov.instrument(container)
+    logger.debug("instrumented container: %s", container.uid)
+    return ('', 204)
+
+
 @app.route('/containers/<id_container>/coverage', methods=['POST'])
 @throws_errors
 def coverage_container(id_container: str):
@@ -228,12 +245,16 @@ def coverage_container(id_container: str):
         return BugNotFound(container.bug), 500
 
     instrument = \
-        flask.request.args.get('instrument', 'True').lower() == 'yes'
+        flask.request.args.get('instrument', 'yes') == 'yes'
+
+    if instrument:
+        logger.debug("instrumenting container before computing coverage")
+    else:
+        logger.debug("skipping instrumentation step")
 
     try:
-        # FIXME implement
-        coverage = daemon.containers.coverage(container,
-                                              instrument=instrument)
+        coverage = daemon.coverage.coverage(container,
+                                            instrument=instrument)
     except Exception as err:
         logger.exception("failed to compute coverage for container [%s]: %s",
                      id_container, err)
@@ -432,11 +453,11 @@ def docker_images(name: str):
 
 
 def run(*,
-        port: int = 6060,
-        host: str = '0.0.0.0',
-        debug: bool = True,
-        log_filename: Optional[str] = None
-        ) -> None:
+    port: int = 6060,
+    host: str = '0.0.0.0',
+    debug: bool = True,
+    log_filename: Optional[str] = None
+    ) -> None:
     global daemon
 
     if not log_filename:
