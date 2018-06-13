@@ -182,6 +182,14 @@ class FilePatch(object):
         self.__new_fn = new_fn
         self.__hunks = hunks
 
+    @property
+    def old_fn(self) -> str:
+        return self.__old_fn
+
+    @property
+    def new_fn(self) -> str:
+        return self.__new_fn
+
     def __str__(self) -> str:
         """
         Returns a string encoding of this file patch in the unified diff
@@ -214,6 +222,13 @@ class Patch(object):
 
     def __init__(self, file_patches: List[FilePatch]) -> None:
         self.__file_patches = file_patches[:]
+
+    @property
+    def files(self) -> List[str]:
+        """
+        Returns a list of the names of the files that are changed by this patch.
+        """
+        return [fp.old_fn for fp in self.__file_patches]
 
     def __str__(self) -> str:
         """

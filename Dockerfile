@@ -7,13 +7,13 @@ RUN apk add --no-cache python3 git gcc gfortran python3-dev build-base openblas-
  && if [[ ! -e /usr/bin/pip ]]; then ln -s pip3 /usr/bin/pip ; fi \
  && if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi \
  && pip install numpy==1.14.2 --no-cache
+RUN apk add --no-cache docker
 
-WORKDIR /tmp/bugzoo
+WORKDIR /opt/bugzoo
 COPY setup.py .
 COPY test/ test/
 COPY bugzoo/ bugzoo/
-RUN pip install . --no-cache \
- && rm -rf /tmp/*
+RUN pip install . --no-cache
 
-ARG ["-p", "6060"]
+# ARG ["-p", "6060"]
 ENTRYPOINT ["bugzood"]
