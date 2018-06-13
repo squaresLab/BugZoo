@@ -1,3 +1,17 @@
+## 2.1.9 (2018-06-12)
+
+### Features
+
+* Added `instrument` method to client's container module: allows users to
+  instrument a given container for the purposes of computing coverage at
+  some point in the future.
+
+### Changes
+
+* Added `threaded=True` option to server to ensure that `bugzood` can handle
+  multiple clients simultaneously.
+
+
 ## 2.1.8 (2018-06-10)
 
 ### Features
