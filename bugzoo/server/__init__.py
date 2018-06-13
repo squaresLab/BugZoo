@@ -464,7 +464,7 @@ def run(*,
     daemon = BugZoo()
     logger.info("launched BugZoo daemon")
 
-    app.run(port=port, host=host, debug=debug)
+    app.run(port=port, host=host, debug=debug, threaded=True)
 
 
 def main() -> None:
