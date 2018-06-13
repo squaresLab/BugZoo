@@ -137,8 +137,7 @@ class ContainerManager(object):
             container: the container that should be instrumented.
         """
         path = "containers/{}/instrument".format(container.uid)
-        params = {}
-        r = self.__api.post(path, params=params)
+        r = self.__api.post(path)
         if r.status_code != 204:
             logger.info("failed to instrument container: %s", container.uid)
             self.__api.handle_erroneous_response(r)
