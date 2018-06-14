@@ -1,3 +1,15 @@
+## 2.1.10 (TBA)
+
+### Features
+
+* Added `--log-level` option to `bugzood`.
+
+
+### Bug Fixes
+
+* Added ability to suppress `werkzeug` logs produced by `bugzood`.
+
+
 ## 2.1.9 (2018-06-12)
 
 ### Features
