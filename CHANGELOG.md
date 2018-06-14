@@ -3,11 +3,14 @@
 ### Features
 
 * Added `--log-level` option to `bugzood`.
-
-
-### Bug Fixes
-
 * Added ability to suppress `werkzeug` logs produced by `bugzood`.
+
+### Changes
+
+* Removed `localization` module that has since been made redundant by
+  `darjeeling`'s `localization` module.
+* Removed `numpy` dependency.
+* Reduced size of `Dockerfile`.
 
 
 ## 2.1.9 (2018-06-12)
