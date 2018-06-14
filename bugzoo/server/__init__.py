@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)  # type: logging.Logger
 # FIXME let's avoid storing the actual server in a global var
 daemon = None  # type: Any
 app = flask.Flask(__name__)
+app.logger.setLevel(logging.ERROR)
 
 
 def throws_errors(func):
@@ -456,7 +457,8 @@ def run(*,
     port: int = 6060,
     host: str = '0.0.0.0',
     debug: bool = True,
-    log_filename: Optional[str] = None
+    log_filename: Optional[str] = None,
+    log_level: str = 'info'
     ) -> None:
     global daemon
 
@@ -467,19 +469,40 @@ def run(*,
     log_formatter = \
         logging.Formatter('%(asctime)s:%(name)s:%(levelname)s: %(message)s',
                           '%Y-%m-%d %H:%M:%S')
+    logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-    log_to_file = logging.handlers.WatchedFileHandler(log_filename, mode='w')
-    log_to_file.setLevel(logging.DEBUG)
-    log_to_file.setFormatter(log_formatter)
+    if log_level != 'none':
+        log_level_num = ({
+            'none': logging.NOTSET,
+            'error': logging.ERROR,
+            'warning': logging.WARNING,
+            'debug': logging.DEBUG,
+            'info': logging.INFO,
+            'critical': logging.CRITICAL
+        })[log_level]  # type: int
 
-    log_to_stdout = logging.StreamHandler()
-    log_to_stdout.setLevel(logging.DEBUG if debug else logging.INFO)
-    log_to_stdout.setFormatter(log_formatter)
+        log_to_file = \
+            logging.handlers.WatchedFileHandler(log_filename, mode='w')
+        log_to_file.setLevel(log_level_num)
+        log_to_file.setFormatter(log_formatter)
 
-    log_main = logging.getLogger('bugzoo')  # type: logging.Logger
-    log_main.setLevel(logging.DEBUG)
-    log_main.addHandler(log_to_stdout)
-    log_main.addHandler(log_to_file)
+        log_to_stdout = logging.StreamHandler()
+        log_to_stdout.setLevel(max(log_level_num, logging.INFO))
+        log_to_stdout.setFormatter(log_formatter)
+
+        log_main = logging.getLogger('bugzoo')  # type: logging.Logger
+        log_main.setLevel(log_level_num)
+        log_main.addHandler(log_to_stdout)
+        log_main.addHandler(log_to_file)
+
+        log_werkzeug = logging.getLogger('werkzeug')
+        log_werkzeug.addHandler(log_to_stdout)
+        log_werkzeug.addHandler(log_to_file)
+
+    if log_level in ['info', 'debug']:
+        log_werkzeug.setLevel(logging.INFO)
+    else:
+        log_werkzeug.setLevel(logging.ERROR)
 
     logger.info("launching BugZoo daemon")
     daemon = BugZoo()
@@ -495,6 +518,15 @@ def main() -> None:
                         type=int,
                         default=6060,
                         help='the port that should be used by this server.')
+    parser.add_argument('--log-level',
+                        type=str,
+                        choices=['none',
+                                 'info',
+                                 'error',
+                                 'warning',
+                                 'debug',
+                                 'critical'],
+                        default='info')
     parser.add_argument('--log-file',
                         type=str,
                         help='the path to the file where logs should be written.')  # noqa: pycodestyle
@@ -509,4 +541,5 @@ def main() -> None:
     run(port=args.port,
         host=args.host,
         log_filename=args.log_file,
+        log_level=args.log_level,
         debug=args.debug)
