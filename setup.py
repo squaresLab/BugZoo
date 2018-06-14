@@ -23,14 +23,12 @@ setup(
         'pyyaml',
         'tabulate',
         'flask',
-        'numpy',
         'mypy-extensions>=0.3.0'
     ],
     packages=[
         'bugzoo',
         'bugzoo.client',
         'bugzoo.testing',
-        'bugzoo.localization',
         'bugzoo.compiler',
         'bugzoo.server',
         'bugzoo.mgr',
