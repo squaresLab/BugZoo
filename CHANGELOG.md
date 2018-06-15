@@ -11,6 +11,8 @@
   `darjeeling`'s `localization` module.
 * Removed `numpy` dependency.
 * Reduced size of `Dockerfile`.
+* Added `--no-status` and `--override-build-tool-check` flags to catkin
+  compiler to reduce output verbosity.
 
 
 ## 2.1.9 (2018-06-12)
