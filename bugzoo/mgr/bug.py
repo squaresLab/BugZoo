@@ -150,7 +150,7 @@ class BugManager(object):
 
             for t in bug.tests:
                 if t.expected_outcome is True:
-                    task = 'Running test: {}'.format(t.identifier)
+                    task = 'Running test: {}'.format(t.name)
                     print_task_start(task)
 
                     outcome = \
@@ -166,7 +166,7 @@ class BugManager(object):
                         print_task_end(task, 'OK')
 
                 if t.expected_outcome is False:
-                    task = 'Running test: {}'.format(t.identifier)
+                    task = 'Running test: {}'.format(t.name)
                     print_task_start(task)
 
                     outcome = \
