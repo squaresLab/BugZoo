@@ -165,7 +165,7 @@ class BugManager(object):
                     else:
                         print_task_end(task, 'OK')
 
-                if t.expected.outcome is False:
+                if t.expected_outcome is False:
                     task = 'Running test: {}'.format(t.identifier)
                     print_task_start(task)
 
