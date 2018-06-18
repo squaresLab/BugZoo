@@ -14,6 +14,13 @@ class TestCase(object):
     context = attr.ib(type=str)
     expected_outcome = attr.ib(type=Optional[bool])
 
+    def to_dict(self) -> Dict[str, Any]:
+        return {'name': self.name,
+                'time-limit': self.time_limit,
+                'command': self.command,
+                'context': self.context,
+                'expected-outcome': self.expected_outcome}
+
 
 @attr.s(frozen=True)
 class TestOutcome(object):
@@ -45,26 +52,21 @@ class TestSuite(object):
 
     @staticmethod
     def from_dict(d: dict) -> 'TestSuite':
-        typ = d['type']
         command_template = d.get('command', './test.sh __ID__')  # type: str
-        default_time_limit = d['time-limit']  # type: int
+        default_time_limit = d.get('time-limit', 60)  # type: int
         command_context = d.get('context', '/experiment')  # type: str
         d_tests = d.get('tests', [])
 
-        if typ == 'empty':
+        if d.get('type') == 'empty':
             return TestSuite([])
 
-        elif typ == 'genprog':
+        if d.get('type') == 'genprog':
             for i in range(d['failing']):
                 d_tests.append({'name': "n{}".format(i),
                                 'expected_outcome': False})
             for i in range(d['passing']):
                 d_tests.append({'name': "p{}".format(i),
                                 'expected_outcome': True})
-
-        else:
-            msg = "unexpected test harness type: {}".format(typ)
-            raise SyntaxError(msg)
 
         # build the tests
         tests = []  # type: List[TestCase]
@@ -87,10 +89,7 @@ class TestSuite(object):
                 test_context = test_desc.get('context', command_context)
                 test_time_limit = \
                     test_desc.get('time-limit', default_time_limit)
-            else:
-                msg = "unexpected type used by test case description: {}"
-                msg = msg.format(test_name)
-                raise SyntaxError(msg)
+                test_expected_outcome = test_desc.get('expected-outcome')
 
             test = TestCase(name=test_name,
                             time_limit=test_time_limit,
@@ -116,4 +115,4 @@ class TestSuite(object):
         return self._tests[name]
 
     def to_dict(self) -> Dict[str, Any]:
-        raise NotImplementedError
+        return {'tests': [t.to_dict() for t in self.tests]}
