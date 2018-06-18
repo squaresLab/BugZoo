@@ -80,7 +80,10 @@ class TestSuite(object):
                     command_template.replace('__ID__', test_name)
                 test_expected_outcome = None
             elif isinstance(test_desc, dict):
-                test_name = test_desc.get('name', test_desc['command'])
+                if 'name' in test_desc:
+                    test_name = test_desc['name']
+                else:
+                    test_name = test_desc['command']
                 if 'command' in test_desc:
                     test_command = test_desc['command']
                 else:
