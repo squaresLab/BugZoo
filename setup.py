@@ -23,6 +23,7 @@ setup(
         'pyyaml',
         'tabulate',
         'flask',
+        'attrs>=17.2.0',
         'mypy-extensions>=0.3.0'
     ],
     packages=[
