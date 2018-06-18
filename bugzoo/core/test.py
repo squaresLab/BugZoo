@@ -61,10 +61,10 @@ class TestSuite(object):
             return TestSuite([])
 
         if d.get('type') == 'genprog':
-            for i in range(d['failing']):
+            for i in range(1, d['failing'] + 1):
                 d_tests.append({'name': "n{}".format(i),
                                 'expected-outcome': False})
-            for i in range(d['passing']):
+            for i in range(1, d['passing'] + 1):
                 d_tests.append({'name': "p{}".format(i),
                                 'expected-outcome': True})
 
