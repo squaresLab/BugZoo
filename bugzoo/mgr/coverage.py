@@ -10,7 +10,7 @@ from ..core.fileline import FileLineSet
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage, \
                             TestCoverage
-from ..testing.base import TestCase
+from ..core.test import TestCase
 from ..exceptions import FailedToComputeCoverage
 
 logger = logging.getLogger(__name__)

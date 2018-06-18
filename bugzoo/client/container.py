@@ -7,7 +7,7 @@ from ..core.patch import Patch
 from ..core.bug import Bug
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
-from ..testing import TestCase, TestOutcome
+from ..core.test import TestCase, TestOutcome
 from ..cmd import ExecResponse
 from ..exceptions import BugZooException
 

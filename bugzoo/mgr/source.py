@@ -14,7 +14,7 @@ import yaml
 from .build import BuildManager
 from ..exceptions import NameInUseError, BadManifestFile
 from ..compiler import Compiler
-from ..testing.base import TestSuite
+from ..core.test import TestSuite
 from ..core.language import Language
 from ..core.bug import Bug
 from ..core.build import BuildInstructions
