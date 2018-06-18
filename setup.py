@@ -28,7 +28,6 @@ setup(
     packages=[
         'bugzoo',
         'bugzoo.client',
-        'bugzoo.testing',
         'bugzoo.compiler',
         'bugzoo.server',
         'bugzoo.mgr',
