@@ -63,10 +63,10 @@ class TestSuite(object):
         if d.get('type') == 'genprog':
             for i in range(d['failing']):
                 d_tests.append({'name': "n{}".format(i),
-                                'expected_outcome': False})
+                                'expected-outcome': False})
             for i in range(d['passing']):
                 d_tests.append({'name': "p{}".format(i),
-                                'expected_outcome': True})
+                                'expected-outcome': True})
 
         # build the tests
         tests = []  # type: List[TestCase]
