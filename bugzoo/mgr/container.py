@@ -19,9 +19,9 @@ from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
+from ..core.test import TestCase, TestOutcome
 from ..core.bug import Bug
 from ..compiler import CompilationOutcome
-from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse, PendingExecResponse
 from ..util import indent
 
@@ -364,13 +364,12 @@ class ContainerManager(object):
         Returns:
             the outcome of the test execution.
         """
-        bug = self.__installation.bugs[container.bug] # type: Bug
-        cmd, context = bug.harness.command(test)
+        bug = self.__installation.bugs[container.bug]  # type: Bug
         response = self.command(container,
-                                cmd=cmd,
-                                context=context,
+                                cmd=test.command,
+                                context=test.context,
                                 stderr=True,
-                                time_limit=bug.harness.time_limit, # TODO migrate
+                                time_limit=test.time_limit,
                                 verbose=verbose)
         passed = response.code == 0
         return TestOutcome(response, passed)

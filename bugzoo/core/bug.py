@@ -1,11 +1,9 @@
 from typing import List, Dict, Optional, Any
 import os
 
-import bugzoo
 from .language import Language
+from .test import TestSuite
 from ..compiler import Compiler
-from ..testing import TestSuite
-
 
 
 class Bug(object):

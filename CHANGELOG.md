@@ -1,3 +1,19 @@
+## 2.1.11 (???)
+
+### Features
+
+* Extended manifest file format to allow more detailed instructions for
+  individual test cases (e.g., specific time limits, commands, and
+  contexts). Also added `expected-outcome` as a new test case property,
+  allowing the expected behaviour of the test to be specified and checked
+  by `bugzoo validate`.
+
+### Changes
+
+* Removed `testing` module and refactored its contents into a simpler
+  module, `core.test`.
+
+
 ## 2.1.10 (2018-06-15)
 
 ### Features
