@@ -80,6 +80,14 @@ class ContainerManager(object):
         except KeyError:
             return False
 
+    def clear(self) -> None:
+        """
+        Destroys all running containers.
+        """
+        r = self.__api.delete('containers')
+        if r.status_code != 204:
+            self.__api.handle_erroneous_response()
+
     def __iter__(self) -> Iterator[str]:
         """
         Returns an iterator over the identifiers of all of the containers that
