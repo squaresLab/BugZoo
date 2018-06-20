@@ -332,20 +332,32 @@ def interact_with_container(uid: str):
 @app.route('/containers/<uid>/persist/<path:name_image>', methods=['PUT'])
 @throws_errors
 def persist(uid: str, name_image: str):
+    logger.info("persisting container (%s) to image (%s)",
+                uid, name_image)
     try:
         container = daemon.containers[uid]
     except KeyError:
+        logger.exception("failed to persist container (%s) to image (%s): container not found.",  # noqa: pycodestyle
+                         uid, name_image)
         return ContainerNotFound(uid), 404
 
     try:
         daemon.containers.persist(container, name_image)
+        logger.info("persisted container (%s) to image (%s)",
+                    uid, name_image)
         return '', 204
     except ImageAlreadyExists as err:
+        logger.exception("failed to persist container (%s) to image (%s): image already exists.",  # noqa: pycodestyle
+                         uid, name_image)
         return err, 409
     except BugZooException as err:
+        logger.exception("failed to persist container (%s) to image (%s).",
+                         uid, name_image)
         return err, 400
     # TODO handle unexpected exceptions
     except Exception as err:
+        logger.exception("failed to persist container (%s) to image (%s): unexpected error.",  # noqa: pycodestyle
+                         uid, name_image)
         return '', 501
 
 

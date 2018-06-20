@@ -322,7 +322,20 @@ class ContainerManager(object):
             ImageAlreadyExists: if the given image name is already in use by
                 another Docker image on the server.
         """
-        path = "containers/{}/persist/{}".format(container.uid, image_name)
+        logger.debug("attempting to persist container (%s) to image (%s).",
+                     container.id,
+                     image_name)
+        path = "containers/{}/persist/{}".format(container.id, image_name)
         r = self.__api.put(path)
-        if r.status_code != 204:
+        if r.status_code == 204:
+            logger.debug("persisted container (%s) to image (%s).",
+                         container.id,
+                         image_name)
+            return
+        try:
             self.__api.handle_erroneous_response(r)
+        except Exception:
+            logger.exception("failed to persist container (%s) to image (%s).",  # noqa: pycodestyle
+                             container.id,
+                             image_name)
+            raise

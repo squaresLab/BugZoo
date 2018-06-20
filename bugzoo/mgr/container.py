@@ -37,7 +37,10 @@ class ContainerManager(object):
 
         logger.debug("connecting to low-level Docker API")
         self.__client_docker = installation.docker  # type: docker.Client
-        self.__api_docker = self.__client_docker.api  # type: docker.APIClient
+        # self.__api_docker = self.__client_docker.api  # type: docker.APIClient
+        self.__api_docker = \
+            docker.APIClient(base_url=installation.base_url_docker,
+                             timeout=120)  # type: docker.APIClient
         assert self.__api_docker.ping()
         logger.debug("connected to low-level Docker API")
         self.clear()
@@ -583,5 +586,14 @@ class ContainerManager(object):
                          image)
             raise ImageAlreadyExists(image)
         except docker.errors.ImageNotFound:
-            docker_container.commit(repository=image)
+            pass
+
+        cmd = "docker commit {} {}"
+        cmd = cmd.format(docker_container.id, image)
+        try:
+            subprocess.check_output(cmd, shell=True)
+        except subprocess.CalledProcessError:
+            logger.exception("Failed to persist container (%s) to image (%s).",  # noqa: pycodestyle
+                             container.uid, image)
+            raise
         logger_c.debug("Persisted container as a Docker image: %s", image)
