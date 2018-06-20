@@ -504,11 +504,14 @@ def run(*,
     else:
         log_werkzeug.setLevel(logging.ERROR)
 
-    logger.info("launching BugZoo daemon")
-    daemon = BugZoo()
-    logger.info("launched BugZoo daemon")
-
-    app.run(port=port, host=host, debug=debug, threaded=True)
+    try:
+        logger.info("launching BugZoo daemon")
+        daemon = BugZoo()
+        logger.info("launched BugZoo daemon")
+        app.run(port=port, host=host, debug=debug, threaded=True)
+    finally:
+        if daemon:
+            daemon.shutdown()
 
 
 def main() -> None:
