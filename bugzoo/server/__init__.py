@@ -347,7 +347,7 @@ def persist(uid: str, name_image: str):
                     uid, name_image)
         return '', 204
     except ImageAlreadyExists as err:
-    logger.exception("failed to persist container (%s) to image (%s): image already exists.",  # noqa: pycodestyle
+        logger.exception("failed to persist container (%s) to image (%s): image already exists.",  # noqa: pycodestyle
                          uid, name_image)
         return err, 409
     except BugZooException as err:
