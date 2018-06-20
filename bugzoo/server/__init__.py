@@ -300,6 +300,13 @@ def list_containers():
     return flask.jsonify(jsn)
 
 
+@app.route('/containers', methods=['DELETE'])
+@throws_errors
+def clear_containers():
+    daemon.containers.clear()
+    return '', 204
+
+
 @app.route('/containers/<uid>', methods=['GET', 'PATCH'])
 @throws_errors
 def interact_with_container(uid: str):
