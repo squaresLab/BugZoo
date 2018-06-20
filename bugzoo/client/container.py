@@ -86,7 +86,7 @@ class ContainerManager(object):
         """
         r = self.__api.delete('containers')
         if r.status_code != 204:
-            self.__api.handle_erroneous_response()
+            self.__api.handle_erroneous_response(r)
 
     def __iter__(self) -> Iterator[str]:
         """
