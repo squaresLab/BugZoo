@@ -300,6 +300,13 @@ def list_containers():
     return flask.jsonify(jsn)
 
 
+@app.route('/containers', methods=['DELETE'])
+@throws_errors
+def clear_containers():
+    daemon.containers.clear()
+    return '', 204
+
+
 @app.route('/containers/<uid>', methods=['GET', 'PATCH'])
 @throws_errors
 def interact_with_container(uid: str):
@@ -504,11 +511,14 @@ def run(*,
     else:
         log_werkzeug.setLevel(logging.ERROR)
 
-    logger.info("launching BugZoo daemon")
-    daemon = BugZoo()
-    logger.info("launched BugZoo daemon")
-
-    app.run(port=port, host=host, debug=debug, threaded=True)
+    try:
+        logger.info("launching BugZoo daemon")
+        daemon = BugZoo()
+        logger.info("launched BugZoo daemon")
+        app.run(port=port, host=host, debug=debug, threaded=True)
+    finally:
+        if daemon:
+            daemon.shutdown()
 
 
 def main() -> None:

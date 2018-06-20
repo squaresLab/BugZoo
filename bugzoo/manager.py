@@ -70,6 +70,11 @@ class BugZoo(object):
         self.__files = FileManager(self.__bugs, self.__containers)
         self.__coverage = CoverageManager(self)
 
+    def shutdown(self) -> None:
+        logger.info("Shutting down daemon...")
+        self.__containers.clear()
+        logger.info("Shut down daemon")
+
     @property
     def docker(self) -> DockerClient:
         """
