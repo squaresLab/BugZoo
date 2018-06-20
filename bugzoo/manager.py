@@ -52,8 +52,10 @@ class BugZoo(object):
         logger.debug("prepared BugZoo directory")
 
         logger.debug("connecting to Docker at %s", base_url_docker)
+        self.__base_url_docker = base_url_docker
         try:
-            self.__docker = DockerClient(base_url=base_url_docker, timeout=120)
+            self.__docker = DockerClient(base_url=base_url_docker,
+                                         timeout=120)
             assert self.__docker.ping()
         except (docker.errors.APIError, AssertionError):
             logger.exception("failed to connect to Docker")
@@ -81,6 +83,13 @@ class BugZoo(object):
         The Docker client used by this server.
         """
         return self.__docker
+
+    @property
+    def base_url_docker(self) -> str:
+        """
+        The base URL of the Docker server to which BugZoo is connected.
+        """
+        return self.__base_url_docker
 
     @property
     def path(self) -> str:
