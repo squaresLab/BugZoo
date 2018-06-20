@@ -40,12 +40,19 @@ class ContainerManager(object):
         self.__api_docker = self.__client_docker.api  # type: docker.APIClient
         assert self.__api_docker.ping()
         logger.debug("connected to low-level Docker API")
+        self.clear()
+        logger.debug("initialised container manager")
 
+    def clear(self) -> None:
+        """
+        Closes all running containers.
+        """
+        logger.debug("clearing all running containers")
         self.__containers = {}
         self.__dockerc = {}
         self.__env_files = {}
         self.__dockerc_tools = {}
-        logger.debug("initialised container manager")
+        logger.debug("cleared all running containers")
 
     def __iter__(self) -> Iterator[Container]:
         """
