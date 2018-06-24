@@ -381,7 +381,7 @@ class ContainerManager(object):
                                 stderr=True,
                                 time_limit=test.time_limit,
                                 verbose=verbose)
-        passed = response.code == 0
+        passed = test.oracle.check(response)
         return TestOutcome(response, passed)
 
     test = execute
