@@ -232,6 +232,30 @@ def instrument_container(uid: str):
     return ('', 204)
 
 
+@app.route('/containers/<uid>/read-coverage', methods=['POST'])
+@throws_errors
+def read_coverage(uid: str):
+    logger.debug("reading coverage for container (%s).", uid)
+    mgr_ctr = daemon.containers  # type: ContainerManager
+    mgr_cov = daemon.coverage  # type: CoverageManager
+    try:
+        container = mgr_ctr[uid]
+    except KeyError:
+        logger.exception("failed to read coverage for container (%s): container not found.")  # noqa: pycodestyle
+        return ContainerNotFound(uid), 404
+
+    try:
+        lines = mgr_cov.extract(container)
+        logger.debug("read coverage for container (%s).",
+                     container.uid)
+    except Exception:
+        logger.exception("failed to read coverage for container (%s).",
+                         container.uid)
+        raise
+    jsn = flask.jsonify(lines.to_dict())
+    return (jsn, 200)
+
+
 @app.route('/containers/<id_container>/coverage', methods=['POST'])
 @throws_errors
 def coverage_container(id_container: str):

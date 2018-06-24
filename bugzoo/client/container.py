@@ -4,6 +4,7 @@ import logging
 from .api import APIClient
 from ..compiler import CompilationOutcome
 from ..core.patch import Patch
+from ..core.fileline import FileLineSet
 from ..core.bug import Bug
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
@@ -132,6 +133,17 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no container found with given UID: {}".format(uid))
 
+        self.__api.handle_erroneous_response(r)
+
+    def extract_coverage(self, container: Container) -> FileLineSet:
+        """
+        Extracts a report of the lines that have been executed since the last
+        time that a coverage report was extracted.
+        """
+        uid = container.uid
+        r = self.__api.post('containers/{}/read-coverage'.format(uid))
+        if r.status_code == 200:
+            return FileLineSet.from_dict(r.json())
         self.__api.handle_erroneous_response(r)
 
     def instrument(self,
