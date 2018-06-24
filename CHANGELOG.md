@@ -1,3 +1,11 @@
+## 2.1.12 (???)
+
+### Features
+
+* Added ability to compute line coverage reports to client container
+  manager.
+
+
 ## 2.1.11 (2018-06-19)
 
 ### Features
