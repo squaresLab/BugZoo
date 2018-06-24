@@ -35,6 +35,17 @@ class TestCaseOracle(object):
             d['output'] = {'contains': self.output_contains}
         return d
 
+    def check(self, response: ExecResponse) -> bool:
+        """
+        Determines whether the raw command output from a test execution
+        satisfies this oracle.
+        """
+        if response.code != self.code:
+            return False
+        if self.output_contains and self.output_contains not in response.output:  # noqa: pycodestyle
+            return False
+        return True
+
 
 @attr.s(frozen=True)
 class TestCase(object):
