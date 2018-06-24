@@ -7,19 +7,51 @@ from ..cmd import ExecResponse
 
 
 @attr.s(frozen=True)
+class TestCaseOracle(object):
+    code = attr.ib(type=int, default=0)
+    output_contains = attr.ib(type=Optional[str], default=None)
+
+    @staticmethod
+    def from_dict(d: dict) -> 'TestCaseOracle':
+        code = d.get('code', 0)
+        if not isinstance(code, int):
+            raise ValueError("failed to unpack test oracle: expected 'code' to be an int.")  # noqa: pycodestyle
+
+        if 'output' in d and 'contains' in d['output']:
+            output_contains = d['output']['contains']
+            if not isinstance(output_contains, str):
+                raise ValueError("failed to unpack test oracle: expected 'contains' to be a string.")  # noqa: pycodestyle
+            if output_contains == '':
+                raise ValueError("failed to unpack test oracle: 'contains' must be a non-empty string.")  # noqa: pycodestyle
+        else:
+            output_contains = None
+
+        return TestCaseOracle(code, output_contains)
+
+    def to_dict(self) -> Dict[str, Any]:
+        d = {}  # type: Dict[str, Any]
+        d['code'] = self.code
+        if self.output_contains is not None:
+            d['output'] = {'contains': self.output_contains}
+        return d
+
+
+@attr.s(frozen=True)
 class TestCase(object):
     name = attr.ib(type=str)
     time_limit = attr.ib(type=int)
     command = attr.ib(type=str)
     context = attr.ib(type=str)
     expected_outcome = attr.ib(type=Optional[bool])
+    oracle = attr.ib(type=TestCaseOracle)
 
     def to_dict(self) -> Dict[str, Any]:
         return {'name': self.name,
                 'time-limit': self.time_limit,
                 'command': self.command,
                 'context': self.context,
-                'expected-outcome': self.expected_outcome}
+                'expected-outcome': self.expected_outcome,
+                'oracle': self.oracle.to_dict()}
 
 
 @attr.s(frozen=True)
@@ -55,6 +87,7 @@ class TestSuite(object):
         command_template = d.get('command', './test.sh __ID__')  # type: str
         default_time_limit = d.get('time-limit', 60)  # type: int
         command_context = d.get('context', '/experiment')  # type: str
+        default_oracle = TestCaseOracle()
         d_tests = d.get('tests', [])
 
         if d.get('type') == 'empty':
@@ -71,6 +104,8 @@ class TestSuite(object):
         # build the tests
         tests = []  # type: List[TestCase]
         for test_desc in d_tests:
+            test_oracle = default_oracle  # type: TestCaseOracle
+
             # FIXME add expected outcome
             if isinstance(test_desc, str):
                 test_name = test_desc
@@ -79,16 +114,22 @@ class TestSuite(object):
                 test_command = \
                     command_template.replace('__ID__', test_name)
                 test_expected_outcome = None
+
             elif isinstance(test_desc, dict):
                 if 'name' in test_desc:
                     test_name = test_desc['name']
                 else:
                     test_name = test_desc['command']
+
                 if 'command' in test_desc:
                     test_command = test_desc['command']
                 else:
                     test_command = \
                         command_template.replace('__ID__', test_name)
+
+                if 'oracle' in test_desc:
+                    test_oracle = TestCaseOracle.from_dict(test_desc['oracle'])
+
                 test_context = test_desc.get('context', command_context)
                 test_time_limit = \
                     test_desc.get('time-limit', default_time_limit)
@@ -98,7 +139,8 @@ class TestSuite(object):
                             time_limit=test_time_limit,
                             command=test_command,
                             context=test_context,
-                            expected_outcome=test_expected_outcome)
+                            expected_outcome=test_expected_outcome,
+                            oracle=test_oracle)
             tests.append(test)
 
         return TestSuite(tests)
