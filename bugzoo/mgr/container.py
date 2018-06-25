@@ -380,6 +380,7 @@ class ContainerManager(object):
                                 context=test.context,
                                 stderr=True,
                                 time_limit=test.time_limit,
+                                kill_after=test.kill_after,
                                 verbose=verbose)
         passed = test.oracle.check(response)
         return TestOutcome(response, passed)
