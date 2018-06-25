@@ -1,7 +1,11 @@
 from typing import List, Dict, Iterator
+import logging
 
 from .coverage import TestSuiteCoverage
 from .fileline import FileLine
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 
 class LineSpectra(object):
@@ -62,16 +66,16 @@ class Spectra(object):
     def from_coverage(coverage: TestSuiteCoverage) -> 'Spectra':
         # tally the number of times that each line is touched by a passing
         # or failing test
-        tally_failing = {} # type: Dict[FileLine, int]
-        tally_passing = {} # type: Dict[FileLine, int]
+        tally_failing = {}  # type: Dict[FileLine, int]
+        tally_passing = {}  # type: Dict[FileLine, int]
 
         for test in coverage.passing:
             for line in coverage[test].lines:
-                tally_passing[line] = tally_passing.get(line, 1)
+                tally_passing[line] = tally_passing.get(line, 0) + 1
 
         for test in coverage.failing:
             for line in coverage[test].lines:
-                tally_failing[line] = tally_failing.get(line, 1)
+                tally_failing[line] = tally_failing.get(line, 0) + 1
 
         return Spectra(len(coverage.passing),
                        len(coverage.failing),
