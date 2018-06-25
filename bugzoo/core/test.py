@@ -55,6 +55,7 @@ class TestCase(object):
     context = attr.ib(type=str)
     expected_outcome = attr.ib(type=Optional[bool])
     oracle = attr.ib(type=TestCaseOracle)
+    kill_after = attr.ib(type=int, default=1)
 
     def to_dict(self) -> Dict[str, Any]:
         return {'name': self.name,
@@ -62,7 +63,8 @@ class TestCase(object):
                 'command': self.command,
                 'context': self.context,
                 'expected-outcome': self.expected_outcome,
-                'oracle': self.oracle.to_dict()}
+                'oracle': self.oracle.to_dict(),
+                'kill-after': self.kill_after}
 
 
 @attr.s(frozen=True)
@@ -99,6 +101,7 @@ class TestSuite(object):
         default_time_limit = d.get('time-limit', 60)  # type: int
         command_context = d.get('context', '/experiment')  # type: str
         default_oracle = TestCaseOracle()
+        default_kill_after = 1
         d_tests = d.get('tests', [])
 
         if d.get('type') == 'empty':
@@ -116,6 +119,7 @@ class TestSuite(object):
         tests = []  # type: List[TestCase]
         for test_desc in d_tests:
             test_oracle = default_oracle  # type: TestCaseOracle
+            test_kill_after = 1  # type: int
 
             # FIXME add expected outcome
             if isinstance(test_desc, str):
@@ -141,6 +145,9 @@ class TestSuite(object):
                 if 'oracle' in test_desc:
                     test_oracle = TestCaseOracle.from_dict(test_desc['oracle'])
 
+                if 'kill-after' in test_desc:
+                    test_kill_after = test_desc['kill-after']
+
                 test_context = test_desc.get('context', command_context)
                 test_time_limit = \
                     test_desc.get('time-limit', default_time_limit)
@@ -151,7 +158,8 @@ class TestSuite(object):
                             command=test_command,
                             context=test_context,
                             expected_outcome=test_expected_outcome,
-                            oracle=test_oracle)
+                            oracle=test_oracle,
+                            kill_after=test_kill_after)
             tests.append(test)
 
         return TestSuite(tests)
