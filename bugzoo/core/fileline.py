@@ -1,11 +1,16 @@
 from typing import  Dict, List, Set, Iterator, Iterable, Any, FrozenSet, \
                     Callable, Optional
+import attr
 
 
+@attr.s(frozen=True)
 class FileLine(object):
     """
     Used to represent an one-indexed line within a specific file.
     """
+    filename = attr.ib(type=str)
+    num = attr.ib(type=int)
+
     @staticmethod
     def compactify(d: Dict['FileLine', Any]) -> Dict[str, Dict[int, Any]]:
         """
@@ -31,38 +36,8 @@ class FileLine(object):
                 lines[FileLine(fn, num)] = d[fn][num]
         return lines
 
-    def __init__(self, fn: str, num: int) -> None:
-        self.__fn = fn
-        self.__num = num
-
-    def __hash__(self) -> int:
-        return hash((self.__fn, self.__num))
-
-    def __eq__(self, other) -> bool:
-        return  isinstance(other, FileLine) and \
-                self.filename == other.filename and \
-                self.num == other.num
-
-    @property
-    def filename(self) -> str:
-        """
-        The name of the file to which this line belongs.
-        """
-        return self.__fn
-
-    fn = filename
-
-    @property
-    def num(self) -> int:
-        """
-        The one-indexed number of this line.
-        """
-        return self.__num
-
     def __str__(self) -> str:
         return "{}:{}".format(self.filename, self.num)
-
-    __repr__ = __str__
 
 
 class FileLineSet(object):

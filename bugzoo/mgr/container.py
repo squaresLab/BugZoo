@@ -380,8 +380,9 @@ class ContainerManager(object):
                                 context=test.context,
                                 stderr=True,
                                 time_limit=test.time_limit,
+                                kill_after=test.kill_after,
                                 verbose=verbose)
-        passed = response.code == 0
+        passed = test.oracle.check(response)
         return TestOutcome(response, passed)
 
     test = execute
@@ -486,7 +487,8 @@ class ContainerManager(object):
                 stderr: bool = False,
                 block: bool = True,
                 verbose: bool = False,
-                time_limit: Optional[int] = None
+                time_limit: Optional[int] = None,
+                kill_after: Optional[int] = 1
                 ) -> Union[ExecResponse, PendingExecResponse]:
         """
         Executes a provided shell command inside a given container.
@@ -518,8 +520,10 @@ class ContainerManager(object):
         cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
         if time_limit is not None and time_limit > 0:
             logger_c.debug("running command with time limit: %d seconds", time_limit)  # noqa: pycodestyle
-            cmd_template = "timeout --kill-after=1 --signal=SIGTERM {} {}"
-            cmd_wrapped = cmd_template.format(time_limit, cmd_wrapped)
+            cmd_template = "timeout --kill-after={} --signal=SIGTERM {} {}"
+            cmd_wrapped = cmd_template.format(kill_after,
+                                              time_limit,
+                                              cmd_wrapped)
         cmd = cmd_wrapped
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5

@@ -5,6 +5,11 @@
 * Added ability to compute line coverage reports to client container
   manager.
 
+### Bug Fixes
+
+* Fixed a bug in `Spectra.from_coverage` that incorrectly prevented
+  `ep` or `ef` for a given line from being greater than one.
+
 
 ## 2.1.11 (2018-06-19)
 
