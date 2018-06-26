@@ -1,14 +1,19 @@
-## 2.1.12 (???)
+## 2.1.12 (2018-06-25)
 
 ### Features
 
 * Added ability to compute line coverage reports to client container
   manager.
+* All containers are now destroyed when the server is closed.
+* Added ability to specify custom (albeit limited) oracles for individual
+  test cases.
 
 ### Bug Fixes
 
 * Fixed a bug in `Spectra.from_coverage` that incorrectly prevented
   `ep` or `ef` for a given line from being greater than one.
+* Fixed an incorrect path in `client.dockerm` that prevented the client from
+  deleting Docker images on the server.
 
 
 ## 2.1.11 (2018-06-19)
