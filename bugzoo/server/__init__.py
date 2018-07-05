@@ -97,16 +97,14 @@ def get_status():
 
 @app.route('/shutdown', methods=['POST'])
 def shutdown():
-    """
-    Used to flush log files to disk.
-    """
     daemon.containers.clear()
     if log_to_file:
         log_to_file.flush()
 
     def self_destruct() -> None:
-        logger.info("Closing server in 5 seconds...")
-        time.sleep(5.0)
+        for i in range(5, 0, -1):
+            logger.info("Closing server in %d seconds...", i)
+            time.sleep(1.0)
         os.kill(os.getpid(), signal.SIGTERM)
     threading.Thread(target=self_destruct).run()
 
