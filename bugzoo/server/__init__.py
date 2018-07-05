@@ -20,6 +20,7 @@ from ..mgr.container import ContainerManager
 from ..mgr.coverage import CoverageManager
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+log_to_file = None  # type: Optional[logging.handlers.WatchedFileHandler]
 
 # FIXME let's avoid storing the actual server in a global var
 daemon = None  # type: Any
@@ -89,6 +90,16 @@ def get_status():
     """
     Used to indicate that the server is healthy and ready to go.
     """
+    return '', 204
+
+
+@app.route('/flush', methods=['POST'])
+def flush_logs():
+    """
+    Used to flush log files to disk.
+    """
+    if log_to_file:
+        log_to_file.flush()
     return '', 204
 
 
@@ -503,7 +514,7 @@ def run(*,
     log_filename: Optional[str] = None,
     log_level: str = 'info'
     ) -> None:
-    global daemon
+    global daemon, log_to_file
 
     if not log_filename:
         log_filename = "bugzood.log"
