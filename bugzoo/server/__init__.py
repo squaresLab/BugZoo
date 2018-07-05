@@ -10,11 +10,6 @@ import sys
 import threading
 import time
 
-try:
-    from typing import NoReturn
-except ImportError:
-    from mypy_extensions import NoReturn
-
 import flask
 
 from ..core.bug import Bug
@@ -109,7 +104,7 @@ def shutdown():
     if log_to_file:
         log_to_file.flush()
 
-    def self_destruct() -> NoReturn:
+    def self_destruct() -> None:
         logger.info("Closing server in 5 seconds...")
         time.sleep(5.0)
         os.kill(os.getpid(), signal.SIGTERM)
