@@ -1,3 +1,13 @@
+## 2.1.13 (????-??-??)
+
+### Features
+
+* added `report_system_resources` and `report_resource_limits` to `util`
+  module. Both functions describe the available system resources and write
+  a description to a provided logger.
+* updated `bugzood` to report available resources upon launch.
+
+
 ## 2.1.12 (2018-06-25)
 
 ### Features
