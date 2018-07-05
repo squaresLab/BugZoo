@@ -2,6 +2,7 @@
 
 ### Features
 
+* added `shutdown` method to client.
 * added `report_system_resources` and `report_resource_limits` to `util`
   module. Both functions describe the available system resources and write
   a description to a provided logger.
