@@ -1,4 +1,6 @@
 import sys
+import logging
+import resource
 
 
 def printflush(s: str, end: str = '\n') -> None:
@@ -7,6 +9,24 @@ def printflush(s: str, end: str = '\n') -> None:
     """
     print(s, end=end)
     sys.stdout.flush()
+
+
+def report_resource_limits(logger: logging.Logger) -> None:
+    resources = [
+        ('CPU time (seconds)', resource.RLIMIT_CPU),
+        ('Heap size (bytes)', resource.RLIMIT_DATA),
+        ('Num. process', resource.RLIMIT_NPROC),
+        ('Num. files', resource.RLIMIT_NOFILE),
+        ('Address space', resource.RLIMIT_AS),
+        ('Locked address space', resource.RLIMIT_MEMLOCK)
+    ]
+    resource_limits = [
+        (name, resource.getrlimit(res)) for (name, res) in resources
+    ]
+    resource_s = '\n'.join([
+        '* {}: {}'.format(res, lim) for (res, lim) in resource_limits
+    ])
+    logger.info("resource limits:\n%s", indent(resource_s, 2))
 
 
 def print_task_start(task: str) -> None:

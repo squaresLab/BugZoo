@@ -18,6 +18,7 @@ from ..exceptions import *
 from ..client import Client
 from ..mgr.container import ContainerManager
 from ..mgr.coverage import CoverageManager
+from ..util import indent, report_resource_limits
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 
@@ -551,6 +552,7 @@ def run(*,
         logger.info("launching BugZoo daemon")
         daemon = BugZoo()
         logger.info("launched BugZoo daemon")
+        report_resource_limits(logger)
         app.run(port=port, host=host, debug=debug, threaded=True)
     finally:
         if daemon:
