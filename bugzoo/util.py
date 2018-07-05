@@ -13,7 +13,7 @@ def printflush(s: str, end: str = '\n') -> None:
     sys.stdout.flush()
 
 
-def bytes_to_gigabytes(x: int) -> int:
+def bytes_to_gigabytes(x: int) -> float:
     return x / 1024 / 1024 / 1024
 
 
@@ -23,6 +23,7 @@ def report_system_resources(logger: logging.Logger) -> None:
     cpu_freq = psutil.cpu_freq().max
     vmem_total = bytes_to_gigabytes(psutil.virtual_memory().total)
     swap_total = bytes_to_gigabytes(psutil.swap_memory().total)
+    swap_free = bytes_to_gigabytes(psutil.swap_memory().free)
     disk_info = psutil.disk_usage('/')
     disk_size = bytes_to_gigabytes(disk_info.total)
     disk_free = bytes_to_gigabytes(disk_info.free)
