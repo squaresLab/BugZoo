@@ -2,6 +2,8 @@ import sys
 import logging
 import resource
 
+import psutil
+
 
 def printflush(s: str, end: str = '\n') -> None:
     """
@@ -9,6 +11,32 @@ def printflush(s: str, end: str = '\n') -> None:
     """
     print(s, end=end)
     sys.stdout.flush()
+
+
+def bytes_to_gigabytes(x: int) -> int:
+    return x / 1024 / 1024 / 1024
+
+
+def report_system_resources(logger: logging.Logger) -> None:
+    cores_physical = psutil.cpu_count(logical=False)
+    cores_logical = psutil.cpu_count(logical=True)
+    cpu_freq = psutil.cpu_freq().max
+    vmem_total = bytes_to_gigabytes(psutil.virtual_memory().total)
+    vmem_free = bytes_to_gigabytes(psutil.virtual_memory().free)
+    swap_total = bytes_to_gigabytes(psutil.swap_memory().total)
+    swap_free = bytes_to_gigabytes(psutil.swap_memory().free)
+    disk_info = psutil.disk_usage('/')
+    disk_size = bytes_to_gigabytes(disk_info.total)
+    disk_free = bytes_to_gigabytes(disk_info.free)
+
+    resource_s = '\n'.join([
+        '* CPU cores: {} physical, {} logical'.format(cores_physical, cores_logical),  # noqa: pycodestyle
+        '* CPU frequency: {:.2f} GHz'.format(cpu_freq / 1000),
+        '* virtual memory: {:.2f} GB ({:.2f} GB free)'.format(vmem_total, vmem_free),  # noqa: pycodestyle
+        '* swap memory: {:.2f} GB ({:.2f} GB free)'.format(swap_total, swap_free),  # noqa: pycodestyle
+        '* disk space: {:.2f} GB ({:.2f} GB free)'.format(disk_size, disk_free)  # noqa: pycodestyle
+    ])
+    logger.info("system resources:\n%s", indent(resource_s, 2))
 
 
 def report_resource_limits(logger: logging.Logger) -> None:
