@@ -102,7 +102,8 @@ def shutdown():
         log_to_file.flush()
 
     def self_destruct() -> None:
-        for i in range(5, 0, -1):
+        wait_time = 3
+        for i in range(3, 0, -1):
             logger.info("Closing server in %d seconds...", i)
             time.sleep(1.0)
         os.kill(os.getpid(), signal.SIGTERM)
