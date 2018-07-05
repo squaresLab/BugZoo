@@ -54,3 +54,8 @@ class Client(object):
     @property
     def docker(self) -> DockerManager:
         return self.__docker
+
+    def shutdown(self) -> None:
+        r = self.__api.post("shutdown")
+        if r.status_code != 202:
+            raise Exception("failed to shutdown server")

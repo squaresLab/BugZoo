@@ -7,6 +7,8 @@ import signal
 import subprocess
 import logging
 import sys
+import threading
+import time
 
 import flask
 
@@ -21,6 +23,7 @@ from ..mgr.coverage import CoverageManager
 from ..util import indent, report_resource_limits, report_system_resources
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+log_to_file = None  # type: Optional[logging.handlers.WatchedFileHandler]
 
 # FIXME let's avoid storing the actual server in a global var
 daemon = None  # type: Any
@@ -91,6 +94,23 @@ def get_status():
     Used to indicate that the server is healthy and ready to go.
     """
     return '', 204
+
+
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    daemon.containers.clear()
+    if log_to_file:
+        log_to_file.flush()
+
+    def self_destruct() -> None:
+        wait_time = 3
+        for i in range(3, 0, -1):
+            logger.info("Closing server in %d seconds...", i)
+            time.sleep(1.0)
+        os.kill(os.getpid(), signal.SIGTERM)
+    threading.Thread(target=self_destruct).run()
+
+    return '', 202
 
 
 @app.route('/bugs', methods=['GET'])
@@ -504,7 +524,7 @@ def run(*,
     log_filename: Optional[str] = None,
     log_level: str = 'info'
     ) -> None:
-    global daemon
+    global daemon, log_to_file
 
     if not log_filename:
         log_filename = "bugzood.log"
