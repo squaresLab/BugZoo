@@ -7,6 +7,13 @@ import signal
 import subprocess
 import logging
 import sys
+import threading
+import time
+
+try:
+    from typing import NoReturn
+except ImportError:
+    from mypy_extensions import NoReturn
 
 import flask
 
@@ -93,14 +100,22 @@ def get_status():
     return '', 204
 
 
-@app.route('/flush', methods=['POST'])
-def flush_logs():
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
     """
     Used to flush log files to disk.
     """
+    daemon.containers.clear()
     if log_to_file:
         log_to_file.flush()
-    return '', 204
+
+    def self_destruct() -> NoReturn:
+        logger.info("Closing server in 5 seconds...")
+        time.sleep(5.0)
+        os.kill(os.getpid(), signal.SIGTERM)
+    threading.Thread(target=self_destruct).run()
+
+    return '', 202
 
 
 @app.route('/bugs', methods=['GET'])
