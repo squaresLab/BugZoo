@@ -66,14 +66,25 @@ class CoverageManager(object):
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
+
+        # compute a list of all source files
         dir_source = bug.source_dir
-        # getting a list of all files in source directory to later use for resolving path
-        resp = mgr_ctr.command(container, "find {} -type f -name '*.cpp' -o -name '*.c'".format(dir_source))
-        all_files = [fn.strip() for fn in resp.output.split('\n')]
+        endings = ['.cpp', '.cc', '.c', '.h', '.hh', '.hpp', '.cxx']
+        cmd = ' -o '.join(["-name \*{}".format(e) for e in endings])
+        cmd = "find {} -type f \( {} \)".format(dir_source, cmd)
+        resp = mgr_ctr.command(container, cmd)
+        # logger.info("FIND COMMAND: %s", cmd)
+        all_files = set(fn.strip() for fn in resp.output.split('\n'))
+        # logger.info("KNOWN SOURCE FILES: %s", all_files)
 
         def has_file(fn_rel: str) -> bool:
             fn_abs = os.path.join(dir_source, fn_rel)
             return (fn_abs in all_files)
+
+        def read_line_coverage(cls) -> List[int]:
+            lines = cls.find('lines').findall('line')
+            return set(int(l.attrib['number']) for l in lines
+                    if int(l.attrib['hits']) > 0)
 
         # FIXME is this a general solution?
         def resolve_path(fn_rel: str) -> str:
@@ -88,25 +99,26 @@ class CoverageManager(object):
         for path in instrumented_files:
             assert not os.path.isabs(path), "expected relative file paths"
 
+        # read the output of gcovr
         root = ET.fromstring(s)
-        files_to_lines = {}
-        packages = root.find('packages')
+        packages = root.find('packages').findall('package')
+        classes = [c for p in packages for c in p.find('classes').findall('class')]
+        report = [(cls.attrib['filename'], read_line_coverage(cls))
+                  for cls in classes]
+        report = [(fn, lines) for (fn, lines) in report if lines]
+        # logger.info("GCOVR: %s", report)
 
         t_start = timer()
         logger_c.debug("Starting to traverse all files reported by gcovr.")
-        for package in packages.findall('package'):
-            for cls in package.find('classes').findall('class'):
-                try:
-                    path = resolve_path(cls.attrib['filename'])
-                except AssertionError:
-                    logger_c.warning("failed to resolve file: %s", path)
-                    continue
-
-                lines = cls.find('lines').findall('line')
-                lines = set(int(l.attrib['number']) for l in lines \
-                            if int(l.attrib['hits']) > 0)
-                if lines != []:
-                    files_to_lines[path] = lines
+        files_to_lines = {}
+        for (filename, lines) in report:
+            try:
+                filename = resolve_path(filename)
+            except AssertionError:
+                logger_c.warning("failed to resolve file: %s", filename)
+                continue
+            if lines:
+                files_to_lines[filename] = lines
 
         logger_c.debug("Traversing all files finished. Seconds passed: %.2f", timer() - t_start)
         # modify coverage information for all of the instrumented files
