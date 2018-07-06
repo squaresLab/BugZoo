@@ -9,6 +9,12 @@
 * updated `bugzood` to report available resources upon launch.
 
 
+### Changes
+
+* Docker image deletion endpoint now uses `force=True` to ensure that images
+  are destroyed.
+
+
 ## 2.1.12 (2018-06-25)
 
 ### Features
