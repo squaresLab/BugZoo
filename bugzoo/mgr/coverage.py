@@ -69,7 +69,7 @@ class CoverageManager(object):
 
         # compute a list of all source files
         dir_source = bug.source_dir
-        endings = ['.cpp', '.cc', '.c', '.h', '.hpp']
+        endings = ['.cpp', '.cc', '.c', '.h', '.hpp', '.cxx']
         cmd = ' -o '.join(["-name \*{}".format(e) for e in endings])
         cmd = "find {} -type f \( {} \)".format(dir_source, cmd)
         resp = mgr_ctr.command(container, cmd)
