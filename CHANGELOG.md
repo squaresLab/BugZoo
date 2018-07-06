@@ -4,7 +4,7 @@
 
 * Reduced number of false warnings that are produced when computing coverage
   reports.
-* Included `.cxx`, `.cc`, `.h`, and `.hpp` in coverage reports for C++.
+* Included `.cxx`, `.cc`, `.h`, `.hh`, and `.hpp` in coverage reports for C++.
 
 
 ## 2.1.13 (2018-07-05)
