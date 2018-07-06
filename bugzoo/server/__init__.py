@@ -29,6 +29,8 @@ log_to_file = None  # type: Optional[logging.handlers.WatchedFileHandler]
 daemon = None  # type: Any
 app = flask.Flask(__name__)
 app.logger.setLevel(logging.ERROR)
+app.logger.disabled = True
+logging.getLogger('werkzeug').disabled = True
 
 
 def throws_errors(func):
