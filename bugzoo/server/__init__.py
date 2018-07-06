@@ -11,7 +11,11 @@ import threading
 import time
 
 import flask
+import docker
+import psutil
+import git
 
+from ..version import __version__
 from ..core.bug import Bug
 from ..core.patch import Patch
 from ..compiler import CompilationOutcome
@@ -569,6 +573,12 @@ def run(*,
         log_werkzeug.setLevel(logging.INFO)
     else:
         log_werkzeug.setLevel(logging.ERROR)
+
+    logger.info("BugZoo version: %s", __version__)
+    logger.info("DockerPy version: %s", docker.__version__)
+    logger.info("psutil version: %s", psutil.__version__)
+    logger.info("Flask version: %s", flask.__version__)
+    logger.info("GitPython version: %s", git.__version__)
 
     try:
         logger.info("launching BugZoo daemon")

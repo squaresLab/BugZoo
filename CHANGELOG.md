@@ -2,6 +2,8 @@
 
 ### Changes
 
+* Updated `bugzood` to write version information for most of its dependencies
+  to its logs.
 * Reduced number of false warnings that are produced when computing coverage
   reports.
 * Included `.cxx`, `.cc`, `.h`, `.hh`, and `.hpp` in coverage reports for C++.
