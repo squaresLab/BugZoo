@@ -511,7 +511,7 @@ def provision_container():
 @throws_errors
 def docker_images(name: str):
     try:
-        daemon.docker.images.remove(name)
+        daemon.docker.images.remove(name, force=True)
         return '', 204
     except Exception as ex:
         return UnexpectedServerError.from_exception(ex), 500
