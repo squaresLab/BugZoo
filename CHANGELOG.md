@@ -7,6 +7,8 @@
 * Reduced number of false warnings that are produced when computing coverage
   reports.
 * Included `.cxx`, `.cc`, `.h`, `.hh`, and `.hpp` in coverage reports for C++.
+* Added defensive checks to `report_system_resources` to handle environments
+  in which `psutil` fails to report certain information.
 
 
 ## 2.1.13 (2018-07-05)

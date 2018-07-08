@@ -20,20 +20,40 @@ def bytes_to_gigabytes(x: int) -> float:
 def report_system_resources(logger: logging.Logger) -> None:
     cores_physical = psutil.cpu_count(logical=False)
     cores_logical = psutil.cpu_count(logical=True)
-    cpu_freq = psutil.cpu_freq().max
-    vmem_total = bytes_to_gigabytes(psutil.virtual_memory().total)
-    swap_total = bytes_to_gigabytes(psutil.swap_memory().total)
-    swap_free = bytes_to_gigabytes(psutil.swap_memory().free)
+    cores_s = "{} physical, {} logical".format(cores_physical, cores_logical)
+
+    if psutil.cpu_freq():
+        cpu_freq_s = "{:.2f} GHz".format(psutil.cpu_freq().max / 1000)
+    else:
+        cpu_freq_s = "unknown"
+
+    if psutil.virtual_memory():
+        vmem_total = bytes_to_gigabytes(psutil.virtual_memory().total)
+        vmem_total_s = "{:.2f} GB".format(vmem_total)
+    else:
+        vmem_total_s = "unknown"
+
+    if psutil.swap_memory():
+        swap_total = bytes_to_gigabytes(psutil.swap_memory().total)
+        swap_free = bytes_to_gigabytes(psutil.swap_memory().free)
+        swap_s = "{:.2f} GB ({:.2f} GB free)".format(swap_total, swap_free)
+    else:
+        swap_s = "unknown"
+
     disk_info = psutil.disk_usage('/')
-    disk_size = bytes_to_gigabytes(disk_info.total)
-    disk_free = bytes_to_gigabytes(disk_info.free)
+    if disk_info:
+        disk_size = bytes_to_gigabytes(disk_info.total)
+        disk_free = bytes_to_gigabytes(disk_info.free)
+        disk_s = "{:.2f} GB ({:.2f} GB free)".format(disk_size, disk_free)
+    else:
+        disk_s = "unknown"
 
     resource_s = '\n'.join([
-        '* CPU cores: {} physical, {} logical'.format(cores_physical, cores_logical),  # noqa: pycodestyle
-        '* CPU frequency: {:.2f} GHz'.format(cpu_freq / 1000),
-        '* virtual memory: {:.2f} GB'.format(vmem_total),
-        '* swap memory: {:.2f} GB ({:.2f} GB free)'.format(swap_total, swap_free),  # noqa: pycodestyle
-        '* disk space: {:.2f} GB ({:.2f} GB free)'.format(disk_size, disk_free)  # noqa: pycodestyle
+        '* CPU cores: {}'.format(cores_s),
+        '* CPU frequency: {}'.format(cpu_freq_s),
+        '* virtual memory: {}'.format(vmem_total_s),
+        '* swap memory: {}'.format(swap_s),
+        '* disk space: {}'.format(disk_s)
     ])
     logger.info("system resources:\n%s", indent(resource_s, 2))
 
