@@ -1,0 +1,4 @@
+Exceptions
+==========
+
+Discuss all exceptions.

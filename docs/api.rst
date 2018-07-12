@@ -21,3 +21,4 @@ BugZoo's Python API is used by a number of open-source research tools.
   api/patch
   api/coverage
   api/applications
+  api/exceptions
