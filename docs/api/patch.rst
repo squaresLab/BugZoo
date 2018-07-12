@@ -1,10 +1,14 @@
-Patch
-=====
-.. py:module:: bugzoo.patch
+Applying Patches
+================
+.. py:module:: bugzoo.core.patch
 
 
-Patch reference
----------------
+Example
+-------
+
+
+API Reference
+-------------
 
 .. autoclass:: Patch()
 
