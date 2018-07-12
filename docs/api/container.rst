@@ -1,17 +1,19 @@
-Container
-=========
-.. py:module:: bugzoo.container
+Creating Containers
+===================
+.. py:module:: bugzoo.core.container
 
 
-Container reference
--------------------
+Discuss manager interaction.
+
+Discuss need to destroy containers.
+
+
+API Container
+-------------
 
 .. autoclass:: Container()
 
-  .. autoattribute:: alive
-  .. autoattribute:: artefact
-  .. autoattribute:: tools
-  .. autoattribute:: container
+  .. autoattribute:: bug
 
   .. automethod:: interact
   .. automethod:: destroy
