@@ -2,12 +2,17 @@ __all__ = ['TestCase', 'TestSuite', 'TestOutcome']
 
 from typing import Sequence, Dict, Iterator, Optional, List, Any
 import attr
+import warnings
 
 from ..cmd import ExecResponse
 
 
 @attr.s(frozen=True)
 class TestCaseOracle(object):
+    """
+    Used to determine whether the outcome of a test case execution should be
+    considered as a success or failure.
+    """
     code = attr.ib(type=int, default=0)
     output_contains = attr.ib(type=Optional[str], default=None)
 
@@ -49,6 +54,9 @@ class TestCaseOracle(object):
 
 @attr.s(frozen=True)
 class TestCase(object):
+    """
+    Describes an individual test case for a particular snapshot.
+    """
     name = attr.ib(type=str)
     time_limit = attr.ib(type=int)
     command = attr.ib(type=str)
@@ -69,6 +77,9 @@ class TestCase(object):
 
 @attr.s(frozen=True)
 class TestOutcome(object):
+    """
+    Describes the outcome of a test execution.
+    """
     response = attr.ib(type=ExecResponse)
     passed = attr.ib(type=bool)
 
@@ -92,6 +103,10 @@ class TestOutcome(object):
 
 @attr.s(frozen=True)
 class TestSuite(object):
+    """
+    Describes the test suite for a particular snapshot. Test suites are
+    composed of a set of uniquely named individual test cases.
+    """
     _tests = attr.ib(type=Dict[str, TestCase],
                      converter=lambda ts: {t.name: t for t in ts})  # type: ignore
 
@@ -166,6 +181,15 @@ class TestSuite(object):
 
     @property
     def tests(self) -> Iterator[TestCase]:
+        warnings.warn("'tests' property will be removed in v2.2",
+                      DeprecationWarning)
+        yield from self._tests.values()
+
+    def __iter__(self) -> Iterator[TestCase]:
+        """
+        Returns an iterator over the test cases contained within this test
+        suite.
+        """
         yield from self._tests.values()
 
     def __getitem__(self, name: str) -> TestCase:
