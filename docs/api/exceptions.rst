@@ -25,6 +25,8 @@ Reference
 
 .. autoclass:: BugZooException()
 
+.. autoclass:: ConnectionFailure()
+
 .. autoclass:: NameInUseError()
 .. autoclass:: ImageBuildFailed()
 .. autoclass:: ImageNotInstalled()
