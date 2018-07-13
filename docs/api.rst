@@ -7,8 +7,6 @@ Python API is intended to be used as a library when building your own tools
 simply when a better, well-structured means of interacting with historical
 software bugs is needed to conduct an empirical study.
 
-BugZoo's Python API is used by a number of open-source research tools.
-
 **API Reference**
 
 .. toctree::
