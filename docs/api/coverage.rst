@@ -53,7 +53,20 @@ cache coverage information to disk as containers are ephemeral.)
 
 .. code-block:: python
 
-  
+  coverage_for_suite = client.containers.coverage(container)
+
+Coverage information for individual test executions (and executions of
+arbitrary shell commands) can also be obtained by first instrumenting the
+the container, then executing the test (or shell command) for which coverage
+shoud be collected, before finally extracting a report of the source code
+lines that were executed:
+
+.. code-block:: python
+
+  client.containers.instrument(container)
+  outcome = client.containers.test(container, test)
+  lines = client.containers.extract_coverage(container)
+  coverage = TestCoverage(test.name, outcome, lines)
 
 
 Computing Fault Spectra using Coverage
