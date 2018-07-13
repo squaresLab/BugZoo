@@ -1,12 +1,15 @@
-Coverage
-========
-.. py:module:: bugzoo.coverage
+Obtaining Coverage
+==================
+.. py:module:: bugzoo.core.coverage
+
+Example
+-------
 
 
-Coverage API
-------------
+API Reference
+-------------
 
-.. autoclass:: CoverageReport()
+.. autoclass:: TestSuiteCoverage()
 
   .. automethod:: from_string
   .. automethod:: from_xml

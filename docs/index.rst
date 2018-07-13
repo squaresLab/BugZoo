@@ -51,6 +51,8 @@ Features
   cli
   examples
   contributing
+  file-format
+
   faqs
 
 
