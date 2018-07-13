@@ -7,6 +7,7 @@ import requests
 
 __all__ = [
     'BugZooException',
+    'ConnectionFailure',
     'BadManifestFile',
     'UnexpectedResponse',
     'UnexpectedServerError',
@@ -32,7 +33,7 @@ __all__ = [
 
 class BugZooException(Exception):
     """
-    Base class for all BugZoo exceptions.
+    The base class used by all BugZoo exceptions.
     """
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'BugZooException':
@@ -90,11 +91,18 @@ class BugZooException(Exception):
 
 
 class ConnectionFailure(BugZooException):
+    """
+    The client failed to connect to the BugZoo daemon within its allocated
+    timeout window.
+    """
     def __init__(self) -> None:
         super().__init__("failed to connect to BugZoo server within timeout window.")
 
 
 class UnexpectedServerError(BugZooException):
+    """
+    The server encountered an unexpected error whilst dealing with a request.
+    """
     @classmethod
     def from_message_and_data(cls,
                               message: str,
@@ -126,7 +134,7 @@ class UnexpectedServerError(BugZooException):
 
 class UnexpectedResponse(BugZooException):
     """
-    Thrown when the server fails to parse a manifest file.
+    The server produced a response that was not recognised by the client.
     """
     def __init__(self, response: requests.Response) -> None:
         response_text = textwrap.indent(response.text, ' ' * 4)
@@ -142,7 +150,7 @@ class UnexpectedResponse(BugZooException):
 
 class BadManifestFile(BugZooException):
     """
-    Thrown when the server fails to parse a manifest file.
+    The server failed to parse a manifest file.
     """
     def __init__(self, reason: str) -> None:
         msg = "bad manifest file: {}".format(reason)
@@ -151,7 +159,8 @@ class BadManifestFile(BugZooException):
 
 class UnexpectedStatusCode(BugZooException):
     """
-    Indicates that the API request produced an unexpected status code.
+    The server produced an unexpected status code in response to an
+    API request.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -178,7 +187,7 @@ class UnexpectedStatusCode(BugZooException):
 
 class BugAlreadyExists(BugZooException):
     """
-    Indicates that the given bug has already been installed on the server.
+    A bug is already registered under a given name on the server.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -205,7 +214,7 @@ class BugAlreadyExists(BugZooException):
 
 class BugAlreadyBuilt(BugZooException):
     """
-    Indicates that there already exists a bug with a given name.
+    The given bug has already been installed on the server.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -228,6 +237,8 @@ class BugAlreadyBuilt(BugZooException):
     @property
     def data(self) -> Dict[str, Any]:
         return {'bug': self.bug}
+
+
 class BugNotFound(BugZooException):
     """
     Indicates that no bug was found that matches the provided identifier.
@@ -257,7 +268,7 @@ class BugNotFound(BugZooException):
 
 class ContainerNotFound(BugZooException):
     """
-    Indicates that no running container was found with a given identifier.
+    No active container was found with a given identifier.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -284,7 +295,7 @@ class ContainerNotFound(BugZooException):
 
 class SourceNotFoundWithURL(BugZooException):
     """
-    Indicates that no source has been found that matches a provided URL.
+    No source that matches a given URL was found.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -308,7 +319,7 @@ class SourceNotFoundWithURL(BugZooException):
 
 class SourceNotFoundWithName(BugZooException):
     """
-    Indicates that there exists no source registered with a given name.
+    No source that matches a given name was found.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -332,8 +343,7 @@ class SourceNotFoundWithName(BugZooException):
 
 class SourceAlreadyRegisteredWithURL(BugZooException):
     """
-    Indicates that there exists a source that is already registered with a
-    given URL.
+    A source is already registered with a given URL.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -357,7 +367,7 @@ class SourceAlreadyRegisteredWithURL(BugZooException):
 
 class NameInUseError(BugZooException):
     """
-    Indicates that a given name is already in use by another resource.
+    A given name is already in use by another resource.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -381,7 +391,7 @@ class NameInUseError(BugZooException):
 
 class BugNotInstalledError(BugZooException):
     """
-    Indicates that a given bug hasn't been installed.
+    A given bug has not been installed.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -408,7 +418,7 @@ class BugNotInstalledError(BugZooException):
 
 class ImageNotInstalled(BugZooException):
     """
-    Indicates that a given Docker image has not been installed on the server.
+    A given Docker image has not been installed on the server.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -435,7 +445,7 @@ class ImageNotInstalled(BugZooException):
 
 class ImageAlreadyExists(BugZooException):
     """
-    Indicates that a given Docker image is already installed on the server.
+    A given Docker image is already installed on the server.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -462,7 +472,7 @@ class ImageAlreadyExists(BugZooException):
 
 class ImageBuildFailed(BugZooException):
     """
-    Indicates that an attempt to build a given Docker image has failed.
+    An attempt to build a given Docker image has failed.
     """
     def __init__(self,
                  image: str,
@@ -495,7 +505,7 @@ class ImageBuildFailed(BugZooException):
 
 class TestNotFound(BugZooException):
     """
-    Indicates that no test was found with the given identifier.
+    No test was found with the given name.
     """
     @classmethod
     def from_message_and_data(cls,
@@ -522,7 +532,7 @@ class TestNotFound(BugZooException):
 
 class FileNotFound(BugZooException):
     """
-    Indicates that no file was found at the given path.
+    No file was found at the given path inside the container.
     """
     @classmethod
     def from_message_and_data(cls,
