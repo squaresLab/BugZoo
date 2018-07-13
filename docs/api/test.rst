@@ -32,11 +32,11 @@ API Reference
 .. autoclass:: TestCase()
   :members:
 
-.. autoclass:: TestOutcome()
+.. autoclass:: TestCaseOracle()
+  :members:
 
-  .. autoattribute:: passed
-  .. autoattribute:: duration
+.. autoclass:: TestOutcome()
+  :members:
 
 .. autoclass:: TestSuite()
-
-  .. autoattribute:: tests
+  :members:
