@@ -72,7 +72,13 @@ lines that were executed:
 Computing Fault Spectra using Coverage
 --------------------------------------
 
-Discuss :class:`Spectra` generation.
+Fault spectra, represented as :class:`Spectra` objects, are used to provide a
+concise summary of the number of passing and failing tests that touch (or do
+not touch) each line in the program. Each entry, or row, in a fault spectra
+is encoded as a :class:`LineSpectra` object, and represents a line in the
+program, and is represented by four numbers: :code:`ep`, :code:`np`,
+:code:`ef`, and :code:`nf`.
+
 
 
 API Reference
@@ -109,3 +115,10 @@ API Reference
 
   .. automethod:: __iter__
   .. automethod:: __getitem__
+
+.. autoclass:: LineSpectra()
+
+  .. py:attribute:: ep() -> int
+  .. py:attribute:: np() -> int
+  .. py:attribute:: ef() -> int
+  .. py:attribute:: nf() -> int
