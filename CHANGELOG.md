@@ -1,3 +1,11 @@
+## 2.1.15 (????-??-??)
+
+### Features
+
+* Added support for non-UTF-8/ASCII file encodings to FileManager (i.e., files
+  encoded using codecs other than ASCII and UTF-8 are now supported).
+
+
 ## 2.1.14 (2018-07-08)
 
 ### Changes
