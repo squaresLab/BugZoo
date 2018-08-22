@@ -25,7 +25,8 @@ setup(
         'flask',
         'attrs>=17.2.0',
         'mypy-extensions>=0.3.0',
-        'psutil>=5.0.0'
+        'psutil>=5.0.0',
+        'chardet>=3.0.4'
     ],
     packages=[
         'bugzoo',
