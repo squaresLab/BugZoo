@@ -1,9 +1,14 @@
-## 2.1.15 (????-??-??)
+## 2.1.15 (2018-08-23)
 
 ### Features
 
 * Added support for non-UTF-8/ASCII file encodings to FileManager (i.e., files
   encoded using codecs other than ASCII and UTF-8 are now supported).
+
+### Changes
+
+* Added `build` and `build_with_instrumentation` methods (aliases) to
+  server-side `ContainerManager`.
 
 
 ## 2.1.14 (2018-07-08)
