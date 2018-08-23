@@ -407,6 +407,8 @@ class ContainerManager(object):
         bug = self.__installation.bugs[container.bug]
         return bug.compiler.compile(self, container, verbose=verbose)
 
+    build = compile
+
     # TODO decouple
     def compile_with_instrumentation(self,
                                      container: Container,
@@ -423,6 +425,8 @@ class ContainerManager(object):
         return bug.compiler.compile_with_coverage_instrumentation(self,
                                                                   container,
                                                                   verbose=verbose)
+
+    build_with_instrumentation = compile_with_instrumentation
 
     def copy_to(self,
                 container: Container,
