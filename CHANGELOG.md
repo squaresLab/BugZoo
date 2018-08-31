@@ -1,3 +1,10 @@
+## 2.1.16 (2018-08-31)
+
+### Features
+
+* Added ability to specify Docker Client API version.
+
+
 ## 2.1.15 (2018-08-23)
 
 ### Features
