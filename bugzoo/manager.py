@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Optional
 import os
 import logging
 import logging.handlers
@@ -25,17 +25,21 @@ class BugZoo(object):
     Used to interact with and manage a local BugZoo installation.
     """
     def __init__(self,
-                 path=None,
-                 base_url_docker='unix:///var/run/docker.sock'
+                 path: Optional[str] = None,
+                 base_url_docker: str = 'unix:///var/run/docker.sock',
+                 docker_client_api_version: Optional[str] = None
                  ) -> None:
         """
         Creates a new BugZoo installation manager.
 
-        Args:
+        Parameters:
             path: the absolute path of a BugZoo installation on this machine.
                 If unspecified, the value of the environmental variable
                 :code:`BUGZOO_PATH` will be used, unless unspecified, in
                 which case :code:`./${HOME}/.bugzoo` will be used instead.
+            base_url_docker: the base URL of the Docker server.
+            docker_client_api_version: the version of the Docker client API
+                that should be used to communicate with the Docker server.
         """
         # TODO support windows
         if path is None:
@@ -53,8 +57,17 @@ class BugZoo(object):
 
         logger.debug("connecting to Docker at %s", base_url_docker)
         self.__base_url_docker = base_url_docker
+
+        self.__docker_client_api_version = docker_client_api_version
+        if docker_client_api_version:
+            logger.debug("using Docket Client API: %s",
+                         docker_client_api_version)
+        else:
+            logger.debug("using default Docker Client API")
+
         try:
             self.__docker = DockerClient(base_url=base_url_docker,
+                                         version=docker_client_api_version,
                                          timeout=120)
             assert self.__docker.ping()
         except (docker.errors.APIError, AssertionError):
@@ -83,6 +96,14 @@ class BugZoo(object):
         The Docker client used by this server.
         """
         return self.__docker
+
+    @property
+    def docker_client_api_version(self) -> str:
+        """
+        The version of the Docket Client API that should be used to
+        communicate with the attached Docker server.
+        """
+        return self.__docker_client_api_version
 
     @property
     def base_url_docker(self) -> str:
