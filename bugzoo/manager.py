@@ -44,9 +44,12 @@ class BugZoo(object):
         # TODO support windows
         if path is None:
             default_path = os.path.join(os.environ['HOME'], '.bugzoo')
-            path = os.environ.get('BUGZOO_PATH', default_path)
+            if 'BUGZOO_PATH' in os.environ:
+                path = os.environ['BUGZOO_PATH']
+            else:
+                path = default_path
         self.__path = path
-        logger.debug("using BugZoo directory: %s", path)
+        logger.debug("using BugZoo directory: %s", self.path)
 
         logger.debug("preparing BugZoo directory")
         if not os.path.exists(self.path):
@@ -98,7 +101,7 @@ class BugZoo(object):
         return self.__docker
 
     @property
-    def docker_client_api_version(self) -> str:
+    def docker_client_api_version(self) -> Optional[str]:
         """
         The version of the Docket Client API that should be used to
         communicate with the attached Docker server.
