@@ -12,6 +12,12 @@ class FileLine(object):
     num = attr.ib(type=int)
 
     @staticmethod
+    def from_string(s: str) -> 'FileLine':
+        fn, _, s_num = s.rpartition(':')
+        num = int(s_num)
+        return FileLine(fn, num)
+
+    @staticmethod
     def compactify(d: Dict['FileLine', Any]) -> Dict[str, Dict[int, Any]]:
         """
         Converts a dictionary that is indexed by FileLine objects into a
