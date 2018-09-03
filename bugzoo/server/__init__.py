@@ -528,7 +528,8 @@ def run(*,
     host: str = '0.0.0.0',
     debug: bool = True,
     log_filename: Optional[str] = None,
-    log_level: str = 'info'
+    log_level: str = 'info',
+    docker_client_api_version: Optional[str] = None
     ) -> None:
     global daemon, log_to_file
 
@@ -582,7 +583,7 @@ def run(*,
 
     try:
         logger.info("launching BugZoo daemon")
-        daemon = BugZoo()
+        daemon = BugZoo(docker_client_api_version=docker_client_api_version)
         logger.info("launched BugZoo daemon")
         report_resource_limits(logger)
         report_system_resources(logger)
@@ -615,6 +616,10 @@ def main() -> None:
                         type=str,
                         default='0.0.0.0',
                         help='the IP address of the host.')
+    parser.add_argument('--docker-client-api-version',
+                        type=str,
+                        default=None,
+                        help='version of Docker Client API that should be used to communicate with Docker server.')  # noqa: pycodestyle
     parser.add_argument('--debug',
                         action='store_true',
                         help='enables debugging mode.')
@@ -623,4 +628,5 @@ def main() -> None:
         host=args.host,
         log_filename=args.log_file,
         log_level=args.log_level,
-        debug=args.debug)
+        debug=args.debug,
+        docker_client_api_version=args.docker_client_api_version)

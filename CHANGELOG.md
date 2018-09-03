@@ -1,5 +1,9 @@
 ## 2.1.16 (2018-09-03)
 
+### Features
+
+* Added ability to specify Docker Client API version.
+
 ### Changes
 
 * Added `from_string` method to `FileLine`.
