@@ -74,7 +74,7 @@ class BugZoo(object):
                                          version=docker_client_api_version,
                                          timeout=120)
             logger.debug("docker-py thinks we're using Docker Client API %s",
-                         self.__docker.version)
+                         self.__docker.version())
             assert self.__docker.ping()
         except (docker.errors.APIError, AssertionError):
             logger.exception("failed to connect to Docker")
