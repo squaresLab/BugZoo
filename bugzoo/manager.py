@@ -16,6 +16,7 @@ from .mgr.coverage import CoverageManager
 from .mgr.file import FileManager
 
 logger = logging.getLogger(__name__)
+logger.debug(logging.DEBUG)  # type: logging.Logger
 
 __all__ = ['BugZoo']
 
