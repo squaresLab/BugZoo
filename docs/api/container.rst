@@ -23,3 +23,16 @@ API Container
 
   .. automethod:: to_dict
   .. automethod:: from_dict
+
+.. py:module:: bugzoo.client.container
+.. autoclass:: ContainerManager()
+
+  .. automethod:: __getitem__
+  .. automethod:: __delitem__
+  .. automethod:: __contains__
+  .. automethod:: __iter__
+
+  .. automethod:: provision
+  .. automethod:: build
+  .. automethod:: exec
+  .. automethod:: is_alive
