@@ -2,8 +2,12 @@ Creating Containers
 ===================
 .. py:module:: bugzoo.core.container
 
-
-Discuss manager interaction.
+BugZoo uses Docker containers to provide a controlled, sandbox for interacting
+with historical software bugs. Individual containers in BugZoo are represented
+as :class:`Container` instances. All interaction with containers, including
+their creation and destruction, is managed through the :class:`ContainerManager`
+class, exposed by the client's :code:`containers` property
+(e.g., :code:`client.containers`).
 
 Discuss need to destroy containers.
 
