@@ -37,6 +37,15 @@ setup(
         'bugzoo.core',
         'bugzoo.cli'
     ],
+    keywords=['bug', 'defect', 'dataset', 'testing', 'repair', 'docker'],
+    classifiers=[
+        'Natural Language :: English',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7'
+    ],
     entry_points = {
         'console_scripts': [
             'bugzoo = bugzoo.cli:main',
