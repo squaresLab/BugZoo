@@ -13,14 +13,9 @@ API Container
 
 .. autoclass:: Container()
 
-  .. autoattribute:: bug
+  .. autoattribute:: id() -> str
+  .. autoattribute:: bug() -> str
+  .. autoattribute:: tools() -> List[str]
 
-  .. automethod:: interact
-  .. automethod:: destroy
-  .. automethod:: reset
-  .. automethod:: apply_patch
-  .. automethod:: spectra
-  .. automethod:: copy_to
-  .. automethod:: command
-  .. automethod:: compile
-  .. automethod:: execute
+  .. automethod:: to_dict
+  .. automethod:: from_dict
