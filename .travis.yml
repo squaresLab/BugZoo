@@ -5,6 +5,7 @@ services:
 python:
 - '3.5'
 - '3.6'
+- '3.7'
 install:
 - pip install sphinx mypy mypy-extensions
 - pip install --upgrade .
