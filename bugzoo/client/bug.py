@@ -103,14 +103,25 @@ class BugManager(object):
         self.__api.handle_erroneous_response(r)
 
     def uninstall(self, bug: Bug) -> bool:
+        """
+        Uninstalls the Docker image associated with a given bug.
+        """
         r = self.__api.post('bugs/{}/uninstall'.format(bug.name))
         raise NotImplementedError
 
     def upload(self, bug: Bug) -> bool:
+        """
+        Instructs the server to upload the Docker image associated with a
+        given bug to DockerHub.
+        """
         r = self.__api.post('bugs/{}/upload'.format(bug.name))
         raise NotImplementedError
 
     def download(self, bug: Bug) -> bool:
+        """
+        Instructs the server to download the Docker image associated with a
+        given bug from DockerHub.
+        """
         r = self.__api.post('bugs/{}/download'.format(bug.name))
         raise NotImplementedError
 
