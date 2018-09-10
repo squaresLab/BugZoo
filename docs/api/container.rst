@@ -16,6 +16,21 @@ To provision (i.e., create) a container for a given bug:
   bug = client.bugs['manybugs:python:69223-69224']
   container = client.containers.provision(bug)
 
+To iterate over the unique identifiers (UIDs) of the containers associated with
+a given BugZoo instance and to fetch a container by its UID:
+
+.. code-block:: python
+
+  for uid in client.containers:
+    container = client.containers[uid]
+
+To check whether the underlying Docker container for a given :class:`Container`
+is still alive:
+
+.. code-block:: python
+
+  client.containers.is_alive(container)
+
 Note that containers will not be automatically destroyed when their
 corresponding :class:`Container` instance goes out of scope. Containers must
 be explicitly destroyed via the :class:`ContainerManager` as follows:
@@ -26,12 +41,6 @@ be explicitly destroyed via the :class:`ContainerManager` as follows:
 
 All containers created by a BugZoo server will be automatically destroyed when
 the server closes.
-
-To check whether a given container is still alive:
-
-.. code-block:: python
-
-  client.containers.is_alive(container)
 
 
 API Reference
@@ -55,6 +64,4 @@ API Reference
   .. automethod:: __iter__
 
   .. automethod:: provision
-  .. automethod:: build
-  .. automethod:: exec
   .. automethod:: is_alive
