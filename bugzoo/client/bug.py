@@ -6,6 +6,7 @@ from ..core.bug import Bug
 from ..core.coverage import TestSuiteCoverage
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['BugManager']
 
