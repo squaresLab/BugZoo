@@ -41,6 +41,11 @@ class Client(object):
 
     @property
     def bugs(self) -> BugManager:
+        """
+        Provides access to the historical bugs that are registered with the
+        server. Can be used to install, download, and uninstall registered
+        bugs, or to dynmically register new bugs with the server.
+        """
         return self.__bugs
 
     @property
@@ -61,6 +66,9 @@ class Client(object):
         return self.__docker
 
     def shutdown(self) -> None:
+        """
+        Instructs the connected BugZoo server to shutdown.
+        """
         r = self.__api.post("shutdown")
         if r.status_code != 202:
             raise Exception("failed to shutdown server")
