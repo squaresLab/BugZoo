@@ -12,6 +12,11 @@ __all__ = ['BugManager']
 
 
 class BugManager(object):
+    """
+    Provides access to the historical bugs that are registered with the
+    server. Can be used to install, download, and uninstall registered bugs,
+    or to dynamically register new bugs with the server.
+    """
     def __init__(self, api: APIClient) -> None:
         self.__api = api
 
