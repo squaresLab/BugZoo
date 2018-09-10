@@ -18,6 +18,15 @@ hosted on a cloud compute platform, such as Amazon EC2, for instance).
   url = "http://127.0.0.1:6060"
   client = bugzoo.Client(url)
 
+:class:`Client` instances can be used to access the resources provided by a
+BugZoo server (i.e., bugs, containers, and tools). The :code:`bugs` property
+exposes a :class:`BugManager`, which provides access to the bugs registered
+on the server. The :code:`containers` property exposes a
+:class:`ContainerManager`, which can be used to create, destroy, and interact
+with containers on the server. The :code:`files` property exposes a
+:class:`FilesManager`, which provides a simple interface for manipulating
+container file systems (i.e., reading and writing files) and copying files
+between the host and container.
 
 API Reference
 -------------
