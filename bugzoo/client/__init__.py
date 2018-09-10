@@ -50,6 +50,11 @@ class Client(object):
 
     @property
     def containers(self) -> ContainerManager:
+        """
+        Provides access to the containers running on the server. Can be used
+        to execute tests (as well as arbitrary shell commands), build from
+        source code, apply patches, compute coverage, and more.
+        """
         return self.__containers
 
     @property
