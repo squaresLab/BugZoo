@@ -12,7 +12,7 @@ class, exposed by the client's :code:`containers` property
 Discuss need to destroy containers.
 
 
-API Container
+API Reference
 -------------
 
 .. autoclass:: Container()
