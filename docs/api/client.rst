@@ -13,9 +13,22 @@ hosted on a cloud compute platform, such as Amazon EC2, for instance).
 
 .. code-block:: python
 
-  with bugzoo.server.ephemeral(port=8080) as client_bugzoo:
-    # do cool things
+  import bugzoo
+
+  url = "http://127.0.0.1:6060"
+  client = bugzoo.Client(url)
 
 
 API Reference
 -------------
+
+.. py:module:: bugzoo.client
+.. autoclass:: Client()
+
+  .. automethod:: __init__
+
+  .. autoattribute:: bugs() -> BugManager
+  .. autoattribute:: containers() -> ContainerManager
+  .. autoattribute:: files() -> FileManager
+
+  .. automethod:: shutdown
