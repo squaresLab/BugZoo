@@ -16,6 +16,12 @@ class BugManager(object):
         self.__api = api
 
     def __getitem__(self, name: str) -> Bug:
+        """
+        Retrieves the bug registered under a given name.
+
+        Raises:
+            KeyError: if no bug is found with the given name.
+        """
         logger.info("Fetching information for bug: %s", name)
         r = self.__api.get('bugs/{}'.format(name))
 
