@@ -1,5 +1,5 @@
-Bug
-===
+Managing Bugs
+=============
 .. py:module:: bugzoo.core.bug
 
 
@@ -38,3 +38,19 @@ API Reference
   .. autoattribute:: source() -> Optional[str]
 
   .. autoattribute:: files_to_instrument() -> List[str]
+
+
+.. py:module:: bugzoo.client.bug
+
+.. autoclass:: BugManager()
+
+  .. automethod:: __getitem__
+  .. automethod:: __iter__
+
+  .. automethod:: is_installed
+  .. automethod:: build
+  .. automethod:: download
+  .. automethod:: uninstall
+  .. automethod:: upload
+
+  .. automethod:: register
