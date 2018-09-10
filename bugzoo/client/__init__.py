@@ -49,6 +49,11 @@ class Client(object):
 
     @property
     def files(self) -> FileManager:
+        """
+        Provides access to the file systems used by running containers. Can be
+        used to read from and write to files in containers, and to copy data
+        between the host machine and a given container.
+        """
         return self.__files
 
     @property
