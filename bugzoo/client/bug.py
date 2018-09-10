@@ -56,6 +56,8 @@ class BugManager(object):
 
     def is_installed(self, bug: Bug) -> bool:
         """
+        Determines whether the Docker image for a given bug has been installed
+        on the server.
         """
         r = self.__api.get('bugs/{}/installed'.format(bug.name))
 
