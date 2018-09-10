@@ -26,6 +26,9 @@ context (i.e., after the :code:`with` statement).
   with bugzoo.server.ephemeral(port=8080) as client_bugzoo:
     # do cool things
 
+To learn more about connecting to and interacting a BugZoo server, please
+see the links below.
+
 .. toctree::
   :maxdepth: 1
 
