@@ -1,6 +1,6 @@
 Bug
 ===
-.. py:module:: bugzoo.bug
+.. py:module:: bugzoo.core.bug
 
 
 Artefacts are used to provide a snapshot of a given piece of
@@ -26,16 +26,15 @@ API Reference
 
 .. autoclass:: Bug()
 
-  .. autoattribute:: identifier
-  .. autoattribute:: image
-  .. autoattribute:: dataset
-  .. autoattribute:: installed
-  .. autoattribute:: harness
-  .. autoattribute:: tests
+  .. autoattribute:: name() -> str
+  .. autoattribute:: image() -> str
+  .. autoattribute:: source_dir() -> str
+  .. autoattribute:: harness() -> TestSuite
+  .. autoattribute:: tests() -> List[TestCase]
+  .. autoattribute:: languages() -> List[Language]
 
-  .. automethod:: download
-  .. automethod:: upload
-  .. automethod:: build
-  .. automethod:: install
+  .. autoattribute:: dataset() -> Optional[str]
+  .. autoattribute:: program() -> Optional[str]
+  .. autoattribute:: source() -> Optional[str]
 
-  .. automethod:: provision
+  .. autoattribute:: files_to_instrument() -> List[str]
