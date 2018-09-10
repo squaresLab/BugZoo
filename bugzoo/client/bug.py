@@ -72,10 +72,9 @@ class BugManager(object):
 
     def register(self, bug: Bug) -> None:
         """
-        Registers a given bug with the server.
-
-        Parameters:
-            bug: the bug that should be registered.
+        Dynamically registers a given bug with the server. Note that the
+        registration will not persist beyond the lifetime of the server.
+        (I.e., when the server is closed, the bug will be deregistered.)
 
         Raises:
             BugAlreadyExists: if there is already a bug registered on the
