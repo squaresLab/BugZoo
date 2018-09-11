@@ -55,6 +55,18 @@ image for a given bug has been installed onto the server:
   else:
     print("the image is not installed :'(")
 
+The :class:`BugManager` may also be used to dynamically register ephemeral
+:class:`Bug` descriptions. Once the server is closed, these descriptions will
+be destroyed. In general, we suggest that users register bugs with the server
+via the command-line interface. However, there are cases where a dynamic
+bug registration is preferable, such as mutation testing, where a new
+:class:`Bug` instance can be created for every mutation.
+
+.. code-block:: python
+
+  bug = Bug(name="mytemporarybug", ...)
+  client_bugzoo.bugs.register(bug)
+
 
 API Reference
 -------------
