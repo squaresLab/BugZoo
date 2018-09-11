@@ -89,6 +89,12 @@ In general, we recommend installing the files for your plugin to
 :code:`/opt/myplugin`, where :code:`myplugin` is replaced by the name of your
 plugin.
 
+Simply installing the files for your plugin to :code:`/opt/myplugin` is
+usually not enough, however. The binaries and libraries for your plugin may
+be dynamically linked to system libraries that are not present in other
+containers into which they may be mounted. (Worse yet, the container
+may use an older, incompatible :code:`libc` or :code:`ld`.)
+
 Writing a plugin manifest
 -------------------------
 
