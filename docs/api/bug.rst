@@ -67,6 +67,16 @@ bug registration is preferable, such as mutation testing, where a new
   bug = Bug(name="mytemporarybug", ...)
   client_bugzoo.bugs.register(bug)
 
+Bugs may also be dynamically deregistered via the :code:`del` operator, as
+shown below. Note that the :code:`del` operator will not permanently remove
+bugs that are associated with a source (i.e., bugs that have been added via
+the command line). In the case of such bugs, the :code:`del` operator will
+hide their existence for the remaining lifetime of the server.
+
+.. code-block:: python
+
+  del client_bugzoo.bugs["mytemporarybug"]
+
 
 API Reference
 -------------
