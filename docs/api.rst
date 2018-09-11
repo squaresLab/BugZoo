@@ -35,6 +35,7 @@ see the links below.
   api/client
   api/bug
   api/container
+  api/commands
   api/test
   api/patch
   api/coverage
