@@ -44,7 +44,7 @@ class Client(object):
         """
         Provides access to the historical bugs that are registered with the
         server. Can be used to install, download, and uninstall registered
-        bugs, or to dynmically register new bugs with the server.
+        bugs, or to dynamically register new bugs with the server.
         """
         return self.__bugs
 

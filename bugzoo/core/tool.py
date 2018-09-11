@@ -1,3 +1,5 @@
+__all__ = ['Tool']
+
 from typing import Dict, Optional
 
 import yaml
