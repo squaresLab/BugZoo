@@ -126,6 +126,10 @@ class BugManager(object):
         raise NotImplementedError
 
     def build(self, bug: Bug):
+        """
+        Instructs the server to build the Docker image associated with a given
+        bug.
+        """
         r = self.__api.post('bugs/{}/build'.format(bug.name))
 
         if r.status_code == 204:
