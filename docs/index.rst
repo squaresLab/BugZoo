@@ -49,7 +49,6 @@ Features
 
   api
   cli
-  examples
   contributing
   file-format
 
