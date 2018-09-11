@@ -2,23 +2,58 @@ Managing Bugs
 =============
 .. py:module:: bugzoo.core.bug
 
+BugZoo packages historical software versions as lightweight, immutable
+`Docker <https://www.docker.com>`_ container images. The bugs registered with
+a BugZoo server may be accessed via the the BugZoo client's :code:`bugs`
+property, which exposes a :class:`BugManager`. Each bug is represented by an
+immutable :class:`Bug` instance. The :code:`[]` operator may be used to fetch
+a :class:`Bug` instance for a bug with a given name.
+The names of all of the bugs registered with the server can be accessed by
+iterating over the :class:`BugManager`, as shown below.
 
-Artefacts are used to provide a snapshot of a given piece of
-software at a fixed point in time (e.g., a tagged release, a version-control
-revision). Outside of BugZoo, artefacts are sometimes referred to as
-software objects (see Software-artifact Infrastructure Repository [X]), or
-program versions (see XYZ).
+.. code-block:: python
 
-In the context of fault localisation, automated program repair, and to some
-extent, software testing, artefacts are used to represent buggy versions of
-a program (i.e., bugs). For other purposes, such as studies on
-(non-functional) performance, artefacts needn't represent a version of the
-program that is known to buggy.
+  for name in client_bugzoo.bugs:
+    bug = client_bugzoo.bugs[name]  # type: Bug
 
-Bugs are provided as lightweight, immutable
-`Docker <https://www.docker.com>`_ container images. To interact with a
-bug, users' must provision an ephemeral `container <container.html>`_
-using the bug's :code:`provision` method.
+The :class:`BugManager` can be used to build Docker images for bugs according
+to the instructions provided in the bug's manifest:
+
+.. code-block:: python
+
+  bug = client_bugzoo.bugs['manybugs:python:69223-69224']
+  client_bugzoo.bugs.build(bug)
+
+Alternatively, prebuilt images may be downloaded from DockerHub via the
+:code:`download` method:
+
+.. code-block:: python
+
+  client_bugzoo.bugs.download(bug)
+
+The :class:`BugManager` may also be used to instruct the BugZoo server to
+uploaded the Docker image for a given scenario to DockerHub:
+
+.. code-block:: python
+
+  client_bugzoo.bugs.upload(bug)
+
+Docker images may be removed from the server by using the :code:`uninstall`
+method:
+
+.. code-block:: python
+
+  client_bugzoo.bugs.uninstall(bug)
+
+The :code:`is_installed` method may be used to determine whether the Docker
+image for a given bug has been installed onto the server:
+
+.. code-block:: python
+
+  if client_bugzoo.bugs.is_installed(bug):
+    print("the image is installed! :-)")
+  else:
+    print("the image is not installed :'(")
 
 
 API Reference
