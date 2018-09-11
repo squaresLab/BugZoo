@@ -26,9 +26,98 @@ register it via the BugZoo CLI:
 Writing a Dockerfile
 --------------------
 
+Each plugin is accompanied by a Docker container image that is responsible for
+providing the libraries, binaries and static data required to run the plugin
+inside a separate container.
+BugZoo uses a :code:`Dockerfile` to provide instructions for building the Docker
+container image for your plugin. Below, we give an example :code:`Dockerfile`
+that is used to provide a :code:`genprog` plugin for BugZoo, which is
+explained in more detail below.
+
+.. code:: docker
+
+  FROM ubuntu:16.04
+
+  RUN apt-get update && \
+      apt-get install -y --no-install-recommends \
+	opam \
+	ocaml \
+	build-essential \
+	jq \
+	aspcud \
+	vim \
+	m4 && \
+      echo "yes" >> /tmp/yes.txt && \
+      opam init -y < /tmp/yes.txt && \
+      opam install -y cil
+
+  # all files required to run genprog are written to /opt/genprog
+  RUN mkdir -p /opt/genprog
+  WORKDIR /opt/genprog
+  ADD Makefile Makefile
+  ADD src src
+
+  RUN mkdir bin && \
+      eval $(opam config env) && \
+      make && \
+      mv src/repair bin/genprog && \
+      ln -s bin/genprog bin/repair && \
+      mv src/distserver bin/distserver && \
+      mv src/nhtserver bin/nhtserver
+
+  ENV PATH "/opt/genprog/bin:${PATH}"
+
+  # /opt/genprog is declared as a volume, allowing it to be
+  # mounted inside other containers
+  VOLUME /opt/genprog
+
+The process for writing a :code:`Dockerfile` for your plugin is almost the same
+as writing another other :code:`Dockerfile`. The Dockerfile should provide
+executable instructions for building the binaries and libraries for your
+software. There are however, a number of important differences. Firstly, all of
+the files that are required by your plugin must be stored inside a *volume*
+that can be mounted inside another container. In the example above, all of the
+files required to run GenProg are written to :code:`/opt/genprog`, which is
+subsequently declared to be a volume:
+
+
+.. code:: docker
+
+  VOLUME /opt/genprog
+
+In general, we recommend installing the files for your plugin to
+:code:`/opt/myplugin`, where :code:`myplugin` is replaced by the name of your
+plugin.
 
 Writing a plugin manifest
 -------------------------
+
+Now that you've written a :code:`Dockerfile` for building a Docker image for
+your plugin, you need to write a *manifest file* for your plugin in order to
+register it with BugZoo. BugZoo automatically scans its source for all files
+ending in :code:`.bugzoo.yml` and treats them as manifest files. Let's create
+a new file named :code:`myplugin.bugzoo.yml` to serve as the manifest file for
+the plugin.
+
+The manifest file is written in YAML and should start with a :code:`version`
+property, specifying the version of the BugZoo Manifest File Format that is
+used by the file. For more details on the file format, see here **(ADD LINK)**.
+
+.. code:: yaml
+
+  version: '1.1'
+
+  blueprints:
+    - type: docker
+      tag: squareslab/genprog
+
+  plugins:
+    - name: genprog
+      image: squareslab/genprog
+      environment:
+        PATH: "/opt/genprog/bin:${PATH}"
+
+
 
 
 Distributing the plugin
