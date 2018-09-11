@@ -74,10 +74,6 @@ class ExecResponse(object):
         return self.__output
 
     def to_dict(self) -> dict:
-        """
-        Produces a JSON and YAML--ready dictionary description of this
-        command execution response.
-        """
         return {'code': self.code,
                 'duration': self.duration,
                 'output': self.output}
