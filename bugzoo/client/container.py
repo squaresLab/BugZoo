@@ -105,6 +105,9 @@ class ContainerManager(object):
         self.__api.handle_erroneous_response(r)
 
     def provision(self, bug: Bug) -> Container:
+        """
+        Provisions a container for a given bug.
+        """
         logger.info("provisioning container for bug: %s", bug.name)
         r = self.__api.post('bugs/{}/provision'.format(bug.name))
 
