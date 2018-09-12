@@ -65,10 +65,6 @@ explained in more detail below.
       mv src/distserver bin/distserver && \
       mv src/nhtserver bin/nhtserver
 
-  ENV PATH "/opt/genprog/bin:${PATH}"
-
-  # /opt/genprog is declared as a volume, allowing it to be
-  # mounted inside other containers
   VOLUME /opt/genprog
 
 The process for writing a :code:`Dockerfile` for your plugin is almost the same
@@ -100,9 +96,22 @@ binaries by default (e.g., Go), others will require special build options
 to produce a static binary (e.g., C and C++). Below we provide tips for
 creating static binaries with minimal effort:
 
-- **C/C++:**
-- **OCaml:**
+- **C/C++ and OCaml:**
+    Whilst compilation options are the preferred way to create a static
+    binary, `StaticX <https://github.com/JonathonReinhart/staticx>`_ can be
+    used to transform a dynamically linked binary into a static one, allowing
+    it to be used in any container.
+
+- **Go:**
+    Go produces static binaries by default.
+
 - **Python:**
+    `PyInstaller <https://pyinstaller.readthedocs.io/en/stable/operating-mode.html>`_
+    can be used to package your application, including its dependencies and
+    files, into a single executable file. The resulting binary will still be
+    dynamically linked to :code:`libc` and :code:`ld`, however, so
+    `StaticX <https://github.com/JonathonReinhart/staticx>`_ must be used to
+    wrap the binary into a truly static one.
 
 
 Writing a plugin manifest
