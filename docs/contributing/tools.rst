@@ -134,6 +134,14 @@ Docker image that should be built for the plugin. The :code:`file` property
 gives the location of the :code:`Dockerfile` (relative to the location of the
 manifest file) that should be used to build the Docker image.
 
+The :code:`plugins` section of the file declares the plugin to BugZoo.
+The :code:`name` property gives a unique name for the plugin.
+The :code:`image` property specifies the Docker image that should be used to
+provide the files for the plugin.
+The :code:`environment` property is used to manipulate the values of
+environment variables inside a container upon loading the plugin. This property
+is commonly used to extend the :code:`PATH` to include the static binaries for
+the plugin.
 
 .. code:: yaml
 
@@ -148,3 +156,15 @@ manifest file) that should be used to build the Docker image.
       image: squareslab/genprog
       environment:
         PATH: "/opt/genprog/bin:${PATH}"
+
+
+Example plugins
+---------------
+
+Below, we briefly describe a number of real-world plugins for BugZoo.
+
+* **GenProg:** A search-based program repair tool, written in OCaml.
+* **Kaskara:** A static analysis tool for C++, written in C++. Depends on
+  Clang/LLVM.
+* **SOSRepair:** A semantics-based program repair tool, written in Python
+  and C. Depends on two different versions of Clang/LLVM.
