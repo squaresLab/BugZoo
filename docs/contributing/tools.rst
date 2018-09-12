@@ -94,6 +94,16 @@ usually not enough, however. The binaries and libraries for your plugin may
 be dynamically linked to system libraries that are not present in other
 containers into which they may be mounted. (Worse yet, the container
 may use an older, incompatible :code:`libc` or :code:`ld`.)
+To ensure compatibility, you must package your plugin as a static binary.
+Whilst some languages will automatically compile their programs to static
+binaries by default (e.g., Go), others will require special build options
+to produce a static binary (e.g., C and C++). Below we provide tips for
+creating static binaries with minimal effort:
+
+- **C/C++:**
+- **OCaml:**
+- **Python:**
+
 
 Writing a plugin manifest
 -------------------------
