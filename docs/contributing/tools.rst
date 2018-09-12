@@ -126,7 +126,7 @@ the plugin.
 
 The manifest file is written in YAML and should start with a :code:`version`
 property, specifying the version of the BugZoo Manifest File Format that is
-used by the file. For more details on the file format, see here **(ADD LINK)**.
+used by the file. For more details on the file format, `see here <../file-format.html>`_.
 
 The :code:`blueprints` section of the file is used to provide instructions for
 building an image. The :code:`tag` property specifies the qualified name of the
