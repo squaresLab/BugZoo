@@ -128,13 +128,20 @@ The manifest file is written in YAML and should start with a :code:`version`
 property, specifying the version of the BugZoo Manifest File Format that is
 used by the file. For more details on the file format, see here **(ADD LINK)**.
 
+The :code:`blueprints` section of the file is used to provide instructions for
+building an image. The :code:`tag` property specifies the qualified name of the
+Docker image that should be built for the plugin. The :code:`file` property
+gives the location of the :code:`Dockerfile` (relative to the location of the
+manifest file) that should be used to build the Docker image.
+
+
 .. code:: yaml
 
   version: '1.1'
 
   blueprints:
-    - type: docker
-      tag: squareslab/genprog
+    - tag: squareslab/genprog
+      file: Dockerfile
 
   plugins:
     - name: genprog
