@@ -163,8 +163,11 @@ Example plugins
 
 Below, we briefly describe a number of real-world plugins for BugZoo.
 
-* **GenProg:** A search-based program repair tool, written in OCaml.
-* **Kaskara:** A static analysis tool for C++, written in C++. Depends on
+* `GenProg: <https://github.com/squaresLab/genprog-code>`_
+  A search-based program repair tool, written in OCaml.
+* `Kaskara: <https://github.com/ChrisTimperley/Kaskara>`_
+  A static analysis tool for C++, written in C++. Depends on
   Clang/LLVM.
-* **SOSRepair:** A semantics-based program repair tool, written in Python
+* `SOSRepair: <https://bitbucket.org/afsafzal/sosrepair>`_
+  A semantics-based program repair tool, written in Python
   and C. Depends on two different versions of Clang/LLVM.
