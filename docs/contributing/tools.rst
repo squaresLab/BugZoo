@@ -141,11 +141,3 @@ used by the file. For more details on the file format, see here **(ADD LINK)**.
       image: squareslab/genprog
       environment:
         PATH: "/opt/genprog/bin:${PATH}"
-
-
-
-
-Distributing the plugin
------------------------
-
-Discuss how tools can be distributed.
