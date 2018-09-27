@@ -33,6 +33,23 @@ and :code:`plugins` are optional sections and each is described as a list.
 Blueprints
 ----------
 
+The :code:`blueprints` section provides a list of *blueprints*, each of which
+encodes instructions for building an individual Docker image.
+
+
+.. code-block:: yaml
+
+  - tag: squareslab/manybugs:php-blah
+    file: Dockerfile
+    context: .
+    depends-on: squareslab/manybugs:base
+    arguments:
+      autoconf: "2.59"
+      bison: "2.4.3"
+      bug_revision: "18d71a6f59"
+      fix_revision: "187eb235fe"
+      scenario: "php-bug-2011-04-06-18d71a6f59-187eb235fe"
+
 
 Bugs
 ----
