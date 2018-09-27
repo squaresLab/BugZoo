@@ -73,5 +73,20 @@ Bugs
 ----
 
 
+.. code-block:: yaml
+
+  - name: manybugs:php:2011-04-06-18d71a6f59-187eb235fe
+    image: squareslab/manybugs:php-2011-04-06-18d71a6f59-187eb235fe
+    dataset: manybugs
+    program: php
+    compiler:
+      ...
+    languages:
+      - C
+    source-location: /experiment/src
+    test-harness:
+      ...
+
+
 Plugins
 -------
