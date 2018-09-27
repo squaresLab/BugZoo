@@ -34,7 +34,7 @@ Blueprints
 ----------
 
 The :code:`blueprints` section provides a list of *blueprints*, each of which
-encodes instructions for building an individual Docker image. Below we give an
+encodes instructions for building an individual Docker image. Below, we give an
 example of a :code:`blueprints` section containing a single blueprint for
 building the Docker image for a PHP scenario from the ManyBugs dataset.
 
@@ -52,6 +52,22 @@ building the Docker image for a PHP scenario from the ManyBugs dataset.
       fix_revision: "187eb235fe"
       scenario: "php-bug-2011-04-06-18d71a6f59-187eb235fe"
 
+
+Below, we discuss each of the properties used to describe a blueprint:
+
+* The :code:`tag` property gives the fully qualified name of the Docker image.
+* The :code:`file` property gives the path of the :code:`Dockerfile` that
+  should be used to construct the Docker image, relative to the location of
+  the manifest file. If omitted, :code:`file` will default to
+  :code:`Dockerfile`.
+* The :code:`context` property specifies the directory that should be used to
+  provide the build context to Docker. If omitted, :code:`context` will
+  default to :code:`.` (i.e., the directory that provides the manifest file).
+* The :code:`arguments` property optionally provides a dictionary of
+  build-time arguments that are supplied to Docker when constructing the
+  image.
+* The :code:`depends-on` property optionally specifies the name of the Docker
+  image, if any, that the Docker image described by the blueprint relies on.
 
 Bugs
 ----
