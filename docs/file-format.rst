@@ -34,15 +34,17 @@ Blueprints
 ----------
 
 The :code:`blueprints` section provides a list of *blueprints*, each of which
-encodes instructions for building an individual Docker image.
+encodes instructions for building an individual Docker image. Below we give an
+example of a :code:`blueprints` section containing a single blueprint for
+building the Docker image for a PHP scenario from the ManyBugs dataset.
 
 
 .. code-block:: yaml
 
-  - tag: squareslab/manybugs:php-blah
+  - tag: squareslab/manybugs:php-2011-04-06-18d71a6f59-187eb235fe
     file: Dockerfile
     context: .
-    depends-on: squareslab/manybugs:base
+    depends-on: squareslab/manybugs:php
     arguments:
       autoconf: "2.59"
       bison: "2.4.3"
