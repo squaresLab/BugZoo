@@ -72,6 +72,9 @@ Below, we discuss each of the properties used to describe a blueprint:
 Bugs
 ----
 
+The :code:`bugs` section details a list of *bugs*. Below is an example of a
+:code:`bugs` section containing a single bug definition belonging to a PHP
+bug scenario from the ManyBugs dataset.
 
 .. code-block:: yaml
 
