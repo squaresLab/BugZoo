@@ -78,8 +78,8 @@ bug scenario from the ManyBugs dataset.
 
 .. code-block:: yaml
 
-  - name: manybugs:php:2011-04-06-18d71a6f59-187eb235fe
-    image: squareslab/manybugs:php-2011-04-06-18d71a6f59-187eb235fe
+  - name: "manybugs:php:2011-04-06-18d71a6f59-187eb235fe"
+    image: "squareslab/manybugs:php-2011-04-06-18d71a6f59-187eb235fe"
     dataset: manybugs
     program: php
     compiler:
@@ -89,6 +89,38 @@ bug scenario from the ManyBugs dataset.
     source-location: /experiment/src
     test-harness:
       ...
+
+
+Each bug is described by the following properties:
+
+* The :code:`name` property gives a name that is used to uniquely identify
+  the bug.
+* The :code:`image` property gives the name of the Docker image that is used
+  to provide the bug. BugZoo assumes that either the Docker image is already
+  installed on the server, or that there is a blueprint that provides
+  instructions for building the image.
+* The :code:`dataset` property optionally specifies the name of the dataset
+  that the bug belongs to, if any.
+* The :code:`program` property optionally specifies the name of the program
+  that the bug belongs to.
+* The :code:`languages` property specifies a list of the languages that are
+  involved in the bug. BugZoo uses this information to direct the collection
+  of line coverage information. At the time of writing, the following languages
+  are recognised by BugZoo: :code:`C`, :code:`C++`, :code:`Java`,
+  :code:`Python`.
+* The :code:`source-location` property states the directory containing the source code
+  for the buggy program.
+* The :code:`test-harness` property describes a test suite for the buggy program.
+  More details are provided below.
+* The :code:`compiler` property provides instructions for building the buggy
+  program. More details are provided below.
+
+Test Harness
+............
+
+
+Compiler
+........
 
 
 Plugins
