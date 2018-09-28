@@ -121,6 +121,13 @@ Each bug is described by the following properties:
 Test Harness
 ............
 
+The :code:`test-harness` property describes the test suite for the
+program under test (PUT).
+
+
+:code:`genprog`
+**************
+
 The :code:`genprog`-type test harness is used to provide convenient support for
 GenProg-style test scripts used by ManyBugs, IntroClass, and the GenProg TSE
 2012 benchmarks. GenProg-style test scripts accept a single argument specifying
