@@ -185,9 +185,13 @@ The following properties are used to provide build instructions:
   commands. If left unspecified, :code:`context` will default to the source
   directory for the program.
 
-
-:code:`configure-and-make`
-**************************
+BugZoo also provides convenient support for particular build systems via
+the :code:`type` property. One of the most useful build systems is
+:code:`configure-and-make`, which behaves in the same manner as :code:`simple`,
+except that :code:`command`, :code:`command_with_instrumentation`, and
+:code:`command_clean` are replaced with fixed values that use :code:`make`
+and :code:`configure`. Below is an example of a :code:`configure-and-make`
+compiler definition.
 
 .. code-block:: yaml
 
