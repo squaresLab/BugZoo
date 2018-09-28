@@ -108,8 +108,8 @@ Each bug is described by the following properties:
   of line coverage information. At the time of writing, the following languages
   are recognised by BugZoo: :code:`C`, :code:`C++`, :code:`Java`,
   :code:`Python`.
-* The :code:`source-location` property states the directory containing the source code
-  for the buggy program.
+* The :code:`source-location` property states the directory containing the
+  source code for the buggy program.
 * The :code:`test-harness` property describes a test suite for the buggy program.
   More details are provided below.
 * The :code:`compiler` property provides instructions for building the buggy
@@ -118,9 +118,32 @@ Each bug is described by the following properties:
 Test Harness
 ............
 
+The :code:`genprog`-type test harness is used to provide convenient support for
+GenProg-style test scripts used by ManyBugs, IntroClass, and the GenProg TSE
+2012 benchmarks. GenProg-style test scripts accept a single argument specifying
+the name of the positive or negative test case that should be executed.
+Positive tests correspond to tests that pass on the original, unmodified
+program, whereas negative tests correpond to tests that fail on the original
+program. The positive tests are named using the form :code:`p{k}`, where
+:code:`{k}` is replaced by the number of the positive test (starting from
+:code:`1`). Similarly, negative tests are named :code:`n{k}`, where
+:code:`{k}` is replaced by the number of the negative test (starting from
+:code:`1`).
 
-Compiler
-........
+Below is an example of a :code:`genprog` test harness.
+
+.. code-block:: yaml
+
+  test-harness:
+    type: genprog
+    time-limit: 600
+    passing: 7932
+    failing: 2
+
+The :code:`time-limit` property specifies the maximum number of seconds that
+may elapse before a test execution is aborted and declared a failure.
+The :code:`passing` and :code:`failing` properties states the number of
+passing and failing tests.
 
 
 Plugins
