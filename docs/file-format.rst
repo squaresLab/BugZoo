@@ -82,14 +82,15 @@ bug scenario from the ManyBugs dataset.
     image: "squareslab/manybugs:php-2011-04-06-18d71a6f59-187eb235fe"
     dataset: manybugs
     program: php
-    compiler:
-      ...
     languages:
       - C
     source-location: /experiment/src
     test-harness:
       ...
-
+    compiler:
+      ...
+    coverage:
+      ...
 
 Each bug is described by the following properties:
 
@@ -114,6 +115,8 @@ Each bug is described by the following properties:
   More details are provided below.
 * The :code:`compiler` property provides instructions for building the buggy
   program. More details are provided below.
+* The :code:`coverage` property gives instructions for collecting line coverage
+  information for the program. More details are provided below.
 
 Test Harness
 ............
@@ -145,6 +148,45 @@ may elapse before a test execution is aborted and declared a failure.
 The :code:`passing` and :code:`failing` properties states the number of
 passing and failing tests.
 
+
+Compiler
+........
+
+The :code:`compiler` section of a bug description provides instructions for
+building the faulty program.
+
+.. code-block:: yaml
+
+  compiler:
+    type: configure-and-make
+    time-limit: 300
+
+
+Coverage
+........
+
+The :code:`coverage` section of a bug description provides BugZoo with the
+information necessary to reliably compute line coverage information for the
+faulty program. This section is only required by C and C++ programs, for which
+BugZoo uses :code:`gcov` to collect line coverage. The :code:`coverage`
+section specifies a single property, :code:`files-to-instrument` that gives
+a list of the names of the source files that should be instrumented to ensure
+that line coverage is flushed to file. Below is an example of a
+:code:`coverage` section.
+
+.. code-block:: yaml
+
+  coverage:
+    files-to-instrument:
+      - foo.c
+
+For C and C++ programs, the instrumentation that BugZoo adds to the program
+introduces a set of signal handlers that ensures the program flushes the
+:code:`gcov` line coverage report to disk. The instrumentation is necessary
+to ensure that the report is flushed to disk when the program abruptly
+terminates (e.g., due to a segmentation fault). Note that only the source
+files that provide entrypoints (i.e., `main`) to the binaries used by the
+program need to be instrumented.
 
 Plugins
 -------
