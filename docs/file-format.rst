@@ -153,7 +153,41 @@ Compiler
 ........
 
 The :code:`compiler` section of a bug description provides instructions for
-building the faulty program.
+building the faulty program. Below we give an example of a :code:`simple`
+compiler for a bug in ArduPilot, which uses the
+`waf <https://waf.io/>`_ build system.
+
+.. code-block:: yaml
+
+  compiler:
+    type: simple
+    time-limit: 300
+    context: /opt/ardupilot
+    command: >
+      ./waf build -j4
+    command_with_instrumentation: >
+         ./waf configure CXXFLAGS='--coverage' LDFLAGS='--coverage'
+      && ./waf build -j4
+    command_clean: >
+      ./waf clean
+
+The following properties are used to provide build instructions:
+
+* The :code:`time-limit` property specifies the maximum number of seconds that
+  the build is given before it is aborted and declared to have failed.
+* The :code:`command` property gives a shell command for building the program.
+* The :code:`command_with_instrumentation` property gives a shell command for
+  building the program with coverage instrumentation enabled.
+* The :code:`command_clean` property gives a shell command for cleaning the
+  artifacts of the build process.
+* The :code:`context` property specifies the absolute path of the working
+  directory inside the container that should be used when executing the build
+  commands. If left unspecified, :code:`context` will default to the source
+  directory for the program.
+
+
+:code:`configure-and-make`
+**************************
 
 .. code-block:: yaml
 
