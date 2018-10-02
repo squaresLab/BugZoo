@@ -125,6 +125,20 @@ The :code:`test-harness` property describes the test suite for the
 program under test (PUT).
 
 
+.. code-block:: yaml
+
+  test-harness:
+    time-limit: 5
+    context: /ros_ws
+    tests:
+      - name: bfl.complete_filter
+        command: /ros_ws/build/bfl/tests/test_complete_filter
+        time-limit: 15
+        kill-after: 5
+        expected-outcome: True
+      ...
+
+
 :code:`genprog`
 **************
 
