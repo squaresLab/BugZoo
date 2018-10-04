@@ -130,6 +130,7 @@ that contains a single test.
 
   test-harness:
     time-limit: 5
+    kill-after:
     context: /ros_ws
     tests:
       - name: bfl.complete_filter
@@ -141,11 +142,42 @@ that contains a single test.
 
 A test harness description may accept the following top-level properties:
 
-* `time-limit`: specifies a default time limit on test execution that will
-  be enforced if an individual test does not specify its own `time-limit`.
-  More concretely, `time-limit` specifies the number of seconds that the
+* :code:`time-limit`: specifies a default time limit on test execution that
+  will be enforced if an individual test does not specify its own `time-limit`.
+  More concretely, :code:`time-limit` specifies the number of seconds that the
   test harness should wait before terminating an unresponsive test
-  execution and declaring the test to have failed.
+  execution and declaring the test to have failed. Upon reaching the
+  time-limit, a :code:`SIGTERM` is sent to the process responsible for
+  executing the test.
+* :code:`kill-after`: the number of seconds to wait before sending
+  :code:`SIGKILL` to a non-responsive test execution that has already
+  received a :CODE:`SIGTERM`. If unspecified, :code:`SIGKILL` will default to
+  1 second. *For most purposes, there is no need to set this property.*
+* :code:`context`: the absolute path of the working directory (inside the
+  container) from which the test should be executed. If left unspecified,
+  :code:`context` will default to the source directory of the program under
+  test.
+* :code:`command`: provides an optional command template for building
+  the shell commands for individual tests. The template is used to create
+  a shell command for any test that does not specify its own
+  :code:`command`. The shell command for a given test is created by replacing
+  all instances of :code:`__ID__` with the name of the test (given by its
+  :code:`name` property).
+
+  For example, the following command template:
+
+  .. code-block:: shell
+
+    run_test --verbose __ID__
+
+  will be transformed into the following for the a test named :code:`foo`:
+
+  .. code-block:: shell
+
+    run_test --verbose foo
+
+  Note that a command template is not required if all tests specify their
+  own :code:`command`.
 
 
 :code:`genprog`
