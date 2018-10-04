@@ -179,6 +179,58 @@ A test harness description may accept the following top-level properties:
   Note that a command template is not required if all tests specify their
   own :code:`command`.
 
+* :code:`tests`: gives a list of tests that belong to the test harness.
+  Details on the structure of each of the test descriptions are given
+  below.
+
+Each test description within the :code:`tests` property is described by the
+following properties:
+
+* :code:`name`: a unique name for the test.
+* :code:`command`: the shell command that should be used to
+  execute the test.
+* :code:`context`: the absolute path of the working directory (inside the
+  container) that should be used for the command execution. If unspecified,
+  the :code:`context` specified by the test harness will be used instead.
+* :code:`time-limit`: the number of seconds before a non-responsive
+  execution of this test is terminated and the test is determined to have
+  failed. If unspecified, the :code:`time-limit` for the test harness will be
+  used instead.
+* :code:`kill-after`: overrides the :code:`kill-after` property specified
+  by the test harness.
+* :code:`expected-outcome`: used to optionally state whether or not the test
+  is expected to pass. If set to :code:`True`, the test should pass; if
+  :code:`False`, it should fail.
+* :code:`oracle`: describes an oracle for the test case. This is used to
+  check whether a test execution exhibits the intended behaviour. Values for
+  this property are provided as an object composed of the following fields:
+
+    * :code:`code`: the expected exit code of the shell command used to
+      execute the test. Defaults to :code:`0` if unspecified.
+    * :code:`output`: adds constraints on the output produced by the shell
+      command (via stdout) that was used to execute the test. Currently,
+      :code:`output` accepts a single property, :code:`contains`, which
+      provides a string that should occur as a substring within the output
+      of the test execution.
+
+  An example of a test oracle that requires that the test execution should
+  produce an exit code of :code:`0` and should contain the word :code:`PASS`
+  is given below.
+
+    .. code-block:: yaml
+
+      oracle:
+        code: 0
+        output:
+          contains: "PASS"
+
+  If no :code:`oracle` property is given for a test, the following oracle
+  will be used as a default:
+
+    .. code-block:: yaml
+
+      oracle:
+        code: 0
 
 :code:`genprog`
 **************
