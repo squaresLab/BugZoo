@@ -122,7 +122,8 @@ Test Harness
 ............
 
 The :code:`test-harness` property describes the test suite for the
-program under test (PUT).
+program under test (PUT). Below is an example of a simple test harness
+that contains a single test.
 
 
 .. code-block:: yaml
@@ -137,6 +138,14 @@ program under test (PUT).
         kill-after: 5
         expected-outcome: True
       ...
+
+A test harness description may accept the following top-level properties:
+
+* `time-limit`: specifies a default time limit on test execution that will
+  be enforced if an individual test does not specify its own `time-limit`.
+  More concretely, `time-limit` specifies the number of seconds that the
+  test harness should wait before terminating an unresponsive test
+  execution and declaring the test to have failed.
 
 
 :code:`genprog`
