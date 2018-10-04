@@ -342,3 +342,29 @@ program need to be instrumented.
 
 Plugins
 -------
+
+The :code:`plugins` section of a manifest file is used to register particular
+plugins with BugZoo. This section is given as a list of *plugin descriptions*.
+Below we give a simple example of a :code:`plugins` section that is used to
+register a plugin for GenProg.
+
+.. code-block:: yaml
+
+  plugins:
+    - name: genprog
+      image: squareslab/genprog
+      environment:
+        PATH: "/opt/genprog/bin:${PATH}"
+
+The plugin is described by the following properties:
+
+* :code:`name`: a unique name for the plugin.
+* :code:`image`: the Docker image that should be used to provide static files
+  for the plugin (i.e., binaries, libraries, configuration files).
+* :code:`environment`: a dictionary that is used to override environment
+  variables inside a container upon loading the plugin. Each entry is used to
+  override a single environment variable, given by the key of the entry
+  (e.g., :code:`PATH`). The value of the entry is evaluated upon loading the
+  plugin inside the container, and so standard bash variable interpolation may
+  be used. In the example above, the GenProg binaries are added to the
+  :code:`PATH`.
