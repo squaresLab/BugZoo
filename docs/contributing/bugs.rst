@@ -133,6 +133,11 @@ to the location of the manifest file.
   tag for your Docker image. For example, :code:`squareslab/tse2012:gcd` is
   tag used by the manifest file in the TSE 2012 dataset repository.
 
+
 Registering a bug
 -----------------
 
+Finally, we need to add the bug scenario to the manifest file. To do so,
+first we must create a :code:`bugs` section in the file. Next, we add an
+entry to the :code:`bugs` section for the :code:`gcd` bug scenario,
+shown below.
