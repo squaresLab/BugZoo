@@ -9,8 +9,11 @@ to a source. The manifest file provides instructions for building the Docker
 image for the plugin and specifies how it should be imported into a running
 bug container.
 
-**Note:** Before adding your plugin, you must first `create a source that will
-provide it <source.html>`_.
+
+.. note::
+
+  Before adding your plugin, you must first `create a source that will
+  provide it <source.html>`_.
 
 Writing a Dockerfile
 --------------------
