@@ -141,3 +141,36 @@ Finally, we need to add the bug scenario to the manifest file. To do so,
 first we must create a :code:`bugs` section in the file. Next, we add an
 entry to the :code:`bugs` section for the :code:`gcd` bug scenario,
 shown below.
+
+.. code-block:: yaml
+
+  version: '1.0'
+
+  blueprints:
+    - tag: gcd
+      file: Dockerfile
+
+  bugs:
+    - name: tse2012:gcd
+      dataset: tse2012
+      program: gcd
+      image: gcd
+      languages:
+      - c
+      source-location: /experiment/source
+      compiler:
+        time-limit: 20
+        type: simple
+        context: /experiment/source
+        command: |
+          gcc gcd.c -o gcd
+        command_with_instrumentation: |
+          gcc gcd.c -o gcd --coverage
+      coverage:
+        files-to-instrument:
+          - gcd.c
+      test-harness:
+        failing: 1
+        passing: 10
+        time-limit: 5
+        type: genprog
