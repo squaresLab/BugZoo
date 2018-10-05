@@ -8,5 +8,5 @@ new tools and datasets of software snapshots.
   :maxdepth: 1
 
   contributing/source
-  contributing/artefacts
+  contributing/bugs
   contributing/tools
