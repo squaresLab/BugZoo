@@ -64,6 +64,9 @@ The contents of the directory are as follows:
 * :code:`test.sh`: a simple test harness
 * :code:`test`: supplementary files used by :code:`test.sh`.
 
+Below is a simplified example of a :code:`Dockerfile` that is used to provide
+a Docker container for the :code:`gcd` bug scenario.
+
 .. code-block:: docker
 
   FROM ubuntu:16.04
@@ -86,6 +89,16 @@ The contents of the directory are as follows:
   # add the test harness and supplementary files
   ADD test.sh /experiment
   ADD test /experiment/test
+
+
+.. note::
+
+  In practice, it's common to add a :code:`docker` user with sudo privileges
+  to the container to prevent the buggy program from misbehaving. A more
+  detailed example of a :code:`Dockerfile` for the :code:`gcd` scenario can
+  be found at
+  https://github.com/ChrisTimperley/genprog-tse-2012-bugs/blob/master/gcd/Dockerfile.
+
 
 
 Registering a blueprint
