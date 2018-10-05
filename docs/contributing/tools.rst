@@ -9,19 +9,11 @@ to a source. The manifest file provides instructions for building the Docker
 image for the plugin and specifies how it should be imported into a running
 bug container.
 
-Creating a source
------------------
 
-Plugins and bugs are provided to BugZoo by *sources*. To add a new plugin (or
-bug) to BugZoo, you'll first need to create a new source to provide that
-plugin. To do so, you can create a new local directory for the source and
-register it via the BugZoo CLI:
+.. note::
 
-.. code:: bash
-
-  $ mkdir my-plugin
-  $ bugzoo source add my-plugin-source .
-
+  Before adding your plugin, you must first `create a source that will
+  provide it <source.html>`_.
 
 Writing a Dockerfile
 --------------------

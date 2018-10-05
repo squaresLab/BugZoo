@@ -7,5 +7,6 @@ new tools and datasets of software snapshots.
 .. toctree::
   :maxdepth: 1
 
+  contributing/source
   contributing/artefacts
   contributing/tools
