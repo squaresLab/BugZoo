@@ -100,9 +100,38 @@ a Docker container for the :code:`gcd` bug scenario.
   https://github.com/ChrisTimperley/genprog-tse-2012-bugs/blob/master/gcd/Dockerfile.
 
 
-
 Registering a blueprint
 -----------------------
+
+Now that we have written a :code:`Dockerfile` for our bug scenario, we need to
+register a *blueprint* for constructing the Docker image for our scenario.
+A blueprint is used to provide instructions for building a named Docker image.
+For this example, we will name the Docker image :code:`gcd`.
+
+To add a blueprint for the bug scenario, we need to create a
+:code:`blueprints` section in the manifest file (if one doesn't already
+exist), before adding an entry for the :code:`gcd` blueprint to it,
+as shown below. For more details on the properties that can be used to
+describe a (more advanced) blueprint please refer to the
+`manifest file format documentation <../file-format.html>`_.
+
+.. code-block:: yaml
+
+  version: '1.0'
+
+  blueprints:
+    - tag: gcd
+      file: Dockerfile
+
+The :code:`file` property of the blueprint gives BugZoo the path of the
+file that should be used to build the Docker container image, relative
+to the location of the manifest file.
+
+.. note::
+
+  When writing your own blueprints, it's good practice to use a fully qualified
+  tag for your Docker image. For example, :code:`squareslab/tse2012:gcd` is
+  tag used by the manifest file in the TSE 2012 dataset repository.
 
 Registering a bug
 -----------------
