@@ -19,10 +19,18 @@ the ManyBugs repository on GitHub.
 
 .. code:: bash
 
-  $ mkdir dir-foo
-  $ bugzoo source add my-plugin-source dir-foo
+  $ bugzoo source add manybugs https://github.com/squaresLab/ManyBugs
 
-Describe how Git repos are stored and updated locally.
+Internally, BugZoo will clone the given Git repository to the `sources`
+subdirectory of the BugZoo directory (specified by
+:code:`$BUGZOO_PATH`, and located at :code:`${HOME}/.bugzoo` by default).
+The state of all registered remote repositories can be updated to reflect
+changes to the remote repo using :code:`bugzoo source update`:
 
-How sources are scanned for contents
-------------------------------------
+.. code:: bash
+
+  $ bugzoo source update
+
+To obtain the contents (i.e., bugs and tools) of a source, BugZoo
+recursively scans the directory for the source for all of its manifest files,
+which are recognised as files that end with :code:`.bugzoo.yml`.
