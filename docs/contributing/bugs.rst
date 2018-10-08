@@ -187,5 +187,3 @@ in the `Manifest File Format description <../file-format.html>`_.
           - name: p9
           - name: p10
           - name: n1
-
-
