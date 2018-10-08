@@ -1,3 +1,13 @@
+## 2.1.17 (2018-10-08)
+
+### Changes
+
+* Added documentation for manifest file format.
+* Added documentation for "Adding a plugin".
+* Updated documentation for adding bugs and blueprints.
+* Updated documentation for Python API.
+
+
 ## 2.1.16 (2018-09-03)
 
 ### Features
