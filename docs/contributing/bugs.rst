@@ -141,6 +141,8 @@ Finally, we need to add the bug scenario to the manifest file. To do so,
 first we must create a :code:`bugs` section in the file. Next, we add an
 entry to the :code:`bugs` section for the :code:`gcd` bug scenario,
 shown below.
+Details about each of the properties used to describe bugs can be found
+in the `Manifest File Format description <../file-format.html>`_.
 
 .. code-block:: yaml
 
@@ -170,7 +172,20 @@ shown below.
         files-to-instrument:
           - gcd.c
       test-harness:
-        failing: 1
-        passing: 10
+        context: /experiment
+        command: ./test.sh __ID__
         time-limit: 5
-        type: genprog
+        tests:
+          - name: p1
+          - name: p2
+          - name: p3
+          - name: p4
+          - name: p5
+          - name: p6
+          - name: p7
+          - name: p8
+          - name: p9
+          - name: p10
+          - name: n1
+
+
