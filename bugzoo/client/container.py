@@ -1,8 +1,9 @@
-from typing import Iterator, Optional
+from typing import Iterator, Optional, Dict, Any
 import logging
 
 from .api import APIClient
 from ..compiler import CompilationOutcome
+from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.fileline import FileLineSet
 from ..core.bug import Bug
@@ -104,12 +105,20 @@ class ContainerManager(object):
 
         self.__api.handle_erroneous_response(r)
 
-    def provision(self, bug: Bug) -> Container:
+    def provision(self,
+                  bug: Bug,
+                  *,
+                  plugins: List[Tool]
+                  ) -> Container:
         """
         Provisions a container for a given bug.
         """
         logger.info("provisioning container for bug: %s", bug.name)
-        r = self.__api.post('bugs/{}/provision'.format(bug.name))
+        endpoint = 'bugs/{}/provision'.format(bug.name)
+        payload = {
+            'plugins': [p.to_dict() for p in plugins]
+        }  # type: Dict[str, Any]
+        r = self.__api.post(endpoint, json=payload)
 
         if r.status_code == 200:
             container = Container.from_dict(r.json())
