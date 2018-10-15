@@ -108,11 +108,14 @@ class ContainerManager(object):
     def provision(self,
                   bug: Bug,
                   *,
-                  plugins: List[Tool]
+                  plugins: Optional[List[Tool]] = None
                   ) -> Container:
         """
         Provisions a container for a given bug.
         """
+        if plugins is None:
+            plugins = []
+
         logger.info("provisioning container for bug: %s", bug.name)
         endpoint = 'bugs/{}/provision'.format(bug.name)
         payload = {
