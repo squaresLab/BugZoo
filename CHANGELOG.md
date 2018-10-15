@@ -1,3 +1,11 @@
+## 2.1.18 (XXXX-XX-XX)
+
+### Features
+
+* Added `plugins` argument to `provision` method for client-side
+  container manager.
+
+
 ## 2.1.17 (2018-10-08)
 
 ### Changes
