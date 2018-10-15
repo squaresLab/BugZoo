@@ -67,6 +67,7 @@ def throws_errors(func):
 @contextmanager
 def ephemeral(*,
               port: int = 6060,
+              timeout_connection: int = 30,
               verbose: bool = False
               ) -> Iterator[Client]:
     """
@@ -90,7 +91,7 @@ def ephemeral(*,
                                 preexec_fn=os.setsid,
                                 stdout=stdout,
                                 stderr=stderr)
-        yield Client(url)
+        yield Client(url, timeout_connection=timeout_connection)
     finally:
         os.killpg(proc.pid, signal.SIGTERM)
 

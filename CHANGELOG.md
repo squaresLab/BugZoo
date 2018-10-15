@@ -4,6 +4,8 @@
 
 * Added `plugins` argument to `provision` method for client-side
   container manager.
+* Added `timeout_connection` argument to `ephemeral` method inside
+  `server` module.
 
 
 ## 2.1.17 (2018-10-08)
