@@ -7,6 +7,10 @@
 * Added `timeout_connection` argument to `ephemeral` method inside
   `server` module.
 
+### Changes
+
+* Added `to_dict` and `from_dict` to `Tool`.
+
 
 ## 2.1.17 (2018-10-08)
 
