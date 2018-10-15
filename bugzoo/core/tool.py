@@ -1,6 +1,6 @@
 __all__ = ['Tool']
 
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 
 import yaml
 import docker
@@ -11,7 +11,7 @@ class Tool(object):
                  name: str,
                  image: str,
                  environment: Dict[str, str],
-                 source: Optional[str]
+                 source: Optional[str] = None
                  ) -> None:
         """
         Constructs a new Tool description.
@@ -55,3 +55,16 @@ class Tool(object):
         The name of the Docker image for this tool.
         """
         return self.__image
+
+    @staticmethod
+    def from_dict(d: Dict[str, Any]) -> 'Tool':
+        return Tool(name=d['name'],
+                    image=d['image'],
+                    environment=d['environment'].copy(),
+                    source=d.get('source'))
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {'name': self.name,
+                'image': self.image,
+                'environment': self.environment.copy(),
+                'source': self.source}

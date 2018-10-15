@@ -1,3 +1,17 @@
+## 2.1.18 (2018-10-14)
+
+### Features
+
+* Added `plugins` argument to `provision` method for client-side
+  container manager.
+* Added `timeout_connection` argument to `ephemeral` method inside
+  `server` module.
+
+### Changes
+
+* Added `to_dict` and `from_dict` to `Tool`.
+
+
 ## 2.1.17 (2018-10-08)
 
 ### Changes

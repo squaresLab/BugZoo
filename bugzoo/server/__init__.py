@@ -1,4 +1,4 @@
-from typing import Dict, Any, Iterator, Optional
+from typing import Dict, Any, Iterator, Optional, List
 from functools import wraps
 from contextlib import contextmanager
 import argparse
@@ -16,6 +16,7 @@ import psutil
 import git
 
 from ..version import __version__
+from ..core.tool import Tool as Plugin
 from ..core.bug import Bug
 from ..core.patch import Patch
 from ..compiler import CompilationOutcome
@@ -66,6 +67,7 @@ def throws_errors(func):
 @contextmanager
 def ephemeral(*,
               port: int = 6060,
+              timeout_connection: int = 30,
               verbose: bool = False
               ) -> Iterator[Client]:
     """
@@ -89,7 +91,7 @@ def ephemeral(*,
                                 preexec_fn=os.setsid,
                                 stdout=stdout,
                                 stderr=stderr)
-        yield Client(url)
+        yield Client(url, timeout_connection=timeout_connection)
     finally:
         os.killpg(proc.pid, signal.SIGTERM)
 
@@ -180,10 +182,16 @@ def provision_bug(uid: str):
     except KeyError:
         return BugNotFound(uid), 404
 
+    # TODO: generic bad request error
+    plugins = []  # type: List[Plugin]
+    args = flask.request.get_json() # type: Dict[str, Any]
+    if 'plugins' in args:
+        plugins = [Plugin.from_dict(p) for p in args['plugins']]
+
     if not daemon.bugs.is_installed(bug):
         return ImageNotInstalled(bug.image), 400
 
-    container = daemon.containers.provision(bug)
+    container = daemon.containers.provision(bug, tools=plugins)
     jsn = flask.jsonify(container.to_dict())
 
     return (jsn, 200)
