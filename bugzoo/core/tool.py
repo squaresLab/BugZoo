@@ -55,3 +55,9 @@ class Tool(object):
         The name of the Docker image for this tool.
         """
         return self.__image
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {'name': self.name,
+                'image': self.image,
+                'environment': self.environment.copy(),
+                'source': self.source}
