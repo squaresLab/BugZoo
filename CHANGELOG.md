@@ -1,3 +1,11 @@
+## 2.1.19 (2018-10-14)
+
+### Bug Fixes
+
+* Added default value to `plugins` argument for `provision` method
+  of client-side container manager.
+
+
 ## 2.1.18 (2018-10-14)
 
 ### Features
