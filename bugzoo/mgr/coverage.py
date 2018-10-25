@@ -212,7 +212,9 @@ class CoverageManager(object):
         logger.debug("instrumenting container: %s", container.uid)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
+        mgr_file = self.__installation.files
         bug = mgr_bug[container.bug]
+        dir_source = bug.source_dir
 
         if files_to_instrument is None:
             files_to_instrument = bug.files_to_instrument
@@ -226,22 +228,14 @@ class CoverageManager(object):
         #                 'sudo apt-get update && sudo apt-get install -y gcovr')
 
         # add instrumentation to each file
-        dir_source = bug.source_dir
         for fn_src in files_to_instrument:
             fn_src = os.path.join(dir_source, fn_src)
             logger.debug("instrumenting file [%s] in container [%s]",
-                                fn_src, container.uid)
-            (_, fn_temp) = tempfile.mkstemp(suffix='.bugzoo')
-            try:
-                mgr_ctr.copy_from(container, fn_src, fn_temp)
-                with open(fn_temp, 'r') as fh:
-                    contents = CoverageManager.INSTRUMENTATION + fh.read()
-
-                with open(fn_temp, 'w') as fh:
-                    fh.write(contents)
-                mgr_ctr.copy_to(container, fn_temp, fn_src)
-            finally:
-                os.remove(fn_temp)
+                         fn_src, container.uid)
+            contents_original = mgr_file.read(container, fn_src)
+            contents_instrumented = \
+                CoverageManager.INSTRUMENTATION + contents_original
+            mgr_file.write(container, fn_src, contents_instrumented)
 
         # recompile with instrumentation options
         outcome = mgr_ctr.compile_with_instrumentation(container)
