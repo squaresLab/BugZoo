@@ -1,3 +1,10 @@
+## 2.1.20 (2018-10-25)
+
+### Features
+
+* Added `write` method to client-side and server-side file manager.
+
+
 ## 2.1.19 (2018-10-14)
 
 ### Bug Fixes
