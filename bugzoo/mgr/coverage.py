@@ -22,8 +22,10 @@ class CoverageManager(object):
     INSTRUMENTATION = (
         "/* BUGZOO :: INSTRUMENTATION :: START */\n"
         "#include <stdio.h>\n"
-        "#include <stdlib.h>\n"
+        #"#include <stdlib.h>\n"
         "#include <signal.h>\n"
+        # QUICKFIX
+        "#include <bits/sigaction.h>\n"
         "void bugzoo_sighandler(int sig){\n"
         "  exit(1);\n"
         "}\n"
