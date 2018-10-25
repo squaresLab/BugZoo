@@ -39,7 +39,19 @@ class FileManager(object):
             contents: the contents that should be written to the specified
                 file.
         """
-        raise NotImplementedError
+        logger.debug("writing to file [%s] in container [%s].",
+                     filepath, container.uid)
+        path = "files/{}/{}".format(container.uid, filepath)
+        try:
+            response = self.__api.post(path)
+            if response.status_code != 204:
+                self.__api.handle_erroneous_response(response)
+        except BugZooException:
+            logger.exception("failed to write to file [%s] in container [%s].",
+                             filepath, container.uid)
+            raise
+        logger.debug("wrote to file [%s] in container [%s].",
+                     filepath, container.uid)
 
     def read(self, container: Container, filepath: str) -> str:
         """
