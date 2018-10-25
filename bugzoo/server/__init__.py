@@ -351,6 +351,19 @@ def interact_with_file(id_container: str, filepath: str):
             return FileNotFound(filepath), 404
 
 
+@app.route('/files/<id_container>/<path:filepath>', methods=['PUT'])
+@throws_errors
+def write_to_file(id_container: str, filepath: str):
+    try:
+        container = daemon.containers[id_container]
+    except KeyError:
+        return ContainerNotFound(id_container), 404
+
+    contents = flask.request.data.decode('utf-8')  # type: str
+    daemon.files.write(container, filepath, contents)
+    return '', 204
+
+
 @app.route('/containers', methods=['GET'])
 def list_containers():
     jsn = []
