@@ -20,7 +20,7 @@ __all__ = ['CoverageManager']
 
 class CoverageManager(object):
     INSTRUMENTATION = (
-        "// BUGZOO :: INSTRUMENTATION :: START\n"
+        "/* BUGZOO :: INSTRUMENTATION :: START */\n"
         "#include <stdio.h>\n"
         "#include <stdlib.h>\n"
         "#include <signal.h>\n"
@@ -42,7 +42,7 @@ class CoverageManager(object):
         "  sigaction(SIGILL, &new_action, NULL);\n"
         "  sigaction(SIGABRT, &new_action, NULL);\n"
         "}\n"
-        "// BUGZOO :: INSTRUMENTATION :: END\n"
+        "/* BUGZOO :: INSTRUMENTATION :: END */\n"
     )
 
     def _from_gcovr_xml_string(self,
