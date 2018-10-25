@@ -94,4 +94,28 @@ class FileManager(object):
               filepath: str,
               contents: str
               ) -> str:
-        raise NotImplementedError
+        """
+        Reads the contents of a given file belonging to a container.
+        """
+        logger.debug("writing to file [%s] inside container [%s]",
+                     filepath, container.id)
+        bug = self.__mgr_bug[container.bug]
+        filepath_orig = filepath
+
+        if not os.path.isabs(filepath):
+            filepath = os.path.join(bug.source_dir, filepath)
+            logger.debug("converted relative path to absolute path: %s -> %s",
+                         filepath_orig, filepath)
+
+        # write the file contents to a temporary file on the host before
+        # copying that file to the container
+        (_, fn_host) = tempfile.mkstemp(suffix='.bugzoo')
+        try:
+            with open(fn_host, 'w') as fh:
+                fh.write(contents)
+            self.__mgr_ctr.copy_to(container, fn_host, filepath)
+        finally:
+            os.remove(fn_host)
+
+        logger.debug("wrote to file [%s] inside container [%s]",
+                     filepath, container.id)
