@@ -5,6 +5,12 @@
 * Added `write` method to client-side and server-side file manager.
 
 
+### Bug Fixes
+
+* Resolved permissions issue when instrumenting source files by using the
+  file manager's read/write API to apply coverage.
+
+
 ## 2.1.19 (2018-10-14)
 
 ### Bug Fixes
