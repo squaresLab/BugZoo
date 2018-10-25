@@ -43,7 +43,7 @@ class FileManager(object):
                      filepath, container.uid)
         path = "files/{}/{}".format(container.uid, filepath)
         try:
-            response = self.__api.post(path)
+            response = self.__api.put(path, data=contents)
             if response.status_code != 204:
                 self.__api.handle_erroneous_response(response)
         except BugZooException:
