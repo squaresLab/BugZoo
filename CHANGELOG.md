@@ -3,6 +3,9 @@
 ### Features
 
 * Added `write` method to client-side and server-side file manager.
+* Individual log files for each CLI session are now saved to `.bugzoo/logs`.
+* Added better error reporting to CLI, which now reports the location of the
+  relevant log file to the user.
 
 
 ### Changes
