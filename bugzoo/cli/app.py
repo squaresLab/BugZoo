@@ -18,6 +18,8 @@ logger.setLevel(logging.DEBUG)
 
 DIR_LOG = os.getcwd()
 
+RULE = '\n\n' + ("=" * 80) + '\n'
+
 
 class BugZooCLI(cement.App):
     class Meta:
@@ -38,10 +40,20 @@ class BugZooCLI(cement.App):
 
 
 def main() -> None:
+    fn_log = os.path.join(DIR_LOG, 'bugzood.log')
+
+    def on_error(msg: str, unexpected: bool = False) -> None:
+        msg = indent(msg, 2)
+        ftr = "\n\nSee log file for details: {}".format(fn_log)
+        hdr = "An {} occurred during execution:\n\n"
+        hdr = hdr.format("unexpected error" if unexpected else "error")
+        msg = RULE + hdr + msg + ftr
+        print(msg)
+        sys.exit(1)
+
     try:
         log_formatter = \
             logging.Formatter('%(levelname)s:%(name)s:%(asctime)s: %(message)s')
-        fn_log = os.path.join(DIR_LOG, 'bugzood.log')
         log_to_file = logging.handlers.WatchedFileHandler(fn_log)
         log_to_file.setFormatter(log_formatter)
         log_to_file.setLevel(logging.DEBUG)
@@ -51,21 +63,12 @@ def main() -> None:
         with BugZooCLI() as app:
             app.run()
     except BugZooException as err:
-        msg = indent(err.message, 2)
-        hdr = '\n\n' + ("=" * 80) + '\n'
-        msg = "{}An error occurred during execution:\n{}".format(hdr, msg)
-        print(msg)
-        logger.exception("An error occurred: %s", err.message)
-        print("\nSee log file for details: {}".format(fn_log))
-        sys.exit(1)
+        logger.exception("An error occurred")
+        on_error(err.message, False)
     except Exception as err:
-        msg = indent(str(err), 2)
-        hdr = '\n\n' + ("=" * 80) + '\n'
-        msg = "{}An unexpected error occurred during execution:\n{}".format(hdr, msg)
-        print(msg)
         logger.exception("An unexpected error occurred")
-        print("\nSee log file for details: {}".format(fn_log))
-        sys.exit(1)
+        msg = repr(err)
+        on_error(msg, True)
     except KeyboardInterrupt:
         logger.info("Command cancelled by keyboard interrupt.")
         sys.exit(1)
