@@ -2,6 +2,8 @@ import operator
 
 import cement
 
+from ... import exceptions
+
 
 class BugController(cement.Controller):
     class Meta:
@@ -59,7 +61,10 @@ class BugController(cement.Controller):
         name_bug = self.app.pargs.bug
         print('downloading bug: {}'.format(name_bug))
         bugs = self.app.daemon.bugs
-        bug = bugs[name_bug]
+        try:
+            bug = bugs[name_bug]
+        except KeyError:
+            raise exceptions.BugNotFound(name_bug)
         bugs.download(bug)
 
     @cement.ex(
@@ -72,7 +77,10 @@ class BugController(cement.Controller):
         name_bug = self.app.pargs.bug
         print('uploading bug: {}'.format(name_bug))
         bugs = self.app.daemon.bugs
-        bug = bugs[name_bug]
+        try:
+            bug = bugs[name_bug]
+        except KeyError:
+            raise exceptions.BugNotFound(name_bug)
         bugs.upload(bug)
 
     @cement.ex(
@@ -85,7 +93,10 @@ class BugController(cement.Controller):
         name_bug = self.app.pargs.bug
         print('building bug: {}'.format(name_bug))
         bugs = self.app.daemon.bugs
-        bug = bugs[name_bug]
+        try:
+            bug = bugs[name_bug]
+        except KeyError:
+            raise exceptions.BugNotFound(name_bug)
         bugs.build(bug)
 
     @cement.ex(
@@ -101,7 +112,10 @@ class BugController(cement.Controller):
         name_bug = self.app.pargs.bug
         print('uninstalling bug: {}'.format(name_bug))
         bugs = self.app.daemon.bugs
-        bug = bugs[name_bug]
+        try:
+            bug = bugs[name_bug]
+        except KeyError:
+            raise exceptions.BugNotFound(name_bug)
         bugs.uninstall(bug, force=self.app.pargs.force)
 
     @cement.ex(
@@ -136,7 +150,11 @@ class BugController(cement.Controller):
     def coverage(self) -> None:
         name_bug = self.app.pargs.bug
         bz = self.app.daemon
-        bug = bz.bugs[name_bug]
+        try:
+            bug = bugs[name_bug]
+        except KeyError:
+            raise exceptions.BugNotFound(name_bug)
+
         if self.app.pargs.use_cache:
             cov = bz.bugs.coverage(bug)
         else:
