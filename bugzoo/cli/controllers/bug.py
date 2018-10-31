@@ -1,9 +1,9 @@
 import operator
 
-from cement.ext.ext_argparse import ArgparseController, expose
+import cement
 
 
-class BugController(ArgparseController):
+class BugController(cement.Controller):
     class Meta:
         label = 'bug'
         description = 'install, remove, and interact with historical bugs'
@@ -12,7 +12,7 @@ class BugController(ArgparseController):
         output_handler = 'tabulate'
         extensions = ['tabulate']
 
-    @expose(
+    @cement.ex(
         help='produces a list of registered bugs',
         arguments=[
             (['-q'], {'help': 'prints an unannotated list of the names of all registered bugs',  # noqa: pycodestyle
@@ -49,7 +49,7 @@ class BugController(ArgparseController):
         else:
             self.app.render(data, headers=headers)
 
-    @expose(
+    @cement.ex(
         help='downloads the Docker image for a given bug',
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str})
@@ -62,7 +62,7 @@ class BugController(ArgparseController):
         bug = bugs[name_bug]
         bugs.download(bug)
 
-    @expose(
+    @cement.ex(
         help='uploads the Docker image for a given bug',
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str})
@@ -75,7 +75,7 @@ class BugController(ArgparseController):
         bug = bugs[name_bug]
         bugs.upload(bug)
 
-    @expose(
+    @cement.ex(
         help='builds the Docker image for a given bug',
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str})
@@ -88,7 +88,7 @@ class BugController(ArgparseController):
         bug = bugs[name_bug]
         bugs.build(bug)
 
-    @expose(
+    @cement.ex(
         help='uninstalls the Docker image for a given bug',
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str}),
@@ -104,7 +104,7 @@ class BugController(ArgparseController):
         bug = bugs[name_bug]
         bugs.uninstall(bug, force=self.app.pargs.force)
 
-    @expose(
+    @cement.ex(
         help='validates that a given bug behaves as expected',
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str}),
@@ -123,7 +123,7 @@ class BugController(ArgparseController):
         else:
             print('FAIL')
 
-    @expose(
+    @cement.ex(
         help='computes line coverage information for a given bug',
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str}),
