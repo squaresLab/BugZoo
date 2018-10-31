@@ -3,7 +3,7 @@ import operator
 import cement
 
 from ...core.source import RemoteSource
-from ...exceptions import NameInUseError
+from ... import exceptions
 
 
 class SourceController(cement.Controller):
@@ -49,11 +49,8 @@ class SourceController(cement.Controller):
         bz = self.app.daemon
         name = self.app.pargs.name
         url_or_path = self.app.pargs.url_or_path
-        try:
-            bz.sources.add(name, url_or_path)
-            print('added source: {} -> {}'.format(name, url_or_path))
-        except NameInUseError:
-            print('source already registered with name: {}'.format(name))
+        bz.sources.add(name, url_or_path)
+        print('added source: {} -> {}'.format(name, url_or_path))
 
     @cement.ex(
         help='removes a given source from this BugZoo installation',
@@ -65,7 +62,7 @@ class SourceController(cement.Controller):
             del self.app.daemon.sources[name]
             print('removed source: {}'.format(name))
         except KeyError:
-            print('no source registered with name: {}'.format(name))
+            raise exceptions.SourceNotFoundWithName(name)
 
     @cement.ex(help='downloads any updates for registered sources')
     def update(self) -> None:
