@@ -1,4 +1,5 @@
 from cement.ext.ext_argparse import ArgparseController
+
 from ...version import __version__ as VERSION
 
 BANNER = """
