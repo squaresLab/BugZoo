@@ -1,4 +1,4 @@
-from cement.core.foundation import CementApp
+import cement
 
 from .controllers.base import BaseController
 from .controllers.bug import BugController
@@ -8,7 +8,7 @@ from .controllers.container import ContainerController
 from ..manager import BugZoo as Daemon
 
 
-class BugZooCLI(CementApp):
+class BugZooCLI(cement.App):
     class Meta:
         label = 'bugzoo'
         extensions = ['tabulate']
