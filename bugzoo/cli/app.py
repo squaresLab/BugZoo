@@ -54,7 +54,7 @@ def main() -> None:
     try:
         log_formatter = \
             logging.Formatter('%(levelname)s:%(name)s:%(asctime)s: %(message)s')
-        log_to_file = logging.handlers.WatchedFileHandler(fn_log)
+        log_to_file = logging.handlers.WatchedFileHandler(fn_log, mode='w')
         log_to_file.setFormatter(log_formatter)
         log_to_file.setLevel(logging.DEBUG)
         logging.getLogger('bugzoo').setLevel(logging.DEBUG)
