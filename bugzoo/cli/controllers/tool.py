@@ -78,7 +78,8 @@ class ToolController(cement.Controller):
         tools.build(tool)
 
     @cement.ex(
-        help='uninstalls the Docker image for a given bug',
+        help='removes the Docker image for a given bug',
+        aliases=['rm'],
         arguments=[
             (['tool'], {'help': 'the name of the tool', 'type': str}),
             (['-f', '--force'],
@@ -86,10 +87,10 @@ class ToolController(cement.Controller):
               'action': 'store_true'})
         ]
     )
-    def uninstall(self) -> None:
+    def remove(self) -> None:
         force = self.app.pargs.force  # type: bool
         name_tool = self.app.pargs.tool  # type: str
-        print('uninstalling tool: {}'.format(name_tool))
+        print('removing tool: {}'.format(name_tool))
         tools = self.app.daemon.tools
         try:
             tool = tools[name_tool]
