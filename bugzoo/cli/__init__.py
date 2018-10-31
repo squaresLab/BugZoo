@@ -13,6 +13,9 @@ from ..core.source import RemoteSource
 from ..manager import BugZoo
 from ..core.tool import Tool
 
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
+
 
 def main():
     try:
@@ -29,13 +32,15 @@ def main():
             args.func(args)
     except BugZooException as e:
         error("ERROR: {}".format(e.message))
-        logging.exception("An error occurred: %s", e)
+        logger.exception("An error occurred: %s", e)
+        sys.exit(1)
     except Exception as e:
         error("UNEXPECTED ERROR: {}".format(e))
-        logging.exception("An unexpected error occurred: %s", e)
+        logger.exception("An unexpected error occurred: %s", e)
+        sys.exit(1)
     except KeyboardInterrupt:
-        logging.info("Command cancelled by keyboard interrupt.")
-        pass
+        logger.info("Command cancelled by keyboard interrupt.")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
