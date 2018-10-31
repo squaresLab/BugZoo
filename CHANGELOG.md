@@ -5,6 +5,12 @@
 * Added `write` method to client-side and server-side file manager.
 
 
+### Changes
+
+* Switched implementation of command-line interface from `argparse` to
+  `cement`.
+
+
 ### Bug Fixes
 
 * Resolved permissions issue when instrumenting source files by using the
