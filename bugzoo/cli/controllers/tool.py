@@ -1,9 +1,9 @@
 import operator
 
-from cement.ext.ext_argparse import ArgparseController, expose
+import cement
 
 
-class ToolController(ArgparseController):
+class ToolController(cement.Controller):
     class Meta:
         label = 'tool'
         description = 'install and remove tools'
@@ -12,7 +12,7 @@ class ToolController(ArgparseController):
         output_handler = 'tabulate'
         extensions = ['tabulate']
 
-    @expose(
+    @cement.ex(
         help='produces a list of registered tools',
         arguments=[
             (['-q'], {'help': 'prints an unannotated list of the names of all registered tools',  # noqa: pycodestyle
@@ -36,7 +36,7 @@ class ToolController(ArgparseController):
         else:
             self.app.render(data, headers=headers)
 
-    @expose(
+    @cement.ex(
         help='downloads the Docker image for a given tool',
         arguments=[(['tool'], {'help': 'the name of the tool', 'type': str})]
     )
@@ -47,7 +47,7 @@ class ToolController(ArgparseController):
         tool = tools[name_tool]
         tools.download(tool)
 
-    @expose(
+    @cement.ex(
         help='uploads the Docker image for a given tool',
         arguments=[(['tool'], {'help': 'the name of the tool', 'type': str})]
     )
@@ -58,7 +58,7 @@ class ToolController(ArgparseController):
         tool = tools[name_tool]
         tools.upload(tool)
 
-    @expose(
+    @cement.ex(
         help='builds the Docker image for a given bug',
         arguments=[(['tool'], {'help': 'the name of the tool', 'type': str})]
     )
@@ -69,7 +69,7 @@ class ToolController(ArgparseController):
         tool = tools[name_tool]
         tools.build(tool)
 
-    @expose(
+    @cement.ex(
         help='uninstalls the Docker image for a given bug',
         arguments=[
             (['tool'], {'help': 'the name of the tool', 'type': str}),
