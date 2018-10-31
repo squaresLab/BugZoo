@@ -2,6 +2,8 @@ import operator
 
 import cement
 
+from ... import exceptions
+
 
 class ToolController(cement.Controller):
     class Meta:
@@ -44,7 +46,10 @@ class ToolController(cement.Controller):
         name_tool = self.app.pargs.tool  # type: str
         print('downloading tool: {}'.format(name_tool))
         tools = self.app.daemon.tools
-        tool = tools[name_tool]
+        try:
+            tool = tools[name_tool]
+        except KeyError:
+            raise exceptions.ToolNotFound(name_tool)
         tools.download(tool)
 
     @cement.ex(
@@ -66,7 +71,10 @@ class ToolController(cement.Controller):
         name_tool = self.app.pargs.tool  # type: str
         print('building tool: {}'.format(name_tool))
         tools = self.app.daemon.tools
-        tool = tools[name_tool]
+        try:
+            tool = tools[name_tool]
+        except KeyError:
+            raise exceptions.ToolNotFound(name_tool)
         tools.build(tool)
 
     @cement.ex(
@@ -83,5 +91,8 @@ class ToolController(cement.Controller):
         name_tool = self.app.pargs.tool  # type: str
         print('uninstalling tool: {}'.format(name_tool))
         tools = self.app.daemon.tools
-        tool = tools[name_tool]
+        try:
+            tool = tools[name_tool]
+        except KeyError:
+            raise exceptions.ToolNotFound(name_tool)
         tools.uninstall(tool, force=force)
