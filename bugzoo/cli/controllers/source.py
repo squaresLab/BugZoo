@@ -1,6 +1,6 @@
 import operator
 
-from cement.ext.ext_argparse import ArgparseController, expose
+import cement
 
 from ...core.source import RemoteSource
 from ...exceptions import NameInUseError
@@ -15,7 +15,7 @@ class SourceController(ArgparseController):
         output_handler = 'tabulate'
         extensions = ['tabulate']
 
-    @expose(
+    @cement.ex(
         help='produces a list of all registered sources',
         arguments=[
             (['-q'],
@@ -37,7 +37,7 @@ class SourceController(ArgparseController):
         else:
             self.app.render(data, headers=headers)
 
-    @expose(
+    @cement.ex(
         help='registers a given source with this BugZoo installation',
         arguments=[
             (['name'], {'help': 'a unique name for the source',
@@ -55,7 +55,7 @@ class SourceController(ArgparseController):
         except NameInUseError:
             print('source already registered with name: {}'.format(name))
 
-    @expose(
+    @cement.ex(
         help='removes a given source from this BugZoo installation',
         arguments=[(['name'], {'help': 'the name of the source', 'type': str})]
     )
@@ -67,7 +67,7 @@ class SourceController(ArgparseController):
         except KeyError:
             print('no source registered with name: {}'.format(name))
 
-    @expose(help='downloads any updates for registered sources')
+    @cement.ex(help='downloads any updates for registered sources')
     def update(self) -> None:
         print('updating sources...')
         bz = self.app.daemon
