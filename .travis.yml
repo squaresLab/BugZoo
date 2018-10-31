@@ -17,7 +17,6 @@ script:
 - bugzoo tool list
 - bugzoo source list
 - bugzoo bug list
-- python3 test/test_manybugs.py
 - mypy bugzoo --ignore-missing-imports
 before_deploy:
 - "(cd docs && make html && cd _build/html && touch .nojekyll)"
