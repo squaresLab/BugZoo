@@ -17,7 +17,8 @@ from ..util import indent
 logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
-DIR_LOG = os.getcwd()
+DIR_HOME = os.path.expanduser('~')
+DIR_LOG = os.path.join(DIR_HOME, '.bugzoo/logs')
 
 RULE = '\n\n' + ("=" * 80) + '\n'
 
@@ -44,7 +45,10 @@ def main() -> None:
     if not os.path.exists(DIR_LOG):
         os.makedirs(DIR_LOG, exist_ok=True)
 
-    fn_log = os.path.join(DIR_LOG, 'bugzood.log')
+    now = datetime.datetime.now()  # type: datetime.datetime
+    now_s = now.strftime('%Y-%m-%d_%H:%M:%S')
+    fn_log = now_s + '.bugzoo.log'
+    fn_log = os.path.join(DIR_LOG, fn_log)
 
     def on_error(msg: str, unexpected: bool = False) -> None:
         msg = indent(msg, 2)
