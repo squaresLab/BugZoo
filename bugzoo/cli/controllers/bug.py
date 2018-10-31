@@ -100,7 +100,8 @@ class BugController(cement.Controller):
         bugs.build(bug)
 
     @cement.ex(
-        help='uninstalls the Docker image for a given bug',
+        help='removes the Docker image for a given bug',
+        aliases=['rm'],
         arguments=[
             (['bug'], {'help': 'the name of the bug', 'type': str}),
             (['-f', '--force'],
@@ -108,9 +109,9 @@ class BugController(cement.Controller):
               'action': 'store_true'})
         ]
     )
-    def uninstall(self) -> None:
+    def remove(self) -> None:
         name_bug = self.app.pargs.bug
-        print('uninstalling bug: {}'.format(name_bug))
+        print('removing bug: {}'.format(name_bug))
         bugs = self.app.daemon.bugs
         try:
             bug = bugs[name_bug]
