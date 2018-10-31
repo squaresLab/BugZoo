@@ -12,6 +12,9 @@
 
 * Switched implementation of command-line interface from `argparse` to
   `cement`.
+* Replaced `bug uninstall` command with `bug rm` and `bug remove` commands.
+* Replaced `tool uninstall` command with `tool rm` and `tool remove`
+  commands.
 
 
 ### Bug Fixes
