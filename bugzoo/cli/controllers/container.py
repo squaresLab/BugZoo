@@ -3,9 +3,7 @@ import operator
 
 import cement
 
-from ...core.bug import Bug
-from ...core.source import RemoteSource
-from ...exceptions import NameInUseError
+from ... import exceptions
 
 
 class ContainerController(cement.Controller):
@@ -102,8 +100,16 @@ class ContainerController(cement.Controller):
                 command: Optional[str] = None
                 ) -> None:
         bz = self.app.daemon
-        bug = bz.bugs[name_bug]
-        tools = [bz.tools[t] for t in arg_tools]
+        try:
+            bug = bz.bugs[name_bug]
+        except KeyError as err:
+            name = str(err)
+            raise exceptions.BugNotFound(name)
+        try:
+            tools = [bz.tools[t] for t in arg_tools]
+        except KeyError as err:
+            name = str(err)
+            raise exceptions.ToolNotFound(name)
         volumes = self.__prepare_volumes(arg_volumes)
         c = bz.containers.provision(bug=bug,
                                     interactive=True,
