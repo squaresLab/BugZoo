@@ -6,7 +6,7 @@ from ...core.source import RemoteSource
 from ...exceptions import NameInUseError
 
 
-class SourceController(ArgparseController):
+class SourceController(cement.Controller):
     class Meta:
         label = 'source'
         description = 'add, remove, and list sources of bugs'
