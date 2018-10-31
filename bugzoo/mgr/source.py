@@ -14,7 +14,7 @@ import yaml
 from .build import BuildManager
 from ..exceptions import NameInUseError, BadManifestFile
 from ..compiler import Compiler
-from ..testing.base import TestSuite
+from ..core.test import TestSuite
 from ..core.language import Language
 from ..core.bug import Bug
 from ..core.build import BuildInstructions
@@ -177,8 +177,8 @@ class SourceManager(object):
         else:
             files_to_instrument = []
         logger.info('"coverage.files-to-instrument" for %s: %s',
-                           name,
-                           files_to_instrument)
+                    name,
+                    files_to_instrument)
 
         return Bug(name,
                    d['image'],
@@ -218,7 +218,8 @@ class SourceManager(object):
                 logger.debug("parsed bug: %s", bug.name)
                 bugs.append(bug)
             except KeyError as e:
-                logger.error("missing property in bug description: %s", str(e))
+                logger.exception("missing property in bug description: %s",
+                                 str(e))
 
         for description in yml.get('blueprints', []):
             logger.debug("parsing blueprint: %s", json.dumps(description))
@@ -228,7 +229,8 @@ class SourceManager(object):
                                     blueprint.name)
                 blueprints.append(blueprint)
             except KeyError as e:
-                logger.error("missing property in blueprint description: %s", str(e))
+                logger.exception("missing property in blueprint description: %s",
+                                 str(e))
 
         for description in yml.get('tools', []):
             logger.debug("parsing tool: %s", json.dumps(description))
@@ -237,7 +239,8 @@ class SourceManager(object):
                 logger.debug("parsed tool: %s", tool.name)
                 tools.append(tool)
             except KeyError as e:
-                logger.error("missing property in tool description: %s", str(e))
+                logger.exception("missing property in tool description: %s",
+                                 str(e))
 
     def load(self, source: Source) -> None:
         """

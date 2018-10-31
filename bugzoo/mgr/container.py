@@ -19,9 +19,9 @@ from ..core.tool import Tool
 from ..core.patch import Patch
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
+from ..core.test import TestCase, TestOutcome
 from ..core.bug import Bug
 from ..compiler import CompilationOutcome
-from ..testing import TestCase, TestOutcome
 from ..cmd import ExecResponse, PendingExecResponse
 from ..util import indent
 
@@ -37,15 +37,26 @@ class ContainerManager(object):
 
         logger.debug("connecting to low-level Docker API")
         self.__client_docker = installation.docker  # type: docker.Client
-        self.__api_docker = self.__client_docker.api  # type: docker.APIClient
+        # self.__api_docker = self.__client_docker.api  # type: docker.APIClient
+        self.__api_docker = \
+            docker.APIClient(base_url=installation.base_url_docker,
+                             version=installation.docker_client_api_version,
+                             timeout=120)  # type: docker.APIClient
         assert self.__api_docker.ping()
         logger.debug("connected to low-level Docker API")
+        self.clear()
+        logger.debug("initialised container manager")
 
+    def clear(self) -> None:
+        """
+        Closes all running containers.
+        """
+        logger.debug("clearing all running containers")
         self.__containers = {}
         self.__dockerc = {}
         self.__env_files = {}
         self.__dockerc_tools = {}
-        logger.debug("initialised container manager")
+        logger.debug("cleared all running containers")
 
     def __iter__(self) -> Iterator[Container]:
         """
@@ -340,6 +351,8 @@ class ContainerManager(object):
                  container: Container,
                  tests: Optional[List[TestCase]] = None,
                  files_to_instrument: List[str] = None,
+                 *,
+                 instrument: bool =  True
                  ) -> TestSuiteCoverage:
         """
         Computes line coverage information over a provided set of tests for
@@ -348,7 +361,8 @@ class ContainerManager(object):
         mgr = self.__installation.coverage
         return mgr.coverage(container,
                             tests,
-                            files_to_instrument=files_to_instrument)
+                            files_to_instrument=files_to_instrument,
+                            instrument=True)
 
     def execute(self,
                 container: Container,
@@ -361,15 +375,15 @@ class ContainerManager(object):
         Returns:
             the outcome of the test execution.
         """
-        bug = self.__installation.bugs[container.bug] # type: Bug
-        cmd, context = bug.harness.command(test)
+        bug = self.__installation.bugs[container.bug]  # type: Bug
         response = self.command(container,
-                                cmd=cmd,
-                                context=context,
+                                cmd=test.command,
+                                context=test.context,
                                 stderr=True,
-                                time_limit=bug.harness.time_limit, # TODO migrate
+                                time_limit=test.time_limit,
+                                kill_after=test.kill_after,
                                 verbose=verbose)
-        passed = response.code == 0
+        passed = test.oracle.check(response)
         return TestOutcome(response, passed)
 
     test = execute
@@ -394,6 +408,8 @@ class ContainerManager(object):
         bug = self.__installation.bugs[container.bug]
         return bug.compiler.compile(self, container, verbose=verbose)
 
+    build = compile
+
     # TODO decouple
     def compile_with_instrumentation(self,
                                      container: Container,
@@ -410,6 +426,8 @@ class ContainerManager(object):
         return bug.compiler.compile_with_coverage_instrumentation(self,
                                                                   container,
                                                                   verbose=verbose)
+
+    build_with_instrumentation = compile_with_instrumentation
 
     def copy_to(self,
                 container: Container,
@@ -474,7 +492,8 @@ class ContainerManager(object):
                 stderr: bool = False,
                 block: bool = True,
                 verbose: bool = False,
-                time_limit: Optional[int] = None
+                time_limit: Optional[int] = None,
+                kill_after: Optional[int] = 1
                 ) -> Union[ExecResponse, PendingExecResponse]:
         """
         Executes a provided shell command inside a given container.
@@ -506,8 +525,10 @@ class ContainerManager(object):
         cmd_wrapped = "/bin/bash -c '{}'".format(cmd)
         if time_limit is not None and time_limit > 0:
             logger_c.debug("running command with time limit: %d seconds", time_limit)  # noqa: pycodestyle
-            cmd_template = "timeout --kill-after=1 --signal=SIGTERM {} {}"
-            cmd_wrapped = cmd_template.format(time_limit, cmd_wrapped)
+            cmd_template = "timeout --kill-after={} --signal=SIGTERM {} {}"
+            cmd_wrapped = cmd_template.format(kill_after,
+                                              time_limit,
+                                              cmd_wrapped)
         cmd = cmd_wrapped
 
         # based on: https://github.com/roidelapluie/docker-py/commit/ead9ffa34193281967de8cc0d6e1c0dcbf50eda5
@@ -574,5 +595,14 @@ class ContainerManager(object):
                          image)
             raise ImageAlreadyExists(image)
         except docker.errors.ImageNotFound:
-            docker_container.commit(repository=image)
+            pass
+
+        cmd = "docker commit {} {}"
+        cmd = cmd.format(docker_container.id, image)
+        try:
+            subprocess.check_output(cmd, shell=True)
+        except subprocess.CalledProcessError:
+            logger.exception("Failed to persist container (%s) to image (%s).",  # noqa: pycodestyle
+                             container.uid, image)
+            raise
         logger_c.debug("Persisted container as a Docker image: %s", image)

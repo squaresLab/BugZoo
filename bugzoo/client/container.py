@@ -1,13 +1,15 @@
-from typing import Iterator, Optional
+from typing import Iterator, Optional, Dict, Any, List
 import logging
 
 from .api import APIClient
 from ..compiler import CompilationOutcome
+from ..core.tool import Tool
 from ..core.patch import Patch
+from ..core.fileline import FileLineSet
 from ..core.bug import Bug
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
-from ..testing import TestCase, TestOutcome
+from ..core.test import TestCase, TestOutcome
 from ..cmd import ExecResponse
 from ..exceptions import BugZooException
 
@@ -80,6 +82,14 @@ class ContainerManager(object):
         except KeyError:
             return False
 
+    def clear(self) -> None:
+        """
+        Destroys all running containers.
+        """
+        r = self.__api.delete('containers')
+        if r.status_code != 204:
+            self.__api.handle_erroneous_response(r)
+
     def __iter__(self) -> Iterator[str]:
         """
         Returns an iterator over the identifiers of all of the containers that
@@ -95,9 +105,23 @@ class ContainerManager(object):
 
         self.__api.handle_erroneous_response(r)
 
-    def provision(self, bug: Bug) -> Container:
+    def provision(self,
+                  bug: Bug,
+                  *,
+                  plugins: Optional[List[Tool]] = None
+                  ) -> Container:
+        """
+        Provisions a container for a given bug.
+        """
+        if plugins is None:
+            plugins = []
+
         logger.info("provisioning container for bug: %s", bug.name)
-        r = self.__api.post('bugs/{}/provision'.format(bug.name))
+        endpoint = 'bugs/{}/provision'.format(bug.name)
+        payload = {
+            'plugins': [p.to_dict() for p in plugins]
+        }  # type: Dict[str, Any]
+        r = self.__api.post(endpoint, json=payload)
 
         if r.status_code == 200:
             container = Container.from_dict(r.json())
@@ -125,6 +149,33 @@ class ContainerManager(object):
             raise KeyError("no container found with given UID: {}".format(uid))
 
         self.__api.handle_erroneous_response(r)
+
+    def extract_coverage(self, container: Container) -> FileLineSet:
+        """
+        Extracts a report of the lines that have been executed since the last
+        time that a coverage report was extracted.
+        """
+        uid = container.uid
+        r = self.__api.post('containers/{}/read-coverage'.format(uid))
+        if r.status_code == 200:
+            return FileLineSet.from_dict(r.json())
+        self.__api.handle_erroneous_response(r)
+
+    def instrument(self,
+                   container: Container
+                   ) -> None:
+        """
+        Instruments the program inside the container for computing test suite
+        coverage.
+
+        Params:
+            container: the container that should be instrumented.
+        """
+        path = "containers/{}/instrument".format(container.uid)
+        r = self.__api.post(path)
+        if r.status_code != 204:
+            logger.info("failed to instrument container: %s", container.uid)
+            self.__api.handle_erroneous_response(r)
 
     def compile(self,
                 container: Container,
@@ -182,12 +233,24 @@ class ContainerManager(object):
         self.__api.handle_erroneous_response(r)
 
     def coverage(self,
-                 container: Container
+                 container: Container,
+                 *,
+                 instrument: bool = True
                  ) -> TestSuiteCoverage:
+        """
+        Computes complete test suite coverage for a given container.
+
+        Parameters:
+            container: the container for which coverage should be computed.
+            rebuild: if set to True, the program will be rebuilt before
+                coverage is computed.
+        """
         uid = container.uid
         logger.info("Fetching coverage information for container: %s",
                     uid)
-        r = self.__api.post('containers/{}/coverage'.format(uid))
+        uri = 'containers/{}/coverage'.format(uid)
+        r = self.__api.post(uri,
+                            params={'instrument': 'yes' if instrument else 'no'})
         if r.status_code == 200:
             jsn = r.json()
             coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
@@ -286,7 +349,20 @@ class ContainerManager(object):
             ImageAlreadyExists: if the given image name is already in use by
                 another Docker image on the server.
         """
-        path = "containers/{}/persist/{}".format(container.uid, image_name)
+        logger.debug("attempting to persist container (%s) to image (%s).",
+                     container.id,
+                     image_name)
+        path = "containers/{}/persist/{}".format(container.id, image_name)
         r = self.__api.put(path)
-        if r.status_code != 204:
+        if r.status_code == 204:
+            logger.debug("persisted container (%s) to image (%s).",
+                         container.id,
+                         image_name)
+            return
+        try:
             self.__api.handle_erroneous_response(r)
+        except Exception:
+            logger.exception("failed to persist container (%s) to image (%s).",  # noqa: pycodestyle
+                             container.id,
+                             image_name)
+            raise

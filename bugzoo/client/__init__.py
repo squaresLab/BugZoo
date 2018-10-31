@@ -41,16 +41,39 @@ class Client(object):
 
     @property
     def bugs(self) -> BugManager:
+        """
+        Provides access to the historical bugs that are registered with the
+        server. Can be used to install, download, and uninstall registered
+        bugs, or to dynamically register new bugs with the server.
+        """
         return self.__bugs
 
     @property
     def containers(self) -> ContainerManager:
+        """
+        Provides access to the containers running on the server. Can be used
+        to execute tests (as well as arbitrary shell commands), build from
+        source code, apply patches, compute coverage, and more.
+        """
         return self.__containers
 
     @property
     def files(self) -> FileManager:
+        """
+        Provides access to the file systems used by running containers. Can be
+        used to read from and write to files in containers, and to copy data
+        between the host machine and a given container.
+        """
         return self.__files
 
     @property
     def docker(self) -> DockerManager:
         return self.__docker
+
+    def shutdown(self) -> None:
+        """
+        Instructs the connected BugZoo server to shutdown.
+        """
+        r = self.__api.post("shutdown")
+        if r.status_code != 202:
+            raise Exception("failed to shutdown server")

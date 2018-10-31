@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Optional
 import os
 import logging
 import logging.handlers
@@ -25,24 +25,31 @@ class BugZoo(object):
     Used to interact with and manage a local BugZoo installation.
     """
     def __init__(self,
-                 path=None,
-                 base_url_docker='unix:///var/run/docker.sock'
+                 path: Optional[str] = None,
+                 base_url_docker: str = 'unix:///var/run/docker.sock',
+                 docker_client_api_version: Optional[str] = None
                  ) -> None:
         """
         Creates a new BugZoo installation manager.
 
-        Args:
+        Parameters:
             path: the absolute path of a BugZoo installation on this machine.
                 If unspecified, the value of the environmental variable
                 :code:`BUGZOO_PATH` will be used, unless unspecified, in
                 which case :code:`./${HOME}/.bugzoo` will be used instead.
+            base_url_docker: the base URL of the Docker server.
+            docker_client_api_version: the version of the Docker client API
+                that should be used to communicate with the Docker server.
         """
         # TODO support windows
         if path is None:
             default_path = os.path.join(os.environ['HOME'], '.bugzoo')
-            path = os.environ.get('BUGZOO_PATH', default_path)
+            if 'BUGZOO_PATH' in os.environ:
+                path = os.environ['BUGZOO_PATH']
+            else:
+                path = default_path
         self.__path = path
-        logger.debug("using BugZoo directory: %s", path)
+        logger.debug("using BugZoo directory: %s", self.path)
 
         logger.debug("preparing BugZoo directory")
         if not os.path.exists(self.path):
@@ -52,8 +59,19 @@ class BugZoo(object):
         logger.debug("prepared BugZoo directory")
 
         logger.debug("connecting to Docker at %s", base_url_docker)
+        self.__base_url_docker = base_url_docker
+
+        self.__docker_client_api_version = docker_client_api_version
+        if docker_client_api_version:
+            logger.debug("using Docket Client API: %s",
+                         docker_client_api_version)
+        else:
+            logger.debug("using default Docker Client API")
+
         try:
-            self.__docker = DockerClient(base_url=base_url_docker, timeout=120)
+            self.__docker = DockerClient(base_url=base_url_docker,
+                                         version=docker_client_api_version,
+                                         timeout=120)
             assert self.__docker.ping()
         except (docker.errors.APIError, AssertionError):
             logger.exception("failed to connect to Docker")
@@ -70,12 +88,32 @@ class BugZoo(object):
         self.__files = FileManager(self.__bugs, self.__containers)
         self.__coverage = CoverageManager(self)
 
+    def shutdown(self) -> None:
+        logger.info("Shutting down daemon...")
+        self.__containers.clear()
+        logger.info("Shut down daemon")
+
     @property
     def docker(self) -> DockerClient:
         """
         The Docker client used by this server.
         """
         return self.__docker
+
+    @property
+    def docker_client_api_version(self) -> Optional[str]:
+        """
+        The version of the Docket Client API that should be used to
+        communicate with the attached Docker server.
+        """
+        return self.__docker_client_api_version
+
+    @property
+    def base_url_docker(self) -> str:
+        """
+        The base URL of the Docker server to which BugZoo is connected.
+        """
+        return self.__base_url_docker
 
     @property
     def path(self) -> str:

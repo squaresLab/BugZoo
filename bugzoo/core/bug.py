@@ -1,11 +1,9 @@
 from typing import List, Dict, Optional, Any
 import os
 
-import bugzoo
 from .language import Language
+from .test import TestSuite
 from ..compiler import Compiler
-from ..testing import TestSuite
-
 
 
 class Bug(object):
@@ -158,6 +156,9 @@ class Bug(object):
 
     @property
     def compiler(self) -> Compiler:
+        """
+        Instructions for building the associated program.
+        """
         return self.__compiler
 
     @property
@@ -191,7 +192,7 @@ class Bug(object):
     @property
     def files_to_instrument(self) -> List[str]:
         """
-        Returns the names of the source code files that should be
+        The names of the source code files that should be
         instrumented when computing coverage.
         """
         return self.__files_to_instrument.copy()

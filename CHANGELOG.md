@@ -1,3 +1,176 @@
+## 2.1.20 (2018-10-25)
+
+### Features
+
+* Added `write` method to client-side and server-side file manager.
+
+
+### Bug Fixes
+
+* Resolved permissions issue when instrumenting source files by using the
+  file manager's read/write API to apply coverage.
+
+
+## 2.1.19 (2018-10-14)
+
+### Bug Fixes
+
+* Added default value to `plugins` argument for `provision` method
+  of client-side container manager.
+
+
+## 2.1.18 (2018-10-14)
+
+### Features
+
+* Added `plugins` argument to `provision` method for client-side
+  container manager.
+* Added `timeout_connection` argument to `ephemeral` method inside
+  `server` module.
+
+### Changes
+
+* Added `to_dict` and `from_dict` to `Tool`.
+
+
+## 2.1.17 (2018-10-08)
+
+### Changes
+
+* Added documentation for manifest file format.
+* Added documentation for "Adding a plugin".
+* Updated documentation for adding bugs and blueprints.
+* Updated documentation for Python API.
+
+
+## 2.1.16 (2018-09-03)
+
+### Features
+
+* Added ability to specify Docker Client API version.
+
+### Changes
+
+* Added `from_string` method to `FileLine`.
+
+
+## 2.1.15 (2018-08-23)
+
+### Features
+
+* Added support for non-UTF-8/ASCII file encodings to FileManager (i.e., files
+  encoded using codecs other than ASCII and UTF-8 are now supported).
+
+### Changes
+
+* Added `build` and `build_with_instrumentation` methods (aliases) to
+  server-side `ContainerManager`.
+
+
+## 2.1.14 (2018-07-08)
+
+### Changes
+
+* Updated `bugzood` to write version information for most of its dependencies
+  to its logs.
+* Reduced number of false warnings that are produced when computing coverage
+  reports.
+* Included `.cxx`, `.cc`, `.h`, `.hh`, and `.hpp` in coverage reports for C++.
+* Added defensive checks to `report_system_resources` to handle environments
+  in which `psutil` fails to report certain information.
+
+
+## 2.1.13 (2018-07-05)
+
+### Features
+
+* added `shutdown` method to client.
+* added `report_system_resources` and `report_resource_limits` to `util`
+  module. Both functions describe the available system resources and write
+  a description to a provided logger.
+* updated `bugzood` to report available resources upon launch.
+
+
+### Changes
+
+* Docker image deletion endpoint now uses `force=True` to ensure that images
+  are destroyed.
+
+
+## 2.1.12 (2018-06-25)
+
+### Features
+
+* Added ability to compute line coverage reports to client container
+  manager.
+* All containers are now destroyed when the server is closed.
+* Added ability to specify custom (albeit limited) oracles for individual
+  test cases.
+
+### Bug Fixes
+
+* Fixed a bug in `Spectra.from_coverage` that incorrectly prevented
+  `ep` or `ef` for a given line from being greater than one.
+* Fixed an incorrect path in `client.dockerm` that prevented the client from
+  deleting Docker images on the server.
+
+
+## 2.1.11 (2018-06-19)
+
+### Features
+
+* Extended manifest file format to allow more detailed instructions for
+  individual test cases (e.g., specific time limits, commands, and
+  contexts). Also added `expected-outcome` as a new test case property,
+  allowing the expected behaviour of the test to be specified and checked
+  by `bugzoo validate`.
+
+### Changes
+
+* Removed `testing` module and refactored its contents into a simpler
+  module, `core.test`.
+
+
+## 2.1.10 (2018-06-15)
+
+### Features
+
+* Added `--log-level` option to `bugzood`.
+* Added ability to suppress `werkzeug` logs produced by `bugzood`.
+
+### Changes
+
+* Removed `localization` module that has since been made redundant by
+  `darjeeling`'s `localization` module.
+* Removed `numpy` dependency.
+* Reduced size of `Dockerfile`.
+* Added `--no-status` and `--override-build-tool-check` flags to catkin
+  compiler to reduce output verbosity.
+
+
+## 2.1.9 (2018-06-12)
+
+### Features
+
+* Added `instrument` method to client's container module: allows users to
+  instrument a given container for the purposes of computing coverage at
+  some point in the future.
+
+### Changes
+
+* Added `threaded=True` option to server to ensure that `bugzood` can handle
+  multiple clients simultaneously.
+
+
+## 2.1.8 (2018-06-10)
+
+### Features
+
+* Added Dockerfile for `bugzood`.
+* Updated README and various parts of the documentation.
+* Added `instrument` parameter to container coverage methods.
+
+
 ## 2.1.7 (2018-05-20)
 
 ### Features

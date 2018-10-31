@@ -11,7 +11,7 @@ API Reference
 
   .. autoattribute:: path
   .. autoattribute:: sources
-  .. autoattribute:: artefacts
+  .. autoattribute:: bugs
   .. autoattribute:: datasets
   .. autoattribute:: tools
 

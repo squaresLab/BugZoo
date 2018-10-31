@@ -21,6 +21,38 @@ class FileManager(object):
         self.__api = api
         self.__mgr_bug = mgr_bug
 
+    def write(self,
+              container: Container,
+              filepath: str,
+              contents: str
+              ) -> None:
+        """
+        Dumps the contents of a given string into a file at a specified
+        location inside the container.
+
+        Parameters:
+            container: the container to which the file should be written.
+            filepath: the path to the file inside the container. If a
+                relative path is given, the path will be interpreted as
+                being relative to the source directory for the program
+                under test inside the container.
+            contents: the contents that should be written to the specified
+                file.
+        """
+        logger.debug("writing to file [%s] in container [%s].",
+                     filepath, container.uid)
+        path = "files/{}/{}".format(container.uid, filepath)
+        try:
+            response = self.__api.put(path, data=contents)
+            if response.status_code != 204:
+                self.__api.handle_erroneous_response(response)
+        except BugZooException:
+            logger.exception("failed to write to file [%s] in container [%s].",
+                             filepath, container.uid)
+            raise
+        logger.debug("wrote to file [%s] in container [%s].",
+                     filepath, container.uid)
+
     def read(self, container: Container, filepath: str) -> str:
         """
         Attempts to retrieve the contents of a given file in a running

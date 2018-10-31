@@ -10,7 +10,7 @@ from ..core.fileline import FileLineSet
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage, \
                             TestCoverage
-from ..testing.base import TestCase
+from ..core.test import TestCase
 from ..exceptions import FailedToComputeCoverage
 
 logger = logging.getLogger(__name__)
@@ -66,14 +66,25 @@ class CoverageManager(object):
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
+
+        # compute a list of all source files
         dir_source = bug.source_dir
-        # getting a list of all files in source directory to later use for resolving path
-        resp = mgr_ctr.command(container, "find {} -type f -name '*.cpp' -o -name '*.c'".format(dir_source))
-        all_files = [fn.strip() for fn in resp.output.split('\n')]
+        endings = ['.cpp', '.cc', '.c', '.h', '.hh', '.hpp', '.cxx']
+        cmd = ' -o '.join(["-name \*{}".format(e) for e in endings])
+        cmd = "find {} -type f \( {} \)".format(dir_source, cmd)
+        resp = mgr_ctr.command(container, cmd)
+        # logger.info("FIND COMMAND: %s", cmd)
+        all_files = set(fn.strip() for fn in resp.output.split('\n'))
+        # logger.info("KNOWN SOURCE FILES: %s", all_files)
 
         def has_file(fn_rel: str) -> bool:
             fn_abs = os.path.join(dir_source, fn_rel)
             return (fn_abs in all_files)
+
+        def read_line_coverage(cls) -> List[int]:
+            lines = cls.find('lines').findall('line')
+            return set(int(l.attrib['number']) for l in lines
+                    if int(l.attrib['hits']) > 0)
 
         # FIXME is this a general solution?
         def resolve_path(fn_rel: str) -> str:
@@ -88,25 +99,26 @@ class CoverageManager(object):
         for path in instrumented_files:
             assert not os.path.isabs(path), "expected relative file paths"
 
+        # read the output of gcovr
         root = ET.fromstring(s)
-        files_to_lines = {}
-        packages = root.find('packages')
+        packages = root.find('packages').findall('package')
+        classes = [c for p in packages for c in p.find('classes').findall('class')]
+        report = [(cls.attrib['filename'], read_line_coverage(cls))
+                  for cls in classes]
+        report = [(fn, lines) for (fn, lines) in report if lines]
+        # logger.info("GCOVR: %s", report)
 
         t_start = timer()
         logger_c.debug("Starting to traverse all files reported by gcovr.")
-        for package in packages.findall('package'):
-            for cls in package.find('classes').findall('class'):
-                try:
-                    path = resolve_path(cls.attrib['filename'])
-                except AssertionError:
-                    logger_c.warning("failed to resolve file: %s", path)
-                    continue
-
-                lines = cls.find('lines').findall('line')
-                lines = set(int(l.attrib['number']) for l in lines \
-                            if int(l.attrib['hits']) > 0)
-                if lines != []:
-                    files_to_lines[path] = lines
+        files_to_lines = {}
+        for (filename, lines) in report:
+            try:
+                filename = resolve_path(filename)
+            except AssertionError:
+                logger_c.warning("failed to resolve file: %s", filename)
+                continue
+            if lines:
+                files_to_lines[filename] = lines
 
         logger_c.debug("Traversing all files finished. Seconds passed: %.2f", timer() - t_start)
         # modify coverage information for all of the instrumented files
@@ -135,6 +147,8 @@ class CoverageManager(object):
                  container: Container,
                  tests: Optional[List[TestCase]] = None,
                  files_to_instrument: List[str] = None,
+                 *,
+                 instrument: bool = True
                  ) -> TestSuiteCoverage:
         """
         Uses a provided container to compute line coverage information for a
@@ -149,8 +163,12 @@ class CoverageManager(object):
             _tests = tests
 
         try:
-            self.instrument(container,
-                            files_to_instrument=files_to_instrument)
+            if instrument:
+                logger.debug("instrumenting container")
+                self.instrument(container,
+                                files_to_instrument=files_to_instrument)
+            else:
+                logger.debug("not instrumenting container")
         except Exception:
             raise FailedToComputeCoverage("failed to instrument container.")
 
@@ -194,7 +212,9 @@ class CoverageManager(object):
         logger.debug("instrumenting container: %s", container.uid)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
+        mgr_file = self.__installation.files
         bug = mgr_bug[container.bug]
+        dir_source = bug.source_dir
 
         if files_to_instrument is None:
             files_to_instrument = bug.files_to_instrument
@@ -208,22 +228,14 @@ class CoverageManager(object):
         #                 'sudo apt-get update && sudo apt-get install -y gcovr')
 
         # add instrumentation to each file
-        dir_source = bug.source_dir
         for fn_src in files_to_instrument:
             fn_src = os.path.join(dir_source, fn_src)
             logger.debug("instrumenting file [%s] in container [%s]",
-                                fn_src, container.uid)
-            (_, fn_temp) = tempfile.mkstemp(suffix='.bugzoo')
-            try:
-                mgr_ctr.copy_from(container, fn_src, fn_temp)
-                with open(fn_temp, 'r') as fh:
-                    contents = CoverageManager.INSTRUMENTATION + fh.read()
-
-                with open(fn_temp, 'w') as fh:
-                    fh.write(contents)
-                mgr_ctr.copy_to(container, fn_temp, fn_src)
-            finally:
-                os.remove(fn_temp)
+                         fn_src, container.uid)
+            contents_original = mgr_file.read(container, fn_src)
+            contents_instrumented = \
+                CoverageManager.INSTRUMENTATION + contents_original
+            mgr_file.write(container, fn_src, contents_instrumented)
 
         # recompile with instrumentation options
         outcome = mgr_ctr.compile_with_instrumentation(container)

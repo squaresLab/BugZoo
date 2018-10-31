@@ -2,9 +2,9 @@ from typing import Dict, List, Set, Iterator, Any
 
 import yaml
 
-import bugzoo.util
 from .fileline import FileLine, FileLineSet
-from bugzoo.testing import TestSuite, TestOutcome
+from .test import TestSuite, TestOutcome
+from ..util import indent
 
 
 class TestCoverage(object):
@@ -48,7 +48,7 @@ class TestCoverage(object):
 
     def __repr__(self) -> str:
         coverage = repr(self.__coverage)
-        coverage = bugzoo.util.indent(coverage, 2)
+        coverage = indent(coverage, 2)
         status = 'PASSED' if self.__outcome.passed else 'FAILED'
         s = "[{}: {}]\n{}".format(self.__test, status, coverage)
         return s

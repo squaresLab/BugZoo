@@ -1,4 +1,9 @@
+Pipfile
+Pipfile.lock
 bugzood.log
+docs-html
+
+.pytest_cache
 
 .mypy_cache
 *.pyc

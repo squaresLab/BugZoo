@@ -242,11 +242,11 @@ class CatkinCompiler(SimpleCompiler):
                  workspace: str,
                  time_limit: float
                  ) -> None:
-        cmd = 'catkin build'
+        cmd = 'catkin build --no-status --override-build-tool-check'
         cmdi = (
             'catkin config --cmake-args '
             '-DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_LD_FLAGS="--coverage" && '
-            'catkin build'
+            'catkin build --no-status --override-build-tool-check'
         )
         super().__init__(command=cmd,
                          command_clean='catkin clean -y',

@@ -5,7 +5,6 @@ import docker
 import textwrap
 import yaml
 
-import bugzoo.testing
 from ..core.coverage import TestSuiteCoverage
 from ..core.bug import Bug
 from ..core.spectra import Spectra
@@ -147,32 +146,35 @@ class BugManager(object):
             self.__installation.containers.compile(c)
             print_task_end('Compiling', 'OK')
 
-            if isinstance(bug.harness, bugzoo.testing.GenProgTestSuite):
-
-                for t in bug.harness.passing:
-                    task = 'Running test: {}'.format(t.identifier)
+            for t in bug.tests:
+                if t.expected_outcome is True:
+                    task = 'Running test: {}'.format(t.name)
                     print_task_start(task)
 
                     outcome = \
-                        self.__installation.containers.execute(c, t, verbose=verbose)
+                        self.__installation.containers.execute(c, t,
+                                                               verbose=verbose)
                     if not outcome.passed:
                         validated = False
                         print_task_end(task, 'UNEXPECTED: FAIL')
-                        response = textwrap.indent(outcome.response.output, ' ' * 4)
+                        response = textwrap.indent(outcome.response.output,
+                                                   ' ' * 4)
                         print('\n' + response)
                     else:
                         print_task_end(task, 'OK')
 
-                for t in bug.harness.failing:
-                    task = 'Running test: {}'.format(t.identifier)
+                if t.expected_outcome is False:
+                    task = 'Running test: {}'.format(t.name)
                     print_task_start(task)
 
                     outcome = \
-                        self.__installation.containers.execute(c, t, verbose=verbose)
+                        self.__installation.containers.execute(c, t,
+                                                               verbose=verbose)
                     if outcome.passed:
                         validated = False
                         print_task_end(task, 'UNEXPECTED: PASS')
-                        response = textwrap.indent(outcome.response.output, ' ' * 4)
+                        response = textwrap.indent(outcome.response.output,
+                                                   ' ' * 4)
                         print('\n' + response)
                     else:
                         print_task_end(task, 'OK')

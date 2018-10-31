@@ -6,15 +6,27 @@ from ..core.bug import Bug
 from ..core.coverage import TestSuiteCoverage
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['BugManager']
 
 
 class BugManager(object):
+    """
+    Provides access to the historical bugs that are registered with the
+    server. Can be used to install, download, and uninstall registered bugs,
+    or to dynamically register new bugs with the server.
+    """
     def __init__(self, api: APIClient) -> None:
         self.__api = api
 
     def __getitem__(self, name: str) -> Bug:
+        """
+        Retrieves the bug registered under a given name.
+
+        Raises:
+            KeyError: if no bug is found with the given name.
+        """
         logger.info("Fetching information for bug: %s", name)
         r = self.__api.get('bugs/{}'.format(name))
 
@@ -44,6 +56,8 @@ class BugManager(object):
 
     def is_installed(self, bug: Bug) -> bool:
         """
+        Determines whether the Docker image for a given bug has been installed
+        on the server.
         """
         r = self.__api.get('bugs/{}/installed'.format(bug.name))
 
@@ -60,10 +74,9 @@ class BugManager(object):
 
     def register(self, bug: Bug) -> None:
         """
-        Registers a given bug with the server.
-
-        Parameters:
-            bug: the bug that should be registered.
+        Dynamically registers a given bug with the server. Note that the
+        registration will not persist beyond the lifetime of the server.
+        (I.e., when the server is closed, the bug will be deregistered.)
 
         Raises:
             BugAlreadyExists: if there is already a bug registered on the
@@ -90,18 +103,33 @@ class BugManager(object):
         self.__api.handle_erroneous_response(r)
 
     def uninstall(self, bug: Bug) -> bool:
+        """
+        Uninstalls the Docker image associated with a given bug.
+        """
         r = self.__api.post('bugs/{}/uninstall'.format(bug.name))
         raise NotImplementedError
 
     def upload(self, bug: Bug) -> bool:
+        """
+        Instructs the server to upload the Docker image associated with a
+        given bug to DockerHub.
+        """
         r = self.__api.post('bugs/{}/upload'.format(bug.name))
         raise NotImplementedError
 
     def download(self, bug: Bug) -> bool:
+        """
+        Instructs the server to download the Docker image associated with a
+        given bug from DockerHub.
+        """
         r = self.__api.post('bugs/{}/download'.format(bug.name))
         raise NotImplementedError
 
     def build(self, bug: Bug):
+        """
+        Instructs the server to build the Docker image associated with a given
+        bug.
+        """
         r = self.__api.post('bugs/{}/build'.format(bug.name))
 
         if r.status_code == 204:

@@ -1,4 +1,4 @@
-from typing import Dict, Any, Iterator, Optional
+from typing import Dict, Any, Iterator, Optional, List
 from functools import wraps
 from contextlib import contextmanager
 import argparse
@@ -7,9 +7,16 @@ import signal
 import subprocess
 import logging
 import sys
+import threading
+import time
 
 import flask
+import docker
+import psutil
+import git
 
+from ..version import __version__
+from ..core.tool import Tool as Plugin
 from ..core.bug import Bug
 from ..core.patch import Patch
 from ..compiler import CompilationOutcome
@@ -17,12 +24,18 @@ from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
 from ..mgr.container import ContainerManager
+from ..mgr.coverage import CoverageManager
+from ..util import indent, report_resource_limits, report_system_resources
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+log_to_file = None  # type: Optional[logging.handlers.WatchedFileHandler]
 
 # FIXME let's avoid storing the actual server in a global var
 daemon = None  # type: Any
 app = flask.Flask(__name__)
+app.logger.setLevel(logging.ERROR)
+app.logger.disabled = True
+logging.getLogger('werkzeug').disabled = True
 
 
 def throws_errors(func):
@@ -54,6 +67,7 @@ def throws_errors(func):
 @contextmanager
 def ephemeral(*,
               port: int = 6060,
+              timeout_connection: int = 30,
               verbose: bool = False
               ) -> Iterator[Client]:
     """
@@ -69,7 +83,7 @@ def ephemeral(*,
         a client for communicating with the server.
     """
     url = "http://127.0.0.1:{}".format(port)
-    cmd = ["bugzood", "-p", str(port)]
+    cmd = ["bugzood", "--debug", "-p", str(port)]
     try:
         stdout = None if verbose else subprocess.DEVNULL
         stderr = None if verbose else subprocess.DEVNULL
@@ -77,7 +91,7 @@ def ephemeral(*,
                                 preexec_fn=os.setsid,
                                 stdout=stdout,
                                 stderr=stderr)
-        yield Client(url)
+        yield Client(url, timeout_connection=timeout_connection)
     finally:
         os.killpg(proc.pid, signal.SIGTERM)
 
@@ -88,6 +102,23 @@ def get_status():
     Used to indicate that the server is healthy and ready to go.
     """
     return '', 204
+
+
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    daemon.containers.clear()
+    if log_to_file:
+        log_to_file.flush()
+
+    def self_destruct() -> None:
+        wait_time = 3
+        for i in range(3, 0, -1):
+            logger.info("Closing server in %d seconds...", i)
+            time.sleep(1.0)
+        os.kill(os.getpid(), signal.SIGTERM)
+    threading.Thread(target=self_destruct).run()
+
+    return '', 202
 
 
 @app.route('/bugs', methods=['GET'])
@@ -151,10 +182,16 @@ def provision_bug(uid: str):
     except KeyError:
         return BugNotFound(uid), 404
 
+    # TODO: generic bad request error
+    plugins = []  # type: List[Plugin]
+    args = flask.request.get_json() # type: Dict[str, Any]
+    if 'plugins' in args:
+        plugins = [Plugin.from_dict(p) for p in args['plugins']]
+
     if not daemon.bugs.is_installed(bug):
         return ImageNotInstalled(bug.image), 400
 
-    container = daemon.containers.provision(bug)
+    container = daemon.containers.provision(bug, tools=plugins)
     jsn = flask.jsonify(container.to_dict())
 
     return (jsn, 200)
@@ -214,6 +251,46 @@ def test_container(id_container: str, id_test: str):
     return (jsn, 200)
 
 
+@app.route('/containers/<uid>/instrument', methods=['POST'])
+@throws_errors
+def instrument_container(uid: str):
+    mgr_ctr = daemon.containers  # type: ContainerManager
+    mgr_cov = daemon.coverage  # type: CoverageManager
+    try:
+        container = mgr_ctr[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    logger.debug("instrumenting container: %s", container.uid)
+    mgr_cov.instrument(container)
+    logger.debug("instrumented container: %s", container.uid)
+    return ('', 204)
+
+
+@app.route('/containers/<uid>/read-coverage', methods=['POST'])
+@throws_errors
+def read_coverage(uid: str):
+    logger.debug("reading coverage for container (%s).", uid)
+    mgr_ctr = daemon.containers  # type: ContainerManager
+    mgr_cov = daemon.coverage  # type: CoverageManager
+    try:
+        container = mgr_ctr[uid]
+    except KeyError:
+        logger.exception("failed to read coverage for container (%s): container not found.")  # noqa: pycodestyle
+        return ContainerNotFound(uid), 404
+
+    try:
+        lines = mgr_cov.extract(container)
+        logger.debug("read coverage for container (%s).",
+                     container.uid)
+    except Exception:
+        logger.exception("failed to read coverage for container (%s).",
+                         container.uid)
+        raise
+    jsn = flask.jsonify(lines.to_dict())
+    return (jsn, 200)
+
+
 @app.route('/containers/<id_container>/coverage', methods=['POST'])
 @throws_errors
 def coverage_container(id_container: str):
@@ -227,8 +304,17 @@ def coverage_container(id_container: str):
     except KeyError:
         return BugNotFound(container.bug), 500
 
+    instrument = \
+        flask.request.args.get('instrument', 'yes') == 'yes'
+
+    if instrument:
+        logger.debug("instrumenting container before computing coverage")
+    else:
+        logger.debug("skipping instrumentation step")
+
     try:
-        coverage = daemon.containers.coverage(container)
+        coverage = daemon.coverage.coverage(container,
+                                            instrument=instrument)
     except Exception as err:
         logger.exception("failed to compute coverage for container [%s]: %s",
                      id_container, err)
@@ -265,12 +351,32 @@ def interact_with_file(id_container: str, filepath: str):
             return FileNotFound(filepath), 404
 
 
+@app.route('/files/<id_container>/<path:filepath>', methods=['PUT'])
+@throws_errors
+def write_to_file(id_container: str, filepath: str):
+    try:
+        container = daemon.containers[id_container]
+    except KeyError:
+        return ContainerNotFound(id_container), 404
+
+    contents = flask.request.data.decode('utf-8')  # type: str
+    daemon.files.write(container, filepath, contents)
+    return '', 204
+
+
 @app.route('/containers', methods=['GET'])
 def list_containers():
     jsn = []
     for container in daemon.containers:
         jsn.append(container.uid)
     return flask.jsonify(jsn)
+
+
+@app.route('/containers', methods=['DELETE'])
+@throws_errors
+def clear_containers():
+    daemon.containers.clear()
+    return '', 204
 
 
 @app.route('/containers/<uid>', methods=['GET', 'PATCH'])
@@ -298,20 +404,32 @@ def interact_with_container(uid: str):
 @app.route('/containers/<uid>/persist/<path:name_image>', methods=['PUT'])
 @throws_errors
 def persist(uid: str, name_image: str):
+    logger.info("persisting container (%s) to image (%s)",
+                uid, name_image)
     try:
         container = daemon.containers[uid]
     except KeyError:
+        logger.exception("failed to persist container (%s) to image (%s): container not found.",  # noqa: pycodestyle
+                         uid, name_image)
         return ContainerNotFound(uid), 404
 
     try:
         daemon.containers.persist(container, name_image)
+        logger.info("persisted container (%s) to image (%s)",
+                    uid, name_image)
         return '', 204
     except ImageAlreadyExists as err:
+        logger.exception("failed to persist container (%s) to image (%s): image already exists.",  # noqa: pycodestyle
+                         uid, name_image)
         return err, 409
     except BugZooException as err:
+        logger.exception("failed to persist container (%s) to image (%s).",
+                         uid, name_image)
         return err, 400
     # TODO handle unexpected exceptions
     except Exception as err:
+        logger.exception("failed to persist container (%s) to image (%s): unexpected error.",  # noqa: pycodestyle
+                         uid, name_image)
         return '', 501
 
 
@@ -420,19 +538,21 @@ def provision_container():
 @throws_errors
 def docker_images(name: str):
     try:
-        daemon.docker.images.remove(name)
+        daemon.docker.images.remove(name, force=True)
         return '', 204
     except Exception as ex:
         return UnexpectedServerError.from_exception(ex), 500
 
 
 def run(*,
-        port: int = 6060,
-        host: str = '0.0.0.0',
-        debug: bool = True,
-        log_filename: Optional[str] = None
-        ) -> None:
-    global daemon
+    port: int = 6060,
+    host: str = '0.0.0.0',
+    debug: bool = True,
+    log_filename: Optional[str] = None,
+    log_level: str = 'info',
+    docker_client_api_version: Optional[str] = None
+    ) -> None:
+    global daemon, log_to_file
 
     if not log_filename:
         log_filename = "bugzood.log"
@@ -441,25 +561,57 @@ def run(*,
     log_formatter = \
         logging.Formatter('%(asctime)s:%(name)s:%(levelname)s: %(message)s',
                           '%Y-%m-%d %H:%M:%S')
+    logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-    log_to_file = logging.handlers.WatchedFileHandler(log_filename, mode='w')
-    log_to_file.setLevel(logging.DEBUG)
-    log_to_file.setFormatter(log_formatter)
+    if log_level != 'none':
+        log_level_num = ({
+            'none': logging.NOTSET,
+            'error': logging.ERROR,
+            'warning': logging.WARNING,
+            'debug': logging.DEBUG,
+            'info': logging.INFO,
+            'critical': logging.CRITICAL
+        })[log_level]  # type: int
 
-    log_to_stdout = logging.StreamHandler()
-    log_to_stdout.setLevel(logging.DEBUG if debug else logging.INFO)
-    log_to_stdout.setFormatter(log_formatter)
+        log_to_file = \
+            logging.handlers.WatchedFileHandler(log_filename, mode='w')
+        log_to_file.setLevel(log_level_num)
+        log_to_file.setFormatter(log_formatter)
 
-    log_main = logging.getLogger('bugzoo')  # type: logging.Logger
-    log_main.setLevel(logging.DEBUG)
-    log_main.addHandler(log_to_stdout)
-    log_main.addHandler(log_to_file)
+        log_to_stdout = logging.StreamHandler()
+        log_to_stdout.setLevel(max(log_level_num, logging.INFO))
+        log_to_stdout.setFormatter(log_formatter)
 
-    logger.info("launching BugZoo daemon")
-    daemon = BugZoo()
-    logger.info("launched BugZoo daemon")
+        log_main = logging.getLogger('bugzoo')  # type: logging.Logger
+        log_main.setLevel(log_level_num)
+        log_main.addHandler(log_to_stdout)
+        log_main.addHandler(log_to_file)
 
-    app.run(port=port, host=host, debug=debug)
+        log_werkzeug = logging.getLogger('werkzeug')
+        log_werkzeug.addHandler(log_to_stdout)
+        log_werkzeug.addHandler(log_to_file)
+
+    if log_level in ['info', 'debug']:
+        log_werkzeug.setLevel(logging.INFO)
+    else:
+        log_werkzeug.setLevel(logging.ERROR)
+
+    logger.info("BugZoo version: %s", __version__)
+    logger.info("DockerPy version: %s", docker.__version__)
+    logger.info("psutil version: %s", psutil.__version__)
+    logger.info("Flask version: %s", flask.__version__)
+    logger.info("GitPython version: %s", git.__version__)
+
+    try:
+        logger.info("launching BugZoo daemon")
+        daemon = BugZoo(docker_client_api_version=docker_client_api_version)
+        logger.info("launched BugZoo daemon")
+        report_resource_limits(logger)
+        report_system_resources(logger)
+        app.run(port=port, host=host, debug=debug, threaded=True)
+    finally:
+        if daemon:
+            daemon.shutdown()
 
 
 def main() -> None:
@@ -469,6 +621,15 @@ def main() -> None:
                         type=int,
                         default=6060,
                         help='the port that should be used by this server.')
+    parser.add_argument('--log-level',
+                        type=str,
+                        choices=['none',
+                                 'info',
+                                 'error',
+                                 'warning',
+                                 'debug',
+                                 'critical'],
+                        default='info')
     parser.add_argument('--log-file',
                         type=str,
                         help='the path to the file where logs should be written.')  # noqa: pycodestyle
@@ -476,6 +637,10 @@ def main() -> None:
                         type=str,
                         default='0.0.0.0',
                         help='the IP address of the host.')
+    parser.add_argument('--docker-client-api-version',
+                        type=str,
+                        default=None,
+                        help='version of Docker Client API that should be used to communicate with Docker server.')  # noqa: pycodestyle
     parser.add_argument('--debug',
                         action='store_true',
                         help='enables debugging mode.')
@@ -483,4 +648,6 @@ def main() -> None:
     run(port=args.port,
         host=args.host,
         log_filename=args.log_file,
-        debug=args.debug)
+        log_level=args.log_level,
+        debug=args.debug,
+        docker_client_api_version=args.docker_client_api_version)

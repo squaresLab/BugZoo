@@ -57,8 +57,7 @@ class Container(object):
     @property
     def tools(self) -> List[str]:
         """
-        Returns the list of the names of the tools that are mounted inside
-        this container.
+        The names of the tools that are mounted inside this container.
         """
         return self.__tools.copy()
 
