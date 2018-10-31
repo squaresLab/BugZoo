@@ -27,7 +27,8 @@ __all__ = [
     'ArgumentNotSpecified',
     'ImageNotInstalled',
     'ImageAlreadyExists',
-    'TestNotFound'
+    'TestNotFound',
+    'ToolNotFound'
 ]
 
 
@@ -264,6 +265,30 @@ class BugNotFound(BugZooException):
     @property
     def data(self) -> Dict[str, Any]:
         return {'bug': self.bug}
+
+
+class ToolNotFound(BugZooException):
+    """
+    Indicates that no tool was found with the given name.
+    """
+    @classmethod
+    def from_message_and_data(cls,
+                              message: str,
+                              data: Dict[str, Any]
+                              ) -> 'ToolNotFound':
+        return ToolNotFound(data['tool'])
+
+    def __init__(self, tool: str) -> None:
+        self.__tool = tool
+        super().__init__("no tool found with name: {}".format(tool))
+
+    @property
+    def tool(self) -> str:
+        return self.__tool
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'tool': self.tool}
 
 
 class ContainerNotFound(BugZooException):
