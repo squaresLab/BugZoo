@@ -1,6 +1,7 @@
 import sys
 import os
 import logging
+import datetime
 
 import cement
 
@@ -40,6 +41,9 @@ class BugZooCLI(cement.App):
 
 
 def main() -> None:
+    if not os.path.exists(DIR_LOG):
+        os.makedirs(DIR_LOG, exist_ok=True)
+
     fn_log = os.path.join(DIR_LOG, 'bugzood.log')
 
     def on_error(msg: str, unexpected: bool = False) -> None:
