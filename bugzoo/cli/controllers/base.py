@@ -1,4 +1,4 @@
-from cement.ext.ext_argparse import ArgparseController
+import cement
 
 from ...version import __version__ as VERSION
 
@@ -25,12 +25,12 @@ Version: {}
 __all__ = ['BaseController']
 
 
-class BaseController(ArgparseController):
+class BaseController(cement.Controller):
     class Meta:
         label = 'base'
         description = 'A platform for studying historical software versions.'
         arguments = [
-            (['--version'], dict(action='version', version=BANNER))
+            (['--version'], {'action': 'version', 'version': BANNER})
         ]
 
     def default(self) -> None:
