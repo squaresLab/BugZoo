@@ -1,14 +1,14 @@
 from typing import List, Dict, Optional
 import operator
 
-from cement.ext.ext_argparse import ArgparseController, expose
+import cement
 
 from ...core.bug import Bug
 from ...core.source import RemoteSource
 from ...exceptions import NameInUseError
 
 
-class ContainerController(ArgparseController):
+class ContainerController(cement.Controller):
     class Meta:
         label = 'container'
         description = 'provision and manage containers'
@@ -17,7 +17,7 @@ class ContainerController(ArgparseController):
         output_handler = 'tabulate'
         extensions = ['tabulate']
 
-    @expose(
+    @cement.ex(
         help='launches an interactive container for a given bug',
         arguments=[
             (['bug'], {'help': 'the name of the bug that should be used'}),
@@ -47,7 +47,7 @@ class ContainerController(ArgparseController):
                      network=self.app.pargs.net,
                      interactive=True)
 
-    @expose(
+    @cement.ex(
         help='creates a new container for a given bug and uses it to run a specific command',  # noqa: pycodestyle
         arguments=[
             (['bug'], {'help': 'the name of the bug that should be used'}),
