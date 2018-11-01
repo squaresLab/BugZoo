@@ -1,6 +1,6 @@
 __all__ = ['Bug']
 
-from typing import List, Dict, Optional, Any, Tuple
+from typing import List, Dict, Optional, Any, Tuple, Iterable
 import os
 
 import attr
@@ -8,6 +8,14 @@ import attr
 from .language import Language
 from .test import TestSuite
 from ..compiler import Compiler
+
+
+def _convert_languages(langs: Iterable[Language]) -> Tuple[Language, ...]:
+    return tuple(langs)
+
+
+def _convert_files_to_instrument(files: Iterable[str]) -> Tuple[str, ...]:
+    return tuple(files)
 
 
 @attr.s(frozen=True)
@@ -23,11 +31,11 @@ class Bug(object):
     program = attr.ib(type=Optional[str])
     source = attr.ib(type=Optional[str])
     source_dir = attr.ib(type=str)
-    languages = attr.ib(type=Tuple[Language], converter=tuple)
+    languages = attr.ib(type=Tuple[Language, ...], converter=_convert_languages)
     harness = attr.ib(type=TestSuite)
     compiler = attr.ib(type=Compiler)
-    files_to_instrument = \
-        attr.ib(type=Tuple[str], converter=tuple, default=tuple())
+    files_to_instrument = attr.ib(type=Tuple[str, ...],
+                                  converter=_convert_files_to_instrument)
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'Bug':
