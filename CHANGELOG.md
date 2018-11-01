@@ -1,8 +1,20 @@
-## 2.1.20 (2018-10-25)
+## 2.1.20 (XXXX-XX-XX)
 
 ### Features
 
 * Added `write` method to client-side and server-side file manager.
+* Individual log files for each CLI session are now saved to `.bugzoo/logs`.
+* Added better error reporting to CLI, which now reports the location of the
+  relevant log file to the user.
+
+
+### Changes
+
+* Switched implementation of command-line interface from `argparse` to
+  `cement`.
+* Replaced `bug uninstall` command with `bug rm` and `bug remove` commands.
+* Replaced `tool uninstall` command with `tool rm` and `tool remove`
+  commands.
 
 
 ### Bug Fixes

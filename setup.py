@@ -23,6 +23,7 @@ setup(
         'pyyaml',
         'tabulate',
         'flask',
+        'cement>=2.10.12',
         'attrs>=17.2.0',
         'mypy-extensions>=0.3.0',
         'psutil>=5.0.0',
@@ -35,7 +36,8 @@ setup(
         'bugzoo.server',
         'bugzoo.mgr',
         'bugzoo.core',
-        'bugzoo.cli'
+        'bugzoo.cli',
+        'bugzoo.cli.controllers'
     ],
     keywords=['bug', 'defect', 'dataset', 'testing', 'repair', 'docker'],
     classifiers=[
@@ -48,7 +50,7 @@ setup(
     ],
     entry_points = {
         'console_scripts': [
-            'bugzoo = bugzoo.cli:main',
+            'bugzoo = bugzoo.cli.app:main',
             'bugzood = bugzoo.server:main'
         ]
     }
