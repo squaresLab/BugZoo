@@ -1,6 +1,6 @@
 __all__ = ['Bug']
 
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Optional, Any, Tuple
 import os
 
 import attr
