@@ -58,7 +58,7 @@ class Bug(object):
                    source=d['source'],
                    source_dir=d['source-location'],
                    languages=languages,
-                   tests=harness,
+                   tests=tests,
                    compiler=compiler,
                    instructions_coverage=instructions_coverage)
 
