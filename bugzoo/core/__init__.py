@@ -8,3 +8,4 @@ from .test import TestCase, TestOutcome, TestSuite
 from .coverage import CoverageInstructions, TestCoverage, TestSuiteCoverage
 from .tool import Tool
 from .source import Source, SourceContents, RemoteSource, LocalSource
+from .build import BuildInstructions
