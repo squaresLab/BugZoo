@@ -35,6 +35,7 @@ setup(
         'bugzoo.compiler',
         'bugzoo.server',
         'bugzoo.mgr',
+        'bugzoo.mgr.coverage',
         'bugzoo.core',
         'bugzoo.cli',
         'bugzoo.cli.controllers'
