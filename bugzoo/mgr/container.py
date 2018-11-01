@@ -345,6 +345,25 @@ class ContainerManager(object):
         cmd = "docker exec -it {} {}".format(container.id, cmd)
         subprocess.call(cmd, shell=True)
 
+    def coverage_extractor(self, container: Container) -> CoverageExtractor:
+        """
+        Retrieves the coverage extractor for a given container.
+        """
+        bug = self.__installation.bugs[container.bug]  # type: Bug
+        extractor = CoverageExtractor.build(self.__installation,
+                                            container,
+                                            bug.instructions_coverage)
+        return extractor
+
+    def prepare_for_coverage(self, container: Container) -> None:
+        self.coverage_extractor(container).prepare()
+
+    def cleanup_coverage(self, container: Container) -> None:
+        self.coverage_extractor(container).cleanup()
+
+    def read_coverage(self, container: Container) -> FileLineSet:
+        self.coverage_extractor(container).extract()
+
     def coverage(self,
                  container: Container,
                  tests: Optional[Iterable[TestCase]] = None,
@@ -355,10 +374,7 @@ class ContainerManager(object):
         Computes line coverage information over a provided set of tests for
         the program inside a given container.
         """
-        bug = self.__installation.bugs[container.bug]  # type: Bug
-        extractor = CoverageExtractor.build(self.__installation,
-                                            container,
-                                            bug.instructions_coverage)
+        extractor = self.coverage_extractor(container)
         if tests is None:
             tests = bug.tests
         return extractor.run(tests, instrument=instrument)
