@@ -1,3 +1,5 @@
+__all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
+
 from typing import Dict, List, Set, Iterator, Any
 
 import yaml
@@ -5,6 +7,12 @@ import yaml
 from .fileline import FileLine, FileLineSet
 from .test import TestSuite, TestOutcome
 from ..util import indent
+
+
+class CoverageInstructions(object):
+    """
+    Provides instructions for computing coverage.
+    """
 
 
 class TestCoverage(object):
