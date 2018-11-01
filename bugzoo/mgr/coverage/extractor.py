@@ -186,7 +186,7 @@ class CoverageExtractor(object):
         logger.debug("instrumented container: %s", container.uid)
 
     def run(self,
-            tests: Optional[Iterable[TestCase]] = None,
+            tests: Iterable[TestCase],
             *,
             instrument: bool = True
             ) -> TestSuiteCoverage:
@@ -196,13 +196,6 @@ class CoverageExtractor(object):
         """
         logger.debug("computing coverage for container: %s", container.uid)
         container = self.__container
-
-        if tests is None:
-            bug = self.__installation.bugs[container.bug]
-            _tests = bug.tests
-        else:
-            assert tests is not []
-            _tests = tests
 
         try:
             if instrument:
