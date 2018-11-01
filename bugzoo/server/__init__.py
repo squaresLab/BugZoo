@@ -24,7 +24,6 @@ from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
 from ..mgr.container import ContainerManager
-from ..mgr.coverage import CoverageManager
 from ..util import indent, report_resource_limits, report_system_resources
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
@@ -255,15 +254,14 @@ def test_container(id_container: str, id_test: str):
 @throws_errors
 def instrument_container(uid: str):
     mgr_ctr = daemon.containers  # type: ContainerManager
-    mgr_cov = daemon.coverage  # type: CoverageManager
     try:
         container = mgr_ctr[uid]
     except KeyError:
         return ContainerNotFound(uid), 404
 
-    logger.debug("instrumenting container: %s", container.uid)
-    mgr_cov.instrument(container)
-    logger.debug("instrumented container: %s", container.uid)
+    logger.debug("preparing container for coverage: %s", container.uid)
+    mgr_ctr.prepare_for_coverage(container)
+    logger.debug("prepared container for coverage: %s", container.uid)
     return ('', 204)
 
 
@@ -272,7 +270,6 @@ def instrument_container(uid: str):
 def read_coverage(uid: str):
     logger.debug("reading coverage for container (%s).", uid)
     mgr_ctr = daemon.containers  # type: ContainerManager
-    mgr_cov = daemon.coverage  # type: CoverageManager
     try:
         container = mgr_ctr[uid]
     except KeyError:
@@ -280,9 +277,8 @@ def read_coverage(uid: str):
         return ContainerNotFound(uid), 404
 
     try:
-        lines = mgr_cov.extract(container)
-        logger.debug("read coverage for container (%s).",
-                     container.uid)
+        lines = mgr_ctr.read_coverage(container)
+        logger.debug("read coverage for container (%s).", container.uid)
     except Exception:
         logger.exception("failed to read coverage for container (%s).",
                          container.uid)
@@ -294,13 +290,15 @@ def read_coverage(uid: str):
 @app.route('/containers/<id_container>/coverage', methods=['POST'])
 @throws_errors
 def coverage_container(id_container: str):
+    mgr_ctr = daemon.containers
+    mgr_bug = daemon.bugs
     try:
-        container = daemon.containers[id_container]
+        container = mgr_ctr[id_container]
     except KeyError:
         return ContainerNotFound(id_container), 404
 
     try:
-        bug = daemon.bugs[container.bug]
+        bug = mgr_bug[container.bug]
     except KeyError:
         return BugNotFound(container.bug), 500
 
@@ -313,8 +311,7 @@ def coverage_container(id_container: str):
         logger.debug("skipping instrumentation step")
 
     try:
-        coverage = daemon.coverage.coverage(container,
-                                            instrument=instrument)
+        coverage = mgr_ctr.coverage(container, instrument=instrument)
     except Exception as err:
         logger.exception("failed to compute coverage for container [%s]: %s",
                      id_container, err)
