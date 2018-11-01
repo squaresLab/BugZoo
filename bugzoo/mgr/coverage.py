@@ -44,8 +44,9 @@ class CoverageManager(object):
         "  sigaction(SIGBUS, &new_action, NULL);\n"
         "  sigaction(SIGILL, &new_action, NULL);\n"
         "  sigaction(SIGABRT, &new_action, NULL);\n"
-        "  sigaction(SIGUSR1, &new_action, NULL);\n"
-        "  sigaction(SIGUSR2, &new_action, NULL);\n"
+        "  // Use signal for SIGUSR to remove handlers\n"
+        "  signal(SIGUSR1, bugzoo_sighandler);\n"
+        "  signal(SIGUSR2, bugzoo_sighandler);\n"
         "}\n"
         "// BUGZOO :: INSTRUMENTATION :: END\n"
     )
