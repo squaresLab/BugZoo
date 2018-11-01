@@ -16,12 +16,8 @@ import docker
 
 from .coverage import CoverageExtractor
 from ..exceptions import *
-from ..core.tool import Tool
-from ..core.patch import Patch
-from ..core.container import Container
-from ..core.coverage import TestSuiteCoverage
-from ..core.test import TestCase, TestOutcome
-from ..core.bug import Bug
+from ..core import FileLineSet, Tool, Patch, Container, TestCase, \
+    TestOutcome, TestSuiteCoverage, Bug
 from ..compiler import CompilationOutcome
 from ..cmd import ExecResponse, PendingExecResponse
 from ..util import indent
