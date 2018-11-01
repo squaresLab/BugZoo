@@ -9,7 +9,8 @@ import xml.etree.ElementTree as ET
 from ..core.fileline import FileLineSet
 from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage, \
-                            TestCoverage
+                            TestCoverage, \
+                            CoverageInstructions
 from ..core.test import TestCase
 from ..exceptions import FailedToComputeCoverage
 
@@ -141,12 +142,12 @@ class CoverageManager(object):
         return file_line_set
 
     def __init__(self, installation: 'BugZoo') -> None:
-        self.__installation = installation # type: BugZoo
+        self.__installation = installation  # type: BugZoo
 
     def coverage(self,
                  container: Container,
+                 instructions: CoverageInstructions,
                  tests: Optional[List[TestCase]] = None,
-                 files_to_instrument: List[str] = None,
                  *,
                  instrument: bool = True
                  ) -> TestSuiteCoverage:
@@ -155,6 +156,8 @@ class CoverageManager(object):
         given list of tests.
         """
         logger.debug("computing coverage for container: %s", container.uid)
+        files_to_instrument = instructions.files_to_instrument
+
         if tests is None:
             bug = self.__installation.bugs[container.bug]
             _tests = bug.tests
@@ -165,8 +168,7 @@ class CoverageManager(object):
         try:
             if instrument:
                 logger.debug("instrumenting container")
-                self.instrument(container,
-                                files_to_instrument=files_to_instrument)
+                self.instrument(container, files_to_instrument)
             else:
                 logger.debug("not instrumenting container")
         except Exception:
@@ -177,25 +179,19 @@ class CoverageManager(object):
             logger.debug("Generating coverage for test %s in container %s",
                          test.name, container.uid)
             outcome = self.__installation.containers.execute(container, test)
-            filelines = self.extract(container,
-                                     instrumented_files=files_to_instrument)
+            filelines = self.extract(container, files)
             test_coverage = TestCoverage(test.name, outcome, filelines)
             logger.debug("Generated coverage for test %s in container %s",
                          test.name, container.uid)
             cov[test.name] = test_coverage
 
         # FIXME deinstrument
-        # self.deinstrument(container,
-        #                   instrumented_files=files_to_instrument)
 
         coverage = TestSuiteCoverage(cov)
         logger.debug("Computed coverage for container: %s", container.uid)
         return coverage
 
-    def instrument(self,
-                   container: Container,
-                   files_to_instrument: Optional[List[str]] = None
-                   ) -> None:
+    def instrument(self, container: Container, files: Set[str]) -> None:
         """
         Adds source code instrumentation and recompiles the program inside
         a container using the appropriate GCC options. Also ensures that
@@ -216,10 +212,7 @@ class CoverageManager(object):
         bug = mgr_bug[container.bug]
         dir_source = bug.source_dir
 
-        if files_to_instrument is None:
-            files_to_instrument = bug.files_to_instrument
-
-        for path in files_to_instrument:
+        for path in files:
             assert not os.path.isabs(path), "expected relative file paths"
 
         # ensure that gcovr is mounted within the container
@@ -228,7 +221,7 @@ class CoverageManager(object):
         #                 'sudo apt-get update && sudo apt-get install -y gcovr')
 
         # add instrumentation to each file
-        for fn_src in files_to_instrument:
+        for fn_src in files:
             fn_src = os.path.join(dir_source, fn_src)
             logger.debug("instrumenting file [%s] in container [%s]",
                          fn_src, container.uid)
@@ -242,15 +235,12 @@ class CoverageManager(object):
         if not outcome.successful:
             msg = "failed to generate coverage for container ({}) due to compilation failure."
             msg = msg.format(container.id)
-            print(outcome.response.output)
+            logger.debug("failed build output: %s", outcome.response.output)
             raise Exception(msg)
 
         logger.debug("instrumented container: %s", container.uid)
 
-    def deinstrument(self,
-                     container: Container,
-                     instrumented_files: Optional[List[str]] = None
-                     ) -> None:
+    def deinstrument(self, container: Container, files: Set[str]) -> None:
         """
         Strips instrumentation from the source code inside a given container,
         and reconfigures its program to no longer use coverage options.
@@ -262,11 +252,8 @@ class CoverageManager(object):
         bug = mgr_bug[container.bug]
         num_lines_to_remove = CoverageManager.INSTRUMENTATION.count('\n')
 
-        if instrumented_files is None:
-            instrumented_files = bug.files_to_instrument
-
         # remove source code instrumentation
-        for fn_instrumented in instrumented_files:
+        for fn_instrumented in files:
             cmd = 'sed -i "1,{}d" "{}"'
             cmd = cmd.format(num_lines_to_remove, fn_instrumented)
             mgr_ctr.command(container, cmd)
@@ -274,10 +261,7 @@ class CoverageManager(object):
         # TODO recompile with standard flags
         pass
 
-    def extract(self,
-                container: Container,
-                instrumented_files: Optional[List[str]] = None
-                ) -> FileLineSet:
+    def extract(self, container: Container, files: Set[str]) -> FileLineSet:
         """
         Uses gcovr to extract coverage information for all of the C/C++ source
         code files within the project. Destroys '.gcda' files upon computing
@@ -289,12 +273,6 @@ class CoverageManager(object):
         logger_c.debug("Extracting coverage information")
 
         bug = mgr_bug[container.bug]
-
-        if instrumented_files is None:
-            instrumented_files = set(bug.files_to_instrument)
-        else:
-            instrumented_files = set(instrumented_files)
-
         dir_source = bug.source_dir
         t_start = timer()
         logger_c.debug("Running gcovr.")
@@ -318,9 +296,7 @@ class CoverageManager(object):
 
         t_start = timer()
         logger_c.debug("Parsing gcovr XML report.")
-        res = self._from_gcovr_xml_string(report,
-                                          instrumented_files,
-                                          container)
+        res = self._from_gcovr_xml_string(report, files, container)
         logger_c.debug("Finished parsing gcovr XML report (took %.2f seconds).", timer() - t_start)  # noqa: pycodestyle
         logger_c.debug("Finished extracting coverage information")
         return res
