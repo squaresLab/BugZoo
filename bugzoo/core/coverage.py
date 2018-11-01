@@ -1,18 +1,34 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
-from typing import Dict, List, Set, Iterator, Any
+from typing import Dict, List, Set, Iterator, Any, Tuple, Iterable
 
 import yaml
+import attr
 
 from .fileline import FileLine, FileLineSet
 from .test import TestSuite, TestOutcome
 from ..util import indent
 
 
+def _convert_files_to_instrument(files: Iterable[str]) -> Tuple[str, ...]:
+    return tuple(files)
+
+
+@attr.s(frozen=True)
 class CoverageInstructions(object):
     """
     Provides instructions for computing coverage.
     """
+    files_to_instrument = attr.ib(type=Tuple[str, ...],
+                                  converter=_convert_files_to_instrument)
+
+    @staticmethod
+    def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
+        files_to_instrument = d['coverage'].get('files-to-instrument', [])
+        return CoverageInstructions(files_to_instrument)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {'files-to-instrument': list(self.files_to_instrument)}
 
 
 class TestCoverage(object):
