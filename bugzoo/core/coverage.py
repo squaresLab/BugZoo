@@ -24,7 +24,7 @@ class CoverageInstructions(object):
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
-        files_to_instrument = d['coverage'].get('files-to-instrument', [])
+        files_to_instrument = d.get('files-to-instrument', [])
         return CoverageInstructions(files_to_instrument)
 
     def to_dict(self) -> Dict[str, Any]:
