@@ -151,6 +151,7 @@ class BugController(cement.Controller):
     def coverage(self) -> None:
         name_bug = self.app.pargs.bug
         bz = self.app.daemon
+        bugs = self.app.daemon.bugs
         try:
             bug = bugs[name_bug]
         except KeyError:
