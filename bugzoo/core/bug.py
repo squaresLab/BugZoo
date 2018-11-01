@@ -7,15 +7,12 @@ import attr
 
 from .language import Language
 from .test import TestSuite
+from .coverage import CoverageInstructions
 from ..compiler import Compiler
 
 
 def _convert_languages(langs: Iterable[Language]) -> Tuple[Language, ...]:
     return tuple(langs)
-
-
-def _convert_files_to_instrument(files: Iterable[str]) -> Tuple[str, ...]:
-    return tuple(files)
 
 
 @attr.s(frozen=True)
@@ -34,8 +31,7 @@ class Bug(object):
     languages = attr.ib(type=Tuple[Language, ...], converter=_convert_languages)
     harness = attr.ib(type=TestSuite)
     compiler = attr.ib(type=Compiler)
-    files_to_instrument = attr.ib(type=Tuple[str, ...],
-                                  converter=_convert_files_to_instrument)
+    instructions_coverage = attr.ib(type=CoverageInstructions)
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'Bug':
@@ -44,10 +40,9 @@ class Bug(object):
         harness = TestSuite.from_dict(d['test-harness'])
         compiler = Compiler.from_dict(d['compiler'])
 
-        if 'coverage' in d and 'files-to-instrument' in d['coverage']:
-            files_to_instrument = d['coverage']['files-to-instrument']
-        else:
-            files_to_instrument = None
+        # FIXME what if a bug doesn't provide coverage instructions?
+        instructions_coverage = \
+            CoverageInstructions.from_dict(d.get('coverage', {}))
 
         return Bug(name=d['name'],
                    image=d['image'],
@@ -58,14 +53,14 @@ class Bug(object):
                    languages=languages,
                    harness=harness,
                    compiler=compiler,
-                   files_to_instrument=files_to_instrument)
+                   instructions_coverage=instructions_coverage)
 
     def to_dict(self) -> Dict[str, Any]:
         """
         Produces a dictionary-based description of this bug, ready to be
         serialised in a JSON or YAML format.
         """
-        jsn = {
+        return {
             'name': self.name,
             'image': self.image,
             'program': self.program,
@@ -75,8 +70,5 @@ class Bug(object):
             'languages': [l.name for l in self.languages],
             'compiler': self.compiler.to_dict(),
             'test-harness': self.harness.to_dict(),
-            'coverage': {
-                'files-to-instrument': list(self.files_to_instrument)
-            }
+            'coverage': self.instructions_coverage.to_dict()
         }
-        return jsn
