@@ -1,4 +1,6 @@
-from typing import List, Iterator, Dict, Optional, Union, Any, Tuple
+__all__ = ["Container"]
+
+from typing import List, Iterator, Dict, Optional, Union, Any, Tuple, Iterable
 import copy
 import os
 import tempfile
@@ -9,7 +11,8 @@ import attr
 from .bug import Bug
 
 
-__all__ = ["Container"]
+def _convert_tools(tools: Iterable[str]) -> Tuple[str, ...]:
+    return tuple(tools)
 
 
 @attr.s(frozen=True)
@@ -33,7 +36,7 @@ class Container(object):
     """
     The names of the tools that are mounted inside this container.
     """
-    tools = attr.ib(type=Tuple[str], default=tuple(), converter=tuple)
+    tools = attr.ib(type=Tuple[str, ...], converter=_convert_tools)
 
     @property
     def id(self) -> str:
