@@ -350,7 +350,6 @@ class ContainerManager(object):
     def coverage(self,
                  container: Container,
                  tests: Optional[List[TestCase]] = None,
-                 files_to_instrument: List[str] = None,
                  *,
                  instrument: bool =  True
                  ) -> TestSuiteCoverage:
@@ -358,10 +357,11 @@ class ContainerManager(object):
         Computes line coverage information over a provided set of tests for
         the program inside a given container.
         """
+        bug = self.__installation.bugs[container.bug]  # type: Bug
         mgr = self.__installation.coverage
         return mgr.coverage(container,
+                            bug.instructions_coverage,
                             tests,
-                            files_to_instrument=files_to_instrument,
                             instrument=True)
 
     def execute(self,

@@ -2,20 +2,18 @@ __all__ = ['Bug']
 
 from typing import List, Dict, Optional, Any, Tuple, Iterable
 import os
+import warnings
 
 import attr
 
 from .language import Language
 from .test import TestSuite
+from .coverage import CoverageInstructions
 from ..compiler import Compiler
 
 
 def _convert_languages(langs: Iterable[Language]) -> Tuple[Language, ...]:
     return tuple(langs)
-
-
-def _convert_files_to_instrument(files: Iterable[str]) -> Tuple[str, ...]:
-    return tuple(files)
 
 
 @attr.s(frozen=True)
@@ -32,22 +30,26 @@ class Bug(object):
     source = attr.ib(type=Optional[str])
     source_dir = attr.ib(type=str)
     languages = attr.ib(type=Tuple[Language, ...], converter=_convert_languages)
-    harness = attr.ib(type=TestSuite)
+    tests = attr.ib(type=TestSuite)
     compiler = attr.ib(type=Compiler)
-    files_to_instrument = attr.ib(type=Tuple[str, ...],
-                                  converter=_convert_files_to_instrument)
+    instructions_coverage = attr.ib(type=CoverageInstructions)
+
+    @property
+    def harness(self) -> TestSuite:
+        warnings.warn("'harness' is being deprecated in favour of 'tests'",
+                      DeprecationWarning)
+        return self.tests
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'Bug':
         # TODO refactor
         languages = [Language[lang] for lang in d['languages']]
-        harness = TestSuite.from_dict(d['test-harness'])
+        tests = TestSuite.from_dict(d['test-harness'])
         compiler = Compiler.from_dict(d['compiler'])
 
-        if 'coverage' in d and 'files-to-instrument' in d['coverage']:
-            files_to_instrument = d['coverage']['files-to-instrument']
-        else:
-            files_to_instrument = None
+        # FIXME what if a bug doesn't provide coverage instructions?
+        instructions_coverage = \
+            CoverageInstructions.from_dict(d.get('coverage', {}))
 
         return Bug(name=d['name'],
                    image=d['image'],
@@ -56,16 +58,16 @@ class Bug(object):
                    source=d['source'],
                    source_dir=d['source-location'],
                    languages=languages,
-                   harness=harness,
+                   tests=tests,
                    compiler=compiler,
-                   files_to_instrument=files_to_instrument)
+                   instructions_coverage=instructions_coverage)
 
     def to_dict(self) -> Dict[str, Any]:
         """
         Produces a dictionary-based description of this bug, ready to be
         serialised in a JSON or YAML format.
         """
-        jsn = {
+        return {
             'name': self.name,
             'image': self.image,
             'program': self.program,
@@ -74,9 +76,6 @@ class Bug(object):
             'source-location': self.source_dir,
             'languages': [l.name for l in self.languages],
             'compiler': self.compiler.to_dict(),
-            'test-harness': self.harness.to_dict(),
-            'coverage': {
-                'files-to-instrument': list(self.files_to_instrument)
-            }
+            'test-harness': self.tests.to_dict(),
+            'coverage': self.instructions_coverage.to_dict()
         }
-        return jsn
