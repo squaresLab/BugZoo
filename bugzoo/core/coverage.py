@@ -1,6 +1,6 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
-from typing import Dict, List, Set, Iterator, Any, Tuple, Iterable
+from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet
 
 import yaml
 import attr
@@ -10,8 +10,8 @@ from .test import TestSuite, TestOutcome
 from ..util import indent
 
 
-def _convert_files_to_instrument(files: Iterable[str]) -> Tuple[str, ...]:
-    return tuple(files)
+def _convert_files_to_instrument(files: Iterable[str]) -> FrozenSet[str]:
+    return frozenset(files)
 
 
 @attr.s(frozen=True)
@@ -19,7 +19,7 @@ class CoverageInstructions(object):
     """
     Provides instructions for computing coverage.
     """
-    files_to_instrument = attr.ib(type=Tuple[str, ...],
+    files_to_instrument = attr.ib(type=FrozenSet[str],
                                   converter=_convert_files_to_instrument)
 
     @staticmethod
