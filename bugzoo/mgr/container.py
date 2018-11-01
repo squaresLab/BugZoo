@@ -1,4 +1,4 @@
-from typing import Iterator, List, Optional, Dict, Union
+from typing import Iterator, List, Optional, Dict, Union, Iterable
 from ipaddress import IPv4Address, IPv6Address
 from tempfile import NamedTemporaryFile
 from timeit import default_timer as timer
@@ -14,6 +14,7 @@ import logging
 
 import docker
 
+from .coverage import CoverageExtractor
 from ..exceptions import *
 from ..core.tool import Tool
 from ..core.patch import Patch
@@ -25,7 +26,8 @@ from ..compiler import CompilationOutcome
 from ..cmd import ExecResponse, PendingExecResponse
 from ..util import indent
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # type: logging.DEBUG
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['ContainerManager']
 
@@ -232,9 +234,7 @@ class ContainerManager(object):
         logger.debug("STATUS OF CONTAINER: %s", dockerc.status)
         return container
 
-    def mktemp(self,
-               container: Container
-               ) -> str:
+    def mktemp(self, container: Container) -> str:
         """
         Creates a named temporary file within a given container.
 
@@ -257,9 +257,7 @@ class ContainerManager(object):
                      container.uid, fn)
         return fn
 
-    def is_alive(self,
-                 container: Container
-                 ) -> bool:
+    def is_alive(self, container: Container) -> bool:
         """
         Determines whether a given container is still alive.
 
@@ -349,20 +347,21 @@ class ContainerManager(object):
 
     def coverage(self,
                  container: Container,
-                 tests: Optional[List[TestCase]] = None,
+                 tests: Optional[Iterable[TestCase]] = None,
                  *,
-                 instrument: bool =  True
+                 instrument: bool = True
                  ) -> TestSuiteCoverage:
         """
         Computes line coverage information over a provided set of tests for
         the program inside a given container.
         """
         bug = self.__installation.bugs[container.bug]  # type: Bug
-        mgr = self.__installation.coverage
-        return mgr.coverage(container,
-                            bug.instructions_coverage,
-                            tests,
-                            instrument=True)
+        extractor = CoverageExtractor.build(self.__installation,
+                                            container,
+                                            bug.instructions_coverage)
+        if tests is None:
+            tests = bug.tests
+        return extractor.run(tests, instrument=instrument)
 
     def execute(self,
                 container: Container,
