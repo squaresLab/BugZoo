@@ -13,7 +13,8 @@ from ..core.coverage import TestSuiteCoverage, \
 from ..core.test import TestCase
 from ..exceptions import FailedToComputeCoverage
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['CoverageManager']
 
