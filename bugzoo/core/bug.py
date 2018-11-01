@@ -1,3 +1,5 @@
+__all__ = ['Bug']
+
 from typing import List, Dict, Optional, Any
 import os
 
