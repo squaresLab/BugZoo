@@ -12,7 +12,6 @@ from .mgr.source import SourceManager
 from .mgr.tool import ToolManager
 from .mgr.bug import BugManager
 from .mgr.container import ContainerManager
-from .mgr.coverage import CoverageManager
 from .mgr.file import FileManager
 
 logger = logging.getLogger(__name__)
@@ -86,7 +85,6 @@ class BugZoo(object):
         self.__sources = SourceManager(self)
         self.__containers = ContainerManager(self)
         self.__files = FileManager(self.__bugs, self.__containers)
-        self.__coverage = CoverageManager(self)
 
     def shutdown(self) -> None:
         logger.info("Shutting down daemon...")
@@ -136,13 +134,6 @@ class BugZoo(object):
     @property
     def build(self) -> BuildManager:
         return self.__mgr_build
-
-    @property
-    def coverage(self) -> CoverageManager:
-        """
-        The coverage manager is used to compute line coverage information.
-        """
-        return self.__coverage
 
     @property
     def files(self) -> FileManager:
