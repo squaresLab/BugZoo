@@ -1,5 +1,5 @@
 from timeit import default_timer as timer
-from typing import List, Dict, Optional, Set
+from typing import List, Dict, Optional, Set, Iterable
 import tempfile
 import os
 import warnings
@@ -48,7 +48,7 @@ class CoverageManager(object):
 
     def _from_gcovr_xml_string(self,
                                s: str,
-                               instrumented_files: Set[str],
+                               instrumented_files: Iterable[str],
                                container: Container
                                ) -> FileLineSet:
         """
@@ -96,7 +96,6 @@ class CoverageManager(object):
             fn_rel_child = '/'.join(fn_rel.split('/')[1:])
             return resolve_path(fn_rel_child)
 
-        assert isinstance(instrumented_files, set)
         for path in instrumented_files:
             assert not os.path.isabs(path), "expected relative file paths"
 
@@ -179,7 +178,7 @@ class CoverageManager(object):
             logger.debug("Generating coverage for test %s in container %s",
                          test.name, container.uid)
             outcome = self.__installation.containers.execute(container, test)
-            filelines = self.extract(container, files)
+            filelines = self.extract(container, files_to_instrument)
             test_coverage = TestCoverage(test.name, outcome, filelines)
             logger.debug("Generated coverage for test %s in container %s",
                          test.name, container.uid)
@@ -191,7 +190,7 @@ class CoverageManager(object):
         logger.debug("Computed coverage for container: %s", container.uid)
         return coverage
 
-    def instrument(self, container: Container, files: Set[str]) -> None:
+    def instrument(self, container: Container, files: Iterable[str]) -> None:
         """
         Adds source code instrumentation and recompiles the program inside
         a container using the appropriate GCC options. Also ensures that
@@ -240,7 +239,7 @@ class CoverageManager(object):
 
         logger.debug("instrumented container: %s", container.uid)
 
-    def deinstrument(self, container: Container, files: Set[str]) -> None:
+    def deinstrument(self, container: Container, files: Iterable[str]) -> None:
         """
         Strips instrumentation from the source code inside a given container,
         and reconfigures its program to no longer use coverage options.
@@ -261,7 +260,10 @@ class CoverageManager(object):
         # TODO recompile with standard flags
         pass
 
-    def extract(self, container: Container, files: Set[str]) -> FileLineSet:
+    def extract(self,
+                container: Container,
+                files: Iterable[str]
+                ) -> FileLineSet:
         """
         Uses gcovr to extract coverage information for all of the C/C++ source
         code files within the project. Destroys '.gcda' files upon computing
