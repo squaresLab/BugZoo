@@ -64,7 +64,7 @@ class Bug(object):
             'dataset': self.dataset,
             'source': self.source,
             'source-location': self.source_dir,
-            'languages': [l.name for l in self.__languages],
+            'languages': [l.name for l in self.languages],
             'compiler': self.compiler.to_dict(),
             'test-harness': self.harness.to_dict(),
             'coverage': {
