@@ -15,6 +15,7 @@
 * Replaced `bug uninstall` command with `bug rm` and `bug remove` commands.
 * Replaced `tool uninstall` command with `tool rm` and `tool remove`
   commands.
+* Refactored core data structures using `attrs`.
 
 
 ### Bug Fixes
