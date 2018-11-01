@@ -2,6 +2,7 @@ __all__ = ['Bug']
 
 from typing import List, Dict, Optional, Any, Tuple, Iterable
 import os
+import warnings
 
 import attr
 
@@ -29,15 +30,21 @@ class Bug(object):
     source = attr.ib(type=Optional[str])
     source_dir = attr.ib(type=str)
     languages = attr.ib(type=Tuple[Language, ...], converter=_convert_languages)
-    harness = attr.ib(type=TestSuite)
+    tests = attr.ib(type=TestSuite)
     compiler = attr.ib(type=Compiler)
     instructions_coverage = attr.ib(type=CoverageInstructions)
+
+    @property
+    def harness(self) -> TestSuite:
+        warnings.warn("'harness' is being deprecated in favour of 'tests'",
+                      DeprecationWarning)
+        return self.tests
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'Bug':
         # TODO refactor
         languages = [Language[lang] for lang in d['languages']]
-        harness = TestSuite.from_dict(d['test-harness'])
+        tests = TestSuite.from_dict(d['test-harness'])
         compiler = Compiler.from_dict(d['compiler'])
 
         # FIXME what if a bug doesn't provide coverage instructions?
@@ -51,7 +58,7 @@ class Bug(object):
                    source=d['source'],
                    source_dir=d['source-location'],
                    languages=languages,
-                   harness=harness,
+                   tests=harness,
                    compiler=compiler,
                    instructions_coverage=instructions_coverage)
 
@@ -69,6 +76,6 @@ class Bug(object):
             'source-location': self.source_dir,
             'languages': [l.name for l in self.languages],
             'compiler': self.compiler.to_dict(),
-            'test-harness': self.harness.to_dict(),
+            'test-harness': self.tests.to_dict(),
             'coverage': self.instructions_coverage.to_dict()
         }
