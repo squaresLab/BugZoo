@@ -168,17 +168,11 @@ class SourceManager(object):
                                  source.name)
 
     def __parse_bug(self, source: Source, fn: str, d: dict) -> Bug:
-        name = d['name']
-        return Bug(name,
-                   d['image'],
-                   d.get('dataset', None),
-                   d.get('program', None),
-                   source.name,
-                   d['source-location'],
-                   [Language[lang] for lang in d['languages']],
-                   TestSuite.from_dict(d['test-harness']),
-                   Compiler.from_dict(d['compiler']),
-                   CoverageInstructions.from_dict(d.get('coverage', {})))
+        d_ = d.copy()
+        d_['dataset'] = d.get('dataset', None)
+        d_['program'] = d.get('program', None)
+        d_['source'] = source.name
+        return Bug.from_dict(d_)
 
     def __parse_tool(self, source: Source, fn: str, d: dict) -> Tool:
         return Tool(d['name'],
