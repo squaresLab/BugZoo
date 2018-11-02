@@ -15,11 +15,8 @@ from ... import exceptions
 logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
-
 _NAME_TO_EXTRACTOR = {}  # type: Dict[str, Type[CoverageExtractor]]
 _EXTRACTOR_TO_NAME = {}  # type: Dict[Type[CoverageExtractor], str]
-_LANGUAGE_TO_DEFAULT_EXTRACTOR = \
-    {}  # type: Dict[Language, Type[CoverageExtractor]]
 
 
 def register(name: str):
@@ -74,21 +71,19 @@ class CoverageExtractor(object):
 
     @classmethod
     def register_as_default(cls, language: Language) -> None:
-        if language in _LANGUAGE_TO_DEFAULT_EXTRACTOR:
-            m = "language [{}] already has a default coverage extractor: {}"
-            m = m.format(language.name,
-                         _LANGUAGE_TO_DEFAULT_EXTRACTOR[language])
-            raise Exception(m)
+        logger.info("registering coverage extractor [{}] as default for {}",
+                    cls, language)
 
         if cls not in _EXTRACTOR_TO_NAME:
             m = "coverage extractor [{}] has not been registered under a name"
             m = m.format(cls)
             raise Exception(m)
-        name = _EXTRACTOR_TO_NAME[cls]
 
-        _LANGUAGE_TO_DEFAULT_EXTRACTOR[language] = cls
+        name = _EXTRACTOR_TO_NAME[cls]
+        cls_instructions = CoverageInstructions.find(name)
+        cls_instructions.register_as_default(language)
         logger.info("registered coverage extractor [{}] as default for {}",
-                    name, language)
+                    cls, language)
 
     @staticmethod
     def build(installation: 'BugZoo',
