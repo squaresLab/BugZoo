@@ -1,7 +1,7 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
 from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type, \
-    Optional
+    Optional, Collection
 import logging
 
 import yaml
@@ -90,8 +90,14 @@ class CoverageInstructions(object):
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
-        # FIXME hardcoded
-        name_type = d.get('type', 'gcov')
+        """
+        Loads a set of coverage instructions from a given dictionary.
+
+        Raises:
+            BadCoverageInstructions: if the given coverage instructions are
+                illegal.
+        """
+        name_type = d['type']
         cls = _NAME_TO_INSTRUCTIONS[name_type]
         return cls.from_dict(d)
 

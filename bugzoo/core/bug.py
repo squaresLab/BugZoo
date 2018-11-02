@@ -3,6 +3,7 @@ __all__ = ['Bug']
 from typing import List, Dict, Optional, Any, Tuple, Iterable
 import os
 import warnings
+import logging
 
 import attr
 
@@ -10,6 +11,9 @@ from .language import Language
 from .test import TestSuite
 from .coverage import CoverageInstructions
 from ..compiler import Compiler
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 
 def _convert_languages(langs: Iterable[Language]) -> Tuple[Language, ...]:
@@ -43,16 +47,30 @@ class Bug(object):
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'Bug':
-        # TODO refactor
+        name = d['name']
         languages = [Language[lang] for lang in d['languages']]
         tests = TestSuite.from_dict(d['test-harness'])
         compiler = Compiler.from_dict(d['compiler'])
 
-        # FIXME what if a bug doesn't provide coverage instructions?
-        instructions_coverage = \
-            CoverageInstructions.from_dict(d.get('coverage', {}))
+        instructions_coverage = None  # type: Optional[CoverageInstructions]
+        has_cov_ins = 'coverage' in d
+        has_cov_ins_type = has_cov_ins and 'type' in d['coverage']
+        if has_cov_ins_type:
+            logger.debug("bug [%s]: using coverage instructions type [%s]",
+                         name, d['coverage']['type'])
+            instructions_coverage = \
+                CoverageInstructions.from_dict(d['coverage'])
+        elif len(languages) == 1:
+            lang = languages[0]
+            logger.debug("bug [%s]: using default coverage instructions type for language [%s]",
+                         name, lang.name)
+            cls_cov_ins = CoverageInstructions.language_default(lang)
+            instructions_coverage = \
+                cls_cov_ins.from_dict(d.get('coverage', {}))
+        else:
+            logger.warning("no coverage instructions for bug: %s", name)
 
-        return Bug(name=d['name'],
+        return Bug(name=name,
                    image=d['image'],
                    dataset=d['dataset'],
                    program=d['program'],
