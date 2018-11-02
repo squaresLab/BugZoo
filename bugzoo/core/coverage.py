@@ -1,6 +1,6 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
-from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet
+from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type
 
 import yaml
 import attr
