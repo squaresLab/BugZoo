@@ -8,27 +8,36 @@ import attr
 from .fileline import FileLine, FileLineSet
 from .test import TestSuite, TestOutcome
 from ..util import indent
+from .. import exceptions
+
+_NAME_TO_INSTRUCTIONS = {}  # type: Dict[str, Type[CoverageInstructions]]
+_INSTRUCTIONS_TO_NAME = {}  # type: Dict[Type[CoverageInstructions], str]
 
 
 def _convert_files_to_instrument(files: Iterable[str]) -> FrozenSet[str]:
     return frozenset(files)
 
 
-@attr.s(frozen=True)
 class CoverageInstructions(object):
     """
     Provides instructions for computing coverage.
     """
-    files_to_instrument = attr.ib(type=FrozenSet[str],
-                                  converter=_convert_files_to_instrument)
+    @classmethod
+    def registered_under_name(cls) -> str:
+        """
+        Returns the name that was used to register this class.
+        """
+        return _NAME_TO_INSTRUCTIONS[cls]
 
-    @staticmethod
-    def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
-        files_to_instrument = d.get('files-to-instrument', [])
-        return CoverageInstructions(files_to_instrument)
-
-    def to_dict(self) -> Dict[str, Any]:
-        return {'files-to-instrument': list(self.files_to_instrument)}
+    @classmethod
+    def register(cls, name: str) -> None:
+        if name in _NAME_TO_INSTRUCTIONS:
+            raise exceptions.NameInUseError(name)
+        if cls in _INSTRUCTIONS_TO_NAME:
+            m = "coverage instructions already registered under name: {}"
+            m = m.format(_INSTRUCTIONS_TO_NAME[cls])
+        _NAME_TO_INSTRUCTIONS[name] = cls
+        _INSTRUCTIONS_TO_NAME[cls] = name
 
 
 class TestCoverage(object):
