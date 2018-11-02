@@ -69,7 +69,7 @@ class BugManager(object):
 
     def build(self,
               bug: Bug,
-              force: bool = False,
+              force: bool = True,
               quiet: bool = False
               ) -> None:
         """
@@ -95,9 +95,7 @@ class BugManager(object):
                                             force=force,
                                             noprune=noprune)
 
-    def download(self,
-                 bug: Bug,
-                 force=False) -> bool:
+    def download(self, bug: Bug, force=True) -> bool:
         """
         Attempts to download the Docker image for a given bug from
         `DockerHub <https://hub.docker.com>`_. If the force parameter is set to
@@ -213,7 +211,7 @@ class BugManager(object):
             mgr_cov = self.__installation.coverage
             container = None
             container = mgr_ctr.provision(bug)
-            coverage = mgr_cov.coverage(container, bug.tests)
+            coverage = mgr_ctr.coverage(container)
 
             # save to disk
             with open(fn, 'w') as f:

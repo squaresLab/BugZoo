@@ -14,14 +14,12 @@ import yaml
 from .build import BuildManager
 from ..exceptions import NameInUseError, BadManifestFile
 from ..compiler import Compiler
-from ..core.test import TestSuite
-from ..core.language import Language
-from ..core.bug import Bug
-from ..core.build import BuildInstructions
-from ..core.tool import Tool
-from ..core.source import Source, SourceContents, RemoteSource, LocalSource
+from ..core import TestSuite, Bug, Language, BuildInstructions, \
+    CoverageInstructions, Tool, Source, SourceContents, RemoteSource, \
+    LocalSource
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['SourceManager']
 
@@ -62,6 +60,12 @@ class SourceManager(object):
             KeyError: if no source is found with the given name.
         """
         return self.__sources[name]
+
+    def __delitem__(self, name: str) -> None:
+        """
+        See `remove`.
+        """
+        return self.remove(self[name])
 
     def refresh(self) -> None:
         """
@@ -165,15 +169,6 @@ class SourceManager(object):
 
     def __parse_bug(self, source: Source, fn: str, d: dict) -> Bug:
         name = d['name']
-
-        if 'coverage' in d and 'files-to-instrument' in d['coverage']:
-            files_to_instrument = d['coverage']['files-to-instrument']
-        else:
-            files_to_instrument = []
-        logger.info('"coverage.files-to-instrument" for %s: %s',
-                    name,
-                    files_to_instrument)
-
         return Bug(name,
                    d['image'],
                    d.get('dataset', None),
@@ -183,7 +178,7 @@ class SourceManager(object):
                    [Language[lang] for lang in d['languages']],
                    TestSuite.from_dict(d['test-harness']),
                    Compiler.from_dict(d['compiler']),
-                   files_to_instrument=files_to_instrument)
+                   CoverageInstructions.from_dict(d.get('coverage', {})))
 
     def __parse_tool(self, source: Source, fn: str, d: dict) -> Tool:
         return Tool(d['name'],

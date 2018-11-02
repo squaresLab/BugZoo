@@ -133,6 +133,8 @@ Below is a list of sources that are known to provide datasets or tools that
 are compatible with the BugZoo platform.
 
 * [ManyBugs](https://github.com/squaresLab/ManyBugs)
+* [IntroClass](https://github.com/BugZooOrg/IntroClass)
+* [GenProg TSE 2012 Benchmarks](https://github.com/BugZooOrg/genprog-tse-2012-bugs)
 * [GenProg](https://github.com/squaresLab/genprog-code)
 
 To add one of these sources, simply execute the following from the command line:

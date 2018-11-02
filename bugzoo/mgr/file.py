@@ -26,15 +26,10 @@ class FileManager(object):
         self.__mgr_bug = mgr_bug
         self.__mgr_ctr = mgr_ctr
 
-    def read(self,
-             container: Container,
-             filepath: str
-             ) -> str:
+    def _resolve_path(self, container: Container, filepath: str) -> str:
         """
-        Reads the contents of a given file belonging to a container.
+        Ensures that relative paths are transformed into absolute paths.
         """
-        logger.debug("reading contents of file [%s] inside container [%s]",
-                     filepath, container.id)
         bug = self.__mgr_bug[container.bug]
         filepath_orig = filepath
 
@@ -42,6 +37,17 @@ class FileManager(object):
             filepath = os.path.join(bug.source_dir, filepath)
             logger.debug("converted relative path to absolute path: %s -> %s",
                          filepath_orig, filepath)
+
+        return filepath
+
+    def read(self, container: Container, filepath: str) -> str:
+        """
+        Reads the contents of a given file belonging to a container.
+        """
+        logger.debug("reading contents of file [%s] inside container [%s]",
+                     filepath, container.id)
+        filepath_orig = filepath
+        filepath = self._resolve_path(container, filepath)
 
         # TODO what if the file doesn't exist?
         # TODO what if we encounter a permissions problem?
@@ -94,4 +100,22 @@ class FileManager(object):
               filepath: str,
               contents: str
               ) -> str:
-        raise NotImplementedError
+        """
+        Reads the contents of a given file belonging to a container.
+        """
+        logger.debug("writing to file [%s] inside container [%s]",
+                     filepath, container.id)
+        filepath = self._resolve_path(container, filepath)
+
+        # write the file contents to a temporary file on the host before
+        # copying that file to the container
+        (_, fn_host) = tempfile.mkstemp(suffix='.bugzoo')
+        try:
+            with open(fn_host, 'w') as fh:
+                fh.write(contents)
+            self.__mgr_ctr.copy_to(container, fn_host, filepath)
+        finally:
+            os.remove(fn_host)
+
+        logger.debug("wrote to file [%s] inside container [%s]",
+                     filepath, container.id)

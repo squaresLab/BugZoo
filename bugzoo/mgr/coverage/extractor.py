@@ -1,0 +1,279 @@
+__all__ = ['CoverageExtractor']
+
+from typing import FrozenSet, Optional, Iterable, Dict
+from timeit import default_timer as timer
+import xml.etree.ElementTree as ET
+import os
+import logging
+import tempfile
+import logging
+
+from ...core import FileLineSet, Container, TestSuiteCoverage, TestCoverage, \
+    CoverageInstructions, TestCase
+from ... import exceptions
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
+
+INSTRUMENTATION = (
+    "// BUGZOO :: INSTRUMENTATION :: START\n"
+    "#include <stdio.h>\n"
+    "#include <stdlib.h>\n"
+    "#include <signal.h>\n"
+    "extern \"C\" void __gcov_flush(void);\n"
+    "void bugzoo_sighandler(int sig){\n"
+    "  __gcov_flush();\n"
+    "  if(sig != SIGUSR1 && sig != SIGUSR2)\n"
+    "    exit(1);\n"
+    "}\n"
+    "void bugzoo_ctor (void) __attribute__ ((constructor));\n"
+    "void bugzoo_ctor (void) {\n"
+    "  struct sigaction new_action;\n"
+    "  new_action.sa_handler = bugzoo_sighandler;\n"
+    "  sigemptyset(&new_action.sa_mask);\n"
+    "  new_action.sa_flags = 0;\n"
+    "  sigaction(SIGTERM, &new_action, NULL);\n"
+    "  sigaction(SIGINT, &new_action, NULL);\n"
+    "  sigaction(SIGKILL, &new_action, NULL);\n"
+    "  sigaction(SIGSEGV, &new_action, NULL);\n"
+    "  sigaction(SIGFPE, &new_action, NULL);\n"
+    "  sigaction(SIGBUS, &new_action, NULL);\n"
+    "  sigaction(SIGILL, &new_action, NULL);\n"
+    "  sigaction(SIGABRT, &new_action, NULL);\n"
+    "  // Use signal for SIGUSR to remove handlers\n"
+    "  signal(SIGUSR1, bugzoo_sighandler);\n"
+    "  signal(SIGUSR2, bugzoo_sighandler);\n"
+    "}\n"
+    "// BUGZOO :: INSTRUMENTATION :: END\n"
+)
+
+
+class CoverageExtractor(object):
+    """
+    Used to compute coverage information for a given container according to a
+    provided set of instructions.
+    """
+    @staticmethod
+    def build(installation: 'BugZoo',
+              container: Container,
+              instructions: CoverageInstructions
+              ) -> 'CoverageExtractor':
+        return CoverageExtractor(installation, container, instructions)
+
+    def __init__(self,
+                 installation: 'BugZoo',
+                 container: Container,
+                 files_to_instrument: FrozenSet[str]
+                 ) -> None:
+        self.__installation = installation  # type: BugZoo
+        self.__container = Container
+
+        for path in files_to_instrument:
+            assert not os.path.isabs(path), "expected relative file paths"
+        self.__files_to_instrument = files_to_instrument
+
+    def _parse_report(self, s: str) -> FileLineSet:
+        """
+        Determines the set of files that are covered in a gcovr report.
+
+        Parameters:
+            s: a string-encoding of an XML document containing a gcovr report.
+
+        Returns:
+            the set of file-lines that are stated as covered by the given
+            report.
+        """
+        logger_c = logger.getChild(container.id)
+        container = self.__container
+        mgr_ctr = self.__installation.containers
+        mgr_bug = self.__installation.bugs
+        bug = mgr_bug[container.bug]
+
+        # compute a list of all source files
+        dir_source = bug.source_dir
+        endings = ['.cpp', '.cc', '.c', '.h', '.hh', '.hpp', '.cxx']
+        cmd = ' -o '.join(["-name \*{}".format(e) for e in endings])
+        cmd = "find {} -type f \( {} \)".format(dir_source, cmd)
+        resp = mgr_ctr.command(container, cmd)
+        all_files = set(fn.strip() for fn in resp.output.split('\n'))
+
+        def has_file(fn_rel: str) -> bool:
+            fn_abs = os.path.join(dir_source, fn_rel)
+            return (fn_abs in all_files)
+
+        def read_line_coverage(cls) -> List[int]:
+            lines = cls.find('lines').findall('line')
+            return set(int(l.attrib['number']) for l in lines
+                    if int(l.attrib['hits']) > 0)
+
+        # FIXME is this a general solution?
+        def resolve_path(fn_rel: str) -> str:
+            assert fn_rel != '', "failed to resolve path"
+            if has_file(fn_rel):
+                return fn_rel
+
+            fn_rel_child = '/'.join(fn_rel.split('/')[1:])
+            return resolve_path(fn_rel_child)
+
+        # read the output of gcovr
+        root = ET.fromstring(s)
+        packages = root.find('packages').findall('package')
+        classes = [c for p in packages for c in p.find('classes').findall('class')]
+        report = [(cls.attrib['filename'], read_line_coverage(cls))
+                  for cls in classes]
+        report = [(fn, lines) for (fn, lines) in report if lines]
+
+        t_start = timer()
+        logger_c.debug("Starting to traverse all files reported by gcovr.")
+        files_to_lines = {}
+        for (filename, lines) in report:
+            try:
+                filename = resolve_path(filename)
+            except AssertionError:
+                logger_c.warning("failed to resolve file: %s", filename)
+                continue
+            if lines:
+                files_to_lines[filename] = lines
+
+        logger_c.debug("Traversing all files finished. Seconds passed: %.2f", timer() - t_start)
+        # modify coverage information for all of the instrumented files
+        num_instrumentation_lines = INSTRUMENTATION.count('\n')
+        lines_to_remove = set(range(1, num_instrumentation_lines))
+        for path in self.__instrumented_files:
+            if not path in files_to_lines:
+                continue
+
+            logger_c.debug("Removing coverage lines due to instrumentation: %s", path)
+            lines = files_to_lines[path]
+            lines -= lines_to_remove
+            tmp = set()
+            for line in lines:
+                tmp.add(line - num_instrumentation_lines)
+            files_to_lines[path] = tmp
+
+        file_line_set = FileLineSet(files_to_lines)
+        logger_c.debug("Lines in coverage report: %s", file_line_set)
+        return file_line_set
+
+    def prepare(self) -> None:
+        """
+        Adds source code instrumentation and recompiles the program inside
+        a container using the appropriate GCC options. Also ensures that
+        gcovr is installed inside the container.
+
+        Parameters:
+            container: the container whose contents should be instrumented.
+        """
+        logger.debug("instrumenting container: %s", container.uid)
+        container = self.__container
+        mgr_ctr = self.__installation.containers
+        mgr_bug = self.__installation.bugs
+        mgr_file = self.__installation.files
+        bug = mgr_bug[container.bug]
+        dir_source = bug.source_dir
+
+        # add instrumentation to each file
+        for fn_src in self.__files_to_instrument:
+            fn_src = os.path.join(dir_source, fn_src)
+            logger.debug("instrumenting file [%s] in container [%s]",
+                         fn_src, container.uid)
+            contents_original = mgr_file.read(container, fn_src)
+            contents_instrumented = INSTRUMENTATION + contents_original
+            mgr_file.write(container, fn_src, contents_instrumented)
+
+        # recompile with instrumentation options
+        outcome = mgr_ctr.compile_with_instrumentation(container)
+        if not outcome.successful:
+            msg = "failed to generate coverage for container ({}) due to compilation failure."
+            msg = msg.format(container.id)
+            logger.debug("failed build output: %s", outcome.response.output)
+            raise Exception(msg)
+
+        logger.debug("instrumented container: %s", container.uid)
+
+    def run(self,
+            tests: Iterable[TestCase],
+            *,
+            instrument: bool = True
+            ) -> TestSuiteCoverage:
+        """
+        Uses a provided container to compute line coverage information for a
+        given list of tests.
+        """
+        logger.debug("computing coverage for container: %s", container.uid)
+        container = self.__container
+
+        try:
+            if instrument:
+                logger.debug("instrumenting container")
+                self.prepare()
+            else:
+                logger.debug("not instrumenting container")
+        except Exception:
+            msg = "failed to instrument container."
+            raise exceptions.FailedToComputeCoverage(msg)
+
+        cov = {}
+        for test in _tests:
+            logger.debug("Generating coverage for test %s in container %s",
+                         test.name, container.uid)
+            outcome = self.__installation.containers.execute(container, test)
+            filelines = self.extract()
+            test_coverage = TestCoverage(test.name, outcome, filelines)
+            logger.debug("Generated coverage for test %s in container %s",
+                         test.name, container.uid)
+            cov[test.name] = test_coverage
+
+        self.cleanup()
+
+        coverage = TestSuiteCoverage(cov)
+        logger.debug("Computed coverage for container: %s", container.uid)
+        return coverage
+
+    def cleanup(self) -> None:
+        """
+        Strips instrumentation from the source code inside the container,
+        and reconfigures its program to no longer use coverage options.
+        """
+        logger.debug("cleanup method for gcov extractor does nothing.")
+
+    def extract(self) -> None:
+        """
+        Uses gcovr to extract coverage information for all of the C/C++ source
+        code files within the project. Destroys '.gcda' files upon computing
+        coverage.
+        """
+        logger_c = logger.getChild(container.id)  # type: logging.Logger
+        container = self.__container
+        mgr_ctr = self.__installation.containers
+        mgr_bug = self.__installation.bugs
+        logger_c.debug("Extracting coverage information")
+
+        bug = mgr_bug[container.bug]
+        dir_source = bug.source_dir
+        t_start = timer()
+        logger_c.debug("Running gcovr.")
+        fn_temp_ctr = mgr_ctr.mktemp(container)
+        cmd = 'gcovr -o "{}" -x -d -r .'.format(fn_temp_ctr)
+        response = mgr_ctr.command(container,
+                                   cmd,
+                                   context=dir_source,
+                                   verbose=True)
+        logger_c.debug("Finished running gcovr (took %.2f seconds).", timer() - t_start)  # noqa: pycodestyle
+        assert response.code == 0, "failed to run gcovr"
+
+        # copy the contents of the temporary file to the host machine
+        (_, fn_temp_host) = tempfile.mkstemp(suffix='.bugzoo')
+        try:
+            mgr_ctr.copy_from(container, fn_temp_ctr, fn_temp_host)
+            with open(fn_temp_host, 'r') as fh:
+                report = fh.read()
+        finally:
+            os.remove(fn_temp_host)
+
+        t_start = timer()
+        logger_c.debug("Parsing gcovr XML report.")
+        res = self._parse_report(report)
+        logger_c.debug("Finished parsing gcovr XML report (took %.2f seconds).", timer() - t_start)  # noqa: pycodestyle
+        logger_c.debug("Finished extracting coverage information")
+        return res

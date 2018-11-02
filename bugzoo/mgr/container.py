@@ -1,4 +1,4 @@
-from typing import Iterator, List, Optional, Dict, Union
+from typing import Iterator, List, Optional, Dict, Union, Iterable
 from ipaddress import IPv4Address, IPv6Address
 from tempfile import NamedTemporaryFile
 from timeit import default_timer as timer
@@ -14,18 +14,16 @@ import logging
 
 import docker
 
+from .coverage import CoverageExtractor
 from ..exceptions import *
-from ..core.tool import Tool
-from ..core.patch import Patch
-from ..core.container import Container
-from ..core.coverage import TestSuiteCoverage
-from ..core.test import TestCase, TestOutcome
-from ..core.bug import Bug
+from ..core import FileLineSet, Tool, Patch, Container, TestCase, \
+    TestOutcome, TestSuiteCoverage, Bug
 from ..compiler import CompilationOutcome
 from ..cmd import ExecResponse, PendingExecResponse
 from ..util import indent
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # type: logging.DEBUG
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['ContainerManager']
 
@@ -232,9 +230,7 @@ class ContainerManager(object):
         logger.debug("STATUS OF CONTAINER: %s", dockerc.status)
         return container
 
-    def mktemp(self,
-               container: Container
-               ) -> str:
+    def mktemp(self, container: Container) -> str:
         """
         Creates a named temporary file within a given container.
 
@@ -257,9 +253,7 @@ class ContainerManager(object):
                      container.uid, fn)
         return fn
 
-    def is_alive(self,
-                 container: Container
-                 ) -> bool:
+    def is_alive(self, container: Container) -> bool:
         """
         Determines whether a given container is still alive.
 
@@ -347,22 +341,39 @@ class ContainerManager(object):
         cmd = "docker exec -it {} {}".format(container.id, cmd)
         subprocess.call(cmd, shell=True)
 
+    def coverage_extractor(self, container: Container) -> CoverageExtractor:
+        """
+        Retrieves the coverage extractor for a given container.
+        """
+        bug = self.__installation.bugs[container.bug]  # type: Bug
+        extractor = CoverageExtractor.build(self.__installation,
+                                            container,
+                                            bug.instructions_coverage)
+        return extractor
+
+    def prepare_for_coverage(self, container: Container) -> None:
+        self.coverage_extractor(container).prepare()
+
+    def cleanup_coverage(self, container: Container) -> None:
+        self.coverage_extractor(container).cleanup()
+
+    def read_coverage(self, container: Container) -> FileLineSet:
+        self.coverage_extractor(container).extract()
+
     def coverage(self,
                  container: Container,
-                 tests: Optional[List[TestCase]] = None,
-                 files_to_instrument: List[str] = None,
+                 tests: Optional[Iterable[TestCase]] = None,
                  *,
-                 instrument: bool =  True
+                 instrument: bool = True
                  ) -> TestSuiteCoverage:
         """
         Computes line coverage information over a provided set of tests for
         the program inside a given container.
         """
-        mgr = self.__installation.coverage
-        return mgr.coverage(container,
-                            tests,
-                            files_to_instrument=files_to_instrument,
-                            instrument=True)
+        extractor = self.coverage_extractor(container)
+        if tests is None:
+            tests = bug.tests
+        return extractor.run(tests, instrument=instrument)
 
     def execute(self,
                 container: Container,
