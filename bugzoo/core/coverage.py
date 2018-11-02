@@ -39,6 +39,13 @@ class CoverageInstructions(object):
         _NAME_TO_INSTRUCTIONS[name] = cls
         _INSTRUCTIONS_TO_NAME[cls] = name
 
+    @staticmethod
+    def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
+        # FIXME hardcoded
+        name_type = d.get('type', 'gcov')
+        cls = _NAME_TO_INSTRUCTIONS[name_type]
+        return cls.from_dict(d)
+
 
 class TestCoverage(object):
     """

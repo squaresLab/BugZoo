@@ -1,14 +1,15 @@
-from typing import FrozenSet, Optional, Iterable, Dict
+from typing import FrozenSet, Optional, Iterable, Dict, Any
 from timeit import default_timer as timer
 import xml.etree.ElementTree as ET
 import os
 import logging
 import tempfile
+import attr
 import logging
 
-from .extractor import CoverageExtractor
+from .extractor import CoverageExtractor, register
 from ...core import FileLineSet, Container, TestSuiteCoverage, TestCoverage, \
-    CoverageInstructions, TestCase
+    CoverageInstructions, TestCase, Language
 from ... import exceptions
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
@@ -41,11 +42,31 @@ INSTRUMENTATION = (
 )
 
 
+def _convert_files_to_instrument(files: Iterable[str]) -> FrozenSet[str]:
+    return frozenset(files)
+
+
+# @register_as_default(Language.CPP)
+# @register_as_default(Language.C)
+@register('gcov')
 class GcovExtractor(CoverageExtractor):
+    @attr.s(frozen=True)
+    class Instructions(CoverageInstructions):
+        files_to_instrument = attr.ib(type=FrozenSet[str],
+                                      converter=_convert_files_to_instrument)
+
+        @staticmethod
+        def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
+            files_to_instrument = d.get('files-to-instrument', [])
+            return GcovExtractor.Instructions(files_to_instrument)
+
+        def to_dict(self) -> Dict[str, Any]:
+            return {'files-to-instrument': list(self.files_to_instrument)}
+
     def __init__(self,
                  installation: 'BugZoo',
                  container: Container,
-                 instructions: CoverageInstructions
+                 instructions: Instructions
                  ) -> None:
         self.__installation = installation  # type: BugZoo
         self.__container = Container
