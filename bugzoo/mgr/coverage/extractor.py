@@ -9,7 +9,7 @@ import tempfile
 import logging
 
 from ...core import FileLineSet, Container, TestSuiteCoverage, TestCoverage, \
-    CoverageInstructions, TestCase
+    CoverageInstructions, TestCase, Language
 from ... import exceptions
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
@@ -18,11 +18,27 @@ logger.setLevel(logging.DEBUG)
 
 _NAME_TO_EXTRACTOR = {}  # type: Dict[str, Type[CoverageExtractor]]
 _EXTRACTOR_TO_NAME = {}  # type: Dict[Type[CoverageExtractor], str]
+_LANGUAGE_TO_DEFAULT_EXTRACTOR = \
+    {}  # type: Dict[Language, Type[CoverageExtractor]]
 
 
 def register(name: str):
+    """
+    Registers a coverage extractor class under a given name.
+    """
     def decorator(cls: Type['CoverageExtractor']):
         cls.register(name)
+        return cls
+    return decorator
+
+
+def register_as_default(language: Language):
+    """
+    Registers a coverage extractor class as the default coverage extractor
+    for a given language.
+    """
+    def decorator(cls: Type['CoverageExtractor']):
+        cls.register_as_default(language)
         return cls
     return decorator
 
@@ -37,8 +53,8 @@ class CoverageExtractor(object):
         if name in _NAME_TO_EXTRACTOR:
             raise exceptions.NameInUseError(name)
         if cls in _EXTRACTOR_TO_NAME:
-            m = "coverage extractor is already registered under name: {}"
-            m = m.format(_EXTRACTOR_TO_NAME[cls])
+            m = "coverage extractor [{}] is already registered under name: {}"
+            m = m.format(cls, _EXTRACTOR_TO_NAME[cls])
             raise Exception(m)
 
         try:
@@ -53,7 +69,26 @@ class CoverageExtractor(object):
         instructions.register(name)
         _NAME_TO_EXTRACTOR[name] = cls
         _EXTRACTOR_TO_NAME[cls] = name
-        return cls
+        logger.info("registered coverage extractor [%s] under name [%s]",
+                    name, cls)
+
+    @classmethod
+    def register_as_default(cls, language: Language) -> None:
+        if language in _LANGUAGE_TO_DEFAULT_EXTRACTOR:
+            m = "language [{}] already has a default coverage extractor: {}"
+            m = m.format(language.name,
+                         _LANGUAGE_TO_DEFAULT_EXTRACTOR[language])
+            raise Exception(m)
+
+        if cls not in _EXTRACTOR_TO_NAME:
+            m = "coverage extractor [{}] has not been registered under a name"
+            m = m.format(cls)
+            raise Exception(m)
+        name = _EXTRACTOR_TO_NAME[cls]
+
+        _LANGUAGE_TO_DEFAULT_EXTRACTOR[language] = cls
+        logger.info("registered coverage extractor [{}] as default for {}",
+                    name, language)
 
     @staticmethod
     def build(installation: 'BugZoo',

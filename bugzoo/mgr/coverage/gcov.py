@@ -7,7 +7,7 @@ import tempfile
 import attr
 import logging
 
-from .extractor import CoverageExtractor, register
+from .extractor import CoverageExtractor, register, register_as_default
 from ...core import FileLineSet, Container, TestSuiteCoverage, TestCoverage, \
     CoverageInstructions, TestCase, Language
 from ... import exceptions
@@ -46,8 +46,8 @@ def _convert_files_to_instrument(files: Iterable[str]) -> FrozenSet[str]:
     return frozenset(files)
 
 
-# @register_as_default(Language.CPP)
-# @register_as_default(Language.C)
+@register_as_default(Language.CPP)
+@register_as_default(Language.C)
 @register('gcov')
 class GcovExtractor(CoverageExtractor):
     @attr.s(frozen=True)
