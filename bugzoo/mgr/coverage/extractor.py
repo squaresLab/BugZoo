@@ -47,6 +47,9 @@ class CoverageExtractor(object):
     """
     @classmethod
     def register(cls, name: str) -> None:
+        logger.info("registering coverage extractor [%s] under name [%s]",
+                    cls, name)
+
         if name in _NAME_TO_EXTRACTOR:
             raise exceptions.NameInUseError(name)
         if cls in _EXTRACTOR_TO_NAME:
@@ -66,8 +69,9 @@ class CoverageExtractor(object):
         instructions.register(name)
         _NAME_TO_EXTRACTOR[name] = cls
         _EXTRACTOR_TO_NAME[cls] = name
+
         logger.info("registered coverage extractor [%s] under name [%s]",
-                    name, cls)
+                    cls, name)
 
     @classmethod
     def register_as_default(cls, language: Language) -> None:
