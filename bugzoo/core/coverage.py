@@ -34,6 +34,8 @@ class CoverageInstructions(object):
 
     @classmethod
     def register(cls, name: str) -> None:
+        logger.debug("registering coverage instructions [%s] under name [%s]",
+                     cls, name)
         if name in _NAME_TO_INSTRUCTIONS:
             raise exceptions.NameInUseError(name)
         if cls in _INSTRUCTIONS_TO_NAME:
@@ -41,6 +43,8 @@ class CoverageInstructions(object):
             m = m.format(_INSTRUCTIONS_TO_NAME[cls])
         _NAME_TO_INSTRUCTIONS[name] = cls
         _INSTRUCTIONS_TO_NAME[cls] = name
+        logger.debug("registered coverage instructions [%s] under name [%s]",
+                     cls, name)
 
     @classmethod
     def register_as_default(cls, language: Language) -> None:
