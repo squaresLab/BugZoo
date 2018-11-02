@@ -28,7 +28,8 @@ __all__ = [
     'ImageNotInstalled',
     'ImageAlreadyExists',
     'TestNotFound',
-    'ToolNotFound'
+    'ToolNotFound',
+    'NoCoverageInstructions'
 ]
 
 
@@ -98,6 +99,14 @@ class ConnectionFailure(BugZooException):
     """
     def __init__(self) -> None:
         super().__init__("failed to connect to BugZoo server within timeout window.")
+
+
+class NoCoverageInstructions(BugZooException):
+    """
+    No coverage instructions were found for a given bug/container.
+    """
+    def __init__(self) -> None:
+        super().__init__("no coverage instructions available for bug/container")
 
 
 class UnexpectedServerError(BugZooException):
