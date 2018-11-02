@@ -33,6 +33,15 @@ class CoverageInstructions(object):
         return _INSTRUCTIONS_TO_NAME[cls]
 
     @staticmethod
+    def language_default(language: Language
+                         ) -> Optional[Type['CoverageInstructions']]:
+        """
+        Returns the default coverage instructions class for a given language,
+        if such a class has been registered for that language.
+        """
+        return _LANGUAGE_TO_DEFAULT_INSTRUCTIONS.get(language)
+
+    @staticmethod
     def find(name: str) -> None:
         """
         Retrives the coverage instructions class registered under a given name.
