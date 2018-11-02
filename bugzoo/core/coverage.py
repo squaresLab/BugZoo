@@ -82,7 +82,7 @@ class CoverageInstructions(object):
             m = "coverage instructions [{}] have not been registered"
             m = m.format(cls)
             raise Exception(m)
-        name = _EXTRACTOR_TO_NAME[cls]
+        name = _INSTRUCTIONS_TO_NAME[cls]
 
         _LANGUAGE_TO_DEFAULT_INSTRUCTIONS[language] = cls
         logger.debug("registered coverage instructions [%s] as default for %s",
