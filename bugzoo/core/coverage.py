@@ -27,7 +27,7 @@ class CoverageInstructions(object):
         """
         Returns the name that was used to register this class.
         """
-        return _NAME_TO_INSTRUCTIONS[cls]
+        return _INSTRUCTIONS_TO_NAME[cls]
 
     @classmethod
     def register(cls, name: str) -> None:
