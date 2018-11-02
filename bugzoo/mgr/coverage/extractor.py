@@ -9,7 +9,7 @@ import tempfile
 import logging
 
 from ...core import FileLineSet, Container, TestSuiteCoverage, TestCoverage, \
-    CoverageInstructions, TestCase, Language
+    CoverageInstructions, TestCase, Language, Bug
 from ... import exceptions
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
@@ -92,9 +92,10 @@ class CoverageExtractor(object):
 
     @staticmethod
     def build(installation: 'BugZoo',
-              container: Container,
-              instructions: CoverageInstructions
+              container: Container
               ) -> 'CoverageExtractor':
+        bug = installation.bugs[container.bug]  # type: Bug
+        instructions = bug.instructions
         name = instructions.__class__.registered_under_name()
         extractor_cls = _NAME_TO_EXTRACTOR[name]
         extractor = extractor_cls(installation, container, instructions)
