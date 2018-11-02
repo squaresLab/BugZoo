@@ -42,7 +42,7 @@ class CoverageInstructions(object):
         return _LANGUAGE_TO_DEFAULT_INSTRUCTIONS.get(language)
 
     @staticmethod
-    def find(name: str) -> None:
+    def find(name: str) -> Type['CoverageInstructions']:
         """
         Retrives the coverage instructions class registered under a given name.
         """
