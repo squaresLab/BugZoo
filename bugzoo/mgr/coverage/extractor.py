@@ -96,6 +96,9 @@ class CoverageExtractor(object):
               ) -> 'CoverageExtractor':
         bug = installation.bugs[container.bug]  # type: Bug
         instructions = bug.instructions
+        if instructions is None:
+            raise exceptions.NoCoverageInstructions
+
         name = instructions.__class__.registered_under_name()
         extractor_cls = _NAME_TO_EXTRACTOR[name]
         extractor = extractor_cls(installation, container, instructions)

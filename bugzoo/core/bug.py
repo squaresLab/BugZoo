@@ -32,7 +32,8 @@ class Bug(object):
     languages = attr.ib(type=Tuple[Language, ...], converter=_convert_languages)
     tests = attr.ib(type=TestSuite)
     compiler = attr.ib(type=Compiler)
-    instructions_coverage = attr.ib(type=CoverageInstructions)
+    instructions_coverage = attr.ib(type=Optional[CoverageInstructions],
+                                    default=None)
 
     @property
     def harness(self) -> TestSuite:
@@ -67,7 +68,7 @@ class Bug(object):
         Produces a dictionary-based description of this bug, ready to be
         serialised in a JSON or YAML format.
         """
-        return {
+        d = {
             'name': self.name,
             'image': self.image,
             'program': self.program,
@@ -76,6 +77,8 @@ class Bug(object):
             'source-location': self.source_dir,
             'languages': [l.name for l in self.languages],
             'compiler': self.compiler.to_dict(),
-            'test-harness': self.tests.to_dict(),
-            'coverage': self.instructions_coverage.to_dict()
+            'test-harness': self.tests.to_dict()
         }
+        if self.instructions_coverage:
+            d['coverage'] = self.instructions_coverage.to_dict()
+        return d
