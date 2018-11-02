@@ -1,6 +1,8 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
-from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type
+from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type, \
+    Optional
+import logging
 
 import yaml
 import attr
@@ -10,6 +12,9 @@ from .fileline import FileLine, FileLineSet
 from .test import TestSuite, TestOutcome
 from ..util import indent
 from .. import exceptions
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 _NAME_TO_INSTRUCTIONS = {}  # type: Dict[str, Type[CoverageInstructions]]
 _INSTRUCTIONS_TO_NAME = {}  # type: Dict[Type[CoverageInstructions], str]
