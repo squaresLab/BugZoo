@@ -46,6 +46,9 @@ class CoverageInstructions(object):
         cls = _NAME_TO_INSTRUCTIONS[name_type]
         return cls.from_dict(d)
 
+    def to_dict(self) -> Dict[str, Any]:
+        raise NotImplementedError
+
 
 class TestCoverage(object):
     """
