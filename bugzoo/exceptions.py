@@ -9,6 +9,7 @@ __all__ = [
     'BugZooException',
     'ConnectionFailure',
     'BadManifestFile',
+    'BadCoverageInstructions',
     'UnexpectedResponse',
     'UnexpectedServerError',
     'UnexpectedStatusCode',
@@ -156,6 +157,15 @@ class UnexpectedResponse(BugZooException):
     @property
     def response(self) -> requests.Response:
         return self.__response
+
+
+class BadCoverageInstructions(BugZooException):
+    """
+    The associated set of coverage instructions are illegal.
+    """
+    def __init__(self, reason: str) -> None:
+        msg = "bad coverage instructions: {}".format(reason)
+        super().__init__(msg)
 
 
 class BadManifestFile(BugZooException):
