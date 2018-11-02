@@ -32,6 +32,13 @@ class CoverageInstructions(object):
         """
         return _INSTRUCTIONS_TO_NAME[cls]
 
+    @staticmethod
+    def find(name: str) -> None:
+        """
+        Retrives the coverage instructions class registered under a given name.
+        """
+        return _NAME_TO_INSTRUCTIONS[name]
+
     @classmethod
     def register(cls, name: str) -> None:
         logger.debug("registering coverage instructions [%s] under name [%s]",
