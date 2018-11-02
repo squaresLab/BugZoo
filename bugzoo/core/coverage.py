@@ -5,6 +5,7 @@ from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type
 import yaml
 import attr
 
+from .language import Language
 from .fileline import FileLine, FileLineSet
 from .test import TestSuite, TestOutcome
 from ..util import indent
@@ -12,6 +13,8 @@ from .. import exceptions
 
 _NAME_TO_INSTRUCTIONS = {}  # type: Dict[str, Type[CoverageInstructions]]
 _INSTRUCTIONS_TO_NAME = {}  # type: Dict[Type[CoverageInstructions], str]
+_LANGUAGE_TO_DEFAULT_INSTRUCTIONS = \
+    {}  # type: Dict[Language, Type[CoverageInstructions]]
 
 
 def _convert_files_to_instrument(files: Iterable[str]) -> FrozenSet[str]:
@@ -38,6 +41,27 @@ class CoverageInstructions(object):
             m = m.format(_INSTRUCTIONS_TO_NAME[cls])
         _NAME_TO_INSTRUCTIONS[name] = cls
         _INSTRUCTIONS_TO_NAME[cls] = name
+
+    @classmethod
+    def register_as_default(cls, language: Language) -> None:
+        logger.debug("registering coverage instructions [%s] as default for %s",  # noqa: pycodestyle
+                     cls, language)
+
+        if language in _LANGUAGE_TO_DEFAULT_INSTRUCTIONS:
+            m = "language [{}] already has a default coverage instructions: {}"
+            m = m.format(language.name,
+                         _LANGUAGE_TO_DEFAULT_INSTRUCTIONS[language])
+            raise Exception(m)
+
+        if cls not in _INSTRUCTIONS_TO_NAME:
+            m = "coverage instructions [{}] have not been registered"
+            m = m.format(cls)
+            raise Exception(m)
+        name = _EXTRACTOR_TO_NAME[cls]
+
+        _LANGUAGE_TO_DEFAULT_INSTRUCTIONS[language] = cls
+        logger.debug("registered coverage instructions [%s] as default for %s",
+                     name, language)
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
