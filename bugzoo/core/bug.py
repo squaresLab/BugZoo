@@ -62,11 +62,15 @@ class Bug(object):
                 CoverageInstructions.from_dict(d['coverage'])
         elif len(languages) == 1:
             lang = languages[0]
-            logger.debug("bug [%s]: using default coverage instructions type for language [%s]",
-                         name, lang.name)
             cls_cov_ins = CoverageInstructions.language_default(lang)
-            instructions_coverage = \
-                cls_cov_ins.from_dict(d.get('coverage', {}))
+            if not cls_cov_ins:
+                logger.debug("no default coverage instructions for language [%s]",
+                             lang)
+            else:
+                logger.debug("bug [%s]: using default coverage instructions type [%s] for language [%s]",
+                             name, cls_cov_ins, lang.name)
+                instructions_coverage = \
+                    cls_cov_ins.from_dict(d.get('coverage', {}))
         else:
             logger.warning("no coverage instructions for bug: %s", name)
 
