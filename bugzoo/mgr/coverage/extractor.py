@@ -94,7 +94,7 @@ class CoverageExtractor(object):
               container: Container
               ) -> 'CoverageExtractor':
         bug = installation.bugs[container.bug]  # type: Bug
-        instructions = bug.instructions
+        instructions = bug.instructions_coverage
         if instructions is None:
             raise exceptions.NoCoverageInstructions
 
