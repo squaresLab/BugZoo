@@ -62,6 +62,7 @@ class CoverageInstructions(object):
         if cls in _INSTRUCTIONS_TO_NAME:
             m = "coverage instructions already registered under name: {}"
             m = m.format(_INSTRUCTIONS_TO_NAME[cls])
+            raise Exception(m)  # FIXME add new error class
         _NAME_TO_INSTRUCTIONS[name] = cls
         _INSTRUCTIONS_TO_NAME[cls] = name
         logger.debug("registered coverage instructions [%s] under name [%s]",
