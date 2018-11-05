@@ -22,6 +22,14 @@ _EXTRACTOR_TO_NAME = {}  # type: Dict[Type[CoverageExtractor], str]
 def register(name: str):
     """
     Registers a coverage extractor class under a given name.
+
+    .. code: python
+
+        from bugzoo.mgr.coverage import CoverageExtractor, register
+
+        @register('mycov')
+        class MyCoverageExtractor(CoverageExtractor):
+            ...
     """
     def decorator(cls: Type['CoverageExtractor']):
         cls.register(name)
@@ -32,7 +40,19 @@ def register(name: str):
 def register_as_default(language: Language):
     """
     Registers a coverage extractor class as the default coverage extractor
-    for a given language.
+    for a given language. Requires that the coverage extractor class has
+    already been registered with a given name.
+
+    .. code: python
+
+        from bugzoo.core import Language
+        from bugzoo.mgr.coverage import CoverageExtractor, register, \
+            register_as_default
+
+        @register_as_default(Language.CPP)
+        @register('mycov')
+        class MyCoverageExtractor(CoverageExtractor):
+            ...
     """
     def decorator(cls: Type['CoverageExtractor']):
         cls.register_as_default(language)
