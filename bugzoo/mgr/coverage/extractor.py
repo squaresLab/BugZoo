@@ -44,6 +44,35 @@ class CoverageExtractor(object):
     """
     Used to compute coverage information for a given container according to a
     provided set of instructions.
+
+    Each CoverageExtractor should contain a inner class named Instructions,
+    which inherits from CoverageInstructions. The Instructions class is used
+    to provide instructions necessary for computing coverage for a particular
+    bug/container.
+
+    .. code: python
+
+        from bugzoo.mgr.coverage import CoverageExtractor
+
+        class MyCoverageExtractor(CoverageExtractor):
+            class Instructions(CoverageInstructions):
+                ...
+
+    Additionally, CoverageExtractor classes are expected to implement a
+    three-argument constructor that accepts a BugZoo installation,
+    a container, and an Instructions object appropriate for that class.
+
+    .. code: python
+
+        class MyCoverageExtractor(CoverageExtractor):
+            ...
+
+            def __init__(self,
+                         installation: 'BugZoo',
+                         container: Container,
+                         instructions: Instructions
+                         ) -> None:
+                ...
     """
     @classmethod
     def register(cls, name: str) -> None:
@@ -102,3 +131,10 @@ class CoverageExtractor(object):
         extractor_cls = _NAME_TO_EXTRACTOR[name]
         extractor = extractor_cls(installation, container, instructions)
         return extractor
+
+    def __init__(self,
+                 installation: 'BugZoo',
+                 container: Container,
+                 instructions: CoverageInstructions
+                 ) -> None:
+        raise NotImplementedError
