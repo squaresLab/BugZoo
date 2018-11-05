@@ -105,8 +105,8 @@ class GcovExtractor(CoverageExtractor):
             fn_abs = os.path.join(dir_source, fn_rel)
             return (fn_abs in all_files)
 
-        def read_line_coverage(cls) -> List[int]:
-            lines = cls.find('lines').findall('line')
+        def read_line_coverage(cobertura_class) -> List[int]:
+            lines = cobertura_class.find('lines').findall('line')
             return set(int(l.attrib['number']) for l in lines
                     if int(l.attrib['hits']) > 0)
 
