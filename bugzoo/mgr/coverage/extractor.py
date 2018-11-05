@@ -3,13 +3,14 @@ __all__ = ['CoverageExtractor']
 from typing import FrozenSet, Optional, Iterable, Dict, Type
 from timeit import default_timer as timer
 import xml.etree.ElementTree as ET
+import abc
 import os
 import logging
 import tempfile
 import logging
 
 from ...core import FileLineSet, Container, TestSuiteCoverage, TestCoverage, \
-    CoverageInstructions, TestCase, Language, Bug
+    CoverageInstructions, TestCase, Language, Bug, FileLineSet
 from ... import exceptions
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
@@ -60,7 +61,7 @@ def register_as_default(language: Language):
     return decorator
 
 
-class CoverageExtractor(object):
+class CoverageExtractor(abc.ABC):
     """
     Used to compute coverage information for a given container according to a
     provided set of instructions.
@@ -79,19 +80,20 @@ class CoverageExtractor(object):
                 ...
 
     Additionally, CoverageExtractor classes are expected to implement a
-    three-argument constructor that accepts a BugZoo installation,
-    a container, and an Instructions object appropriate for that class.
+    static method named :code:`from_instructions`, which constructs a
+    CoverageExtractor instance for a given container using a provided set
+    of coverage instructions appropriate for that class, as shown below.
 
     .. code: python
 
         class MyCoverageExtractor(CoverageExtractor):
             ...
 
-            def __init__(self,
-                         installation: 'BugZoo',
-                         container: Container,
-                         instructions: Instructions
-                         ) -> None:
+            @staticmethod
+            def from_instructions(installation: 'BugZoo',
+                                  container: Container,
+                                  instructions: Instructions
+                                  ) -> 'MyCoverageExtractor':
                 ...
     """
     @classmethod
@@ -142,6 +144,10 @@ class CoverageExtractor(object):
     def build(installation: 'BugZoo',
               container: Container
               ) -> 'CoverageExtractor':
+        """
+        Constructs a CoverageExtractor for a given container using the coverage
+        instructions provided by its accompanying bug description.
+        """
         bug = installation.bugs[container.bug]  # type: Bug
         instructions = bug.instructions_coverage
         if instructions is None:
@@ -149,21 +155,98 @@ class CoverageExtractor(object):
 
         name = instructions.__class__.registered_under_name()
         extractor_cls = _NAME_TO_EXTRACTOR[name]
-        extractor = extractor_cls(installation, container, instructions)
+        builder = extractor_cls.from_instructions
+        extractor = builder(installation, container, instructions)
         return extractor
+
+    @staticmethod
+    @abc.abstractmethod
+    def from_instructions(installation: 'BugZoo',
+                          container: Container,
+                          instructions: CoverageInstructions
+                          ) -> 'CoverageExtractor':
+        """
+        Used to construct a coverage extractor for a given container using
+        a provided set of instructions. This method should be implemented for
+        each CoverageExtractor subclass.
+        """
+        raise NotImplementedError
 
     def __init__(self,
                  installation: 'BugZoo',
-                 container: Container,
-                 instructions: CoverageInstructions
+                 container: Container
                  ) -> None:
+        """
+        All coverage extractor subclasses are required to call this
+        constructor.
+        """
+        self.__installation = installation
+        self.__container = container
+
+    @property
+    def container(self) -> Container:
+        """
+        The container associated with this coverage extractor.
+        """
+        return self.__container
+
+    @abc.abstractmethod
+    def extract(self) -> FileLineSet:
+        """
+        Responsible for extracting any coverage information that has been
+        saved to disk.
+        """
         raise NotImplementedError
 
+    @abc.abstractmethod
     def cleanup(self) -> None:
         """
-        Removes any instrumentation that was added to the program before
-        rebuilding it, if necessary. By default, this method does nothing;
-        users should override this method to implement a custom cleanup
-        procedure.
+        Responsible for removes any instrumentation that was added to the
+        program, and then, if necessary, rebuilding it, if necessary.
         """
-        return
+        raise NotImplementedError
+
+    def run(self,
+            tests: Iterable[TestCase],
+            *,
+            instrument: bool = True
+            ) -> TestSuiteCoverage:
+        """
+        Computes line coverage information for a given set of tests.
+
+        Parameters:
+            tests: the tests for which coverage should be computed.
+            instrument: if set to True, calls prepare and cleanup before and
+                after running the tests. If set to False, prepare
+                and cleanup are not called, and the responsibility of calling
+                those methods is left to the user.
+        """
+        logger.debug("computing coverage for container: %s", container.uid)
+        container = self.container
+
+        try:
+            if instrument:
+                logger.debug("instrumenting container")
+                self.prepare()
+            else:
+                logger.debug("not instrumenting container")
+        except Exception:
+            msg = "failed to instrument container."
+            raise exceptions.FailedToComputeCoverage(msg)
+
+        cov = {}
+        for test in _tests:
+            logger.debug("Generating coverage for test %s in container %s",
+                         test.name, container.uid)
+            outcome = self.__installation.containers.execute(container, test)
+            filelines = self.extract()
+            test_coverage = TestCoverage(test.name, outcome, filelines)
+            logger.debug("Generated coverage for test %s in container %s",
+                         test.name, container.uid)
+            cov[test.name] = test_coverage
+
+        self.cleanup()
+
+        coverage = TestSuiteCoverage(cov)
+        logger.debug("Computed coverage for container: %s", container.uid)
+        return coverage

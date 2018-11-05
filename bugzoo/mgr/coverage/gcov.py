@@ -63,15 +63,23 @@ class GcovExtractor(CoverageExtractor):
         def to_dict(self) -> Dict[str, Any]:
             return {'files-to-instrument': list(self.files_to_instrument)}
 
+    @staticmethod
+    def from_instructions(installation: 'BugZoo',
+                          container: Container,
+                          instructions: Instructions
+                          ) -> None:
+        return GcovExtractor(installation,
+                             container,
+                             instructions.files_to_instrument)
+
     def __init__(self,
                  installation: 'BugZoo',
                  container: Container,
-                 instructions: Instructions
+                 files_to_instrument: FrozenSet[str]
                  ) -> None:
+        super().__init__(installation, container)
         self.__installation = installation  # type: BugZoo
-        self.__container = Container
 
-        files_to_instrument = instructions.files_to_instrument
         for path in files_to_instrument:
             assert not os.path.isabs(path), "expected relative file paths"
         self.__files_to_instrument = files_to_instrument
@@ -88,7 +96,7 @@ class GcovExtractor(CoverageExtractor):
             report.
         """
         logger_c = logger.getChild(container.id)
-        container = self.__container
+        container = self.container
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -169,7 +177,7 @@ class GcovExtractor(CoverageExtractor):
             container: the container whose contents should be instrumented.
         """
         logger.debug("instrumenting container: %s", container.uid)
-        container = self.__container
+        container = self.container
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         mgr_file = self.__installation.files
@@ -195,45 +203,6 @@ class GcovExtractor(CoverageExtractor):
 
         logger.debug("instrumented container: %s", container.uid)
 
-    def run(self,
-            tests: Iterable[TestCase],
-            *,
-            instrument: bool = True
-            ) -> TestSuiteCoverage:
-        """
-        Uses a provided container to compute line coverage information for a
-        given list of tests.
-        """
-        logger.debug("computing coverage for container: %s", container.uid)
-        container = self.__container
-
-        try:
-            if instrument:
-                logger.debug("instrumenting container")
-                self.prepare()
-            else:
-                logger.debug("not instrumenting container")
-        except Exception:
-            msg = "failed to instrument container."
-            raise exceptions.FailedToComputeCoverage(msg)
-
-        cov = {}
-        for test in _tests:
-            logger.debug("Generating coverage for test %s in container %s",
-                         test.name, container.uid)
-            outcome = self.__installation.containers.execute(container, test)
-            filelines = self.extract()
-            test_coverage = TestCoverage(test.name, outcome, filelines)
-            logger.debug("Generated coverage for test %s in container %s",
-                         test.name, container.uid)
-            cov[test.name] = test_coverage
-
-        self.cleanup()
-
-        coverage = TestSuiteCoverage(cov)
-        logger.debug("Computed coverage for container: %s", container.uid)
-        return coverage
-
     def cleanup(self) -> None:
         """
         Strips instrumentation from the source code inside the container,
@@ -248,7 +217,7 @@ class GcovExtractor(CoverageExtractor):
         coverage.
         """
         logger_c = logger.getChild(container.id)  # type: logging.Logger
-        container = self.__container
+        container = self.container
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         logger_c.debug("Extracting coverage information")
