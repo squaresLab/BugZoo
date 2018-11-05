@@ -158,3 +158,12 @@ class CoverageExtractor(object):
                  instructions: CoverageInstructions
                  ) -> None:
         raise NotImplementedError
+
+    def cleanup(self) -> None:
+        """
+        Removes any instrumentation that was added to the program before
+        rebuilding it, if necessary. By default, this method does nothing;
+        users should override this method to implement a custom cleanup
+        procedure.
+        """
+        return
