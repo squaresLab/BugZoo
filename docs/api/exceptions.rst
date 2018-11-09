@@ -50,7 +50,11 @@ Reference
 .. autoclass:: SourceAlreadyRegisteredWithURL()
 
 .. autoclass:: FailedToComputeCoverage()
+.. autoclass:: NoCoverageInstructions()
+.. autoclass:: BadCoverageInstructions()
 
 .. autoclass:: ContainerNotFound()
 
 .. autoclass:: TestNotFound()
+
+.. autoclass:: ToolNotFound()

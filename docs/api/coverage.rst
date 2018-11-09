@@ -63,9 +63,10 @@ lines that were executed:
 
 .. code-block:: python
 
-  client.containers.instrument(container)
+  client.containers.prepare_for_coverage(container)
   outcome = client.containers.test(container, test)
-  lines = client.containers.extract_coverage(container)
+  lines = client.containers.read_coverage(container)
+  client.containers.cleanup_coverage(container)
   coverage = TestCoverage(test.name, outcome, lines)
 
 

@@ -1,34 +1,109 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
-from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet
+from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type, \
+    Optional
+import logging
 
 import yaml
 import attr
 
+from .language import Language
 from .fileline import FileLine, FileLineSet
 from .test import TestSuite, TestOutcome
 from ..util import indent
+from .. import exceptions
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
+
+_NAME_TO_INSTRUCTIONS = {}  # type: Dict[str, Type[CoverageInstructions]]
+_INSTRUCTIONS_TO_NAME = {}  # type: Dict[Type[CoverageInstructions], str]
+_LANGUAGE_TO_DEFAULT_INSTRUCTIONS = \
+    {}  # type: Dict[Language, Type[CoverageInstructions]]
 
 
 def _convert_files_to_instrument(files: Iterable[str]) -> FrozenSet[str]:
     return frozenset(files)
 
 
-@attr.s(frozen=True)
 class CoverageInstructions(object):
     """
     Provides instructions for computing coverage.
     """
-    files_to_instrument = attr.ib(type=FrozenSet[str],
-                                  converter=_convert_files_to_instrument)
+    @classmethod
+    def registered_under_name(cls) -> str:
+        """
+        Returns the name that was used to register this class.
+        """
+        return _INSTRUCTIONS_TO_NAME[cls]
+
+    @staticmethod
+    def language_default(language: Language
+                         ) -> Optional[Type['CoverageInstructions']]:
+        """
+        Returns the default coverage instructions class for a given language,
+        if such a class has been registered for that language.
+        """
+        return _LANGUAGE_TO_DEFAULT_INSTRUCTIONS.get(language)
+
+    @staticmethod
+    def find(name: str) -> Type['CoverageInstructions']:
+        """
+        Retrives the coverage instructions class registered under a given name.
+        """
+        return _NAME_TO_INSTRUCTIONS[name]
+
+    @classmethod
+    def register(cls, name: str) -> None:
+        logger.debug("registering coverage instructions [%s] under name [%s]",
+                     cls, name)
+        if name in _NAME_TO_INSTRUCTIONS:
+            raise exceptions.NameInUseError(name)
+        if cls in _INSTRUCTIONS_TO_NAME:
+            m = "coverage instructions already registered under name: {}"
+            m = m.format(_INSTRUCTIONS_TO_NAME[cls])
+            raise Exception(m)  # FIXME add new error class
+        _NAME_TO_INSTRUCTIONS[name] = cls
+        _INSTRUCTIONS_TO_NAME[cls] = name
+        logger.debug("registered coverage instructions [%s] under name [%s]",
+                     cls, name)
+
+    @classmethod
+    def register_as_default(cls, language: Language) -> None:
+        logger.debug("registering coverage instructions [%s] as default for %s",  # noqa: pycodestyle
+                     cls, language)
+
+        if language in _LANGUAGE_TO_DEFAULT_INSTRUCTIONS:
+            m = "language [{}] already has a default coverage instructions: {}"
+            m = m.format(language.name,
+                         _LANGUAGE_TO_DEFAULT_INSTRUCTIONS[language])
+            raise Exception(m)
+
+        if cls not in _INSTRUCTIONS_TO_NAME:
+            m = "coverage instructions [{}] have not been registered"
+            m = m.format(cls)
+            raise Exception(m)
+        name = _INSTRUCTIONS_TO_NAME[cls]
+
+        _LANGUAGE_TO_DEFAULT_INSTRUCTIONS[language] = cls
+        logger.debug("registered coverage instructions [%s] as default for %s",
+                     name, language)
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> 'CoverageInstructions':
-        files_to_instrument = d.get('files-to-instrument', [])
-        return CoverageInstructions(files_to_instrument)
+        """
+        Loads a set of coverage instructions from a given dictionary.
+
+        Raises:
+            BadCoverageInstructions: if the given coverage instructions are
+                illegal.
+        """
+        name_type = d['type']
+        cls = _NAME_TO_INSTRUCTIONS[name_type]
+        return cls.from_dict(d)
 
     def to_dict(self) -> Dict[str, Any]:
-        return {'files-to-instrument': list(self.files_to_instrument)}
+        raise NotImplementedError
 
 
 class TestCoverage(object):

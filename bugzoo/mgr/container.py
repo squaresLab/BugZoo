@@ -345,11 +345,7 @@ class ContainerManager(object):
         """
         Retrieves the coverage extractor for a given container.
         """
-        bug = self.__installation.bugs[container.bug]  # type: Bug
-        extractor = CoverageExtractor.build(self.__installation,
-                                            container,
-                                            bug.instructions_coverage)
-        return extractor
+        return CoverageExtractor.build(self.__installation, container)
 
     def prepare_for_coverage(self, container: Container) -> None:
         self.coverage_extractor(container).prepare()

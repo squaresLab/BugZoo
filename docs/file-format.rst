@@ -317,28 +317,46 @@ compiler definition.
 Coverage
 ........
 
-The :code:`coverage` section of a bug description provides BugZoo with the
-information necessary to reliably compute line coverage information for the
-faulty program. This section is only required by C and C++ programs, for which
-BugZoo uses :code:`gcov` to collect line coverage. The :code:`coverage`
-section specifies a single property, :code:`files-to-instrument` that gives
-a list of the names of the source files that should be instrumented to ensure
-that line coverage is flushed to file. Below is an example of a
-:code:`coverage` section.
+BugZoo uses language-dependent *coverage extractors* to compute line coverage
+information for faulty programs. The :code:`coverage` section of the manifest
+file provides BugZoo with the information that it needs to construct a
+coverage extractor for the program. Below is an example of a :code:`coverage`
+section for a C program that uses the :code:`gcov` extractor.
 
 .. code-block:: yaml
 
   coverage:
+    type: gcov
     files-to-instrument:
       - foo.c
 
-For C and C++ programs, the instrumentation that BugZoo adds to the program
-introduces a set of signal handlers that ensures the program flushes the
-:code:`gcov` line coverage report to disk. The instrumentation is necessary
-to ensure that the report is flushed to disk when the program abruptly
-terminates (e.g., due to a segmentation fault). Note that only the source
-files that provide entrypoints (i.e., `main`) to the binaries used by the
-program need to be instrumented.
+The :code:`type` property instructs BugZoo to use :code:`gcov` to compute
+coverage information for the program under test. If no :code:`type` property
+is provided, BugZoo will attempt to use the default coverage extractor for the
+language used by the program under test. (If the program under test uses more
+than one language, uses are required to specify a :code:`type`, else coverage
+information cannot be computed.)
+
+The rest of the :code:`coverage` section is parsed according to the
+:code:`type` of coverage extractor that is being used.
+
+* :code:`gcov`: To obtain coverage under crashing conditions, :type:`gcov`
+  injects a set of signal handlers into certain files in the program to ensure
+  that line coverage information is flushed to disk at the end of program
+  execution, even if the program is terminated abruptly (e.g., due to a
+  segmentation fault).
+  Instrumentation should be added to each source file that provides an
+  entrypoint (i.e., `main`) to the binaries used by the program.
+  Users are required to specify which files should be instrumented via the
+  :code:`files-to-instrument` property, as shown below.
+
+  .. code-block:: yaml
+
+    coverage:
+      type: gcov
+      files-to-instrument:
+        - foo.c
+
 
 Plugins
 -------

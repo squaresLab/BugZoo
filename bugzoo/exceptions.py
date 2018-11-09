@@ -9,6 +9,7 @@ __all__ = [
     'BugZooException',
     'ConnectionFailure',
     'BadManifestFile',
+    'BadCoverageInstructions',
     'UnexpectedResponse',
     'UnexpectedServerError',
     'UnexpectedStatusCode',
@@ -28,7 +29,8 @@ __all__ = [
     'ImageNotInstalled',
     'ImageAlreadyExists',
     'TestNotFound',
-    'ToolNotFound'
+    'ToolNotFound',
+    'NoCoverageInstructions'
 ]
 
 
@@ -100,6 +102,14 @@ class ConnectionFailure(BugZooException):
         super().__init__("failed to connect to BugZoo server within timeout window.")
 
 
+class NoCoverageInstructions(BugZooException):
+    """
+    No coverage instructions were found for a given bug/container.
+    """
+    def __init__(self) -> None:
+        super().__init__("no coverage instructions available for bug/container")
+
+
 class UnexpectedServerError(BugZooException):
     """
     The server encountered an unexpected error whilst dealing with a request.
@@ -147,6 +157,15 @@ class UnexpectedResponse(BugZooException):
     @property
     def response(self) -> requests.Response:
         return self.__response
+
+
+class BadCoverageInstructions(BugZooException):
+    """
+    The associated set of coverage instructions are illegal.
+    """
+    def __init__(self, reason: str) -> None:
+        msg = "bad coverage instructions: {}".format(reason)
+        super().__init__(msg)
 
 
 class BadManifestFile(BugZooException):

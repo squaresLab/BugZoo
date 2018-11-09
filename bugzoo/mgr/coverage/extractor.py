@@ -1,195 +1,210 @@
 __all__ = ['CoverageExtractor']
 
-from typing import FrozenSet, Optional, Iterable, Dict
+from typing import FrozenSet, Optional, Iterable, Dict, Type
 from timeit import default_timer as timer
 import xml.etree.ElementTree as ET
+import abc
 import os
 import logging
 import tempfile
 import logging
 
 from ...core import FileLineSet, Container, TestSuiteCoverage, TestCoverage, \
-    CoverageInstructions, TestCase
+    CoverageInstructions, TestCase, Language, Bug, FileLineSet
 from ... import exceptions
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
-INSTRUMENTATION = (
-    "// BUGZOO :: INSTRUMENTATION :: START\n"
-    "#include <stdio.h>\n"
-    "#include <stdlib.h>\n"
-    "#include <signal.h>\n"
-    "extern \"C\" void __gcov_flush(void);\n"
-    "void bugzoo_sighandler(int sig){\n"
-    "  __gcov_flush();\n"
-    "  if(sig != SIGUSR1 && sig != SIGUSR2)\n"
-    "    exit(1);\n"
-    "}\n"
-    "void bugzoo_ctor (void) __attribute__ ((constructor));\n"
-    "void bugzoo_ctor (void) {\n"
-    "  struct sigaction new_action;\n"
-    "  new_action.sa_handler = bugzoo_sighandler;\n"
-    "  sigemptyset(&new_action.sa_mask);\n"
-    "  new_action.sa_flags = 0;\n"
-    "  sigaction(SIGTERM, &new_action, NULL);\n"
-    "  sigaction(SIGINT, &new_action, NULL);\n"
-    "  sigaction(SIGKILL, &new_action, NULL);\n"
-    "  sigaction(SIGSEGV, &new_action, NULL);\n"
-    "  sigaction(SIGFPE, &new_action, NULL);\n"
-    "  sigaction(SIGBUS, &new_action, NULL);\n"
-    "  sigaction(SIGILL, &new_action, NULL);\n"
-    "  sigaction(SIGABRT, &new_action, NULL);\n"
-    "  // Use signal for SIGUSR to remove handlers\n"
-    "  signal(SIGUSR1, bugzoo_sighandler);\n"
-    "  signal(SIGUSR2, bugzoo_sighandler);\n"
-    "}\n"
-    "// BUGZOO :: INSTRUMENTATION :: END\n"
-)
+_NAME_TO_EXTRACTOR = {}  # type: Dict[str, Type[CoverageExtractor]]
+_EXTRACTOR_TO_NAME = {}  # type: Dict[Type[CoverageExtractor], str]
 
 
-class CoverageExtractor(object):
+def register(name: str):
+    """
+    Registers a coverage extractor class under a given name.
+
+    .. code: python
+
+        from bugzoo.mgr.coverage import CoverageExtractor, register
+
+        @register('mycov')
+        class MyCoverageExtractor(CoverageExtractor):
+            ...
+    """
+    def decorator(cls: Type['CoverageExtractor']):
+        cls.register(name)
+        return cls
+    return decorator
+
+
+def register_as_default(language: Language):
+    """
+    Registers a coverage extractor class as the default coverage extractor
+    for a given language. Requires that the coverage extractor class has
+    already been registered with a given name.
+
+    .. code: python
+
+        from bugzoo.core import Language
+        from bugzoo.mgr.coverage import CoverageExtractor, register, \
+            register_as_default
+
+        @register_as_default(Language.CPP)
+        @register('mycov')
+        class MyCoverageExtractor(CoverageExtractor):
+            ...
+    """
+    def decorator(cls: Type['CoverageExtractor']):
+        cls.register_as_default(language)
+        return cls
+    return decorator
+
+
+class CoverageExtractor(abc.ABC):
     """
     Used to compute coverage information for a given container according to a
     provided set of instructions.
+
+    Each CoverageExtractor should contain a inner class named Instructions,
+    which inherits from CoverageInstructions. The Instructions class is used
+    to provide instructions necessary for computing coverage for a particular
+    bug/container.
+
+    .. code: python
+
+        from bugzoo.mgr.coverage import CoverageExtractor
+
+        class MyCoverageExtractor(CoverageExtractor):
+            class Instructions(CoverageInstructions):
+                ...
+
+    Additionally, CoverageExtractor classes are expected to implement a
+    static method named :code:`from_instructions`, which constructs a
+    CoverageExtractor instance for a given container using a provided set
+    of coverage instructions appropriate for that class, as shown below.
+
+    .. code: python
+
+        class MyCoverageExtractor(CoverageExtractor):
+            ...
+
+            @staticmethod
+            def from_instructions(installation: 'BugZoo',
+                                  container: Container,
+                                  instructions: Instructions
+                                  ) -> 'MyCoverageExtractor':
+                ...
     """
+    @classmethod
+    def register(cls, name: str) -> None:
+        logger.info("registering coverage extractor [%s] under name [%s]",
+                    cls, name)
+
+        if name in _NAME_TO_EXTRACTOR:
+            raise exceptions.NameInUseError(name)
+        if cls in _EXTRACTOR_TO_NAME:
+            m = "coverage extractor [{}] is already registered under name: {}"
+            m = m.format(cls, _EXTRACTOR_TO_NAME[cls])
+            raise Exception(m)
+
+        try:
+            instructions = cls.Instructions
+        except UnboundLocalError:
+            m = "coverage extractor doesn't provide an 'Instructions' class"
+            raise Exception(m)
+        if not issubclass(instructions, CoverageInstructions):
+            m = "'Instructions' class should subclass 'CoverageInstructions'"
+            raise Exception(m)
+
+        instructions.register(name)
+        _NAME_TO_EXTRACTOR[name] = cls
+        _EXTRACTOR_TO_NAME[cls] = name
+
+        logger.info("registered coverage extractor [%s] under name [%s]",
+                    cls, name)
+
+    @classmethod
+    def register_as_default(cls, language: Language) -> None:
+        logger.info("registering coverage extractor [{}] as default for {}",
+                    cls, language)
+
+        if cls not in _EXTRACTOR_TO_NAME:
+            m = "coverage extractor [{}] has not been registered under a name"
+            m = m.format(cls)
+            raise Exception(m)
+
+        name = _EXTRACTOR_TO_NAME[cls]
+        cls_instructions = CoverageInstructions.find(name)
+        cls_instructions.register_as_default(language)
+        logger.info("registered coverage extractor [{}] as default for {}",
+                    cls, language)
+
     @staticmethod
     def build(installation: 'BugZoo',
-              container: Container,
-              instructions: CoverageInstructions
+              container: Container
               ) -> 'CoverageExtractor':
-        return CoverageExtractor(installation, container, instructions)
+        """
+        Constructs a CoverageExtractor for a given container using the coverage
+        instructions provided by its accompanying bug description.
+        """
+        bug = installation.bugs[container.bug]  # type: Bug
+        instructions = bug.instructions_coverage
+        if instructions is None:
+            raise exceptions.NoCoverageInstructions
+
+        name = instructions.__class__.registered_under_name()
+        extractor_cls = _NAME_TO_EXTRACTOR[name]
+        builder = extractor_cls.from_instructions
+        extractor = builder(installation, container, instructions)
+        return extractor
+
+    @staticmethod
+    @abc.abstractmethod
+    def from_instructions(installation: 'BugZoo',
+                          container: Container,
+                          instructions: CoverageInstructions
+                          ) -> 'CoverageExtractor':
+        """
+        Used to construct a coverage extractor for a given container using
+        a provided set of instructions. This method should be implemented for
+        each CoverageExtractor subclass.
+        """
+        raise NotImplementedError
 
     def __init__(self,
                  installation: 'BugZoo',
-                 container: Container,
-                 files_to_instrument: FrozenSet[str]
+                 container: Container
                  ) -> None:
-        self.__installation = installation  # type: BugZoo
-        self.__container = Container
-
-        for path in files_to_instrument:
-            assert not os.path.isabs(path), "expected relative file paths"
-        self.__files_to_instrument = files_to_instrument
-
-    def _parse_report(self, s: str) -> FileLineSet:
         """
-        Determines the set of files that are covered in a gcovr report.
-
-        Parameters:
-            s: a string-encoding of an XML document containing a gcovr report.
-
-        Returns:
-            the set of file-lines that are stated as covered by the given
-            report.
+        All coverage extractor subclasses are required to call this
+        constructor.
         """
-        logger_c = logger.getChild(container.id)
-        container = self.__container
-        mgr_ctr = self.__installation.containers
-        mgr_bug = self.__installation.bugs
-        bug = mgr_bug[container.bug]
+        self.__installation = installation
+        self.__container = container
 
-        # compute a list of all source files
-        dir_source = bug.source_dir
-        endings = ['.cpp', '.cc', '.c', '.h', '.hh', '.hpp', '.cxx']
-        cmd = ' -o '.join(["-name \*{}".format(e) for e in endings])
-        cmd = "find {} -type f \( {} \)".format(dir_source, cmd)
-        resp = mgr_ctr.command(container, cmd)
-        all_files = set(fn.strip() for fn in resp.output.split('\n'))
-
-        def has_file(fn_rel: str) -> bool:
-            fn_abs = os.path.join(dir_source, fn_rel)
-            return (fn_abs in all_files)
-
-        def read_line_coverage(cls) -> List[int]:
-            lines = cls.find('lines').findall('line')
-            return set(int(l.attrib['number']) for l in lines
-                    if int(l.attrib['hits']) > 0)
-
-        # FIXME is this a general solution?
-        def resolve_path(fn_rel: str) -> str:
-            assert fn_rel != '', "failed to resolve path"
-            if has_file(fn_rel):
-                return fn_rel
-
-            fn_rel_child = '/'.join(fn_rel.split('/')[1:])
-            return resolve_path(fn_rel_child)
-
-        # read the output of gcovr
-        root = ET.fromstring(s)
-        packages = root.find('packages').findall('package')
-        classes = [c for p in packages for c in p.find('classes').findall('class')]
-        report = [(cls.attrib['filename'], read_line_coverage(cls))
-                  for cls in classes]
-        report = [(fn, lines) for (fn, lines) in report if lines]
-
-        t_start = timer()
-        logger_c.debug("Starting to traverse all files reported by gcovr.")
-        files_to_lines = {}
-        for (filename, lines) in report:
-            try:
-                filename = resolve_path(filename)
-            except AssertionError:
-                logger_c.warning("failed to resolve file: %s", filename)
-                continue
-            if lines:
-                files_to_lines[filename] = lines
-
-        logger_c.debug("Traversing all files finished. Seconds passed: %.2f", timer() - t_start)
-        # modify coverage information for all of the instrumented files
-        num_instrumentation_lines = INSTRUMENTATION.count('\n')
-        lines_to_remove = set(range(1, num_instrumentation_lines))
-        for path in self.__instrumented_files:
-            if not path in files_to_lines:
-                continue
-
-            logger_c.debug("Removing coverage lines due to instrumentation: %s", path)
-            lines = files_to_lines[path]
-            lines -= lines_to_remove
-            tmp = set()
-            for line in lines:
-                tmp.add(line - num_instrumentation_lines)
-            files_to_lines[path] = tmp
-
-        file_line_set = FileLineSet(files_to_lines)
-        logger_c.debug("Lines in coverage report: %s", file_line_set)
-        return file_line_set
-
-    def prepare(self) -> None:
+    @property
+    def container(self) -> Container:
         """
-        Adds source code instrumentation and recompiles the program inside
-        a container using the appropriate GCC options. Also ensures that
-        gcovr is installed inside the container.
-
-        Parameters:
-            container: the container whose contents should be instrumented.
+        The container associated with this coverage extractor.
         """
-        logger.debug("instrumenting container: %s", container.uid)
-        container = self.__container
-        mgr_ctr = self.__installation.containers
-        mgr_bug = self.__installation.bugs
-        mgr_file = self.__installation.files
-        bug = mgr_bug[container.bug]
-        dir_source = bug.source_dir
+        return self.__container
 
-        # add instrumentation to each file
-        for fn_src in self.__files_to_instrument:
-            fn_src = os.path.join(dir_source, fn_src)
-            logger.debug("instrumenting file [%s] in container [%s]",
-                         fn_src, container.uid)
-            contents_original = mgr_file.read(container, fn_src)
-            contents_instrumented = INSTRUMENTATION + contents_original
-            mgr_file.write(container, fn_src, contents_instrumented)
+    @abc.abstractmethod
+    def extract(self) -> FileLineSet:
+        """
+        Responsible for extracting any coverage information that has been
+        saved to disk.
+        """
+        raise NotImplementedError
 
-        # recompile with instrumentation options
-        outcome = mgr_ctr.compile_with_instrumentation(container)
-        if not outcome.successful:
-            msg = "failed to generate coverage for container ({}) due to compilation failure."
-            msg = msg.format(container.id)
-            logger.debug("failed build output: %s", outcome.response.output)
-            raise Exception(msg)
-
-        logger.debug("instrumented container: %s", container.uid)
+    @abc.abstractmethod
+    def cleanup(self) -> None:
+        """
+        Responsible for removes any instrumentation that was added to the
+        program, and then, if necessary, rebuilding it, if necessary.
+        """
+        raise NotImplementedError
 
     def run(self,
             tests: Iterable[TestCase],
@@ -197,11 +212,17 @@ class CoverageExtractor(object):
             instrument: bool = True
             ) -> TestSuiteCoverage:
         """
-        Uses a provided container to compute line coverage information for a
-        given list of tests.
+        Computes line coverage information for a given set of tests.
+
+        Parameters:
+            tests: the tests for which coverage should be computed.
+            instrument: if set to True, calls prepare and cleanup before and
+                after running the tests. If set to False, prepare
+                and cleanup are not called, and the responsibility of calling
+                those methods is left to the user.
         """
         logger.debug("computing coverage for container: %s", container.uid)
-        container = self.__container
+        container = self.container
 
         try:
             if instrument:
@@ -229,51 +250,3 @@ class CoverageExtractor(object):
         coverage = TestSuiteCoverage(cov)
         logger.debug("Computed coverage for container: %s", container.uid)
         return coverage
-
-    def cleanup(self) -> None:
-        """
-        Strips instrumentation from the source code inside the container,
-        and reconfigures its program to no longer use coverage options.
-        """
-        logger.debug("cleanup method for gcov extractor does nothing.")
-
-    def extract(self) -> None:
-        """
-        Uses gcovr to extract coverage information for all of the C/C++ source
-        code files within the project. Destroys '.gcda' files upon computing
-        coverage.
-        """
-        logger_c = logger.getChild(container.id)  # type: logging.Logger
-        container = self.__container
-        mgr_ctr = self.__installation.containers
-        mgr_bug = self.__installation.bugs
-        logger_c.debug("Extracting coverage information")
-
-        bug = mgr_bug[container.bug]
-        dir_source = bug.source_dir
-        t_start = timer()
-        logger_c.debug("Running gcovr.")
-        fn_temp_ctr = mgr_ctr.mktemp(container)
-        cmd = 'gcovr -o "{}" -x -d -r .'.format(fn_temp_ctr)
-        response = mgr_ctr.command(container,
-                                   cmd,
-                                   context=dir_source,
-                                   verbose=True)
-        logger_c.debug("Finished running gcovr (took %.2f seconds).", timer() - t_start)  # noqa: pycodestyle
-        assert response.code == 0, "failed to run gcovr"
-
-        # copy the contents of the temporary file to the host machine
-        (_, fn_temp_host) = tempfile.mkstemp(suffix='.bugzoo')
-        try:
-            mgr_ctr.copy_from(container, fn_temp_ctr, fn_temp_host)
-            with open(fn_temp_host, 'r') as fh:
-                report = fh.read()
-        finally:
-            os.remove(fn_temp_host)
-
-        t_start = timer()
-        logger_c.debug("Parsing gcovr XML report.")
-        res = self._parse_report(report)
-        logger_c.debug("Finished parsing gcovr XML report (took %.2f seconds).", timer() - t_start)  # noqa: pycodestyle
-        logger_c.debug("Finished extracting coverage information")
-        return res
