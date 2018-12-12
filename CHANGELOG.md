@@ -16,6 +16,9 @@
 * Replaced `tool uninstall` command with `tool rm` and `tool remove`
   commands.
 * Refactored core data structures using `attrs`.
+* Updated patch command to use `patch` rather than `git apply` to avoid
+  errors when using containers that do not have an appropriate version of
+  Git installed.
 
 
 ### Bug Fixes
