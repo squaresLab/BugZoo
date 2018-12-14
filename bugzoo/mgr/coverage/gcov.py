@@ -182,8 +182,8 @@ class GcovExtractor(CoverageExtractor):
         Parameters:
             container: the container whose contents should be instrumented.
         """
-        logger.debug("instrumenting container: %s", container.uid)
         container = self.container
+        logger.debug("instrumenting container: %s", container.uid)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         mgr_file = self.__installation.files

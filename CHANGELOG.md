@@ -7,6 +7,7 @@
   renamed `file_abs` to `filename_abs`.
 * Fixed bug in blueprint construction that caused source name and dependent
   image names to be swapped with one another.
+* Fixed use-before-defined in `gcov` coverage extractor.
 
 
 ## 2.1.20 (2018-12-11)
