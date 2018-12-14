@@ -104,11 +104,12 @@ class BuildManager(object):
         if not quiet:
             logger.info("building image: %s", name)
 
-        tf = os.path.join(instructions.abs_context, '.Dockerfile')
+        context = instructions.abs_context
+        tf = os.path.join(context, '.Dockerfile')
         try:
             success = False
             shutil.copy(instructions.file_abs, tf)
-            response = self.__docker.api.build(path=instructions.abs_context,
+            response = self.__docker.api.build(path=context,
                                                dockerfile='.Dockerfile',
                                                tag=name,
                                                # pull=force,
