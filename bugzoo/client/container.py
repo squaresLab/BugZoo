@@ -1,7 +1,9 @@
 from typing import Iterator, Optional, Dict, Any, List
+from ipaddress import IPv4Address, IPv6Address
 import logging
 
 from .api import APIClient
+from .. import exceptions
 from ..compiler import CompilationOutcome
 from ..core.tool import Tool
 from ..core.patch import Patch
@@ -11,9 +13,9 @@ from ..core.container import Container
 from ..core.coverage import TestSuiteCoverage
 from ..core.test import TestCase, TestOutcome
 from ..cmd import ExecResponse
-from ..exceptions import BugZooException
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['ContainerManager']
 
@@ -133,6 +135,18 @@ class ContainerManager(object):
         if r.status_code == 404:
             raise KeyError("no bug registered with given name: {}".format(bug.name))
 
+        self.__api.handle_erroneous_response(r)
+
+    def ip_address(self,
+                   container: Container
+                   ) -> Union[IPv4Address, IPv6Address]:
+        """
+        The IP address used by a given container, or None if no IP address has
+        been assigned to that container.
+        """
+        r = self.__api.get('containers/{}/ip'.format(container.uid))
+        if r.status_code == 200:
+            return r.json()
         self.__api.handle_erroneous_response(r)
 
     def is_alive(self, container: Container) -> bool:
@@ -259,7 +273,7 @@ class ContainerManager(object):
             return coverage
         try:
             self.__api.handle_erroneous_response(r)
-        except BugZooException as err:
+        except exceptions.BugZooException as err:
             logger.exception("Failed to fetch coverage information for container %s: %s", uid, err.message)  # noqa: pycodestyle
             raise
         except Exception as err:
