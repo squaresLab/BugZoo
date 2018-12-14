@@ -1,3 +1,14 @@
+## 2.1.21 (XXXX-XX-XX)
+
+### Bug Fixes
+
+* Fixed infinite loop in `BuildInstructions.file` by removing the method and
+  replacing all `.file` accesses with equivalent `.filename` accesses. Also
+  renamed `file_abs` to `filename_abs`.
+* Fixed bug in blueprint construction that caused source name and dependent
+  image names to be swapped with one another.
+
+
 ## 2.1.20 (2018-12-11)
 
 ### Features

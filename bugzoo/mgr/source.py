@@ -159,13 +159,13 @@ class SourceManager(object):
         logger.info('unloaded source: %s', source.name)
 
     def __parse_blueprint(self, source: Source, fn: str, d: dict) -> BuildInstructions:
-        return BuildInstructions(os.path.dirname(fn),
-                                 d['tag'],
-                                 d.get('context', '.'),
-                                 d.get('file', 'Dockerfile'),
-                                 d.get('arguments', {}),
-                                 d.get('depends-on', None),
-                                 source.name)
+        return BuildInstructions(root=os.path.dirname(fn),
+                                 tag=d['tag'],
+                                 context=d.get('context', '.'),
+                                 filename=d.get('file', 'Dockerfile'),
+                                 arguments=d.get('arguments', {}),
+                                 source=source.name,
+                                 depends_on=d.get('depends-on', None))
 
     def __parse_bug(self, source: Source, fn: str, d: dict) -> Bug:
         d_ = d.copy()
