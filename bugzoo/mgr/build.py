@@ -108,7 +108,7 @@ class BuildManager(object):
         tf = os.path.join(context, '.Dockerfile')
         try:
             success = False
-            shutil.copy(instructions.file_abs, tf)
+            shutil.copy(instructions.filename_abs, tf)
             response = self.__docker.api.build(path=context,
                                                dockerfile='.Dockerfile',
                                                tag=name,

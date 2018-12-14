@@ -64,14 +64,5 @@ class BuildInstructions(object):
         return path
 
     @property
-    def file(self) -> str:
-        """
-        The path to the Dockerfile used to build the image associated with
-        these instructions, relative to the location of the build instruction
-        file.
-        """
-        return self.file
-
-    @property
-    def file_abs(self) -> str:
-        return os.path.join(self.root, self.file)
+    def filename_abs(self) -> str:
+        return os.path.join(self.root, self.filename)
