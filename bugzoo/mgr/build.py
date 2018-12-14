@@ -133,7 +133,8 @@ class BuildManager(object):
                 logger.info("built image: %s", name)
                 return
         finally:
-            os.remove(tf)
+            if os.path.exists(tf):
+                os.remove(tf)
 
     def uninstall(self,
                   name: str,
