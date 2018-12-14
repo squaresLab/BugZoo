@@ -2,11 +2,15 @@ from typing import Iterator
 import os
 import shutil
 import json
+import logging
 
 import docker
 
 from ..core.build import BuildInstructions
 from ..exceptions import ImageBuildFailed
+
+logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 
 class BuildManager(object):
@@ -86,17 +90,19 @@ class BuildManager(object):
             quiet: used to enable and disable output from the Docker build
                 process.
         """
+        logger.debug("request to build image: %s", name)
         instructions = self[name]
 
         if instructions.depends_on:
+            logger.info("building dependent image: %s",
+                        instructions.depends_on)
             self.build(instructions.depends_on, force=force, quiet=quiet)
 
         if not force and self.is_installed(instructions.name):
             return
 
-        # TODO use logger
         if not quiet:
-            print("Building image: {}".format(name))
+            logger.info("building image: %s", name)
 
         tf = os.path.join(instructions.abs_context, '.Dockerfile')
         try:
@@ -124,7 +130,7 @@ class BuildManager(object):
                 raise ImageBuildFailed(name, log)
 
             if success and not quiet:
-                print("Built image: {}".format(name))
+                logger.info("built image: %s", name)
                 return
         finally:
             os.remove(tf)
