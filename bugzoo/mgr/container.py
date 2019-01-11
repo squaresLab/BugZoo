@@ -484,6 +484,7 @@ class ContainerManager(object):
             subprocess.check_output(cmd, shell=True)
             logger.debug("Copied file from container, %s: %s -> %s",
                          container.uid, fn_container, fn_host)
+            assert self.command(container, "sudo chown ${USER} '%s'").code == 0
         # TODO implement error handling
         except subprocess.CalledProcessError:
             logger.exception("Failed to copy file from container, %s: %s -> %s",  # noqa: pycodestyle
