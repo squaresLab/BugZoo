@@ -464,7 +464,7 @@ class ContainerManager(object):
                          container.uid, fn_host, fn_container)
 
             r = self.command(container,
-                             "sudo chown ${{USER}} '{}'".format(fn_container))
+                             "sudo chown $(whoami) '{}'".format(fn_container))
             if r.code != 0:
                 m = "failed to update permissions for container file [{}] (exit code: {}): {}"  # noqa: pycodestyle
                 m = m.format(fn_container, r.code, r.output)
