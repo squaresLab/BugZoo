@@ -464,7 +464,7 @@ class ContainerManager(object):
                          container.uid, fn_host, fn_container)
 
             r = self.command(container,
-                             "sudo chown $\{USER\} '{}'".format(fn_container))
+                             "sudo chown ${{USER}} '{}'".format(fn_container))
             if r.code != 0:
                 m = "failed to update permissions for container file [{}]"
                 m = m.format(fn_container)
