@@ -1,4 +1,4 @@
-from typing import FrozenSet, Optional, Iterable, Dict, Any
+from typing import FrozenSet, Optional, Iterable, Dict, Any, List
 from timeit import default_timer as timer
 import xml.etree.ElementTree as ET
 import os
@@ -101,8 +101,8 @@ class GcovExtractor(CoverageExtractor):
             the set of file-lines that are stated as covered by the given
             report.
         """
-        logger_c = logger.getChild(container.id)
         container = self.container
+        logger_c = logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
@@ -157,7 +157,7 @@ class GcovExtractor(CoverageExtractor):
         # modify coverage information for all of the instrumented files
         num_instrumentation_lines = INSTRUMENTATION.count('\n')
         lines_to_remove = set(range(1, num_instrumentation_lines))
-        for path in self.__instrumented_files:
+        for path in self.__files_to_instrument:
             if not path in files_to_lines:
                 continue
 
@@ -222,8 +222,8 @@ class GcovExtractor(CoverageExtractor):
         code files within the project. Destroys '.gcda' files upon computing
         coverage.
         """
-        logger_c = logger.getChild(container.id)  # type: logging.Logger
         container = self.container
+        logger_c = logger.getChild(container.id)  # type: logging.Logger
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         logger_c.debug("Extracting coverage information")
