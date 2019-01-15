@@ -1,16 +1,11 @@
-## 2.1.23 (2019-01-14)
-
-### Bug Fixes
-
-* Updated `extract` function to fix a reference before assignment error.
-
-
 ## 2.1.22 (XXXX-XX-XX)
 
 ### Bug Fixes
 
 * Updated `copy_to` to ensure that files copied to the container are owned by
   the user inside the container.
+* Updated `extract` function to fix a reference before assignment error.
+
 
 
 ## 2.1.21 (2019-01-10)
