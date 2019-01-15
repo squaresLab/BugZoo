@@ -222,8 +222,8 @@ class GcovExtractor(CoverageExtractor):
         code files within the project. Destroys '.gcda' files upon computing
         coverage.
         """
-        logger_c = logger.getChild(container.id)  # type: logging.Logger
         container = self.container
+        logger_c = logger.getChild(container.id)  # type: logging.Logger
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         logger_c.debug("Extracting coverage information")

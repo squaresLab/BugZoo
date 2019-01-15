@@ -1,3 +1,10 @@
+## 2.1.23 (2019-01-14)
+
+### Bug Fixes
+
+* Updated `extract` function to fix a reference before assignment error.
+
+
 ## 2.1.22 (XXXX-XX-XX)
 
 ### Bug Fixes
