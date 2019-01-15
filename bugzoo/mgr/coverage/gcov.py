@@ -157,7 +157,7 @@ class GcovExtractor(CoverageExtractor):
         # modify coverage information for all of the instrumented files
         num_instrumentation_lines = INSTRUMENTATION.count('\n')
         lines_to_remove = set(range(1, num_instrumentation_lines))
-        for path in self.__instrumented_files:
+        for path in self.__files_to_instrument:
             if not path in files_to_lines:
                 continue
 
