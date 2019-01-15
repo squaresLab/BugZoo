@@ -101,8 +101,8 @@ class GcovExtractor(CoverageExtractor):
             the set of file-lines that are stated as covered by the given
             report.
         """
-        logger_c = logger.getChild(container.id)
         container = self.container
+        logger_c = logger.getChild(container.id)
         mgr_ctr = self.__installation.containers
         mgr_bug = self.__installation.bugs
         bug = mgr_bug[container.bug]
