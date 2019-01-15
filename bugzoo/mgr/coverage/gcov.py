@@ -1,4 +1,4 @@
-from typing import FrozenSet, Optional, Iterable, Dict, Any
+from typing import FrozenSet, Optional, Iterable, Dict, Any, List
 from timeit import default_timer as timer
 import xml.etree.ElementTree as ET
 import os
