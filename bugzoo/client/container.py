@@ -1,4 +1,4 @@
-from typing import Iterator, Optional, Dict, Any, List
+from typing import Iterator, Optional, Dict, Any, List, Union
 from ipaddress import IPv4Address, IPv6Address
 import logging
 
