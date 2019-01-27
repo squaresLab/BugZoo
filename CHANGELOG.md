@@ -3,6 +3,7 @@
 ### Features
 
 * Added `ip_address` method to client-side container manager.
+* Added `mktemp` method to client-side container manager.
 
 
 ## 2.1.22 (2019-01-16)
