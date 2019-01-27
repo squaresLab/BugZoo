@@ -4,6 +4,8 @@
 
 * Added `ip_address` method to client-side container manager.
 * Added `mktemp` method to client-side container manager.
+* Added `resolve` method to client-side file manager for resolving relative
+  paths to absolute paths.
 
 
 ## 2.1.22 (2019-01-16)

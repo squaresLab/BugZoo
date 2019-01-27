@@ -21,6 +21,20 @@ class FileManager(object):
         self.__api = api
         self.__mgr_bug = mgr_bug
 
+    def resolve(self, fn: str) -> str:
+        """
+        Ensures that relative paths are transformed into absolute paths.
+        """
+        bug = self.__mgr_bug[container.bug]
+        fn_orig = fn
+
+        if not os.path.isabs(fn):
+            fn = os.path.join(bug.source_dir, fn)
+            logger.debug("converted relative path to absolute path: %s -> %s",
+                         fn_orig, fn)
+
+        return fn
+
     def write(self,
               container: Container,
               filepath: str,
