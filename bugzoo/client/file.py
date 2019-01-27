@@ -35,6 +35,16 @@ class FileManager(object):
 
         return fn
 
+    def _file_path(self, container: Container, fn: str) -> str:
+        """
+        Computes the base path for a given file.
+        """
+        fn = self.resolve(fn)
+        assert fn[0] == '/'
+        fn = fn[1:]
+        path = "files/{}/{}".format(container.uid, fn)
+        return path
+
     def write(self,
               container: Container,
               filepath: str,
@@ -55,7 +65,7 @@ class FileManager(object):
         """
         logger.debug("writing to file [%s] in container [%s].",
                      filepath, container.uid)
-        path = "files/{}/{}".format(container.uid, filepath)
+        path = self._file_path(filepath)
         try:
             response = self.__api.put(path, data=contents)
             if response.status_code != 204:
@@ -86,7 +96,7 @@ class FileManager(object):
         """
         logger.debug("reading contents of file [%s] in container [%s].",
                      filepath, container.uid)
-        path = "files/{}/{}".format(container.uid, filepath)
+        path = self._file_path(filepath)
         response = self.__api.get(path)
         if response.status_code == 200:
             contents = response.text
