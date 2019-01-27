@@ -39,7 +39,7 @@ class FileManager(object):
         """
         Computes the base path for a given file.
         """
-        fn = self.resolve(fn)
+        fn = self.resolve(container, fn)
         assert fn[0] == '/'
         fn = fn[1:]
         path = "files/{}/{}".format(container.uid, fn)
