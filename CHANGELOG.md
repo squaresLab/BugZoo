@@ -1,3 +1,10 @@
+## 2.1.23 (XXXX-XX-XX)
+
+### Features
+
+* Added `ip_address` method to client-side container manager.
+
+
 ## 2.1.22 (2019-01-16)
 
 ### Bug Fixes

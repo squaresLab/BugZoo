@@ -442,6 +442,24 @@ def is_alive_container(uid: str):
     return (jsn, 200)
 
 
+@app.route('/containers/<uid>/ip', methods=['GET'])
+@throws_errors
+def get_ip_address(uid: str):
+    try:
+        container = daemon.containers[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    ip = daemon.containers.ip_address(container)
+    if ip is None:
+        ip_str = None
+    else:
+        ip_str = str(ip)
+
+    jsn = flask.jsonify(ip_str)
+    return (jsn, 200)
+
+
 @app.route('/containers/<uid>/build', methods=['POST'])
 @throws_errors
 def build_container(uid: str):
