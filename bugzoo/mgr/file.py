@@ -72,6 +72,10 @@ class FileManager(object):
         logger.debug("detected encoding of file [%s] in container [%s]: %s (%.3f confidence)",  # noqa: pycodestyle
                      filepath_orig, container.id, encoding, confidence)
 
+        # if no encoding is detected, return an empty file
+        if encoding is None:
+            return ''
+
         # decode file
         logger.debug("decoding file [%s] in container [%s]",
                      filepath_orig, container.id)

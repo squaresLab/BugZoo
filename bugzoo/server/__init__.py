@@ -341,11 +341,14 @@ def interact_with_file(id_container: str, filepath: str):
     except KeyError:
         return ContainerNotFound(id_container), 404
 
-    if flask.request.method == 'GET':
-        try:
-            return daemon.files.read(container, filepath)
-        except KeyError:
-            return FileNotFound(filepath), 404
+    # convert to absolute path
+    assert filepath[0] != '/'
+    filepath = '/' + filepath
+
+    try:
+        return daemon.files.read(container, filepath)
+    except KeyError:
+        return FileNotFound(filepath), 404
 
 
 @app.route('/files/<id_container>/<path:filepath>', methods=['PUT'])
@@ -355,6 +358,10 @@ def write_to_file(id_container: str, filepath: str):
         container = daemon.containers[id_container]
     except KeyError:
         return ContainerNotFound(id_container), 404
+
+    # convert to absolute path
+    assert filepath[0] != '/'
+    filepath = '/' + filepath
 
     contents = flask.request.data.decode('utf-8')  # type: str
     daemon.files.write(container, filepath, contents)
