@@ -462,6 +462,13 @@ class ContainerManager(object):
             subprocess.check_output(cmd, shell=True)
             logger.debug("Copied file to container, %s: %s -> %s",
                          container.uid, fn_host, fn_container)
+
+            r = self.command(container,
+                             "sudo chown $(whoami) '{}'".format(fn_container))
+            if r.code != 0:
+                m = "failed to update permissions for container file [{}] (exit code: {}): {}"  # noqa: pycodestyle
+                m = m.format(fn_container, r.code, r.output)
+                raise BugZooException(m)
         # TODO implement error handling
         except subprocess.CalledProcessError:
             logger.exception("Failed to copy file to container, %s: %s -> %s",
