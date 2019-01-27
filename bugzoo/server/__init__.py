@@ -478,6 +478,20 @@ def build_container(uid: str):
     return (jsn, 200)
 
 
+@app.route('/containers/<uid>/tempfile', methods=['POST'])
+@throws_errors
+def generate_temporary_file(uid: str):
+    mgr_ctr = daemon.containers  # type: ContainerManager
+    try:
+        container = mgr_ctr[uid]
+    except KeyError:
+        return ContainerNotFound(uid), 404
+
+    fn_temp = mgr_ctr.mktemp(container)
+    jsn = flask.jsonify(fn_temp)
+    return (jsn, 200)
+
+
 @app.route('/containers/<uid>/exec', methods=['POST'])
 @throws_errors
 def exec_container(uid: str):
