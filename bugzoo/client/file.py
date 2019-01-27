@@ -21,7 +21,7 @@ class FileManager(object):
         self.__api = api
         self.__mgr_bug = mgr_bug
 
-    def resolve(self, fn: str) -> str:
+    def resolve(self, container: Container, fn: str) -> str:
         """
         Ensures that relative paths are transformed into absolute paths.
         """
@@ -65,7 +65,7 @@ class FileManager(object):
         """
         logger.debug("writing to file [%s] in container [%s].",
                      filepath, container.uid)
-        path = self._file_path(filepath)
+        path = self._file_path(container, filepath)
         try:
             response = self.__api.put(path, data=contents)
             if response.status_code != 204:
@@ -96,7 +96,7 @@ class FileManager(object):
         """
         logger.debug("reading contents of file [%s] in container [%s].",
                      filepath, container.uid)
-        path = self._file_path(filepath)
+        path = self._file_path(container, filepath)
         response = self.__api.get(path)
         if response.status_code == 200:
             contents = response.text
