@@ -450,7 +450,13 @@ def get_ip_address(uid: str):
     except KeyError:
         return ContainerNotFound(uid), 404
 
-    jsn = flask.jsonify(daemon.containers.ip_address(container))
+    ip = daemon.containers.ip_address(container)
+    if ip is None:
+        ip_str = None
+    else:
+        ip_str = str(ip)
+
+    jsn = flask.jsonify(ip_str)
     return (jsn, 200)
 
 
