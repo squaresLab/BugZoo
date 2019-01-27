@@ -137,6 +137,18 @@ class ContainerManager(object):
 
         self.__api.handle_erroneous_response(r)
 
+    def mktemp(self, container: Container) -> str:
+        """
+        Generates a temporary file for a given container.
+
+        Returns:
+            the path to the temporary file inside the given container.
+        """
+        r = self.__api.post('containers/{}/tempfile'.format(container.uid))
+        if r.status_code == 200:
+            return r.json()
+        self.__api.handle_erroneous_response(r)
+
     def ip_address(self,
                    container: Container
                    ) -> Union[IPv4Address, IPv6Address]:
