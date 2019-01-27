@@ -7,6 +7,10 @@
 * Added `resolve` method to client-side file manager for resolving relative
   paths to absolute paths.
 
+### Changes
+
+* Updated RESTful API for accessing files to rely on absolute file paths.
+
 
 ## 2.1.22 (2019-01-16)
 
