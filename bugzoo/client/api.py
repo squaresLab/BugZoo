@@ -14,6 +14,7 @@ import urllib.parse
 from ..exceptions import ConnectionFailure, UnexpectedResponse, BugZooException
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['APIClient']
 
@@ -108,6 +109,11 @@ class APIClient(object):
         url = self._url(path)
         logger.debug('PUT: %s', url)
         return requests.put(url, **kwargs)
+
+    def head(self, path: str, **kwargs) -> requests.Response:
+        url = self._url(path)
+        logger.debug('HEAD: %s', url)
+        return requests.head(url, **kwargs)
 
     def patch(self, path: str, data, **kwargs ) -> requests.Response:
         url = self._url(path)
