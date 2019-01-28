@@ -3,7 +3,7 @@
 ### Features
 
 * Added `__contains__` to client- and server-side `BugManager`.
-* Added `__delitem__` to client-side `BugManager`.
+* Added `__delitem__` to client- and server-side `BugManager`.
 
 
 ## 2.1.23 (2019-02-28)
