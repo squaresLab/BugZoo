@@ -5,6 +5,7 @@ import logging
 from .api import APIClient
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
 
 class DockerManager(object):
@@ -14,6 +15,18 @@ class DockerManager(object):
     def __init__(self, api: APIClient) -> None:
         self.__api = api
 
+    def has_image(self, name: str) -> bool:
+        """
+        Determines whether the server has a Docker image with a given name.
+        """
+        path = "docker/images/{}".format(name)
+        r = self.__api.head(path)
+        if r.status_code == 204:
+            return True
+        elif r.status_code == 404:
+            return False
+        self.__api.handle_erroneous_response(response)
+
     def delete_image(self, name: str) -> None:
         """
         Deletes a Docker image with a given name.
@@ -21,7 +34,7 @@ class DockerManager(object):
         Parameters:
             name: the name of the Docker image.
         """
-        logger.info("deleting Docker image: %s", name)
+        logger.debug("deleting Docker image: %s", name)
         path = "docker/images/{}".format(name)
         response = self.__api.delete(path)
         if response.status_code != 204:
