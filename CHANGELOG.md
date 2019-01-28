@@ -1,3 +1,10 @@
+## 2.1.24 (XXXX-XX-XX)
+
+### Features
+
+* Added `__contains__` to client-side `BugManager`.
+
+
 ## 2.1.23 (2019-02-28)
 
 ### Features
