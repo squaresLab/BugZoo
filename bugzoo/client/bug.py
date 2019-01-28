@@ -57,7 +57,7 @@ class BugManager(object):
         Raises:
             KeyError: if no bug is found with the given name.
         """
-        r = self.__api.get('bugs/{}'.format(name))
+        r = self.__api.delete('bugs/{}'.format(name))
         if r.status_code == 204:
             return
         if r.status_code == 404:
