@@ -53,7 +53,11 @@ class ContainerManager(object):
         try:
             all_uids = [uid for uid in self.__containers.keys()]
             for uid in all_uids:
-                self.__delitem__(uid)
+                try:
+                    self.__delitem__(uid)
+                except KeyError:
+                    # Already deleted
+                    pass
         except AttributeError:
             logger.debug("containers do not exist yet.")
         self.__containers = {}
