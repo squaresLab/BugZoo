@@ -21,6 +21,12 @@ class BugManager(object):
         self.__installation = installation
         self.__bugs = {}
 
+    def __contains__(self, name: str) -> bool:
+        """
+        Determines whether a bug is registered under a given name.
+        """
+        return name in self.__bugs
+
     def __getitem__(self, name: str) -> Bug:
         """
         Attempts to fetch the description of a named bug.
@@ -50,11 +56,17 @@ class BugManager(object):
 
     add = register
 
+    def __delitem__(self, name: str) -> None:
+        """
+        Attempts to deregister a bug with a given name.
+        """
+        del self.__bugs[name]
+
     def deregister(self, bug: Bug) -> None:
         """
         Attempts to deregister a given bug from this manager.
         """
-        del self.__bugs[bug.name]
+        del self[bug.name]
 
     remove = deregister
 

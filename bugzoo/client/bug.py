@@ -20,6 +20,17 @@ class BugManager(object):
     def __init__(self, api: APIClient) -> None:
         self.__api = api
 
+    def __contains__(self, name: str) -> bool:
+        """
+        Determines whether there is a bug registered under a given name.
+        """
+        r = self.__api.get('bugs/{}'.format(name))
+        if r.status_code == 200:
+            return True
+        elif r.status_code == 404:
+            return False
+        self.__api.handle_erroneous_response(r)
+
     def __getitem__(self, name: str) -> Bug:
         """
         Retrieves the bug registered under a given name.
@@ -27,7 +38,7 @@ class BugManager(object):
         Raises:
             KeyError: if no bug is found with the given name.
         """
-        logger.info("Fetching information for bug: %s", name)
+        logger.debug("Fetching information for bug: %s", name)
         r = self.__api.get('bugs/{}'.format(name))
 
         if r.status_code == 200:
@@ -37,6 +48,20 @@ class BugManager(object):
             raise KeyError("no bug found with given name: {}".format(name))
 
         logger.info("Unexpected API response when retrieving bug: %s", name)
+        self.__api.handle_erroneous_response(r)
+
+    def __delitem__(self, name: str) -> None:
+        """
+        Deregisters a bug under a given name.
+
+        Raises:
+            KeyError: if no bug is found with the given name.
+        """
+        r = self.__api.delete('bugs/{}'.format(name))
+        if r.status_code == 204:
+            return
+        if r.status_code == 404:
+            raise KeyError("no bug found with given name: {}".format(name))
         self.__api.handle_erroneous_response(r)
 
     def __iter__(self) -> Iterator[str]:
