@@ -21,6 +21,12 @@ class BugManager(object):
         self.__installation = installation
         self.__bugs = {}
 
+    def __contains__(self, name: str) -> bool:
+        """
+        Determines whether a bug is registered under a given name.
+        """
+        return name in self.__bugs
+
     def __getitem__(self, name: str) -> Bug:
         """
         Attempts to fetch the description of a named bug.
