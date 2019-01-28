@@ -50,6 +50,12 @@ class ContainerManager(object):
         Closes all running containers.
         """
         logger.debug("clearing all running containers")
+        try:
+            all_uids = [uid for uid in self.__containers.keys()]
+            for uid in all_uids:
+                self.__delitem__(uid)
+        except AttributeError:
+            logger.debug("containers do not exist yet.")
         self.__containers = {}
         self.__dockerc = {}
         self.__env_files = {}
