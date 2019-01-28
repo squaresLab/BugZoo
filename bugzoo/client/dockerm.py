@@ -25,7 +25,7 @@ class DockerManager(object):
             return True
         elif r.status_code == 404:
             return False
-        self.__api.handle_erroneous_response(response)
+        self.__api.handle_erroneous_response(r)
 
     def delete_image(self, name: str) -> None:
         """
