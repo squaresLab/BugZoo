@@ -1,4 +1,4 @@
-## 2.1.24 (XXXX-XX-XX)
+## 2.1.24 (2019-01-28)
 
 ### Features
 
@@ -8,7 +8,7 @@
 * Added `has_image` method to client-side Docker manager.
 
 
-## 2.1.23 (2019-02-28)
+## 2.1.23 (2019-01-28)
 
 ### Features
 
