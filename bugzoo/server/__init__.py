@@ -580,6 +580,18 @@ def docker_images(name: str):
         return UnexpectedServerError.from_exception(ex), 500
 
 
+@app.route('/bugs/<uid>', methods=['DELETE'])
+@throws_errors
+def deregister_bug(uid: str):
+    try:
+        del daemon.bugs[uid]
+        return '', 204
+    except KeyError:
+        return BugNotFound(uid), 404
+    except Exception as ex:
+        return UnexpectedServerError.from_exception(ex), 500
+
+
 def run(*,
     port: int = 6060,
     host: str = '0.0.0.0',
