@@ -4,6 +4,8 @@
 
 * Added `__contains__` to client- and server-side `BugManager`.
 * Added `__delitem__` to client- and server-side `BugManager`.
+* Added `head` method to client API interface.
+* Added `has_image` method to client-side Docker manager.
 
 
 ## 2.1.23 (2019-02-28)
