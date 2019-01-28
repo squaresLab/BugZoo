@@ -50,6 +50,20 @@ class BugManager(object):
         logger.info("Unexpected API response when retrieving bug: %s", name)
         self.__api.handle_erroneous_response(r)
 
+    def __delitem__(self, name: str) -> None:
+        """
+        Deregisters a bug under a given name.
+
+        Raises:
+            KeyError: if no bug is found with the given name.
+        """
+        r = self.__api.get('bugs/{}'.format(name))
+        if r.status_code == 204:
+            return
+        if r.status_code == 404:
+            raise KeyError("no bug found with given name: {}".format(name))
+        self.__api.handle_erroneous_response(r)
+
     def __iter__(self) -> Iterator[str]:
         """
         Returns an iterator over the names of the bugs registered with
