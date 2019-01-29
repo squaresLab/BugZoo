@@ -1,3 +1,11 @@
+## 2.1.25 (xxxx-xx-xx)
+
+### Bug Fixes
+
+* Updated `clear` of `ContainerManager` to properly delete all running
+  containers.
+
+
 ## 2.1.24 (2019-01-28)
 
 ### Features
