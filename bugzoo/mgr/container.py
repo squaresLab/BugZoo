@@ -54,7 +54,7 @@ class ContainerManager(object):
             all_uids = [uid for uid in self.__containers.keys()]
             for uid in all_uids:
                 try:
-                    self.__delitem__(uid)
+                    del self[uid]
                 except KeyError:
                     # Already deleted
                     pass
