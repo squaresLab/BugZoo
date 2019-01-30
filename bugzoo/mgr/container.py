@@ -42,7 +42,10 @@ class ContainerManager(object):
                              timeout=120)  # type: docker.APIClient
         assert self.__api_docker.ping()
         logger.debug("connected to low-level Docker API")
-        self.clear()
+        self.__containers = {}
+        self.__dockerc = {}
+        self.__env_files = {}
+        self.__dockerc_tools = {}
         logger.debug("initialised container manager")
 
     def clear(self) -> None:
@@ -50,10 +53,13 @@ class ContainerManager(object):
         Closes all running containers.
         """
         logger.debug("clearing all running containers")
-        self.__containers = {}
-        self.__dockerc = {}
-        self.__env_files = {}
-        self.__dockerc_tools = {}
+        all_uids = [uid for uid in self.__containers.keys()]
+        for uid in all_uids:
+            try:
+                del self[uid]
+            except KeyError:
+                # Already deleted
+                pass
         logger.debug("cleared all running containers")
 
     def __iter__(self) -> Iterator[Container]:
