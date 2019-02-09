@@ -4,6 +4,8 @@
 
 * Updated `clear` of `ContainerManager` to properly delete all running
   containers.
+* Fixed `coverage` method in server-side `BugManager` to no longer use
+  removed `CoverageManager`.
 
 
 ## 2.1.24 (2019-01-28)

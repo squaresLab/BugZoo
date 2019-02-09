@@ -221,8 +221,8 @@ class CoverageExtractor(abc.ABC):
                 and cleanup are not called, and the responsibility of calling
                 those methods is left to the user.
         """
-        logger.debug("computing coverage for container: %s", container.uid)
         container = self.container
+        logger.debug("computing coverage for container: %s", container.uid)
 
         try:
             if instrument:
@@ -235,7 +235,7 @@ class CoverageExtractor(abc.ABC):
             raise exceptions.FailedToComputeCoverage(msg)
 
         cov = {}
-        for test in _tests:
+        for test in tests:
             logger.debug("Generating coverage for test %s in container %s",
                          test.name, container.uid)
             outcome = self.__installation.containers.execute(container, test)

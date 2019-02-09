@@ -218,10 +218,9 @@ class BugManager(object):
             return TestSuiteCoverage.from_file(fn)
 
         # if we don't have coverage information, compute it
+        mgr_ctr = self.__installation.containers
+        container = None
         try:
-            mgr_ctr = self.__installation.containers
-            mgr_cov = self.__installation.coverage
-            container = None
             container = mgr_ctr.provision(bug)
             coverage = mgr_ctr.coverage(container)
 
