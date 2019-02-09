@@ -235,7 +235,7 @@ class CoverageExtractor(abc.ABC):
             raise exceptions.FailedToComputeCoverage(msg)
 
         cov = {}
-        for test in _tests:
+        for test in tests:
             logger.debug("Generating coverage for test %s in container %s",
                          test.name, container.uid)
             outcome = self.__installation.containers.execute(container, test)
