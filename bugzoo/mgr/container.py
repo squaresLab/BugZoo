@@ -373,6 +373,8 @@ class ContainerManager(object):
         """
         extractor = self.coverage_extractor(container)
         if tests is None:
+            bugs = self.__installation.bugs
+            bug = bugs[container.bug]
             tests = bug.tests
         return extractor.run(tests, instrument=instrument)
 
