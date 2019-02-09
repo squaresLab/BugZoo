@@ -221,8 +221,8 @@ class CoverageExtractor(abc.ABC):
                 and cleanup are not called, and the responsibility of calling
                 those methods is left to the user.
         """
-        logger.debug("computing coverage for container: %s", container.uid)
         container = self.container
+        logger.debug("computing coverage for container: %s", container.uid)
 
         try:
             if instrument:
