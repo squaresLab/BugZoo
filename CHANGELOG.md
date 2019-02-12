@@ -1,3 +1,10 @@
+## 2.1.26 (XXXX-XX-XX)
+
+### Bug Fixes
+
+* Fixed a hardcoded log directory in BugZoo CLI.
+
+
 ## 2.1.25 (2019-02-09)
 
 ### Bug Fixes

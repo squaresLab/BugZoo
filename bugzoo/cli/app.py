@@ -17,8 +17,12 @@ from ..util import indent
 logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
-DIR_HOME = os.path.expanduser('~')
-DIR_LOG = os.path.join(DIR_HOME, '.bugzoo/logs')
+if 'BUGZOO_PATH' in os.environ:
+    DIR_BUGZOO = os.environ['BUGZOO_PATH']
+else:
+    DIR_HOME = os.path.expanduser('~')
+    DIR_BUGZOO = os.path.join(DIR_HOME, '.bugzoo')
+DIR_LOG = os.path.join(DIR_BUGZOO, 'logs')
 
 RULE = '\n\n' + ("=" * 80) + '\n'
 
