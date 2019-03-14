@@ -1,8 +1,10 @@
-## 2.1.26 (XXXX-XX-XX)
+## 2.1.26 (2019-03-14)
 
 ### Bug Fixes
 
 * Fixed a hardcoded log directory in BugZoo CLI.
+* Updated coverage instrumentation to use C90-compatible comments.
+* Update coverage instrumentation to support C.
 
 
 ## 2.1.25 (2019-02-09)

@@ -16,11 +16,15 @@ logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
 INSTRUMENTATION = (
-    "// BUGZOO :: INSTRUMENTATION :: START\n"
+    "/* BUGZOO :: INSTRUMENTATION :: START */\n"
     "#include <stdio.h>\n"
     "#include <stdlib.h>\n"
     "#include <signal.h>\n"
-    "extern \"C\" void __gcov_flush(void);\n"
+    "#ifdef __cplusplus\n"
+    "  extern \"C\" void __gcov_flush(void);\n"
+    "#else\n"
+    "  void __gcov_flush(void);\n"
+    "#endif\n"
     "void bugzoo_sighandler(int sig){\n"
     "  __gcov_flush();\n"
     "  if(sig != SIGUSR1 && sig != SIGUSR2)\n"
@@ -40,11 +44,11 @@ INSTRUMENTATION = (
     "  sigaction(SIGBUS, &new_action, NULL);\n"
     "  sigaction(SIGILL, &new_action, NULL);\n"
     "  sigaction(SIGABRT, &new_action, NULL);\n"
-    "  // Use signal for SIGUSR to remove handlers\n"
+    "  /* Use signal for SIGUSR to remove handlers */\n"
     "  signal(SIGUSR1, bugzoo_sighandler);\n"
     "  signal(SIGUSR2, bugzoo_sighandler);\n"
     "}\n"
-    "// BUGZOO :: INSTRUMENTATION :: END\n"
+    "/* BUGZOO :: INSTRUMENTATION :: END */\n"
 )
 
 
