@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
 INSTRUMENTATION = (
-    "// BUGZOO :: INSTRUMENTATION :: START\n"
+    "/* BUGZOO :: INSTRUMENTATION :: START */\n"
     "#include <stdio.h>\n"
     "#include <stdlib.h>\n"
     "#include <signal.h>\n"
@@ -40,11 +40,11 @@ INSTRUMENTATION = (
     "  sigaction(SIGBUS, &new_action, NULL);\n"
     "  sigaction(SIGILL, &new_action, NULL);\n"
     "  sigaction(SIGABRT, &new_action, NULL);\n"
-    "  // Use signal for SIGUSR to remove handlers\n"
+    "  /* Use signal for SIGUSR to remove handlers */\n"
     "  signal(SIGUSR1, bugzoo_sighandler);\n"
     "  signal(SIGUSR2, bugzoo_sighandler);\n"
     "}\n"
-    "// BUGZOO :: INSTRUMENTATION :: END\n"
+    "/* BUGZOO :: INSTRUMENTATION :: END */\n"
 )
 
 
