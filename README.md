@@ -56,7 +56,10 @@ may simply use `pip3` instead:
 $ pipenv install bugzoo
 ```
 
-BugZoo supports Python >= 3.5.
+BugZoo supports Python >= 3.5.2.
+[(Note that BugZoo won't run on Python 3.5.2 will fail due to a bug in
+Python.)](https://github.com/squaresLab/BugZoo/issues/320)
+
 
 ## Getting Started
 
