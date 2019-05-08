@@ -165,6 +165,7 @@ class SourceManager(object):
                                  filename=d.get('file', 'Dockerfile'),
                                  arguments=d.get('arguments', {}),
                                  source=source.name,
+                                 build_stage=d.get('build-stage', None),
                                  depends_on=d.get('depends-on', None))
 
     def __parse_bug(self, source: Source, fn: str, d: dict) -> Bug:
