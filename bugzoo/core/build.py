@@ -53,6 +53,12 @@ class BuildInstructions(object):
     """
     depends_on = attr.ib(type=Optional[str])
 
+    """
+    The name of the build stage, if any, that should be used when building this
+    image.
+    """
+    build_stage = attr.ib(type=Optional[str], default=None)
+
     @property
     def name(self) -> str:
         return self.tag
