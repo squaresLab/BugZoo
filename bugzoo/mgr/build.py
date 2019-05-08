@@ -114,6 +114,7 @@ class BuildManager(object):
                                                tag=name,
                                                # pull=force,
                                                buildargs=instructions.arguments,
+                                               stage=instructions.build_stage,
                                                decode=True,
                                                rm=True)
 
