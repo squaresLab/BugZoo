@@ -68,6 +68,8 @@ Below, we discuss each of the properties used to describe a blueprint:
   image.
 * The :code:`depends-on` property optionally specifies the name of the Docker
   image, if any, that the Docker image described by the blueprint relies on.
+* The :code:`build-stage` property optionally specifies the name of the Docker
+  build stage that should be used to construct the image.
 
 Bugs
 ----
