@@ -1,3 +1,10 @@
+## 2.1.27 (2019-05-08)
+
+### Features
+
+* Added ability to specify a particular Docker build stage.
+
+
 ## 2.1.26 (2019-03-14)
 
 ### Bug Fixes
