@@ -209,7 +209,7 @@ class TestSuiteCoverage(object):
     @staticmethod
     def from_file(fn: str) -> 'TestSuiteCoverage':
         with open(fn, 'r') as f:
-            d = yaml.load(f)
+            d = yaml.safe_load(f)
             return TestSuiteCoverage.from_dict(d)
 
     def __init__(self, test_coverage: Dict[str, TestCoverage]) -> None:
