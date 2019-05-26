@@ -80,7 +80,7 @@ class SourceManager(object):
 
         # TODO add version
         with open(self.__registry_fn, 'r') as f:
-            registry = yaml.load(f)
+            registry = yaml.safe_load(f)
         assert isinstance(registry, list)
 
         for source_description in registry:
@@ -189,7 +189,7 @@ class SourceManager(object):
                      tools: List[Tool]
                      ) -> None:
         with open(fn, 'r') as f:
-            yml = yaml.load(f)
+            yml = yaml.safe_load(f)
 
         # TODO check version
         if 'version' not in yml:
