@@ -576,7 +576,7 @@ class ContainerManager(object):
 
         output = []
         for line in out:
-            line = line.decode('utf-8',"backslashreplace").rstrip('\n')
+            line = line.decode('utf-8', 'backslashreplace').rstrip('\n')
             if verbose:
                 print(line, flush=True)
             output.append(line)
