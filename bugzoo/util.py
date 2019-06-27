@@ -1,16 +1,24 @@
 import sys
 import logging
 import resource
+import socket
 
 import psutil
 
 
 def printflush(s: str, end: str = '\n') -> None:
-    """
-    Prints a given string to the standard output and immediately flushes.
-    """
+    """Prints a string to the standard output and immediately flushes."""
     print(s, end=end)
     sys.stdout.flush()
+
+
+def is_port_in_use(port: int) -> bool:
+    """Determines whether a given port is in use on this machine.
+    
+    Credit: https://codereview.stackexchange.com/questions/116450/find-available-ports-on-localhost
+    """
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        return sock.connect_ex(('localhost', port)) == 0
 
 
 def bytes_to_gigabytes(x: int) -> float:
