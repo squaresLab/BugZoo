@@ -81,7 +81,15 @@ def ephemeral(*,
 
     Returns:
         a client for communicating with the server.
+
+    Raises
+    ------
+    PortInUseError:
+        if the given port is already in use.
     """
+    if is_port_in_use(port):
+        raise PortInUseError(port)
+
     url = "http://127.0.0.1:{}".format(port)
     cmd = ["bugzood", "--debug", "-p", str(port)]
     try:
