@@ -5,7 +5,7 @@ import textwrap
 import requests
 
 
-__all__ = [
+__all__ = (
     'BugZooException',
     'ConnectionFailure',
     'BadManifestFile',
@@ -30,8 +30,9 @@ __all__ = [
     'ImageAlreadyExists',
     'TestNotFound',
     'ToolNotFound',
-    'NoCoverageInstructions'
-]
+    'NoCoverageInstructions',
+    'PortInUseError'
+)
 
 
 class BugZooException(Exception):
@@ -514,10 +515,25 @@ class ImageAlreadyExists(BugZooException):
         return {'image': self.image}
 
 
+class PortInUseError(BugZooException):
+    """A given port is already being used."""
+    def __init__(self, port: int) -> None:
+        self.__port = port
+        msg = "port is already in use: {}".format(port)
+        super().__init__(msg)
+
+    @property
+    def port(self) -> int:
+        """The port that is occupied."""
+        return self.__port
+
+    @property
+    def data(self) -> Dict[str, Any]:
+        return {'port': self.__port}
+
+
 class ImageBuildFailed(BugZooException):
-    """
-    An attempt to build a given Docker image has failed.
-    """
+    """An attempt to build a given Docker image has failed."""
     def __init__(self,
                  image: str,
                  log: List[str]
