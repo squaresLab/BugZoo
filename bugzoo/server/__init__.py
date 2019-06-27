@@ -24,7 +24,8 @@ from ..manager import BugZoo
 from ..exceptions import *
 from ..client import Client
 from ..mgr.container import ContainerManager
-from ..util import indent, report_resource_limits, report_system_resources
+from ..util import (indent, report_resource_limits, report_system_resources,
+                    is_port_in_use)
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
 log_to_file = None  # type: Optional[logging.handlers.WatchedFileHandler]
@@ -80,7 +81,15 @@ def ephemeral(*,
 
     Returns:
         a client for communicating with the server.
+
+    Raises
+    ------
+    PortInUseError:
+        if the given port is already in use.
     """
+    if is_port_in_use(port):
+        raise PortInUseError(port)
+
     url = "http://127.0.0.1:{}".format(port)
     cmd = ["bugzood", "--debug", "-p", str(port)]
     try:
@@ -661,6 +670,13 @@ def run(*,
     logger.info("psutil version: %s", psutil.__version__)
     logger.info("Flask version: %s", flask.__version__)
     logger.info("GitPython version: %s", git.__version__)
+
+    # is the specified port in use?
+    if is_port_in_use(port):
+        m = "Cannot launch server: port [{}] is in use".format(port)
+        logger.error(m)
+        print("ERROR: {}".format(m))
+        sys.exit(1)
 
     try:
         logger.info("launching BugZoo daemon")
