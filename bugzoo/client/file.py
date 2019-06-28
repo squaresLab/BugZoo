@@ -22,9 +22,7 @@ class FileManager(object):
         self.__mgr_bug = mgr_bug
 
     def resolve(self, container: Container, fn: str) -> str:
-        """
-        Ensures that relative paths are transformed into absolute paths.
-        """
+        """Ensures that relative paths are transformed into absolute paths."""
         bug = self.__mgr_bug[container.bug]
         fn_orig = fn
 
@@ -67,9 +65,9 @@ class FileManager(object):
                      filepath, container.uid)
         path = self._file_path(container, filepath)
         try:
-            response = self.__api.put(path, data=contents)
-            if response.status_code != 204:
-                self.__api.handle_erroneous_response(response)
+            with self.__api.put(path, data=contents) as r:
+                if r.status_code != 204:
+                    self.__api.handle_erroneous_response(r)
         except BugZooException:
             logger.exception("failed to write to file [%s] in container [%s].",
                              filepath, container.uid)
@@ -97,16 +95,16 @@ class FileManager(object):
         logger.debug("reading contents of file [%s] in container [%s].",
                      filepath, container.uid)
         path = self._file_path(container, filepath)
-        response = self.__api.get(path)
-        if response.status_code == 200:
-            contents = response.text
-            logger.debug("fetched contents of file [%s] in container [%s]:%s",
-                         filepath, container.uid,
-                         indent("\n[CONTENTS]\n{}\n[/CONTENTS]".format(contents), 2))  # noqa: pycodestyle
-            return contents
-        try:
-            self.__api.handle_erroneous_response(response)
-        except BugZooException as err:
-            logger.exception("failed to read contents of file [%s] in container [%s]: %s",  # noqa: pycodestyle
-                             filepath, container.uid, err)
-            raise
+        with self.__api.get(path) as response:
+            if response.status_code == 200:
+                contents = response.text
+                logger.debug("fetched contents of file [%s] in container [%s]:%s",
+                             filepath, container.uid,
+                             indent("\n[CONTENTS]\n{}\n[/CONTENTS]".format(contents), 2))  # noqa: pycodestyle
+                return contents
+            try:
+                self.__api.handle_erroneous_response(response)
+            except BugZooException as err:
+                logger.exception("failed to read contents of file [%s] in container [%s]: %s",  # noqa: pycodestyle
+                                 filepath, container.uid, err)
+                raise
