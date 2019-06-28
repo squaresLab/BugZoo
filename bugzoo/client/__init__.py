@@ -73,9 +73,6 @@ class Client(object):
 
     def shutdown(self) -> None:
         """Instructs the connected BugZoo server to shutdown."""
-        r = self.__api.post("shutdown")
-        try:
+        with self.__api.post("shutdown") as r:
             if r.status_code != 202:
                 raise Exception("failed to shutdown server")
-        finally:
-            r.close()
