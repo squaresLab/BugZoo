@@ -57,6 +57,8 @@ class APIClient(object):
                 logger.error("Failed to establish connection to server: %s",
                              base_url)
                 raise ConnectionFailure
+
+            r = None
             try:
                 r = requests.get(url, timeout=time_left)
                 connected = r.status_code == 204
@@ -67,7 +69,8 @@ class APIClient(object):
                              base_url)
                 raise ConnectionFailure
             finally:
-                r.close()
+                if r:
+                    r.close()
             time.sleep(0.05)
         logger.info("Established connection to server: %s", base_url)
 
