@@ -17,7 +17,7 @@ from ..cmd import ExecResponse
 logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
-__all__ = ['ContainerManager']
+__all__ = ('ContainerManager',)
 
 
 class ContainerManager(object):
@@ -25,8 +25,7 @@ class ContainerManager(object):
         self.__api = api
 
     def __getitem__(self, uid: str) -> Container:
-        """
-        Fetches a container by its ID.
+        """Fetches a container by its ID.
 
         Parameters:
             uid: the ID of the container.
@@ -37,19 +36,18 @@ class ContainerManager(object):
         Raises:
             KeyError: if no container is found with the given ID.
         """
-        r = self.__api.get('containers/{}'.format(uid))
+        with self.__api.get('containers/{}'.format(uid)) as r:
+            if r.status_code == 200:
+                return Container.from_dict(r.json())
 
-        if r.status_code == 200:
-            return Container.from_dict(r.json())
+            if r.status_code == 404:
+                m = "no container found with given UID: {}".format(uid)
+                raise KeyError(m)
 
-        if r.status_code == 404:
-            raise KeyError("no container found with given UID: {}".format(uid))
-
-        self.__api.handle_erroneous_response(r)
+            self.__api.handle_erroneous_response(r)
 
     def __delitem__(self, uid: str) -> None:
-        """
-        Deletes a given container.
+        """Deletes a given container.
 
         Parameters:
             uid: the ID of the container.
@@ -58,19 +56,18 @@ class ContainerManager(object):
             KeyError: if no container is found with the given ID, or the
                 container has already been destroyed.
         """
-        r = self.__api.delete('containers/{}'.format(uid))
+        with self.__api.delete('containers/{}'.format(uid)) as r:
+            if r.status_code == 204:
+                return
 
-        if r.status_code == 204:
-            return
+            if r.status_code == 404:
+                m = "no container found with given UID: {}".format(uid)
+                raise KeyError(m)
 
-        if r.status_code == 404:
-            raise KeyError("no container found with given UID: {}".format(uid))
-
-        self.__api.handle_erroneous_response(r)
+            self.__api.handle_erroneous_response(r)
 
     def __contains__(self, uid: str) -> bool:
-        """
-        Checks whether a container with a given ID exists.
+        """Checks whether a container with a given ID exists.
 
         Parameter:
             uid:    the ID of the container.
@@ -85,36 +82,31 @@ class ContainerManager(object):
             return False
 
     def clear(self) -> None:
-        """
-        Destroys all running containers.
-        """
-        r = self.__api.delete('containers')
-        if r.status_code != 204:
-            self.__api.handle_erroneous_response(r)
+        """Destroys all running containers."""
+        with self.__api.delete('containers') as r:
+            if r.status_code != 204:
+                self.__api.handle_erroneous_response(r)
 
     def __iter__(self) -> Iterator[str]:
         """
         Returns an iterator over the identifiers of all of the containers that
         are currently running on the server.
         """
-        r = self.__api.get('containers')
+        with self.__api.get('containers') as r:
+            if r.status_code == 200:
+                ids = r.json()
+                assert isinstance(ids , list)
+                assert all(isinstance(n, str) for n in ids)
+                return ids.__iter__()
 
-        if r.status_code == 200:
-            ids = r.json()
-            assert isinstance(ids , list)
-            assert all(isinstance(n, str) for n in ids)
-            return ids.__iter__()
-
-        self.__api.handle_erroneous_response(r)
+            self.__api.handle_erroneous_response(r)
 
     def provision(self,
                   bug: Bug,
                   *,
                   plugins: Optional[List[Tool]] = None
                   ) -> Container:
-        """
-        Provisions a container for a given bug.
-        """
+        """Provisions a container for a given bug."""
         if plugins is None:
             plugins = []
 
@@ -123,31 +115,30 @@ class ContainerManager(object):
         payload = {
             'plugins': [p.to_dict() for p in plugins]
         }  # type: Dict[str, Any]
-        r = self.__api.post(endpoint, json=payload)
+        with self.__api.post(endpoint, json=payload) as r:
+            if r.status_code == 200:
+                container = Container.from_dict(r.json())
+                logger.info("provisioned container (id: %s) for bug: %s",
+                                   container.uid,
+                                   bug.name)
+                return container
 
-        if r.status_code == 200:
-            container = Container.from_dict(r.json())
-            logger.info("provisioned container (id: %s) for bug: %s",
-                               container.uid,
-                               bug.name)
-            return container
+            if r.status_code == 404:
+                m = "no bug registered with given name: {}".format(bug.name)
+                raise KeyError(m)
 
-        if r.status_code == 404:
-            raise KeyError("no bug registered with given name: {}".format(bug.name))
-
-        self.__api.handle_erroneous_response(r)
+            self.__api.handle_erroneous_response(r)
 
     def mktemp(self, container: Container) -> str:
-        """
-        Generates a temporary file for a given container.
+        """Generates a temporary file for a given container.
 
         Returns:
             the path to the temporary file inside the given container.
         """
-        r = self.__api.post('containers/{}/tempfile'.format(container.uid))
-        if r.status_code == 200:
-            return r.json()
-        self.__api.handle_erroneous_response(r)
+        with self.__api.post('containers/{}/tempfile'.format(container.uid)) as r:
+            if r.status_code == 200:
+                return r.json()
+            self.__api.handle_erroneous_response(r)
 
     def ip_address(self,
                    container: Container
@@ -156,25 +147,21 @@ class ContainerManager(object):
         The IP address used by a given container, or None if no IP address has
         been assigned to that container.
         """
-        r = self.__api.get('containers/{}/ip'.format(container.uid))
-        if r.status_code == 200:
-            return r.json()
-        self.__api.handle_erroneous_response(r)
+        with self.__api.get('containers/{}/ip'.format(container.uid)) as r:
+            if r.status_code == 200:
+                return r.json()
+            self.__api.handle_erroneous_response(r)
 
     def is_alive(self, container: Container) -> bool:
-        """
-        Determines whether or not a given container is still alive.
-        """
+        """Determines whether or not a given container is still alive."""
         uid = container.uid
-        r = self.__api.get('containers/{}/alive'.format(uid))
-
-        if r.status_code == 200:
-            return r.json()
-
-        if r.status_code == 404:
-            raise KeyError("no container found with given UID: {}".format(uid))
-
-        self.__api.handle_erroneous_response(r)
+        with self.__api.get('containers/{}/alive'.format(uid)) as r:
+            if r.status_code == 200:
+                return r.json()
+            if r.status_code == 404:
+                m = "no container found with given UID: {}".format(uid)
+                raise KeyError(m)
+            self.__api.handle_erroneous_response(r)
 
     def extract_coverage(self, container: Container) -> FileLineSet:
         """
@@ -182,10 +169,10 @@ class ContainerManager(object):
         time that a coverage report was extracted.
         """
         uid = container.uid
-        r = self.__api.post('containers/{}/read-coverage'.format(uid))
-        if r.status_code == 200:
-            return FileLineSet.from_dict(r.json())
-        self.__api.handle_erroneous_response(r)
+        with self.__api.post('containers/{}/read-coverage'.format(uid)) as r:
+            if r.status_code == 200:
+                return FileLineSet.from_dict(r.json())
+            self.__api.handle_erroneous_response(r)
 
     def instrument(self,
                    container: Container
@@ -198,17 +185,16 @@ class ContainerManager(object):
             container: the container that should be instrumented.
         """
         path = "containers/{}/instrument".format(container.uid)
-        r = self.__api.post(path)
-        if r.status_code != 204:
-            logger.info("failed to instrument container: %s", container.uid)
-            self.__api.handle_erroneous_response(r)
+        with self.__api.post(path) as r:
+            if r.status_code != 204:
+                logger.info("failed to instrument container: %s", container.uid)
+                self.__api.handle_erroneous_response(r)
 
     def compile(self,
                 container: Container,
                 verbose: bool = False
                 ) -> CompilationOutcome:
-        """
-        Attempts to compile the program inside a given container.
+        """Attempts to compile the program inside a given container.
 
         Params:
             container: the container whose program should be compiled.
@@ -226,10 +212,10 @@ class ContainerManager(object):
         params = {}
         if verbose:
             params['verbose'] = 'yes'
-        r = self.__api.post(path, params=params)
-        if r.status_code == 200:
-            return CompilationOutcome.from_dict(r.json())
-        self.__api.handle_erroneous_response(r)
+        with self.__api.post(path, params=params) as r:
+            if r.status_code == 200:
+                return CompilationOutcome.from_dict(r.json())
+            self.__api.handle_erroneous_response(r)
 
     build = compile
 
@@ -237,8 +223,7 @@ class ContainerManager(object):
              container: Container,
              test: TestCase
              ) -> TestOutcome:
-        """
-        Executes a given test inside a container.
+        """Executes a given test inside a container.
 
         Parameters:
             container: the container in which the test should be conducted.
@@ -252,19 +237,17 @@ class ContainerManager(object):
                 doesn't exist.
         """
         path = "containers/{}/test/{}".format(container.uid, test.name)
-        r = self.__api.post(path)
-
-        if r.status_code == 200:
-            return TestOutcome.from_dict(r.json())
-        self.__api.handle_erroneous_response(r)
+        with self.__api.post(path) as r:
+            if r.status_code == 200:
+                return TestOutcome.from_dict(r.json())
+            self.__api.handle_erroneous_response(r)
 
     def coverage(self,
                  container: Container,
                  *,
                  instrument: bool = True
                  ) -> TestSuiteCoverage:
-        """
-        Computes complete test suite coverage for a given container.
+        """Computes complete test suite coverage for a given container.
 
         Parameters:
             container: the container for which coverage should be computed.
@@ -275,22 +258,22 @@ class ContainerManager(object):
         logger.info("Fetching coverage information for container: %s",
                     uid)
         uri = 'containers/{}/coverage'.format(uid)
-        r = self.__api.post(uri,
-                            params={'instrument': 'yes' if instrument else 'no'})
-        if r.status_code == 200:
-            jsn = r.json()
-            coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
-            logger.info("Fetched coverage information for container: %s",
-                        uid)
-            return coverage
-        try:
-            self.__api.handle_erroneous_response(r)
-        except exceptions.BugZooException as err:
-            logger.exception("Failed to fetch coverage information for container %s: %s", uid, err.message)  # noqa: pycodestyle
-            raise
-        except Exception as err:
-            logger.exception("Failed to fetch coverage information for container %s due to unexpected failure: %s", uid, err)  # noqa: pycodestyle
-            raise
+        params = {'instrument': 'yes' if instrument else 'no'}
+        with self.__api.post(uri, params=params) as r:
+            if r.status_code == 200:
+                jsn = r.json()
+                coverage = TestSuiteCoverage.from_dict(jsn)  # type: ignore
+                logger.info("Fetched coverage information for container: %s",
+                            uid)
+                return coverage
+            try:
+                self.__api.handle_erroneous_response(r)
+            except exceptions.BugZooException as err:
+                logger.exception("Failed to fetch coverage information for container %s: %s", uid, err.message)  # noqa: pycodestyle
+                raise
+            except Exception as err:
+                logger.exception("Failed to fetch coverage information for container %s due to unexpected failure: %s", uid, err)  # noqa: pycodestyle
+                raise
 
     def exec(self,
              container: Container,
@@ -300,8 +283,7 @@ class ContainerManager(object):
              stderr: bool = False,
              time_limit: Optional[int] = None
              ) -> ExecResponse:
-        """
-        Executes a given command inside a provided container.
+        """Executes a given command inside a provided container.
 
         Parameters:
             container: the container to which the command should be issued.
@@ -332,14 +314,13 @@ class ContainerManager(object):
             'time-limit': time_limit
         }
         path = "containers/{}/exec".format(container.uid)
-        r = self.__api.post(path, json=payload)
+        with self.__api.post(path, json=payload) as r:
+            if r.status_code == 200:
+                return ExecResponse.from_dict(r.json())
+            if r.status_code == 404:
+                raise KeyError("no container found with given UID: {}".format(container.uid))
 
-        if r.status_code == 200:
-            return ExecResponse.from_dict(r.json())
-        if r.status_code == 404:
-            raise KeyError("no container found with given UID: {}".format(container.uid))
-
-        self.__api.handle_erroneous_response(r)
+            self.__api.handle_erroneous_response(r)
 
     command = exec
 
@@ -356,14 +337,11 @@ class ContainerManager(object):
         """
         path = "containers/{}".format(container.uid)
         payload = str(patch)
-        r = self.__api.patch(path, payload)
-
-        return r.status_code == 204
+        with self.__api.patch(path, payload) as r:
+            return r.status_code == 204
 
     def persist(self, container: Container, image_name: str) -> None:
-        """
-        Persists the state of a given container as a Docker image on the
-        server.
+        """Persists the state of a given container as a Docker image.
 
         Parameters:
             container: the container that should be persisted.
@@ -379,16 +357,16 @@ class ContainerManager(object):
                      container.id,
                      image_name)
         path = "containers/{}/persist/{}".format(container.id, image_name)
-        r = self.__api.put(path)
-        if r.status_code == 204:
-            logger.debug("persisted container (%s) to image (%s).",
-                         container.id,
-                         image_name)
-            return
-        try:
-            self.__api.handle_erroneous_response(r)
-        except Exception:
-            logger.exception("failed to persist container (%s) to image (%s).",  # noqa: pycodestyle
+        with self.__api.put(path) as r:
+            if r.status_code == 204:
+                logger.debug("persisted container (%s) to image (%s).",
                              container.id,
                              image_name)
-            raise
+                return
+            try:
+                self.__api.handle_erroneous_response(r)
+            except Exception:
+                logger.exception("failed to persist container (%s) to image (%s).",  # noqa: pycodestyle
+                                 container.id,
+                                 image_name)
+                raise

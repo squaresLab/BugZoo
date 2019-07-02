@@ -1,9 +1,10 @@
-from typing import Optional, Any
+from typing import Optional, Any, Iterator
 try:
     from typing import NoReturn
 except ImportError:
     from mypy_extensions import NoReturn
 from timeit import default_timer as timer
+import contextlib
 import logging
 import time
 
@@ -56,6 +57,8 @@ class APIClient(object):
                 logger.error("Failed to establish connection to server: %s",
                              base_url)
                 raise ConnectionFailure
+
+            r = None
             try:
                 r = requests.get(url, timeout=time_left)
                 connected = r.status_code == 204
@@ -65,13 +68,14 @@ class APIClient(object):
                 logger.error("Failed to establish connection to server: %s",
                              base_url)
                 raise ConnectionFailure
+            finally:
+                if r:
+                    r.close()
             time.sleep(0.05)
         logger.info("Established connection to server: %s", base_url)
 
     def _url(self, path: str) -> str:
-        """
-        Computes the URL for a resource located at a given path on the server.
-        """
+        """Computes the URL for a given resource on the server."""
         url = "{}/{}".format(self.__base_url, path)
         logger.debug("transformed path [%s] into url: %s", path, url)
         return url
@@ -95,32 +99,44 @@ class APIClient(object):
             err = UnexpectedResponse(response)
         raise err
 
-    def get(self, path: str, **kwargs) -> requests.Response:
+    @contextlib.contextmanager
+    def get(self, path: str, **kwargs) -> Iterator[requests.Response]:
         url = self._url(path)
         logger.debug('GET: %s', url)
-        return requests.get(url, **kwargs)
+        with contextlib.closing(requests.get(url, **kwargs)) as r:
+            yield r
 
-    def post(self, path: str, **kwargs) -> requests.Response:
+    @contextlib.contextmanager
+    def post(self, path: str, **kwargs) -> Iterator[requests.Response]:
         url = self._url(path)
         logger.debug('POST: %s', url)
-        return requests.post(url, **kwargs)
+        with contextlib.closing(requests.post(url, **kwargs)) as r:
+            yield r
 
-    def put(self, path: str, **kwargs) -> requests.Response:
+    @contextlib.contextmanager
+    def put(self, path: str, **kwargs) -> Iterator[requests.Response]:
         url = self._url(path)
         logger.debug('PUT: %s', url)
-        return requests.put(url, **kwargs)
+        with contextlib.closing(requests.put(url, **kwargs)) as r:
+            yield r
 
-    def head(self, path: str, **kwargs) -> requests.Response:
+    @contextlib.contextmanager
+    def head(self, path: str, **kwargs) -> Iterator[requests.Response]:
         url = self._url(path)
         logger.debug('HEAD: %s', url)
-        return requests.head(url, **kwargs)
+        with contextlib.closing(requests.head(url, **kwargs)) as r:
+            yield r
 
-    def patch(self, path: str, data, **kwargs ) -> requests.Response:
+    @contextlib.contextmanager
+    def patch(self, path: str, data, **kwargs ) -> Iterator[requests.Response]:
         url = self._url(path)
         logger.debug('PATCH: %s', url)
-        return requests.patch(url, data=data, **kwargs)
+        with contextlib.closing(requests.patch(url, data=data, **kwargs)) as r:
+            yield r
 
-    def delete(self, path: str, **kwargs) -> requests.Response:
+    @contextlib.contextmanager
+    def delete(self, path: str, **kwargs) -> Iterator[requests.Response]:
         url = self._url(path)
         logger.debug('DELETE: %s', url)
-        return requests.delete(url, **kwargs)
+        with contextlib.closing(requests.delete(url, **kwargs)) as r:
+            yield r

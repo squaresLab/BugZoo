@@ -684,7 +684,11 @@ def run(*,
         logger.info("launched BugZoo daemon")
         report_resource_limits(logger)
         report_system_resources(logger)
-        app.run(port=port, host=host, debug=debug, threaded=True)
+        app.run(port=port,
+                host=host,
+                debug=debug,
+                threaded=True,
+                use_reloader=False)
     finally:
         if daemon:
             daemon.shutdown()

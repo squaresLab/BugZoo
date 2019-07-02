@@ -8,8 +8,9 @@ from .dockerm import DockerManager
 from ..exceptions import ConnectionFailure
 
 logger = logging.getLogger(__name__)  # type: logging.Logger
+logger.setLevel(logging.DEBUG)
 
-__all__ = ['Client']
+__all__ = ('Client',)
 
 
 class Client(object):
@@ -71,9 +72,7 @@ class Client(object):
         return self.__docker
 
     def shutdown(self) -> None:
-        """
-        Instructs the connected BugZoo server to shutdown.
-        """
-        r = self.__api.post("shutdown")
-        if r.status_code != 202:
-            raise Exception("failed to shutdown server")
+        """Instructs the connected BugZoo server to shutdown."""
+        with self.__api.post("shutdown") as r:
+            if r.status_code != 202:
+                raise Exception("failed to shutdown server")
