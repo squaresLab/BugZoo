@@ -1,7 +1,8 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
 from typing import (Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type,
-                    Optional)
+                    Optional, Mapping)
+from collections import OrderedDict
 import logging
 
 import yaml
@@ -183,7 +184,7 @@ class TestCoverage:
                 'coverage': self.__coverage.to_dict()}
 
 
-class TestSuiteCoverage:
+class TestSuiteCoverage(Mapping[str, TestCoverage]):
     """
     Holds coverage information for all tests belonging to a particular program
     version.
@@ -202,17 +203,18 @@ class TestSuiteCoverage:
             d = yaml.safe_load(f)
             return TestSuiteCoverage.from_dict(d)
 
-    def __init__(self, test_coverage: Dict[str, TestCoverage]) -> None:
-        self.__test_coverage = test_coverage
+    def __init__(self, test_coverage: Mapping[str, TestCoverage]) -> None:
+        self.__test_coverage = \
+            OrderedDict()  # type: OrderedDict[str, TestCoverage]
+        for test_name in sorted(test_coverage):
+            self.__test_coverage[test_name] = test_coverage[test_name]
 
     def __repr__(self) -> str:
         output = [repr(self[name_test]) for name_test in self]
         return '\n'.join(output)
 
     def covering_tests(self, line: FileLine) -> Set[str]:
-        """
-        Returns the names of all test cases that cover a given line.
-        """
+        """Returns the names of all test cases that cover a given line."""
         return set(test for (test, cov) in self.__test_coverage.items() \
                    if line in cov)
 
@@ -224,8 +226,7 @@ class TestSuiteCoverage:
         return self.__test_coverage.keys().__iter__()
 
     def __getitem__(self, name: str) -> TestCoverage:
-        """
-        Retrieves coverage information for a given test case.
+        """Retrieves coverage information for a given test case.
 
         Parameters:
             name: the name of the test case.
@@ -288,9 +289,7 @@ class TestSuiteCoverage:
 
     @property
     def lines(self) -> FileLineSet:
-        """
-        Returns the set of all file lines that were covered.
-        """
+        """Returns the set of all file lines that were covered."""
         assert len(self) > 0
         output = FileLineSet()
         for coverage in self.__test_coverage.values():
