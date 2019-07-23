@@ -1,3 +1,19 @@
+## 2.1.28 (2019-05-08)
+
+### Bug Fixes
+
+* Use safe_load to load YAML files.
+* Ensure HTTP requests are explicitly closed.
+* Check whether port is in use before launching server.
+* Use backslashreplace when decoding command output.
+
+
+### Changes
+
+* Ensured that contents of `TestSuiteCoverage` are deterministically
+  ordered.
+
+
 ## 2.1.27 (2019-05-08)
 
 ### Features
