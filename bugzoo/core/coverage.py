@@ -237,13 +237,6 @@ class TestSuiteCoverage(Mapping[str, TestCoverage]):
         """
         return self.__test_coverage[name]
 
-    def __contains__(self, name: str) -> bool:
-        """
-        Determines whether this report contains coverage information for a given
-        test case.
-        """
-        return name in self.__test_coverage
-
     def to_dict(self) -> dict:
         return {test: cov.to_dict() \
                 for (test, cov) in self.__test_coverage.items()}
