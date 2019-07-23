@@ -1,7 +1,8 @@
 __all__ = ['CoverageInstructions', 'TestCoverage', 'TestSuiteCoverage']
 
-from typing import Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type, \
-    Optional
+from typing import (Dict, List, Set, Iterator, Any, Iterable, FrozenSet, Type,
+                    Optional, Mapping)
+from collections import OrderedDict
 import logging
 
 import yaml
@@ -26,15 +27,11 @@ def _convert_files_to_instrument(files: Iterable[str]) -> FrozenSet[str]:
     return frozenset(files)
 
 
-class CoverageInstructions(object):
-    """
-    Provides instructions for computing coverage.
-    """
+class CoverageInstructions:
+    """Instructions for computing coverage."""
     @classmethod
     def registered_under_name(cls) -> str:
-        """
-        Returns the name that was used to register this class.
-        """
+        """Returns the name that was used to register this class."""
         return _INSTRUCTIONS_TO_NAME[cls]
 
     @staticmethod
@@ -49,7 +46,7 @@ class CoverageInstructions(object):
     @staticmethod
     def find(name: str) -> Type['CoverageInstructions']:
         """
-        Retrives the coverage instructions class registered under a given name.
+        Retrieves the coverage instructions class registered for a given name.
         """
         return _NAME_TO_INSTRUCTIONS[name]
 
@@ -106,7 +103,7 @@ class CoverageInstructions(object):
         raise NotImplementedError
 
 
-class TestCoverage(object):
+class TestCoverage:
     """
     Provides complete line coverage information for all files and across all
     tests within a given project.
@@ -157,23 +154,17 @@ class TestCoverage(object):
 
     @property
     def test(self) -> str:
-        """
-        The name of the test case used to generate this coverage.
-        """
+        """Name of the test case used to generate this coverage."""
         return self.__test
 
     @property
     def outcome(self) -> TestOutcome:
-        """
-        The outcome of the test associated with this coverage.
-        """
+        """Outcome of the test associated with this coverage."""
         return self.__outcome
 
     @property
     def lines(self) -> FileLineSet:
-        """
-        The set of file-lines that were covered.
-        """
+        """Set of file-lines that were covered."""
         return self.__coverage
 
     coverage = lines
@@ -193,7 +184,7 @@ class TestCoverage(object):
                 'coverage': self.__coverage.to_dict()}
 
 
-class TestSuiteCoverage(object):
+class TestSuiteCoverage(Mapping[str, TestCoverage]):
     """
     Holds coverage information for all tests belonging to a particular program
     version.
@@ -212,17 +203,18 @@ class TestSuiteCoverage(object):
             d = yaml.safe_load(f)
             return TestSuiteCoverage.from_dict(d)
 
-    def __init__(self, test_coverage: Dict[str, TestCoverage]) -> None:
-        self.__test_coverage = test_coverage
+    def __init__(self, test_coverage: Mapping[str, TestCoverage]) -> None:
+        self.__test_coverage = \
+            OrderedDict()  # type: OrderedDict[str, TestCoverage]
+        for test_name in sorted(test_coverage):
+            self.__test_coverage[test_name] = test_coverage[test_name]
 
     def __repr__(self) -> str:
         output = [repr(self[name_test]) for name_test in self]
         return '\n'.join(output)
 
     def covering_tests(self, line: FileLine) -> Set[str]:
-        """
-        Returns the names of all test cases that cover a given line.
-        """
+        """Returns the names of all test cases that cover a given line."""
         return set(test for (test, cov) in self.__test_coverage.items() \
                    if line in cov)
 
@@ -234,8 +226,7 @@ class TestSuiteCoverage(object):
         return self.__test_coverage.keys().__iter__()
 
     def __getitem__(self, name: str) -> TestCoverage:
-        """
-        Retrieves coverage information for a given test case.
+        """Retrieves coverage information for a given test case.
 
         Parameters:
             name: the name of the test case.
@@ -245,13 +236,6 @@ class TestSuiteCoverage(object):
                 case.
         """
         return self.__test_coverage[name]
-
-    def __contains__(self, name: str) -> bool:
-        """
-        Determines whether this report contains coverage information for a given
-        test case.
-        """
-        return name in self.__test_coverage
 
     def to_dict(self) -> dict:
         return {test: cov.to_dict() \
@@ -298,9 +282,7 @@ class TestSuiteCoverage(object):
 
     @property
     def lines(self) -> FileLineSet:
-        """
-        Returns the set of all file lines that were covered.
-        """
+        """Returns the set of all file lines that were covered."""
         assert len(self) > 0
         output = FileLineSet()
         for coverage in self.__test_coverage.values():
