@@ -359,7 +359,7 @@ class ContainerManager(object):
         self.coverage_extractor(container).cleanup()
 
     def read_coverage(self, container: Container) -> FileLineSet:
-        self.coverage_extractor(container).extract()
+        return self.coverage_extractor(container).extract()
 
     def coverage(self,
                  container: Container,
