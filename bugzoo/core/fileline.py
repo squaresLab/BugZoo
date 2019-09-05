@@ -47,10 +47,8 @@ class FileLine:
         return "{}:{}".format(self.filename, self.num)
 
 
-class FileLineSet:
-    """
-    Used to describe a set of file lines.
-    """
+class FileLineSet(Set[FileLine]):
+    """A set of file lines."""
     @staticmethod
     def from_dict(d: Dict[str, List[int]]) -> 'FileLineSet':
         contents = {fn: set(lines) for (fn, lines) in d.items()}
@@ -58,9 +56,7 @@ class FileLineSet:
 
     @staticmethod
     def from_list(lst: List[FileLine]) -> 'FileLineSet':
-        """
-        Converts a list of file lines into a FileLineSet.
-        """
+        """Converts a list of file lines into a FileLineSet."""
         return FileLineSet.from_iter(lst)
 
     @staticmethod
@@ -81,9 +77,7 @@ class FileLineSet:
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()} # type: Dict[str, FrozenSet[int]]
 
     def __iter__(self) -> Iterator[FileLine]:
-        """
-        Returns an iterator over the lines contained in this set.
-        """
+        """Returns an iterator over the lines contained in this set."""
         for fn in self.__contents:
             for num in self.__contents[fn]:
                 yield FileLine(fn, num)
@@ -113,9 +107,7 @@ class FileLineSet:
         return '\n'.join(output)
 
     def __len__(self) -> int:
-        """
-        Returns a count of the number of file lines in the set.
-        """
+        """Returns a count of the number of file lines in the set."""
         return sum(len(lines) for lines in self.__contents.values())
 
     def __getitem__(self, fn: str) -> Iterator[FileLine]:
@@ -129,9 +121,7 @@ class FileLineSet:
             yield FileLine(fn, num)
 
     def __contains__(self, file_line: FileLine) -> bool:
-        """
-        Determines whether a given file-line is contained within this set.
-        """
+        """Determines whether this set contains a given file-line."""
         return file_line.filename in self.__contents and \
                file_line.num in self.__contents[file_line.filename]
 
