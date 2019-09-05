@@ -1,13 +1,14 @@
+# -*- coding: utf-8 -*-
+__all__ = ('FileLine', 'FileLineSet')
+
 from typing import  Dict, List, Set, Iterator, Iterable, Any, FrozenSet, \
                     Callable, Optional
 import attr
 
 
-@attr.s(frozen=True)
-class FileLine(object):
-    """
-    Used to represent an one-indexed line within a specific file.
-    """
+@attr.s(frozen=True, slots=True)
+class FileLine:
+    """Represents a one-indexed line within a specific file."""
     filename = attr.ib(type=str)
     num = attr.ib(type=int)
 
@@ -46,7 +47,7 @@ class FileLine(object):
         return "{}:{}".format(self.filename, self.num)
 
 
-class FileLineSet(object):
+class FileLineSet:
     """
     Used to describe a set of file lines.
     """
