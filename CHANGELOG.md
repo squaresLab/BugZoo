@@ -1,3 +1,10 @@
+## 2.1.29 (2019-09-05)
+
+### Changes
+
+* Updated FileLineSet to implement Set[FileLine] interface.
+
+
 ## 2.1.28 (2019-05-08)
 
 ### Bug Fixes
