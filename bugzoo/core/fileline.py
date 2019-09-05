@@ -1,13 +1,17 @@
-from typing import  Dict, List, Set, Iterator, Iterable, Any, FrozenSet, \
-                    Callable, Optional
+# -*- coding: utf-8 -*-
+__all__ = ('FileLine', 'FileLineSet')
+
+import typing
+import collections.abc
+from typing import (Dict, List, Set, Iterator, Iterable, Any, FrozenSet,
+                    Callable, Optional, Tuple)
+
 import attr
 
 
-@attr.s(frozen=True)
-class FileLine(object):
-    """
-    Used to represent an one-indexed line within a specific file.
-    """
+@attr.s(frozen=True, slots=True)
+class FileLine:
+    """Represents a one-indexed line within a specific file."""
     filename = attr.ib(type=str)
     num = attr.ib(type=int)
 
@@ -46,10 +50,15 @@ class FileLine(object):
         return "{}:{}".format(self.filename, self.num)
 
 
-class FileLineSet(object):
-    """
-    Used to describe a set of file lines.
-    """
+# see: https://github.com/python/mypy/issues/5446
+if typing.TYPE_CHECKING:
+    BaseSet = Set[FileLine]
+else:
+    BaseSet = collections.abc.Set
+
+
+class FileLineSet(BaseSet):
+    """A set of file lines."""
     @staticmethod
     def from_dict(d: Dict[str, List[int]]) -> 'FileLineSet':
         contents = {fn: set(lines) for (fn, lines) in d.items()}
@@ -57,9 +66,7 @@ class FileLineSet(object):
 
     @staticmethod
     def from_list(lst: List[FileLine]) -> 'FileLineSet':
-        """
-        Converts a list of file lines into a FileLineSet.
-        """
+        """Converts a list of file lines into a FileLineSet."""
         return FileLineSet.from_iter(lst)
 
     @staticmethod
@@ -80,9 +87,7 @@ class FileLineSet(object):
             {fn: frozenset(line_nums) for (fn, line_nums) in contents.items()} # type: Dict[str, FrozenSet[int]]
 
     def __iter__(self) -> Iterator[FileLine]:
-        """
-        Returns an iterator over the lines contained in this set.
-        """
+        """Returns an iterator over the lines contained in this set."""
         for fn in self.__contents:
             for num in self.__contents[fn]:
                 yield FileLine(fn, num)
@@ -112,9 +117,7 @@ class FileLineSet(object):
         return '\n'.join(output)
 
     def __len__(self) -> int:
-        """
-        Returns a count of the number of file lines in the set.
-        """
+        """Returns a count of the number of file lines in the set."""
         return sum(len(lines) for lines in self.__contents.values())
 
     def __getitem__(self, fn: str) -> Iterator[FileLine]:
@@ -127,12 +130,12 @@ class FileLineSet(object):
         for num in self.__contents[fn]:
             yield FileLine(fn, num)
 
-    def __contains__(self, file_line: FileLine) -> bool:
-        """
-        Determines whether a given file-line is contained within this set.
-        """
-        return file_line.filename in self.__contents and \
-               file_line.num in self.__contents[file_line.filename]
+    def __contains__(self, elem: object) -> bool:
+        """Determines whether this set contains a given element."""
+        if not isinstance(elem, FileLine):
+            return False
+        return elem.filename in self.__contents and \
+               elem.num in self.__contents[elem.filename]
 
     def filter(self,
                predicate: Callable[[FileLine], 'FileLineSet']
@@ -144,29 +147,24 @@ class FileLineSet(object):
         filtered = [fileline for fileline in self if predicate(fileline)]
         return FileLineSet.from_list(filtered)
 
-    def union(self, other: 'FileLineSet') -> 'FileLineSet':
+    def union(self, *others: Iterable[FileLine]) -> Set[FileLine]:
         """
-        Returns a set of file lines that contains the union of the lines within
-        this set and a given set.
+        Returns a set that contains the union of the file lines contained
+        within this set and the given collections of file lines.
         """
-        # this isn't the most efficient implementation, but frankly, it doesn't
-        # need to be.
-        assert isinstance(other, FileLineSet)
-        l_self = list(self)
-        l_other = list(other)
-        l_union = l_self + l_other
-        return FileLineSet.from_list(l_union)
+        sources = (self,)  # type: Tuple[Iterable[FileLine], ...]
+        sources = sources + others
+        return FileLineSet.from_iter(l for src in sources for l in src)
 
-    def intersection(self, other: 'FileLineSet') -> 'FileLineSet':
+    def intersection(self, *others: Iterable[FileLine]) -> Set[FileLine]:
         """
         Returns a set of file lines that contains the intersection of the lines
         within this set and a given set.
         """
-        assert isinstance(other, FileLineSet)
-        set_self = set(self)
-        set_other = set(other)
-        set_union = set_self & set_other
-        return FileLineSet.from_list(list(set_union))
+        lines = set(self)
+        for src in others:
+            lines &= set(src)
+        return FileLineSet.from_iter(lines)
 
     def restricted_to_files(self, filenames: List[str]) -> 'FileLineSet':
         """

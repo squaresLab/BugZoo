@@ -281,10 +281,10 @@ class TestSuiteCoverage(Mapping[str, TestCoverage]):
         return len(self.__test_coverage)
 
     @property
-    def lines(self) -> FileLineSet:
+    def lines(self) -> Set[FileLine]:
         """Returns the set of all file lines that were covered."""
         assert len(self) > 0
-        output = FileLineSet()
+        output = FileLineSet()  # type: Set[FileLine]
         for coverage in self.__test_coverage.values():
             output = output.union(coverage.lines)
         return output
