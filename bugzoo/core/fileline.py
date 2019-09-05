@@ -3,8 +3,8 @@ __all__ = ('FileLine', 'FileLineSet')
 
 import typing
 import collections.abc
-from typing import  Dict, List, Set, Iterator, Iterable, Any, FrozenSet, \
-                    Callable, Optional
+from typing import (Dict, List, Set, Iterator, Iterable, Any, FrozenSet,
+                    Callable, Optional, Tuple)
 
 import attr
 
@@ -130,10 +130,12 @@ class FileLineSet(BaseSet):
         for num in self.__contents[fn]:
             yield FileLine(fn, num)
 
-    def __contains__(self, file_line: FileLine) -> bool:
-        """Determines whether this set contains a given file-line."""
-        return file_line.filename in self.__contents and \
-               file_line.num in self.__contents[file_line.filename]
+    def __contains__(self, elem: object) -> bool:
+        """Determines whether this set contains a given element."""
+        if not isinstance(elem, FileLine):
+            return False
+        return elem.filename in self.__contents and \
+               elem.num in self.__contents[elem.filename]
 
     def filter(self,
                predicate: Callable[[FileLine], 'FileLineSet']
@@ -145,20 +147,16 @@ class FileLineSet(BaseSet):
         filtered = [fileline for fileline in self if predicate(fileline)]
         return FileLineSet.from_list(filtered)
 
-    def union(self, other: 'FileLineSet') -> 'FileLineSet':
+    def union(self, *others: Iterable[FileLine]) -> Set[FileLine]:
         """
-        Returns a set of file lines that contains the union of the lines within
-        this set and a given set.
+        Returns a set that contains the union of the file lines contained
+        within this set and the given collections of file lines.
         """
-        # this isn't the most efficient implementation, but frankly, it doesn't
-        # need to be.
-        assert isinstance(other, FileLineSet)
-        l_self = list(self)
-        l_other = list(other)
-        l_union = l_self + l_other
-        return FileLineSet.from_list(l_union)
+        sources = (self,)  # type: Tuple[Iterable[FileLine], ...]
+        sources = sources + others
+        return FileLineSet.from_iter(l for src in sources for l in src)
 
-    def intersection(self, other: 'FileLineSet') -> 'FileLineSet':
+    def intersection(self, other: 'FileLineSet') -> Set[FileLine]:
         """
         Returns a set of file lines that contains the intersection of the lines
         within this set and a given set.
