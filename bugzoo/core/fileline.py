@@ -156,16 +156,15 @@ class FileLineSet(BaseSet):
         sources = sources + others
         return FileLineSet.from_iter(l for src in sources for l in src)
 
-    def intersection(self, other: 'FileLineSet') -> Set[FileLine]:
+    def intersection(self, *others: Iterable[FileLine]) -> Set[FileLine]:
         """
         Returns a set of file lines that contains the intersection of the lines
         within this set and a given set.
         """
-        assert isinstance(other, FileLineSet)
-        set_self = set(self)
-        set_other = set(other)
-        set_union = set_self & set_other
-        return FileLineSet.from_list(list(set_union))
+        lines = set(self)
+        for src in others:
+            lines &= set(src)
+        return FileLineSet.from_iter(lines)
 
     def restricted_to_files(self, filenames: List[str]) -> 'FileLineSet':
         """
