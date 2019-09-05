@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 __all__ = ('FileLine', 'FileLineSet')
 
+import typing
+import collections.abc
 from typing import  Dict, List, Set, Iterator, Iterable, Any, FrozenSet, \
                     Callable, Optional
+
 import attr
 
 
@@ -47,7 +50,14 @@ class FileLine:
         return "{}:{}".format(self.filename, self.num)
 
 
-class FileLineSet(Set[FileLine]):
+# see: https://github.com/python/mypy/issues/5446
+if typing.TYPE_CHECKING:
+    BaseSet = Set[FileLine]
+else:
+    BaseSet = collections.abc.Set
+
+
+class FileLineSet(BaseSet):
     """A set of file lines."""
     @staticmethod
     def from_dict(d: Dict[str, List[int]]) -> 'FileLineSet':
