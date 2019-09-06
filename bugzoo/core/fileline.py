@@ -71,7 +71,7 @@ class FileLineMap(BaseMap):
     Note that operations on instances of this class are NOT thread safe.
     """
     def __init__(self, contents: Mapping[FileLine, T]) -> None:
-        self.__contents: Dict[str, Dict[int, T]] = {}
+        self.__contents = {}  # type: Dict[str, Dict[int, T]]
         self.__length = 0
         for line, val in contents.items():
             self[line] = val
