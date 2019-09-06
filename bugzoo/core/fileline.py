@@ -6,6 +6,7 @@ import collections.abc
 from typing import (Dict, List, Set, Iterator, Iterable, Any, FrozenSet,
                     Callable, Optional, Tuple, TypeVar)
 
+from deprecated import deprecated
 import attr
 
 T = TypeVar('T')
@@ -24,6 +25,7 @@ class FileLine:
         return FileLine(fn, num)
 
     @staticmethod
+    @deprecated(version='2.1.29', reason='Replaced by FileLineMap.')
     def compactify(d: Dict['FileLine', Any]) -> Dict[str, Dict[int, Any]]:
         """
         Converts a dictionary that is indexed by FileLine objects into a
@@ -41,6 +43,7 @@ class FileLine:
         return out
 
     @staticmethod
+    @deprecated(version='2.1.29', reason='Replaced by FileLineMap.')
     def decompactify(d: Dict[str, Dict[int, Any]]) -> 'Dict[FileLine, Any]':
         lines = {} # type: Dict['FileLine', Any]
         for fn in d:
