@@ -30,6 +30,8 @@ setup(
         'psutil>=5.0.0',
         'chardet>=3.0.4'
     ],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
     packages=[
         'bugzoo',
         'bugzoo.client',
