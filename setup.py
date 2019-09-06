@@ -24,7 +24,7 @@ setup(
         'tabulate',
         'flask',
         'cement>=2.10.12',
-        'attrs>=17.2.0',
+        'attrs~=19.1.0',
         'mypy-extensions>=0.3.0',
         'psutil>=5.0.0',
         'chardet>=3.0.4'
