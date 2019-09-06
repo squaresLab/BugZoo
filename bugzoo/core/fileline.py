@@ -4,7 +4,8 @@ __all__ = ('FileLine', 'FileLineSet', 'FileLineMap')
 import typing
 import collections.abc
 from typing import (Dict, List, Set, Iterator, Iterable, Any, FrozenSet,
-                    Callable, Optional, Tuple, TypeVar)
+                    Callable, Optional, Tuple, TypeVar, MutableMapping,
+                    Mapping)
 
 from deprecated import deprecated
 import attr
