@@ -25,6 +25,7 @@ setup(
         'flask',
         'cement>=2.10.12',
         'attrs~=19.1.0',
+        'deprecated~=1.2.6',
         'mypy-extensions>=0.3.0',
         'psutil>=5.0.0',
         'chardet>=3.0.4'
