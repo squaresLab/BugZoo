@@ -1,4 +1,10 @@
-## 2.1.29 (2019-09-05)
+## 2.1.29 (????-??-??)
+
+### Features
+
+* Added an efficient data structure for representing maps that are indexed
+  by FileLine objects: FileLineMap.
+
 
 ### Changes
 

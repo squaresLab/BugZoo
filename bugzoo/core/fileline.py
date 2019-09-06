@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
-__all__ = ('FileLine', 'FileLineSet')
+__all__ = ('FileLine', 'FileLineSet', 'FileLineMap')
 
 import typing
 import collections.abc
 from typing import (Dict, List, Set, Iterator, Iterable, Any, FrozenSet,
-                    Callable, Optional, Tuple)
+                    Callable, Optional, Tuple, TypeVar, MutableMapping,
+                    Mapping)
 
+from deprecated import deprecated
 import attr
+
+T = TypeVar('T')
 
 
 @attr.s(frozen=True, slots=True)
@@ -22,6 +26,7 @@ class FileLine:
         return FileLine(fn, num)
 
     @staticmethod
+    @deprecated(version='2.1.29', reason='Replaced by FileLineMap.')
     def compactify(d: Dict['FileLine', Any]) -> Dict[str, Dict[int, Any]]:
         """
         Converts a dictionary that is indexed by FileLine objects into a
@@ -39,6 +44,7 @@ class FileLine:
         return out
 
     @staticmethod
+    @deprecated(version='2.1.29', reason='Replaced by FileLineMap.')
     def decompactify(d: Dict[str, Dict[int, Any]]) -> 'Dict[FileLine, Any]':
         lines = {} # type: Dict['FileLine', Any]
         for fn in d:
@@ -53,8 +59,46 @@ class FileLine:
 # see: https://github.com/python/mypy/issues/5446
 if typing.TYPE_CHECKING:
     BaseSet = Set[FileLine]
+    BaseMap = MutableMapping[FileLine, T]
 else:
     BaseSet = collections.abc.Set
+    BaseMap = collections.abc.MutableMapping
+
+
+class FileLineMap(BaseMap):
+    """
+    An efficient implementation of maps indexed by file lines.
+    Note that operations on instances of this class are NOT thread safe.
+    """
+    def __init__(self, contents: Mapping[FileLine, T]) -> None:
+        self.__contents = {}  # type: Dict[str, Dict[int, T]]
+        self.__length = 0
+        for line, val in contents.items():
+            self[line] = val
+
+    def __iter__(self) -> Iterator[FileLine]:
+        for fn in self.__contents:
+            for lineno in self.__contents[fn]:
+                yield FileLine(fn, lineno)
+
+    def __len__(self) -> int:
+        return self.__length
+
+    def __getitem__(self, line: FileLine) -> T:
+        return self.__contents[line.filename][line.num]
+
+    def __setitem__(self, line: FileLine, val: T) -> None:
+        if line.filename not in self.__contents:
+            self.__contents[line.filename] = {}
+        if line.num not in self.__contents[line.filename]:
+            self.__length += 1
+        self.__contents[line.filename][line.num] = val
+
+    def __delitem__(self, line: FileLine) -> None:
+        del self.__contents[line.filename][line.num]
+        if not self.__contents[line.filename]:
+            del self.__contents[line.filename]
+        self.__length -= 1
 
 
 class FileLineSet(BaseSet):
