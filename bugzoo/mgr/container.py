@@ -324,7 +324,7 @@ class ContainerManager(object):
             self.copy_to(container, file_host.name, file_container)
 
             # run patch command inside the source directory
-            cmd = 'sudo chown $(whoami) "{}" && patch -p0 < "{}"'
+            cmd = 'sudo chown $(whoami) "{}" && patch --ignore-whitespace -p0 < "{}"'
             cmd = cmd.format(file_container, file_container)
             outcome = self.command(container, cmd, context=bug.source_dir)
             logger.debug("Patch application outcome [%s]: (retcode=%d)\n%s",

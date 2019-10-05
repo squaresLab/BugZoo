@@ -1,3 +1,11 @@
+## 2.1.30 (XXXX-XX-XX)
+
+### Changes
+
+* Updated patch method in ContainerManager to use --ignore-whitespace option
+  in an effort to ignore file ending issues when patching.
+
+
 ## 2.1.29 (2019-09-06)
 
 ### Features
