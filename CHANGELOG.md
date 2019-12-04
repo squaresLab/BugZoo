@@ -1,3 +1,11 @@
+## 2.1.32 (2019-12-04)
+
+### Bug Fixes
+
+* Fixed bad `__str__` method in `Language` enum
+* Re-enabled support for Java and Python bugs
+
+
 ## 2.1.31 (2019-10-11)
 
 ### Changes
