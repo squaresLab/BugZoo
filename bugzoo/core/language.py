@@ -9,17 +9,15 @@ class LanguageEnumMeta(enum.EnumMeta):
 class Language(enum.Enum, metaclass=LanguageEnumMeta):
     C = ("c",)
     CPP = ("cpp",)
-    # JAVA = None
-    # PYTHON = None
+    JAVA = ('java',)
+    PYTHON = ('python',)
 
     def __init__(self, canonical_name: str) -> None:
         self.__canonical_name = canonical_name
 
     @property
     def canonical_name(self) -> str:
-        """
-        The canonical name of this language.
-        """
+        """The canonical name of this language."""
         return self.__canonical_name
 
     __str__ = canonical_name
