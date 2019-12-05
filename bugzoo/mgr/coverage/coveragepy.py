@@ -71,17 +71,22 @@ class CoveragePyExtractor(CoverageExtractor):
 
     def extract(self) -> FileLineSet:
         container = self.container
+        bug = self.installation.bugs[container.bug]
         mgr_file = self.installation.files
 
-        filename = self.coverage_filename
-        file_contents = mgr_file.read(container, filename)
+        coverage_filename = self.coverage_filename
+        coverage_text = mgr_file.read(container, coverage_filename)
 
-        assert file_contents.startswith(COVERAGE_FILE_PREFIX)
-        file_contents = file_contents[len(COVERAGE_FILE_PREFIX):]
+        assert coverage_text.startswith(COVERAGE_FILE_PREFIX)
+        coverage_text = coverage_text[len(COVERAGE_FILE_PREFIX):]
+        coverage_json = json.loads(coverage_text)
 
-        coverage_json = json.loads(file_contents)
-
-        # TODO fix absolute filepaths to be relative to the source directory
+        # fix absolute filepaths to be relative to the source directory
+        source_directory = bug.source_dir
+        coverage_json = {
+            os.path.relpath(source_filename, source_directory):
+            source_coverage
+            for (source_filename, source_coverage) in coverage_json.items()}
 
         mgr_file.delete(container, filename)
 
