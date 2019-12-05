@@ -184,6 +184,11 @@ class CoverageExtractor(abc.ABC):
         self.__container = container
 
     @property
+    def installation(self) -> 'BugZoo':
+        """The BugZoo installation associated with this extractor."""
+        return self.__installation
+
+    @property
     def container(self) -> Container:
         """
         The container associated with this coverage extractor.
