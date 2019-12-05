@@ -13,6 +13,9 @@ from ... import exceptions
 logger = logging.getLogger(__name__)  # type: logging.Logger
 logger.setLevel(logging.DEBUG)
 
+COVERAGE_FILE_PREFIX = \
+    "!coverage.py: This is a private format, don't read it directly!"
+
 
 @register_as_default(Language.PYTHON)
 @register('coverage.py')
@@ -70,17 +73,16 @@ class CoveragePyExtractor(CoverageExtractor):
         container = self.container
         mgr_file = self.installation.files
 
-        # attempt to read the coverage file
         filename = self.coverage_filename
         file_contents = mgr_file.read(container, filename)
 
-        # TODO strip the warning prefix
+        assert file_contents.startswith(COVERAGE_FILE_PREFIX)
+        file_contents = file_contents[len(COVERAGE_FILE_PREFIX):]
 
         coverage_json = json.loads(file_contents)
 
         # TODO fix absolute filepaths to be relative to the source directory
 
-        # destroy the coverage file
         mgr_file.delete(container, filename)
 
         return FileLineSet.from_dict(coverage_json)
