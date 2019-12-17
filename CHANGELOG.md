@@ -1,3 +1,8 @@
+## 2.2.0 (2019-12-17)
+
+* Simplified `compiler` module
+
+
 ## 2.1.33 (2019-12-09)
 
 ### Changes

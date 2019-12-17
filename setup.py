@@ -35,7 +35,6 @@ setup(
     packages=[
         'bugzoo',
         'bugzoo.client',
-        'bugzoo.compiler',
         'bugzoo.server',
         'bugzoo.mgr',
         'bugzoo.mgr.coverage',

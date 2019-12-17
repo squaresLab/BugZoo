@@ -668,7 +668,7 @@ def run(*,
     logger.info("BugZoo version: %s", __version__)
     logger.info("DockerPy version: %s", docker.__version__)
     logger.info("psutil version: %s", psutil.__version__)
-    logger.info("Flask version: %s", flask.__version__)
+    logger.info("Flask version: %s", flask.__version__)  # type: ignore
     logger.info("GitPython version: %s", git.__version__)
 
     # is the specified port in use?
