@@ -1,3 +1,9 @@
+## 2.2.1 (????-??-??)
+
+* Removed `base_url_docker` argument from BugZoo manager to provide better
+  support for rootless Docker.
+
+
 ## 2.2.0 (2019-12-17)
 
 * Simplified `compiler` module
