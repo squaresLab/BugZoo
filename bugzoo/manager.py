@@ -15,21 +15,19 @@ from .mgr.container import ContainerManager
 from .mgr.file import FileManager
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 __all__ = ['BugZoo']
 
 
-class BugZoo(object):
-    """
-    Used to interact with and manage a local BugZoo installation.
-    """
+class BugZoo:
+    """Used to interact with and manage a local BugZoo installation."""
     def __init__(self,
                  path: Optional[str] = None,
                  base_url_docker: str = 'unix:///var/run/docker.sock',
                  docker_client_api_version: Optional[str] = None
                  ) -> None:
-        """
-        Creates a new BugZoo installation manager.
+        """Creates a new BugZoo installation manager.
 
         Parameters:
             path: the absolute path of a BugZoo installation on this machine.
