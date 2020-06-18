@@ -15,30 +15,29 @@ from .mgr.container import ContainerManager
 from .mgr.file import FileManager
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
-__all__ = ['BugZoo']
+__all__ = ('BugZoo',)
 
 
-class BugZoo(object):
-    """
-    Used to interact with and manage a local BugZoo installation.
-    """
+class BugZoo:
+    """Used to interact with and manage a local BugZoo installation."""
     def __init__(self,
                  path: Optional[str] = None,
-                 base_url_docker: str = 'unix:///var/run/docker.sock',
                  docker_client_api_version: Optional[str] = None
                  ) -> None:
-        """
-        Creates a new BugZoo installation manager.
+        """Creates a new BugZoo installation manager.
 
-        Parameters:
-            path: the absolute path of a BugZoo installation on this machine.
-                If unspecified, the value of the environmental variable
-                :code:`BUGZOO_PATH` will be used, unless unspecified, in
-                which case :code:`./${HOME}/.bugzoo` will be used instead.
-            base_url_docker: the base URL of the Docker server.
-            docker_client_api_version: the version of the Docker client API
-                that should be used to communicate with the Docker server.
+        Parameters
+        ----------
+        path: str, optional
+            the absolute path of a BugZoo installation on this machine.  If
+            unspecified, the value of the environmental variable
+            :code:`BUGZOO_PATH` will be used, unless unspecified, in which case
+            :code:`./${HOME}/.bugzoo` will be used instead.
+        docker_client_api_version: str, optional
+            the version of the Docker client API that should be used to
+            communicate with the Docker server.
         """
         # TODO support windows
         if path is None:
@@ -57,8 +56,7 @@ class BugZoo(object):
             os.makedirs(self.coverage_path)
         logger.debug("prepared BugZoo directory")
 
-        logger.debug("connecting to Docker at %s", base_url_docker)
-        self.__base_url_docker = base_url_docker
+        logger.debug("connecting to Docker...")
 
         self.__docker_client_api_version = docker_client_api_version
         if docker_client_api_version:
@@ -68,9 +66,8 @@ class BugZoo(object):
             logger.debug("using default Docker Client API")
 
         try:
-            self.__docker = DockerClient(base_url=base_url_docker,
-                                         version=docker_client_api_version,
-                                         timeout=120)
+            self.__docker = docker.from_env(version=docker_client_api_version,
+                                            timeout=120)
             assert self.__docker.ping()
         except (docker.errors.APIError, AssertionError):
             logger.exception("failed to connect to Docker")
@@ -93,9 +90,7 @@ class BugZoo(object):
 
     @property
     def docker(self) -> DockerClient:
-        """
-        The Docker client used by this server.
-        """
+        """The Docker client used by this server."""
         return self.__docker
 
     @property
@@ -107,17 +102,8 @@ class BugZoo(object):
         return self.__docker_client_api_version
 
     @property
-    def base_url_docker(self) -> str:
-        """
-        The base URL of the Docker server to which BugZoo is connected.
-        """
-        return self.__base_url_docker
-
-    @property
     def path(self) -> str:
-        """
-        The absolute path to the local installation of BugZoo.
-        """
+        """The absolute path to the local installation of BugZoo."""
         return self.__path
 
     @property
@@ -137,35 +123,25 @@ class BugZoo(object):
 
     @property
     def files(self) -> FileManager:
-        """
-        Provides access to the file system within running containers.
-        """
+        """Provides access to the file system within running containers."""
         return self.__files
 
     @property
     def sources(self) -> SourceManager:
-        """
-        The sources registered with this BugZoo installation.
-        """
+        """The sources registered with this BugZoo installation."""
         return self.__sources
 
     @property
     def tools(self) -> ToolManager:
-        """
-        The tools registered with this BugZoo installation.
-        """
+        """The tools registered with this BugZoo installation."""
         return self.__tools
 
     @property
     def bugs(self) -> BugManager:
-        """
-        The bugs registered with this BugZoo installation.
-        """
+        """The bugs registered with this BugZoo installation."""
         return self.__bugs
 
     @property
     def containers(self) -> ContainerManager:
-        """
-        The containers that are running on this server.
-        """
+        """The containers that are running on this server."""
         return self.__containers
