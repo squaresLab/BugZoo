@@ -35,11 +35,7 @@ class ContainerManager(object):
 
         logger.debug("connecting to low-level Docker API")
         self.__client_docker = installation.docker  # type: docker.Client
-        # self.__api_docker = self.__client_docker.api  # type: docker.APIClient
-        self.__api_docker = \
-            docker.APIClient(base_url=installation.base_url_docker,
-                             version=installation.docker_client_api_version,
-                             timeout=120)  # type: docker.APIClient
+        self.__api_docker = self.__client_docker.api  # type: docker.APIClient
         assert self.__api_docker.ping()
         logger.debug("connected to low-level Docker API")
         self.__containers = {}
