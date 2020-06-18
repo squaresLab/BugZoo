@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Format (v1.0) &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently Asked Questions" href="faqs.html" />
+    <link rel="prev" title="Adding a plugin" href="contributing/tools.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">File Format (v1.0)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#blueprints">Blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bugs">Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugins">Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="file-format-v1-0">
+<h1>File Format (v1.0)<a class="headerlink" href="#file-format-v1-0" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we describe the file format of BugZoo manifest files, which
+are used by sources to describe snapshots (i.e., historical, and possibly
+defective, software versions), datasets of snapshots (e.g., ManyBugs and
+IntroClass), and plugins.</p>
+<p>Manifest files must be written in YAML, and should be named with a
+<code class="code docutils literal notranslate"><span class="pre">.bugzoo.yml</span></code> suffix (e.g., <code class="code docutils literal notranslate"><span class="pre">my-manifest.bugzoo.yml</span></code>).</p>
+<p>At the top level, manifest files should look as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&quot;1.0&quot;</span>
+
+<span class="nt">blueprints</span><span class="p">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="nt">bugs</span><span class="p">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>where <code class="code docutils literal notranslate"><span class="pre">version</span></code> specifies the version of the manifest file format
+that was used to write the file, <code class="code docutils literal notranslate"><span class="pre">blueprints</span></code> provides instructions for
+building individual Docker images, <code class="code docutils literal notranslate"><span class="pre">bugs</span></code> defines snapshots, and
+<code class="code docutils literal notranslate"><span class="pre">plugins</span></code> defines plugins. <code class="code docutils literal notranslate"><span class="pre">blueprints</span></code>, <code class="code docutils literal notranslate"><span class="pre">bugs</span></code>,
+and <code class="code docutils literal notranslate"><span class="pre">plugins</span></code> are optional sections and each is described as a list.</p>
+<div class="section" id="blueprints">
+<h2>Blueprints<a class="headerlink" href="#blueprints" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="code docutils literal notranslate"><span class="pre">blueprints</span></code> section provides a list of <em>blueprints</em>, each of which
+encodes instructions for building an individual Docker image. Below, we give an
+example of a <code class="code docutils literal notranslate"><span class="pre">blueprints</span></code> section containing a single blueprint for
+building the Docker image for a PHP scenario from the ManyBugs dataset.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">squareslab/manybugs:php-2011-04-06-18d71a6f59-187eb235fe</span>
+  <span class="nt">file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+  <span class="nt">context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.</span>
+  <span class="nt">depends-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">squareslab/manybugs:php</span>
+  <span class="nt">arguments</span><span class="p">:</span>
+    <span class="nt">autoconf</span><span class="p">:</span> <span class="s">&quot;2.59&quot;</span>
+    <span class="nt">bison</span><span class="p">:</span> <span class="s">&quot;2.4.3&quot;</span>
+    <span class="nt">bug_revision</span><span class="p">:</span> <span class="s">&quot;18d71a6f59&quot;</span>
+    <span class="nt">fix_revision</span><span class="p">:</span> <span class="s">&quot;187eb235fe&quot;</span>
+    <span class="nt">scenario</span><span class="p">:</span> <span class="s">&quot;php-bug-2011-04-06-18d71a6f59-187eb235fe&quot;</span>
+</pre></div>
+</div>
+<p>Below, we discuss each of the properties used to describe a blueprint:</p>
+<ul class="simple">
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">tag</span></code> property gives the fully qualified name of the Docker image.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">file</span></code> property gives the path of the <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> that
+should be used to construct the Docker image, relative to the location of
+the manifest file. If omitted, <code class="code docutils literal notranslate"><span class="pre">file</span></code> will default to
+<code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code>.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">context</span></code> property specifies the directory that should be used to
+provide the build context to Docker. If omitted, <code class="code docutils literal notranslate"><span class="pre">context</span></code> will
+default to <code class="code docutils literal notranslate"><span class="pre">.</span></code> (i.e., the directory that provides the manifest file).</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">arguments</span></code> property optionally provides a dictionary of
+build-time arguments that are supplied to Docker when constructing the
+image.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">depends-on</span></code> property optionally specifies the name of the Docker
+image, if any, that the Docker image described by the blueprint relies on.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">build-stage</span></code> property optionally specifies the name of the Docker
+build stage that should be used to construct the image.</p></li>
+</ul>
+</div>
+<div class="section" id="bugs">
+<h2>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="code docutils literal notranslate"><span class="pre">bugs</span></code> section details a list of <em>bugs</em>. Below is an example of a
+<code class="code docutils literal notranslate"><span class="pre">bugs</span></code> section containing a single bug definition belonging to a PHP
+bug scenario from the ManyBugs dataset.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;manybugs:php:2011-04-06-18d71a6f59-187eb235fe&quot;</span>
+  <span class="nt">image</span><span class="p">:</span> <span class="s">&quot;squareslab/manybugs:php-2011-04-06-18d71a6f59-187eb235fe&quot;</span>
+  <span class="nt">dataset</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">manybugs</span>
+  <span class="nt">program</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">php</span>
+  <span class="nt">languages</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">C</span>
+  <span class="nt">source-location</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/experiment/src</span>
+  <span class="nt">test-harness</span><span class="p">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+  <span class="nt">compiler</span><span class="p">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+  <span class="nt">coverage</span><span class="p">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>Each bug is described by the following properties:</p>
+<ul class="simple">
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">name</span></code> property gives a name that is used to uniquely identify
+the bug.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">image</span></code> property gives the name of the Docker image that is used
+to provide the bug. BugZoo assumes that either the Docker image is already
+installed on the server, or that there is a blueprint that provides
+instructions for building the image.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">dataset</span></code> property optionally specifies the name of the dataset
+that the bug belongs to, if any.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">program</span></code> property optionally specifies the name of the program
+that the bug belongs to.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">languages</span></code> property specifies a list of the languages that are
+involved in the bug. BugZoo uses this information to direct the collection
+of line coverage information. At the time of writing, the following languages
+are recognised by BugZoo: <code class="code docutils literal notranslate"><span class="pre">C</span></code>, <code class="code docutils literal notranslate"><span class="pre">C++</span></code>, <code class="code docutils literal notranslate"><span class="pre">Java</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">Python</span></code>.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">source-location</span></code> property states the directory containing the
+source code for the buggy program.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">test-harness</span></code> property describes a test suite for the buggy program.
+More details are provided below.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">compiler</span></code> property provides instructions for building the buggy
+program. More details are provided below.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">coverage</span></code> property gives instructions for collecting line coverage
+information for the program. More details are provided below.</p></li>
+</ul>
+<div class="section" id="test-harness">
+<h3>Test Harness<a class="headerlink" href="#test-harness" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="code docutils literal notranslate"><span class="pre">test-harness</span></code> property describes the test suite for the
+program under test (PUT). Below is an example of a simple test harness
+that contains a single test.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">test-harness</span><span class="p">:</span>
+  <span class="nt">time-limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+  <span class="nt">kill-after</span><span class="p">:</span>
+  <span class="nt">context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/ros_ws</span>
+  <span class="nt">tests</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bfl.complete_filter</span>
+      <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/ros_ws/build/bfl/tests/test_complete_filter</span>
+      <span class="nt">time-limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15</span>
+      <span class="nt">kill-after</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+      <span class="nt">expected-outcome</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+<p>A test harness description may accept the following top-level properties:</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">time-limit</span></code>: specifies a default time limit on test execution that
+will be enforced if an individual test does not specify its own <cite>time-limit</cite>.
+More concretely, <code class="code docutils literal notranslate"><span class="pre">time-limit</span></code> specifies the number of seconds that the
+test harness should wait before terminating an unresponsive test
+execution and declaring the test to have failed. Upon reaching the
+time-limit, a <code class="code docutils literal notranslate"><span class="pre">SIGTERM</span></code> is sent to the process responsible for
+executing the test.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">kill-after</span></code>: the number of seconds to wait before sending
+<code class="code docutils literal notranslate"><span class="pre">SIGKILL</span></code> to a non-responsive test execution that has already
+received a <code class="code docutils literal notranslate"><span class="pre">SIGTERM</span></code>. If unspecified, <code class="code docutils literal notranslate"><span class="pre">SIGKILL</span></code> will default to
+1 second. <em>For most purposes, there is no need to set this property.</em></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">context</span></code>: the absolute path of the working directory (inside the
+container) from which the test should be executed. If left unspecified,
+<code class="code docutils literal notranslate"><span class="pre">context</span></code> will default to the source directory of the program under
+test.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">command</span></code>: provides an optional command template for building
+the shell commands for individual tests. The template is used to create
+a shell command for any test that does not specify its own
+<code class="code docutils literal notranslate"><span class="pre">command</span></code>. The shell command for a given test is created by replacing
+all instances of <code class="code docutils literal notranslate"><span class="pre">__ID__</span></code> with the name of the test (given by its
+<code class="code docutils literal notranslate"><span class="pre">name</span></code> property).</p>
+<p>For example, the following command template:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_test --verbose __ID__
+</pre></div>
+</div>
+<p>will be transformed into the following for the a test named <code class="code docutils literal notranslate"><span class="pre">foo</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_test --verbose foo
+</pre></div>
+</div>
+<p>Note that a command template is not required if all tests specify their
+own <code class="code docutils literal notranslate"><span class="pre">command</span></code>.</p>
+</li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">tests</span></code>: gives a list of tests that belong to the test harness.
+Details on the structure of each of the test descriptions are given
+below.</p></li>
+</ul>
+<p>Each test description within the <code class="code docutils literal notranslate"><span class="pre">tests</span></code> property is described by the
+following properties:</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">name</span></code>: a unique name for the test.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">command</span></code>: the shell command that should be used to
+execute the test.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">context</span></code>: the absolute path of the working directory (inside the
+container) that should be used for the command execution. If unspecified,
+the <code class="code docutils literal notranslate"><span class="pre">context</span></code> specified by the test harness will be used instead.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">time-limit</span></code>: the number of seconds before a non-responsive
+execution of this test is terminated and the test is determined to have
+failed. If unspecified, the <code class="code docutils literal notranslate"><span class="pre">time-limit</span></code> for the test harness will be
+used instead.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">kill-after</span></code>: overrides the <code class="code docutils literal notranslate"><span class="pre">kill-after</span></code> property specified
+by the test harness.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">expected-outcome</span></code>: used to optionally state whether or not the test
+is expected to pass. If set to <code class="code docutils literal notranslate"><span class="pre">True</span></code>, the test should pass; if
+<code class="code docutils literal notranslate"><span class="pre">False</span></code>, it should fail.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">oracle</span></code>: describes an oracle for the test case. This is used to
+check whether a test execution exhibits the intended behaviour. Values for
+this property are provided as an object composed of the following fields:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">code</span></code>: the expected exit code of the shell command used to
+execute the test. Defaults to <code class="code docutils literal notranslate"><span class="pre">0</span></code> if unspecified.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">output</span></code>: adds constraints on the output produced by the shell
+command (via stdout) that was used to execute the test. Currently,
+<code class="code docutils literal notranslate"><span class="pre">output</span></code> accepts a single property, <code class="code docutils literal notranslate"><span class="pre">contains</span></code>, which
+provides a string that should occur as a substring within the output
+of the test execution.</p></li>
+</ul>
+</div></blockquote>
+<p>An example of a test oracle that requires that the test execution should
+produce an exit code of <code class="code docutils literal notranslate"><span class="pre">0</span></code> and should contain the word <code class="code docutils literal notranslate"><span class="pre">PASS</span></code>
+is given below.</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">oracle</span><span class="p">:</span>
+  <span class="nt">code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <span class="nt">output</span><span class="p">:</span>
+    <span class="nt">contains</span><span class="p">:</span> <span class="s">&quot;PASS&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If no <code class="code docutils literal notranslate"><span class="pre">oracle</span></code> property is given for a test, the following oracle
+will be used as a default:</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">oracle</span><span class="p">:</span>
+  <span class="nt">code</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="section" id="genprog">
+<h4><code class="code docutils literal notranslate"><span class="pre">genprog</span></code><a class="headerlink" href="#genprog" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="code docutils literal notranslate"><span class="pre">genprog</span></code>-type test harness is used to provide convenient support for
+GenProg-style test scripts used by ManyBugs, IntroClass, and the GenProg TSE
+2012 benchmarks. GenProg-style test scripts accept a single argument specifying
+the name of the positive or negative test case that should be executed.
+Positive tests correspond to tests that pass on the original, unmodified
+program, whereas negative tests correpond to tests that fail on the original
+program. The positive tests are named using the form <code class="code docutils literal notranslate"><span class="pre">p{k}</span></code>, where
+<code class="code docutils literal notranslate"><span class="pre">{k}</span></code> is replaced by the number of the positive test (starting from
+<code class="code docutils literal notranslate"><span class="pre">1</span></code>). Similarly, negative tests are named <code class="code docutils literal notranslate"><span class="pre">n{k}</span></code>, where
+<code class="code docutils literal notranslate"><span class="pre">{k}</span></code> is replaced by the number of the negative test (starting from
+<code class="code docutils literal notranslate"><span class="pre">1</span></code>).</p>
+<p>Below is an example of a <code class="code docutils literal notranslate"><span class="pre">genprog</span></code> test harness.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">test-harness</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">genprog</span>
+  <span class="nt">time-limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+  <span class="nt">passing</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7932</span>
+  <span class="nt">failing</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">time-limit</span></code> property specifies the maximum number of seconds that
+may elapse before a test execution is aborted and declared a failure.
+The <code class="code docutils literal notranslate"><span class="pre">passing</span></code> and <code class="code docutils literal notranslate"><span class="pre">failing</span></code> properties states the number of
+passing and failing tests.</p>
+</div>
+</div>
+<div class="section" id="compiler">
+<h3>Compiler<a class="headerlink" href="#compiler" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="code docutils literal notranslate"><span class="pre">compiler</span></code> section of a bug description provides instructions for
+building the faulty program. Below we give an example of a <code class="code docutils literal notranslate"><span class="pre">simple</span></code>
+compiler for a bug in ArduPilot, which uses the
+<a class="reference external" href="https://waf.io/">waf</a> build system.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>compiler:
+  type: simple
+  time-limit: 300
+  context: /opt/ardupilot
+  command: &gt;
+    ./waf build -j4
+  command_with_instrumentation: &gt;
+       ./waf configure CXXFLAGS=&#39;--coverage&#39; LDFLAGS=&#39;--coverage&#39;
+    &amp;&amp; ./waf build -j4
+  command_clean: &gt;
+    ./waf clean
+</pre></div>
+</div>
+<p>The following properties are used to provide build instructions:</p>
+<ul class="simple">
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">time-limit</span></code> property specifies the maximum number of seconds that
+the build is given before it is aborted and declared to have failed.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">command</span></code> property gives a shell command for building the program.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">command_with_instrumentation</span></code> property gives a shell command for
+building the program with coverage instrumentation enabled.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">command_clean</span></code> property gives a shell command for cleaning the
+artifacts of the build process.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">context</span></code> property specifies the absolute path of the working
+directory inside the container that should be used when executing the build
+commands. If left unspecified, <code class="code docutils literal notranslate"><span class="pre">context</span></code> will default to the source
+directory for the program.</p></li>
+</ul>
+<p>BugZoo also provides convenient support for particular build systems via
+the <code class="code docutils literal notranslate"><span class="pre">type</span></code> property. One of the most useful build systems is
+<code class="code docutils literal notranslate"><span class="pre">configure-and-make</span></code>, which behaves in the same manner as <code class="code docutils literal notranslate"><span class="pre">simple</span></code>,
+except that <code class="code docutils literal notranslate"><span class="pre">command</span></code>, <code class="code docutils literal notranslate"><span class="pre">command_with_instrumentation</span></code>, and
+<code class="code docutils literal notranslate"><span class="pre">command_clean</span></code> are replaced with fixed values that use <code class="code docutils literal notranslate"><span class="pre">make</span></code>
+and <code class="code docutils literal notranslate"><span class="pre">configure</span></code>. Below is an example of a <code class="code docutils literal notranslate"><span class="pre">configure-and-make</span></code>
+compiler definition.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compiler</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">configure-and-make</span>
+  <span class="nt">time-limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">300</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="coverage">
+<h3>Coverage<a class="headerlink" href="#coverage" title="Permalink to this headline">¶</a></h3>
+<p>BugZoo uses language-dependent <em>coverage extractors</em> to compute line coverage
+information for faulty programs. The <code class="code docutils literal notranslate"><span class="pre">coverage</span></code> section of the manifest
+file provides BugZoo with the information that it needs to construct a
+coverage extractor for the program. Below is an example of a <code class="code docutils literal notranslate"><span class="pre">coverage</span></code>
+section for a C program that uses the <code class="code docutils literal notranslate"><span class="pre">gcov</span></code> extractor.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">coverage</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcov</span>
+  <span class="nt">files-to-instrument</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">foo.c</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">type</span></code> property instructs BugZoo to use <code class="code docutils literal notranslate"><span class="pre">gcov</span></code> to compute
+coverage information for the program under test. If no <code class="code docutils literal notranslate"><span class="pre">type</span></code> property
+is provided, BugZoo will attempt to use the default coverage extractor for the
+language used by the program under test. (If the program under test uses more
+than one language, uses are required to specify a <code class="code docutils literal notranslate"><span class="pre">type</span></code>, else coverage
+information cannot be computed.)</p>
+<p>The rest of the <code class="code docutils literal notranslate"><span class="pre">coverage</span></code> section is parsed according to the
+<code class="code docutils literal notranslate"><span class="pre">type</span></code> of coverage extractor that is being used.</p>
+<ul>
+<li><p><code class="code docutils literal notranslate"><span class="pre">gcov</span></code>: To obtain coverage under crashing conditions, <a href="#id1"><span class="problematic" id="id2">:type:`gcov`</span></a>
+injects a set of signal handlers into certain files in the program to ensure
+that line coverage information is flushed to disk at the end of program
+execution, even if the program is terminated abruptly (e.g., due to a
+segmentation fault).
+Instrumentation should be added to each source file that provides an
+entrypoint (i.e., <cite>main</cite>) to the binaries used by the program.
+Users are required to specify which files should be instrumented via the
+<code class="code docutils literal notranslate"><span class="pre">files-to-instrument</span></code> property, as shown below.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">coverage</span><span class="p">:</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcov</span>
+  <span class="nt">files-to-instrument</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">foo.c</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="code docutils literal notranslate"><span class="pre">plugins</span></code> section of a manifest file is used to register particular
+plugins with BugZoo. This section is given as a list of <em>plugin descriptions</em>.
+Below we give a simple example of a <code class="code docutils literal notranslate"><span class="pre">plugins</span></code> section that is used to
+register a plugin for GenProg.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">genprog</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">squareslab/genprog</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">PATH</span><span class="p">:</span> <span class="s">&quot;/opt/genprog/bin:${PATH}&quot;</span>
+</pre></div>
+</div>
+<p>The plugin is described by the following properties:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">name</span></code>: a unique name for the plugin.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">image</span></code>: the Docker image that should be used to provide static files
+for the plugin (i.e., binaries, libraries, configuration files).</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">environment</span></code>: a dictionary that is used to override environment
+variables inside a container upon loading the plugin. Each entry is used to
+override a single environment variable, given by the key of the entry
+(e.g., <code class="code docutils literal notranslate"><span class="pre">PATH</span></code>). The value of the entry is evaluated upon loading the
+plugin inside the container, and so standard bash variable interpolation may
+be used. In the example above, the GenProg binaries are added to the
+<code class="code docutils literal notranslate"><span class="pre">PATH</span></code>.</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/file-format.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exceptions &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CLI Reference" href="../cli.html" />
+    <link rel="prev" title="Applications" href="applications.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug.html">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bugzoo.exceptions">
+<span id="exceptions"></span><h1>Exceptions<a class="headerlink" href="#module-bugzoo.exceptions" title="Permalink to this headline">¶</a></h1>
+<p>All of BugZoo’s exceptions inherit from the <a class="reference internal" href="#bugzoo.exceptions.BugZooException" title="bugzoo.exceptions.BugZooException"><code class="xref py py-class docutils literal notranslate"><span class="pre">BugZooException</span></code></a> class,
+making it easier to catch errors that are related to BugZoo within your
+application.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bugzoo.exceptions</span> <span class="kn">import</span> <span class="n">BugZooException</span>
+
+<span class="k">try</span><span class="p">:</span>
+  <span class="n">an_operation_involving_bugzoo</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">BugZooException</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;an error occurred in BugZoo&quot;</span><span class="p">)</span>
+  <span class="k">raise</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;an error occurred that was unrelated to BugZoo&quot;</span><span class="p">)</span>
+  <span class="k">raise</span>
+</pre></div>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.exceptions.BugZooException">
+<em class="property">class </em><code class="sig-name descname">BugZooException</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#BugZooException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.BugZooException" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base class used by all BugZoo exceptions.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.ConnectionFailure">
+<em class="property">class </em><code class="sig-name descname">ConnectionFailure</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#ConnectionFailure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.ConnectionFailure" title="Permalink to this definition">¶</a></dt>
+<dd><p>The client failed to connect to the BugZoo daemon within its allocated
+timeout window.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.NameInUseError">
+<em class="property">class </em><code class="sig-name descname">NameInUseError</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#NameInUseError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.NameInUseError" title="Permalink to this definition">¶</a></dt>
+<dd><p>A given name is already in use by another resource.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.ImageBuildFailed">
+<em class="property">class </em><code class="sig-name descname">ImageBuildFailed</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#ImageBuildFailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.ImageBuildFailed" title="Permalink to this definition">¶</a></dt>
+<dd><p>An attempt to build a given Docker image has failed.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.ImageNotInstalled">
+<em class="property">class </em><code class="sig-name descname">ImageNotInstalled</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#ImageNotInstalled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.ImageNotInstalled" title="Permalink to this definition">¶</a></dt>
+<dd><p>A given Docker image has not been installed on the server.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.ImageAlreadyExists">
+<em class="property">class </em><code class="sig-name descname">ImageAlreadyExists</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#ImageAlreadyExists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.ImageAlreadyExists" title="Permalink to this definition">¶</a></dt>
+<dd><p>A given Docker image is already installed on the server.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.FileNotFound">
+<em class="property">class </em><code class="sig-name descname">FileNotFound</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#FileNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.FileNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>No file was found at the given path inside the container.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.ArgumentNotSpecified">
+<em class="property">class </em><code class="sig-name descname">ArgumentNotSpecified</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#ArgumentNotSpecified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.ArgumentNotSpecified" title="Permalink to this definition">¶</a></dt>
+<dd><p>An argument was expected but none was specified.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.BadManifestFile">
+<em class="property">class </em><code class="sig-name descname">BadManifestFile</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#BadManifestFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.BadManifestFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>The server failed to parse a manifest file.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.UnexpectedResponse">
+<em class="property">class </em><code class="sig-name descname">UnexpectedResponse</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#UnexpectedResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.UnexpectedResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>The server produced a response that was not recognised by the client.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.UnexpectedServerError">
+<em class="property">class </em><code class="sig-name descname">UnexpectedServerError</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#UnexpectedServerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.UnexpectedServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>The server encountered an unexpected error whilst dealing with a request.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.UnexpectedStatusCode">
+<em class="property">class </em><code class="sig-name descname">UnexpectedStatusCode</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#UnexpectedStatusCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.UnexpectedStatusCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>The server produced an unexpected status code in response to an
+API request.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.BugNotFound">
+<em class="property">class </em><code class="sig-name descname">BugNotFound</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#BugNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.BugNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates that no bug was found that matches the provided identifier.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.BugAlreadyExists">
+<em class="property">class </em><code class="sig-name descname">BugAlreadyExists</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#BugAlreadyExists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.BugAlreadyExists" title="Permalink to this definition">¶</a></dt>
+<dd><p>A bug is already registered under a given name on the server.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.BugAlreadyBuilt">
+<em class="property">class </em><code class="sig-name descname">BugAlreadyBuilt</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#BugAlreadyBuilt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.BugAlreadyBuilt" title="Permalink to this definition">¶</a></dt>
+<dd><p>The given bug has already been installed on the server.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.BugNotInstalledError">
+<em class="property">class </em><code class="sig-name descname">BugNotInstalledError</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#BugNotInstalledError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.BugNotInstalledError" title="Permalink to this definition">¶</a></dt>
+<dd><p>A given bug has not been installed.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.SourceNotFoundWithURL">
+<em class="property">class </em><code class="sig-name descname">SourceNotFoundWithURL</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#SourceNotFoundWithURL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.SourceNotFoundWithURL" title="Permalink to this definition">¶</a></dt>
+<dd><p>No source that matches a given URL was found.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.SourceNotFoundWithName">
+<em class="property">class </em><code class="sig-name descname">SourceNotFoundWithName</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#SourceNotFoundWithName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.SourceNotFoundWithName" title="Permalink to this definition">¶</a></dt>
+<dd><p>No source that matches a given name was found.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.SourceAlreadyRegisteredWithURL">
+<em class="property">class </em><code class="sig-name descname">SourceAlreadyRegisteredWithURL</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#SourceAlreadyRegisteredWithURL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.SourceAlreadyRegisteredWithURL" title="Permalink to this definition">¶</a></dt>
+<dd><p>A source is already registered with a given URL.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.FailedToComputeCoverage">
+<em class="property">class </em><code class="sig-name descname">FailedToComputeCoverage</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#FailedToComputeCoverage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.FailedToComputeCoverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>An error was encountered inside the container whilst attempting to collect
+its coverage information.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.NoCoverageInstructions">
+<em class="property">class </em><code class="sig-name descname">NoCoverageInstructions</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#NoCoverageInstructions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.NoCoverageInstructions" title="Permalink to this definition">¶</a></dt>
+<dd><p>No coverage instructions were found for a given bug/container.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.BadCoverageInstructions">
+<em class="property">class </em><code class="sig-name descname">BadCoverageInstructions</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#BadCoverageInstructions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.BadCoverageInstructions" title="Permalink to this definition">¶</a></dt>
+<dd><p>The associated set of coverage instructions are illegal.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.ContainerNotFound">
+<em class="property">class </em><code class="sig-name descname">ContainerNotFound</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#ContainerNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.ContainerNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>No active container was found with a given identifier.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.TestNotFound">
+<em class="property">class </em><code class="sig-name descname">TestNotFound</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#TestNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.TestNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>No test was found with the given name.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.exceptions.ToolNotFound">
+<em class="property">class </em><code class="sig-name descname">ToolNotFound</code><a class="reference internal" href="../_modules/bugzoo/exceptions.html#ToolNotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.exceptions.ToolNotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates that no tool was found with the given name.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/exceptions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

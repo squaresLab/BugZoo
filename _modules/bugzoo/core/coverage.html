@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.core.coverage &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.core.coverage</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CoverageInstructions&#39;</span><span class="p">,</span> <span class="s1">&#39;TestCoverage&#39;</span><span class="p">,</span> <span class="s1">&#39;TestSuiteCoverage&#39;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">FrozenSet</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span>
+                    <span class="n">Optional</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">attr</span>
+
+<span class="kn">from</span> <span class="nn">.language</span> <span class="kn">import</span> <span class="n">Language</span>
+<span class="kn">from</span> <span class="nn">.fileline</span> <span class="kn">import</span> <span class="n">FileLine</span><span class="p">,</span> <span class="n">FileLineSet</span>
+<span class="kn">from</span> <span class="nn">.test</span> <span class="kn">import</span> <span class="n">TestSuite</span><span class="p">,</span> <span class="n">TestOutcome</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">indent</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">exceptions</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># type: logging.Logger</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">_NAME_TO_INSTRUCTIONS</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[str, Type[CoverageInstructions]]</span>
+<span class="n">_INSTRUCTIONS_TO_NAME</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[Type[CoverageInstructions], str]</span>
+<span class="n">_LANGUAGE_TO_DEFAULT_INSTRUCTIONS</span> <span class="o">=</span> \
+    <span class="p">{}</span>  <span class="c1"># type: Dict[Language, Type[CoverageInstructions]]</span>
+
+
+<span class="k">def</span> <span class="nf">_convert_files_to_instrument</span><span class="p">(</span><span class="n">files</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">FrozenSet</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">CoverageInstructions</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Instructions for computing coverage.&quot;&quot;&quot;</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">registered_under_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the name that was used to register this class.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_INSTRUCTIONS_TO_NAME</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">language_default</span><span class="p">(</span><span class="n">language</span><span class="p">:</span> <span class="n">Language</span>
+                         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s1">&#39;CoverageInstructions&#39;</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the default coverage instructions class for a given language,</span>
+<span class="sd">        if such a class has been registered for that language.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_LANGUAGE_TO_DEFAULT_INSTRUCTIONS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="s1">&#39;CoverageInstructions&#39;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the coverage instructions class registered for a given name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_NAME_TO_INSTRUCTIONS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;registering coverage instructions [</span><span class="si">%s</span><span class="s2">] under name [</span><span class="si">%s</span><span class="s2">]&quot;</span><span class="p">,</span>
+                     <span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_NAME_TO_INSTRUCTIONS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NameInUseError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">_INSTRUCTIONS_TO_NAME</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;coverage instructions already registered under name: </span><span class="si">{}</span><span class="s2">&quot;</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_INSTRUCTIONS_TO_NAME</span><span class="p">[</span><span class="bp">cls</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>  <span class="c1"># FIXME add new error class</span>
+        <span class="n">_NAME_TO_INSTRUCTIONS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="n">_INSTRUCTIONS_TO_NAME</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;registered coverage instructions [</span><span class="si">%s</span><span class="s2">] under name [</span><span class="si">%s</span><span class="s2">]&quot;</span><span class="p">,</span>
+                     <span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register_as_default</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">language</span><span class="p">:</span> <span class="n">Language</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;registering coverage instructions [</span><span class="si">%s</span><span class="s2">] as default for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># noqa: pycodestyle</span>
+                     <span class="bp">cls</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">_LANGUAGE_TO_DEFAULT_INSTRUCTIONS</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;language [</span><span class="si">{}</span><span class="s2">] already has a default coverage instructions: </span><span class="si">{}</span><span class="s2">&quot;</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">language</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                         <span class="n">_LANGUAGE_TO_DEFAULT_INSTRUCTIONS</span><span class="p">[</span><span class="n">language</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_INSTRUCTIONS_TO_NAME</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;coverage instructions [</span><span class="si">{}</span><span class="s2">] have not been registered&quot;</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">_INSTRUCTIONS_TO_NAME</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span>
+
+        <span class="n">_LANGUAGE_TO_DEFAULT_INSTRUCTIONS</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;registered coverage instructions [</span><span class="si">%s</span><span class="s2">] as default for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                     <span class="n">name</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;CoverageInstructions&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads a set of coverage instructions from a given dictionary.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            BadCoverageInstructions: if the given coverage instructions are</span>
+<span class="sd">                illegal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name_type</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">_NAME_TO_INSTRUCTIONS</span><span class="p">[</span><span class="n">name_type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+
+<div class="viewcode-block" id="TestCoverage"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.coverage.TestCoverage">[docs]</a><span class="k">class</span> <span class="nc">TestCoverage</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides complete line coverage information for all files and across all</span>
+<span class="sd">    tests within a given project.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestCoverage&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Example Input:</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;test&quot;: &quot;p1&quot;,</span>
+<span class="sd">                &quot;outcome&quot;: {</span>
+
+<span class="sd">                },</span>
+<span class="sd">                &quot;coverage&quot;: {</span>
+<span class="sd">                    &quot;foo.c&quot;: [1, 2, 6, 10]</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="s1">&#39;test&#39;</span> <span class="ow">in</span> <span class="n">d</span>
+        <span class="k">assert</span> <span class="s1">&#39;outcome&#39;</span> <span class="ow">in</span> <span class="n">d</span>
+        <span class="k">assert</span> <span class="s1">&#39;coverage&#39;</span> <span class="ow">in</span> <span class="n">d</span>
+
+        <span class="n">test</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+        <span class="n">outcome</span> <span class="o">=</span> <span class="n">TestOutcome</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;outcome&#39;</span><span class="p">])</span>
+        <span class="n">coverage</span> <span class="o">=</span> <span class="n">FileLineSet</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;coverage&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">TestCoverage</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">outcome</span><span class="p">,</span> <span class="n">coverage</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">test</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">outcome</span><span class="p">:</span> <span class="n">TestOutcome</span><span class="p">,</span>
+                 <span class="n">coverage</span><span class="p">:</span> <span class="n">FileLineSet</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__test</span> <span class="o">=</span> <span class="n">test</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__outcome</span> <span class="o">=</span> <span class="n">outcome</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__coverage</span> <span class="o">=</span> <span class="n">coverage</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">coverage</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__coverage</span><span class="p">)</span>
+        <span class="n">coverage</span> <span class="o">=</span> <span class="n">indent</span><span class="p">(</span><span class="n">coverage</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;PASSED&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__outcome</span><span class="o">.</span><span class="n">passed</span> <span class="k">else</span> <span class="s1">&#39;FAILED&#39;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">]</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__test</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">coverage</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fileline</span><span class="p">:</span> <span class="n">FileLine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fileline</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coverage</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Name of the test case used to generate this coverage.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">outcome</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestOutcome</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Outcome of the test associated with this coverage.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__outcome</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileLineSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set of file-lines that were covered.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coverage</span>
+
+    <span class="n">coverage</span> <span class="o">=</span> <span class="n">lines</span>
+
+    <span class="k">def</span> <span class="nf">restricted_to_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filenames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestCoverage&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a variant of this coverage that is restricted to a given list</span>
+<span class="sd">        of files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TestCoverage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__test</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">__outcome</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">__coverage</span><span class="o">.</span><span class="n">restricted_to_files</span><span class="p">(</span><span class="n">filenames</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;test&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test</span><span class="p">,</span>
+                <span class="s1">&#39;outcome&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__outcome</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+                <span class="s1">&#39;coverage&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coverage</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span></div>
+
+
+<div class="viewcode-block" id="TestSuiteCoverage"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.coverage.TestSuiteCoverage">[docs]</a><span class="k">class</span> <span class="nc">TestSuiteCoverage</span><span class="p">(</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TestCoverage</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Holds coverage information for all tests belonging to a particular program</span>
+<span class="sd">    version.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestSuiteCoverage&#39;</span><span class="p">:</span>
+        <span class="n">coverage_by_test</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">test_coverage_dict</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">test_coverage</span> <span class="o">=</span> <span class="n">TestCoverage</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">test_coverage_dict</span><span class="p">)</span>
+            <span class="n">coverage_by_test</span><span class="p">[</span><span class="n">test_coverage</span><span class="o">.</span><span class="n">test</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_coverage</span>
+        <span class="k">return</span> <span class="n">TestSuiteCoverage</span><span class="p">(</span><span class="n">coverage_by_test</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestSuiteCoverage&#39;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">TestSuiteCoverage</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_coverage</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TestCoverage</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span> <span class="o">=</span> \
+            <span class="n">OrderedDict</span><span class="p">()</span>  <span class="c1"># type: OrderedDict[str, TestCoverage]</span>
+        <span class="k">for</span> <span class="n">test_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">test_coverage</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="p">[</span><span class="n">test_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_coverage</span><span class="p">[</span><span class="n">test_name</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">name_test</span><span class="p">])</span> <span class="k">for</span> <span class="n">name_test</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">covering_tests</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">FileLine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the names of all test cases that cover a given line.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">test</span> <span class="k">for</span> <span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> \
+                   <span class="k">if</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cov</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an iterator over the names of the test cases that are</span>
+<span class="sd">        represented by this coverage report.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TestSuiteCoverage.__getitem__"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.coverage.TestSuiteCoverage.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestCoverage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves coverage information for a given test case.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            name: the name of the test case.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if there is no coverage information for the given test</span>
+<span class="sd">                case.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">test</span><span class="p">:</span> <span class="n">cov</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> \
+                <span class="k">for</span> <span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="nf">restricted_to_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                            <span class="n">filenames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+                            <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestSuiteCoverage&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a variant of this coverage that is restricted to a given list</span>
+<span class="sd">        of files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cov_suite</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">cov_suite</span><span class="p">[</span><span class="n">test</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">test</span><span class="p">]</span><span class="o">.</span><span class="n">restricted_to_files</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TestSuiteCoverage</span><span class="p">(</span><span class="n">cov_suite</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">failing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestSuiteCoverage&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a variant of this coverage report that only contains coverage</span>
+<span class="sd">        for failing test executions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TestSuiteCoverage</span><span class="p">({</span><span class="n">t</span><span class="p">:</span> <span class="n">cov</span> \
+                                  <span class="k">for</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> \
+                                  <span class="k">if</span> <span class="ow">not</span> <span class="n">cov</span><span class="o">.</span><span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="p">})</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">passing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestSuiteCoverage&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a variant of this coverage report that only contains coverage</span>
+<span class="sd">        for failing test executions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TestSuiteCoverage</span><span class="p">({</span><span class="n">t</span><span class="p">:</span> <span class="n">cov</span> \
+                                  <span class="k">for</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> \
+                                  <span class="k">if</span> <span class="n">cov</span><span class="o">.</span><span class="n">outcome</span><span class="o">.</span><span class="n">passed</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a count of the number of test executions that are included</span>
+<span class="sd">        within this coverage report.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the set of all file lines that were covered.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">FileLineSet</span><span class="p">()</span>  <span class="c1"># type: Set[FileLine]</span>
+        <span class="k">for</span> <span class="n">coverage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__test_coverage</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">coverage</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

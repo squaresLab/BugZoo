@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.client &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.client</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">APIClient</span>
+<span class="kn">from</span> <span class="nn">.bug</span> <span class="kn">import</span> <span class="n">BugManager</span>
+<span class="kn">from</span> <span class="nn">.container</span> <span class="kn">import</span> <span class="n">ContainerManager</span>
+<span class="kn">from</span> <span class="nn">.file</span> <span class="kn">import</span> <span class="n">FileManager</span>
+<span class="kn">from</span> <span class="nn">.dockerm</span> <span class="kn">import</span> <span class="n">DockerManager</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">ConnectionFailure</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># type: logging.Logger</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Client&#39;</span><span class="p">,)</span>
+
+
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../api/client.html#bugzoo.client.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Client.__init__"><a class="viewcode-back" href="../../api/client.html#bugzoo.client.Client.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">timeout_connection</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a new client for communicating with a BugZoo server.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            base_url: the base URL of the BugZoo server.</span>
+<span class="sd">            timeout_connection: the maximum number of seconds to wait whilst</span>
+<span class="sd">                attempting to connect to the server before declaring the</span>
+<span class="sd">                connection to have failed.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ConnectionFailure: if a connection to the server could not be</span>
+<span class="sd">                established within the timeout window.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">base_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1:6060&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__api</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">timeout_connection</span><span class="o">=</span><span class="n">timeout_connection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__bugs</span> <span class="o">=</span> <span class="n">BugManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__containers</span> <span class="o">=</span> <span class="n">ContainerManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__files</span> <span class="o">=</span> <span class="n">FileManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__bugs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__docker</span> <span class="o">=</span> <span class="n">DockerManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bugs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BugManager</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides access to the historical bugs that are registered with the</span>
+<span class="sd">        server. Can be used to install, download, and uninstall registered</span>
+<span class="sd">        bugs, or to dynamically register new bugs with the server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__bugs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">containers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContainerManager</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides access to the containers running on the server. Can be used</span>
+<span class="sd">        to execute tests (as well as arbitrary shell commands), build from</span>
+<span class="sd">        source code, apply patches, compute coverage, and more.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__containers</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileManager</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides access to the file systems used by running containers. Can be</span>
+<span class="sd">        used to read from and write to files in containers, and to copy data</span>
+<span class="sd">        between the host machine and a given container.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__files</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">docker</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DockerManager</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__docker</span>
+
+<div class="viewcode-block" id="Client.shutdown"><a class="viewcode-back" href="../../api/client.html#bugzoo.client.Client.shutdown">[docs]</a>    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Instructs the connected BugZoo server to shutdown.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;shutdown&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">202</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;failed to shutdown server&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

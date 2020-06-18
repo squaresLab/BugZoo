@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.core.patch &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.core.patch</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterator</span>
+
+<span class="c1"># See following for details about unified diff format:</span>
+<span class="c1">#   https://www.artima.com/weblogs/viewpost.jsp?thread=164293</span>
+<span class="c1">#   https://www.gnu.org/software/diffutils/manual/html_node/Detailed-Unified.html#Detailed-Unified</span>
+
+<span class="k">class</span> <span class="nc">HunkLine</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">InsertedLine</span><span class="p">(</span><span class="n">HunkLine</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a new InsertedLine instance.</span>
+
+<span class="sd">        Params:</span>
+<span class="sd">            line:   The contents of the line that was inserted (with any</span>
+<span class="sd">                    trailing line endings removed).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__line</span> <span class="o">=</span> <span class="n">line</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;+</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__line</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">DeletedLine</span><span class="p">(</span><span class="n">HunkLine</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a new DeletedLine instance.</span>
+
+<span class="sd">        Params:</span>
+<span class="sd">            line:   The contents of the line that was removed (with any</span>
+<span class="sd">                    trailing line endings removed).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__line</span> <span class="o">=</span> <span class="n">line</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;-</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__line</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ContextLine</span><span class="p">(</span><span class="n">HunkLine</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a new ContextLine instance.</span>
+
+<span class="sd">        Params:</span>
+<span class="sd">            line:   The contents of the line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__line</span> <span class="o">=</span> <span class="n">line</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__line</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Hunk</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_read_next</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;Hunk&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a hunk from a supplied fragment of a unified format diff.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">header</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;@@ -&#39;</span><span class="p">)</span>
+
+        <span class="c1"># sometimes the first line can occur on the same line as the header.</span>
+        <span class="c1"># in that case, we inject a new line into the buffer</span>
+        <span class="n">end_header_at</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39; @@&#39;</span><span class="p">)</span>
+        <span class="n">bonus_line</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="n">end_header_at</span><span class="o">+</span><span class="mi">3</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">bonus_line</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bonus_line</span><span class="p">)</span>
+
+        <span class="n">header</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="n">end_header_at</span><span class="p">]</span>
+        <span class="n">left</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39; +&#39;</span><span class="p">)</span>
+        <span class="n">old_start_at</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">left</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">new_start_at</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">right</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">old_line_num</span> <span class="o">=</span> <span class="n">old_start_at</span>
+        <span class="n">new_line_num</span> <span class="o">=</span> <span class="n">new_start_at</span>
+        <span class="n">last_insertion_at</span> <span class="o">=</span> <span class="n">old_start_at</span>
+
+
+        <span class="n">hunk_lines</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># type: List[HunkLine]</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># discarding the previous line ensures that we only consume lines</span>
+            <span class="c1"># from the line buffer that belong to the hunk</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># inserted line</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">):</span>
+                <span class="n">hunk_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InsertedLine</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+                <span class="n">new_line_num</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># deleted line</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">):</span>
+                <span class="n">hunk_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DeletedLine</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+                <span class="n">old_line_num</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># context line</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+                <span class="n">hunk_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ContextLine</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+                <span class="n">new_line_num</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">old_line_num</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># end of hunk</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">Hunk</span><span class="p">(</span><span class="n">old_start_at</span><span class="p">,</span> <span class="n">new_start_at</span><span class="p">,</span> <span class="n">hunk_lines</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">old_start_at</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">new_start_at</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">lines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HunkLine</span><span class="p">]</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__old_start_at</span> <span class="o">=</span> <span class="n">old_start_at</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__new_start_at</span> <span class="o">=</span> <span class="n">new_start_at</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span> <span class="o">=</span> <span class="n">lines</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of this hunk as part of a unified format diff.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_deleted</span> <span class="o">=</span> \
+            <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">DeletedLine</span><span class="p">))</span>
+        <span class="n">num_inserted</span> <span class="o">=</span> \
+            <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">InsertedLine</span><span class="p">))</span>
+        <span class="n">num_context</span> <span class="o">=</span> \
+            <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">ContextLine</span><span class="p">))</span>
+
+        <span class="n">num_old_lines</span> <span class="o">=</span> <span class="n">num_context</span> <span class="o">+</span> <span class="n">num_deleted</span>
+        <span class="n">num_new_lines</span> <span class="o">=</span> <span class="n">num_context</span> <span class="o">+</span> <span class="n">num_inserted</span>
+
+        <span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;@@ -</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1"> +</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1"> @@&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__old_start_at</span><span class="p">,</span>
+                                              <span class="n">num_old_lines</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">__new_start_at</span><span class="p">,</span>
+                                              <span class="n">num_new_lines</span><span class="p">)</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lines</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">header</span><span class="p">]</span> <span class="o">+</span> <span class="n">body</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FilePatch</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a set of changes to a single text-based file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_read_next</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;FilePatch&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Destructively extracts the next file patch from the line buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># keep munching lines until we hit one starting with &#39;---&#39;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;illegal file patch format: couldn&#39;t find line starting with &#39;---&#39;&quot;</span><span class="p">)</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;---&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;+++&#39;</span><span class="p">)</span>
+        <span class="n">old_fn</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">new_fn</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="n">hunks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;@@&#39;</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="n">hunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Hunk</span><span class="o">.</span><span class="n">_read_next</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">FilePatch</span><span class="p">(</span><span class="n">old_fn</span><span class="p">,</span> <span class="n">new_fn</span><span class="p">,</span> <span class="n">hunks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">old_fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">new_fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">hunks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Hunk</span><span class="p">]</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__old_fn</span> <span class="o">=</span> <span class="n">old_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__new_fn</span> <span class="o">=</span> <span class="n">new_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hunks</span> <span class="o">=</span> <span class="n">hunks</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">old_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__old_fn</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">new_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__new_fn</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a string encoding of this file patch in the unified diff</span>
+<span class="sd">        format.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">old_fn_line</span> <span class="o">=</span> <span class="s1">&#39;--- </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__old_fn</span><span class="p">)</span>
+        <span class="n">new_fn_line</span> <span class="o">=</span> <span class="s1">&#39;+++ </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__new_fn</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">old_fn_line</span><span class="p">,</span> <span class="n">new_fn_line</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hunks</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Patch"><a class="viewcode-back" href="../../../api/patch.html#bugzoo.core.patch.Patch">[docs]</a><span class="k">class</span> <span class="nc">Patch</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a set of changes to one-or-more text-based files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Patch.from_unidiff"><a class="viewcode-back" href="../../../api/patch.html#bugzoo.core.patch.Patch.from_unidiff">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_unidiff</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">diff</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Patch&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a Patch from a provided unified format diff.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">file_patches</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">file_patches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FilePatch</span><span class="o">.</span><span class="n">_read_next</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">Patch</span><span class="p">(</span><span class="n">file_patches</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_patches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FilePatch</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__file_patches</span> <span class="o">=</span> <span class="n">file_patches</span><span class="p">[:]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of the names of the files that are changed by this patch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">fp</span><span class="o">.</span><span class="n">old_fn</span> <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_patches</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of this patch as a unified format diff.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file_patches</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_patches</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_patches</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">])</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

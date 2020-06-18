@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applying Patches &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Obtaining Coverage" href="coverage.html" />
+    <link rel="prev" title="Running Tests" href="test.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug.html">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Running Tests</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bugzoo.core.patch">
+<span id="applying-patches"></span><h1>Applying Patches<a class="headerlink" href="#module-bugzoo.core.patch" title="Permalink to this headline">¶</a></h1>
+<p>Patches can be applied to the source code for particular snapshots via the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">patch()</span></code> method provided by <code class="xref py py-obj docutils literal notranslate"><span class="pre">client</span></code>. Patches are represented by
+the <a class="reference internal" href="#bugzoo.core.patch.Patch" title="bugzoo.core.patch.Patch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Patch</span></code></a> class and can be constructed by providing unified-format diffs
+to <a class="reference internal" href="#bugzoo.core.patch.Patch.from_unidiff" title="bugzoo.core.patch.Patch.from_unidiff"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Patch.from_unidiff()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bugzoo</span> <span class="kn">import</span> <span class="n">Patch</span><span class="p">,</span> <span class="n">Client</span>
+
+
+<span class="k">def</span> <span class="nf">example_patch_application</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+  <span class="c1"># first, we build a Patch object using a unified-format diff</span>
+  <span class="n">unidiff</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">  diff --git a/ArduCopter/control_auto.cpp b/ArduCopter/control_auto.cpp</span>
+<span class="s2">  index 0798efc..8109d2a 100644</span>
+<span class="s2">  --- a/ArduCopter/control_auto.cpp</span>
+<span class="s2">  +++ b/ArduCopter/control_auto.cpp</span>
+<span class="s2">  @@ -119,10 +119,6 @@ void Copter::auto_takeoff_start(const Location&amp; dest_loc)</span>
+<span class="s2">           alt_target = current_loc.alt + dest.alt;</span>
+<span class="s2">       }</span>
+
+<span class="s2">  -    // sanity check target</span>
+<span class="s2">  -    if (alt_target &lt; current_loc.alt) {</span>
+<span class="s2">  -        dest.set_alt_cm(current_loc.alt, Location_Class::ALT_FRAME_ABOVE_HOME);</span>
+<span class="s2">  -    }</span>
+<span class="s2">       // Note: if taking off from below home this could cause a climb to an unexpectedly high altitude</span>
+<span class="s2">       if (alt_target &lt; 100) {</span>
+<span class="s2">           dest.set_alt_cm(100, Location_Class::ALT_FRAME_ABOVE_HOME);</span>
+<span class="s2">  &quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+  <span class="n">patch</span> <span class="o">=</span> <span class="n">Patch</span><span class="o">.</span><span class="n">from_unidiff</span><span class="p">(</span><span class="n">unidiff</span><span class="p">)</span>
+
+  <span class="c1"># we then attempt to apply the patch to the source code</span>
+  <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">patch</span><span class="p">)</span>
+
+  <span class="c1"># finally, we rebuild the program inside the container</span>
+  <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This ability to apply patches can be used to, for example, evaluate candidate
+repairs when performing automated program repair, or to apply source-code
+mutations when conducting mutation testing. In the case of the latter,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">client.containers.persist()</span></code> can be used to persist the state of the
+mutated container as a Docker image.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.core.patch.Patch">
+<em class="property">class </em><code class="sig-name descname">Patch</code><a class="reference internal" href="../_modules/bugzoo/core/patch.html#Patch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.patch.Patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a set of changes to one-or-more text-based files.</p>
+<dl class="py method">
+<dt id="bugzoo.core.patch.Patch.files">
+<em class="property">property </em><code class="sig-name descname">files</code><a class="headerlink" href="#bugzoo.core.patch.Patch.files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the names of the files that are changed by this patch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.core.patch.Patch.from_unidiff">
+<em class="property">classmethod </em><code class="sig-name descname">from_unidiff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">diff</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.patch.Patch" title="bugzoo.core.patch.Patch">bugzoo.core.patch.Patch</a><a class="reference internal" href="../_modules/bugzoo/core/patch.html#Patch.from_unidiff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.patch.Patch.from_unidiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a Patch from a provided unified format diff.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/patch.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

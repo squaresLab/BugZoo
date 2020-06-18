@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating a Client &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Managing Bugs" href="bug.html" />
+    <link rel="prev" title="Python API" href="../api.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug.html">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="creating-a-client">
+<h1>Creating a Client<a class="headerlink" href="#creating-a-client" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code> class acts as the means of communicating with a BugZoo
+server over via its RESTlike API. The client provides a uniform interface
+for accessing and interacting with the bugs, tools and containers running
+on the server.</p>
+<p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code> instance may be created to establish a connection to
+a given server, as shown below. Note that the server needn’t be local;
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code> can be used to connect to remote BugZoo servers (that may be
+hosted on a cloud compute platform, such as Amazon EC2, for instance).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bugzoo</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1:6060&quot;</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">bugzoo</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code> instances can be used to access the resources provided by a
+BugZoo server (i.e., bugs, containers, and tools). The <code class="code docutils literal notranslate"><span class="pre">bugs</span></code> property
+exposes a <code class="xref py py-class docutils literal notranslate"><span class="pre">BugManager</span></code>, which provides access to the bugs registered
+on the server. The <code class="code docutils literal notranslate"><span class="pre">containers</span></code> property exposes a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ContainerManager</span></code>, which can be used to create, destroy, and interact
+with containers on the server. The <code class="code docutils literal notranslate"><span class="pre">files</span></code> property exposes a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">FilesManager</span></code>, which provides a simple interface for manipulating
+container file systems (i.e., reading and writing files) and copying files
+between the host and container.</p>
+<div class="section" id="module-bugzoo.client">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-bugzoo.client" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.client.Client">
+<em class="property">class </em><code class="sig-name descname">Client</code><a class="reference internal" href="../_modules/bugzoo/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.Client" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="bugzoo.client.Client.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_url</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">timeout_connection</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">30</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/bugzoo/client.html#Client.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.Client.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new client for communicating with a BugZoo server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_url</strong> – the base URL of the BugZoo server.</p></li>
+<li><p><strong>timeout_connection</strong> – the maximum number of seconds to wait whilst
+attempting to connect to the server before declaring the
+connection to have failed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#bugzoo.exceptions.ConnectionFailure" title="bugzoo.exceptions.ConnectionFailure"><strong>ConnectionFailure</strong></a> – if a connection to the server could not be
+    established within the timeout window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.client.Client.bugs">
+<code class="sig-name descname">bugs</code> &#x2192; BugManager<a class="headerlink" href="#bugzoo.client.Client.bugs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides access to the historical bugs that are registered with the
+server. Can be used to install, download, and uninstall registered
+bugs, or to dynamically register new bugs with the server.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.client.Client.containers">
+<code class="sig-name descname">containers</code> &#x2192; ContainerManager<a class="headerlink" href="#bugzoo.client.Client.containers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides access to the containers running on the server. Can be used
+to execute tests (as well as arbitrary shell commands), build from
+source code, apply patches, compute coverage, and more.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.client.Client.files">
+<code class="sig-name descname">files</code> &#x2192; FileManager<a class="headerlink" href="#bugzoo.client.Client.files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides access to the file systems used by running containers. Can be
+used to read from and write to files in containers, and to copy data
+between the host machine and a given container.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.Client.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/bugzoo/client.html#Client.shutdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.Client.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instructs the connected BugZoo server to shutdown.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/client.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

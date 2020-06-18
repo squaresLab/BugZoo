@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Tests &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Applying Patches" href="patch.html" />
+    <link rel="prev" title="Executing Commands" href="commands.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug.html">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Executing Commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bugzoo.core.test">
+<span id="running-tests"></span><h1>Running Tests<a class="headerlink" href="#module-bugzoo.core.test" title="Permalink to this headline">¶</a></h1>
+<p>BugZoo’s Python API provides an interface for executing the individual test
+cases belonging to the test suite for a particular bug.
+The <code class="code docutils literal notranslate"><span class="pre">tests</span></code> property of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Bug</span></code> provides access to its
+<a class="reference internal" href="#bugzoo.core.test.TestSuite" title="bugzoo.core.test.TestSuite"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestSuite</span></code></a>. The code snippet below provides an example of executing
+each of the tests contained within a <a class="reference internal" href="#bugzoo.core.test.TestSuite" title="bugzoo.core.test.TestSuite"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestSuite</span></code></a>. The outcome of a
+test execution is provided as a <a class="reference internal" href="#bugzoo.core.test.TestOutcome" title="bugzoo.core.test.TestOutcome"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestOutcome</span></code></a> object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outcomes</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[TestCase, TestOutcome]</span>
+<span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">snapshot</span><span class="o">.</span><span class="n">tests</span><span class="p">:</span>
+  <span class="n">outcomes</span><span class="p">[</span><span class="n">test</span><span class="p">]</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Individual tests can also be fetched using <a class="reference internal" href="#bugzoo.core.test.TestSuite" title="bugzoo.core.test.TestSuite"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestSuite</span></code></a>’s <code class="code docutils literal notranslate"><span class="pre">[]</span></code>
+operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">snapshot</span><span class="o">.</span><span class="n">tests</span><span class="p">[</span><span class="s2">&quot;test-foo&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.core.test.TestCase">
+<em class="property">class </em><code class="sig-name descname">TestCase</code><a class="reference internal" href="../_modules/bugzoo/core/test.html#TestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.test.TestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes an individual test case for a particular snapshot.</p>
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestCase.name">
+<code class="sig-name descname">name</code> &#x2192; str<a class="headerlink" href="#bugzoo.core.test.TestCase.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The unique name of the test case.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestCase.oracle">
+<code class="sig-name descname">oracle</code> &#x2192; TestCaseOracle<a class="headerlink" href="#bugzoo.core.test.TestCase.oracle" title="Permalink to this definition">¶</a></dt>
+<dd><p>The oracle used by this test case.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestCase.time_limit">
+<code class="sig-name descname">time_limit</code> &#x2192; int<a class="headerlink" href="#bugzoo.core.test.TestCase.time_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum number of seconds that an execution of this test case is
+allowed before it is terminated and considered a failure.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestCase.command">
+<code class="sig-name descname">command</code> &#x2192; str<a class="headerlink" href="#bugzoo.core.test.TestCase.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>The shell command that is used to execute this test case.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestCase.context">
+<code class="sig-name descname">context</code> &#x2192; str<a class="headerlink" href="#bugzoo.core.test.TestCase.context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The absolute path of the directory in which the shell command for this
+test case should be executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestCase.expected_outcome">
+<code class="sig-name descname">expected_outcome</code> &#x2192; Optional<span class="p">[</span>bool<span class="p">]</span><a class="headerlink" href="#bugzoo.core.test.TestCase.expected_outcome" title="Permalink to this definition">¶</a></dt>
+<dd><p>An optional flag that specifies whether or not an execution of this test
+case is expected to succeed for its corresponding bug. Used to indicate
+test cases that are expected to fail. Set to <code class="code docutils literal notranslate"><span class="pre">True</span></code> if the test
+case is expected to pass, <code class="code docutils literal notranslate"><span class="pre">False</span></code> if it is expected, and
+<code class="code docutils literal notranslate"><span class="pre">None</span></code> if its expected outcome is unknown.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestCase.kill_after">
+<code class="sig-name descname">kill_after</code> &#x2192; int<a class="headerlink" href="#bugzoo.core.test.TestCase.kill_after" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upon reaching the time limit, the process inside the container that is
+responsible for a particular test execution is sent to a <code class="code docutils literal notranslate"><span class="pre">SIGTERM</span></code>
+signal to instruct it to terminate cleanly. <code class="code docutils literal notranslate"><span class="pre">kill_after</span></code> specifes
+the number of seconds that may pass before a <code class="code docutils literal notranslate"><span class="pre">SIGKILL</span></code> signal is
+sent to the process. Note that <code class="code docutils literal notranslate"><span class="pre">SIGTERM</span></code> is used to ensure that
+any coverage information is flushed to disk before the command is
+terminated.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.core.test.TestCaseOracle">
+<em class="property">class </em><code class="sig-name descname">TestCaseOracle</code><a class="reference internal" href="../_modules/bugzoo/core/test.html#TestCaseOracle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.test.TestCaseOracle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to determine whether the outcome of a test case execution should be
+considered as a success or failure.</p>
+<dl class="py method">
+<dt id="bugzoo.core.test.TestCaseOracle.check">
+<code class="sig-name descname">check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span><span class="p">:</span> <span class="n"><a class="reference internal" href="commands.html#bugzoo.cmd.ExecResponse" title="bugzoo.cmd.ExecResponse">bugzoo.cmd.ExecResponse</a></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/core/test.html#TestCaseOracle.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.test.TestCaseOracle.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether the raw command output from a test execution
+satisfies this oracle.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.core.test.TestOutcome">
+<em class="property">class </em><code class="sig-name descname">TestOutcome</code><a class="reference internal" href="../_modules/bugzoo/core/test.html#TestOutcome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.test.TestOutcome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes the outcome of a test execution.</p>
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestOutcome.passed">
+<code class="sig-name descname">passed</code> &#x2192; bool<a class="headerlink" href="#bugzoo.core.test.TestOutcome.passed" title="Permalink to this definition">¶</a></dt>
+<dd><p>A flag indicating whether or not the test execution succeeded (as
+determined by its oracle).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.test.TestOutcome.duration">
+<code class="sig-name descname">duration</code> &#x2192; float<a class="headerlink" href="#bugzoo.core.test.TestOutcome.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The duration of the test execution, measured in seconds.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.core.test.TestSuite">
+<em class="property">class </em><code class="sig-name descname">TestSuite</code><a class="reference internal" href="../_modules/bugzoo/core/test.html#TestSuite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.test.TestSuite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes the test suite for a particular snapshot. Test suites are
+composed of a set of uniquely named individual test cases.</p>
+<dl class="py method">
+<dt id="bugzoo.core.test.TestSuite.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator<span class="p">[</span><a class="reference internal" href="#bugzoo.core.test.TestCase" title="bugzoo.core.test.TestCase">bugzoo.core.test.TestCase</a><span class="p">]</span><a class="reference internal" href="../_modules/bugzoo/core/test.html#TestSuite.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.test.TestSuite.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator over the test cases contained within this test
+suite.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.core.test.TestSuite.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.test.TestCase" title="bugzoo.core.test.TestCase">bugzoo.core.test.TestCase</a><a class="reference internal" href="../_modules/bugzoo/core/test.html#TestSuite.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.test.TestSuite.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to fetch a test case from this test suite by its name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – if no test case with the given name belongs to this
+    test suite.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/test.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

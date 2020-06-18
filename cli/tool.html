@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tool commands &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="container commands" href="container.html" />
+    <link rel="prev" title="bug commands" href="bug.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../cli.html">CLI Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bug.html"><cite>bug</cite> commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><cite>tool</cite> commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html"><cite>container</cite> commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source.html"><cite>source</cite> commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="tool-commands">
+<h1><cite>tool</cite> commands<a class="headerlink" href="#tool-commands" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>tool</cite> commands are used to manage the installation of tools
+on the local machine.</p>
+<div class="section" id="tool-list-q-installed-uninstalled">
+<h2><cite>tool list [-q] [–installed|–uninstalled]</cite><a class="headerlink" href="#tool-list-q-installed-uninstalled" title="Permalink to this headline">¶</a></h2>
+<p>Produces a list of all tools that are registered with the local BugZoo
+installation. Optional flags can be used to filter out (un)installed tools
+(i.e.., <code class="code docutils literal notranslate"><span class="pre">--installed</span></code>, <code class="code docutils literal notranslate"><span class="pre">--uninstalled</span></code>), or to produce an
+unannotated list of artefacts (<code class="code docutils literal notranslate"><span class="pre">-q</span></code>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo tool list
+
+
+Tool     Source                                      Installed?
+-------  ------------------------------------------  ------------
+genprog  https://github.com/squaresLab/genprog-code  Yes
+</pre></div>
+</div>
+</div>
+<div class="section" id="tool-uninstall-f-force-name">
+<h2><cite>tool uninstall [-f|–force] {name}</cite><a class="headerlink" href="#tool-uninstall-f-force-name" title="Permalink to this headline">¶</a></h2>
+<p>Uninstalls the Docker image associated with a given tool.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo tool uninstall genprog
+...
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">-f</span></code> flag can be used to force the uninstallation of a tool,
+regardless of whether or not it is running, causing any containers using
+that artefact to abruptly terminate – <strong>use at your own risk</strong>.</p>
+</div>
+<div class="section" id="tool-build-f-force-name">
+<h2><cite>tool build [-f|–force] {name}</cite><a class="headerlink" href="#tool-build-f-force-name" title="Permalink to this headline">¶</a></h2>
+<p>Attempts to build the Docker image associated with a given tool. If an image
+for the tool is already installed to the local machine, the request to build
+will simply be ignored. Passing the <cite>-f</cite> flag will force the image to be
+rebuilt.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo tool build genprog
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="tool-download-f-force-name">
+<h2><cite>tool download [-f|–force] {name}</cite><a class="headerlink" href="#tool-download-f-force-name" title="Permalink to this headline">¶</a></h2>
+<p>Attempts to download a prebuilt Docker image from DockerHub for a given tool.
+If an image for the tool already exists on the local machine, then,
+by default, the download request will be ignored (regardless of whether the
+remote image is older or newer than the local image). Passing the <cite>-f</cite> flag will
+override this default behaviour and force BugZoo to download the image
+from DockerHub, overwriting the existing image.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo tool download genprog
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="tool-upload-name">
+<h2><cite>tool upload {name}</cite><a class="headerlink" href="#tool-upload-name" title="Permalink to this headline">¶</a></h2>
+<p>Uploads the Docker image for a given tool from the local machine to DockerHub.
+Requires that the image has been built, and that the user is logged into
+DockerHub (via <code class="code docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span></code>) and has the necessary permissions to push
+to the DockerHub repository for the image.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo tool upload genprog
+...
+</pre></div>
+</div>
+<p>This command should be used by tools maintainers to conveniently push the
+images for their tools to DockerHub, allowing others to quickly and
+conveniently download them using <code class="code docutils literal notranslate"><span class="pre">tool</span> <span class="pre">download</span></code>.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cli/tool.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

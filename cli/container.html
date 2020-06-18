@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>container commands &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="source commands" href="source.html" />
+    <link rel="prev" title="tool commands" href="tool.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../cli.html">CLI Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bug.html"><cite>bug</cite> commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool.html"><cite>tool</cite> commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><cite>container</cite> commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source.html"><cite>source</cite> commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="container-commands">
+<h1><cite>container</cite> commands<a class="headerlink" href="#container-commands" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>container</cite> command group can be used to manage the creation and
+destruction of containers, and to inspect and interact with running containers.</p>
+<div class="section" id="container-launch-name-name-v-host-container-with-tool-bugs">
+<h2><cite>container launch [–name NAME] [-v HOST:CONTAINER] [–with TOOL] {bugs}</cite><a class="headerlink" href="#container-launch-name-name-v-host-container-with-tool-bugs" title="Permalink to this headline">¶</a></h2>
+<p>Provisions an ephemeral container for a given bug and drops the user into
+an interactive shell (bash) inside that container. After exiting the shell, the
+container will be destroyed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo container launch manybugs:python:69223-69224
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">--name</span></code> flag is used to assign an optional name to the container,
+making it easier to refer to and interact with using the other commands within
+the <code class="code docutils literal notranslate"><span class="pre">container</span></code> group.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo container launch  --name pybug <span class="se">\</span>
+                           manybugs:python:69223-69224
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">-v</span></code> flag is used to share and persist files between the host
+and the container (using Docker’s volume mounting feature). To share files,
+users should pass <code class="code docutils literal notranslate"><span class="pre">host_path:container_path</span></code> to the <code class="code docutils literal notranslate"><span class="pre">-v</span></code> flag,
+where <code class="code docutils literal notranslate"><span class="pre">host_path</span></code> is the (absolute) path of the file (or directory) on
+the host machine, and <code class="code docutils literal notranslate"><span class="pre">container_path</span></code> is the (absolute) path of the
+file (or directory) at which the host’s file should be mounted. If the given
+directory does not exist (for either the host or the container), an empty
+directory will be automatically created.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo container launch  -v <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/db:/opt/db <span class="se">\</span>
+                           manybugs:python:69223-69224
+</pre></div>
+</div>
+<p>Multiple directories may be mounted inside a single container by passing
+multiple instances of the <code class="code docutils literal notranslate"><span class="pre">-v</span></code> flag.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">--with</span></code> flag is used to mount a named tool into the container.
+For example, the following command mounts the <code class="code docutils literal notranslate"><span class="pre">genprog</span></code> tool inside
+a container for one of the ManyBugs bugs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo container launch --with genprog <span class="se">\</span>
+                          manybugs:python:69223-69224
+</pre></div>
+</div>
+<p>Like the <code class="code docutils literal notranslate"><span class="pre">-v</span></code> flag, the <code class="code docutils literal notranslate"><span class="pre">--with</span></code> flag can be used multiple times
+to mount more than one tool inside the container as shown below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo container launch  --with genprog <span class="se">\</span>
+                           --with gcovr <span class="se">\</span>
+                           manybugs:python:69223-69224
+</pre></div>
+</div>
+</div>
+<div class="section" id="container-list-q">
+<h2><cite>container list [-q]</cite><a class="headerlink" href="#container-list-q" title="Permalink to this headline">¶</a></h2>
+<p><strong>(TODO: This command has yet to be implemented.)</strong></p>
+<p>Produces a pretty-printed list of all running BugZoo containers:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo container list
+</pre></div>
+</div>
+<p>Passing the optional <code class="code docutils literal notranslate"><span class="pre">-q</span></code> flag will produce an unannotated list of
+unique identifiers used by running BugZoo containers, as shown below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo container list -q
+my-custom-named-container
+f153bda0
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cli/container.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

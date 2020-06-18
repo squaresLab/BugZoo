@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.core.fileline &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.core.fileline</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;FileLine&#39;</span><span class="p">,</span> <span class="s1">&#39;FileLineSet&#39;</span><span class="p">,</span> <span class="s1">&#39;FileLineMap&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">collections.abc</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">FrozenSet</span><span class="p">,</span>
+                    <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span>
+                    <span class="n">Mapping</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+<span class="kn">import</span> <span class="nn">attr</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="FileLine"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.fileline.FileLine">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">FileLine</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Represents a one-indexed line within a specific file.&quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;FileLine&#39;</span><span class="p">:</span>
+        <span class="n">fn</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">s_num</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s_num</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FileLine</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;2.1.29&#39;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s1">&#39;Replaced by FileLineMap.&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">compactify</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="s1">&#39;FileLine&#39;</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a dictionary that is indexed by FileLine objects into a</span>
+<span class="sd">        nested dictionary structures that maps from file names to a dictionary</span>
+<span class="sd">        of line numbers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">FileLine</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">d</span><span class="p">)</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># type: Dict[str, Dict[int, Any]]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">filename</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
+                <span class="n">out</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">][</span><span class="n">line</span><span class="o">.</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;2.1.29&#39;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s1">&#39;Replaced by FileLineMap.&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">decompactify</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="s1">&#39;Dict[FileLine, Any]&#39;</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># type: Dict[&#39;FileLine&#39;, Any]</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="n">fn</span><span class="p">]:</span>
+                <span class="n">lines</span><span class="p">[</span><span class="n">FileLine</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">num</span><span class="p">)]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">fn</span><span class="p">][</span><span class="n">num</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">lines</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">)</span></div>
+
+
+<span class="c1"># see: https://github.com/python/mypy/issues/5446</span>
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="n">BaseSet</span> <span class="o">=</span> <span class="n">Set</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]</span>
+    <span class="n">BaseMap</span> <span class="o">=</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="n">FileLine</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">BaseSet</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Set</span>
+    <span class="n">BaseMap</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">MutableMapping</span>
+
+
+<span class="k">class</span> <span class="nc">FileLineMap</span><span class="p">(</span><span class="n">BaseMap</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An efficient implementation of maps indexed by file lines.</span>
+<span class="sd">    Note that operations on instances of this class are NOT thread safe.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contents</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">FileLine</span><span class="p">,</span> <span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[str, Dict[int, T]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">line</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">line</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">lineno</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">fn</span><span class="p">]:</span>
+                <span class="k">yield</span> <span class="n">FileLine</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">lineno</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__length</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">FileLine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">][</span><span class="n">line</span><span class="o">.</span><span class="n">num</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">FileLine</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">filename</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">num</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__length</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">][</span><span class="n">line</span><span class="o">.</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">FileLine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">][</span><span class="n">line</span><span class="o">.</span><span class="n">num</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__length</span> <span class="o">-=</span> <span class="mi">1</span>
+
+
+<div class="viewcode-block" id="FileLineSet"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.fileline.FileLineSet">[docs]</a><span class="k">class</span> <span class="nc">FileLineSet</span><span class="p">(</span><span class="n">BaseSet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A set of file lines.&quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="s1">&#39;FileLineSet&#39;</span><span class="p">:</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">{</span><span class="n">fn</span><span class="p">:</span> <span class="nb">set</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">FileLineSet</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_list</span><span class="p">(</span><span class="n">lst</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FileLine</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;FileLineSet&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Converts a list of file lines into a FileLineSet.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">FileLineSet</span><span class="o">.</span><span class="n">from_iter</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_iter</span><span class="p">(</span><span class="n">itr</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FileLine</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;FileLineSet&#39;</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># type: Dict[str, Set[int]]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">itr</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">filename</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">num</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FileLineSet</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">contents</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">contents</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">contents</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span> <span class="o">=</span> \
+            <span class="p">{</span><span class="n">fn</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">line_nums</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">line_nums</span><span class="p">)</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> <span class="c1"># type: Dict[str, FrozenSet[int]]</span>
+
+<div class="viewcode-block" id="FileLineSet.__iter__"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.fileline.FileLineSet.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Returns an iterator over the lines contained in this set.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">fn</span><span class="p">]:</span>
+                <span class="k">yield</span> <span class="n">FileLine</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">set_lines</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">set_lines</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lines</span> <span class="o">==</span> <span class="p">[]:</span>
+                <span class="k">continue</span>
+
+            <span class="n">ranges</span> <span class="o">=</span> <span class="p">[[</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span>
+            <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="n">ranges</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">ranges</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ranges</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">num</span><span class="p">,</span> <span class="n">num</span><span class="p">])</span>
+
+            <span class="n">range_strs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ranges</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">stop</span><span class="p">:</span>
+                    <span class="n">range_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">range_strs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">..</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">))</span>
+
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">range_strs</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns a count of the number of file lines in the set.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="k">for</span> <span class="n">lines</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an iterator over all lines contained in this set that belong</span>
+<span class="sd">        to a given file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">fn</span><span class="p">]:</span>
+            <span class="k">yield</span> <span class="n">FileLine</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FileLineSet.__contains__"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.fileline.FileLineSet.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Determines whether this set contains a given element.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">FileLine</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">filename</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span> <span class="ow">and</span> \
+               <span class="n">elem</span><span class="o">.</span><span class="n">num</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">elem</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+               <span class="n">predicate</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">FileLine</span><span class="p">],</span> <span class="s1">&#39;FileLineSet&#39;</span><span class="p">]</span>
+               <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;FileLineSet&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a subset of the file lines within this set that satisfy a given</span>
+<span class="sd">        filtering criterion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filtered</span> <span class="o">=</span> <span class="p">[</span><span class="n">fileline</span> <span class="k">for</span> <span class="n">fileline</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">predicate</span><span class="p">(</span><span class="n">fileline</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">FileLineSet</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FileLine</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a set that contains the union of the file lines contained</span>
+<span class="sd">        within this set and the given collections of file lines.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">,)</span>  <span class="c1"># type: Tuple[Iterable[FileLine], ...]</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="n">sources</span> <span class="o">+</span> <span class="n">others</span>
+        <span class="k">return</span> <span class="n">FileLineSet</span><span class="o">.</span><span class="n">from_iter</span><span class="p">(</span><span class="n">l</span> <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">sources</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">src</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">others</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FileLine</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a set of file lines that contains the intersection of the lines</span>
+<span class="sd">        within this set and a given set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">others</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">&amp;=</span> <span class="nb">set</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FileLineSet</span><span class="o">.</span><span class="n">from_iter</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">restricted_to_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filenames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;FileLineSet&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a variant of this set that only contains lines that occur in</span>
+<span class="sd">        any one of the given files. (I.e., returns the intersection of this set</span>
+<span class="sd">        and the set of all lines from a given set of files.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">restricted</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># type: Dict[str, Set[int]]</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">:</span>
+                <span class="n">restricted</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">fn</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">FileLineSet</span><span class="p">(</span><span class="n">restricted</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A list of the names of the files that are represented by the file lines</span>
+<span class="sd">        in this set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of this set as a JSON/YAML-ready dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">fn</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

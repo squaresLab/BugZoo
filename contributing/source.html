@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding a source &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding a bug" href="bugs.html" />
+    <link rel="prev" title="Contributing" href="../contributing.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../contributing.html">Contributing</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Adding a source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bugs.html">Adding a bug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Adding a plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="adding-a-source">
+<h1>Adding a source<a class="headerlink" href="#adding-a-source" title="Permalink to this headline">¶</a></h1>
+<p>Sources are used to provide a BugZoo installation with plugins and bugs
+in a decentralised manner.
+Each source is given a unique name and is supplied to BugZoo as either a local
+directory or a remote Git repository. Sources are added via the CLI using the
+<code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">source</span> <span class="pre">add</span></code> command. Below is an example of creating a new
+source named <code class="code docutils literal notranslate"><span class="pre">my-plugin-source</span></code> for a local directory, <code class="code docutils literal notranslate"><span class="pre">dir-foo</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir dir-foo
+$ bugzoo <span class="nb">source</span> add my-plugin-source dir-foo
+</pre></div>
+</div>
+<p>Sources can also be provided to BugZoo in the form of remote Git repositories.
+Below is an example of how we create a new source named <code class="code docutils literal notranslate"><span class="pre">ManyBugs</span></code> for
+the ManyBugs repository on GitHub.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo <span class="nb">source</span> add manybugs https://github.com/squaresLab/ManyBugs
+</pre></div>
+</div>
+<p>Internally, BugZoo will clone the given Git repository to the <cite>sources</cite>
+subdirectory of the BugZoo directory (specified by
+<code class="code docutils literal notranslate"><span class="pre">$BUGZOO_PATH</span></code>, and located at <code class="code docutils literal notranslate"><span class="pre">${HOME}/.bugzoo</span></code> by default).
+The state of all registered remote repositories can be updated to reflect
+changes to the remote repo using <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">source</span> <span class="pre">update</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo <span class="nb">source</span> update
+</pre></div>
+</div>
+<p>To obtain the contents (i.e., bugs and tools) of a source, BugZoo
+recursively scans the directory for the source for all of its manifest files,
+which are recognised as files that end with <code class="code docutils literal notranslate"><span class="pre">.bugzoo.yml</span></code>.</p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/contributing/source.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

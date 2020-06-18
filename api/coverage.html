@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtaining Coverage &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Applications" href="applications.html" />
+    <link rel="prev" title="Applying Patches" href="patch.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug.html">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Applying Patches</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="obtaining-coverage">
+<h1>Obtaining Coverage<a class="headerlink" href="#obtaining-coverage" title="Permalink to this headline">¶</a></h1>
+<p>BugZoo’s Python API provides a number of uniform, language-independent
+interfaces for collecting line coverage information for individual test cases,
+entire test suites, and arbitrary executions.</p>
+<div class="section" id="module-bugzoo.core.coverage">
+<span id="obtaining-coverage-for-bugs"></span><h2>Obtaining Coverage for Bugs<a class="headerlink" href="#module-bugzoo.core.coverage" title="Permalink to this headline">¶</a></h2>
+<p>Complete test suite coverage information for a given bug can be obtained in
+the form of a <a class="reference internal" href="#bugzoo.core.coverage.TestSuiteCoverage" title="bugzoo.core.coverage.TestSuiteCoverage"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestSuiteCoverage</span></code></a> object by using
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">client.bugs.coverage()</span></code>, as shown below. <code class="xref py py-meth docutils literal notranslate"><span class="pre">client.bugs.coverage()</span></code>
+will attempt to load precomputed coverage data for the given bug from its
+on-disk cache; if no coverage data can be found, it will be recomputed from
+scratch and saved to disk for future requests.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">bugs</span><span class="p">[</span><span class="s1">&#39;manybugs:python:69223-69224&#39;</span><span class="p">]</span>
+<span class="n">coverage</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">coverage</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Coverage information for a particular test is represented as a
+<a class="reference internal" href="#bugzoo.core.coverage.TestCoverage" title="bugzoo.core.coverage.TestCoverage"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestCoverage</span></code></a> object, and can be retrieved from a
+<a class="reference internal" href="#bugzoo.core.coverage.TestSuiteCoverage" title="bugzoo.core.coverage.TestSuiteCoverage"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestSuiteCoverage</span></code></a> object by supplying the name of a test to its
+<code class="code docutils literal notranslate"><span class="pre">[]</span></code> operator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">coverage_for_suite</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">coverage</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+<span class="n">coverage_for_test</span> <span class="o">=</span> <span class="n">coverage_for_suite</span><span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#bugzoo.core.coverage.TestSuiteCoverage" title="bugzoo.core.coverage.TestSuiteCoverage"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestSuiteCoverage</span></code></a> also provides an iterator over the names of the
+tests included within its report:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">test_name</span> <span class="ow">in</span> <span class="n">coverage_for_suite</span><span class="p">:</span>
+  <span class="n">coverage_for_test</span> <span class="o">=</span> <span class="n">coverage_for_suite</span><span class="p">[</span><span class="n">test_name</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Discuss test outcomes and file lines.</p>
+</div>
+<div class="section" id="obtaining-coverage-for-containers">
+<h2>Obtaining Coverage for Containers<a class="headerlink" href="#obtaining-coverage-for-containers" title="Permalink to this headline">¶</a></h2>
+<p>Like <code class="xref py py-meth docutils literal notranslate"><span class="pre">client.bugs.coverage()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">client.containers.coverage()</span></code> is used
+to compute coverage information for an entire test suite. (Note that, unlike
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">client.bugs.coverage()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">client.containers.coverage()</span></code> does not
+cache coverage information to disk as containers are ephemeral.)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">coverage_for_suite</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">coverage</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Coverage information for individual test executions (and executions of
+arbitrary shell commands) can also be obtained by first instrumenting the
+the container, then executing the test (or shell command) for which coverage
+shoud be collected, before finally extracting a report of the source code
+lines that were executed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">prepare_for_coverage</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+<span class="n">outcome</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">read_coverage</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">cleanup_coverage</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+<span class="n">coverage</span> <span class="o">=</span> <span class="n">TestCoverage</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">outcome</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="computing-fault-spectra-using-coverage">
+<h2>Computing Fault Spectra using Coverage<a class="headerlink" href="#computing-fault-spectra-using-coverage" title="Permalink to this headline">¶</a></h2>
+<p>Fault spectra, represented as <code class="xref py py-class docutils literal notranslate"><span class="pre">Spectra</span></code> objects, are used to provide a
+concise summary of the number of passing and failing tests that touch (or do
+not touch) each line in the program. Each entry, or row, in a fault spectra
+is encoded as a <code class="xref py py-class docutils literal notranslate"><span class="pre">LineSpectra</span></code> object, and represents a line in the
+program, and is represented by four numbers: <code class="code docutils literal notranslate"><span class="pre">ep</span></code>, <code class="code docutils literal notranslate"><span class="pre">np</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">ef</span></code>, and <code class="code docutils literal notranslate"><span class="pre">nf</span></code>.</p>
+</div>
+<div class="section" id="module-bugzoo.core.fileline">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-bugzoo.core.fileline" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.core.fileline.FileLine">
+<em class="property">class </em><code class="sig-name descname">FileLine</code><a class="reference internal" href="../_modules/bugzoo/core/fileline.html#FileLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.fileline.FileLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a one-indexed line within a specific file.</p>
+<dl class="py attribute">
+<dt id="bugzoo.core.fileline.FileLine.num">
+<code class="sig-name descname">num</code> &#x2192; int<a class="headerlink" href="#bugzoo.core.fileline.FileLine.num" title="Permalink to this definition">¶</a></dt>
+<dd><p>The one-indexed number of the line.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.fileline.FileLine.filename">
+<code class="sig-name descname">filename</code> &#x2192; str<a class="headerlink" href="#bugzoo.core.fileline.FileLine.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the file to which the line belongs.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.core.fileline.FileLineSet">
+<em class="property">class </em><code class="sig-name descname">FileLineSet</code><a class="reference internal" href="../_modules/bugzoo/core/fileline.html#FileLineSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.fileline.FileLineSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set of file lines.</p>
+<dl class="py method">
+<dt id="bugzoo.core.fileline.FileLineSet.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elem</span><span class="p">:</span> <span class="n">object</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/core/fileline.html#FileLineSet.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.fileline.FileLineSet.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether this set contains a given element.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.core.fileline.FileLineSet.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator<span class="p">[</span><a class="reference internal" href="#bugzoo.core.fileline.FileLine" title="bugzoo.core.fileline.FileLine">bugzoo.core.fileline.FileLine</a><span class="p">]</span><a class="reference internal" href="../_modules/bugzoo/core/fileline.html#FileLineSet.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.fileline.FileLineSet.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator over the lines contained in this set.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-0"></span><dl class="py class">
+<dt id="bugzoo.core.coverage.TestCoverage">
+<em class="property">class </em><code class="sig-name descname">TestCoverage</code><a class="reference internal" href="../_modules/bugzoo/core/coverage.html#TestCoverage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.coverage.TestCoverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides complete line coverage information for all files and across all
+tests within a given project.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.core.coverage.TestSuiteCoverage">
+<em class="property">class </em><code class="sig-name descname">TestSuiteCoverage</code><a class="reference internal" href="../_modules/bugzoo/core/coverage.html#TestSuiteCoverage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.coverage.TestSuiteCoverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds coverage information for all tests belonging to a particular program
+version.</p>
+<dl class="py method">
+<dt id="bugzoo.core.coverage.TestSuiteCoverage.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.coverage.TestCoverage" title="bugzoo.core.coverage.TestCoverage">bugzoo.core.coverage.TestCoverage</a><a class="reference internal" href="../_modules/bugzoo/core/coverage.html#TestSuiteCoverage.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.coverage.TestSuiteCoverage.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves coverage information for a given test case.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – the name of the test case.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if there is no coverage information for the given test
+    case.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-bugzoo.core.spectra"></span><dl class="py class">
+<dt id="bugzoo.core.spectra.Spectra">
+<em class="property">class </em><code class="sig-name descname">Spectra</code><a class="reference internal" href="../_modules/bugzoo/core/spectra.html#Spectra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.spectra.Spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains a summary of the number of passing and failing tests that cover
+each line in a given project.</p>
+<dl class="py method">
+<dt id="bugzoo.core.spectra.Spectra.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator<span class="p">[</span><a class="reference internal" href="#bugzoo.core.fileline.FileLine" title="bugzoo.core.fileline.FileLine">bugzoo.core.fileline.FileLine</a><span class="p">]</span><a class="reference internal" href="../_modules/bugzoo/core/spectra.html#Spectra.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.spectra.Spectra.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator over the source code lines that are represented
+in this spectra.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.core.spectra.Spectra.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.fileline.FileLine" title="bugzoo.core.fileline.FileLine">bugzoo.core.fileline.FileLine</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.spectra.LineSpectra" title="bugzoo.core.spectra.LineSpectra">bugzoo.core.spectra.LineSpectra</a><a class="reference internal" href="../_modules/bugzoo/core/spectra.html#Spectra.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.spectra.Spectra.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the spectra information for a given line.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bugzoo.core.spectra.LineSpectra">
+<em class="property">class </em><code class="sig-name descname">LineSpectra</code><a class="reference internal" href="../_modules/bugzoo/core/spectra.html#LineSpectra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.spectra.LineSpectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarises the coverage information for a single line in the program in
+terms of the number of passing and failing tests that do and do not
+cover it, respectively.</p>
+<dl class="py attribute">
+<dt id="bugzoo.core.spectra.LineSpectra.ep">
+<code class="sig-name descname">ep</code> &#x2192; int<a class="headerlink" href="#bugzoo.core.spectra.LineSpectra.ep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.spectra.LineSpectra.np">
+<code class="sig-name descname">np</code> &#x2192; int<a class="headerlink" href="#bugzoo.core.spectra.LineSpectra.np" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.spectra.LineSpectra.ef">
+<code class="sig-name descname">ef</code> &#x2192; int<a class="headerlink" href="#bugzoo.core.spectra.LineSpectra.ef" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.core.spectra.LineSpectra.nf">
+<code class="sig-name descname">nf</code> &#x2192; int<a class="headerlink" href="#bugzoo.core.spectra.LineSpectra.nf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/coverage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

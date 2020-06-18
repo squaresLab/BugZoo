@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.mgr.source &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.mgr.source</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="kn">import</span> <span class="nn">git</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="kn">from</span> <span class="nn">.build</span> <span class="kn">import</span> <span class="n">BuildManager</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">NameInUseError</span><span class="p">,</span> <span class="n">BadManifestFile</span>
+<span class="kn">from</span> <span class="nn">..compiler</span> <span class="kn">import</span> <span class="n">Compiler</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">TestSuite</span><span class="p">,</span> <span class="n">Bug</span><span class="p">,</span> <span class="n">Language</span><span class="p">,</span> <span class="n">BuildInstructions</span><span class="p">,</span> \
+    <span class="n">CoverageInstructions</span><span class="p">,</span> <span class="n">Tool</span><span class="p">,</span> <span class="n">Source</span><span class="p">,</span> <span class="n">SourceContents</span><span class="p">,</span> <span class="n">RemoteSource</span><span class="p">,</span> \
+    <span class="n">LocalSource</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># type: logging.Logger</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SourceManager&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="SourceManager"><a class="viewcode-back" href="../../../api/bugzoo.html#bugzoo.manager.SourceManager">[docs]</a><span class="k">class</span> <span class="nc">SourceManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    TODO: we *could* cache the contents of all of the sources to disk, avoiding</span>
+<span class="sd">        the need to scan for them at startup. Although that might be cool, it</span>
+<span class="sd">        seems like overengineering and may create compatibility headaches in</span>
+<span class="sd">        the future.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">installation</span><span class="p">:</span> <span class="s1">&#39;BugZoo&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span> <span class="o">=</span> <span class="n">installation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">installation</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;sources&#39;</span><span class="p">)</span>
+        <span class="c1"># TODO</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__registry_fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__path</span><span class="p">,</span> <span class="s1">&#39;registry.yml&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__sources</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SourceManager.__iter__"><a class="viewcode-back" href="../../../api/bugzoo.html#bugzoo.manager.SourceManager.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Source</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an iterator over the sources registered with this server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sources</span><span class="o">.</span><span class="n">values</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SourceManager.__getitem__"><a class="viewcode-back" href="../../../api/bugzoo.html#bugzoo.manager.SourceManager.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Source</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to fetch the description of a given source.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            name: the name of the source.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a description of the source.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if no source is found with the given name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sources</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        See `remove`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reloads all sources that are registered with this server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;refreshing sources&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unload</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__registry_fn</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c1"># TODO add version</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__registry_fn</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">registry</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">registry</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">source_description</span> <span class="ow">in</span> <span class="n">registry</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">Source</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">source_description</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;refreshed sources&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SourceManager.update"><a class="viewcode-back" href="../../../api/bugzoo.html#bugzoo.manager.SourceManager.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensures that all remote sources are up-to-date.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">source_old</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source_old</span><span class="p">,</span> <span class="n">RemoteSource</span><span class="p">):</span>
+                <span class="n">repo</span> <span class="o">=</span> <span class="n">git</span><span class="o">.</span><span class="n">Repo</span><span class="p">(</span><span class="n">source_old</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+                <span class="n">origin</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">remotes</span><span class="o">.</span><span class="n">origin</span>
+                <span class="n">origin</span><span class="o">.</span><span class="n">pull</span><span class="p">()</span>
+
+                <span class="n">sha</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">hexsha</span>
+                <span class="n">version</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">git</span><span class="o">.</span><span class="n">rev_parse</span><span class="p">(</span><span class="n">sha</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">version</span> <span class="o">!=</span> <span class="n">source_old</span><span class="o">.</span><span class="n">version</span><span class="p">:</span>
+                    <span class="n">source_new</span>  <span class="o">=</span> <span class="n">RemoteSource</span><span class="p">(</span><span class="n">source_old</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                               <span class="n">source_old</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+                                               <span class="n">source_old</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+                                               <span class="n">version</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;updated source: </span><span class="si">%s</span><span class="s2"> [</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">source_old</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                                 <span class="n">source_old</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+                                                                 <span class="n">source_new</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">source_new</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;no updates for source: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">source_old</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># write to disk</span>
+        <span class="c1"># TODO local directory may be corrupted if program terminates between</span>
+        <span class="c1">#   repo being updated and registry being saved; could add a &quot;fix&quot;</span>
+        <span class="c1">#   command to recalculate versions for remote sources</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves the contents of the source manager to disk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;saving registry to: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__registry_fn</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__registry_fn</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;saved registry to: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__registry_fn</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">unload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unloads a registered source, causing all of its associated bugs, tools,</span>
+<span class="sd">        and blueprints to also be unloaded. If the given source is not loaded,</span>
+<span class="sd">        this function will do nothing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;unloading source: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sources</span><span class="p">[</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">bugs</span><span class="p">:</span>
+                <span class="n">bug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">bugs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">blueprints</span><span class="p">:</span>
+                <span class="n">blueprint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">build</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+                <span class="n">tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">tools</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tool</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;unloaded source: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__parse_blueprint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BuildInstructions</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">BuildInstructions</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span>
+                                 <span class="n">tag</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">],</span>
+                                 <span class="n">context</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">),</span>
+                                 <span class="n">filename</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="s1">&#39;Dockerfile&#39;</span><span class="p">),</span>
+                                 <span class="n">arguments</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;arguments&#39;</span><span class="p">,</span> <span class="p">{}),</span>
+                                 <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                 <span class="n">build_stage</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;build-stage&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                                 <span class="n">depends_on</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;depends-on&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__parse_bug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bug</span><span class="p">:</span>
+        <span class="n">d_</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">d_</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">d_</span><span class="p">[</span><span class="s1">&#39;program&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;program&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">d_</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="n">Bug</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d_</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__parse_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Tool</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">],</span>
+                    <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;environment&#39;</span><span class="p">,</span> <span class="p">{}),</span>
+                    <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__parse_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span>
+                     <span class="n">fn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                     <span class="n">bugs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Bug</span><span class="p">],</span>
+                     <span class="n">blueprints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BuildInstructions</span><span class="p">],</span>
+                     <span class="n">tools</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tool</span><span class="p">]</span>
+                     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">yml</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># TODO check version</span>
+        <span class="k">if</span> <span class="s1">&#39;version&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">yml</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;no version specified in manifest file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">description</span> <span class="ow">in</span> <span class="n">yml</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bugs&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;parsing bug: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">bug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_bug</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;parsed bug: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">bug</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">bugs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;missing property in bug description: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">description</span> <span class="ow">in</span> <span class="n">yml</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;blueprints&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;parsing blueprint: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">blueprint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_blueprint</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;parsed blueprint for image: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                    <span class="n">blueprint</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">blueprints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;missing property in blueprint description: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">description</span> <span class="ow">in</span> <span class="n">yml</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tools&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;parsing tool: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parse_tool</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;parsed tool: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">tools</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tool</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;missing property in tool description: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                 <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to load all resources (i.e., bugs, tools, and blueprints)</span>
+<span class="sd">        provided by a given source. If the given source has already been</span>
+<span class="sd">        loaded, then that resources for that source are unloaded and</span>
+<span class="sd">        reloaded.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;loading source </span><span class="si">%s</span><span class="s1"> at </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sources</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unload</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+        <span class="n">bugs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">blueprints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tools</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># find and parse all bugzoo files</span>
+        <span class="n">glob_pattern</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/**/*.bugzoo.y*ml&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">iglob</span><span class="p">(</span><span class="n">glob_pattern</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">fn</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.yml&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">fn</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.yaml&#39;</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;found manifest file: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__parse_file</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">bugs</span><span class="p">,</span> <span class="n">blueprints</span><span class="p">,</span> <span class="n">tools</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;parsed manifest file: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+
+        <span class="c1"># register contents</span>
+        <span class="k">for</span> <span class="n">bug</span> <span class="ow">in</span> <span class="n">bugs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">blueprint</span> <span class="ow">in</span> <span class="n">blueprints</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">blueprint</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__installation</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tool</span><span class="p">)</span>
+
+        <span class="c1"># record contents of source</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">SourceContents</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">blueprints</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bugs</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__sources</span><span class="p">[</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">contents</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;loaded source: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SourceContents</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a summary of the bugs, tools, and blueprints provided by a</span>
+<span class="sd">        given source.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__contents</span><span class="p">[</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+<div class="viewcode-block" id="SourceManager.add"><a class="viewcode-back" href="../../../api/bugzoo.html#bugzoo.manager.SourceManager.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path_or_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Source</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to register a source provided by a given URL or local path</span>
+<span class="sd">        under a given name.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a description of the registered source.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NameInUseError: if an existing source is already registered under</span>
+<span class="sd">                the given name.</span>
+<span class="sd">            IOError: if no directory exists at the given path.</span>
+<span class="sd">            IOError: if downloading the remote source failed. (FIXME)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding source: </span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">path_or_url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sources</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;name already used by existing source: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">NameInUseError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">is_url</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">scheme</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">path_or_url</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span>
+            <span class="n">is_url</span> <span class="o">=</span> <span class="n">scheme</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;http&#39;</span><span class="p">,</span> <span class="s1">&#39;https&#39;</span><span class="p">]</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;source determined to be remote: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path_or_url</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;source determined to be local: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path_or_url</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_url</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">path_or_url</span>
+
+            <span class="c1"># convert url to a local path</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+            <span class="c1"># download from remote to local</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># TODO shallow clone</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;cloning repository </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+                <span class="n">repo</span> <span class="o">=</span> <span class="n">git</span><span class="o">.</span><span class="n">Repo</span><span class="o">.</span><span class="n">clone_from</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;cloned repository </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+                <span class="n">sha</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">hexsha</span>
+                <span class="n">version</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">git</span><span class="o">.</span><span class="n">rev_parse</span><span class="p">(</span><span class="n">sha</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span> <span class="c1"># TODO determine error type</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;failed to download remote source to local: </span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;failed to download remote source to local installation: &#39;</span><span class="si">{}</span><span class="s2">&#39; -&gt; &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">RemoteSource</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path_or_url</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;no directory found at path: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">LocalSource</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;added source: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SourceManager.remove"><a class="viewcode-back" href="../../../api/bugzoo.html#bugzoo.manager.SourceManager.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unregisters a given source with this server. If the given source is a</span>
+<span class="sd">        remote source, then its local copy will be removed from disk.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if the given source is not registered with this server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unload</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">RemoteSource</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

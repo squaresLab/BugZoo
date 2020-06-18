@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BugZoo &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python API" href="api.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="bugzoo">
+<h1>BugZoo<a class="headerlink" href="#bugzoo" title="Permalink to this headline">¶</a></h1>
+<p>BugZoo is a decentralised platform for distributing,
+reproducing, and interacting with historical software bugs. BugZoo is designed
+to support both software engineering researchers as well as developers of tools
+for program testing, analysis and repair.</p>
+<p>Under the hood, BugZoo uses <a class="reference external" href="https://www.docker.com">Docker</a> containers to
+provide a controlled, sterile environment for safely interacting with
+historical software bugs. BugZoo provides several advantages over
+the use of monolithic virtual machines
+(e.g., <a class="reference external" href="http://repairbenchmarks.cs.umass.edu/">ManyBugs VM</a>):</p>
+<ul class="simple">
+<li><p>By using containerisation instead of virtualisation, BugZoo can ensure
+reproducibility with minimal sacrifice to performance, allowing you to run
+bigger experiments faster.</p></li>
+<li><p>Since containers can be spawned in under a second, a safe, idempotent
+execution environment can be realistically provided for every test suite
+evaluation.</p></li>
+<li><p>Each historical bug is provided as its own minimal Docker container image.
+There are no assumptions that bug containers should be capable of running
+other software, such as a testing or repair tool that is being evaluated as
+part of an experiment. BugZoo avoids the inevitable “DLL hell” that arises
+from attempting to mix bugs and tools by transforming tools into portable
+binaries and mounting them in the execution environment at run-time.</p></li>
+<li><p>Thanks to their minimal nature and Docker’s layer-based image caching,
+prebuilt datasets of historical bugs can be downloaded quickly and
+easily.</p></li>
+</ul>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>A simple but powerful command-line interface for building, downloading and
+interacting with historical bugs.</p></li>
+<li><p>A Python interface for complex, structured interactions with historical
+bugs: execute specific tests, compute line coverage, apply patches, compile
+with certain flags, and more.</p></li>
+<li><p>A powerful underlying RESTful API that can be used to add BugZoo bindings to your
+own favourite language.</p></li>
+<li><p>A decentralised architecture that lets you share your tools and datasets of
+historical bugs on the BugZoo platform without giving up ownership or control.
+Adding BugZoo support to your dataset of tool is as simple as adding a
+<code class="code docutils literal notranslate"><span class="pre">.bugzoo.yml</span></code> file to your project.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
+<p>If you use BugZoo in your research work, we would highly appreciate it if you
+cited the <a class="reference external" href="(http://www.cs.cmu.edu/~clegoues/docs/timperley-icse18-poster.pdf">following paper</a>:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span>@inproceedings{bugzoo,
+  author = {Timperley, Christopher and Stepney, Susan and {Le Goues}, Claire}
+  title = {{Poster: BugZoo – A Platform for Studying Software Bugs}},
+  booktitle = {{International Conference on Software Engineering}},
+  series = {{ICSE &#39;18}},
+  year = {2018}
+  note = {{To appear}}
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To use BugZoo, you will need Python ≥ 3.5 installed, along with Docker; we
+also suggest that you install <code class="code docutils literal notranslate"><span class="pre">pipenv</span></code> to simplify installation and to isolate
+your BugZoo installation from any other Python packages on your system.</p>
+<p>After ensuring that the requirements above are installed on your machine, you
+may install BugZoo using <a class="reference external" href="http://pipenv.org/">pipenv</a> (preferred) or <cite>pip3</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pipenv install bugzoo
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Since BugZoo is a decentralised platform for sharing and interacting with
+historical bugs (<em>and not itself a dataset of bugs</em>), you’ll need to add
+several bugs and tools to your installation. Bugs and tools are usually
+provided to BugZoo by remote, public Git repositories. Adding a <em>source</em> of
+bugs or tools to your installation can be done via the <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">source</span> <span class="pre">add</span>
+<span class="pre">[name]</span> <span class="pre">[url]</span></code> command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">$</span> <span class="pre">bugzoo</span> <span class="pre">source</span> <span class="pre">add</span> <span class="pre">manybugs</span> <span class="pre">https://github.com/squaresLab/ManyBugs</span>
+<span class="pre">`</span></code></p>
+<p>Note that sources do not necessarily have to be remote, public Git
+repositories: they can also be provided by local directories.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/squaresLab/ManyBugs path/to/manybugs
+$ bugzoo <span class="nb">source</span> add another-manybugs path/to/manybugs
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">source</span> <span class="pre">list</span></code> command can be used to provide a list of
+registered sources:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo <span class="nb">source</span> list
+
+Source    Type    URL                                         Location                                                        Version
+--------  ------  ------------------------------------------  --------------------------------------------------------------  ---------
+robust    Local   -                                           /home/chris/bugs/robust                                         -
+genprog   Remote  https://github.com/squaresLab/genprog-code  /home/chris/.bugzoo/sources/github_com_squaresLab_genprog-code  b4de21d7
+manybugs  Remote  https://github.com/squaresLab/ManyBugs      /home/chris/.bugzoo/sources/github_com_squaresLab_ManyBugs      ad83bd9a
+</pre></div>
+</div>
+<p>And <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">bug</span> <span class="pre">list</span></code> and <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">tool</span> <span class="pre">list</span></code> can be used to
+produce a list of all bugs and tools that are provided by your registered
+sources:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug list
+
+Bug                                             Program     Dataset    Source    Installed?
+----------------------------------------------  ----------  ---------  --------  ------------
+manybugs:gmp:13420-13421                        gmp         manybugs   manybugs  No
+manybugs:gmp:14166-14167                        gmp         manybugs   manybugs  No
+manybugs:gzip:2009-08-16-3fe0caeada-39a362ae9d  gzip        manybugs   manybugs  No
+manybugs:gzip:2009-09-26-a1d3d4019d-f17cbd13a1  gzip        manybugs   manybugs  No
+manybugs:gzip:2009-10-09-1a085b1446-118a107f2d  gzip        manybugs   manybugs  No
+manybugs:gzip:2010-01-30-fc00329e3d-1204630c96  gzip        manybugs   manybugs  No
+manybugs:gzip:2010-02-19-3eb6091d69-884ef6d16c  gzip        manybugs   manybugs  No
+manybugs:libtiff:2005-12-14-6746b87-0d3d51d     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2005-12-21-3b848a7-3edb9cd     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2005-12-27-6f76e76-5dac30f     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2006-02-23-b2ce5d8-207c78a     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2006-02-27-6074705-e6d0c32     libtiff     manybugs   manybugs  No
+manybugs:libtiff:2006-03-03-a72cf60-0a36d7f     libtiff     manybugs   manybugs  No
+...
+</pre></div>
+</div>
+<p>To interact with a particular bug or tool, you’ll need to install it on your
+machine. There are two ways to do this: (1) you can build the Docker image for
+the bug or tool locally (via <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">bug</span> <span class="pre">build</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">tool</span> <span class="pre">build</span></code>), or alternatively, you can download a prebuilt
+image (via <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">bug</span> <span class="pre">download</span></code> or <code class="code docutils literal notranslate"><span class="pre">bugzoo</span> <span class="pre">tool</span> <span class="pre">download</span></code>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug build manybugs:libtiff:2005-12-14-6746b87-0d3d51d
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="publications">
+<h2>Publications<a class="headerlink" href="#publications" title="Permalink to this headline">¶</a></h2>
+<p>Below is a list of publications that have used BugZoo. If you don’t see your
+publication listed, please submit a pull request to add it to the list.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.cs.cmu.edu/~clegoues/docs/timperley-icse18-poster.pdf">Poster: BugZoo – A Platform for Studying Software Bugs.</a>
+CS Timperley, S Stepney, C Le Goues.
+International Conference on Software Engineering, ICSE ‘18, Gothenburg, Sweden, May 2018.</p></li>
+<li><p><a class="reference external" href="http://www.cs.cmu.edu/~afsoona/papers/icst18.pdf">Crashing simulated planes is cheap: Can simulation detect robotics bugs early?.</a>
+CS Timperley, A Afzal, D S Katz, J M Hernandez, C Le Goues.
+International Conference on Software Testing, ICST ‘18, Vasteras, Sweden, April 2018.</p></li>
+<li><p><a class="reference external" href="http://eprints.whiterose.ac.uk/121297/1/ssbse17.pdf">An Investigation into the Use of Mutation Analysis for Automated Program Repair.</a>
+CS Timperley, S Stepney, C Le Goues.
+International Symposium on Search Based Software Engineering, SSBSE ‘16, 99-114.</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

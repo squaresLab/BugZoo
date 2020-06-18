@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.core.test &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.core.test</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TestCase&#39;</span><span class="p">,</span> <span class="s1">&#39;TestSuite&#39;</span><span class="p">,</span> <span class="s1">&#39;TestOutcome&#39;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">import</span> <span class="nn">attr</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">..cmd</span> <span class="kn">import</span> <span class="n">ExecResponse</span>
+
+
+<div class="viewcode-block" id="TestCaseOracle"><a class="viewcode-back" href="../../../api/test.html#bugzoo.core.test.TestCaseOracle">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TestCaseOracle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used to determine whether the outcome of a test case execution should be</span>
+<span class="sd">    considered as a success or failure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">output_contains</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestCaseOracle&#39;</span><span class="p">:</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;failed to unpack test oracle: expected &#39;code&#39; to be an int.&quot;</span><span class="p">)</span>  <span class="c1"># noqa: pycodestyle</span>
+
+        <span class="k">if</span> <span class="s1">&#39;output&#39;</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="s1">&#39;contains&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]:</span>
+            <span class="n">output_contains</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">][</span><span class="s1">&#39;contains&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_contains</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;failed to unpack test oracle: expected &#39;contains&#39; to be a string.&quot;</span><span class="p">)</span>  <span class="c1"># noqa: pycodestyle</span>
+            <span class="k">if</span> <span class="n">output_contains</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;failed to unpack test oracle: &#39;contains&#39; must be a non-empty string.&quot;</span><span class="p">)</span>  <span class="c1"># noqa: pycodestyle</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output_contains</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">TestCaseOracle</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">output_contains</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[str, Any]</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_contains</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;contains&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_contains</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+<div class="viewcode-block" id="TestCaseOracle.check"><a class="viewcode-back" href="../../../api/test.html#bugzoo.core.test.TestCaseOracle.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">ExecResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines whether the raw command output from a test execution</span>
+<span class="sd">        satisfies this oracle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">code</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_contains</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_contains</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>  <span class="c1"># noqa: pycodestyle</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+
+
+<div class="viewcode-block" id="TestCase"><a class="viewcode-back" href="../../../api/test.html#bugzoo.core.test.TestCase">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TestCase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Describes an individual test case for a particular snapshot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">time_limit</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">expected_outcome</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">])</span>
+    <span class="n">oracle</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TestCaseOracle</span><span class="p">)</span>
+    <span class="n">kill_after</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;time-limit&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span><span class="p">,</span>
+                <span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">command</span><span class="p">,</span>
+                <span class="s1">&#39;context&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span>
+                <span class="s1">&#39;expected-outcome&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">expected_outcome</span><span class="p">,</span>
+                <span class="s1">&#39;oracle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">oracle</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+                <span class="s1">&#39;kill-after&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kill_after</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="TestOutcome"><a class="viewcode-back" href="../../../api/test.html#bugzoo.core.test.TestOutcome">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TestOutcome</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Describes the outcome of a test execution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">ExecResponse</span><span class="p">)</span>
+    <span class="n">passed</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestOutcome&#39;</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">ExecResponse</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">])</span>
+        <span class="n">passed</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">TestOutcome</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">passed</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The duration of the test execution, measured in seconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">duration</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;passed&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+                <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()}</span></div>
+
+
+<div class="viewcode-block" id="TestSuite"><a class="viewcode-back" href="../../../api/test.html#bugzoo.core.test.TestSuite">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TestSuite</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Describes the test suite for a particular snapshot. Test suites are</span>
+<span class="sd">    composed of a set of uniquely named individual test cases.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_tests</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TestCase</span><span class="p">],</span>
+                     <span class="n">converter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ts</span><span class="p">:</span> <span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">})</span>  <span class="c1"># type: ignore</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;TestSuite&#39;</span><span class="p">:</span>
+        <span class="n">command_template</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;command&#39;</span><span class="p">,</span> <span class="s1">&#39;./test.sh __ID__&#39;</span><span class="p">)</span>  <span class="c1"># type: str</span>
+        <span class="n">default_time_limit</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time-limit&#39;</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>  <span class="c1"># type: int</span>
+        <span class="n">command_context</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">,</span> <span class="s1">&#39;/experiment&#39;</span><span class="p">)</span>  <span class="c1"># type: str</span>
+        <span class="n">default_oracle</span> <span class="o">=</span> <span class="n">TestCaseOracle</span><span class="p">()</span>
+        <span class="n">default_kill_after</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">d_tests</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tests&#39;</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;empty&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TestSuite</span><span class="p">([])</span>
+
+        <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;genprog&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;failing&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">d_tests</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+                                <span class="s1">&#39;expected-outcome&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;passing&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">d_tests</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;p</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+                                <span class="s1">&#39;expected-outcome&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+        <span class="c1"># build the tests</span>
+        <span class="n">tests</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: List[TestCase]</span>
+        <span class="k">for</span> <span class="n">test_desc</span> <span class="ow">in</span> <span class="n">d_tests</span><span class="p">:</span>
+            <span class="n">test_oracle</span> <span class="o">=</span> <span class="n">default_oracle</span>  <span class="c1"># type: TestCaseOracle</span>
+            <span class="n">test_kill_after</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># type: int</span>
+
+            <span class="c1"># FIXME add expected outcome</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">test_desc</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">test_name</span> <span class="o">=</span> <span class="n">test_desc</span>
+                <span class="n">test_time_limit</span> <span class="o">=</span> <span class="n">default_time_limit</span>
+                <span class="n">test_context</span> <span class="o">=</span> <span class="n">command_context</span>
+                <span class="n">test_command</span> <span class="o">=</span> \
+                    <span class="n">command_template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;__ID__&#39;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">)</span>
+                <span class="n">test_expected_outcome</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">test_desc</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">if</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">test_desc</span><span class="p">:</span>
+                    <span class="n">test_name</span> <span class="o">=</span> <span class="n">test_desc</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">test_name</span> <span class="o">=</span> <span class="n">test_desc</span><span class="p">[</span><span class="s1">&#39;command&#39;</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="s1">&#39;command&#39;</span> <span class="ow">in</span> <span class="n">test_desc</span><span class="p">:</span>
+                    <span class="n">test_command</span> <span class="o">=</span> <span class="n">test_desc</span><span class="p">[</span><span class="s1">&#39;command&#39;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">test_command</span> <span class="o">=</span> \
+                        <span class="n">command_template</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;__ID__&#39;</span><span class="p">,</span> <span class="n">test_name</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="s1">&#39;oracle&#39;</span> <span class="ow">in</span> <span class="n">test_desc</span><span class="p">:</span>
+                    <span class="n">test_oracle</span> <span class="o">=</span> <span class="n">TestCaseOracle</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">test_desc</span><span class="p">[</span><span class="s1">&#39;oracle&#39;</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="s1">&#39;kill-after&#39;</span> <span class="ow">in</span> <span class="n">test_desc</span><span class="p">:</span>
+                    <span class="n">test_kill_after</span> <span class="o">=</span> <span class="n">test_desc</span><span class="p">[</span><span class="s1">&#39;kill-after&#39;</span><span class="p">]</span>
+
+                <span class="n">test_context</span> <span class="o">=</span> <span class="n">test_desc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">,</span> <span class="n">command_context</span><span class="p">)</span>
+                <span class="n">test_time_limit</span> <span class="o">=</span> \
+                    <span class="n">test_desc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time-limit&#39;</span><span class="p">,</span> <span class="n">default_time_limit</span><span class="p">)</span>
+                <span class="n">test_expected_outcome</span> <span class="o">=</span> <span class="n">test_desc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;expected-outcome&#39;</span><span class="p">)</span>
+
+            <span class="n">test</span> <span class="o">=</span> <span class="n">TestCase</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">test_name</span><span class="p">,</span>
+                            <span class="n">time_limit</span><span class="o">=</span><span class="n">test_time_limit</span><span class="p">,</span>
+                            <span class="n">command</span><span class="o">=</span><span class="n">test_command</span><span class="p">,</span>
+                            <span class="n">context</span><span class="o">=</span><span class="n">test_context</span><span class="p">,</span>
+                            <span class="n">expected_outcome</span><span class="o">=</span><span class="n">test_expected_outcome</span><span class="p">,</span>
+                            <span class="n">oracle</span><span class="o">=</span><span class="n">test_oracle</span><span class="p">,</span>
+                            <span class="n">kill_after</span><span class="o">=</span><span class="n">test_kill_after</span><span class="p">)</span>
+            <span class="n">tests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">TestSuite</span><span class="p">(</span><span class="n">tests</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tests</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">TestCase</span><span class="p">]:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&#39;tests&#39; property will be removed in v2.2&quot;</span><span class="p">,</span>
+                      <span class="ne">DeprecationWarning</span><span class="p">)</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tests</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TestSuite.__iter__"><a class="viewcode-back" href="../../../api/test.html#bugzoo.core.test.TestSuite.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">TestCase</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an iterator over the test cases contained within this test</span>
+<span class="sd">        suite.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tests</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestSuite.__getitem__"><a class="viewcode-back" href="../../../api/test.html#bugzoo.core.test.TestSuite.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestCase</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to fetch a test case from this test suite by its name.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if no test case with the given name belongs to this</span>
+<span class="sd">                test suite.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tests</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;tests&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tests</span><span class="p">]}</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

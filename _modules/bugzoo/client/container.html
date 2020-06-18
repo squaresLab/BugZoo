@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.client.container &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.client.container</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">ipaddress</span> <span class="kn">import</span> <span class="n">IPv4Address</span><span class="p">,</span> <span class="n">IPv6Address</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">APIClient</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">..compiler</span> <span class="kn">import</span> <span class="n">CompilationOutcome</span>
+<span class="kn">from</span> <span class="nn">..core.tool</span> <span class="kn">import</span> <span class="n">Tool</span>
+<span class="kn">from</span> <span class="nn">..core.patch</span> <span class="kn">import</span> <span class="n">Patch</span>
+<span class="kn">from</span> <span class="nn">..core.fileline</span> <span class="kn">import</span> <span class="n">FileLineSet</span>
+<span class="kn">from</span> <span class="nn">..core.bug</span> <span class="kn">import</span> <span class="n">Bug</span>
+<span class="kn">from</span> <span class="nn">..core.container</span> <span class="kn">import</span> <span class="n">Container</span>
+<span class="kn">from</span> <span class="nn">..core.coverage</span> <span class="kn">import</span> <span class="n">TestSuiteCoverage</span>
+<span class="kn">from</span> <span class="nn">..core.test</span> <span class="kn">import</span> <span class="n">TestCase</span><span class="p">,</span> <span class="n">TestOutcome</span>
+<span class="kn">from</span> <span class="nn">..cmd</span> <span class="kn">import</span> <span class="n">ExecResponse</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># type: logging.Logger</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;ContainerManager&#39;</span><span class="p">,)</span>
+
+
+<div class="viewcode-block" id="ContainerManager"><a class="viewcode-back" href="../../../api/container.html#bugzoo.client.container.ContainerManager">[docs]</a><span class="k">class</span> <span class="nc">ContainerManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api</span><span class="p">:</span> <span class="n">APIClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__api</span> <span class="o">=</span> <span class="n">api</span>
+
+<div class="viewcode-block" id="ContainerManager.__getitem__"><a class="viewcode-back" href="../../../api/container.html#bugzoo.client.container.ContainerManager.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Container</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Fetches a container by its ID.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            uid: the ID of the container.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            the container with the given ID.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if no container is found with the given ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;containers/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">))</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Container</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;no container found with given UID: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerManager.__delitem__"><a class="viewcode-back" href="../../../api/container.html#bugzoo.client.container.ContainerManager.__delitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Deletes a given container.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            uid: the ID of the container.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if no container is found with the given ID, or the</span>
+<span class="sd">                container has already been destroyed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;containers/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">))</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;no container found with given UID: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerManager.__contains__"><a class="viewcode-back" href="../../../api/container.html#bugzoo.client.container.ContainerManager.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Checks whether a container with a given ID exists.</span>
+
+<span class="sd">        Parameter:</span>
+<span class="sd">            uid:    the ID of the container.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if the container exists; false if not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Destroys all running containers.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;containers&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">204</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ContainerManager.__iter__"><a class="viewcode-back" href="../../../api/container.html#bugzoo.client.container.ContainerManager.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an iterator over the identifiers of all of the containers that</span>
+<span class="sd">        are currently running on the server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;containers&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">ids</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ids</span> <span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+                <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">ids</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerManager.provision"><a class="viewcode-back" href="../../../api/container.html#bugzoo.client.container.ContainerManager.provision">[docs]</a>    <span class="k">def</span> <span class="nf">provision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                  <span class="n">bug</span><span class="p">:</span> <span class="n">Bug</span><span class="p">,</span>
+                  <span class="o">*</span><span class="p">,</span>
+                  <span class="n">plugins</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tool</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+                  <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Container</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Provisions a container for a given bug.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">plugins</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">plugins</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;provisioning container for bug: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">bug</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;bugs/</span><span class="si">{}</span><span class="s1">/provision&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bug</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;plugins&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">plugins</span><span class="p">]</span>
+        <span class="p">}</span>  <span class="c1"># type: Dict[str, Any]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">container</span> <span class="o">=</span> <span class="n">Container</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;provisioned container (id: </span><span class="si">%s</span><span class="s2">) for bug: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                   <span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">,</span>
+                                   <span class="n">bug</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">container</span>
+
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;no bug registered with given name: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bug</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">mktemp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generates a temporary file for a given container.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            the path to the temporary file inside the given container.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;containers/</span><span class="si">{}</span><span class="s1">/tempfile&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">))</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">ip_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                   <span class="n">container</span><span class="p">:</span> <span class="n">Container</span>
+                   <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">IPv4Address</span><span class="p">,</span> <span class="n">IPv6Address</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The IP address used by a given container, or None if no IP address has</span>
+<span class="sd">        been assigned to that container.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;containers/</span><span class="si">{}</span><span class="s1">/ip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">))</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ContainerManager.is_alive"><a class="viewcode-back" href="../../../api/container.html#bugzoo.client.container.ContainerManager.is_alive">[docs]</a>    <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Determines whether or not a given container is still alive.&quot;&quot;&quot;</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">uid</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;containers/</span><span class="si">{}</span><span class="s1">/alive&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">))</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="s2">&quot;no container found with given UID: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">extract_coverage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FileLineSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts a report of the lines that have been executed since the last</span>
+<span class="sd">        time that a coverage report was extracted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">uid</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;containers/</span><span class="si">{}</span><span class="s1">/read-coverage&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">))</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">FileLineSet</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                   <span class="n">container</span><span class="p">:</span> <span class="n">Container</span>
+                   <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instruments the program inside the container for computing test suite</span>
+<span class="sd">        coverage.</span>
+
+<span class="sd">        Params:</span>
+<span class="sd">            container: the container that should be instrumented.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;containers/</span><span class="si">{}</span><span class="s2">/instrument&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">204</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;failed to instrument container: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CompilationOutcome</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Attempts to compile the program inside a given container.</span>
+
+<span class="sd">        Params:</span>
+<span class="sd">            container: the container whose program should be compiled.</span>
+<span class="sd">            verbose: specifies whether to print the stdout and stderr produced</span>
+<span class="sd">                by the compilation command to the stdout. If `True`, then the</span>
+<span class="sd">                stdout and stderr will be printed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a summary of the outcome of the attempted compilation.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if the container no longer exists.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;containers/</span><span class="si">{}</span><span class="s2">/build&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;verbose&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;yes&#39;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">CompilationOutcome</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="n">build</span> <span class="o">=</span> <span class="nb">compile</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+             <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">,</span>
+             <span class="n">test</span><span class="p">:</span> <span class="n">TestCase</span>
+             <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestOutcome</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Executes a given test inside a container.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            container: the container in which the test should be conducted.</span>
+<span class="sd">            test: the test that should be executed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a summary of the outcome of the test execution.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if the container no longer exists, or the given test</span>
+<span class="sd">                doesn&#39;t exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;containers/</span><span class="si">{}</span><span class="s2">/test/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">TestOutcome</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">coverage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">,</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">instrument</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TestSuiteCoverage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Computes complete test suite coverage for a given container.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            container: the container for which coverage should be computed.</span>
+<span class="sd">            rebuild: if set to True, the program will be rebuilt before</span>
+<span class="sd">                coverage is computed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">uid</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching coverage information for container: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">uid</span><span class="p">)</span>
+        <span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;containers/</span><span class="si">{}</span><span class="s1">/coverage&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;instrument&#39;</span><span class="p">:</span> <span class="s1">&#39;yes&#39;</span> <span class="k">if</span> <span class="n">instrument</span> <span class="k">else</span> <span class="s1">&#39;no&#39;</span><span class="p">}</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">jsn</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="n">coverage</span> <span class="o">=</span> <span class="n">TestSuiteCoverage</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">jsn</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetched coverage information for container: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">uid</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">coverage</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">BugZooException</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to fetch coverage information for container </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>  <span class="c1"># noqa: pycodestyle</span>
+                <span class="k">raise</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Failed to fetch coverage information for container </span><span class="si">%s</span><span class="s2"> due to unexpected failure: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>  <span class="c1"># noqa: pycodestyle</span>
+                <span class="k">raise</span>
+
+<div class="viewcode-block" id="ContainerManager.exec"><a class="viewcode-back" href="../../../api/commands.html#bugzoo.client.container.ContainerManager.exec">[docs]</a>    <span class="k">def</span> <span class="nf">exec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+             <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">,</span>
+             <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+             <span class="n">context</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">stdout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+             <span class="n">stderr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+             <span class="n">time_limit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+             <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExecResponse</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Executes a given command inside a provided container.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            container: the container to which the command should be issued.</span>
+<span class="sd">            command: the command that should be executed.</span>
+<span class="sd">            context: the working directory that should be used to perform the</span>
+<span class="sd">                execution. If no context is provided, then the command will be</span>
+<span class="sd">                executed at the root of the container.</span>
+<span class="sd">            stdout: specifies whether or not output to the stdout should be</span>
+<span class="sd">                included in the execution summary.</span>
+<span class="sd">            stderr: specifies whether or not output to the stderr should be</span>
+<span class="sd">                included in the execution summary.</span>
+<span class="sd">            time_limit: an optional time limit that is applied to the</span>
+<span class="sd">                execution. If the command fails to execute within the time</span>
+<span class="sd">                limit, the command will be aborted and treated as a failure.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a summary of the outcome of the execution.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: if the container no longer exists on the server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># FIXME perhaps these should be encoded as path variables?</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;command&#39;</span><span class="p">:</span> <span class="n">command</span><span class="p">,</span>
+            <span class="s1">&#39;context&#39;</span><span class="p">:</span> <span class="n">context</span><span class="p">,</span>
+            <span class="s1">&#39;stdout&#39;</span><span class="p">:</span> <span class="n">stdout</span><span class="p">,</span>
+            <span class="s1">&#39;stderr&#39;</span><span class="p">:</span> <span class="n">stderr</span><span class="p">,</span>
+            <span class="s1">&#39;time-limit&#39;</span><span class="p">:</span> <span class="n">time_limit</span>
+        <span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;containers/</span><span class="si">{}</span><span class="s2">/exec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ExecResponse</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;no container found with given UID: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
+    <span class="n">command</span> <span class="o">=</span> <span class="n">exec</span>
+
+    <span class="k">def</span> <span class="nf">patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">,</span> <span class="n">patch</span><span class="p">:</span> <span class="n">Patch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to apply a given patch to the source code for a program inside</span>
+<span class="sd">        a given container. All patch applications are guaranteed to be atomic;</span>
+<span class="sd">        if the patch fails to apply, no changes will be made to the relevant</span>
+<span class="sd">        source code files.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            true if patch application was successful, and false if the attempt</span>
+<span class="sd">            was unsuccessful.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;containers/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span>
+
+    <span class="k">def</span> <span class="nf">persist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">Container</span><span class="p">,</span> <span class="n">image_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Persists the state of a given container as a Docker image.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            container: the container that should be persisted.</span>
+<span class="sd">            image_name: the name of the Docker image that should be created.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ContainerNotFound: if the given container does not exist on the</span>
+<span class="sd">                server.</span>
+<span class="sd">            ImageAlreadyExists: if the given image name is already in use by</span>
+<span class="sd">                another Docker image on the server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;attempting to persist container (</span><span class="si">%s</span><span class="s2">) to image (</span><span class="si">%s</span><span class="s2">).&quot;</span><span class="p">,</span>
+                     <span class="n">container</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                     <span class="n">image_name</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;containers/</span><span class="si">{}</span><span class="s2">/persist/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">204</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;persisted container (</span><span class="si">%s</span><span class="s2">) to image (</span><span class="si">%s</span><span class="s2">).&quot;</span><span class="p">,</span>
+                             <span class="n">container</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                             <span class="n">image_name</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__api</span><span class="o">.</span><span class="n">handle_erroneous_response</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;failed to persist container (</span><span class="si">%s</span><span class="s2">) to image (</span><span class="si">%s</span><span class="s2">).&quot;</span><span class="p">,</span>  <span class="c1"># noqa: pycodestyle</span>
+                                 <span class="n">container</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                                 <span class="n">image_name</span><span class="p">)</span>
+                <span class="k">raise</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

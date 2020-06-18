@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding a plugin &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="File Format (v1.0)" href="../file-format.html" />
+    <link rel="prev" title="Adding a bug" href="bugs.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../contributing.html">Contributing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source.html">Adding a source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bugs.html">Adding a bug</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Adding a plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="adding-a-plugin">
+<h1>Adding a plugin<a class="headerlink" href="#adding-a-plugin" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we provide instructions for creating a new plugin for the
+BugZoo platform. Plugins are used to dynamically provide binaries, libraries
+and static data to containers at run-time. Plugins are packaged as Docker
+container images and provided to BugZoo as part of a manifest file belonging
+to a source. The manifest file provides instructions for building the Docker
+image for the plugin and specifies how it should be imported into a running
+bug container.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before adding your plugin, you must first <a class="reference external" href="source.html">create a source that will
+provide it</a>.</p>
+</div>
+<div class="section" id="writing-a-dockerfile">
+<h2>Writing a Dockerfile<a class="headerlink" href="#writing-a-dockerfile" title="Permalink to this headline">¶</a></h2>
+<p>Each plugin is accompanied by a Docker container image that is responsible for
+providing the libraries, binaries and static data required to run the plugin
+inside a separate container.
+BugZoo uses a <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> to provide instructions for building the Docker
+container image for your plugin. Below, we give an example <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code>
+that is used to provide a <code class="code docutils literal notranslate"><span class="pre">genprog</span></code> plugin for BugZoo, which is
+explained in more detail below.</p>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span> <span class="s">ubuntu:16.04</span>
+
+<span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    apt-get install -y --no-install-recommends <span class="se">\</span>
+      opam <span class="se">\</span>
+      ocaml <span class="se">\</span>
+      build-essential <span class="se">\</span>
+      jq <span class="se">\</span>
+      aspcud <span class="se">\</span>
+      vim <span class="se">\</span>
+      m4 <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">echo</span> <span class="s2">&quot;yes&quot;</span> &gt;&gt; /tmp/yes.txt <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    opam init -y &lt; /tmp/yes.txt <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    opam install -y cil
+
+<span class="c"># all files required to run genprog are written to /opt/genprog</span>
+<span class="k">RUN</span> mkdir -p /opt/genprog
+<span class="k">WORKDIR</span><span class="s"> /opt/genprog</span>
+<span class="k">ADD</span> Makefile Makefile
+<span class="k">ADD</span> src src
+
+<span class="k">RUN</span> mkdir bin <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    <span class="nb">eval</span> <span class="k">$(</span>opam config env<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    make <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    mv src/repair bin/genprog <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    ln -s bin/genprog bin/repair <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    mv src/distserver bin/distserver <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    mv src/nhtserver bin/nhtserver
+
+<span class="k">VOLUME</span><span class="s"> /opt/genprog</span>
+</pre></div>
+</div>
+<p>The process for writing a <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> for your plugin is almost the same
+as writing another other <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code>. The Dockerfile should provide
+executable instructions for building the binaries and libraries for your
+software. There are however, a number of important differences. Firstly, all of
+the files that are required by your plugin must be stored inside a <em>volume</em>
+that can be mounted inside another container. In the example above, all of the
+files required to run GenProg are written to <code class="code docutils literal notranslate"><span class="pre">/opt/genprog</span></code>, which is
+subsequently declared to be a volume:</p>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">VOLUME</span><span class="s"> /opt/genprog</span>
+</pre></div>
+</div>
+<p>In general, we recommend installing the files for your plugin to
+<code class="code docutils literal notranslate"><span class="pre">/opt/myplugin</span></code>, where <code class="code docutils literal notranslate"><span class="pre">myplugin</span></code> is replaced by the name of your
+plugin.</p>
+<p>Simply installing the files for your plugin to <code class="code docutils literal notranslate"><span class="pre">/opt/myplugin</span></code> is
+usually not enough, however. The binaries and libraries for your plugin may
+be dynamically linked to system libraries that are not present in other
+containers into which they may be mounted. (Worse yet, the container
+may use an older, incompatible <code class="code docutils literal notranslate"><span class="pre">libc</span></code> or <code class="code docutils literal notranslate"><span class="pre">ld</span></code>.)
+To ensure compatibility, you must package your plugin as a static binary.
+Whilst some languages will automatically compile their programs to static
+binaries by default (e.g., Go), others will require special build options
+to produce a static binary (e.g., C and C++). Below we provide tips for
+creating static binaries with minimal effort:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>C/C++ and OCaml:</strong></dt><dd><p>Whilst compilation options are the preferred way to create a static
+binary, <a class="reference external" href="https://github.com/JonathonReinhart/staticx">StaticX</a> can be
+used to transform a dynamically linked binary into a static one, allowing
+it to be used in any container.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Go:</strong></dt><dd><p>Go produces static binaries by default.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Python:</strong></dt><dd><p><a class="reference external" href="https://pyinstaller.readthedocs.io/en/stable/operating-mode.html">PyInstaller</a>
+can be used to package your application, including its dependencies and
+files, into a single executable file. The resulting binary will still be
+dynamically linked to <code class="code docutils literal notranslate"><span class="pre">libc</span></code> and <code class="code docutils literal notranslate"><span class="pre">ld</span></code>, however, so
+<a class="reference external" href="https://github.com/JonathonReinhart/staticx">StaticX</a> must be used to
+wrap the binary into a truly static one.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="writing-a-plugin-manifest">
+<h2>Writing a plugin manifest<a class="headerlink" href="#writing-a-plugin-manifest" title="Permalink to this headline">¶</a></h2>
+<p>Now that you’ve written a <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> for building a Docker image for
+your plugin, you need to write a <em>manifest file</em> for your plugin in order to
+register it with BugZoo. BugZoo automatically scans its source for all files
+ending in <code class="code docutils literal notranslate"><span class="pre">.bugzoo.yml</span></code> and treats them as manifest files. Let’s create
+a new file named <code class="code docutils literal notranslate"><span class="pre">myplugin.bugzoo.yml</span></code> to serve as the manifest file for
+the plugin.</p>
+<p>The manifest file is written in YAML and should start with a <code class="code docutils literal notranslate"><span class="pre">version</span></code>
+property, specifying the version of the BugZoo Manifest File Format that is
+used by the file. For more details on the file format, <a class="reference external" href="../file-format.html">see here</a>.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">blueprints</span></code> section of the file is used to provide instructions for
+building an image. The <code class="code docutils literal notranslate"><span class="pre">tag</span></code> property specifies the qualified name of the
+Docker image that should be built for the plugin. The <code class="code docutils literal notranslate"><span class="pre">file</span></code> property
+gives the location of the <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> (relative to the location of the
+manifest file) that should be used to build the Docker image.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">plugins</span></code> section of the file declares the plugin to BugZoo.
+The <code class="code docutils literal notranslate"><span class="pre">name</span></code> property gives a unique name for the plugin.
+The <code class="code docutils literal notranslate"><span class="pre">image</span></code> property specifies the Docker image that should be used to
+provide the files for the plugin.
+The <code class="code docutils literal notranslate"><span class="pre">environment</span></code> property is used to manipulate the values of
+environment variables inside a container upon loading the plugin. This property
+is commonly used to extend the <code class="code docutils literal notranslate"><span class="pre">PATH</span></code> to include the static binaries for
+the plugin.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;1.1&#39;</span>
+
+<span class="nt">blueprints</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">squareslab/genprog</span>
+    <span class="nt">file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">genprog</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">squareslab/genprog</span>
+    <span class="nt">environment</span><span class="p">:</span>
+      <span class="nt">PATH</span><span class="p">:</span> <span class="s">&quot;/opt/genprog/bin:${PATH}&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-plugins">
+<h2>Example plugins<a class="headerlink" href="#example-plugins" title="Permalink to this headline">¶</a></h2>
+<p>Below, we briefly describe a number of real-world plugins for BugZoo.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/squaresLab/genprog-code">GenProg:</a>
+A search-based program repair tool, written in OCaml.</p></li>
+<li><p><a class="reference external" href="https://github.com/ChrisTimperley/Kaskara">Kaskara:</a>
+A static analysis tool for C++, written in C++. Depends on
+Clang/LLVM.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/afsafzal/sosrepair">SOSRepair:</a>
+A semantics-based program repair tool, written in Python
+and C. Depends on two different versions of Clang/LLVM.</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/contributing/tools.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

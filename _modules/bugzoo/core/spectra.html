@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bugzoo.core.spectra &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for bugzoo.core.spectra</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">.coverage</span> <span class="kn">import</span> <span class="n">TestSuiteCoverage</span>
+<span class="kn">from</span> <span class="nn">.fileline</span> <span class="kn">import</span> <span class="n">FileLine</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># type: logging.Logger</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="LineSpectra"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.spectra.LineSpectra">[docs]</a><span class="k">class</span> <span class="nc">LineSpectra</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Summarises the coverage information for a single line in the program in</span>
+<span class="sd">    terms of the number of passing and failing tests that do and do not</span>
+<span class="sd">    cover it, respectively.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ef</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nf</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">ep</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="n">ef</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="n">np</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="n">nf</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ep</span> <span class="o">=</span> <span class="n">ep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ef</span> <span class="o">=</span> <span class="n">ef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__np</span> <span class="o">=</span> <span class="n">np</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__nf</span> <span class="o">=</span> <span class="n">nf</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ep</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of passing tests that cover this line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ep</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ef</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of failing tests that cover this line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ef</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">np</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of passing tests that do not cover this line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__np</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of failing tests that do not cover this line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nf</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">; </span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">np</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ef</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nf</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Spectra"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.spectra.Spectra">[docs]</a><span class="k">class</span> <span class="nc">Spectra</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Contains a summary of the number of passing and failing tests that cover</span>
+<span class="sd">    each line in a given project.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_coverage</span><span class="p">(</span><span class="n">coverage</span><span class="p">:</span> <span class="n">TestSuiteCoverage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Spectra&#39;</span><span class="p">:</span>
+        <span class="c1"># tally the number of times that each line is touched by a passing</span>
+        <span class="c1"># or failing test</span>
+        <span class="n">tally_failing</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[FileLine, int]</span>
+        <span class="n">tally_passing</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[FileLine, int]</span>
+
+        <span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">coverage</span><span class="o">.</span><span class="n">passing</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">coverage</span><span class="p">[</span><span class="n">test</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+                <span class="n">tally_passing</span><span class="p">[</span><span class="n">line</span><span class="p">]</span> <span class="o">=</span> <span class="n">tally_passing</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">coverage</span><span class="o">.</span><span class="n">failing</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">coverage</span><span class="p">[</span><span class="n">test</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+                <span class="n">tally_failing</span><span class="p">[</span><span class="n">line</span><span class="p">]</span> <span class="o">=</span> <span class="n">tally_failing</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">Spectra</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coverage</span><span class="o">.</span><span class="n">passing</span><span class="p">),</span>
+                       <span class="nb">len</span><span class="p">(</span><span class="n">coverage</span><span class="o">.</span><span class="n">failing</span><span class="p">),</span>
+                       <span class="n">FileLine</span><span class="o">.</span><span class="n">compactify</span><span class="p">(</span><span class="n">tally_passing</span><span class="p">),</span>
+                       <span class="n">FileLine</span><span class="o">.</span><span class="n">compactify</span><span class="p">(</span><span class="n">tally_failing</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">num_passing</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">num_failing</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                 <span class="n">tally_passing</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+                 <span class="n">tally_failing</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__num_passing</span> <span class="o">=</span> <span class="n">num_passing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__num_failing</span> <span class="o">=</span> <span class="n">num_failing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tally_passing</span> <span class="o">=</span> <span class="n">tally_passing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tally_failing</span> <span class="o">=</span> <span class="n">tally_failing</span>
+
+<div class="viewcode-block" id="Spectra.__getitem__"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.spectra.Spectra.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">FileLine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LineSpectra</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the spectra information for a given line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">filename</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tally_passing</span><span class="p">:</span>
+            <span class="n">ep</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tally_passing</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">filename</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tally_failing</span><span class="p">:</span>
+            <span class="n">ef</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tally_failing</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">filename</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">np</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__num_passing</span> <span class="o">-</span> <span class="n">ep</span>
+        <span class="n">nf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__num_failing</span> <span class="o">-</span> <span class="n">ef</span>
+
+        <span class="k">return</span> <span class="n">LineSpectra</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">np</span><span class="p">,</span> <span class="n">nf</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Spectra.__iter__"><a class="viewcode-back" href="../../../api/coverage.html#bugzoo.core.spectra.Spectra.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">FileLine</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an iterator over the source code lines that are represented</span>
+<span class="sd">        in this spectra.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">passing_lines</span> <span class="o">=</span> \
+            <span class="nb">set</span><span class="p">(</span><span class="n">FileLine</span><span class="o">.</span><span class="n">decompactify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tally_passing</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">failing_lines</span> <span class="o">=</span> \
+            <span class="nb">set</span><span class="p">(</span><span class="n">FileLine</span><span class="o">.</span><span class="n">decompactify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tally_failing</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">passing_lines</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">failing_lines</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">line</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">bfr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">line</span><span class="p">]))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s1">&#39;Spectra(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bfr</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">restricted_to_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                            <span class="n">filenames</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+                            <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Spectra&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a variant of this spectra that only contains entries for</span>
+<span class="sd">        lines that appear in any of the files whose name appear in the</span>
+<span class="sd">        given list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tally_passing</span> <span class="o">=</span> \
+            <span class="p">{</span><span class="n">fn</span><span class="p">:</span> <span class="n">entries</span> <span class="k">for</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">entries</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tally_passing</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> \
+             <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">}</span>
+        <span class="n">tally_failing</span> <span class="o">=</span> \
+            <span class="p">{</span><span class="n">fn</span><span class="p">:</span> <span class="n">entries</span> <span class="k">for</span> <span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">entries</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tally_failing</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> \
+             <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">Spectra</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__num_passing</span><span class="p">,</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">__num_failing</span><span class="p">,</span>
+                       <span class="n">tally_passing</span><span class="p">,</span>
+                       <span class="n">tally_failing</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

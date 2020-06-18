@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executing Commands &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running Tests" href="test.html" />
+    <link rel="prev" title="Creating Containers" href="container.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug.html">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Creating Containers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bugzoo.client.container">
+<span id="executing-commands"></span><h1>Executing Commands<a class="headerlink" href="#module-bugzoo.client.container" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="container.html#bugzoo.client.container.ContainerManager" title="bugzoo.client.container.ContainerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContainerManager</span></code></a> may also be used to send arbitrary shell
+commands to its containers via its <code class="code docutils literal notranslate"><span class="pre">exec</span></code> method, shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outcome</span> <span class="o">=</span> <span class="n">client_bugzoo</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="n">container</span><span class="p">,</span>
+                                        <span class="n">command</span><span class="p">,</span>
+                                        <span class="n">context</span><span class="p">,</span>
+                                        <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                        <span class="n">stderr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                        <span class="n">time_limit</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A concise description of the outcome of the command execution is returned
+in the form of a <code class="xref py py-class docutils literal notranslate"><span class="pre">ExecResponse</span></code> object.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.client.container.ContainerManager">
+<em class="property">class </em><code class="sig-name descname">ContainerManager</code><a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="bugzoo.client.container.ContainerManager.exec">
+<code class="sig-name descname">exec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">container</span><span class="p">:</span> <span class="n"><a class="reference internal" href="container.html#bugzoo.core.container.Container" title="bugzoo.core.container.Container">bugzoo.core.container.Container</a></span></em>, <em class="sig-param"><span class="n">command</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">context</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stdout</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">stderr</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">time_limit</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.cmd.ExecResponse" title="bugzoo.cmd.ExecResponse">bugzoo.cmd.ExecResponse</a><a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager.exec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager.exec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a given command inside a provided container.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>container</strong> – the container to which the command should be issued.</p></li>
+<li><p><strong>command</strong> – the command that should be executed.</p></li>
+<li><p><strong>context</strong> – the working directory that should be used to perform the
+execution. If no context is provided, then the command will be
+executed at the root of the container.</p></li>
+<li><p><strong>stdout</strong> – specifies whether or not output to the stdout should be
+included in the execution summary.</p></li>
+<li><p><strong>stderr</strong> – specifies whether or not output to the stderr should be
+included in the execution summary.</p></li>
+<li><p><strong>time_limit</strong> – an optional time limit that is applied to the
+execution. If the command fails to execute within the time
+limit, the command will be aborted and treated as a failure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a summary of the outcome of the execution.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – if the container no longer exists on the server.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-bugzoo.cmd"></span><dl class="py class">
+<dt id="bugzoo.cmd.ExecResponse">
+<em class="property">class </em><code class="sig-name descname">ExecResponse</code><a class="reference internal" href="../_modules/bugzoo/cmd.html#ExecResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.cmd.ExecResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to hold the response from a command execution.</p>
+<dl class="py attribute">
+<dt id="bugzoo.cmd.ExecResponse.code">
+<code class="sig-name descname">code</code> &#x2192; int<a class="headerlink" href="#bugzoo.cmd.ExecResponse.code" title="Permalink to this definition">¶</a></dt>
+<dd><p>The exit code of the execution.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.cmd.ExecResponse.duration">
+<code class="sig-name descname">duration</code> &#x2192; float<a class="headerlink" href="#bugzoo.cmd.ExecResponse.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of time taken to complete the execution.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="bugzoo.cmd.ExecResponse.output">
+<code class="sig-name descname">output</code> &#x2192; str<a class="headerlink" href="#bugzoo.cmd.ExecResponse.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>The output of the execution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.cmd.ExecResponse.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="../_modules/bugzoo/cmd.html#ExecResponse.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.cmd.ExecResponse.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.cmd.ExecResponse.from_dict">
+<em class="property">static </em><code class="sig-name descname">from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.cmd.ExecResponse" title="bugzoo.cmd.ExecResponse">bugzoo.cmd.ExecResponse</a><a class="reference internal" href="../_modules/bugzoo/cmd.html#ExecResponse.from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.cmd.ExecResponse.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/commands.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating Containers &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Executing Commands" href="commands.html" />
+    <link rel="prev" title="Managing Bugs" href="bug.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug.html">Managing Bugs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bugzoo.core.container">
+<span id="creating-containers"></span><h1>Creating Containers<a class="headerlink" href="#module-bugzoo.core.container" title="Permalink to this headline">¶</a></h1>
+<p>BugZoo uses Docker containers to provide a controlled, sandbox for interacting
+with historical software bugs. Individual containers in BugZoo are represented
+as <a class="reference internal" href="#bugzoo.core.container.Container" title="bugzoo.core.container.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a> instances. All interaction with containers, including
+their creation and destruction, is managed through the <code class="xref py py-class docutils literal notranslate"><span class="pre">ContainerManager</span></code>
+class, exposed by the client’s <code class="code docutils literal notranslate"><span class="pre">containers</span></code> property
+(e.g., <code class="code docutils literal notranslate"><span class="pre">client.containers</span></code>).</p>
+<p>To provision (i.e., create) a container for a given bug:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">bugs</span><span class="p">[</span><span class="s1">&#39;manybugs:python:69223-69224&#39;</span><span class="p">]</span>
+<span class="n">container</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">provision</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To iterate over the unique identifiers (UIDs) of the containers associated with
+a given BugZoo instance and to fetch a container by its UID:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+  <span class="n">container</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>To check whether the underlying Docker container for a given <a class="reference internal" href="#bugzoo.core.container.Container" title="bugzoo.core.container.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a>
+is still alive:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">is_alive</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that containers will not be automatically destroyed when their
+corresponding <a class="reference internal" href="#bugzoo.core.container.Container" title="bugzoo.core.container.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a> instance goes out of scope. Containers must
+be explicitly destroyed via the <code class="xref py py-class docutils literal notranslate"><span class="pre">ContainerManager</span></code> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="p">[</span><span class="n">container</span><span class="o">.</span><span class="n">uid</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>All containers created by a BugZoo server will be automatically destroyed when
+the server closes.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.core.container.Container">
+<em class="property">class </em><code class="sig-name descname">Container</code><a class="reference internal" href="../_modules/bugzoo/core/container.html#Container"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.container.Container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Containers provide ephemeral, mutable instances of registered bugs,
+and are used to conduct studies of software bugs. Behind the scenes,
+containers are implemented as <a class="reference external" href="https://docker.com">Docker containers</a>.</p>
+<dl class="py attribute">
+<dt id="bugzoo.core.container.Container.id">
+<code class="sig-name descname">id</code> &#x2192; str<a class="headerlink" href="#bugzoo.core.container.Container.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.core.container.Container.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Any<span class="p">]</span><a class="reference internal" href="../_modules/bugzoo/core/container.html#Container.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.container.Container.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.core.container.Container.from_dict">
+<em class="property">static </em><code class="sig-name descname">from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.container.Container" title="bugzoo.core.container.Container">bugzoo.core.container.Container</a><a class="reference internal" href="../_modules/bugzoo/core/container.html#Container.from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.container.Container.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-bugzoo.client.container"></span><dl class="py class">
+<dt id="bugzoo.client.container.ContainerManager">
+<em class="property">class </em><code class="sig-name descname">ContainerManager</code><a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="bugzoo.client.container.ContainerManager.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.container.Container" title="bugzoo.core.container.Container">bugzoo.core.container.Container</a><a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches a container by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uid</strong> – the ID of the container.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the container with the given ID.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – if no container is found with the given ID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.container.ContainerManager.__delitem__">
+<code class="sig-name descname">__delitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager.__delitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a given container.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uid</strong> – the ID of the container.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if no container is found with the given ID, or the
+    container has already been destroyed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.container.ContainerManager.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a container with a given ID exists.</p>
+<dl class="simple">
+<dt>Parameter:</dt><dd><p>uid:    the ID of the container.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the container exists; false if not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.container.ContainerManager.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator<span class="p">[</span>str<span class="p">]</span><a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator over the identifiers of all of the containers that
+are currently running on the server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.container.ContainerManager.provision">
+<code class="sig-name descname">provision</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bug</span><span class="p">:</span> <span class="n"><a class="reference internal" href="bug.html#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a></span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">plugins</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>bugzoo.core.tool.Tool<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.container.Container" title="bugzoo.core.container.Container">bugzoo.core.container.Container</a><a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager.provision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager.provision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provisions a container for a given bug.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.container.ContainerManager.is_alive">
+<code class="sig-name descname">is_alive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">container</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.container.Container" title="bugzoo.core.container.Container">bugzoo.core.container.Container</a></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/client/container.html#ContainerManager.is_alive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.container.ContainerManager.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether or not a given container is still alive.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/container.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

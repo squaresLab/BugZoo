@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managing Bugs &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Creating Containers" href="container.html" />
+    <link rel="prev" title="Creating a Client" href="client.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client.html">Creating a Client</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patch.html">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-bugzoo.core.bug">
+<span id="managing-bugs"></span><h1>Managing Bugs<a class="headerlink" href="#module-bugzoo.core.bug" title="Permalink to this headline">¶</a></h1>
+<p>BugZoo packages historical software versions as lightweight, immutable
+<a class="reference external" href="https://www.docker.com">Docker</a> container images. The bugs registered with
+a BugZoo server may be accessed via the the BugZoo client’s <code class="code docutils literal notranslate"><span class="pre">bugs</span></code>
+property, which exposes a <code class="xref py py-class docutils literal notranslate"><span class="pre">BugManager</span></code>. Each bug is represented by an
+immutable <a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bug</span></code></a> instance. The <code class="code docutils literal notranslate"><span class="pre">[]</span></code> operator may be used to fetch
+a <a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bug</span></code></a> instance for a bug with a given name.
+The names of all of the bugs registered with the server can be accessed by
+iterating over the <code class="xref py py-class docutils literal notranslate"><span class="pre">BugManager</span></code>, as shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="p">:</span>
+  <span class="n">bug</span> <span class="o">=</span> <span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>  <span class="c1"># type: Bug</span>
+</pre></div>
+</div>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">BugManager</span></code> can be used to build Docker images for bugs according
+to the instructions provided in the bug’s manifest:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bug</span> <span class="o">=</span> <span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="p">[</span><span class="s1">&#39;manybugs:python:69223-69224&#39;</span><span class="p">]</span>
+<span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, prebuilt images may be downloaded from DockerHub via the
+<code class="code docutils literal notranslate"><span class="pre">download</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">BugManager</span></code> may also be used to instruct the BugZoo server to
+uploaded the Docker image for a given scenario to DockerHub:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Docker images may be removed from the server by using the <code class="code docutils literal notranslate"><span class="pre">uninstall</span></code>
+method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">uninstall</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">is_installed</span></code> method may be used to determine whether the Docker
+image for a given bug has been installed onto the server:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">is_installed</span><span class="p">(</span><span class="n">bug</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the image is installed! :-)&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the image is not installed :&#39;(&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">BugManager</span></code> may also be used to dynamically register ephemeral
+<a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bug</span></code></a> descriptions. Once the server is closed, these descriptions will
+be destroyed. In general, we suggest that users register bugs with the server
+via the command-line interface. However, there are cases where a dynamic
+bug registration is preferable, such as mutation testing, where a new
+<a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bug</span></code></a> instance can be created for every mutation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bug</span> <span class="o">=</span> <span class="n">Bug</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mytemporarybug&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">bug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Bugs may also be dynamically deregistered via the <code class="code docutils literal notranslate"><span class="pre">del</span></code> operator, as
+shown below. Note that the <code class="code docutils literal notranslate"><span class="pre">del</span></code> operator will not permanently remove
+bugs that are associated with a source (i.e., bugs that have been added via
+the command line). In the case of such bugs, the <code class="code docutils literal notranslate"><span class="pre">del</span></code> operator will
+hide their existence for the remaining lifetime of the server.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">client_bugzoo</span><span class="o">.</span><span class="n">bugs</span><span class="p">[</span><span class="s2">&quot;mytemporarybug&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="bugzoo.core.bug.Bug">
+<em class="property">class </em><code class="sig-name descname">Bug</code><a class="reference internal" href="../_modules/bugzoo/core/bug.html#Bug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.core.bug.Bug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bugs provide an immutable snapshot of a software system at a given
+point in time, allowing it to be empirically studied and inspected in a
+transparent and reproducible manner.</p>
+<dl class="py attribute">
+<dt id="bugzoo.core.bug.Bug.harness">
+<code class="sig-name descname">harness</code> &#x2192; TestSuite<a class="headerlink" href="#bugzoo.core.bug.Bug.harness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-bugzoo.client.bug"></span><dl class="py class">
+<dt id="bugzoo.client.bug.BugManager">
+<em class="property">class </em><code class="sig-name descname">BugManager</code><a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides access to the historical bugs that are registered with the
+server. Can be used to install, download, and uninstall registered bugs,
+or to dynamically register new bugs with the server.</p>
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a><a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the bug registered under a given name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – if no bug is found with the given name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator<span class="p">[</span>str<span class="p">]</span><a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator over the names of the bugs registered with
+the server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.is_installed">
+<code class="sig-name descname">is_installed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bug</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.is_installed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.is_installed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether the Docker image for a given bug has been installed
+on the server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.build">
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bug</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instructs the server to build the Docker image associated with a given
+bug.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.download">
+<code class="sig-name descname">download</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bug</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instructs the server to download the Docker image associated with a
+given bug from DockerHub.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.uninstall">
+<code class="sig-name descname">uninstall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bug</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.uninstall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.uninstall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uninstalls the Docker image associated with a given bug.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.upload">
+<code class="sig-name descname">upload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bug</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a></span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.upload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instructs the server to upload the Docker image associated with a
+given bug to DockerHub.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bugzoo.client.bug.BugManager.register">
+<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bug</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#bugzoo.core.bug.Bug" title="bugzoo.core.bug.Bug">bugzoo.core.bug.Bug</a></span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/bugzoo/client/bug.html#BugManager.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bugzoo.client.bug.BugManager.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamically registers a given bug with the server. Note that the
+registration will not persist beyond the lifetime of the server.
+(I.e., when the server is closed, the bug will be deregistered.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#bugzoo.exceptions.BugAlreadyExists" title="bugzoo.exceptions.BugAlreadyExists"><strong>BugAlreadyExists</strong></a> – if there is already a bug registered on the
+    server under the same name as this bug.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/bug.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

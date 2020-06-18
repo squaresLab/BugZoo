@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python API &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Creating a Client" href="api/client.html" />
+    <link rel="prev" title="BugZoo" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/client.html">Creating a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/bug.html">Managing Bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/container.html">Creating Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/commands.html">Executing Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/test.html">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/patch.html">Applying Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/applications.html">Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/exceptions.html">Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="python-api">
+<h1>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h1>
+<p>BugZoo provides a powerful set of Python bindings for its RESTlike API. The
+Python API is intended to be used as a library when building your own tools
+(e.g., for program repair, mutation testing, and test generation), or for
+simply when a better, well-structured means of interacting with historical
+software bugs is needed to conduct an empirical study.</p>
+<p>The REST bindings provided in the Python API expect to connect to a running
+BugZoo server. The BugZoo server can be launched from the command line using
+the <code class="code docutils literal notranslate"><span class="pre">bugzood</span></code> executable, as shown below. For more information about the
+options accepted by <code class="code docutils literal notranslate"><span class="pre">bugzood</span></code>, please consult <code class="code docutils literal notranslate"><span class="pre">bugzood</span> <span class="pre">--help</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzood -p <span class="m">8080</span>
+</pre></div>
+</div>
+<p>An <em>ephemeral server</em> may also be launched from the Python API via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">bugzoo.server.ephemeral()</span></code>, as shown below. The server will be closed
+(and its associated resources deallocated) upon the destruction of the
+context (i.e., after the <code class="code docutils literal notranslate"><span class="pre">with</span></code> statement).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">bugzoo</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">ephemeral</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">)</span> <span class="k">as</span> <span class="n">client_bugzoo</span><span class="p">:</span>
+  <span class="c1"># do cool things</span>
+</pre></div>
+</div>
+<p>To learn more about connecting to and interacting a BugZoo server, please
+see the links below.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/client.html">Creating a Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/bug.html">Managing Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/container.html">Creating Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/commands.html">Executing Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/test.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/patch.html">Applying Patches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/coverage.html">Obtaining Coverage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/applications.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/exceptions.html">Exceptions</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

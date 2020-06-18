@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding a bug &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding a plugin" href="tools.html" />
+    <link rel="prev" title="Adding a source" href="source.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../contributing.html">Contributing</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="source.html">Adding a source</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Adding a bug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Adding a plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="adding-a-bug">
+<h1>Adding a bug<a class="headerlink" href="#adding-a-bug" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we provide instructions for adding a new historical bug
+to the BugZoo platform.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before adding a bug, you must first <a class="reference external" href="source.html">create a source that will
+provide it</a>. Note that a source may provide multiple bugs
+and tools. Typically, a source is used to provide a dataset of bugs.</p>
+</div>
+<div class="section" id="creating-a-manifest-file">
+<h2>Creating a manifest file<a class="headerlink" href="#creating-a-manifest-file" title="Permalink to this headline">¶</a></h2>
+<p>To begin with, we need to create a YAML-formatted
+<a class="reference external" href="../file-format.html">manifest file</a> to provide the bug.
+Alternatively, we can extend an existing manifest file with the necessary
+information for the bug. For the rest of this example, we will create a new
+manifest file, named <code class="code docutils literal notranslate"><span class="pre">gcd.bugzoo.yml</span></code>. The top of the file should
+specify the version of the BugZoo Manifest File Format that was used to
+write the file. For this example, we will be using version <code class="code docutils literal notranslate"><span class="pre">1.0</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;1.0&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-a-dockerfile">
+<h2>Writing a Dockerfile<a class="headerlink" href="#writing-a-dockerfile" title="Permalink to this headline">¶</a></h2>
+<p>Next, we need to write a <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> that will be used to
+provide a Docker container image for the buggy program. The Docker container
+for the buggy program is responsible for providing a minimal execution
+environment for building the program and running its tests. For general
+tips on writing Dockerfiles, see
+<a class="reference external" href="https://docs.docker.com/get-started/part2/#dockerfile">https://docs.docker.com/get-started/part2/#dockerfile</a>
+and
+<a class="reference external" href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">https://docs.docker.com/develop/develop-images/dockerfile_best-practices/</a>.</p>
+<p>For the remainder of this guide, we will add the <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> bug from
+the
+<a class="reference external" href="https://github.com/ChrisTimperley/genprog-tse-2012-bugs">GenProg TSE 2012 dataset</a>
+to BugZoo. To begin with, we place all of the
+necessary files for the bug scenario somewhere in our source directory
+(so that BugZoo can find them), as shown below.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ls -R gcd
+gcd:
+Dockerfile  gcd.bugzoo.yml  gcd.c  <span class="nb">test</span>  test.sh
+
+gcd/test:
+output.0.55  output.1071.1029  output.112.135  output.16.4  output.16777216.512  output.310.55  output.315.831  output.513332.91583315  output.555.666  output.678.987  output.8767.65
+</pre></div>
+</div>
+<p>The contents of the directory are as follows:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">gcd.bugzoo.yml</span></code>: a manifest file that registers the bug
+(and its associated Docker container) with BugZoo.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code>: used to provide a Docker container for interacting
+with the program under test.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">gcd.c</span></code>: source code for the program under test,</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">test.sh</span></code>: a simple test harness</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">test</span></code>: supplementary files used by <code class="code docutils literal notranslate"><span class="pre">test.sh</span></code>.</p></li>
+</ul>
+<p>Below is a simplified example of a <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> that is used to provide
+a Docker container for the <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> bug scenario.</p>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span> <span class="s">ubuntu:16.04</span>
+
+<span class="c"># install dependencies</span>
+<span class="c"># sudo and gcovr are required by BugZoo</span>
+<span class="k">RUN</span> apt-get update <span class="se">\</span>
+ <span class="o">&amp;&amp;</span> apt-get install -y --no-install-recommends <span class="se">\</span>
+      gcc <span class="se">\</span>
+      sudo <span class="se">\</span>
+      gcovr <span class="se">\</span>
+      libc6-dev
+
+<span class="c"># create a directory to hold the program under test (PUT)</span>
+<span class="k">WORKDIR</span><span class="s"> /experiment</span>
+
+<span class="c"># add the source code for the PUT</span>
+<span class="k">ADD</span> gcd.c /experiment/source/
+
+<span class="c"># add the test harness and supplementary files</span>
+<span class="k">ADD</span> test.sh /experiment
+<span class="k">ADD</span> <span class="nb">test</span> /experiment/test
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In practice, it’s common to add a <code class="code docutils literal notranslate"><span class="pre">docker</span></code> user with sudo privileges
+to the container to prevent the buggy program from misbehaving. A more
+detailed example of a <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> for the <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> scenario can
+be found at
+<a class="reference external" href="https://github.com/ChrisTimperley/genprog-tse-2012-bugs/blob/master/gcd/Dockerfile">https://github.com/ChrisTimperley/genprog-tse-2012-bugs/blob/master/gcd/Dockerfile</a>.</p>
+</div>
+</div>
+<div class="section" id="registering-a-blueprint">
+<h2>Registering a blueprint<a class="headerlink" href="#registering-a-blueprint" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have written a <code class="code docutils literal notranslate"><span class="pre">Dockerfile</span></code> for our bug scenario, we need to
+register a <em>blueprint</em> for constructing the Docker image for our scenario.
+A blueprint is used to provide instructions for building a named Docker image.
+For this example, we will name the Docker image <code class="code docutils literal notranslate"><span class="pre">gcd</span></code>.</p>
+<p>To add a blueprint for the bug scenario, we need to create a
+<code class="code docutils literal notranslate"><span class="pre">blueprints</span></code> section in the manifest file (if one doesn’t already
+exist), before adding an entry for the <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> blueprint to it,
+as shown below. For more details on the properties that can be used to
+describe a (more advanced) blueprint please refer to the
+<a class="reference external" href="../file-format.html">manifest file format documentation</a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;1.0&#39;</span>
+
+<span class="nt">blueprints</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcd</span>
+    <span class="nt">file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">file</span></code> property of the blueprint gives BugZoo the path of the
+file that should be used to build the Docker container image, relative
+to the location of the manifest file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When writing your own blueprints, it’s good practice to use a fully qualified
+tag for your Docker image. For example, <code class="code docutils literal notranslate"><span class="pre">squareslab/tse2012:gcd</span></code> is
+tag used by the manifest file in the TSE 2012 dataset repository.</p>
+</div>
+</div>
+<div class="section" id="registering-a-bug">
+<h2>Registering a bug<a class="headerlink" href="#registering-a-bug" title="Permalink to this headline">¶</a></h2>
+<p>Finally, we need to add the bug scenario to the manifest file. To do so,
+first we must create a <code class="code docutils literal notranslate"><span class="pre">bugs</span></code> section in the file. Next, we add an
+entry to the <code class="code docutils literal notranslate"><span class="pre">bugs</span></code> section for the <code class="code docutils literal notranslate"><span class="pre">gcd</span></code> bug scenario,
+shown below.
+Details about each of the properties used to describe bugs can be found
+in the <a class="reference external" href="../file-format.html">Manifest File Format description</a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&#39;1.0&#39;</span>
+
+<span class="nt">blueprints</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcd</span>
+    <span class="nt">file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+
+<span class="nt">bugs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tse2012:gcd</span>
+    <span class="nt">dataset</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tse2012</span>
+    <span class="nt">program</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcd</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcd</span>
+    <span class="nt">languages</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">c</span>
+    <span class="nt">source-location</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/experiment/source</span>
+    <span class="nt">compiler</span><span class="p">:</span>
+      <span class="nt">time-limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">simple</span>
+      <span class="nt">context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/experiment/source</span>
+      <span class="nt">command</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">gcc gcd.c -o gcd</span>
+      <span class="nt">command_with_instrumentation</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">gcc gcd.c -o gcd --coverage</span>
+    <span class="nt">coverage</span><span class="p">:</span>
+      <span class="nt">files-to-instrument</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">gcd.c</span>
+    <span class="nt">test-harness</span><span class="p">:</span>
+      <span class="nt">context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/experiment</span>
+      <span class="nt">command</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">./test.sh __ID__</span>
+      <span class="nt">time-limit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+      <span class="nt">tests</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p1</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p2</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p3</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p4</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p5</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p6</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p7</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p8</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p9</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">p10</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">n1</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/contributing/bugs.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

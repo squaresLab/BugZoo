@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bug commands &#8212; BugZoo 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="tool commands" href="tool.html" />
+    <link rel="prev" title="CLI Reference" href="../cli.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BugZoo</a></h1>
+
+
+
+<p class="blurb">A Python framework for studying historical software faults.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=squaresLab&repo=BugZoo&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../cli.html">CLI Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><cite>bug</cite> commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool.html"><cite>tool</cite> commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="container.html"><cite>container</cite> commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source.html"><cite>source</cite> commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-format.html">File Format (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faqs.html">Frequently Asked Questions</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script></br></br><a href='https://squareslab.github.io/' style='border: 0'><img src="_static/sqlogo.png" alt="squaresLab" style='width: 60%; display: block; margin-left: auto; margin-right: auto'></a>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="bug-commands">
+<h1><cite>bug</cite> commands<a class="headerlink" href="#bug-commands" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>bug</cite> command group is used to manage the installation of bugs
+on the local machine.</p>
+<div class="section" id="bug-list-q-installed-uninstalled">
+<h2><cite>bug list [-q] [–installed|–uninstalled]</cite><a class="headerlink" href="#bug-list-q-installed-uninstalled" title="Permalink to this headline">¶</a></h2>
+<p>Produces a list of all bugs provided by sources registered with your
+local RepairBox installation. Optional flags can be used to filter the contents
+of the list (e.g., <code class="code docutils literal notranslate"><span class="pre">--installed</span></code>, <code class="code docutils literal notranslate"><span class="pre">--uninstalled</span></code>), or to produce an unannotated
+list of bugs (<code class="code docutils literal notranslate"><span class="pre">-q</span></code>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug list
+
+Artefact                   Dataset    Installed?
+-------------------------  ---------  ------------
+ardubugs:copter:2e6b6e4    ardubugs   No
+ardubugs:copter:cb1b9b6    ardubugs   No
+ardubugs:copter:766ccea    ardubugs   No
+ardubugs:copter:bd0229b    ardubugs   No
+ardubugs:copter:aa98531    ardubugs   No
+ardubugs:copter:9f59f27    ardubugs   No
+...
+
+$ bugzoo bug list -q
+ardubugs:copter:2e6b6e4
+ardubugs:copter:cb1b9b6
+ardubugs:copter:766ccea
+ardubugs:copter:bd0229b
+ardubugs:copter:aa98531
+ardubugs:copter:9f59f27
+</pre></div>
+</div>
+</div>
+<div class="section" id="bug-uninstall-f-force-identifier">
+<h2><cite>bug uninstall [-f|–force] {identifier}</cite><a class="headerlink" href="#bug-uninstall-f-force-identifier" title="Permalink to this headline">¶</a></h2>
+<p>Uninstalls the Docker image for a given identifier from the local machine.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug uninstall ardubugs:copter:2e6b6e4
+...
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">-f</span></code> flag can be used to force the uninstallation of an bug,
+regardless of whether or not it is running, causing any containers using
+that bug to abruptly terminate – <strong>use at your own risk</strong>.</p>
+</div>
+<div class="section" id="bug-build-f-force-identifier">
+<h2><cite>bug build [-f|–force] {identifier}</cite><a class="headerlink" href="#bug-build-f-force-identifier" title="Permalink to this headline">¶</a></h2>
+<p>Attempts to locally build the Docker image for a given bug.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug build ardubugs:copter:2e6b6e4
+...
+</pre></div>
+</div>
+<p>By default, this command will be ignored if a version of the image already
+exists on the local machine. The <code class="code docutils literal notranslate"><span class="pre">-f</span></code> flag can be used to override
+this behaviour, forcing RepairBox to rebuild the image for the bug
+and to overwrite the existing image.</p>
+</div>
+<div class="section" id="bug-download-f-force-identifier">
+<h2><cite>bug download [-f|–force] {identifier}</cite><a class="headerlink" href="#bug-download-f-force-identifier" title="Permalink to this headline">¶</a></h2>
+<p>Downloads a prebuilt Docker image from DockerHub for a given bug if such
+an image exists. If the bug is already installed to the local machine,
+this command will do nothing, by default. Supplying a <code class="code docutils literal notranslate"><span class="pre">-f</span></code> flag will
+force RepairBox to download the bug’s image from DockerHub regardless of
+whether the image is already installed or the remote image is older than the
+image installed to the local machine.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug download manybugs:python:69223-69224
+...
+</pre></div>
+</div>
+<p>If your internet connection is good, this command is great for quickly fetching
+images for bugs, but in some cases, where internet connectivity is poor
+or the prebuilt image is particularly large, it may be faster to use the
+<code class="code docutils literal notranslate"><span class="pre">bug</span> <span class="pre">build</span></code> command.</p>
+</div>
+<div class="section" id="bug-upload-identifier">
+<h2><cite>bug upload {identifier}</cite><a class="headerlink" href="#bug-upload-identifier" title="Permalink to this headline">¶</a></h2>
+<p>Attempts to upload the image for a given bug from the local machine to
+DockerHub. Requires that the user is logged into DockerHub
+(via <code class="code docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span></code>) and has permission to push to the DockerHub
+repository for that bug, and that the image is installed on the local
+machine.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug upload manybugs:python:69223-69224
+...
+</pre></div>
+</div>
+<p>This command should only be used by bug maintainers to conveniently
+upload their images (instead of having to manually perform hundreds of
+<code class="code docutils literal notranslate"><span class="pre">docker</span> <span class="pre">push</span></code> commands.</p>
+</div>
+<div class="section" id="bug-validate-identifier">
+<h2><cite>bug validate {identifier}</cite><a class="headerlink" href="#bug-validate-identifier" title="Permalink to this headline">¶</a></h2>
+<p>Validates the quality of a given bug by ensuring thats
+associated Docker image can be built from scratch successfully, that the source
+code for the software contained within the bug compiles successfully, and
+that its test suite produces an expected set of outcomes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bugzoo bug validate manybugs:python:69223-69224
+Compiling...                                                                <span class="o">[</span>OK<span class="o">]</span>
+Running test: p1...                                                         <span class="o">[</span>OK<span class="o">]</span>
+Running test: p2...                                                         <span class="o">[</span>OK<span class="o">]</span>
+Running test: p3...                                                         <span class="o">[</span>OK<span class="o">]</span>
+Running test: p4...                                                         <span class="o">[</span>OK<span class="o">]</span>
+Running test: p5...                                                         <span class="o">[</span>OK<span class="o">]</span>
+Running test: p6...                                                         <span class="o">[</span>OK<span class="o">]</span>
+Running test: p7...                                                         <span class="o">[</span>OK<span class="o">]</span>
+...
+PASS
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+
+    <div class="footer">
+      &copy;2020, Christopher Steven Timperley.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/cli/bug.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
